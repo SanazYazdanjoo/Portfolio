@@ -2,7 +2,7 @@
 import React from 'react';
 import { Button } from '../components/Button';
 import { FlowerDoodle } from '../components/DoodleLibrary';
-import { siteConfig } from '../data/siteConfig';
+import { profileData } from '../data/profile';
 
 export default function Privacy() {
   return (
@@ -44,8 +44,8 @@ export default function Privacy() {
             <h3 className="font-bold text-text mb-2">Data Controller</h3>
             <p>
               The data processing on this website is carried out by the website operator:<br />
-              <strong>{siteConfig.author}</strong><br />
-              Email: {siteConfig.contact.email}
+              <strong>{profileData.name}</strong><br />
+              Email: {profileData.email}
             </p>
           </section>
 
