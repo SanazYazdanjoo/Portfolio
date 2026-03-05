@@ -2,7 +2,7 @@
 import React from 'react';
 import { Button } from '../components/Button';
 import { FlowerDoodle } from '../components/DoodleLibrary';
-import { siteConfig } from '../data/siteConfig';
+import { profileData } from '../data/profile';
 
 export default function Impressum() {
   return (
@@ -38,7 +38,7 @@ export default function Impressum() {
           <section>
             <h2 className="text-xs font-bold uppercase tracking-widest text-primary mb-4">Information according to § 5 TMG</h2>
             <p>
-              {siteConfig.author}<br />
+              {profileData.name}<br />
               [Your Street and House Number]<br />
               [Your Zip Code] Weimar<br />
               Germany
@@ -49,7 +49,7 @@ export default function Impressum() {
             <h2 className="text-xs font-bold uppercase tracking-widest text-primary mb-4">Contact</h2>
             <p>
               Phone: [Your Phone Number]<br />
-              Email: {siteConfig.contact.email}
+              Email: {profileData.contact.email}
             </p>
           </section>
 
