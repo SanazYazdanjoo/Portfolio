@@ -1,5 +1,5 @@
 
-# Clean Portfolio — Responsive Minimal Starter
+# Portfolio — Responsive Minimal
 
 Responsive, professional baseline with:
 - Mobile-first header (hamburger) + desktop nav
