@@ -1,0 +1,3 @@
+@echo off
+echo Starting Sanaz's UX Portfolio Server...
+npm run dev
