@@ -3,7 +3,9 @@ import { Outlet } from 'react-router-dom';
 import { Nav } from './components/Nav';
 import { Footer } from './components/Footer';
 import { SketchTrail } from './components/SketchTrail';
-
+import { ScrollIndicator } from "./components/Scrollindicator.JSX";
+import { profileData } from "./data/profile";
+ 
 export default function App() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const scrollRef = useRef(null);
@@ -21,7 +23,7 @@ export default function App() {
       if (target && target.tagName === 'IMG') {
         if (target.src.includes('sketch-placeholder.png')) return;
         target.src = '/assets/icons/photo-placeholder.svg';
-        target.className = "w-full h-full object-cover grayscale";
+        target.className = "w-full h-full object-cover";
       }
     };
 
@@ -54,17 +56,19 @@ export default function App() {
         <Nav />
       </header>
 
+<ScrollIndicator flowerSrc={null} scrollRef={scrollRef}   />
       {/* ── SCROLLABLE CONTENT ── */}
       <div
-        ref={scrollRef}
-        className="flex-1 overflow-y-auto overflow-x-hidden snap-y snap-proximity relative z-10 scroll-smooth Xcursor-pen"
+       ref={scrollRef} 
+        className="flex-1 scroll-container overflow-y-auto overflow-x-hidden snap-y snap-proximity relative z-10 scroll-smooth Xcursor-pen"
       >
+
         <main>
           <Outlet />
         </main>
 
         <div className="snap-start w-full flex flex-col justify-center shrink-0 relative z-10">
-          <Footer />
+          <Footer data={profileData} />
         </div>
 
         <SketchTrail />
