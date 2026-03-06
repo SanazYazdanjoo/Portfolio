@@ -10,36 +10,61 @@ export function AboutMe({ data }) {
   const { bio, name, aboutImage, doodles, skills } = data;
 
   return (
-    <div className="container mx-auto px-4 md:px-8 relative z-20">
+    <section className="container mx-auto px-4 md:px-8 relative z-20">
 
-      {/* Doodle heading */}
-      <div className="absolute -top-10 md:-top-16 left-0 right-0 z-30 flex justify-center pointer-events-none">
-        <img src={doodles.aboutMe} className="absolute" alt="About Me Doodle" />
-      </div>
+      {/* ── Top row: 60/40 grid — Bio+Heading (left) · Photo (right) ── */}
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-10 md:gap-16 items-start mb-16">
 
-      {/* ── Top row: Bio (left) + Photo (right) ── */}
-      <div className="grid md:grid-cols-2 gap-12 md:gap-24 items-center pt-20 md:pt-10 mb-14">
+        {/* LEFT COL — 60%: Doodle heading + Bio */}
+        <div className="md:col-span-3 flex flex-col gap-6 pt-2">
 
-        {/* Bio */}
-        <div className="max-w-lg relative z-20 self-end">
-          <p className="text-lg text-text font-medium leading-relaxed">{bio}</p>
+          {/* Doodle heading — inline, part of the flow (not absolute) */}
+          <motion.div
+            className="w-fit"
+            initial={{ opacity: 0, x: -16 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
+           
+            <div className="font-display text-xl md:text-8xl  text-text mt-2">About Me</div>
+          </motion.div>
+
+          {/* Bio text */}
+          <motion.p
+            className="text-base md:text-lg text-text font-medium leading-relaxed max-w-xl"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.15, duration: 0.5, ease: "easeOut" }}
+          >
+            {bio}
+          </motion.p>
         </div>
 
-        {/* Photo */}
-        <div className="relative justify-self-center md:justify-self-end mt-10 md:mt-0">
-          <div className="text-text relative z-10 hover:text-primary transition-colors duration-500">
+        {/* RIGHT COL — 40%: Photo, anchored to top */}
+        <motion.div
+          className="md:col-span-2 w-full"
+          initial={{ opacity: 0, scale: 0.97 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
+        >
+          {/* On mobile: constrain width so photo doesn't go full-bleed */}
+          <div className="max-w-[280px] mx-auto md:max-w-none md:mx-0">
             <img
               src={aboutImage}
-              className="object-cover grayscale"
               alt={name}
+              className="w-full object-cover  
+                         transition-all duration-700"
             />
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* ── Skills grid: Research · Design · Technical ── */}
       <motion.div
-        className="about-skills grid grid-cols-1 md:grid-cols-3 gap-px bg-border/20"
+        className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-border/20"
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
@@ -48,7 +73,7 @@ export function AboutMe({ data }) {
         {SKILL_COLUMNS.map((category, colIndex) => (
           <motion.div
             key={category}
-            className="bg-bg px-6 py-7 group"
+            className="skills bg-bg px-6 py-7 group"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -60,7 +85,7 @@ export function AboutMe({ data }) {
             </p>
 
             {/* Skill tags */}
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 ">
               {(skills[category] || []).map((skill) => (
                 <span
                   key={skill}
@@ -76,6 +101,6 @@ export function AboutMe({ data }) {
         ))}
       </motion.div>
 
-    </div>
+    </section>
   );
 }

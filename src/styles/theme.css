@@ -44,7 +44,7 @@
   --panel: var(--white);
   --muted: var(--grey-100);
   --muted-surface: var(--grey-100);
-  --border: rgba(31, 31, 31, 0.1);
+  --border: rgba(31, 31, 31, 0);
   --line: var(--grey-100);
   --text: var(--grey-900);
   --text-dim: var(--grey-500);
@@ -140,9 +140,9 @@
     pointer-events: none !important;
   }
 
-  /* Global Grayscale Filter for Professional Tone */
+ 
   img:not(.flower-doodle):not(#logo) {
-    filter: grayscale(100%) ;
+    /* filter: grayscale(100%) ; */
     transition: all 0.7s var(--smooth);
   }
   
@@ -253,7 +253,7 @@
   }
 
   /* --- About Section --- */
-  #AboutMe-Section .about-skills {
+  #AboutMe-Section .skills {
     display: none;
   }
 }

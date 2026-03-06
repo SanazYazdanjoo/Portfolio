@@ -36,9 +36,9 @@ export const Nav = () => {
         <NavLink to="/" onClick={() => setIsOpen(false)} className=" flex items-center group shrink-0 cursor-pointer ">
           <div className="relative flex items-center">
             <img
-              src="/assets/logo-SYazdanjoo.png"
+              src="/assets/logo-fullname.png"
               alt="Sanaz Yazdanjoo Logo"
-              className="h-12 w-auto md:h-16 object-contain transition-all duration-300 ease-out group-hover:scale-105"
+              className="h-10 w-auto md:h-10 object-contain transition-all duration-300 ease-out group-hover:scale-105"
             />
             <span className="text-primary text-4xl leading-none ml-1 self-end mb-2">.</span>
           </div>
