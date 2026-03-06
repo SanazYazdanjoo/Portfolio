@@ -87,6 +87,34 @@
 
   /* Animation Curves */
   --smooth: cubic-bezier(.22,.61,.36,1);
+
+  /* ─── Custom Cursors ───────────────────────────────────────────────────────
+     Both cursors are inlined as data URIs for zero-latency switching.
+     Both are drawn in upright/axis-aligned geometry, then rotated via SVG
+     transform — this gives the browser clean shapes to anti-alias instead
+     of aliased diagonal stroked paths.
+
+     To update: edit the SVG content. Encoding rules: # → %23  < → %3C  > → %3E
+     ──────────────────────────────────────────────────────────────────────── */
+
+  /* ── MARKER cursor ───────────────────────────────────────────────────────────
+     Chunky ink marker / felt-tip, drawn upright then rotated 45° CW.
+     Anatomy top → bottom (before rotation):
+       Cap     — rounded dark rectangle, clip stripe on side
+       Body    — wide burgundy barrel with sheen stripe + ink window
+       Ferrule — thin silver band separating body from nib
+       Nib     — flat chisel tip (marker style, not pointed)
+       Ink dot — tiny dark ellipse at the very writing tip
+
+     Drawn upright → axis-aligned rects → clean anti-aliasing after rotate.
+     After rotate(45 16 16): tip ~bottom-left, hotspot 6 26.
+     ──────────────────────────────────────────────────────────────────────── */
+  --cursor-pen: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cg transform='rotate(45 16 16)'%3E%3Crect x='12.5' y='1.5' width='7' height='7' rx='2.5' fill='%231a1a1a'/%3E%3Crect x='14' y='2' width='1.2' height='5' rx='0.6' fill='%23555'/%3E%3Crect x='12' y='8.5' width='8' height='15' rx='1' fill='%2396150f'/%3E%3Crect x='12.5' y='8.5' width='2' height='15' fill='rgba(255,255,255,0.12)'/%3E%3Crect x='17.5' y='8.5' width='2' height='15' fill='rgba(0,0,0,0.2)'/%3E%3Crect x='14.5' y='10' width='3' height='8' rx='0.5' fill='rgba(255,255,255,0.07)'/%3E%3Crect x='11.5' y='23.5' width='9' height='2' rx='0.5' fill='%23888'/%3E%3Crect x='12.5' y='25.5' width='7' height='3.5' rx='1' fill='%231a1a1a'/%3E%3Cellipse cx='16' cy='29.5' rx='2.5' ry='1' fill='%230a0a0a'/%3E%3C/g%3E%3C/svg%3E") 6 26, auto;
+
+  /* ── POINTER — system default ────────────────────────────────────────────────
+     Native OS hand cursor. Always crisp, zero overhead, no custom image.
+     ──────────────────────────────────────────────────────────────────────── */
+  --cursor-pointer: pointer;
 }
 
 /* Optional Dark Mode */
@@ -115,10 +143,23 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     scroll-behavior: smooth;
-    cursor: url('/assets/icons/pen.svg') 0 32, auto;
+
+    /* Pen cursor — inlined, switches instantly */
+    cursor: var(--cursor-pen);
   }
 
-  /* Interactive Cursor Logic */
+  /* ── Interactive elements ────────────────────────────────────────────────
+     SPLIT into two separate declarations on purpose:
+
+     1. cursor  — standalone, no transition involved.
+                  Browsers evaluate cursor on every mousemove; putting it
+                  inside a rule with `transition` forces the browser to
+                  re-check animated properties before resolving the cursor,
+                  adding a frame or two of perceived delay.
+
+     2. transition — separate declaration for transform + background only.
+                     cursor is intentionally excluded.
+     ──────────────────────────────────────────────────────────────────────── */
   a,
   button,
   [role="button"],
@@ -129,7 +170,21 @@
   textarea,
   .cursor-pointer,
   .group {
-    cursor: url('/assets/icons/point-up.svg') 25 0, pointer !important;
+    /* System default hand cursor — always crisp, no custom image needed */
+    cursor: pointer !important;
+  }
+
+  a,
+  button,
+  [role="button"],
+  input[type="submit"],
+  input[type="button"],
+  label,
+  select,
+  textarea,
+  .cursor-pointer,
+  .group {
+    /* Transitions intentionally do NOT include cursor */
     transition: transform 0.2s var(--smooth), background-color 0.2s var(--smooth);
   }
 
@@ -140,7 +195,7 @@
   }
 
   img:not(.flower-doodle):not(#logo) {
-    transition: all 0.7s var(--smooth);
+    transition: filter 0.7s var(--smooth);
   }
 
   img:hover { filter: none; }
@@ -174,7 +229,8 @@
     display: inline-flex; align-items: center; gap: .5rem;
     padding: .625rem 1.25rem; border-radius: var(--radius);
     border: 1px solid var(--line); box-shadow: var(--shadow-sm);
-    transition: all 0.2s var(--smooth);
+    transition: transform 0.2s var(--smooth), background-color 0.2s var(--smooth),
+                filter 0.2s var(--smooth);
     font-weight: 700;
   }
   .btn-primary {
@@ -186,9 +242,9 @@
 
   /* =====================================================
      PHOTO FRAME — "photo resting on a sketchbook"
-     
+
      Layer breakdown:
-       ::before  → warm blob shadow beneath the photo
+       ::before   → warm blob shadow beneath the photo
        box-shadow → 4-layer lift stack (contact → ambient)
        padding    → asymmetric mat, more bottom like real prints
        ::after    → wobbly hand-drawn SVG border (unchanged)
@@ -228,7 +284,7 @@
     position: absolute;
     bottom: -14px;
     left: 6%;
-    right: 4%;           /* slight right-side asymmetry */
+    right: 4%;
     height: 55%;
     background: rgba(55, 25, 10, 0.22);
     filter: blur(18px);
@@ -258,7 +314,7 @@
     transform: scaleX(1.12);
   }
 
-  /* Wobbly SVG border mask — UNCHANGED from original */
+  /* Wobbly SVG border mask — UNCHANGED */
   .photo-frame::after {
     content: "";
     @apply absolute inset-0 pointer-events-none;
@@ -298,7 +354,6 @@
    HOME PAGE SPECIFIC STYLES
    ========================================= */
 @layer components {
-  /* --- Hero Section --- */
   #Hero-Section .portfolio-text {
     visibility: hidden;
     position: absolute;
@@ -319,7 +374,6 @@
     z-index: 9999 !important;
   }
 
-  /* --- About Section --- */
   #AboutMe-Section .skills {
     display: none;
   }
@@ -327,6 +381,11 @@
 
 /* --- 6. PRINT SAFETY --- */
 @media print {
+  /* Hide cursors in print */
+  *, *::before, *::after {
+    cursor: default !important;
+  }
+
   .display-text,
   [style*="font-family: var(--font-display)"] {
     font-family: 'Holderitme', Georgia, 'Times New Roman', serif !important;
