@@ -6,6 +6,7 @@ import { ProjectList } from "../components/ProjectList";
 import { ScribbleDivider } from "../components/ScribbleDivider";
 import { projects } from "../data/projects";
 import { profileData } from "../data/profile";
+import { ScrollArrow } from "../components/Scrollarrow";
 
 export default function Home() {
   return (
@@ -20,7 +21,8 @@ export default function Home() {
       >
         <div className="container w-full">
           <Hero data={profileData} />
-           
+                     <ScrollArrow />
+
         </div>
         
       </section>
