@@ -12,12 +12,12 @@
   src: url('/assets/fonts/Holderitme-nAXLV.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
-  font-display: swap; /* Prevents invisible-text flash during load & PDF export */
+  font-display: swap;
 }
 
 /* --- 2. DESIGN TOKENS --- */
 :root {
-  /* Core Colors from CV */
+  /* Core Colors */
   --white: #ffffff;
   --black: #0e0e0e;
   --grey-900: #1f1f1f;
@@ -27,12 +27,12 @@
   --grey-100: #e9e9e9;
 
   /* Brand Burgundy: The "Sanaz" Signature */
-  --primary: #96150f; 
+  --primary: #96150f;
   --primary-600: #7a110c;
   --accent: var(--primary);
   --accent-weak: #f6e7e7;
   --peach: #e0ae9f;
-  
+
   /* Semantic States for Engineering/QA Context */
   --danger: #ef4444;
   --success: #22c55e;
@@ -52,7 +52,7 @@
 
   /* ─── Typography ───────────────────────────────────────────────────────────
      Three-font system, each with a distinct role:
-     
+
      --font-sans     → Inter       — UI, body, labels, data. Neutral workhorse.
      --font-display  → Holderitme  — Hero names, large decorative headings,
                                      pull quotes. Use sparingly. NON-COMMERCIAL.
@@ -63,8 +63,8 @@
   --font-display: "Holderitme", Georgia, "Times New Roman", serif;
   --font-hand:    'Caveat', cursive;
 
-  /* Backward-compatible aliases — keeps existing component code unbroken */
-  --font-normal:  var(--font-sans);
+  /* Backward-compatible aliases */
+  --font-normal: var(--font-sans);
 
   /* Spacing & Layout */
   --space-1: 0.25rem;
@@ -80,11 +80,11 @@
   --shadow-sm: 0 1px 2px rgba(0,0,0,.06);
   --shadow-md: 0 6px 16px rgba(0,0,0,.08);
   --shadow: var(--shadow-md);
-  
+
   /* Doodle Colors */
   --color-ink-red: var(--primary);
   --color-ink-black: var(--text);
-  
+
   /* Animation Curves */
   --smooth: cubic-bezier(.22,.61,.36,1);
 }
@@ -102,63 +102,60 @@
     --accent-weak: #3c2222;
     --focus: #d78282;
     --border: rgba(243, 243, 243, 0.1);
-    /* --font-display stays the same — Holderitme renders well on dark bg */
   }
 }
 
 /* --- 3. BASE STYLES --- */
 @layer base {
   html, body, #root { height: 100%; }
-  
+
   body {
     background: var(--bg);
     color: var(--text);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     scroll-behavior: smooth;
-    /* Custom Pen Cursor */
     cursor: url('/assets/icons/pen.svg') 0 32, auto;
   }
 
   /* Interactive Cursor Logic */
-  a, 
-  button, 
-  [role="button"], 
-  input[type="submit"], 
-  input[type="button"], 
-  label, 
-  select, 
+  a,
+  button,
+  [role="button"],
+  input[type="submit"],
+  input[type="button"],
+  label,
+  select,
   textarea,
   .cursor-pointer,
   .group {
     cursor: url('/assets/icons/point-up.svg') 25 0, pointer !important;
     transition: transform 0.2s var(--smooth), background-color 0.2s var(--smooth);
   }
-  .flower-doodle, 
-  .photo-frame::after, 
+
+  .flower-doodle,
+  .photo-frame::after,
   svg[class*="Doodle"] {
     pointer-events: none !important;
   }
 
- 
   img:not(.flower-doodle):not(#logo) {
-    /* filter: grayscale(100%) ; */
     transition: all 0.7s var(--smooth);
   }
-  
+
   img:hover { filter: none; }
 }
 
 /* --- 4. CORE COMPONENTS --- */
 @layer components {
-  .container { 
-    max-width: 80rem; /* 1280px */
-    margin: 0 auto; 
-    padding: 0 var(--space-4); 
+  .container {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 var(--space-4);
   }
-  
+
   .section { padding: var(--space-8) 0; }
-  
+
   /* Typography Classes */
   .title { font-weight: 700; line-height: 1.15; }
   .h1 { font-size: clamp(1.75rem, 2.2vw + 1rem, 2.5rem); }
@@ -166,7 +163,6 @@
   .lead { color: var(--text-muted); }
   .doodle-text { font-family: var(--font-hand); @apply leading-none tracking-tight; }
 
-  /* Display Text — uses Holderitme, for hero names & large decorative moments */
   .display-text {
     font-family: var(--font-display);
     line-height: 1.1;
@@ -187,18 +183,89 @@
   .btn-primary:hover { filter: brightness(0.95); transform: translateY(-1px); }
   .btn-ghost { background: transparent; color: var(--text); }
   .btn-ghost:hover { background: var(--muted-surface); }
-  
-  /* Photo Frame Doodle */
+
+  /* =====================================================
+     PHOTO FRAME — "photo resting on a sketchbook"
+     
+     Layer breakdown:
+       ::before  → warm blob shadow beneath the photo
+       box-shadow → 4-layer lift stack (contact → ambient)
+       padding    → asymmetric mat, more bottom like real prints
+       ::after    → wobbly hand-drawn SVG border (unchanged)
+     ===================================================== */
   .photo-frame {
-    @apply relative inline-block transition-transform duration-500;
-    padding: 25px;
+    @apply relative inline-block;
+
+    /* Asymmetric photo-paper mat: more bottom like a real print */
+    padding: 14px 14px 28px 14px;
+
+    /* Warm photo-paper stock — not clinical pure white */
+    background-color: #fdfcf8;
+
+    /* 4-layer lift shadow:
+       1. hair-line contact shadow  (darkest, tightest)
+       2. near-lift                 (main perceived shadow)
+       3. mid-air diffusion
+       4. soft ambient bloom        */
+    box-shadow:
+      0 1px  2px  rgba(60, 30, 10, 0.14),
+      0 4px  10px rgba(60, 30, 10, 0.11),
+      0 14px 28px rgba(60, 30, 10, 0.08),
+      0 28px 56px rgba(60, 30, 10, 0.04);
+
+    /* Tiny inner highlight on the top edge — light catching the paper */
+    outline: 1px solid rgba(255, 255, 255, 0.9);
+    outline-offset: -1px;
+
+    transition: transform 0.7s var(--smooth), box-shadow 0.7s var(--smooth);
   }
+
+  /* Blob shadow — the "sitting on the sketchbook" magic.
+     Asymmetric to imply a top-left light source.
+     z-index: -1 so it bleeds behind the white mat. */
+  .photo-frame::before {
+    content: "";
+    position: absolute;
+    bottom: -14px;
+    left: 6%;
+    right: 4%;           /* slight right-side asymmetry */
+    height: 55%;
+    background: rgba(55, 25, 10, 0.22);
+    filter: blur(18px);
+    border-radius: 50%;
+    z-index: -1;
+    transform: scaleX(1.08);
+    transition: all 0.7s var(--smooth);
+  }
+
+  /* Hover: photo lifts — shadow drops further and softens */
+  .photo-frame:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 2px  4px  rgba(60, 30, 10, 0.13),
+      0 8px  18px rgba(60, 30, 10, 0.11),
+      0 22px 44px rgba(60, 30, 10, 0.08),
+      0 40px 80px rgba(60, 30, 10, 0.05);
+  }
+
+  .photo-frame:hover::before {
+    bottom: -20px;
+    left: 8%;
+    right: 6%;
+    height: 45%;
+    background: rgba(55, 25, 10, 0.16);
+    filter: blur(24px);
+    transform: scaleX(1.12);
+  }
+
+  /* Wobbly SVG border mask — UNCHANGED from original */
   .photo-frame::after {
     content: "";
     @apply absolute inset-0 pointer-events-none;
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M2,2.5 Q25,2 50,2.2 T98,2 Q98.2,25 97.8,50 T98,98 Q75,98.2 50,97.8 T2,98 Q1.8,75 2.2,50 T2,2.5 Z' fill='none' stroke='black' stroke-width='3' vector-effect='non-scaling-stroke' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M2,2.5 Q25,2 50,2.2 T98,2 Q98.2,25 97.8,50 T98,98 Q75,98.2 50,97.8 T2,98 Q1.8,75 2.2,50 T2,2.5 Z' fill='none' stroke='black' stroke-width='3' vector-effect='non-scaling-stroke' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    mask-size: 100% 100%; mask-repeat: no-repeat;
+    mask-size: 100% 100%;
+    mask-repeat: no-repeat;
   }
 
   .card {
@@ -233,15 +300,15 @@
 @layer components {
   /* --- Hero Section --- */
   #Hero-Section .portfolio-text {
-    visibility: hidden; /* Standardized to your visibility tokens */
+    visibility: hidden;
     position: absolute;
     font-size: 180px;
     text-transform: uppercase;
-    font-weight: 900; /* Matches your 'Display' type scale */
+    font-weight: 900;
     letter-spacing: 24px;
     top: -76px;
     z-index: 9 !important;
-    color: var(--accent); /* Now pulls correctly from your burgundy */
+    color: var(--accent);
   }
 
   #Hero-Section .portfolio-image {
@@ -251,12 +318,6 @@
   #Hero-Section .flower-doodle-image {
     z-index: 9999 !important;
   }
- 
-  #Hero-Section .hero-arrow {
-    z-index: 9999 !important;
-    margin: 0 auto;
-
-  }
 
   /* --- About Section --- */
   #AboutMe-Section .skills {
@@ -265,7 +326,6 @@
 }
 
 /* --- 6. PRINT SAFETY --- */
-/* Ensures Holderitme degrades gracefully in headless PDF renderers */
 @media print {
   .display-text,
   [style*="font-family: var(--font-display)"] {
