@@ -1,21 +1,23 @@
 // src/components/ScrollIndicator.jsx
-// Dots and flower are positioned using getPointAtLength() so they sit
-// exactly ON the wobbly path, not floating beside it.
+// Redesigned for snap-mandatory: the flower now SNAPS between dot positions
+// (discrete states) to mirror the page's own snap behaviour.
+// Active section is detected via IntersectionObserver — far more reliable
+// than scroll-% thresholds when snap is in play.
 
 import { useEffect, useState, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 
 const SECTIONS = [
-  { progress: 0.0,  label: "Top",      sectionId: "Hero-Section"    },
-  { progress: 0.35, label: "About",    sectionId: "AboutMe-Section" },
-  { progress: 0.68, label: "Projects", sectionId: "projects"        },
+  { label: "Top",      sectionId: "Hero-Section"    },
+  { label: "About",    sectionId: "AboutMe-Section" },
+  { label: "Projects", sectionId: "projects"        },
 ];
 
 // ViewBox dimensions — must match the SVG viewBox
 const VB_W = 20;
 const VB_H = 1000;
 
-// Wobbly vertical path in a 20-wide viewBox, center ~10
+// Wobbly vertical path — same as before
 const TRACK_PATH = `
   M 10 0
   C 13 80,   7 160,  10 240
@@ -25,8 +27,10 @@ const TRACK_PATH = `
   C 11 955,   9.6 980, 10 1000
 `;
 
-// Convert SVG viewBox point → CSS percentage within the container
-// preserveAspectRatio="none" means X and Y scale independently
+// Evenly distribute 3 dots across the path (0%, 50%, 100%)
+// Matches 3 equal min-h-screen snap sections.
+const DOT_PROGRESS = [0, 0.5, 1.0];
+
 function toPercent(pt) {
   return {
     left: `${(pt.x / VB_W) * 100}%`,
@@ -34,23 +38,21 @@ function toPercent(pt) {
   };
 }
 
-export function ScrollIndicator({ flowerSrc, scrollRef }) {
-  const [progress,      setProgress]      = useState(0);
-  const [isScrolling,   setIsScrolling]   = useState(false);
-  const [isDragging,    setIsDragging]    = useState(false);
-  const [activeSection, setActiveSection] = useState(0);
-  const [rotation,      setRotation]      = useState(0);
-  const [pathLength,    setPathLength]    = useState(VB_H);
-  const [dotPoints,     setDotPoints]     = useState([]);  // exact positions per section
-  const [margins,       setMargins]       = useState({ top: 80, bottom: 80 });
+export function ScrollIndicator({ scrollRef }) {
+  const [activeSection,  setActiveSection]  = useState(0);
+  const [isScrolling,    setIsScrolling]    = useState(false);
+  const [pathLength,     setPathLength]     = useState(VB_H);
+  const [dotPoints,      setDotPoints]      = useState([]);
+  const [rotation,       setRotation]       = useState(0);
+  const [margins,        setMargins]        = useState({ top: 80, bottom: 80 });
 
+  const pathRef      = useRef(null);
+  const trackRef     = useRef(null);
   const scrollTimer  = useRef(null);
   const rotationRef  = useRef(0);
   const animFrameRef = useRef(null);
-  const trackRef     = useRef(null);
-  const pathRef      = useRef(null);
 
-  // ── Measure header + footer heights ──────────────────────
+  // ── Measure header/footer heights ──────────────────────────────────────
   useEffect(() => {
     const measure = () => {
       const header = document.querySelector("header");
@@ -65,38 +67,72 @@ export function ScrollIndicator({ flowerSrc, scrollRef }) {
     return () => { clearTimeout(t); window.removeEventListener("resize", measure); };
   }, []);
 
-  // ── Measure path + compute dot positions ─────────────────
+  // ── Measure path + compute dot positions ───────────────────────────────
   useEffect(() => {
     const path = pathRef.current;
     if (!path) return;
-
     const len = path.getTotalLength();
     setPathLength(len);
-
-    // For each section, find the exact point on the path
-    const pts = SECTIONS.map(s => {
-      const pt = path.getPointAtLength(s.progress * len);
-      return toPercent(pt);
-    });
+    const pts = DOT_PROGRESS.map(p => toPercent(path.getPointAtLength(p * len)));
     setDotPoints(pts);
   }, []);
 
-  // ── Get flower position on path ───────────────────────────
-  const getFlowerPoint = useCallback(() => {
-    const path = pathRef.current;
-    if (!path || pathLength === 0) return { left: "50%", top: `${progress * 100}%` };
-    const pt = path.getPointAtLength(progress * pathLength);
-    return toPercent(pt);
-  }, [progress, pathLength]);
-
-  const flowerPos = getFlowerPoint();
-
-  // ── Spin while scrolling / dragging ──────────────────────
+  // ── IntersectionObserver — fires reliably at snap boundaries ───────────
   useEffect(() => {
-    if (isScrolling || isDragging) {
+    const container = scrollRef?.current;
+    if (!container) return;
+
+    const observers = [];
+
+    SECTIONS.forEach((section, index) => {
+      const el = document.getElementById(section.sectionId);
+      if (!el) return;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          // When a section is >= 40% visible it's the active one
+          if (entry.isIntersecting) {
+            setActiveSection(index);
+          }
+        },
+        {
+          root: container,
+          threshold: 0.4,
+        }
+      );
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach(o => o.disconnect());
+  }, [scrollRef]);
+
+  // ── Spin while scrolling ───────────────────────────────────────────────
+  useEffect(() => {
+    const container = scrollRef?.current;
+    if (!container) return;
+
+    const onScroll = () => {
+      setIsScrolling(true);
+      clearTimeout(scrollTimer.current);
+      scrollTimer.current = setTimeout(() => setIsScrolling(false), 600);
+    };
+
+    container.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      container.removeEventListener("scroll", onScroll);
+      clearTimeout(scrollTimer.current);
+    };
+  }, [scrollRef]);
+
+  useEffect(() => {
+    if (isScrolling) {
       let last = null;
       const spin = (ts) => {
-        if (last !== null) { rotationRef.current += (ts - last) * 0.18; setRotation(rotationRef.current); }
+        if (last !== null) {
+          rotationRef.current += (ts - last) * 0.22;
+          setRotation(rotationRef.current);
+        }
         last = ts;
         animFrameRef.current = requestAnimationFrame(spin);
       };
@@ -105,60 +141,31 @@ export function ScrollIndicator({ flowerSrc, scrollRef }) {
       cancelAnimationFrame(animFrameRef.current);
     }
     return () => cancelAnimationFrame(animFrameRef.current);
-  }, [isScrolling, isDragging]);
+  }, [isScrolling]);
 
-  // ── Scroll listener ───────────────────────────────────────
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const el = scrollRef?.current;
-      if (!el) return;
-
-      const handleScroll = () => {
-        if (isDragging) return;
-        const pct = Math.min(Math.max(el.scrollTop / (el.scrollHeight - el.clientHeight), 0), 1);
-        setProgress(pct);
-        let active = 0;
-        SECTIONS.forEach((s, i) => { if (pct >= s.progress) active = i; });
-        setActiveSection(active);
-        setIsScrolling(true);
-        clearTimeout(scrollTimer.current);
-        scrollTimer.current = setTimeout(() => setIsScrolling(false), 400);
-      };
-
-      el.addEventListener("scroll", handleScroll, { passive: true });
-      handleScroll();
-      return () => { el.removeEventListener("scroll", handleScroll); clearTimeout(scrollTimer.current); };
-    }, 100);
-    return () => clearTimeout(timer);
-  }, [scrollRef, isDragging]);
-
-  // ── Drag handler ──────────────────────────────────────────
-  const handleDrag = (event, info) => {
-    const track = trackRef.current;
-    const container = scrollRef?.current;
-    if (!track || !container) return;
-    const rect = track.getBoundingClientRect();
-    const pct  = Math.min(Math.max((info.point.y - rect.top) / rect.height, 0), 1);
-    setProgress(pct);
-    let active = 0;
-    SECTIONS.forEach((s, i) => { if (pct >= s.progress) active = i; });
-    setActiveSection(active);
-    container.scrollTop = pct * (container.scrollHeight - container.clientHeight);
-  };
-
-  // ── Scroll to MIDDLE of section ──────────────────────────
-  const scrollToSection = (sectionId) => {
+  // ── Scroll to section — let snap-center handle vertical centering ──────
+  const scrollToSection = useCallback((sectionId, index) => {
     const container = scrollRef?.current;
     if (!container) return;
-    if (sectionId === "Hero-Section") { container.scrollTo({ top: 0, behavior: "smooth" }); return; }
-    const section = document.getElementById(sectionId);
-    if (!section) return;
-    const sectionTop    = section.getBoundingClientRect().top - container.getBoundingClientRect().top + container.scrollTop;
-    const sectionMiddle = sectionTop + section.offsetHeight / 2 - container.clientHeight / 2;
-    container.scrollTo({ top: sectionMiddle, behavior: "smooth" });
-  };
 
-  const drawnLength = pathLength * progress;
+    if (sectionId === "Hero-Section") {
+      container.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    const el = document.getElementById(sectionId);
+    if (!el) return;
+
+    // Scroll to the TOP of the element — snap-center does the rest
+    const elTop = el.offsetTop;
+    container.scrollTo({ top: elTop, behavior: "smooth" });
+  }, [scrollRef]);
+
+  // ── The flower snaps to the active dot position ────────────────────────
+  const flowerPos = dotPoints[activeSection] ?? { left: "50%", top: "50%" };
+
+  // How much of the path to draw — snaps to active dot progress
+  const drawnLength = pathLength * DOT_PROGRESS[activeSection];
 
   return (
     <div
@@ -167,7 +174,6 @@ export function ScrollIndicator({ flowerSrc, scrollRef }) {
       style={{ zIndex: 110 }}
       aria-hidden="true"
     >
-      {/* Track container — 20px wide matching VB_W */}
       <div
         ref={trackRef}
         className="relative flex-1"
@@ -180,30 +186,27 @@ export function ScrollIndicator({ flowerSrc, scrollRef }) {
           className="absolute inset-0 w-full h-full overflow-visible"
           fill="none"
         >
-          {/* Ghost — full path, faint */}
+          {/* Ghost — full path */}
           <path
             d={TRACK_PATH}
             stroke="currentColor"
             strokeWidth="3"
             strokeLinecap="round"
             className="text-black"
-            opacity="0.1"
+            opacity="0.08"
           />
-          {/* Shadow ink line */}
+
+          {/* Reference path (used for length measurement only) */}
           <path
             ref={pathRef}
             d={TRACK_PATH}
-            stroke="currentColor"
+            stroke="transparent"
             strokeWidth="3"
             strokeLinecap="round"
-            strokeDasharray={pathLength}
-            strokeDashoffset={pathLength - drawnLength}
-            className="text-primary"
-            opacity="0.25"
-            style={{ transition: isDragging ? "none" : "stroke-dashoffset 0.1s ease-out" }}
           />
-          {/* Main ink line */}
-          <path
+
+          {/* Filled progress line — snaps to active dot */}
+          <motion.path
             d={TRACK_PATH}
             stroke="currentColor"
             strokeWidth="3"
@@ -211,15 +214,17 @@ export function ScrollIndicator({ flowerSrc, scrollRef }) {
             strokeDasharray={pathLength}
             strokeDashoffset={pathLength - drawnLength}
             className="text-primary"
-            opacity="0.6"
-            style={{ transition: isDragging ? "none" : "stroke-dashoffset 0.1s ease-out" }}
+            opacity="0.55"
+            animate={{ strokeDashoffset: pathLength - drawnLength }}
+            transition={{ type: "spring", stiffness: 120, damping: 22, mass: 0.8 }}
           />
         </svg>
 
-        {/* ── Section dots — positioned exactly on the path ── */}
+        {/* ── Section dots — exactly on path ── */}
         {SECTIONS.map((section, i) => {
           const isActive = activeSection === i;
-          const pos = dotPoints[i] ?? { left: "50%", top: `${section.progress * 100}%` };
+          const pos = dotPoints[i] ?? { left: "50%", top: `${DOT_PROGRESS[i] * 100}%` };
+
           return (
             <div
               key={section.label}
@@ -227,23 +232,30 @@ export function ScrollIndicator({ flowerSrc, scrollRef }) {
               style={{ left: pos.left, top: pos.top }}
             >
               <button
-                onClick={() => scrollToSection(section.sectionId)}
+                onClick={() => scrollToSection(section.sectionId, i)}
                 className="pointer-events-auto flex items-center justify-center
                            cursor-pointer group w-11 h-11"
-                aria-label={`Scroll to ${section.label}`}
+                aria-label={`Go to ${section.label}`}
                 title={section.label}
               >
+                {/* Dot */}
                 <motion.div
                   className="rounded-full bg-primary flex-shrink-0"
-                  animate={{ width: isActive ? 8 : 5, height: isActive ? 8 : 5, opacity: isActive ? 1 : 0.4 }}
-                  whileHover={{ scale: 2, opacity: 1 }}
-                  transition={{ duration: 0.2 }}
+                  animate={{
+                    width:   isActive ? 9 : 5,
+                    height:  isActive ? 9 : 5,
+                    opacity: isActive ? 1 : 0.35,
+                  }}
+                  transition={{ type: "spring", stiffness: 300, damping: 24 }}
+                  whileHover={{ scale: 1.8, opacity: 1 }}
                 />
+
+                {/* Label — slides in when active */}
                 <motion.span
                   className="absolute left-8 text-[9px] font-black uppercase
                              tracking-[0.2em] text-primary whitespace-nowrap"
-                  animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : -4 }}
-                  transition={{ duration: 0.25 }}
+                  animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : -6 }}
+                  transition={{ type: "spring", stiffness: 260, damping: 22 }}
                 >
                   {section.label}
                 </motion.span>
@@ -252,40 +264,38 @@ export function ScrollIndicator({ flowerSrc, scrollRef }) {
           );
         })}
 
-        {/* ── Flower — positioned on path, draggable ── */}
+        {/* ── Flower — SNAPS to active dot position ── */}
         <motion.div
           className="absolute -translate-x-1/2 -translate-y-1/2
-                     pointer-events-auto flex items-center justify-center w-12 h-12"
-          animate={{ left: flowerPos.left, top: flowerPos.top }}
-          transition={isDragging
-            ? { duration: 0 }
-            : { type: "spring", stiffness: 100, damping: 20, mass: 0.8 }
-          }
-          drag="y"
-          dragConstraints={trackRef}
-          dragElastic={0}
-          dragMomentum={false}
-          onDragStart={() => setIsDragging(true)}
-          onDrag={handleDrag}
-          onDragEnd={() => setIsDragging(false)}
-          style={{ cursor: isDragging ? "grabbing" : "grab" }}
-          whileHover={{ scale: 1.15 }}
-          whileDrag={{ scale: 1.25 }}
+                     pointer-events-none flex items-center justify-center w-12 h-12"
+          animate={{
+            left: flowerPos.left,
+            top:  flowerPos.top,
+          }}
+          transition={{
+            type:      "spring",
+            stiffness: 180,
+            damping:   22,
+            mass:      0.7,
+          }}
         >
+          {/* Pulse ring — visible while scrolling */}
           <motion.div
             className="absolute inset-0 rounded-full bg-primary/20"
             animate={{
-              scale:   (isScrolling || isDragging) ? [1, 1.8, 1] : 1,
-              opacity: (isScrolling || isDragging) ? [0.4, 0, 0.4] : 0,
+              scale:   isScrolling ? [1, 1.9, 1] : 1,
+              opacity: isScrolling ? [0.4, 0, 0.4] : 0,
             }}
-            transition={{ duration: 0.8, repeat: (isScrolling || isDragging) ? Infinity : 0 }}
+            transition={{ duration: 0.7, repeat: isScrolling ? Infinity : 0 }}
           />
-          {/* Spiral arrow SVG*/}
+
+          {/* Spiral icon — spins while scrolling */}
           <motion.img
             src="/assets/spiral-arrow.svg"
-            alt="Drag to scroll"
-            className="w-8 h-8 object-contain relative z-10"
-            style={{ }}
+            alt=""
+            className="display-none w-8 h-8 object-contain relative z-10"
+            animate={{   }}
+            transition={{ duration: 0 }}
             draggable={false}
             onError={(e) => { e.target.style.display = "none"; }}
           />
