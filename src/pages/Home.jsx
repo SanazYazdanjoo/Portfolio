@@ -14,11 +14,11 @@ export default function Home() {
       {/* ── Hero ── */}
       <section
         id="Hero-Section"
-        className="bg-bg relative w-full min-h-screen flex flex-col
-                   justify-center border-b border-border overflow-hidden
+        className="snap-center bg-bg relative w-full min-h-screen flex flex-col
+                   justify-center items-center border-b border-border overflow-hidden
                    pt-10 pb-20"
       >
-        <div className="container">
+        <div className="container w-full">
           <Hero data={profileData} />
         </div>
       </section>
@@ -28,26 +28,29 @@ export default function Home() {
       {/* ── About ── */}
       <section
         id="AboutMe-Section"
-        className="bg-bg relative w-full min-h-screen flex items-center py-20"
+        className="snap-center bg-bg relative w-full min-h-screen flex items-center py-20"
       >
-        <div className="container">
+        <div className="container w-full">
           <AboutMe data={profileData} />
         </div>
       </section>
 
       <ScribbleDivider />
-     {/* ── Projects ── */}
+
+      {/* ── Projects ── */}
       <section
         id="projects"
-        className="bg-bg relative w-full min-h-screen flex items-center py-20"
+        className="snap-center bg-bg relative w-full min-h-screen flex items-center py-20"
       >
         <div className="container relative z-10 mx-auto flex items-center
-                        px-4 md:px-8 gap-0">
+                        px-4 md:px-8 gap-0 w-full">
 
-          <div className="font-display text-xl md:text-8xl text-text mt-2 whitespace-nowrap"
-     style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}>
-  Case Studies
-</div>
+          <div
+            className="font-display text-xl md:text-8xl text-text mt-2 whitespace-nowrap"
+            style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+          >
+            Case Studies
+          </div>
 
           {/* Project list — 3/4 */}
           <div className="w-3/4">

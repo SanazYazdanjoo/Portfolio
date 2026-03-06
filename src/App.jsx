@@ -56,18 +56,20 @@ export default function App() {
         <Nav />
       </header>
 
-<ScrollIndicator flowerSrc={null} scrollRef={scrollRef}   />
+      <ScrollIndicator flowerSrc={null} scrollRef={scrollRef} />
+
       {/* ── SCROLLABLE CONTENT ── */}
       <div
-       ref={scrollRef} 
-        className="flex-1 scroll-container overflow-y-auto overflow-x-hidden snap-y snap-proximity relative z-10 scroll-smooth Xcursor-pen"
+        ref={scrollRef}
+        className="flex-1 scroll-container overflow-y-auto overflow-x-hidden
+                   snap-y snap-mandatory relative z-10 scroll-smooth"
+        style={{ scrollBehavior: 'smooth' }}
       >
-
         <main>
           <Outlet />
         </main>
 
-        <div className="snap-start w-full flex flex-col justify-center shrink-0 relative z-10">
+        <div className="snap-center w-full flex flex-col justify-center shrink-0 relative z-10">
           <Footer data={profileData} />
         </div>
 
