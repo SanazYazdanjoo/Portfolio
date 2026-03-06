@@ -1,38 +1,61 @@
 // src/components/Footer.jsx
-import React from 'react';
-import { profileData } from '../data/profile';
-import { FlowerDoodle, HorizontalMarginLine } from './DoodleLibrary';
-import { Button } from './Button';
+// Data-driven: pulls contact info from profile.js — no hardcoded strings.
+// Replace the doodles.flower src with your actual doodle asset key.
 
-export const Footer = () => {
-  const currentYear = new Date().getFullYear();
+import React from "react";
+import { motion } from "framer-motion";
+
+export function Footer({ data }) {
+  const { name, email, socials, doodles } = data;
+  // socials expected shape: [{ label: "LinkedIn", url: "..." }, ...]
+  const linkedin = socials?.find((s) => s.label === "LinkedIn");
 
   return (
-    <footer className="relative w-full pt-16 pb-8 bg-bg border-t border-border overflow-hidden">
-      
-        
-      <div className="container relative">
-        
-        {/* Artistic Background Accent */}
-        <FlowerDoodle className="absolute -right-10 -top-10 w-40 h-40 text-peach opacity-20 rotate-12 pointer-events-none" />
+    <footer className="relative border-t border-border/20 bg-bg overflow-hidden">
 
-        {/* Bottom Bar */}
-        <div className="bottom-bar pt-10 border-t border-border/50 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-sm text-dim font-medium">
-            © {currentYear} {profileData.author}. All rights reserved.
+      {/* ── Bottom bar: copyright + legal + doodle ── */}
+      <div className="border-t border-border/10">
+        <div className="container mx-auto px-4 md:px-8 py-5
+                        flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+
+          <p className="text-[11px] text-text/40 font-medium">
+            © {new Date().getFullYear()} {name}. All rights reserved.
           </p>
-          
-          <div className="flex gap-4">
-            <Button to="/impressum" variant="ghost" className="text-xs font-bold uppercase tracking-widest text-dim">
+
+          <nav className="flex items-center gap-5">
+            <a
+              href="/impressum"
+              className="text-[11px] uppercase tracking-widest text-text/40
+                         hover:text-primary transition-colors duration-200"
+            >
               Impressum
-            </Button>
-            <Button to="/privacy" variant="ghost" className="text-xs font-bold uppercase tracking-widest text-dim">
+            </a>
+            <a
+              href="/privacy"
+              className="text-[11px] uppercase tracking-widest text-text/40
+                         hover:text-primary transition-colors duration-200"
+            >
               Privacy Policy
-            </Button>
-          </div>
+            </a>
+          </nav>
+
+          {/* Doodle accent — bottom right */}
+          {doodles?.flower && (
+            <motion.img
+              src={doodles.flower}
+              alt=""
+              aria-hidden="true"
+              className="hidden md:block h-12 w-auto opacity-30
+                         pointer-events-none select-none"
+              initial={{ rotate: -10, opacity: 0 }}
+              whileInView={{ rotate: 0, opacity: 0.3 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+            />
+          )}
         </div>
-        
       </div>
+
     </footer>
   );
-};
+}

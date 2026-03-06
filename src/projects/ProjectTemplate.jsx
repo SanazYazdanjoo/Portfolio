@@ -423,7 +423,7 @@ export default function ProjectTemplate({ meta, children }) {
                     transition={{ delay: 0.2, duration: 0.6 }}
                   >
                     <img src={meta.heroImage} alt={meta.title}
-                      className="w-full h-full object-cover grayscale contrast-110" />
+                      className="w-full h-full object-cover  contrast-110" />
                   </motion.div>
                 )
             }

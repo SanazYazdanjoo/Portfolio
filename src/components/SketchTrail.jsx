@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useReducedMotion } from 'framer-motion';
 
 /**
  * SketchTrail - A mouse-following "ink" trail.
@@ -10,8 +11,12 @@ export const SketchTrail = () => {
   const [segments, setSegments] = useState([]);
   const lastPoint = useRef(null);
   const timeoutRef = useRef(null);
+  const shouldReduce = useReducedMotion();
 
   useEffect(() => {
+     if (shouldReduce) return;
+    
+
     const handleMouseMove = (e) => {
       const currentPoint = { 
         x: e.clientX, 
