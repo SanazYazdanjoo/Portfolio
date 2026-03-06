@@ -28,12 +28,25 @@ export const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [hoveredPath, setHoveredPath] = useState(null);
 
+  // A counter that increments each time a new link is hovered.
+  // Passed as drawKey so the oval always redraws from scratch.
+  const [hoverCount, setHoverCount] = useState(0);
+
+  const handleMouseEnter = (path) => {
+    setHoveredPath(path);
+    setHoverCount((c) => c + 1);  // bump → new drawKey → CircleDoodle remounts → redraws
+  };
+
   return (
-    <nav data-no-sketch="true" className="w-full h-full no-print  ">
-      {/* h-full fills the parent <header> height exactly */}
-<div className="flex items-center justify-between h-full px-6 md:px-12 max-w-screen-2xl mx-auto w-full "> 
-         {/* ── LOGO ── */}
-        <NavLink to="/" onClick={() => setIsOpen(false)} className=" flex items-center group shrink-0 cursor-pointer ">
+    <nav data-no-sketch="true" className="w-full h-full no-print">
+      <div className="flex items-center justify-between h-full px-6 md:px-12 max-w-screen-2xl mx-auto w-full">
+
+        {/* ── LOGO ── */}
+        <NavLink
+          to="/"
+          onClick={() => setIsOpen(false)}
+          className="flex items-center group shrink-0 cursor-pointer"
+        >
           <div className="relative flex items-center">
             <img
               src="/assets/logo-fullname.png"
@@ -45,7 +58,7 @@ export const Nav = () => {
         </NavLink>
 
         {/* ── RIGHT SIDE: links + toggle ── */}
-        <div className="flex items-center gap-2 cursor-pointer ">
+        <div className="flex items-center gap-2 cursor-pointer">
 
           <AnimatePresence>
             {isOpen && (
@@ -63,7 +76,7 @@ export const Nav = () => {
                       to={link.path}
                       end={link.path === "/"}
                       onClick={() => setIsOpen(false)}
-                      onMouseEnter={() => setHoveredPath(link.path)}
+                      onMouseEnter={() => handleMouseEnter(link.path)}
                       onMouseLeave={() => setHoveredPath(null)}
                       className={({ isActive }) =>
                         `relative px-3 py-2 text-xs md:text-sm font-bold uppercase tracking-widest
@@ -71,22 +84,35 @@ export const Nav = () => {
                          ${isActive ? "text-primary" : "text-dim hover:text-text"}`
                       }
                     >
-                      {({ isActive }) => (
-                        <>
-                          <span className="relative z-10">{link.name}</span>
-                          <CircleDoodle
-                            isAnimated={!isActive && hoveredPath === link.path}
-                            className={`absolute inset-0 w-full h-full pointer-events-none
-                              transition-all duration-300 ease-out
-                              ${isActive
-                                ? "opacity-100 text-primary scale-110"
-                                : hoveredPath === link.path
-                                  ? "opacity-100 text-accent scale-110"
-                                  : "opacity-0 scale-95"
-                              }`}
-                          />
-                        </>
-                      )}
+                      {({ isActive }) => {
+                        const isHovered = hoveredPath === link.path;
+                        return (
+                          <>
+                            <span className="relative z-10">{link.name}</span>
+
+                            {/*
+                              Show the oval when active OR hovered.
+                              - isActive   → isAnimated=false  → instant full circle, no redraw
+                              - isHovered  → isAnimated=true   → draws in clockwise, fresh each hover
+                              - drawKey    → hoverCount ensures a remount (fresh draw) every hover
+                            */}
+                            {(isActive || isHovered) && (
+                              <CircleDoodle
+                                isAnimated={!isActive && isHovered}
+                                drawKey={hoverCount}
+                                className={`
+                                  absolute inset-0 w-full h-full pointer-events-none
+                                  ${isActive
+                                    ? "text-primary opacity-100 scale-110"
+                                    : "text-primary opacity-100 scale-105"
+                                  }
+                                `}
+                                style={{ transform: isActive ? "scale(1.1)" : "scale(1.05)" }}
+                              />
+                            )}
+                          </>
+                        );
+                      }}
                     </NavLink>
                   </motion.li>
                 ))}
