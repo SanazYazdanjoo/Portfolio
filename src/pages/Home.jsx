@@ -20,10 +20,12 @@ export default function Home() {
       >
         <div className="container w-full">
           <Hero data={profileData} />
+           
         </div>
+        
       </section>
 
-      <ScribbleDivider />
+     <ScribbleDivider/>
 
       {/* ── About ── */}
       <section
