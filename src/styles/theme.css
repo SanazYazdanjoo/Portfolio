@@ -88,32 +88,9 @@
   /* Animation Curves */
   --smooth: cubic-bezier(.22,.61,.36,1);
 
-  /* ─── Custom Cursors ───────────────────────────────────────────────────────
-     Both cursors are inlined as data URIs for zero-latency switching.
-     Both are drawn in upright/axis-aligned geometry, then rotated via SVG
-     transform — this gives the browser clean shapes to anti-alias instead
-     of aliased diagonal stroked paths.
-
-     To update: edit the SVG content. Encoding rules: # → %23  < → %3C  > → %3E
-     ──────────────────────────────────────────────────────────────────────── */
-
-  /* ── MARKER cursor ───────────────────────────────────────────────────────────
-     Chunky ink marker / felt-tip, drawn upright then rotated 45° CW.
-     Anatomy top → bottom (before rotation):
-       Cap     — rounded dark rectangle, clip stripe on side
-       Body    — wide burgundy barrel with sheen stripe + ink window
-       Ferrule — thin silver band separating body from nib
-       Nib     — flat chisel tip (marker style, not pointed)
-       Ink dot — tiny dark ellipse at the very writing tip
-
-     Drawn upright → axis-aligned rects → clean anti-aliasing after rotate.
-     After rotate(45 16 16): tip ~bottom-left, hotspot 6 26.
-     ──────────────────────────────────────────────────────────────────────── */
+  /* ─── Custom Cursors ─── */
   --cursor-pen: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cg transform='rotate(45 16 16)'%3E%3Crect x='12.5' y='1.5' width='7' height='7' rx='2.5' fill='%231a1a1a'/%3E%3Crect x='14' y='2' width='1.2' height='5' rx='0.6' fill='%23555'/%3E%3Crect x='12' y='8.5' width='8' height='15' rx='1' fill='%2396150f'/%3E%3Crect x='12.5' y='8.5' width='2' height='15' fill='rgba(255,255,255,0.12)'/%3E%3Crect x='17.5' y='8.5' width='2' height='15' fill='rgba(0,0,0,0.2)'/%3E%3Crect x='14.5' y='10' width='3' height='8' rx='0.5' fill='rgba(255,255,255,0.07)'/%3E%3Crect x='11.5' y='23.5' width='9' height='2' rx='0.5' fill='%23888'/%3E%3Crect x='12.5' y='25.5' width='7' height='3.5' rx='1' fill='%231a1a1a'/%3E%3Cellipse cx='16' cy='29.5' rx='2.5' ry='1' fill='%230a0a0a'/%3E%3C/g%3E%3C/svg%3E") 6 26, auto;
 
-  /* ── POINTER — system default ────────────────────────────────────────────────
-     Native OS hand cursor. Always crisp, zero overhead, no custom image.
-     ──────────────────────────────────────────────────────────────────────── */
   --cursor-pointer: pointer;
 }
 
@@ -143,23 +120,9 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     scroll-behavior: smooth;
-
-    /* Pen cursor — inlined, switches instantly */
     cursor: var(--cursor-pen);
   }
 
-  /* ── Interactive elements ────────────────────────────────────────────────
-     SPLIT into two separate declarations on purpose:
-
-     1. cursor  — standalone, no transition involved.
-                  Browsers evaluate cursor on every mousemove; putting it
-                  inside a rule with `transition` forces the browser to
-                  re-check animated properties before resolving the cursor,
-                  adding a frame or two of perceived delay.
-
-     2. transition — separate declaration for transform + background only.
-                     cursor is intentionally excluded.
-     ──────────────────────────────────────────────────────────────────────── */
   a,
   button,
   [role="button"],
@@ -170,7 +133,6 @@
   textarea,
   .cursor-pointer,
   .group {
-    /* System default hand cursor — always crisp, no custom image needed */
     cursor: pointer !important;
   }
 
@@ -184,7 +146,6 @@
   textarea,
   .cursor-pointer,
   .group {
-    /* Transitions intentionally do NOT include cursor */
     transition: transform 0.2s var(--smooth), background-color 0.2s var(--smooth);
   }
 
@@ -240,45 +201,21 @@
   .btn-ghost { background: transparent; color: var(--text); }
   .btn-ghost:hover { background: var(--muted-surface); }
 
-  /* =====================================================
-     PHOTO FRAME — "photo resting on a sketchbook"
-
-     Layer breakdown:
-       ::before   → warm blob shadow beneath the photo
-       box-shadow → 4-layer lift stack (contact → ambient)
-       padding    → asymmetric mat, more bottom like real prints
-       ::after    → wobbly hand-drawn SVG border (unchanged)
-     ===================================================== */
+  /* Photo Frame */
   .photo-frame {
     @apply relative inline-block;
-
-    /* Asymmetric photo-paper mat: more bottom like a real print */
     padding: 14px 14px 28px 14px;
-
-    /* Warm photo-paper stock — not clinical pure white */
     background-color: #fdfcf8;
-
-    /* 4-layer lift shadow:
-       1. hair-line contact shadow  (darkest, tightest)
-       2. near-lift                 (main perceived shadow)
-       3. mid-air diffusion
-       4. soft ambient bloom        */
     box-shadow:
       0 1px  2px  rgba(60, 30, 10, 0.14),
       0 4px  10px rgba(60, 30, 10, 0.11),
       0 14px 28px rgba(60, 30, 10, 0.08),
       0 28px 56px rgba(60, 30, 10, 0.04);
-
-    /* Tiny inner highlight on the top edge — light catching the paper */
     outline: 1px solid rgba(255, 255, 255, 0.9);
     outline-offset: -1px;
-
     transition: transform 0.7s var(--smooth), box-shadow 0.7s var(--smooth);
   }
 
-  /* Blob shadow — the "sitting on the sketchbook" magic.
-     Asymmetric to imply a top-left light source.
-     z-index: -1 so it bleeds behind the white mat. */
   .photo-frame::before {
     content: "";
     position: absolute;
@@ -294,7 +231,6 @@
     transition: all 0.7s var(--smooth);
   }
 
-  /* Hover: photo lifts — shadow drops further and softens */
   .photo-frame:hover {
     transform: translateY(-4px);
     box-shadow:
@@ -314,7 +250,6 @@
     transform: scaleX(1.12);
   }
 
-  /* Wobbly SVG border mask — UNCHANGED */
   .photo-frame::after {
     content: "";
     @apply absolute inset-0 pointer-events-none;
@@ -374,14 +309,13 @@
     z-index: 9999 !important;
   }
 
-  #AboutMe-Section .skills {
-    display: none;
-  }
+  /* ─── REMOVED: #AboutMe-Section .skills { display: none; }
+     Skills columns (Research · Design · Technical) are now VISIBLE
+     on the homepage — critical for proving the dual capability. ── */
 }
 
 /* --- 6. PRINT SAFETY --- */
 @media print {
-  /* Hide cursors in print */
   *, *::before, *::after {
     cursor: default !important;
   }

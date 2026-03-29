@@ -3,7 +3,7 @@ import React from "react";
 import { profileData } from "../data/profile";
 
 export default function CV() {
-  const { name, role, contact, experience, portfolioHighlights, skills, education, languages, certifications } = profileData;
+  const { name, role, contact, profileSummary, experience, portfolioHighlights, skills, education, languages, certifications } = profileData;
 
   return (
     <div className="bg-bg min-h-screen py-10 px-4 print:p-0 print:bg-white">
@@ -31,7 +31,7 @@ export default function CV() {
       >
 
         {/* ── HEADER: Name/Role left · Contact right ── */}
-        <div className="flex justify-between items-end gap-6 pb-5 mb-6 border-b-[3px] border-primary">
+        <div className="flex justify-between items-end gap-6 pb-5 mb-4 border-b-[3px] border-primary">
           <div>
             <h1 className="text-[42px] font-black text-primary tracking-tighter uppercase leading-none print:text-[32px]">
               {name}
@@ -41,7 +41,7 @@ export default function CV() {
             </p>
           </div>
 
-          {/* Contact block — now includes location, LinkedIn, GitHub */}
+          {/* Contact block */}
           <div className="text-right text-[10.5px] leading-[1.7] text-gray-600 print:text-[9.5px] shrink-0">
             <p>{contact.location}</p>
             <p>{contact.phone}</p>
@@ -50,6 +50,15 @@ export default function CV() {
             <p className="text-primary">{contact.githubHandle}</p>
           </div>
         </div>
+
+        {/* ── PROFILE SUMMARY — the 6-second recruiter pitch ── */}
+        {profileSummary && (
+          <div className="mb-6 print:mb-4">
+            <p className="text-[10.5px] leading-relaxed text-gray-600 print:text-[9.5px] print:leading-snug">
+              {profileSummary}
+            </p>
+          </div>
+        )}
 
         {/* ── BODY: 70/30 grid ── */}
         <div className="grid grid-cols-[1.8fr_1fr] gap-10 print:gap-6">
