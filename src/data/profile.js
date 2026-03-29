@@ -12,7 +12,7 @@ export const profileData = {
 
   // --- Personal Info ---
   name: "Sanaz Yazdanjoo",
-  role: "UX Researcher · Frontend Developer",
+  role: "UX Engineer",
   year: "2026",
 
   contact: {
