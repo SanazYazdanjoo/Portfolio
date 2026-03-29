@@ -1,10 +1,5 @@
 
-# Portfolio — Responsive Minimal
-
-Responsive, professional baseline with:
-- Mobile-first header (hamburger) + desktop nav
-- Fluid container padding and scalable typography
-- Responsive grid utilities ready
+**Portfolio**
 
 ## Run
 ```bash
