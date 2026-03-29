@@ -18,7 +18,7 @@ export function AboutMe({ data }) {
         {/* LEFT COL — 60%: Doodle heading + Bio */}
         <div className="md:col-span-3 flex flex-col gap-6 pt-2">
 
-          {/* Doodle heading — inline, part of the flow (not absolute) */}
+          {/* Doodle heading */}
           <motion.div
             className="w-fit"
             initial={{ opacity: 0, x: -16 }}
@@ -26,8 +26,7 @@ export function AboutMe({ data }) {
             viewport={{ once: true }}
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
-           
-            <div className="font-display text-xl md:text-8xl  text-text mt-2">About Me</div>
+            <div className="font-display text-xl md:text-8xl text-text mt-2">About Me</div>
           </motion.div>
 
           {/* Bio text */}
@@ -42,7 +41,7 @@ export function AboutMe({ data }) {
           </motion.p>
         </div>
 
-        {/* RIGHT COL — 40%: Photo, anchored to top */}
+        {/* RIGHT COL — 40%: Photo with editorial frame treatment */}
         <motion.div
           className="md:col-span-2 w-full"
           initial={{ opacity: 0, scale: 0.97 }}
@@ -50,21 +49,35 @@ export function AboutMe({ data }) {
           viewport={{ once: true }}
           transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
         >
-          {/* On mobile: constrain width so photo doesn't go full-bleed */}
           <div className="max-w-[280px] mx-auto md:max-w-none md:mx-0">
-            <img
-              src={aboutImage}
-              alt={name}
-              className="w-full object-cover  
-                         transition-all duration-700"
-            />
+            {/* Applied the photo-frame class for the editorial "photo resting on sketchbook" feel */}
+            <div className="photo-frame">
+              <img
+                src={aboutImage}
+                alt={name}
+                className="w-full object-cover transition-all duration-700"
+              />
+            </div>
           </div>
         </motion.div>
       </div>
 
+      {/* ── Skills section label ── */}
+      <motion.div
+        className="mb-4"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4 }}
+      >
+        <p className="text-[9px] font-black uppercase tracking-[0.25em] text-primary/50">
+          What I Bring
+        </p>
+      </motion.div>
+
       {/* ── Skills grid: Research · Design · Technical ── */}
       <motion.div
-        className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-border/20"
+        className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-border/20 border border-border/20"
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
@@ -85,7 +98,7 @@ export function AboutMe({ data }) {
             </p>
 
             {/* Skill tags */}
-            <div className="flex flex-wrap gap-2 ">
+            <div className="flex flex-wrap gap-2">
               {(skills[category] || []).map((skill) => (
                 <span
                   key={skill}
