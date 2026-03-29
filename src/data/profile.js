@@ -12,7 +12,7 @@ export const profileData = {
 
   // --- Personal Info ---
   name: "Sanaz Yazdanjoo",
-  role: "UX Researcher",
+  role: "UX Researcher · Frontend Developer",
   year: "2026",
 
   contact: {
@@ -24,6 +24,10 @@ export const profileData = {
     github: "https://github.com/sanaz",
     githubHandle: "github.com/sanaz"
   },
+
+  // --- Profile Summary (used on CV header) ---
+  // One paragraph that frames the SE→UX bridge for recruiters scanning in 6 seconds.
+  profileSummary: "UX Researcher with a Software Engineering foundation. 5+ years shipping production code (20+ websites, cross-browser QA, CMS architecture) before transitioning into human-centered research. I run mixed-methods studies — from contextual inquiries and stakeholder interviews to controlled experiments — and translate findings into validated prototypes. Currently completing my MSc in HCI at Bauhaus University Weimar.",
 
   // --- Work Experience ---
   // Rule: Lead with OUTCOME, follow with METHOD. Numbers first where possible.
@@ -139,7 +143,7 @@ export const profileData = {
   skills: {
     "Research": ["Qualitative Interviews", "Contextual Inquiry", "Survey Design", "Usability Testing", "Quantitative Analysis"],
     "Design": ["Design Thinking", "Wireframes & Prototypes", "User Flows", "Style Guides", "Behavioral Design"],
-    "Technical": ["HTML / CSS / JS", "Python", "Bootstrap", "React", "CMS (WordPress, Typo3)", "Arduino"],
+    "Technical": ["HTML / CSS / JS", "Python", "React", "Bootstrap", "CMS (WordPress, Typo3)", "Arduino"],
     "QA & Testing": ["Usability", "Functional", "Exploratory", "Regression", "API", "Blackbox"],
     "Tools": ["Figma", "FigJam", "Miro", "Jira", "Postman", "MySQL", "Selenium", "Google Analytics"]
   },
@@ -155,7 +159,7 @@ export const profileData = {
     { title: "Python Programming", provider: "I.R.T.V.T.O", year: "2024" }
   ],
 
-  bio: "I bridge the gap between complex human behavior and technical system design. As a UX Researcher with an Engineering foundation, I use qualitative data and behavioral design to build products that are both technically sound and deeply intuitive. Currently pursuing my MSc in HCI at Bauhaus University of Weimar, I am passionate about creating evidence-based interfaces that solve real-world interaction challenges.",
+  bio: "I bridge the gap between code and human behavior. With 5+ years as a Frontend Developer and QA Engineer — shipping 20+ production websites and building QA systems from scratch — I now apply that technical fluency to UX Research. I run stakeholder interviews, contextual inquiries, and controlled experiments, then translate findings into validated Figma prototypes and working code. Currently pursuing my MSc in HCI at Bauhaus University of Weimar, I speak both 'user' and 'developer' — fluently.",
   heroImage: "/assets/hero-portfolio.png",
   aboutImage: "/assets/me.png",
   doodles: {

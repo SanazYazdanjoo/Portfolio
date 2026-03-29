@@ -15,7 +15,7 @@
   html, body {
     height: 100%;
     margin: 0;
-    background-color: var(--bg); /* Ensure pure white base */
+    background-color: var(--bg);
   }
 
   body::before {
@@ -27,47 +27,103 @@
     height: 100%;
     z-index: -1;  
     pointer-events: none;  
-    
-    /* THE TEXTURE */
     background-image: url('/assets/bg-paper.png');
     background-repeat: repeat;
     background-size: 150px;  
     mix-blend-mode: multiply;  
-    
-     
     filter: brightness(1.05) contrast(1.1); 
     opacity: 0.6;  
   }
 
-  /* Global Resets */
   * {
     @apply border-transparent;
-     
   }
- html, body {
-  height: 100%;
-  overflow: hidden; /* kill body scroll */
-}
 
-/* Hide native scrollbar — all browsers */
-html {
-  scrollbar-width: none !important;          /* Firefox */
-  -ms-overflow-style: none !important;       /* IE / Edge legacy */
-}
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
 
-html::-webkit-scrollbar {
-  display: none !important;                  /* Chrome / Safari / Opera */
-}
+  html {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
 
-.scroll-container::-webkit-scrollbar { display: none; }
-.scroll-container { scrollbar-width: none; }
+  html::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .scroll-container::-webkit-scrollbar { display: none; }
+  .scroll-container { scrollbar-width: none; }
 }
 
 /* =========================================
    CV & PRINT LOGIC
    ========================================= */
 @media print {
+  /* A4 page setup */
+  @page {
+    size: A4;
+    margin: 1.2cm 1.2cm 1.2cm 1.2cm;
+  }
 
+  /* Kill all UI chrome */
+  header, footer, .no-print,
+  .scroll-container > *:not(main),
+  .bg-paper-texture, .bg-ink-speckles,
+  [class*="SketchTrail"], [class*="ScrollIndicator"],
+  [class*="ScribbleDivider"] {
+    display: none !important;
+  }
+
+  /* Reset for clean ink output */
+  html, body {
+    overflow: visible !important;
+    height: auto !important;
+    background: white !important;
+  }
+
+  body::before {
+    display: none !important;
+  }
+
+  .scroll-container {
+    overflow: visible !important;
+    height: auto !important;
+    scroll-snap-type: none !important;
+  }
+
+  /* CV document resets */
+  #curriculum-vitae {
+    box-shadow: none !important;
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Prevent orphaned headings or split sections */
+  h2, h3 { break-after: avoid; }
+  section { break-inside: avoid; }
+
+  /* Ensure all text is black for ink */
+  #curriculum-vitae * {
+    color: inherit !important;
+  }
+
+  /* Keep primary color for headings and accent chips */
+  #curriculum-vitae h1,
+  #curriculum-vitae h2,
+  #curriculum-vitae .text-primary {
+    color: #96150f !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Ensure metric chips print with background */
+  #curriculum-vitae [class*="bg-primary"] {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
 }
 
 /* Helper Utilities */

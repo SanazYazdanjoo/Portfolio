@@ -109,18 +109,17 @@ export function ProjectCard({ project, index }) {
         aria-label={`View case study: ${project.title}`}
       >
         <div className="grid md:grid-cols-[1fr_2.2fr]">
-          {/* ── LEFT: project number ─────────────────── */}
+          {/* ── LEFT: project thumbnail ─────────────────── */}
           <div className="relative aspect-[4/3] md:aspect-auto overflow-hidden bg-muted/40">
             <ProjectThumbnail
-              className="display-none"
               src={project.thumbnail}
               alt={project.title}
               index={index}
             />
 
-            {/* Index number  */}
+            {/* Index number overlay */}
             <span
-              className="relative justify-center font-black text-[11px] uppercase tracking-widest
+              className="absolute bottom-3 left-3 font-black text-[11px] uppercase tracking-widest
                              text-white/60 mix-blend-overlay z-10"
             >
               {String(index + 1).padStart(2, "0")}
@@ -130,9 +129,9 @@ export function ProjectCard({ project, index }) {
           {/* ── RIGHT: Content ────────────────────────────────────── */}
           <div className="p-8 md:p-10 flex flex-col justify-between gap-6">
 
-            {/*  Research Methods ← THE KEY DIFFERENTIATOR */}
+            {/* Research Methods — THE KEY DIFFERENTIATOR (was hidden, now visible) */}
             {project.methods && project.methods.length > 0 && (
-              <div className="display-none">
+              <div>
                 <p className="text-[8.5px] font-black uppercase tracking-[0.2em] text-primary/70 mb-2.5">
                   Research Methods
                 </p>
@@ -151,24 +150,25 @@ export function ProjectCard({ project, index }) {
                 </div>
               </div>
             )}
-            {/* title + tagline + meta */}
+
+            {/* Title + tagline + meta */}
             <div>
               <h3
                 className="font-black text-xl md:text-2xl text-text group-hover:text-primary
                              transition-colors duration-300 tracking-tight leading-tight mb-3"
               >
                 {project.title}
-              </h3> 
-              <div>
-                {project.tagline && (
-                  <p className="text-sm text-text/60 leading-relaxed display-none">
-                    {project.tagline}
-                  </p>
-                )}
-              </div>
+              </h3>
+
+              {/* Tagline — now visible */}
+              {project.tagline && (
+                <p className="text-sm text-text/60 leading-relaxed mb-4">
+                  {project.tagline}
+                </p>
+              )}
 
               {/* Role + timeline */}
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-4">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
                 <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-primary">
                   {project.role}
                 </span>
@@ -177,10 +177,23 @@ export function ProjectCard({ project, index }) {
                   {project.timeline}
                 </span>
               </div>
+            </div>
 
-            </div>            
+            {/* Bottom block: Metrics + CTA */}
+            <div className="flex flex-wrap items-end justify-between gap-4 pt-4 border-t border-border/20">
+              {/* Impact Metrics — now visible */}
+              {project.metrics && project.metrics.length > 0 && (
+                <div className="flex flex-wrap gap-x-5 gap-y-1">
+                  {project.metrics.map((m) => (
+                    <span key={m.label} className="text-[10px]">
+                      <span className="font-black text-primary">{m.value}</span>
+                      <span className="text-text/40 ml-1">{m.label}</span>
+                    </span>
+                  ))}
+                </div>
+              )}
 
-{/* CTA */}
+              {/* CTA */}
               <span
                 className="text-[10px] font-black uppercase tracking-widest text-primary/60
                                group-hover:text-primary transition-colors duration-300 flex items-center gap-1.5 shrink-0"
@@ -199,25 +212,8 @@ export function ProjectCard({ project, index }) {
                     d="M17 8l4 4m0 0l-4 4m4-4H3"
                   />
                 </svg>
-
-              </span>       
-
-            {/* Bottom block: Metrics + CTA */}
-            <div className="flex flex-wrap items-end justify-between gap-4 pt-4 border-t border-border/20">
-              {/* Metrics */}
-              {project.metrics && project.metrics.length > 0 && (
-                <div className="flex flex-wrap gap-x-5 gap-y-1 display-none">
-                  {project.metrics.map((m) => (
-                    <span key={m.label} className="text-[10px]">
-                      <span className="font-black text-primary">{m.value}</span>
-                      <span className="text-text/40 ml-1">{m.label}</span>
-                    </span>
-                  ))}
-                </div>
-              )}
-            </div> 
-
-                 
+              </span>
+            </div>
 
           </div>           {/* End of right content */}
         </div>         {/*  End of grid */}
