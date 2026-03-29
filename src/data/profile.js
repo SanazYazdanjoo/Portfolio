@@ -13,6 +13,7 @@ export const profileData = {
   // --- Personal Info ---
   name: "Sanaz Yazdanjoo",
   role: "UX Engineer",
+  tagline: "I run the research, then I build the prototype.",
   year: "2026",
 
   contact: {
@@ -26,11 +27,9 @@ export const profileData = {
   },
 
   // --- Profile Summary (used on CV header) ---
-  // One paragraph that frames the SE→UX bridge for recruiters scanning in 6 seconds.
-  profileSummary: "UX Researcher with a Software Engineering foundation. 5+ years shipping production code (20+ websites, cross-browser QA, CMS architecture) before transitioning into human-centered research. I run mixed-methods studies — from contextual inquiries and stakeholder interviews to controlled experiments — and translate findings into validated prototypes. Currently completing my MSc in HCI at Bauhaus University Weimar.",
+  profileSummary: "UX Engineer with a Software Engineering foundation. 5+ years shipping production code (20+ websites, cross-browser QA, CMS architecture) before transitioning into human-centered research. I run mixed-methods studies — from contextual inquiries and stakeholder interviews to controlled experiments — and translate findings into validated prototypes. Currently completing my MSc in HCI at Bauhaus University Weimar.",
 
   // --- Work Experience ---
-  // Rule: Lead with OUTCOME, follow with METHOD. Numbers first where possible.
   experience: [
     {
       company: "deskbird Co. + Bauhaus University of Weimar",
@@ -88,7 +87,7 @@ export const profileData = {
     }
   ],
 
-  // --- Portfolio Highlights (CV-optimised, with real metrics) ---
+  // --- Portfolio Highlights (CV-optimised) ---
   portfolioHighlights: [
     {
       id: "project-1",

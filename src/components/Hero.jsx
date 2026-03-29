@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { CustomIcon } from '../components/CustomIcon';
 
 export function Hero({ data }) {
@@ -43,7 +44,6 @@ export function Hero({ data }) {
       </div>
 
       {/* ── SUBTITLE — anchored to title edges ────────────── */}
-      {/* px-[2vw] mirrors the natural left/right bleed of the 12vw lettering */}
       <div className="relative z-20 w-full flex justify-between items-start px-[2vw] mt-3 md:mt-5">
 
         {/* Role — sits flush under the "P" */}
@@ -53,7 +53,7 @@ export function Hero({ data }) {
           </span>
         </div>
 
-        {/* Year — sits flush under the final "O", brackets tightened */}
+        {/* Year — sits flush under the final "O" */}
         <div className="flex flex-col items-end gap-1">
           <span className="flex items-center gap-1 text-primary">
             <CustomIcon name="Bracket-left"  className="w-5 md:w-8 h-6 md:h-10 text-primary" />
@@ -65,6 +65,19 @@ export function Hero({ data }) {
         </div>
 
       </div>
+
+      {/* ── TAGLINE — the hero hook that fills the dead space ── */}
+      {data.tagline && (
+        <motion.p
+          className="relative z-20 w-full px-[2vw] mt-8 md:mt-12
+                     text-lg md:text-xl font-hand text-text/70 max-w-lg"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.6, ease: "easeOut" }}
+        >
+          {data.tagline}
+        </motion.p>
+      )}
 
     </div>
   );
