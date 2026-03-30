@@ -8,8 +8,8 @@ export function Hero({ data }) {
 
       {/* ── DISPLAY TITLE — untouched ─────────────────────── */}
       <h1
-        className="relative z-10 w-full flex items-center justify-center font-display uppercase whitespace-nowrap leading-none tracking-tight"
-        style={{ fontSize: 'clamp(0rem, 12vw, 12vw)' }}
+        className="relative z-10 w-full flex items-center justify-center font-sans uppercase whitespace-nowrap leading-none tracking-tight"
+        style={{ fontSize: 'clamp(0rem, 10vw, 10vw)' }}
       >
         <span>PORTF</span>
 
@@ -48,7 +48,7 @@ export function Hero({ data }) {
 
         {/* Role — sits flush under the "P" */}
         <div className="flex flex-col gap-1">
-          <span className="text-xs md:text-sm font-medium text-text-muted uppercase tracking-[0.25em]">
+          <span className="text-xl md:text-8xl text-text mt-2 hero-role uppercase font-display ">
             {data.role}
           </span>
         </div>
