@@ -1,4 +1,5 @@
 // src/projects/project-3/data.js
+import thumbnailImg from './project-thumbnail.png';
 export const projectData = {
   id: "project-3",
   status: "published",
@@ -8,8 +9,8 @@ export const projectData = {
   role: "UX Engineer & Technical HCI Researcher",
   timeline: "SoSe 2023",
   tags: ["Soft Robotics", "Human-Robot Interaction", "Pneumatic Actuators", "Affective Computing", "Arduino"],
-  thumbnail: "/assets/projects/embrace-thumb.png",
-  heroImage: "/assets/projects/embrace-hero.png",
+  thumbnail: thumbnailImg,
+  heroImage: thumbnailImg,
 
   methods: [
     "Literature Review",
