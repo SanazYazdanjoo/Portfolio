@@ -5,16 +5,14 @@ import { motion } from "framer-motion";
 export function Hero({ data }) {
   return (
     // Added a subtle background color class (you can map bg-background to a light gray in Tailwind)
-    <div className="relative w-full min-h-screen flex flex-col justify-center overflow-hidden px-[6%] md:px-[8%] py-20">
+    <div className="relative w-full min-h-screen flex flex-col justify-center overflow-hidden">
       
-    
-
       {/* ── Photo & Cursive Section ── */}
       <motion.div
-        className=" hero-photo absolute z-10
-                   top-[15%] md:top-[12%] lg:top-[10%]
+        className="hero-photo absolute z-10
+                   top-[10%] md:top-[7%] lg:top-[5%] 
                    right-[10%] md:right-[20%] lg:right-[25%]
-                   w-[55vw] max-w-[260px] md:max-w-[340px] lg:max-w-[400px]"
+                   w-[45vw] max-w-[220px] md:max-w-[300px] lg:max-w-[350px]"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
@@ -39,28 +37,28 @@ export function Hero({ data }) {
         </div>
       </motion.div>
 
-      {/* ── Main Typography (Staggered Editorial Layout) ── */}
+      {/* ── Main Typography (Left Aligned Layout) ── */}
       <motion.div
-        className="relative z-20 flex flex-col w-full pointer-events-none mt-[10vh] md:mt-[15vh]"
+        className="hero-typography relative z-20 flex flex-col w-full pointer-events-none mt-[10vh] md:mt-[15vh]"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        {/* Name — Changed to a lighter font weight, slightly expanded tracking, and staggered alignment */}
-        <h1 className="hero-typography font-sans font-light md:font-normal uppercase leading-[0.9] tracking-normal w-full">
-          {/* First Name - Left Aligned */}
+        {/* Name — */}
+        <h1 className="font-sans md:font-black uppercase leading-[0.9] tracking-normal w-full">
+        
           <span 
             className="block text-text"
-            style={{ fontSize: "clamp(4rem, 11vw, 13rem)" }}
+            style={{ fontSize: "clamp(3.5rem, 8.5vw, 11.5rem)" }}
           >
             SANAZ
           </span>
-          {/* Last Name - Indented/Right Shifted */}
+          
           <span 
-            className="block text-text ml-[15%] md:ml-[30%]"
-            style={{ fontSize: "clamp(4rem, 11vw, 13rem)" }}
+            className="block text-text"
+            style={{ fontSize: "clamp(3.5rem, 8.5vw, 11.5rem)" }}
           >
-            YAZDANYOO
+            YAZDANJOO
           </span>
         </h1>
       </motion.div>
