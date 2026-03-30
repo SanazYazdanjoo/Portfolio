@@ -71,7 +71,7 @@ export function Hero({ data }) {
         transition={{ duration: 1, delay: 0.5 }}
       >
         {/* Bottom Left Description */}
-        <p className="max-w-[200px] md:max-w-[280px] mb-6 md:mb-0">
+        <p className="hero-tagline max-w-full md:max-w-full font-sans font-light">
           {data.tagline || "CREATING INTUITIVE DIGITAL EXPERIENCES THROUGH DESIGN AND ENGINEERING."}
         </p>
 

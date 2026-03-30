@@ -270,6 +270,13 @@
   bottom: 0;
   
 }
+
+#AboutMe-Section .about-photo {
+ display: none;
+}
+#AboutMe-Section .about-paragraph{
+ width: 100% !important;
+}
 }
 /* --- 6. PRINT SAFETY --- */
 @media print {
