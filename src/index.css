@@ -41,7 +41,6 @@
 
   html, body {
     height: 100%;
-    overflow: hidden;
   }
 
   html {
@@ -54,7 +53,11 @@
   }
 
   .scroll-container::-webkit-scrollbar { display: none; }
-  .scroll-container { scrollbar-width: none; }
+  .scroll-container {     
+    height: 100vh;
+    overflow-y: auto;
+     scrollbar-width: none; 
+  }
 }
 
 /* =========================================

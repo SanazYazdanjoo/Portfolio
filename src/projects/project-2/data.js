@@ -1,4 +1,5 @@
 // src/projects/project-2/data.js
+import thumbnailImg from './project-thumbnail.png';
 export const projectData = {
   id: "project-2",
   status: "published",
@@ -8,8 +9,8 @@ export const projectData = {
   role: "UX Researcher & Interaction Designer",
   timeline: "10/2023 – 03/2024",
   tags: ["User-Centered Design", "HCI Research", "Usability Engineering", "Interaction Design"],
-  thumbnail: "/assets/projects/ucd4ux-thumb.png",
-  heroImage: "/assets/projects/ucd4ux-hero.png",
+  thumbnail: thumbnailImg,
+  heroImage: thumbnailImg,
 
   methods: [
     "Online Survey",
