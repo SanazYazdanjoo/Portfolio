@@ -2,13 +2,12 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { AboutMe } from "../components/AboutMe";
 import { profileData } from "../data/profile";
 import { voluntaryItems } from "../data/voluntary";
 import { ScribbleUnderline } from "../components/DoodleLibrary";
+// Note: We removed the <AboutMe /> import because we are building the new editorial layout directly here!
 
-// ─── Career arc data (visualises the SE → UX bridge) ────────────────────────
-// Kept here rather than profile.js — it's narrative copy, not CV data.
+// ─── Career arc data ─────────────────────────────────────────────────────────
 const CAREER_ARC = [
   {
     phase: "01",
@@ -73,13 +72,103 @@ export default function About() {
     <main className="bg-bg min-h-screen relative overflow-hidden">
 
       {/* ══════════════════════════════════════════════
-          SECTION 1 — Bio, Photo & Skills columns
-          (delegates to the shared AboutMe component)
+          SECTION 1 — Bio, Photo & Skills columns (Redesigned Editorial Layout)
       ══════════════════════════════════════════════ */}
-      <section className="py-20 relative">
-        <div className="container relative z-10 mx-auto mt-12 md:mt-20">
-          <AboutMe data={profileData} />
+      <section className="relative w-full px-[6%] md:px-[8%] pb-24 md:pb-32 font-sans text-text">
+        <div className="relative w-full max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-x-10 items-start">
+          
+          {/* ── Left Column: Typography & Text (Cols 1 to 7) ── */}
+          <motion.div 
+            className="md:col-span-7 flex flex-col pt-12 md:pt-24 z-10"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            {/* Handwritten Header */}
+            <div className="relative inline-block w-max mb-6 md:mb-10">
+              <h2 className="font-display text-text text-6xl md:text-8xl -rotate-6 relative z-10">
+                About Me
+              </h2>
+              {/* Optional: Add a scribble under the cursive text if you like */}
+              <ScribbleUnderline className="absolute -bottom-4 left-0 w-full h-6 text-primary opacity-40 -z-10" />
+            </div>
+
+            {/* Main Paragraph */}
+            <p className="text-base md:text-lg lg:text-xl leading-[1.8] text-text/90 font-light max-w-xl">
+              I bridge the gap between code and human behavior. With 5+ years as a Frontend Developer and QA Engineer — shipping 20+ production websites and building QA systems from scratch — I now apply that technical fluency to UX Research. 
+              <br /><br />
+              I run stakeholder interviews, contextual inquiries, and controlled experiments, then translate findings into validated Figma prototypes and working code. Currently pursuing my MSc in HCI at Bauhaus University of Weimar, I speak both 'user' and 'developer' — fluently.
+            </p>
+          </motion.div>
+
+          {/* ── Right Column: The "Peeking" Photo (Cols 8 to 12) ── */}
+          <motion.div 
+            // The negative top margin (-mt-20 lg:-mt-32) pulls this image UP into the Hero section!
+            className="md:col-span-5 relative -mt-10 md:-mt-20 lg:-mt-32 z-20 flex justify-end"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          >
+            <div className="relative w-full max-w-[400px]">
+              <img 
+                src={profileData.aboutImage} 
+                alt={profileData.name} 
+                className="w-full h-auto object-cover shadow-2xl transition-all duration-700 hover:grayscale-0"
+                style={{ aspectRatio: "4/5" }}
+              />
+            </div>
+          </motion.div>
+
         </div>
+
+        {/* ── Bottom Section: Skills List ("What I Bring") ── */}
+        <motion.div 
+          className="w-full max-w-[1400px] mx-auto mt-20 md:mt-32 pt-10 border-t border-border/20"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+        >
+          <span className="block text-[10px] md:text-xs font-black uppercase tracking-[0.3em] text-primary mb-10">
+            What I Bring
+          </span>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16">
+            <div>
+              <h3 className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] text-text mb-4">Research</h3>
+              <ul className="text-sm text-text/70 space-y-2 font-medium leading-relaxed">
+                <li>Qualitative Interviews</li>
+                <li>Contextual Inquiry</li>
+                <li>Survey Design</li>
+                <li>Usability Testing</li>
+                <li>Quantitative Analysis</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] text-text mb-4">Design</h3>
+              <ul className="text-sm text-text/70 space-y-2 font-medium leading-relaxed">
+                <li>Design Thinking</li>
+                <li>Wireframes & Prototypes</li>
+                <li>User Flows</li>
+                <li>Style Guides</li>
+                <li>Behavioral Design</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] text-text mb-4">Technical</h3>
+              <ul className="text-sm text-text/70 space-y-2 font-medium leading-relaxed">
+                <li>HTML / CSS / JS</li>
+                <li>Python</li>
+                <li>React</li>
+                <li>Bootstrap</li>
+                <li>CMS (WordPress, Typo3)</li>
+                <li>Arduino</li>
+              </ul>
+            </div>
+          </div>
+        </motion.div>
       </section>
 
       {/* ══════════════════════════════════════════════
@@ -87,8 +176,6 @@ export default function About() {
       ══════════════════════════════════════════════ */}
       <section className="py-20 border-t border-border/20 relative">
         <div className="container mx-auto px-4 md:px-8">
-
-          {/* Section label */}
           <motion.div
             className="mb-12"
             variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}
@@ -107,7 +194,6 @@ export default function About() {
             </p>
           </motion.div>
 
-          {/* Arc cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border/20">
             {CAREER_ARC.map((step, i) => (
               <motion.div
@@ -123,13 +209,11 @@ export default function About() {
                     : "bg-bg hover:bg-primary/4 transition-colors duration-300"
                   }`}
               >
-                {/* Phase number */}
                 <span className={`block font-black text-[11px] uppercase tracking-widest mb-4
                   ${step.highlight ? "text-white/50" : "text-primary/40"}`}>
                   {step.phase}
                 </span>
 
-                {/* Label + years */}
                 <h3 className={`font-black text-lg leading-tight mb-1
                   ${step.highlight ? "text-white" : "text-text"}`}>
                   {step.label}
@@ -139,13 +223,11 @@ export default function About() {
                   {step.years}
                 </p>
 
-                {/* Summary */}
                 <p className={`text-sm leading-relaxed mb-6
                   ${step.highlight ? "text-white/85" : "text-text/70"}`}>
                   {step.summary}
                 </p>
 
-                {/* Tags */}
                 <div className="flex flex-wrap gap-1.5">
                   {step.tags.map((tag) => (
                     <span
@@ -161,7 +243,6 @@ export default function About() {
                   ))}
                 </div>
 
-                {/* Arrow connector (not on last card) */}
                 {i < CAREER_ARC.length - 1 && (
                   <div className="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2 z-10">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -182,7 +263,6 @@ export default function About() {
       ══════════════════════════════════════════════ */}
       <section className="py-20 border-t border-border/20">
         <div className="container mx-auto px-4 md:px-8">
-
           <motion.div
             className="mb-12"
             variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}
@@ -198,7 +278,6 @@ export default function About() {
             </div>
           </motion.div>
 
-          {/* Steps — horizontal on desktop, stacked on mobile */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-px bg-border/20">
             {PROCESS_STEPS.map((step, i) => (
               <motion.div
@@ -231,7 +310,6 @@ export default function About() {
       {voluntaryItems.length > 0 && (
         <section className="py-20 border-t border-border/20">
           <div className="container mx-auto px-4 md:px-8">
-
             <motion.div
               className="mb-12"
               variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}

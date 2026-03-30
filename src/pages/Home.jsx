@@ -4,7 +4,6 @@ import { Hero } from "../components/Hero";
 import { AboutMe } from "../components/AboutMe";
 import { ProjectCard } from "../components/ProjectCard";
 import { ScribbleDivider } from "../components/ScribbleDivider";
-import { ScribbleUnderline } from "../components/DoodleLibrary";
 import { projects } from "../data/projects";
 import { profileData } from "../data/profile";
 import { ScrollArrow } from "../components/Scrollarrow";
@@ -17,8 +16,9 @@ export default function Home() {
       {/* ── Hero ── */}
       <section
         id="Hero-Section"
-        className="snap-center bg-bg relative w-full min-h-screen flex flex-col
-                   justify-center items-center border-b border-border overflow-hidden
+        // Added z-10 so it sits below the About section
+        className="snap-center bg-bg relative w-full min-h-screen flex flex-col z-10
+                   justify-center items-center overflow-hidden
                    pt-10 pb-20"
       >
         <div className="container w-full">
@@ -27,12 +27,12 @@ export default function Home() {
         </div>
       </section>
 
-      <ScribbleDivider />
-
       {/* ── About ── */}
       <section
         id="AboutMe-Section"
-        className="snap-center bg-bg relative w-full min-h-screen flex items-center py-20"
+        // Added z-20 so the photo can overlap the Hero section above it!
+        // Changed items-center to items-start so the overlap margin works correctly
+        className="snap-center bg-bg relative w-full min-h-screen flex items-start pt-12 pb-20 z-20"
       >
         <div className="container w-full">
           <AboutMe data={profileData} />
@@ -44,7 +44,7 @@ export default function Home() {
       {/* ----------------------------── Projects — ------------------------------------- ── */}
       <section
         id="projects"
-        className="snap-center bg-bg relative w-full min-h-screen flex items-center py-20"
+        className="snap-center bg-bg relative w-full min-h-screen flex items-center py-20 z-10"
       >
         <div className="container relative z-10 mx-auto px-4 md:px-8 w-full">
 
@@ -56,7 +56,6 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            
             <div className="relative inline-block">
               <h2 className="font-display text-xl md:text-8xl text-text mt-2">
                 Case Studies
@@ -64,7 +63,7 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* Project cards — with methods, metrics, taglines */}
+          {/* Project cards */}
           {projects.length > 0 ? (
             <div className="flex flex-col gap-px bg-border/20">
               {projects.map((project, index) => (
