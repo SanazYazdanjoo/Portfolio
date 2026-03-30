@@ -49,10 +49,9 @@ export default function Projects() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-text">
+          <h1 className="font-display text-5xl md:text-7xl tracking-tighter text-text">
             Case Studies<span className="text-primary">.</span>
           </h1>
-          <ScribbleUnderline className="absolute -bottom-2 left-0 w-full h-5 text-primary opacity-70" />
 
       
         </motion.header>
