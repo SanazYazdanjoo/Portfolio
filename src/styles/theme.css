@@ -2,8 +2,8 @@
 
 /* --- 1. EXTERNAL ASSETS --- */
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
-/* --- 1b. LOCAL FONT  --- */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');/* --- 1b. LOCAL FONT  --- */
 /* License: Freeware, Non-Commercial — use for decorative/display text only */
 
 @font-face {
@@ -51,13 +51,13 @@
   /* ─── Typography ───────────────────────────────────────────────────────────
      Three-font system, each with a distinct role:
 
-     --font-sans     → Inter       — UI, body, labels, data. Neutral workhorse.
+     --font-sans     → Plus Jakarta Sans       — UI, body, labels, data. Neutral workhorse.
      --font-display  → Cambridge — Hero names, large decorative headings,
                                      pull quotes. Use sparingly. NON-COMMERCIAL.
      --font-hand     → Caveat      — Doodle annotations, hand-drawn accents,
                                      informal/personal moments.
      ──────────────────────────────────────────────────────────────────────── */
-  --font-sans:    "Inter", system-ui, -apple-system, sans-serif;
+  --font-sans:    "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
   --font-display: "Cambridge", Georgia, "Times New Roman", serif;
   --font-hand:    'Caveat', cursive;
   /* Backward-compatible aliases */
@@ -115,6 +115,7 @@
     background: var(--bg);
     color: var(--text);
     font-family: var(--font-sans);
+    font-weight: 200 !important;
     -webkit-font-smoothing: antialiased;
     scroll-behavior: smooth;
     cursor: var(--cursor-pen);
@@ -272,7 +273,7 @@
 }
 
 #AboutMe-Section .about-photo {
- display: none;
+ display: none !important;
 }
 #AboutMe-Section .about-paragraph{
  width: 100% !important;
