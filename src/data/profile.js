@@ -13,7 +13,7 @@ export const profileData = {
   // --- Personal Info ---
   name: "Sanaz Yazdanjoo",
   role: "UX Engineer",
-  tagline: "I run the research, then I build the prototype.",
+  tagline: "I speak both 'user' and 'developer' — fluently.",
   year: "2026",
 
   contact: {
@@ -154,7 +154,7 @@ export const profileData = {
   ],
 
   certifications: [
-    { title: "Google UX Design Certificate", provider: "Google", year: "2025" },
+     
     { title: "Python Programming", provider: "I.R.T.V.T.O", year: "2024" }
   ],
 

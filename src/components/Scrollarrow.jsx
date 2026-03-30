@@ -1,7 +1,4 @@
 // src/components/ScrollArrow.jsx
-// A hand-drawn, bouncy "scroll down" nudge for the Hero section.
-// Draws itself on mount, bounces idly, goes wild on hover.
-// Click scrolls to the next snap section.
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useAnimationControls } from "framer-motion";
@@ -71,7 +68,7 @@ export function ScrollArrow({ targetId = "AboutMe-Section", scrollRef }) {
         animate={{ opacity: hovered ? 1 : 0.5 }}
         transition={{ duration: 0.25 }}
       >
-        scroll
+        more
       </motion.span>
 
       {/* ── The arrow itself ── */}
