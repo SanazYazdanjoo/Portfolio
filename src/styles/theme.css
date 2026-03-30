@@ -3,18 +3,16 @@
 /* --- 1. EXTERNAL ASSETS --- */
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
-
-/* --- 1b. LOCAL FONT: Holderitme Display --- */
+/* --- 1b. LOCAL FONT  --- */
 /* License: Freeware, Non-Commercial — use for decorative/display text only */
-/* Source: fontspace.com/holderitme-font-f124211                            */
+
 @font-face {
-  font-family: 'Holderitme';
-  src: url('/assets/fonts/Holderitme-nAXLV.ttf') format('truetype');
+  font-family: 'Cambridge';
+  src: url('/assets/fonts/Cambrige-51RJ8.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
+  font-display: swap;   
 }
-
 /* --- 2. DESIGN TOKENS --- */
 :root {
   /* Core Colors */
@@ -54,15 +52,14 @@
      Three-font system, each with a distinct role:
 
      --font-sans     → Inter       — UI, body, labels, data. Neutral workhorse.
-     --font-display  → Holderitme  — Hero names, large decorative headings,
+     --font-display  → Cambridge — Hero names, large decorative headings,
                                      pull quotes. Use sparingly. NON-COMMERCIAL.
      --font-hand     → Caveat      — Doodle annotations, hand-drawn accents,
                                      informal/personal moments.
      ──────────────────────────────────────────────────────────────────────── */
   --font-sans:    "Inter", system-ui, -apple-system, sans-serif;
-  --font-display: "Holderitme", Georgia, "Times New Roman", serif;
+  --font-display: "Cambridge", Georgia, "Times New Roman", serif;
   --font-hand:    'Caveat', cursive;
-
   /* Backward-compatible aliases */
   --font-normal: var(--font-sans);
 
@@ -289,10 +286,14 @@
    HOME PAGE SPECIFIC STYLES
    ========================================= */
 @layer components {
+  #Hero-Section .container {
+ width: 60% !important;
+  }
   #Hero-Section .portfolio-text {
+    font-family: var(--font-sans) !important;
     visibility: hidden;
     position: absolute;
-    font-size: 180px;
+    font-size: 200px;
     text-transform: uppercase;
     font-weight: 900;
     letter-spacing: 24px;
@@ -300,7 +301,11 @@
     z-index: 9 !important;
     color: var(--accent);
   }
-
+#Hero-Section .hero-role {
+    font-family: 'Cambridge' !important;
+    text-transform: unset;
+    color: var(--accent);
+  }
   #Hero-Section .portfolio-image {
     z-index: 99;
   }
@@ -308,12 +313,12 @@
   #Hero-Section .flower-doodle-image {
     z-index: 9999 !important;
   }
-
-  /* ─── REMOVED: #AboutMe-Section .skills { display: none; }
-     Skills columns (Research · Design · Technical) are now VISIBLE
-     on the homepage — critical for proving the dual capability. ── */
+#Hero-Section .hero-arrow {
+  margin: 0 auto;
+  bottom: 0;
+  
 }
-
+}
 /* --- 6. PRINT SAFETY --- */
 @media print {
   *, *::before, *::after {
@@ -322,6 +327,6 @@
 
   .display-text,
   [style*="font-family: var(--font-display)"] {
-    font-family: 'Holderitme', Georgia, 'Times New Roman', serif !important;
+    font-family: 'Cambridge', Georgia, 'Times New Roman', serif !important;
   }
 }

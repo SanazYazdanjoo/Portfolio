@@ -41,7 +41,7 @@ export default function Home() {
 
       <ScribbleDivider />
 
-      {/* ── Projects — now uses rich ProjectCards instead of text-only list ── */}
+      {/* ----------------------------── Projects — ------------------------------------- ── */}
       <section
         id="projects"
         className="snap-center bg-bg relative w-full min-h-screen flex items-center py-20"
@@ -56,18 +56,15 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-[9px] font-black uppercase tracking-[0.25em] text-primary mb-2">
-              Selected Work
-            </p>
+            
             <div className="relative inline-block">
-              <h2 className="text-4xl md:text-6xl font-display text-text tracking-tight">
-                Case Studies
+              <h2 className="font-display text-xl md:text-8xl text-text mt-2">
+                Selected Case Studies
               </h2>
-              <ScribbleUnderline className="absolute -bottom-2 left-0 w-full h-4 text-primary opacity-60" />
             </div>
           </motion.div>
 
-          {/* Project cards — rich format with methods, metrics, taglines */}
+          {/* Project cards — with methods, metrics, taglines */}
           {projects.length > 0 ? (
             <div className="flex flex-col gap-px bg-border/20">
               {projects.map((project, index) => (

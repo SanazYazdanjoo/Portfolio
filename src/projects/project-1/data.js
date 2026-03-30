@@ -9,8 +9,8 @@ export const projectData = {
   role: "UX Engineer / Technical UX Researcher",
   timeline: "Feb 2026 – Mar 2026",
   tags: ["Quantitative UX", "Eye-Tracking", "Python", "Fitts' Law", "Mixed-Methods"],
-  thumbnail: "/assets/projects/gaze-thumb.png",
-  heroImage: "/assets/projects/gaze-hero.png",
+  thumbnail: "/projects/project-1/project1.png",
+  heroImage: "/projects/project1.png",
 
   methods: [
     "Semi-structured Interviews",
@@ -21,10 +21,10 @@ export const projectData = {
   ],
 
   metrics: [
-    { value: "N=30", label: "participants" },
-    { value: "N=20", label: "Phase I interviews" },
-    { value: "SUS 85.2", label: "Mouse baseline" },
-    { value: "2", label: "gaze conditions" },
+    { value: "N=30", label: "Controlled Experiment participants" },
+    { value: "N=20", label: "Prestudy interviews" },
+    { value: "3", label: "Input Methods" },
+    { value: "2", label: "Target Sizes" },
   ],
 
   techStack: ["Pupil Labs Neon", "Python", "aiohttp", "python-socketio", "AprilTags"],

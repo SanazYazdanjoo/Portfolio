@@ -31,7 +31,7 @@ export default {
         soft: "var(--shadow)",
       },
       fontFamily: {
-        display: ['Holderitme', 'Georgia', 'Times New Roman', 'serif'],
+        display: ['Cambridge', 'Georgia', 'Times New Roman', 'serif'],
         hand: ['var(--font-hand)'],
         sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
       },
