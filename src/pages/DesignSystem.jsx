@@ -33,7 +33,7 @@ const TYPE_SCALE = [
   { label: "H1",         size: "text-5xl",   weight: "font-black",   sample: "Case Studies." },
   { label: "H2",         size: "text-3xl",   weight: "font-black",   sample: "The Bridge." },
   { label: "H3",         size: "text-xl",    weight: "font-bold",    sample: "Research Methodology" },
-  { label: "Body",       size: "text-base",  weight: "font-medium",  sample: "I bridge the gap between complex human behavior and technical system design." },
+  { label: "Body",       size: "text-base",  weight: "font-light",   sample: "I bridge the gap between complex human behavior and technical system design." },
   { label: "Small",      size: "text-sm",    weight: "font-normal",  sample: "MSc. Human-Computer Interaction · Bauhaus University Weimar" },
   { label: "Label",      size: "text-xs",    weight: "font-black",   sample: "QUALITATIVE DATA", extra: "uppercase tracking-widest" },
   { label: "Micro",      size: "text-[9px]", weight: "font-black",   sample: "COMING SOON", extra: "uppercase tracking-[0.2em]" },

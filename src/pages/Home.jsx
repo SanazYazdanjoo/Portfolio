@@ -30,8 +30,6 @@ export default function Home() {
       {/* ── About ── */}
       <section
         id="AboutMe-Section"
-        // Added z-20 so the photo can overlap the Hero section above it!
-        // Changed items-center to items-start so the overlap margin works correctly
         className="snap-center bg-bg relative w-full min-h-screen flex items-start pt-12 pb-20 z-20"
       >
         <div className="container w-full">

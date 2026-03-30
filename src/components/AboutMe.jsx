@@ -61,7 +61,7 @@ export function AboutMe({ data }) {
         viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
       >
-        <span className="block text-[10px] md:text-xs font-black uppercase tracking-[0.3em] text-primary mb-10">
+        <span className="block text-[10px] md:text-xs font-black  tracking-[0.3em] text-primary mb-10">
           What I Bring
         </span>
 

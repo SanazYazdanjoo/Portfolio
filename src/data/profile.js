@@ -13,7 +13,7 @@ export const profileData = {
   // --- Personal Info ---
   name: "Sanaz Yazdanjoo",
   role: "UX Engineer",
-  tagline: "I speak both 'user' and 'developer' — fluently.",
+  tagline: "I speak both 'user' and 'developer'.",
   year: "2026",
 
   contact: {

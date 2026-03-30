@@ -91,7 +91,6 @@ export default function About() {
                 About Me
               </h2>
               {/* Optional: Add a scribble under the cursive text if you like */}
-              <ScribbleUnderline className="absolute -bottom-4 left-0 w-full h-6 text-primary opacity-40 -z-10" />
             </div>
 
             {/* Main Paragraph */}
@@ -131,7 +130,7 @@ export default function About() {
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
         >
-          <span className="block text-[10px] md:text-xs font-black uppercase tracking-[0.3em] text-primary mb-10">
+          <span className="block text-[10px] md:text-xs font-display tracking-[0.3em] text-primary mb-10">
             What I Bring
           </span>
 
@@ -187,7 +186,6 @@ export default function About() {
               <h2 className="text-3xl md:text-4xl font-black text-text tracking-tight">
                 The Bridge
               </h2>
-              <ScribbleUnderline className="absolute -bottom-2 left-0 w-full h-4 text-primary opacity-60" />
             </div>
             <p className="text-sm text-text/60 mt-5 max-w-md">
               My path wasn't linear — it was deliberate. Every phase built the one after it.
@@ -274,7 +272,6 @@ export default function About() {
               <h2 className="text-3xl md:text-4xl font-black text-text tracking-tight">
                 How I Work
               </h2>
-              <ScribbleUnderline className="absolute -bottom-2 left-0 w-full h-4 text-primary opacity-60" />
             </div>
           </motion.div>
 
@@ -321,7 +318,6 @@ export default function About() {
                 <h2 className="text-3xl md:text-4xl font-black text-text tracking-tight">
                   Voluntary Work
                 </h2>
-                <ScribbleUnderline className="absolute -bottom-2 left-0 w-full h-4 text-primary opacity-60" />
               </div>
             </motion.div>
 

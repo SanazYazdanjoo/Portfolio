@@ -14,8 +14,8 @@ export default {
         dim: "var(--text-dim)",
         border: "var(--border)",
         primary: {
-          DEFAULT: "var(--primary)",
-          600: "var(--primary-600)",
+        DEFAULT: "var(--primary)",
+        600: "var(--primary-600)",
         },
         accent: "var(--accent)",
         peach: "var(--peach)", 
@@ -33,7 +33,7 @@ export default {
       fontFamily: {
         display: ['Cambridge', 'Georgia', 'Times New Roman', 'serif'],
         hand: ['var(--font-hand)'],
-        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ['Plus Jakarta Sans', 'sans-serif']
       },
       transitionTimingFunction: {
         // Your custom "smooth" curve for interactions
