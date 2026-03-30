@@ -1,5 +1,5 @@
 // src/projects/project-1/data.js
-import thumbnailImg from './project-thumbnail.png';
+import thumbnailImg from './project1.png';
 
 export const projectData = {
   id: "project-1",
