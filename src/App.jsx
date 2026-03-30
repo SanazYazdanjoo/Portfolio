@@ -62,7 +62,7 @@ export default function App() {
       <div
         ref={scrollRef}
         className="flex-1 scroll-container overflow-y-auto overflow-x-hidden
-                   snap-y snap-mandatory relative z-10 scroll-smooth"
+                     relative z-10 scroll-smooth"
         style={{ scrollBehavior: 'smooth' }}
       >
         <main>

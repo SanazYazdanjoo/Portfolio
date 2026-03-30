@@ -1,4 +1,5 @@
 // src/projects/project-1/data.js
+import thumbnailImg from './project-thumbnail.png';
 
 export const projectData = {
   id: "project-1",
@@ -9,8 +10,8 @@ export const projectData = {
   role: "UX Engineer / Technical UX Researcher",
   timeline: "Feb 2026 – Mar 2026",
   tags: ["Quantitative UX", "Eye-Tracking", "Python", "Fitts' Law", "Mixed-Methods"],
-  thumbnail: "/projects/project-1/project1.png",
-  heroImage: "/projects/project1.png",
+  thumbnail: thumbnailImg,
+  heroImage: thumbnailImg,
 
   methods: [
     "Semi-structured Interviews",
