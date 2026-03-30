@@ -59,7 +59,7 @@ export default function Home() {
             
             <div className="relative inline-block">
               <h2 className="font-display text-xl md:text-8xl text-text mt-2">
-                Selected Case Studies
+                Case Studies
               </h2>
             </div>
           </motion.div>
