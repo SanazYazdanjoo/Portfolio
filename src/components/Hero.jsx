@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 export function Hero({ data }) {
   return (
     // Added a subtle background color class (you can map bg-background to a light gray in Tailwind)
-    <div className="relative w-full min-h-screen flex flex-col justify-center overflow-hidden">
+    <div className="relative w-full min-h-screen flex flex-col justify-center overflow-visible">
       
       {/* ── Photo & Cursive Section ── */}
       <motion.div
@@ -31,7 +31,7 @@ export function Hero({ data }) {
           <img
             src={data.aboutImage}
             alt={data.name}
-            className="w-full h-auto object-cover shadow-xl transition-all duration-700 hover:grayscale-0"
+            className="w-full h-auto object-cover transition-all duration-700 hover:grayscale-0"
             style={{ aspectRatio: "4/5" }}
           />
         </div>
@@ -65,14 +65,15 @@ export function Hero({ data }) {
 
       {/* ── Editorial Text Blocks (Bottom/Sides) ── */}
       <motion.div 
-        className="relative z-30 flex flex-col md:flex-row justify-between items-end md:items-start w-full mt-10 md:mt-16 text-[9px] md:text-[11px] font-medium uppercase tracking-[0.2em] text-text/70 leading-relaxed"
+        className="relative z-30 flex flex-col md:flex-row justify-between items-end md:items-start w-full mt-10 md:mt-16 text-[9px] md:text-[11px] font-medium tracking-[0.2em] text-text/70 leading-relaxed"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 0.5 }}
       >
         {/* Bottom Left Description */}
-        <p className="hero-tagline max-w-full md:max-w-full font-sans font-light">
-          {data.tagline || "CREATING INTUITIVE DIGITAL EXPERIENCES THROUGH DESIGN AND ENGINEERING."}
+        <p className="hero-tagline max-w-full md:max-w-full font-sans font-light text-3xl max-w-xl">
+I speak both 'user' and 'developer'. <br />
+                     
         </p>
 
         {/* Bottom Right / Date Block */}
@@ -82,7 +83,9 @@ export function Hero({ data }) {
             [ {data.year || "2026"} ]
           </p>
         </div>
+        
       </motion.div>
+      
 
     </div>
   );

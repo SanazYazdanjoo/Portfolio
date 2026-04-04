@@ -1,15 +1,11 @@
 // src/components/ScrollIndicator.jsx
-// Redesigned for snap-mandatory: the flower now SNAPS between dot positions
-// (discrete states) to mirror the page's own snap behaviour.
-// Active section is detected via IntersectionObserver — far more reliable
-// than scroll-% thresholds when snap is in play.
 
 import { useEffect, useState, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 
 const SECTIONS = [
-  { label: "Top",      sectionId: "Hero-Section"    },
-  { label: "About",    sectionId: "AboutMe-Section" },
+  { label: "Hero",      sectionId: "Hero-Section"    },
+  { label: "About Me",    sectionId: "AboutMe-Section" },
   { label: "Projects", sectionId: "projects"        },
 ];
 
@@ -252,7 +248,7 @@ export function ScrollIndicator({ scrollRef }) {
 
                 {/* Label — slides in when active */}
                 <motion.span
-                  className="absolute left-8 text-[9px] font-black uppercase
+                  className="absolute left-8 text-[9px] font-black font-display  
                              tracking-[0.2em] text-primary whitespace-nowrap"
                   animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : -6 }}
                   transition={{ type: "spring", stiffness: 260, damping: 22 }}

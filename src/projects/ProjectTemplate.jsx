@@ -167,25 +167,7 @@ function ProcessGallery({ items }) {
         </div>
       </div>
 
-      {/* Horizontal scroll strip */}
-      <div className="flex gap-px overflow-x-auto snap-x snap-mandatory
-                      scrollbar-hide pb-2 -mx-4 px-4 md:-mx-0 md:px-0">
-        {items.map((item, i) => (
-          <ProcessCard key={i} item={item} index={i} />
-        ))}
-      </div>
 
-      {/* Scroll hint — only shows if more than 3 items */}
-      {items.length > 3 && (
-        <p className="text-[8.5px] text-text/25 font-semibold uppercase tracking-widest
-                      mt-3 flex items-center gap-1.5">
-          <svg className="w-3 h-3" fill="none" stroke="currentColor"
-            strokeWidth="2" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-          </svg>
-          Scroll to see all {items.length} artefacts
-        </p>
-      )}
     </section>
   );
 }

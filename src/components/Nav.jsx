@@ -25,7 +25,7 @@ const itemVariants = {
 };
 
 export const Nav = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [hoveredPath, setHoveredPath] = useState(null);
 
   // A counter that increments each time a new link is hovered.
@@ -48,12 +48,7 @@ export const Nav = () => {
           className="flex items-center group shrink-0 cursor-pointer"
         >
           <div className="relative flex items-center">
-            <img
-              src="/assets/logo-fullname.png"
-              alt="Sanaz Yazdanjoo Logo"
-              className="h-10 w-auto md:h-10 object-contain transition-all duration-300 ease-out group-hover:scale-105"
-            />
-            <span className="text-primary text-4xl leading-none ml-1 self-end mb-2">.</span>
+            <span className="text-primary font-display text-4xl leading-none ml-1 self-end mb-2">Sanaz Yazdanjoo</span>
           </div>
         </NavLink>
 
