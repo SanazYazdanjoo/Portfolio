@@ -14,7 +14,7 @@ function ComingSoonCard({ project, index }) {
       className="py-16 opacity-40"
     >
       <div className="flex items-baseline gap-4">
-        <span className="font-caveat text-5xl text-primary/15 select-none">
+        <span className="font-sans font-black text-5xl text-primary/15 select-none">
           {String(index + 1).padStart(2, "0")}
         </span>
         <div>
@@ -56,17 +56,17 @@ export function ProjectCard({ project, index }) {
         <div
           className={`flex flex-col gap-8
                       ${isEven
-                        ? "md:flex-row md:items-start"
-                        : "md:flex-row-reverse md:items-start"
+                        ? "md:flex-row md:items-stretch"
+                        : "md:flex-row-reverse md:items-stretch"
                       }`}
         >
           {/* ── Image + Number cluster ──────────────────────── */}
           <div
             className={`relative shrink-0 ${isEven ? "md:mr-8" : "md:ml-8"}`}
           >
-            {/* Large number — positioned overlapping the image */}
+            {/* Large number */}
             <span
-              className={`absolute z-10 font-caveat text-[5rem] md:text-[6.5rem]
+              className={`absolute z-10 font-sans font-black text-[5rem] md:text-[6.5rem]
                           leading-none select-none text-primary/15
                           group-hover:text-primary/30 transition-colors duration-500
                           ${isEven
@@ -99,30 +99,26 @@ export function ProjectCard({ project, index }) {
 
           {/* ── Text content ───────────────────────────────── */}
           <div
-            className={`flex-1 flex flex-col justify-center min-w-0 pt-2
+            className={`flex-1 flex flex-col justify-start min-w-0 pt-2
                         ${isEven ? "md:text-left" : "md:text-right"}`}
           >
             {/* Title */}
             <h3
               className="font-black text-xl md:text-2xl text-text tracking-tight leading-tight
-                         group-hover:text-primary transition-colors duration-300 mb-2"
+                         group-hover:text-primary transition-colors duration-300"
             >
               {project.title}
             </h3>
 
-            {/* Role + timeline — always visible */}
-            <div
-              className={`flex flex-wrap items-center gap-x-3 mb-1
-                          ${isEven ? "" : "md:justify-end"}`}
-            >
-              <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-primary/60">
-                {project.role}
-              </span>
-              <span className="text-[9px] text-text/20">·</span>
-              <span className="text-[9px] font-medium uppercase tracking-[0.15em] text-text/35">
-                {project.timeline}
-              </span>
-            </div>
+            {/* Tagline — always visible as the hook */}
+            {project.tagline && (
+              <p
+                className={`text-sm text-text/45 leading-relaxed mt-2 max-w-md
+                            ${isEven ? "" : "md:ml-auto"}`}
+              >
+                {project.tagline}
+              </p>
+            )}
 
             {/* ── Hover reveal ─────────────────────────────── */}
             <div
@@ -130,76 +126,70 @@ export function ProjectCard({ project, index }) {
                          max-h-0 opacity-0 group-hover:max-h-[300px] group-hover:opacity-100
                          overflow-hidden"
             >
-              <div className="pt-4">
-                {/* Tagline */}
-                {project.tagline && (
+              <div className="pt-5 space-y-4">
+
+                {/* Methods — compact inline with mid-dots */}
+                {project.methods && project.methods.length > 0 && (
                   <p
-                    className={`text-sm text-text/50 leading-relaxed mb-4 max-w-md
-                                ${isEven ? "" : "md:ml-auto"}`}
+                    className={`text-[11px] text-text/50 tracking-wide
+                                ${isEven ? "" : "md:text-right"}`}
                   >
-                    {project.tagline}
+                    {project.methods.map((method, i) => (
+                      <span key={method}>
+                        <span className="font-semibold text-text/60">{method}</span>
+                        {i < project.methods.length - 1 && (
+                          <span className="mx-2 text-primary/30">·</span>
+                        )}
+                      </span>
+                    ))}
                   </p>
                 )}
 
-                {/* Research Methods */}
-                {project.methods && project.methods.length > 0 && (
-                  <div
-                    className={`flex flex-wrap gap-x-3 gap-y-1.5 mb-4
-                                ${isEven ? "" : "md:justify-end"}`}
-                  >
-                    {project.methods.map((method) => (
-                      <span
-                        key={method}
-                        className="text-[10px] font-semibold text-primary/70
-                                   border-b border-primary/25"
-                      >
-                        {method}
-                      </span>
-                    ))}
-                  </div>
-                )}
-
-                {/* Metrics */}
+                {/* Metrics — clean grid with accent border */}
                 {project.metrics && project.metrics.length > 0 && (
                   <div
-                    className={`flex flex-wrap gap-x-5 gap-y-1 mb-4
-                                ${isEven ? "" : "md:justify-end"}`}
+                    className={`flex flex-wrap gap-x-6 gap-y-2
+                                ${isEven
+                                  ? "border-l-2 border-primary/20 pl-4"
+                                  : "border-r-2 border-primary/20 pr-4 md:justify-end"
+                                }`}
                   >
                     {project.metrics.map((m) => (
-                      <span key={m.label} className="text-[11px]">
-                        <span className="font-black text-primary">{m.value}</span>
-                        <span className="text-text/35 ml-1">{m.label}</span>
-                      </span>
+                      <div key={m.label} className="flex items-baseline gap-1.5">
+                        <span className="font-black text-sm text-primary">{m.value}</span>
+                        <span className="text-[10px] text-text/35 uppercase tracking-wider">{m.label}</span>
+                      </div>
                     ))}
                   </div>
                 )}
 
-                {/* CTA */}
-                <span
-                  className={`inline-flex items-center gap-1.5 text-[10px] font-black
-                              uppercase tracking-[0.2em] text-primary/40
-                              group-hover:text-primary/70 transition-colors duration-300
-                              ${isEven ? "" : "md:ml-auto"}`}
-                >
-                  View Case Study
-                  <svg
-                    className="w-3.5 h-3.5 transform group-hover:translate-x-1
-                               transition-transform duration-300"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                  </svg>
-                </span>
               </div>
             </div>
             {/* ── End hover reveal ─────────────────────────── */}
+
+            {/* CTA — pinned to bottom of text column */}
+            <span
+              className={`mt-auto inline-flex items-center gap-1.5 md:text-xl font-display font-black
+                           tracking-[0.2em] text-primary/40
+                          group-hover:text-primary/70 transition-colors duration-300 pt-4
+                          ${isEven ? "" : "md:ml-auto"}`}
+            >
+              View Case Study
+              <svg
+                className="w-3.5 h-3.5 transform group-hover:translate-x-1
+                           transition-transform duration-300"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+            </span>
           </div>
         </div>
       </Link>
