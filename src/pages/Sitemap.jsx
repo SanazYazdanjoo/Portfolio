@@ -2,7 +2,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { profileData } from "../data/profile";
+import { profileData as rawProfile } from "../data/profile";
+import { useLocalizedProfile } from '../hooks/useLocalizedProfile';
 import { projects } from "../data/projects";
 import { ScribbleUnderline } from "../components/DoodleLibrary";
 
@@ -135,6 +136,7 @@ function RouteNode({ path, label, description, children, index, isActive }) {
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default function Sitemap() {
+  const profileData = useLocalizedProfile(rawProfile);
   // Build the main nav routes from profileData — stays in sync automatically
   const mainRoutes = profileData.navLinks.map((link) => {
     const path = link.path;
