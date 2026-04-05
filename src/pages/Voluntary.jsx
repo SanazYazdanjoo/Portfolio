@@ -3,6 +3,7 @@ import React from "react";
 import { VoluntaryList } from "../components/VoluntaryList";
 import { voluntaryItems } from "../data/voluntary";
 import { ScribbleUnderline, CircleDoodle, FlowerDoodle } from "../components/DoodleLibrary";
+import { useLocalizedProfile } from '../hooks/useLocalizedProfile';
 
 export default function Voluntary() {
   return (
