@@ -522,6 +522,26 @@ export default function Admin() {
   const [status, setStatus] = useState({ type: "", msg: "" });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [isDirty, setIsDirty] = useState(false);
+  const statusTimerRef = React.useRef(null);
+
+  const showStatus = (type, msg) => {
+    setStatus({ type, msg });
+    if (statusTimerRef.current) clearTimeout(statusTimerRef.current);
+    if (type !== "error") {
+      statusTimerRef.current = setTimeout(() => setStatus({ type: "", msg: "" }), 3000);
+    }
+  };
+
+  const setProfile = useCallback((updater) => {
+    setProfileData(updater);
+    setIsDirty(true);
+  }, []);
+
+  const setVol = useCallback((updater) => {
+    setVoluntary(updater);
+    setIsDirty(true);
+  }, []);
 
   // ── Load data from the admin-server API ─────────────────────────────────
   const loadData = useCallback(async () => {
@@ -534,18 +554,27 @@ export default function Admin() {
       if (!pRes.ok || !vRes.ok) throw new Error("API not reachable");
       setProfileData(await pRes.json());
       setVoluntary(await vRes.json());
-      setStatus({ type: "ok", msg: "Data loaded" });
+      setIsDirty(false);
     } catch (err) {
-      setStatus({
-        type: "error",
-        msg: "Cannot reach admin-server. Run: node admin-server.mjs",
-      });
+      showStatus("error", "Cannot reach admin-server. Run: node admin-server.mjs");
     } finally {
       setLoading(false);
     }
   }, []);
 
   useEffect(() => { loadData(); }, [loadData]);
+
+  // ── Ctrl+S shortcut ──────────────────────────────────────────────────────
+  useEffect(() => {
+    const handler = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "s") {
+        e.preventDefault();
+        if (!saving && profileData) save();
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  });
 
   // ── Save ────────────────────────────────────────────────────────────────
   const save = async () => {
@@ -564,9 +593,10 @@ export default function Admin() {
         }),
       ]);
       if (!pRes.ok || !vRes.ok) throw new Error("Save failed");
-      setStatus({ type: "ok", msg: "Saved! Vite will hot-reload your site." });
+      setIsDirty(false);
+      showStatus("ok", "Saved! Vite will hot-reload your site.");
     } catch (err) {
-      setStatus({ type: "error", msg: err.message });
+      showStatus("error", err.message);
     } finally {
       setSaving(false);
     }
@@ -626,6 +656,11 @@ export default function Admin() {
                 {status.msg}
               </span>
             )}
+            {isDirty && !status.msg && (
+              <span className="text-xs font-bold text-amber-500">
+                Unsaved changes
+              </span>
+            )}
             <button
               onClick={loadData}
               className="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-gray-800 transition-colors"
@@ -635,6 +670,7 @@ export default function Admin() {
             <button
               onClick={save}
               disabled={saving}
+              title="Save (Ctrl+S)"
               className="px-5 py-2 bg-[#96150f] text-white text-xs font-black uppercase tracking-widest hover:bg-[#7a110c] transition-colors disabled:opacity-50"
             >
               {saving ? "Saving..." : "Save All"}
@@ -666,13 +702,13 @@ export default function Admin() {
 
         {/* Content area */}
         <main className="flex-1 bg-white border border-gray-200 shadow-sm p-8">
-          {tab === "personal" && <PersonalTab data={profileData} setData={setProfileData} />}
-          {tab === "experience" && <ExperienceTab data={profileData} setData={setProfileData} />}
-          {tab === "skills" && <SkillsTab data={profileData} setData={setProfileData} />}
-          {tab === "education" && <EducationTab data={profileData} setData={setProfileData} />}
-          {tab === "highlights" && <PortfolioHighlightsTab data={profileData} setData={setProfileData} />}
-          {tab === "voluntary" && <VoluntaryTab voluntary={voluntary} setVoluntary={setVoluntary} />}
-          {tab === "nav" && <NavLinksTab data={profileData} setData={setProfileData} />}
+          {tab === "personal" && <PersonalTab data={profileData} setData={setProfile} />}
+          {tab === "experience" && <ExperienceTab data={profileData} setData={setProfile} />}
+          {tab === "skills" && <SkillsTab data={profileData} setData={setProfile} />}
+          {tab === "education" && <EducationTab data={profileData} setData={setProfile} />}
+          {tab === "highlights" && <PortfolioHighlightsTab data={profileData} setData={setProfile} />}
+          {tab === "voluntary" && <VoluntaryTab voluntary={voluntary} setVoluntary={setVol} />}
+          {tab === "nav" && <NavLinksTab data={profileData} setData={setProfile} />}
         </main>
       </div>
     </div>
