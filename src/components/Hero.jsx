@@ -1,8 +1,10 @@
 // src/components/Hero.jsx
 import React from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from "../context/LanguageContext";
 
 export function Hero({ data }) {
+  const { t } = useTranslation();
   return (
     // Added a subtle background color class (you can map bg-background to a light gray in Tailwind)
     <div className="relative w-full min-h-screen flex flex-col justify-center overflow-visible">
@@ -72,7 +74,7 @@ export function Hero({ data }) {
       >
         {/* Bottom Left Description */}
         <p className="hero-tagline max-w-full md:max-w-full font-sans font-light text-3xl max-w-xl">
-I speak both 'user' and 'developer'.            
+          {t("hero.tagline")}
         </p>
 
         {/* Bottom Right / Date Block */}

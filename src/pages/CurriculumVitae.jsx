@@ -2,9 +2,11 @@
 import React from "react";
 import { profileData as rawProfile } from "../data/profile";
 import { useLocalizedProfile } from '../hooks/useLocalizedProfile';
+import { useTranslation } from "../context/LanguageContext";
 
 export default function CV() {
   const profileData = useLocalizedProfile(rawProfile);
+  const { t } = useTranslation();
   const {
     name,
     role,
@@ -33,7 +35,7 @@ export default function CV() {
           onClick={() => window.print()}
           className="px-6 py-2 bg-primary text-white font-bold text-sm rounded-sm shadow-md hover:bg-primary/90 transition-all tracking-wider uppercase"
         >
-          Save as PDF
+          {t("cv.saveAsPdf")}
         </button>
       </div>
 
@@ -110,7 +112,7 @@ export default function CV() {
           <div>
 
             {/* ── Work Experience ── */}
-            <SectionHeading>Work Experience</SectionHeading>
+            <SectionHeading>{t("cv.experience")}</SectionHeading>
             <div className="space-y-3.5 print:space-y-2.5">
               {experience.map((job, i) => (
                 <article key={i} className="break-inside-avoid">
@@ -156,7 +158,7 @@ export default function CV() {
 
             {/* ── Education ── */}
             <div className="mt-5 print:mt-3">
-              <SectionHeading>Education</SectionHeading>
+              <SectionHeading>{t("cv.education")}</SectionHeading>
               <div className="space-y-2 print:space-y-1.5">
                 {education.map((edu, i) => (
                   <div key={i} className="break-inside-avoid">
@@ -186,7 +188,7 @@ export default function CV() {
           <aside className="border-l border-gray-100 pl-6 print:pl-4 space-y-4 print:space-y-3">
 
             <section>
-              <SectionHeading sidebar>Skills</SectionHeading>
+              <SectionHeading sidebar>{t("cv.skills")}</SectionHeading>
               <div className="space-y-2 print:space-y-1.5">
                 {Object.entries(skills).map(([category, items]) => (
                   <div key={category}>
@@ -202,7 +204,7 @@ export default function CV() {
             </section>
 
             <section>
-              <SectionHeading sidebar>Certificates</SectionHeading>
+              <SectionHeading sidebar>{t("cv.certificates")}</SectionHeading>
               <div className="space-y-1.5 print:space-y-1">
                 {certifications.map((cert, i) => (
                   <div key={i} className="text-[9.5px] leading-snug print:text-[8.5px]">
@@ -216,7 +218,7 @@ export default function CV() {
             </section>
 
             <section>
-              <SectionHeading sidebar>Languages</SectionHeading>
+              <SectionHeading sidebar>{t("cv.languages")}</SectionHeading>
               <div className="space-y-0.5">
                 {languages.map((lang, i) => (
                   <div key={i} className="flex justify-between text-[9.5px] print:text-[8.5px]">
@@ -229,7 +231,7 @@ export default function CV() {
 
             {volunteerWork && volunteerWork.length > 0 && (
               <section>
-                <SectionHeading sidebar>Volunteer Work</SectionHeading>
+                <SectionHeading sidebar>{t("cv.volunteerWork")}</SectionHeading>
                 <div className="space-y-0.5">
                   {volunteerWork.map((item, i) => (
                     <p key={i} className="text-[9px] leading-snug text-gray-700 print:text-[8.5px]">

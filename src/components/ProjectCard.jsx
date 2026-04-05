@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useTranslation } from "../context/LanguageContext";
 
 // ─── Coming Soon card ────────────────────────────────────────────────────────
 function ComingSoonCard({ project, index }) {
@@ -33,6 +34,7 @@ function ComingSoonCard({ project, index }) {
 // ─── Main ProjectCard (zigzag editorial layout) ──────────────────────────────
 export function ProjectCard({ project, index }) {
   const [imgError, setImgError] = useState(false);
+  const { t } = useTranslation();
 
   if (!project || project.status === "coming-soon" || !project.id) {
     return <ComingSoonCard project={project || {}} index={index} />;
@@ -174,7 +176,7 @@ export function ProjectCard({ project, index }) {
                           group-hover:text-primary/70 transition-colors duration-300 pt-4
                           ${isEven ? "" : "md:ml-auto"}`}
             >
-              View Case Study
+              {t("projects.viewProject")}
               <svg
                 className="w-3.5 h-3.5 transform group-hover:translate-x-1
                            transition-transform duration-300"
