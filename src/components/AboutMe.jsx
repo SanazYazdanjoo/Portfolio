@@ -38,7 +38,7 @@ export function AboutMe({ data }) {
 
       {/* ── Bottom Section: Skills List ── */}
       <motion.div 
-        className="w-full max-w-[1400px] mx-auto mt-10 pt-10 border-t border-border/30"
+        className="w-full max-w-[1400px] mx-auto pt-5 border-t border-border/30"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}

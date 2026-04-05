@@ -30,7 +30,7 @@ export default function Home() {
       {/* ── About ── */}
       <section
         id="AboutMe-Section"
-        className="snap-center bg-bg relative w-full min-h-screen flex items-start pt-12 pb-10 z-20"
+        className="snap-center bg-bg relative w-full min-h-screen flex items-start pt-5 pb-5 z-20"
       >
         <div className="container w-full">
           <AboutMe data={profileData} />
