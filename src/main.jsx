@@ -50,11 +50,11 @@ const router = createBrowserRouter([
   },
 ]);
 
+ 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
- 
-        <LanguageProvider>          {/* ← ADD */}
+    <LanguageProvider>
       <RouterProvider router={router} />
-    </LanguageProvider> 
+    </LanguageProvider>
   </React.StrictMode>
 );
