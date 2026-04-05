@@ -2,7 +2,8 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { profileData } from "../data/profile";
+import { profileData as rawProfile } from "../data/profile";
+import { useLocalizedProfile } from '../hooks/useLocalizedProfile';
 import { CircleDoodle } from "./DoodleLibrary";
 import { LanguageToggle } from './LanguageToggle';
 
@@ -26,6 +27,7 @@ const itemVariants = {
 };
 
 export const Nav = () => {
+  const profileData = useLocalizedProfile(rawProfile);
   const [isOpen, setIsOpen] = useState(true);
   const [hoveredPath, setHoveredPath] = useState(null);
 

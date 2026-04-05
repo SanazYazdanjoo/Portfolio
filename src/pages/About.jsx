@@ -2,12 +2,10 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { profileData } from "../data/profile";
-import { voluntaryItems } from "../data/voluntary";
+import { profileData as rawProfile } from "../data/profile";
 import { ScribbleUnderline } from "../components/DoodleLibrary";
 import { useLocalizedProfile } from '../hooks/useLocalizedProfile';
-
-// ─── Career arc data ─────────────────────────────────────────────────────────
+import { voluntaryItems as rawVoluntary } from '../data/voluntary';
 const CAREER_ARC = [
   {
     phase: "01",
@@ -68,6 +66,9 @@ const fadeUp = {
 };
 
 export default function About() {
+  const profileData = useLocalizedProfile(rawProfile);
+  const voluntaryItems = useLocalizedProfile(rawVoluntary);
+
   return (
     <main className="bg-bg min-h-screen relative overflow-hidden">
 
