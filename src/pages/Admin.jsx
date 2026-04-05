@@ -260,7 +260,7 @@ function ExperienceTab({ data, setData }) {
           <Field label="Company" value={job.company} onChange={(v) => setJob(i, "company", v)} />
           <BilingualField label="Role" value={job.role} onChange={(v) => setJob(i, "role", v)} />
           <Field label="Date Range" value={job.date} onChange={(v) => setJob(i, "date", v)} placeholder="e.g. 10/2023 – 03/2024" />
-          <ArrayField
+          <BilingualArrayField
             label="Impact Metrics"
             items={job.impactMetrics}
             onChange={(v) => setJob(i, "impactMetrics", v)}
@@ -422,7 +422,7 @@ function PortfolioHighlightsTab({ data, setData }) {
       const next = [...d.portfolioHighlights];
       next[i] = {
         ...next[i],
-        metrics: [...(next[i].metrics || []), { value: "", label: "" }],
+        metrics: [...(next[i].metrics || []), { value: "", label: { en: "", de: "" } }],
       };
       return { ...d, portfolioHighlights: next };
     });
@@ -442,7 +442,7 @@ function PortfolioHighlightsTab({ data, setData }) {
       ...d,
       portfolioHighlights: [
         ...d.portfolioHighlights,
-        { id: `project-${Date.now()}`, title: "", type: "", metrics: [], summary: { en: "", de: "" } },
+        { id: `project-${Date.now()}`, title: { en: "", de: "" }, type: { en: "", de: "" }, metrics: [], summary: { en: "", de: "" } },
       ],
     }));
 
@@ -455,10 +455,10 @@ function PortfolioHighlightsTab({ data, setData }) {
   return (
     <>
       {items.map((item, i) => (
-        <Section key={item.id || i} title={item.title || `Highlight ${i + 1}`}>
+        <Section key={item.id || i} title={typeof item.title === "object" ? (item.title.en || `Highlight ${i + 1}`) : (item.title || `Highlight ${i + 1}`)}>
           <Field label="Project ID" value={item.id} onChange={(v) => setItem(i, "id", v)} mono />
-          <Field label="Title" value={item.title} onChange={(v) => setItem(i, "title", v)} />
-          <Field label="Type / Methods" value={item.type} onChange={(v) => setItem(i, "type", v)} placeholder="e.g. Quantitative UX · Eye-Tracking · Python" />
+          <BilingualField label="Title" value={item.title} onChange={(v) => setItem(i, "title", v)} />
+          <BilingualField label="Type / Methods" value={item.type} onChange={(v) => setItem(i, "type", v)} placeholder="e.g. Quantitative UX · Eye-Tracking · Python" />
           <BilingualField label="Summary" value={item.summary} onChange={(v) => setItem(i, "summary", v)} multiline />
 
           <div className="mt-4">
@@ -466,25 +466,42 @@ function PortfolioHighlightsTab({ data, setData }) {
               Metrics
             </span>
             {(item.metrics || []).map((m, mi) => (
-              <div key={mi} className="flex gap-2 mb-2">
-                <input
-                  className="w-28 bg-white border border-gray-200 px-3 py-2 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-[#96150f]/30"
-                  value={m.value}
-                  onChange={(e) => setMetric(i, mi, "value", e.target.value)}
-                  placeholder="N=30"
-                />
-                <input
-                  className="flex-1 bg-white border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#96150f]/30"
-                  value={m.label}
-                  onChange={(e) => setMetric(i, mi, "label", e.target.value)}
-                  placeholder="within-subject experiment"
-                />
-                <button
-                  onClick={() => removeMetric(i, mi)}
-                  className="px-3 py-2 text-xs font-bold text-red-500 border border-red-200 hover:bg-red-50"
-                >
-                  ✕
-                </button>
+              <div key={mi} className="mb-3 border border-gray-100 p-3">
+                <div className="flex gap-2 mb-2 items-end">
+                  <div>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-gray-300 mb-1 block">Value</span>
+                    <input
+                      className="w-24 bg-white border border-gray-200 px-3 py-2 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-[#96150f]/30"
+                      value={m.value ?? ""}
+                      onChange={(e) => setMetric(i, mi, "value", e.target.value)}
+                      placeholder="N=30"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-gray-300 mb-1 block">Label EN</span>
+                    <input
+                      className="w-full bg-white border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#96150f]/30"
+                      value={typeof m.label === "object" ? (m.label.en ?? "") : (m.label ?? "")}
+                      onChange={(e) => setMetric(i, mi, "label", { ...(typeof m.label === "object" ? m.label : { en: m.label ?? "", de: "" }), en: e.target.value })}
+                      placeholder="within-subject experiment"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-gray-300 mb-1 block">Label DE</span>
+                    <input
+                      className="w-full bg-white border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#96150f]/30"
+                      value={typeof m.label === "object" ? (m.label.de ?? "") : ""}
+                      onChange={(e) => setMetric(i, mi, "label", { ...(typeof m.label === "object" ? m.label : { en: m.label ?? "", de: "" }), de: e.target.value })}
+                      placeholder="Innersubjekt-Experiment"
+                    />
+                  </div>
+                  <button
+                    onClick={() => removeMetric(i, mi)}
+                    className="px-3 py-2 text-xs font-bold text-red-500 border border-red-200 hover:bg-red-50 self-end"
+                  >
+                    ✕
+                  </button>
+                </div>
               </div>
             ))}
             <button
