@@ -5,6 +5,7 @@ import { Footer } from './components/Footer';
 import { SketchTrail } from './components/SketchTrail';
 import { ScrollIndicator } from "./components/Scrollindicator.JSX";
 import { profileData } from "./data/profile";
+import Admin from "./pages/Admin";
  
 export default function App() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });

@@ -3,13 +3,30 @@ import React from "react";
 import { profileData } from "../data/profile";
 
 export default function CV() {
-  const { name, role, contact, profileSummary, experience, portfolioHighlights, skills, education, languages, certifications } = profileData;
+  const {
+    name,
+    role,
+    contact,
+    profileSummary,
+    experience,
+    skills,
+    education,
+    languages,
+    certifications,
+    volunteerWork,
+    photo,
+  } = profileData;
+
+  // Split "Sanaz Yazdanjoo" → stacked lines
+  const nameParts = name.split(" ");
+  const firstName = nameParts[0];
+  const lastName = nameParts.slice(1).join(" ");
 
   return (
-    <div className="bg-bg min-h-screen py-10 px-4 print:p-0 print:bg-white">
+    <div className="bg-bg min-h-screen py-10 px-4 print:p-0 print:m-0 print:bg-white print:min-h-0">
 
-      {/* Download Button — hidden on print */}
-      <div className="max-w-5xl mx-auto mb-6 flex justify-end no-print">
+      {/* ── Download Button — hidden on print ── */}
+      <div className="max-w-[850px] mx-auto mb-6 flex justify-end no-print">
         <button
           onClick={() => window.print()}
           className="px-6 py-2 bg-primary text-white font-bold text-sm rounded-sm shadow-md hover:bg-primary/90 transition-all tracking-wider uppercase"
@@ -19,172 +36,188 @@ export default function CV() {
       </div>
 
       {/* ═══════════════════════════════════════════
-          THE PRINTED DOCUMENT
-          @page A4 is set in index.css
-          padding: 2.5cm matches safe print margins
+          A4 DOCUMENT — single page target
+          Screen: simulated A4 with shadow + padding
+          Print: @page handles outer margins,
+                 container keeps small inner padding
       ═══════════════════════════════════════════ */}
       <div
         id="curriculum-vitae"
-        className="max-w-5xl mx-auto bg-white text-black shadow-xl
-                   px-12 py-10
-                   print:shadow-none print:px-0 print:py-0 print:max-w-none"
+        className="
+          max-w-[850px] mx-auto bg-white text-black shadow-xl
+          px-10 py-8
+          print:shadow-none print:max-w-none print:m-0
+          print:px-2 print:py-2
+        "
       >
 
-        {/* ── HEADER: Name/Role left · Contact right ── */}
-        <div className="flex justify-between items-end gap-6 pb-5 mb-4 border-b-[3px] border-primary">
-          <div>
-            <h1 className="text-[42px] font-black text-primary tracking-tighter uppercase leading-none print:text-[32px]">
-              {name}
-            </h1>
-            <p className="text-lg font-semibold text-gray-500 mt-1 tracking-widest uppercase print:text-base">
-              {role}
-            </p>
+        {/* ── CV HEADER (<div> to survive print CSS) ── */}
+        <div className="cv-header flex items-end justify-between gap-5 pb-4 mb-3 border-b-[3px] border-primary">
+
+          <div className="flex items-center gap-5">
+            {/* Photo */}
+            {photo && (
+              <img
+                src={photo}
+                alt={name}
+                className="
+                  w-[72px] h-[72px] rounded-full object-cover shrink-0
+                  border-2 border-gray-200
+                  print:w-[60px] print:h-[60px]
+                "
+              />
+            )}
+
+            {/* Stacked Name + Role */}
+            <div>
+              <h1 className="font-black text-primary uppercase leading-[1.1] tracking-normal">
+                <span className="block text-[28px] print:text-[24px]">{firstName}</span>
+                <span className="block text-[28px] print:text-[24px]">{lastName}</span>
+              </h1>
+              <p className="text-[11px] font-semibold text-gray-500 mt-1 tracking-[0.15em] uppercase print:text-[10px]">
+                {role}
+              </p>
+            </div>
           </div>
 
-          {/* Contact block */}
-          <div className="text-right text-[10.5px] leading-[1.7] text-gray-600 print:text-[9.5px] shrink-0">
-            <p>{contact.location}</p>
+          {/* Contact */}
+          <div className="text-right text-[10px] leading-[1.6] text-gray-600 shrink-0 print:text-[9px]">
+            {contact.location && <p>{contact.location}</p>}
             <p>{contact.phone}</p>
             <p>{contact.email}</p>
-            <p className="text-primary">{contact.linkedinHandle}</p>
-            <p className="text-primary">{contact.githubHandle}</p>
+            {contact.linkedinHandle && (
+              <p className="text-primary font-medium">{contact.linkedinHandle}</p>
+            )}
+            {contact.githubHandle && (
+              <p className="text-primary font-medium">{contact.githubHandle}</p>
+            )}
           </div>
         </div>
 
-        {/* ── PROFILE SUMMARY — the 6-second recruiter pitch ── */}
+        {/* ── PROFILE SUMMARY ── */}
         {profileSummary && (
-          <div className="mb-6 print:mb-4">
-            <p className="text-[10.5px] leading-relaxed text-gray-600 print:text-[9.5px] print:leading-snug">
-              {profileSummary}
-            </p>
-          </div>
+          <p className="text-[10px] leading-relaxed text-gray-600 mb-4 print:text-[9px] print:leading-snug print:mb-3">
+            {profileSummary}
+          </p>
         )}
 
-        {/* ── BODY: 70/30 grid ── */}
-        <div className="grid grid-cols-[1.8fr_1fr] gap-10 print:gap-6">
+        {/* ── BODY: 65 / 35 grid ── */}
+        <div className="grid grid-cols-[1.7fr_1fr] gap-8 print:gap-5">
 
-          {/* ══ LEFT COLUMN ══ */}
-          <div className="space-y-7 print:space-y-5">
+          {/* ══════════════ LEFT COLUMN ══════════════ */}
+          <div>
 
-            {/* Work Experience */}
-            <section>
-              <SectionHeading>Work Experience</SectionHeading>
-              <div className="space-y-5 print:space-y-4">
-                {experience.map((job, i) => (
-                  <div key={i}>
-                    {/* Role + Date row */}
-                    <div className="flex justify-between items-baseline mb-0.5">
-                      <h3 className="font-black text-[11.5px] text-black uppercase tracking-wide print:text-[10px]">
-                        {job.company}
-                      </h3>
-                      <span className="text-[9.5px] font-semibold text-gray-400 uppercase shrink-0 ml-2 print:text-[9px]">
-                        {job.date}
-                      </span>
-                    </div>
-                    <p className="text-[10.5px] font-bold text-primary mb-1.5 print:text-[9.5px]">
-                      {job.role}
-                    </p>
-
-                    {/* Impact metric chips */}
-                    {job.impactMetrics && (
-                      <div className="flex flex-wrap gap-1 mb-2">
-                        {job.impactMetrics.map((m, mi) => (
-                          <span
-                            key={mi}
-                            className="text-[8.5px] font-bold uppercase tracking-wide bg-primary/8 text-primary border border-primary/25 px-1.5 py-0.5 print:text-[8px] print:border-primary/30"
-                          >
-                            {m}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-
-                    {/* Tasks */}
-                    <ul className="list-disc list-outside ml-3.5 space-y-0.5 text-[10px] leading-relaxed text-gray-700 print:text-[9px] print:leading-snug">
-                      {job.tasks.map((task, t) => (
-                        <li key={t}>{task}</li>
-                      ))}
-                    </ul>
+            {/* ── Work Experience ── */}
+            <SectionHeading>Work Experience</SectionHeading>
+            <div className="space-y-3.5 print:space-y-2.5">
+              {experience.map((job, i) => (
+                <article key={i} className="break-inside-avoid">
+                  <div className="flex justify-between items-baseline mb-0.5">
+                    <h3 className="font-black text-[11px] text-black uppercase tracking-wide print:text-[10px]">
+                      {job.company}
+                    </h3>
+                    <span className="text-[9px] font-semibold text-gray-400 uppercase shrink-0 ml-2 print:text-[8.5px]">
+                      {job.date}
+                    </span>
                   </div>
-                ))}
-              </div>
-            </section>
 
-            {/* Portfolio Highlights */}
-            <section>
-              <SectionHeading>Portfolio Highlights</SectionHeading>
-              <div className="space-y-4 print:space-y-3">
-                {portfolioHighlights.map((p) => (
-                  <div key={p.id}>
-                    <div className="flex justify-between items-baseline mb-0.5">
-                      <h3 className="font-black text-[11px] text-black print:text-[10px]">{p.title}</h3>
-                    </div>
-                    <p className="text-[9.5px] font-semibold text-primary uppercase tracking-wide mb-1.5 print:text-[9px]">
-                      {p.type}
-                    </p>
+                  <p className="text-[10px] font-bold text-primary mb-1 print:text-[9px]">
+                    {job.role}
+                  </p>
 
-                    {/* Metrics row */}
-                    <div className="flex flex-wrap gap-x-4 gap-y-1 mb-1.5">
-                      {p.metrics.map((m, mi) => (
-                        <span key={mi} className="text-[9.5px] print:text-[9px]">
-                          <span className="font-black text-primary">{m.value}</span>
-                          <span className="text-gray-500 ml-1">{m.label}</span>
+                  {job.impactMetrics && job.impactMetrics.length > 0 && (
+                    <div className="flex flex-wrap gap-x-1 gap-y-0.5 mb-1.5">
+                      {job.impactMetrics.map((m, mi) => (
+                        <span
+                          key={mi}
+                          className="
+                            text-[7.5px] font-bold uppercase tracking-wider
+                            bg-primary/8 text-primary border border-primary/20
+                            px-1.5 py-[1px]
+                            print:text-[7px] print:border-primary/30
+                          "
+                        >
+                          {m}
                         </span>
                       ))}
                     </div>
+                  )}
 
-                    <p className="text-[9.5px] leading-relaxed text-gray-600 print:text-[9px] print:leading-snug">
-                      {p.summary}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </section>
-          </div>
+                  <ul className="list-disc list-outside ml-3 space-y-0.5 text-[9.5px] leading-snug text-gray-700 print:text-[8.5px]">
+                    {job.tasks.map((task, t) => (
+                      <li key={t}>{task}</li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
+            </div>
 
-          {/* ══ RIGHT SIDEBAR ══ */}
-          <div className="space-y-6 border-l border-gray-100 pl-8 print:pl-6 print:space-y-4">
-
-            {/* Skills */}
-            <section>
-              <SectionHeading sidebar>Skills</SectionHeading>
-              <div className="space-y-2.5 print:space-y-2">
-                {Object.entries(skills).map(([category, items]) => (
-                  <div key={category}>
-                    <h3 className="text-[8.5px] font-black uppercase text-gray-400 tracking-widest mb-0.5">
-                      {category}
-                    </h3>
-                    <p className="text-[9.5px] leading-snug text-gray-700 print:text-[9px]">
-                      {items.join(", ")}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* Education */}
-            <section>
-              <SectionHeading sidebar>Education</SectionHeading>
-              <div className="space-y-3 print:space-y-2">
+            {/* ── Education ── */}
+            <div className="mt-5 print:mt-3">
+              <SectionHeading>Education</SectionHeading>
+              <div className="space-y-2 print:space-y-1.5">
                 {education.map((edu, i) => (
-                  <div key={i} className="text-[10px] leading-snug print:text-[9px]">
-                    <p className="font-bold">{edu.school}</p>
-                    <p className="text-gray-600 italic">{edu.degree}</p>
-                    <p className="text-gray-500 text-[9px]">{edu.year}</p>
+                  <div key={i} className="break-inside-avoid">
+                    <div className="flex justify-between items-baseline">
+                      <p className="font-black text-[10.5px] text-black print:text-[9.5px]">
+                        {edu.degree}
+                      </p>
+                      <span className="text-[8.5px] text-gray-400 shrink-0 ml-2 print:text-[8px]">
+                        {edu.year}
+                      </span>
+                    </div>
+                    <p className="text-[9.5px] text-gray-600 print:text-[8.5px]">
+                      {edu.school}
+                    </p>
                     {edu.awards?.map((a, ai) => (
-                      <p key={ai} className="text-primary font-semibold text-[9px] mt-0.5">★ {a}</p>
+                      <p key={ai} className="text-primary font-semibold text-[8.5px] mt-0.5 print:text-[8px]">
+                        ★ {a}
+                      </p>
                     ))}
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+
+          {/* ══════════════ RIGHT SIDEBAR ══════════════ */}
+          <aside className="border-l border-gray-100 pl-6 print:pl-4 space-y-4 print:space-y-3">
+
+            <section>
+              <SectionHeading sidebar>Skills</SectionHeading>
+              <div className="space-y-2 print:space-y-1.5">
+                {Object.entries(skills).map(([category, items]) => (
+                  <div key={category}>
+                    <h3 className="text-[8px] font-black uppercase text-gray-400 tracking-widest mb-0.5 print:text-[7.5px]">
+                      {category}
+                    </h3>
+                    <p className="text-[9px] leading-snug text-gray-700 print:text-[8.5px]">
+                      {Array.isArray(items) ? items.join(", ") : items}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </section>
 
-            {/* Languages */}
+            <section>
+              <SectionHeading sidebar>Certificates</SectionHeading>
+              <div className="space-y-1.5 print:space-y-1">
+                {certifications.map((cert, i) => (
+                  <div key={i} className="text-[9.5px] leading-snug print:text-[8.5px]">
+                    <p className="font-bold">{cert.title}</p>
+                    <p className="text-gray-500 text-[8.5px] print:text-[8px]">
+                      {cert.provider} ({cert.year})
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
             <section>
               <SectionHeading sidebar>Languages</SectionHeading>
-              <div className="space-y-1 print:space-y-0.5">
+              <div className="space-y-0.5">
                 {languages.map((lang, i) => (
-                  <div key={i} className="flex justify-between text-[10px] print:text-[9px]">
+                  <div key={i} className="flex justify-between text-[9.5px] print:text-[8.5px]">
                     <span className="font-bold">{lang.name}</span>
                     <span className="text-gray-500 italic">{lang.level}</span>
                   </div>
@@ -192,37 +225,37 @@ export default function CV() {
               </div>
             </section>
 
-            {/* Certifications */}
-            <section>
-              <SectionHeading sidebar>Certifications</SectionHeading>
-              <div className="space-y-1.5 print:space-y-1">
-                {certifications.map((cert, i) => (
-                  <div key={i} className="text-[10px] leading-snug print:text-[9px]">
-                    <p className="font-bold">{cert.title}</p>
-                    <p className="text-gray-500">{cert.provider} · {cert.year}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-          </div>
+            {volunteerWork && volunteerWork.length > 0 && (
+              <section>
+                <SectionHeading sidebar>Volunteer Work</SectionHeading>
+                <div className="space-y-0.5">
+                  {volunteerWork.map((item, i) => (
+                    <p key={i} className="text-[9px] leading-snug text-gray-700 print:text-[8.5px]">
+                      {item}
+                    </p>
+                  ))}
+                </div>
+              </section>
+            )}
+          </aside>
         </div>
       </div>
     </div>
   );
 }
 
-// ── Shared sub-components ──────────────────────────────────────
 
 function SectionHeading({ children, sidebar = false }) {
   return (
-    <h2 className={`
-      font-black uppercase tracking-widest border-b border-gray-200 mb-3
-      ${sidebar
-        ? "text-[9px] text-primary pb-1 print:text-[8.5px]"
-        : "text-[11px] text-primary pb-2 print:text-[10px]"
-      }
-    `}>
+    <h2
+      className={`
+        font-black uppercase tracking-widest border-b
+        ${sidebar
+          ? "text-[9px] text-primary border-gray-200 pb-1 mb-2 print:text-[8px] print:mb-1.5"
+          : "text-[12px] text-primary border-primary/30 pb-1.5 mb-3 print:text-[10px] print:mb-2"
+        }
+      `}
+    >
       {children}
     </h2>
   );
