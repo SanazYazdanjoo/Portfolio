@@ -59,23 +59,47 @@
     scrollbar-width: none; 
   }
 }
-
+/* Helper Utilities */
+.display-none { display: none; }
+.visibility-hidden { visibility: hidden; }
 /* =========================================
    CV & PRINT LOGIC
    ========================================= */
 @media print {
-  /* A4 page setup */
+  /* A4 page setup — generous margins to prevent clipping */
   @page {
     size: A4;
-    margin: 1.2cm 1.2cm 1.2cm 1.2cm;
+    margin: 1.8cm 1.5cm 1.5cm 1.5cm;
   }
 
-  /* Kill all UI chrome */
-  header, footer, .no-print,
+  /* ── Kill UI chrome ──
+     Target nav specifically — NOT bare `header`.
+     The CV's .cv-header must survive print.
+  */
+  nav,
+  footer,
+  .no-print,
   .scroll-container > *:not(main),
-  .bg-paper-texture, .bg-ink-speckles,
-  [class*="SketchTrail"], [class*="ScrollIndicator"],
-  [class*="ScribbleDivider"] {
+  .bg-paper-texture,
+  .bg-ink-speckles,
+  [class*="SketchTrail"],
+  [class*="ScrollIndicator"],
+  [class*="ScribbleDivider"],
+  [class*="Doodle"],
+  [class*="doodle"],
+  [class*="scribble"],
+  [class*="Scribble"],
+  [class*="cursor"],
+  [class*="Cursor"],
+  [class*="trail"],
+  [class*="Trail"],
+  [class*="sketch"],
+  [class*="Sketch"] {
+    display: none !important;
+  }
+
+  /* Hide stray SVG decorations outside the CV */
+  svg:not(#curriculum-vitae svg) {
     display: none !important;
   }
 
@@ -86,7 +110,8 @@
     background: white !important;
   }
 
-  body::before {
+  body::before,
+  body::after {
     display: none !important;
   }
 
@@ -100,13 +125,14 @@
   #curriculum-vitae {
     box-shadow: none !important;
     max-width: none !important;
-    padding: 0 !important;
     margin: 0 !important;
+    /* Keep small inner breathing room */
+    padding: 0.2cm !important;
   }
 
   /* Prevent orphaned headings or split sections */
   h2, h3 { break-after: avoid; }
-  section { break-inside: avoid; }
+  section, article { break-inside: avoid; }
 
   /* Ensure all text is black for ink */
   #curriculum-vitae * {
@@ -127,8 +153,10 @@
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
-}
 
-/* Helper Utilities */
-.display-none { display: none; }
-.visibility-hidden { visibility: hidden; }
+  /* Ensure the CV header photo prints */
+  #curriculum-vitae .cv-header img {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

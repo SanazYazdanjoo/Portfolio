@@ -13,6 +13,7 @@ import Voluntary from './pages/Voluntary';
 import CurriculumVitae from './pages/CurriculumVitae';
 import Sitemap from './pages/Sitemap';
 import DesignSystem from './pages/DesignSystem';
+import Admin from './pages/Admin'; // 1. <-- ADD YOUR IMPORT HERE
 import './index.css';
 
 // The Magic Sweeper: Looks for any 'index.jsx' inside your 'src/projects/' folders
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
       { path: "cv", element: <CurriculumVitae /> },
       { path: "sitemap", element: <Sitemap /> },
       { path: "designsystem", element: <DesignSystem /> },
+      { path: "admin", element: <Admin /> }, // 2. <-- ADD YOUR ROUTE HERE
       ...dynamicProjectRoutes, 
     ],
   },
