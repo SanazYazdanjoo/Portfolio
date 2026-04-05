@@ -2,10 +2,11 @@
 import React from "react";
 import { VoluntaryList } from "../components/VoluntaryList";
 import { voluntaryItems } from "../data/voluntary";
-import { ScribbleUnderline, CircleDoodle, FlowerDoodle } from "../components/DoodleLibrary";
-import { useLocalizedProfile } from '../hooks/useLocalizedProfile';
+import { ScribbleUnderline, FlowerDoodle } from "../components/DoodleLibrary";
+import { useTranslation } from "../context/LanguageContext";
 
 export default function Voluntary() {
+  const { t } = useTranslation();
   return (
     <main className="min-h-screen pt-32 pb-24 relative overflow-hidden bg-transparent">
       
@@ -16,11 +17,11 @@ export default function Voluntary() {
         
         <header className="mb-20 relative inline-block">
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter text-text mb-4">
-            Voluntary<span className="text-primary">.</span>
+            {t("voluntary.heading")}<span className="text-primary">.</span>
           </h1>
           <ScribbleUnderline className="absolute -bottom-2 left-0 w-full h-5 text-accent opacity-80" />
           <p className="text-xl text-dim mt-6 font-medium">
-            Community building, mentorship, and extracurricular initiatives.
+            {t("voluntary.description")}
           </p>
         </header>
 

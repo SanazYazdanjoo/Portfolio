@@ -8,6 +8,8 @@ const de = {
   "nav.about": "Über mich",
   "nav.cv": "Lebenslauf",
   "nav.contact": "Kontakt",
+  "nav.openMenu": "Menü öffnen",
+  "nav.closeMenu": "Menü schließen",
 
   // ── Hero ──
   "hero.portfolio": "PORTFOLIO",
@@ -20,12 +22,48 @@ const de = {
   "projects.methods": "Methoden",
   "projects.metrics": "Kennzahlen",
   "projects.allProjects": "Alle Projekte",
+  "projects.wip": "In Bearbeitung",
+  "projects.wipDesc": "Fallstudien werden gerade dokumentiert. Bald verfügbar.",
+  "projects.wipDescLong": "Fallstudien werden gerade dokumentiert. Bald verfügbar — gute Forschung braucht Zeit, um richtig erzählt zu werden.",
 
   // ── About ──
   "about.heading": "Über mich",
+  "about.whatIBring": "Was ich mitbringe",
   "about.skillsResearch": "Forschung",
   "about.skillsDesign": "Design",
   "about.skillsTechnical": "Technik",
+  "about.howIGotHere": "Wie ich hierher gelangt bin",
+  "about.theBridge": "Die Brücke",
+  "about.theBridgeDesc": "Mein Weg war nicht linear — er war bewusst. Jede Phase baute auf der vorherigen auf.",
+  "about.methodology": "Methodik",
+  "about.howIWork": "Wie ich arbeite",
+  "about.beyondTheBrief": "Über den Auftrag hinaus",
+  "about.voluntaryWork": "Ehrenamtliches Engagement",
+  "about.whatsNext": "Was kommt als Nächstes?",
+  "about.seeResearch": "Die Forschung in Aktion sehen.",
+  "about.viewProjects": "Projekte ansehen",
+  "about.viewCV": "Lebenslauf ansehen",
+
+  // ── Career arc ──
+  "about.career.phase1.label": "Software-Engineering",
+  "about.career.phase1.years": "2010 – 2019",
+  "about.career.phase1.summary": "20+ Produkte von Grund auf gebaut. Gelernt, dass Code einfach ist — zu wissen, was man bauen soll, ist schwer.",
+  "about.career.phase2.label": "QA-Engineering",
+  "about.career.phase2.years": "2019 – 2023",
+  "about.career.phase2.summary": "Vom Bauen zum Brechen gewechselt — und erkannt, dass jeder Bug ein Nutzereinblick war, der gehört werden wollte.",
+  "about.career.phase3.label": "UX-Forschung",
+  "about.career.phase3.years": "2023 – Heute",
+  "about.career.phase3.summary": "Jetzt frage ich ‚warum', bevor jemand eine Zeile Code schreibt. Ich spreche fließend ‚User' und ‚Developer'.",
+
+  // ── Research process ──
+  "about.process.discover.title": "Entdecken",
+  "about.process.discover.desc": "Stakeholder-Interviews, Kontextbefragungen und Desk Research, um das richtige Problem zu formulieren, bevor eine Lösung in Betracht gezogen wird.",
+  "about.process.define.title": "Definieren",
+  "about.process.define.desc": "Erkenntnisse in handlungsrelevante Insights zusammenführen — Personas, User Flows und evidenzbasierte Problemstellungen.",
+  "about.process.design.title": "Gestalten",
+  "about.process.design.desc": "Storyboards, Wireframes und High-Fidelity-Figma-Prototypen, die Forschung direkt in testbare Artefakte übersetzen.",
+  "about.process.deliver.title": "Liefern",
+  "about.process.deliver.desc": "Usability-Tests, Iteration und Stakeholder-Abstimmung — mit dokumentierten messbaren Ergebnissen in jeder Phase.",
 
   // ── CV ──
   "cv.heading": "Lebenslauf",
@@ -34,11 +72,18 @@ const de = {
   "cv.skills": "Kompetenzen",
   "cv.languages": "Sprachen",
   "cv.certifications": "Zertifizierungen",
+  "cv.certificates": "Zertifikate",
   "cv.portfolioHighlights": "Portfolio-Highlights",
+  "cv.volunteerWork": "Ehrenamtliche Arbeit",
   "cv.download": "PDF herunterladen",
+  "cv.saveAsPdf": "Als PDF speichern",
 
   // ── Contact ──
   "contact.heading": "Kontakt aufnehmen",
+  "contact.hi": "Hallo",
+  "contact.email": "E-Mail",
+  "contact.locationPhone": "Standort & Telefon",
+  "contact.socials": "Soziale Netzwerke",
   "contact.collaborate": "Zusammenarbeit auf:",
   "contact.location": "Derzeit in Weimar, Deutschland, und offen für UX-Research-Möglichkeiten und HCI-Kooperationen.",
 
@@ -47,6 +92,12 @@ const de = {
   "footer.privacy": "Datenschutzerklärung",
   "footer.impressum": "Impressum",
   "footer.sitemap": "Seitenübersicht",
+  "footer.letsWork": "Lass uns zusammenarbeiten.",
+  "footer.openTo": "Offen für {role}-Stellen in Deutschland",
+
+  // ── Voluntary ──
+  "voluntary.heading": "Ehrenamt",
+  "voluntary.description": "Gemeinschaftsaufbau, Mentoring und außercurriculare Initiativen.",
 
   // ── Common ──
   "common.backToPortfolio": "← Zurück zum Portfolio",

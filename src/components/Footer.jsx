@@ -1,12 +1,11 @@
 // src/components/Footer.jsx
-// Data-driven footer: pulls all content from profile.js — zero hardcoded strings.
-// Sections: CTA + email · Social links · Availability status · Legal bar
-
 import React from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "../context/LanguageContext";
 
 export function Footer({ data }) {
   const { name, contact, role } = data;
+  const { t } = useTranslation();
   const year = new Date().getFullYear();
 
   return (
@@ -19,7 +18,7 @@ export function Footer({ data }) {
           {/* Left — CTA + email */}
           <div>
             <p className="font-caveat text-2xl md:text-3xl text-text leading-tight mb-2">
-              Let's work together.
+              {t("footer.letsWork")}
             </p>
             <a
               href={`mailto:${contact.email}`}
@@ -60,12 +59,9 @@ export function Footer({ data }) {
 
         {/* ── Availability status ── */}
         <div className="flex items-center gap-2 mb-8">
-          <span
-            className="w-1.5 h-1.5 rounded-full bg-primary shrink-0"
-            aria-hidden="true"
-          />
+          <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" aria-hidden="true" />
           <p className="text-[11px] text-text/40 tracking-wide">
-            Open to {role} roles in Germany
+            {t("footer.openTo").replace("{role}", role)}
           </p>
         </div>
 
@@ -74,10 +70,7 @@ export function Footer({ data }) {
 
         {/* ── Bottom bar: copyright + legal ── */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-
-          <p className="text-[11px] text-text/30 font-medium">
-            © {year} {name}
-          </p>
+          <p className="text-[11px] text-text/30 font-medium">© {year} {name}</p>
 
           <nav className="flex items-center gap-5" aria-label="Legal">
             <Link
@@ -85,21 +78,21 @@ export function Footer({ data }) {
               className="text-[10px] font-bold uppercase tracking-widest text-text/30
                          hover:text-primary transition-colors duration-200"
             >
-              Impressum
+              {t("footer.impressum")}
             </Link>
             <Link
               to="/privacy"
               className="text-[10px] font-bold uppercase tracking-widest text-text/30
                          hover:text-primary transition-colors duration-200"
             >
-              Privacy
+              {t("footer.privacy")}
             </Link>
             <Link
               to="/sitemap"
               className="text-[10px] font-bold uppercase tracking-widest text-text/30
                          hover:text-primary transition-colors duration-200"
             >
-              Sitemap
+              {t("footer.sitemap")}
             </Link>
           </nav>
         </div>
