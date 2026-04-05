@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { profileData } from "../data/profile";
 import { voluntaryItems } from "../data/voluntary";
 import { ScribbleUnderline } from "../components/DoodleLibrary";
-// Note: We removed the <AboutMe /> import because we are building the new editorial layout directly here!
+import { useLocalizedProfile } from '../hooks/useLocalizedProfile';
 
 // ─── Career arc data ─────────────────────────────────────────────────────────
 const CAREER_ARC = [

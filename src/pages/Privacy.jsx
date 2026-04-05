@@ -2,8 +2,8 @@
 import React from 'react';
 import { Button } from '../components/Button';
 import { FlowerDoodle } from '../components/DoodleLibrary';
-import { profileData } from '../data/profile';
-
+import { profileData as rawProfile } from '../data/profile';
+import { useLocalizedProfile } from '../hooks/useLocalizedProfile';
 export default function Privacy() {
   return (
     <main className="min-h-screen pt-32 pb-20 relative overflow-hidden">
