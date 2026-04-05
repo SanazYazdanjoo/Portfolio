@@ -1,0 +1,277 @@
+{
+  "profile": {
+    "navLinks": [
+      {
+        "name": "Home",
+        "path": "/"
+      },
+      {
+        "name": "Projects",
+        "path": "/projects"
+      },
+      {
+        "name": "About",
+        "path": "/about"
+      },
+      {
+        "name": "Contact",
+        "path": "/contact"
+      },
+      {
+        "name": "CV",
+        "path": "/cv"
+      }
+    ],
+    "author": "Sanaz Yazdanjoo",
+    "name": "Sanaz Yazdanjoo",
+    "role": "UX Engineer",
+    "tagline": "I speak both 'user' and 'developer'.",
+    "year": "2026",
+    "contact": {
+      "location": "Weimar, Germany",
+      "phone": "+49 1639742175",
+      "email": "sanaz.yazdanjoo@gmail.com",
+      "linkedin": "https://linkedin.com/in/sanaz",
+      "linkedinHandle": "linkedin.com/in/sanaz",
+      "github": "https://github.com/sanaz",
+      "githubHandle": "github.com/sanaz"
+    },
+    "profileSummary": "UX Engineer with a Software Engineering foundation. 5+ years shipping production code (20+ websites, cross-browser QA, CMS architecture) before transitioning into human-centered research. I run mixed-methods studies — from contextual inquiries and stakeholder interviews to controlled experiments — and translate findings into validated prototypes. Currently completing my MSc in HCI at Bauhaus University Weimar.",
+    "experience": [
+      {
+        "company": "deskbird Co. + Bauhaus University of Weimar",
+        "role": "UX Researcher (Research Project)",
+        "date": "10/2023 – 03/2024",
+        "impactMetrics": [
+          "50 survey participants",
+          "6 contextual inquiries",
+          "4 stakeholder interviews"
+        ],
+        "tasks": [
+          "Shaped MVP scope through 4 stakeholder interviews that surfaced 3 critical feature gaps, directly informing prototype direction.",
+          "Ran mixed-methods research with 50 survey respondents and 6 remote contextual inquiries, generating the core insight dataset for feature design.",
+          "Translated research findings into storyboards and high-fidelity Figma prototypes, accelerating stakeholder sign-off on the social features roadmap.",
+          "Delivered usability-validated prototypes to stakeholders, achieving documented alignment on UX improvements at final presentation."
+        ]
+      },
+      {
+        "company": "Bauhaus University of Weimar",
+        "role": "Web Designer & Content Manager (Scientific Assistant)",
+        "date": "04/2023 – 09/2023",
+        "impactMetrics": [
+          "2 homepages redesigned",
+          "Typo3 CMS"
+        ],
+        "tasks": [
+          "Redesigned 2 department homepages using existing design system components, reducing visual inconsistency across the faculty web presence.",
+          "Maintained and improved departmental websites in Typo3, ensuring content structure remained navigable and up-to-date."
+        ]
+      },
+      {
+        "company": "TDSoftware Co.",
+        "role": "QA Engineer (Working Student)",
+        "date": "04/2022 – 06/2022",
+        "impactMetrics": [
+          "Critical defects reported",
+          "Test automation introduced"
+        ],
+        "tasks": [
+          "Identified and documented critical usability and functionality defects, directly contributing to product stability before release.",
+          "Expanded test coverage by introducing automated test scripts alongside systematic manual test execution."
+        ]
+      },
+      {
+        "company": "Part Financial Data Processing Co.",
+        "role": "QA Engineer (Full Time)",
+        "date": "08/2020 – 08/2021",
+        "impactMetrics": [
+          "5 agile projects",
+          "1st company bug-tracking system",
+          "Organisation-wide QA process"
+        ],
+        "tasks": [
+          "Founded the acceptance testing function from scratch and built the company's first bug-tracking system, reducing recurring defect cycles.",
+          "Embedded QA into sprint cycles across 5 agile projects, improving product usability delivery consistency.",
+          "Authored comprehensive test plans and scenarios that standardised QA processes organisation-wide."
+        ]
+      },
+      {
+        "company": "MegaTech Co.",
+        "role": "Frontend Developer & QA (Full Time)",
+        "date": "01/2016 – 08/2019",
+        "impactMetrics": [
+          "20+ websites delivered",
+          "Cross-browser QA",
+          "Client training programme"
+        ],
+        "tasks": [
+          "Delivered 20+ client websites end-to-end using HTML, CSS, JavaScript, Bootstrap, and WordPress.",
+          "Reduced post-launch UI issues by systematically applying cross-browser testing and usability reviews during development.",
+          "Reduced client support load through structured CMS training, empowering clients to self-manage web content."
+        ]
+      }
+    ],
+    "portfolioHighlights": [
+      {
+        "id": "project-1",
+        "title": "Gaze-Assisted Input in Dual-Display Environments",
+        "type": "Quantitative UX · Eye-Tracking · Python",
+        "metrics": [
+          {
+            "value": "N=30",
+            "label": "within-subject experiment"
+          },
+          {
+            "value": "SUS 85.2",
+            "label": "Mouse baseline"
+          },
+          {
+            "value": "SUS 72.6",
+            "label": "Ninja Cursors condition"
+          }
+        ],
+        "summary": "Engineered a real-time gaze pipeline (Pupil Labs Neon + Python) and ran a controlled experiment comparing MAGIC Pointing and Ninja Cursors against a mouse baseline. Key finding: gaze assistance should trigger conditionally for large cross-screen relocations only."
+      },
+      {
+        "id": "project-2",
+        "title": "UCD4UX: Social Interactions in Hybrid Work",
+        "type": "User-Centered Design · Mixed Methods · Figma",
+        "metrics": [
+          {
+            "value": "50",
+            "label": "survey respondents"
+          },
+          {
+            "value": "6",
+            "label": "contextual inquiries"
+          },
+          {
+            "value": "4",
+            "label": "stakeholder interviews"
+          }
+        ],
+        "summary": "Led end-to-end UX research for a social features concept on the deskbird platform. Achieved positive usability evaluation and full stakeholder alignment on the feature roadmap."
+      },
+      {
+        "id": "project-3",
+        "title": "EmbraceMe – Inflatable Human-Robot for Emotional Care",
+        "type": "HRI · Soft Robotics · Arduino · Affective Computing",
+        "metrics": [
+          {
+            "value": "Public",
+            "label": "exhibition debut"
+          },
+          {
+            "value": "Repeatable",
+            "label": "pneumatic actuation"
+          }
+        ],
+        "summary": "Designed and built an inflatable soft-robotic hugging system using Arduino-controlled pneumatic actuators and capacitive sensors, demonstrated publicly with documented positive affective responses."
+      }
+    ],
+    "education": [
+      {
+        "school": "Bauhaus University of Weimar",
+        "degree": "MSc. Human-Computer Interaction",
+        "year": "2024 – 2026",
+        "awards": [
+          "Dean's List 2025"
+        ]
+      },
+      {
+        "school": "Khayyam University of Mashhad",
+        "degree": "BE. Software Engineering",
+        "year": "2010 – 2015"
+      }
+    ],
+    "skills": {
+      "Research": [
+        "Qualitative Interviews",
+        "Contextual Inquiry",
+        "Survey Design",
+        "Usability Testing",
+        "Quantitative Analysis"
+      ],
+      "Design": [
+        "Design Thinking",
+        "Wireframes & Prototypes",
+        "User Flows",
+        "Style Guides",
+        "Behavioral Design"
+      ],
+      "Technical": [
+        "HTML / CSS / JS",
+        "Python",
+        "React",
+        "Bootstrap",
+        "CMS (WordPress, Typo3)",
+        "Arduino"
+      ],
+      "QA & Testing": [
+        "Usability",
+        "Functional",
+        "Exploratory",
+        "Regression",
+        "API",
+        "Blackbox"
+      ],
+      "Tools": [
+        "Figma",
+        "FigJam",
+        "Miro",
+        "Jira",
+        "Postman",
+        "MySQL",
+        "Selenium",
+        "Google Analytics"
+      ]
+    },
+    "languages": [
+      {
+        "name": "English",
+        "level": "Professional Working"
+      },
+      {
+        "name": "German",
+        "level": "Limited Working"
+      },
+      {
+        "name": "French",
+        "level": "Elementary"
+      }
+    ],
+    "certifications": [
+      {
+        "title": "Python Programming",
+        "provider": "I.R.T.V.T.O",
+        "year": "2024"
+      }
+    ],
+    "bio": "I bridge the gap between code and human behavior. With 5+ years as a Frontend Developer and QA Engineer — shipping 20+ production websites and building QA systems from scratch — I now apply that technical fluency to UX Research. I run stakeholder interviews, contextual inquiries, and controlled experiments, then translate findings into validated Figma prototypes and working code. Currently pursuing my MSc in HCI at Bauhaus University of Weimar, I speak both 'user' and 'developer' — fluently.",
+    "heroImage": "/assets/hero-portfolio.png",
+    "aboutImage": "/assets/me.png",
+    "doodles": {
+      "logo": "/assets/logo.png",
+      "flower": "/assets/flower-doodle.svg",
+      "aboutMe": "/assets/about-me-doodle.png",
+      "caseStudies": "/assets/case-studies-doodle.png",
+      "contact": "/assets/contact-doodle.png"
+    }
+  },
+  "voluntary": [
+    {
+      "id": 1,
+      "title": "UX Mentorship Program",
+      "year": "2023 - Present",
+      "org": "Bauhaus University Weimar",
+      "desc": "Guiding junior HCI students through their first user research methodologies, helping them structure usability tests, and providing feedback on Figma prototypes."
+    },
+    {
+      "id": 2,
+      "title": "Design Thinking Workshop Organizer",
+      "year": "2022",
+      "org": "Student Council",
+      "desc": "Organized and facilitated a 2-day workshop for 30+ students bridging the gap between computer science and visual communication design."
+    }
+  ]
+}
