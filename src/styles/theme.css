@@ -278,6 +278,13 @@
 #AboutMe-Section .about-paragraph{
  width: 100% !important;
 }
+#AboutMe-Section .paper-bg{
+  padding: 15px;
+}
+
+.TextContent{
+  padding: 15px;
+}
 }
 /* --- 6. PRINT SAFETY --- */
 @media print {
@@ -301,7 +308,7 @@
 .paper-bg {
   background: #ffffff;
   position: relative;
-  padding: 10%;
+ 
 
   /* ── The main shadow: slightly asymmetric so it feels hand-placed,
        not machine-centered. Heavier on the bottom-right like the

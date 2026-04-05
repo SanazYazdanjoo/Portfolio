@@ -72,17 +72,15 @@ export function Hero({ data }) {
       >
         {/* Bottom Left Description */}
         <p className="hero-tagline max-w-full md:max-w-full font-sans font-light text-3xl max-w-xl">
-I speak both 'user' and 'developer'. <br />
-                     
+I speak both 'user' and 'developer'.            
         </p>
 
         {/* Bottom Right / Date Block */}
-        <div className="text-right flex flex-col items-end">
-          <p className="max-w-[150px]">
-            PORTFOLIO<br/>
-            [ {data.year || "2026"} ]
+        
+          <p className=" text-3xl font-sans font-light text-text/70">
+            Portfolio[ {data.year || "2026"} ]
           </p>
-        </div>
+        
         
       </motion.div>
       
