@@ -9,9 +9,11 @@ import { profileData as rawProfile } from "../data/profile";
 import { useLocalizedProfile } from '../hooks/useLocalizedProfile';
 import { ScrollArrow } from "../components/Scrollarrow";
 import { motion } from "framer-motion";
+import { useTranslation } from "../context/LanguageContext";
 
 export default function Home() {
   const profileData = useLocalizedProfile(rawProfile);
+  const { t } = useTranslation();
   return (
     <div className=" w-full relative snap-y snap-mandatory">
 
@@ -57,7 +59,7 @@ export default function Home() {
           >
             <div className="relative inline-block">
               <h2 className="font-display text-xl md:text-8xl text-text mt-2">
-                Case Studies
+                {t("projects.heading")}
               </h2>
             </div>
           </motion.div>
@@ -72,10 +74,10 @@ export default function Home() {
           ) : (
             <div className="border border-border/30 px-12 py-20 text-center">
               <p className="font-black text-lg text-text/30 uppercase tracking-widest mb-2">
-                Work in Progress
+                {t("projects.wip")}
               </p>
               <p className="text-sm text-text/40 max-w-xs mx-auto leading-relaxed">
-                Case studies are being documented. Check back soon.
+                {t("projects.wipDesc")}
               </p>
             </div>
           )}

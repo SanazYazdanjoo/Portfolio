@@ -1,11 +1,26 @@
 {
   "profile": {
     "navLinks": [
-      { "name": "Home", "path": "/" },
-      { "name": "Projects", "path": "/projects" },
-      { "name": "About", "path": "/about" },
-      { "name": "Contact", "path": "/contact" },
-      { "name": "CV", "path": "/cv" }
+      {
+        "name": "Home",
+        "path": "/"
+      },
+      {
+        "name": "Projects",
+        "path": "/projects"
+      },
+      {
+        "name": "About",
+        "path": "/about"
+      },
+      {
+        "name": "Contact",
+        "path": "/contact"
+      },
+      {
+        "name": "CV",
+        "path": "/cv"
+      }
     ],
     "author": "Sanaz Yazdanjoo",
     "name": "Sanaz Yazdanjoo",
@@ -15,7 +30,7 @@
     },
     "tagline": {
       "en": "I speak both 'user' and 'developer'.",
-      "de": "Ich spreche sowohl \u201aUser\u2018 als auch \u201aDeveloper\u2018."
+      "de": "Ich spreche sowohl ‚User‘ als auch ‚Entwickler‘."
     },
     "year": "2026",
     "contact": {
@@ -168,9 +183,18 @@
         "title": "Gaze-Assisted Input in Dual-Display Environments",
         "type": "Quantitative UX · Eye-Tracking · Python",
         "metrics": [
-          { "value": "N=30", "label": "within-subject experiment" },
-          { "value": "SUS 85.2", "label": "Mouse baseline" },
-          { "value": "SUS 72.6", "label": "Ninja Cursors condition" }
+          {
+            "value": "N=30",
+            "label": "within-subject experiment"
+          },
+          {
+            "value": "SUS 85.2",
+            "label": "Mouse baseline"
+          },
+          {
+            "value": "SUS 72.6",
+            "label": "Ninja Cursors condition"
+          }
         ],
         "summary": {
           "en": "Engineered a real-time gaze pipeline (Pupil Labs Neon + Python) and ran a controlled experiment comparing MAGIC Pointing and Ninja Cursors against a mouse baseline. Key finding: gaze assistance should trigger conditionally for large cross-screen relocations only.",
@@ -182,9 +206,18 @@
         "title": "UCD4UX: Social Interactions in Hybrid Work",
         "type": "User-Centered Design · Mixed Methods · Figma",
         "metrics": [
-          { "value": "50", "label": "survey respondents" },
-          { "value": "6", "label": "contextual inquiries" },
-          { "value": "4", "label": "stakeholder interviews" }
+          {
+            "value": "50",
+            "label": "survey respondents"
+          },
+          {
+            "value": "6",
+            "label": "contextual inquiries"
+          },
+          {
+            "value": "4",
+            "label": "stakeholder interviews"
+          }
         ],
         "summary": {
           "en": "Led end-to-end UX research for a social features concept on the deskbird platform. Achieved positive usability evaluation and full stakeholder alignment on the feature roadmap.",
@@ -196,8 +229,14 @@
         "title": "EmbraceMe – Inflatable Human-Robot for Emotional Care",
         "type": "HRI · Soft Robotics · Arduino · Affective Computing",
         "metrics": [
-          { "value": "Public", "label": "exhibition debut" },
-          { "value": "Repeatable", "label": "pneumatic actuation" }
+          {
+            "value": "Public",
+            "label": "exhibition debut"
+          },
+          {
+            "value": "Repeatable",
+            "label": "pneumatic actuation"
+          }
         ],
         "summary": {
           "en": "Designed and built an inflatable soft-robotic hugging system using Arduino-controlled pneumatic actuators and capacitive sensors, demonstrated publicly with documented positive affective responses.",
@@ -213,7 +252,9 @@
           "de": "MSc. Mensch-Computer-Interaktion"
         },
         "year": "2024 – 2026",
-        "awards": ["Dean's List 2025"]
+        "awards": [
+          "Dean's List 2025"
+        ]
       },
       {
         "school": "Khayyam University of Mashhad",
@@ -267,9 +308,18 @@
       ]
     },
     "languages": [
-      { "name": "English", "level": "Professional Working" },
-      { "name": "German", "level": "Limited Working" },
-      { "name": "French", "level": "Elementary" }
+      {
+        "name": "English",
+        "level": "Professional Working"
+      },
+      {
+        "name": "German",
+        "level": "Limited Working"
+      },
+      {
+        "name": "French",
+        "level": "Elementary"
+      }
     ],
     "certifications": [
       {

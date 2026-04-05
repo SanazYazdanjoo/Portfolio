@@ -10,6 +10,8 @@ const en = {
   "nav.about": "About",
   "nav.cv": "CV",
   "nav.contact": "Contact",
+  "nav.openMenu": "Open menu",
+  "nav.closeMenu": "Close menu",
 
   // ── Hero ──
   "hero.portfolio": "PORTFOLIO",
@@ -22,12 +24,48 @@ const en = {
   "projects.methods": "Methods",
   "projects.metrics": "Key Metrics",
   "projects.allProjects": "All Projects",
+  "projects.wip": "Work in Progress",
+  "projects.wipDesc": "Case studies are being documented. Check back soon.",
+  "projects.wipDescLong": "Case studies are being documented. Check back soon — good research takes time to tell properly.",
 
   // ── About ──
   "about.heading": "About Me",
+  "about.whatIBring": "What I Bring",
   "about.skillsResearch": "Research",
   "about.skillsDesign": "Design",
   "about.skillsTechnical": "Technical",
+  "about.howIGotHere": "How I Got Here",
+  "about.theBridge": "The Bridge",
+  "about.theBridgeDesc": "My path wasn't linear — it was deliberate. Every phase built the one after it.",
+  "about.methodology": "Methodology",
+  "about.howIWork": "How I Work",
+  "about.beyondTheBrief": "Beyond the Brief",
+  "about.voluntaryWork": "Voluntary Work",
+  "about.whatsNext": "What's next?",
+  "about.seeResearch": "See the research in action.",
+  "about.viewProjects": "View Projects",
+  "about.viewCV": "View CV",
+
+  // ── Career arc ──
+  "about.career.phase1.label": "Software Engineering",
+  "about.career.phase1.years": "2010 – 2019",
+  "about.career.phase1.summary": "Built 20+ products from the ground up. Learned that code is easy; knowing what to build is hard.",
+  "about.career.phase2.label": "QA Engineering",
+  "about.career.phase2.years": "2019 – 2023",
+  "about.career.phase2.summary": "Shifted from building to breaking — and realised every bug was a user insight waiting to be heard.",
+  "about.career.phase3.label": "UX Research",
+  "about.career.phase3.years": "2023 – Now",
+  "about.career.phase3.summary": "Now I ask 'why' before anyone writes a line of code. I speak both 'user' and 'developer' — fluently.",
+
+  // ── Research process ──
+  "about.process.discover.title": "Discover",
+  "about.process.discover.desc": "Stakeholder interviews, contextual inquiry, and desk research to frame the right problem before any solution is considered.",
+  "about.process.define.title": "Define",
+  "about.process.define.desc": "Synthesise findings into actionable insights — personas, user flows, and evidence-backed problem statements.",
+  "about.process.design.title": "Design",
+  "about.process.design.desc": "Storyboards, wireframes, and high-fidelity Figma prototypes that translate research directly into testable artefacts.",
+  "about.process.deliver.title": "Deliver",
+  "about.process.deliver.desc": "Usability testing, iteration, and stakeholder alignment — with measurable outcomes documented at every stage.",
 
   // ── CV ──
   "cv.heading": "Curriculum Vitae",
@@ -36,11 +74,18 @@ const en = {
   "cv.skills": "Skills",
   "cv.languages": "Languages",
   "cv.certifications": "Certifications",
+  "cv.certificates": "Certificates",
   "cv.portfolioHighlights": "Portfolio Highlights",
+  "cv.volunteerWork": "Volunteer Work",
   "cv.download": "Download PDF",
+  "cv.saveAsPdf": "Save as PDF",
 
   // ── Contact ──
   "contact.heading": "Get in Touch",
+  "contact.hi": "Hi",
+  "contact.email": "Email",
+  "contact.locationPhone": "Location & Phone",
+  "contact.socials": "Socials",
   "contact.collaborate": "Let's collaborate in:",
   "contact.location": "Currently based in Weimar, Germany, and open to UX Research opportunities and HCI collaborations.",
 
@@ -49,6 +94,12 @@ const en = {
   "footer.privacy": "Privacy Policy",
   "footer.impressum": "Legal Notice",
   "footer.sitemap": "Sitemap",
+  "footer.letsWork": "Let's work together.",
+  "footer.openTo": "Open to {role} roles in Germany",
+
+  // ── Voluntary ──
+  "voluntary.heading": "Voluntary",
+  "voluntary.description": "Community building, mentorship, and extracurricular initiatives.",
 
   // ── Common ──
   "common.backToPortfolio": "← Back to Portfolio",

@@ -6,6 +6,7 @@ import { profileData as rawProfile } from "../data/profile";
 import { useLocalizedProfile } from '../hooks/useLocalizedProfile';
 import { CircleDoodle } from "./DoodleLibrary";
 import { LanguageToggle } from './LanguageToggle';
+import { useTranslation } from "../context/LanguageContext";
 
 const PlusIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -28,6 +29,7 @@ const itemVariants = {
 
 export const Nav = () => {
   const profileData = useLocalizedProfile(rawProfile);
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(true);
   const [hoveredPath, setHoveredPath] = useState(null);
 
@@ -123,7 +125,7 @@ export const Nav = () => {
           <motion.button
             onClick={() => setIsOpen((prev) => !prev)}
             className="text-primary p-2 shrink-0"
-            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-label={isOpen ? t("nav.closeMenu") : t("nav.openMenu")}
             whileTap={{ scale: 0.88 }}
             animate={{ rotate: isOpen ? 45 : 0 }}
             transition={{ duration: 0.22, ease: "easeOut" }}
