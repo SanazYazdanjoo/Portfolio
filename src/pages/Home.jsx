@@ -19,12 +19,11 @@ export default function Home() {
         className="snap-center bg-bg relative w-full min-h-screen flex flex-col z-10 justify-center items-center overflow-hidden pt-10 pb-10">
         <div className="container w-full relative">
           <Hero data={profileData} />
-
           {/* Arrow: vertically centered, right edge */}
-          <div className="absolute right-0 md:right-0 top-1/2 -translate-y-1/2 z-20">
+        </div>
+                  <div className="absolute right-0 md:right-0 top-1/2 -translate-y-1/2 z-20">
             <ScrollArrow />
           </div>
-        </div>
       </section>
 
       {/* ── About ── */}

@@ -5,7 +5,7 @@ import { ScribbleUnderline } from "./DoodleLibrary";
 
 export function AboutMe({ data }) {
   return (
-    <div className="relative w-full px-[4%] md:px-[6%] font-sans text-text">
+    <div className="relative w-full px-[0] md:px-[0] font-sans text-text">
       
       <div className="relative w-full max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-x-10 items-start">
         
@@ -49,7 +49,7 @@ export function AboutMe({ data }) {
         </span>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16">
-          <div>
+          <div className="paper-bg">
             <h3 className="text-[28px] md:text-xl font-display font-bold font-black tracking-[0.2em] text-text mb-4">Research</h3>
             <ul className="text-sm text-text/70 space-y-2 font-light leading-relaxed">
               <li>Qualitative Interviews</li>
@@ -59,7 +59,7 @@ export function AboutMe({ data }) {
               <li>Quantitative Analysis</li>
             </ul>
           </div>
-          <div>
+          <div className="paper-bg">
             <h3 className="text-[28px] md:text-xl font-display font-bold font-black tracking-[0.2em] text-text mb-4">Design</h3>
             <ul className="text-sm text-text/70 space-y-2 font-light leading-relaxed">
               <li>Design Thinking</li>
@@ -69,7 +69,7 @@ export function AboutMe({ data }) {
               <li>Behavioral Design</li>
             </ul>
           </div>
-          <div>
+          <div className="paper-bg">
             <h3 className="text-[28px] md:text-xl font-display font-bold font-black tracking-[0.2em] text-text mb-4">Technical</h3>
             <ul className="text-sm text-text/70 space-y-2 font-light leading-relaxed">
               <li>HTML / CSS / JS</li>

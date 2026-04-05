@@ -50,11 +50,11 @@ export function ProjectCard({ project, index }) {
     >
       <Link
         to={`/projects/${project.id}`}
-        className="paper-bg group block py-14 md:py-20"
+        className="group block py-5 md:py-5"
         aria-label={`View case study: ${project.title}`}
       >
         <div
-          className={`flex flex-col gap-8
+          className={` paper-bg flex flex-col gap-8
                       ${isEven
                         ? "md:flex-row md:items-stretch"
                         : "md:flex-row-reverse md:items-stretch"
@@ -62,7 +62,7 @@ export function ProjectCard({ project, index }) {
         >
           {/* ── Image + Number cluster ──────────────────────── */}
           <div
-            className={`relative shrink-0 ${isEven ? "md:mr-8" : "md:ml-8"}`}
+            className={`relative  shrink-0 ${isEven ? "md:mr-8" : "md:ml-8"}`}
           >
             {/* Large number */}
             <span
@@ -78,13 +78,13 @@ export function ProjectCard({ project, index }) {
             </span>
 
             {/* Thumbnail */}
-            <div className="photo-frame relative w-56 md:w-64 aspect-[3/4] overflow-hidden bg-primary/[0.03]">
+            <div className="photo-frame  relative w-56 md:w-64 aspect-[3/4] overflow-hidden bg-primary/[0.03]">
               {hasImage ? (
                 <img
                   src={project.thumbnail}
                   alt={project.title}
                   onError={() => setImgError(true)}
-                  className="w-full h-full object-cover transition-all duration-700
+                  className="w-full h-full object-cover transition-all duration-700 
                              grayscale group-hover:grayscale-0 group-hover:scale-[1.03]"
                 />
               ) : (
@@ -99,7 +99,7 @@ export function ProjectCard({ project, index }) {
 
           {/* ── Text content ───────────────────────────────── */}
           <div
-            className={` flex-1 flex flex-col justify-start min-w-0 pt-2
+            className={` TextContent flex-1 flex flex-col justify-start min-w-0 pt-2
                         ${isEven ? "md:text-left" : "md:text-right"}`}
           >
             {/* Title */}

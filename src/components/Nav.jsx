@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { profileData } from "../data/profile";
 import { CircleDoodle } from "./DoodleLibrary";
+import { LanguageToggle } from './LanguageToggle';
 
 const PlusIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -42,6 +43,7 @@ export const Nav = () => {
       <div className="flex items-center justify-between h-full px-6 md:px-12 max-w-screen-2xl mx-auto w-full">
 
         {/* ── LOGO ── */}
+        <LanguageToggle className="ml-4" />
         <NavLink
           to="/"
           onClick={() => setIsOpen(false)}

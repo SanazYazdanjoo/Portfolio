@@ -1,31 +1,22 @@
 {
   "profile": {
     "navLinks": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Projects",
-        "path": "/projects"
-      },
-      {
-        "name": "About",
-        "path": "/about"
-      },
-      {
-        "name": "Contact",
-        "path": "/contact"
-      },
-      {
-        "name": "CV",
-        "path": "/cv"
-      }
+      { "name": "Home", "path": "/" },
+      { "name": "Projects", "path": "/projects" },
+      { "name": "About", "path": "/about" },
+      { "name": "Contact", "path": "/contact" },
+      { "name": "CV", "path": "/cv" }
     ],
     "author": "Sanaz Yazdanjoo",
     "name": "Sanaz Yazdanjoo",
-    "role": "UX Engineer",
-    "tagline": "I speak both 'user' and 'developer'.",
+    "role": {
+      "en": "UX Engineer",
+      "de": "UX-Ingenieurin"
+    },
+    "tagline": {
+      "en": "I speak both 'user' and 'developer'.",
+      "de": "Ich spreche sowohl \u201aUser\u2018 als auch \u201aDeveloper\u2018."
+    },
     "year": "2026",
     "contact": {
       "location": "Weimar, Germany",
@@ -36,11 +27,17 @@
       "github": "https://github.com/sanaz",
       "githubHandle": "github.com/sanaz"
     },
-    "profileSummary": "UX Engineer with a Software Engineering foundation. 5+ years shipping production code (20+ websites, cross-browser QA, CMS architecture) before transitioning into human-centered research. I run mixed-methods studies — from contextual inquiries and stakeholder interviews to controlled experiments — and translate findings into validated prototypes. Currently completing my MSc in HCI at Bauhaus University Weimar.",
+    "profileSummary": {
+      "en": "UX Engineer with a Software Engineering foundation. 5+ years shipping production code (20+ websites, cross-browser QA, CMS architecture) before transitioning into human-centered research. I run mixed-methods studies — from contextual inquiries and stakeholder interviews to controlled experiments — and translate findings into validated prototypes. Currently completing my MSc in HCI at Bauhaus University Weimar.",
+      "de": "UX-Ingenieurin mit Software-Engineering-Hintergrund. Über 5 Jahre Erfahrung in der Entwicklung produktionsreifer Websites (20+ Projekte, Cross-Browser-QA, CMS-Architektur), bevor ich mich auf menschzentrierte Forschung spezialisiert habe. Ich führe Mixed-Methods-Studien durch — von kontextuellen Befragungen und Stakeholder-Interviews bis hin zu kontrollierten Experimenten — und übersetze Erkenntnisse in validierte Prototypen. Derzeit schließe ich meinen MSc in HCI an der Bauhaus-Universität Weimar ab."
+    },
     "experience": [
       {
         "company": "deskbird Co. + Bauhaus University of Weimar",
-        "role": "UX Researcher (Research Project)",
+        "role": {
+          "en": "UX Researcher (Research Project)",
+          "de": "UX-Researcherin (Forschungsprojekt)"
+        },
         "date": "10/2023 – 03/2024",
         "impactMetrics": [
           "50 survey participants",
@@ -48,41 +45,74 @@
           "4 stakeholder interviews"
         ],
         "tasks": [
-          "Shaped MVP scope through 4 stakeholder interviews that surfaced 3 critical feature gaps, directly informing prototype direction.",
-          "Ran mixed-methods research with 50 survey respondents and 6 remote contextual inquiries, generating the core insight dataset for feature design.",
-          "Translated research findings into storyboards and high-fidelity Figma prototypes, accelerating stakeholder sign-off on the social features roadmap.",
-          "Delivered usability-validated prototypes to stakeholders, achieving documented alignment on UX improvements at final presentation."
+          {
+            "en": "Shaped MVP scope through 4 stakeholder interviews that surfaced 3 critical feature gaps, directly informing prototype direction.",
+            "de": "MVP-Scope durch 4 Stakeholder-Interviews geschärft, die 3 kritische Feature-Lücken aufdeckten und die Prototyp-Richtung direkt beeinflussten."
+          },
+          {
+            "en": "Ran mixed-methods research with 50 survey respondents and 6 remote contextual inquiries, generating the core insight dataset for feature design.",
+            "de": "Mixed-Methods-Forschung mit 50 Umfrageteilnehmenden und 6 Remote-Kontextbefragungen durchgeführt und den zentralen Erkenntnisdatensatz für das Feature-Design generiert."
+          },
+          {
+            "en": "Translated research findings into storyboards and high-fidelity Figma prototypes, accelerating stakeholder sign-off on the social features roadmap.",
+            "de": "Forschungsergebnisse in Storyboards und High-Fidelity-Figma-Prototypen übersetzt und die Stakeholder-Freigabe der Social-Features-Roadmap beschleunigt."
+          },
+          {
+            "en": "Delivered usability-validated prototypes to stakeholders, achieving documented alignment on UX improvements at final presentation.",
+            "de": "Usability-validierte Prototypen an Stakeholder übergeben und dokumentierte Einigung über UX-Verbesserungen in der Abschlusspräsentation erzielt."
+          }
         ]
       },
       {
         "company": "Bauhaus University of Weimar",
-        "role": "Web Designer & Content Manager (Scientific Assistant)",
+        "role": {
+          "en": "Web Designer & Content Manager (Scientific Assistant)",
+          "de": "Webdesignerin & Content-Managerin (Wissenschaftliche Hilfskraft)"
+        },
         "date": "04/2023 – 09/2023",
         "impactMetrics": [
           "2 homepages redesigned",
           "Typo3 CMS"
         ],
         "tasks": [
-          "Redesigned 2 department homepages using existing design system components, reducing visual inconsistency across the faculty web presence.",
-          "Maintained and improved departmental websites in Typo3, ensuring content structure remained navigable and up-to-date."
+          {
+            "en": "Redesigned 2 department homepages using existing design system components, reducing visual inconsistency across the faculty web presence.",
+            "de": "2 Fachbereichs-Homepages mit bestehenden Design-System-Komponenten überarbeitet und visuelle Inkonsistenzen im Webauftritt der Fakultät reduziert."
+          },
+          {
+            "en": "Maintained and improved departmental websites in Typo3, ensuring content structure remained navigable and up-to-date.",
+            "de": "Fachbereichs-Websites in Typo3 gepflegt und verbessert, sodass die Inhaltsstruktur navigierbar und aktuell blieb."
+          }
         ]
       },
       {
         "company": "TDSoftware Co.",
-        "role": "QA Engineer (Working Student)",
+        "role": {
+          "en": "QA Engineer (Working Student)",
+          "de": "QA-Ingenieurin (Werkstudentin)"
+        },
         "date": "04/2022 – 06/2022",
         "impactMetrics": [
           "Critical defects reported",
           "Test automation introduced"
         ],
         "tasks": [
-          "Identified and documented critical usability and functionality defects, directly contributing to product stability before release.",
-          "Expanded test coverage by introducing automated test scripts alongside systematic manual test execution."
+          {
+            "en": "Identified and documented critical usability and functionality defects, directly contributing to product stability before release.",
+            "de": "Kritische Usability- und Funktionsfehler identifiziert und dokumentiert und damit direkt zur Produktstabilität vor dem Release beigetragen."
+          },
+          {
+            "en": "Expanded test coverage by introducing automated test scripts alongside systematic manual test execution.",
+            "de": "Testabdeckung durch Einführung automatisierter Testskripte neben systematischer manueller Testdurchführung erweitert."
+          }
         ]
       },
       {
         "company": "Part Financial Data Processing Co.",
-        "role": "QA Engineer (Full Time)",
+        "role": {
+          "en": "QA Engineer (Full Time)",
+          "de": "QA-Ingenieurin (Vollzeit)"
+        },
         "date": "08/2020 – 08/2021",
         "impactMetrics": [
           "5 agile projects",
@@ -90,14 +120,26 @@
           "Organisation-wide QA process"
         ],
         "tasks": [
-          "Founded the acceptance testing function from scratch and built the company's first bug-tracking system, reducing recurring defect cycles.",
-          "Embedded QA into sprint cycles across 5 agile projects, improving product usability delivery consistency.",
-          "Authored comprehensive test plans and scenarios that standardised QA processes organisation-wide."
+          {
+            "en": "Founded the acceptance testing function from scratch and built the company's first bug-tracking system, reducing recurring defect cycles.",
+            "de": "Abnahmetests von Grund auf aufgebaut und das erste Bug-Tracking-System des Unternehmens implementiert, wodurch wiederkehrende Fehlerzyklen reduziert wurden."
+          },
+          {
+            "en": "Embedded QA into sprint cycles across 5 agile projects, improving product usability delivery consistency.",
+            "de": "QA in Sprint-Zyklen von 5 agilen Projekten integriert und die Konsistenz der Usability-Lieferung verbessert."
+          },
+          {
+            "en": "Authored comprehensive test plans and scenarios that standardised QA processes organisation-wide.",
+            "de": "Umfassende Testpläne und -szenarien erstellt, die QA-Prozesse unternehmensweit standardisierten."
+          }
         ]
       },
       {
         "company": "MegaTech Co.",
-        "role": "Frontend Developer & QA (Full Time)",
+        "role": {
+          "en": "Frontend Developer & QA (Full Time)",
+          "de": "Frontend-Entwicklerin & QA (Vollzeit)"
+        },
         "date": "01/2016 – 08/2019",
         "impactMetrics": [
           "20+ websites delivered",
@@ -105,9 +147,18 @@
           "Client training programme"
         ],
         "tasks": [
-          "Delivered 20+ client websites end-to-end using HTML, CSS, JavaScript, Bootstrap, and WordPress.",
-          "Reduced post-launch UI issues by systematically applying cross-browser testing and usability reviews during development.",
-          "Reduced client support load through structured CMS training, empowering clients to self-manage web content."
+          {
+            "en": "Delivered 20+ client websites end-to-end using HTML, CSS, JavaScript, Bootstrap, and WordPress.",
+            "de": "20+ Kunden-Websites End-to-End mit HTML, CSS, JavaScript, Bootstrap und WordPress umgesetzt."
+          },
+          {
+            "en": "Reduced post-launch UI issues by systematically applying cross-browser testing and usability reviews during development.",
+            "de": "Post-Launch-UI-Probleme durch systematisches Cross-Browser-Testing und Usability-Reviews während der Entwicklung reduziert."
+          },
+          {
+            "en": "Reduced client support load through structured CMS training, empowering clients to self-manage web content.",
+            "de": "Kundensupport-Aufwand durch strukturierte CMS-Schulungen reduziert und Kunden zur eigenständigen Verwaltung von Webinhalten befähigt."
+          }
         ]
       }
     ],
@@ -117,70 +168,59 @@
         "title": "Gaze-Assisted Input in Dual-Display Environments",
         "type": "Quantitative UX · Eye-Tracking · Python",
         "metrics": [
-          {
-            "value": "N=30",
-            "label": "within-subject experiment"
-          },
-          {
-            "value": "SUS 85.2",
-            "label": "Mouse baseline"
-          },
-          {
-            "value": "SUS 72.6",
-            "label": "Ninja Cursors condition"
-          }
+          { "value": "N=30", "label": "within-subject experiment" },
+          { "value": "SUS 85.2", "label": "Mouse baseline" },
+          { "value": "SUS 72.6", "label": "Ninja Cursors condition" }
         ],
-        "summary": "Engineered a real-time gaze pipeline (Pupil Labs Neon + Python) and ran a controlled experiment comparing MAGIC Pointing and Ninja Cursors against a mouse baseline. Key finding: gaze assistance should trigger conditionally for large cross-screen relocations only."
+        "summary": {
+          "en": "Engineered a real-time gaze pipeline (Pupil Labs Neon + Python) and ran a controlled experiment comparing MAGIC Pointing and Ninja Cursors against a mouse baseline. Key finding: gaze assistance should trigger conditionally for large cross-screen relocations only.",
+          "de": "Echtzeit-Blickpipeline (Pupil Labs Neon + Python) entwickelt und ein kontrolliertes Experiment durchgeführt, das MAGIC Pointing und Ninja Cursors mit einer Maus-Baseline verglich. Kernerkenntnis: Blickunterstützung sollte nur bei großen bildschirmübergreifenden Verlagerungen bedingt ausgelöst werden."
+        }
       },
       {
         "id": "project-2",
         "title": "UCD4UX: Social Interactions in Hybrid Work",
         "type": "User-Centered Design · Mixed Methods · Figma",
         "metrics": [
-          {
-            "value": "50",
-            "label": "survey respondents"
-          },
-          {
-            "value": "6",
-            "label": "contextual inquiries"
-          },
-          {
-            "value": "4",
-            "label": "stakeholder interviews"
-          }
+          { "value": "50", "label": "survey respondents" },
+          { "value": "6", "label": "contextual inquiries" },
+          { "value": "4", "label": "stakeholder interviews" }
         ],
-        "summary": "Led end-to-end UX research for a social features concept on the deskbird platform. Achieved positive usability evaluation and full stakeholder alignment on the feature roadmap."
+        "summary": {
+          "en": "Led end-to-end UX research for a social features concept on the deskbird platform. Achieved positive usability evaluation and full stakeholder alignment on the feature roadmap.",
+          "de": "End-to-End-UX-Research für ein Social-Features-Konzept auf der deskbird-Plattform geleitet. Positive Usability-Bewertung und vollständige Stakeholder-Abstimmung auf die Feature-Roadmap erreicht."
+        }
       },
       {
         "id": "project-3",
         "title": "EmbraceMe – Inflatable Human-Robot for Emotional Care",
         "type": "HRI · Soft Robotics · Arduino · Affective Computing",
         "metrics": [
-          {
-            "value": "Public",
-            "label": "exhibition debut"
-          },
-          {
-            "value": "Repeatable",
-            "label": "pneumatic actuation"
-          }
+          { "value": "Public", "label": "exhibition debut" },
+          { "value": "Repeatable", "label": "pneumatic actuation" }
         ],
-        "summary": "Designed and built an inflatable soft-robotic hugging system using Arduino-controlled pneumatic actuators and capacitive sensors, demonstrated publicly with documented positive affective responses."
+        "summary": {
+          "en": "Designed and built an inflatable soft-robotic hugging system using Arduino-controlled pneumatic actuators and capacitive sensors, demonstrated publicly with documented positive affective responses.",
+          "de": "Ein aufblasbares Soft-Robotik-Umarmungssystem mit Arduino-gesteuerten pneumatischen Aktoren und kapazitiven Sensoren entworfen und gebaut, öffentlich demonstriert mit dokumentierten positiven affektiven Reaktionen."
+        }
       }
     ],
     "education": [
       {
         "school": "Bauhaus University of Weimar",
-        "degree": "MSc. Human-Computer Interaction",
+        "degree": {
+          "en": "MSc. Human-Computer Interaction",
+          "de": "MSc. Mensch-Computer-Interaktion"
+        },
         "year": "2024 – 2026",
-        "awards": [
-          "Dean's List 2025"
-        ]
+        "awards": ["Dean's List 2025"]
       },
       {
         "school": "Khayyam University of Mashhad",
-        "degree": "BE. Software Engineering",
+        "degree": {
+          "en": "BE. Software Engineering",
+          "de": "BE. Software-Engineering"
+        },
         "year": "2010 – 2015"
       }
     ],
@@ -227,18 +267,9 @@
       ]
     },
     "languages": [
-      {
-        "name": "English",
-        "level": "Professional Working"
-      },
-      {
-        "name": "German",
-        "level": "Limited Working"
-      },
-      {
-        "name": "French",
-        "level": "Elementary"
-      }
+      { "name": "English", "level": "Professional Working" },
+      { "name": "German", "level": "Limited Working" },
+      { "name": "French", "level": "Elementary" }
     ],
     "certifications": [
       {
@@ -247,7 +278,10 @@
         "year": "2024"
       }
     ],
-    "bio": "I bridge the gap between code and human behavior. With 5+ years as a Frontend Developer and QA Engineer — shipping 20+ production websites and building QA systems from scratch — I now apply that technical fluency to UX Research. I run stakeholder interviews, contextual inquiries, and controlled experiments, then translate findings into validated Figma prototypes and working code. Currently pursuing my MSc in HCI at Bauhaus University of Weimar, I speak both 'user' and 'developer' — fluently.",
+    "bio": {
+      "en": "I bridge the gap between code and human behavior. With 5+ years as a Frontend Developer and QA Engineer — shipping 20+ production websites and building QA systems from scratch — I now apply that technical fluency to UX Research. I run stakeholder interviews, contextual inquiries, and controlled experiments, then translate findings into validated Figma prototypes and working code. Currently pursuing my MSc in HCI at Bauhaus University of Weimar, I speak both 'user' and 'developer' — fluently.",
+      "de": "Ich verbinde Code und menschliches Verhalten. Mit über 5 Jahren als Frontend-Entwicklerin und QA-Ingenieurin — 20+ produktionsreife Websites und QA-Systeme von Grund auf aufgebaut — bringe ich diese technische Kompetenz jetzt in die UX-Forschung ein. Ich führe Stakeholder-Interviews, kontextuelle Befragungen und kontrollierte Experimente durch und übersetze Erkenntnisse in validierte Figma-Prototypen und funktionierenden Code. Derzeit verfolge ich meinen MSc in HCI an der Bauhaus-Universität Weimar — ich spreche fließend 'User' und 'Developer'."
+    },
     "heroImage": "/assets/hero-portfolio.png",
     "aboutImage": "/assets/me.png",
     "doodles": {
@@ -261,17 +295,29 @@
   "voluntary": [
     {
       "id": 1,
-      "title": "UX Mentorship Program",
+      "title": {
+        "en": "UX Mentorship Program",
+        "de": "UX-Mentoring-Programm"
+      },
       "year": "2023 - Present",
       "org": "Bauhaus University Weimar",
-      "desc": "Guiding junior HCI students through their first user research methodologies, helping them structure usability tests, and providing feedback on Figma prototypes."
+      "desc": {
+        "en": "Guiding junior HCI students through their first user research methodologies, helping them structure usability tests, and providing feedback on Figma prototypes.",
+        "de": "Begleitung von HCI-Studierenden bei ihren ersten User-Research-Methoden, Unterstützung bei der Strukturierung von Usability-Tests und Feedback zu Figma-Prototypen."
+      }
     },
     {
       "id": 2,
-      "title": "Design Thinking Workshop Organizer",
+      "title": {
+        "en": "Design Thinking Workshop Organizer",
+        "de": "Organisatorin Design-Thinking-Workshop"
+      },
       "year": "2022",
       "org": "Student Council",
-      "desc": "Organized and facilitated a 2-day workshop for 30+ students bridging the gap between computer science and visual communication design."
+      "desc": {
+        "en": "Organized and facilitated a 2-day workshop for 30+ students bridging the gap between computer science and visual communication design.",
+        "de": "Einen 2-tägigen Workshop für 30+ Studierende organisiert und moderiert, der die Brücke zwischen Informatik und Visueller Kommunikation schlug."
+      }
     }
   ]
 }
