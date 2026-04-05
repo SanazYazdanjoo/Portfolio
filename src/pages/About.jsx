@@ -104,6 +104,7 @@ export default function About() {
           {/* ── Right Column: The "Peeking" Photo (Cols 8 to 12) ── */}
           <motion.div 
             // The negative top margin (-mt-20 lg:-mt-32) pulls this image UP into the Hero section!
+            id="AboutAvatarImg"
             className="md:col-span-5 relative -mt-10 md:-mt-20 lg:-mt-32 z-20 flex justify-end"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}

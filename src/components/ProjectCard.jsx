@@ -50,7 +50,7 @@ export function ProjectCard({ project, index }) {
     >
       <Link
         to={`/projects/${project.id}`}
-        className="group block py-14 md:py-20"
+        className="paper-bg group block py-14 md:py-20"
         aria-label={`View case study: ${project.title}`}
       >
         <div
@@ -99,7 +99,7 @@ export function ProjectCard({ project, index }) {
 
           {/* ── Text content ───────────────────────────────── */}
           <div
-            className={`flex-1 flex flex-col justify-start min-w-0 pt-2
+            className={` flex-1 flex flex-col justify-start min-w-0 pt-2
                         ${isEven ? "md:text-left" : "md:text-right"}`}
           >
             {/* Title */}
@@ -123,7 +123,7 @@ export function ProjectCard({ project, index }) {
             {/* ── Hover reveal ─────────────────────────────── */}
             <div
               className="grid transition-all duration-500 ease-out
-                         max-h-0 opacity-0 group-hover:max-h-[300px] group-hover:opacity-100
+                         max-h-0 opacity-100 group-hover:max-h-[300px]
                          overflow-hidden"
             >
               <div className="pt-5 space-y-4">

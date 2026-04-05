@@ -248,7 +248,7 @@ export function ScrollIndicator({ scrollRef }) {
 
                 {/* Label — slides in when active */}
                 <motion.span
-                  className="absolute left-8 text-[9px] font-black font-display  
+                  className="absolute left-8 text-[14px] font-black font-display  
                              tracking-[0.2em] text-primary whitespace-nowrap"
                   animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : -6 }}
                   transition={{ type: "spring", stiffness: 260, damping: 22 }}
