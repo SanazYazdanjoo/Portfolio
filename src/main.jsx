@@ -15,6 +15,7 @@ import Sitemap from './pages/Sitemap';
 import DesignSystem from './pages/DesignSystem';
 import Admin from './pages/Admin'; // 1. <-- ADD YOUR IMPORT HERE
 import './index.css';
+import { LanguageProvider } from './context/LanguageContext';
 
 // The Magic Sweeper: Looks for any 'index.jsx' inside your 'src/projects/' folders
 const projectFiles = import.meta.glob('./projects/*/index.jsx', { eager: true });
@@ -51,6 +52,9 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+ 
+        <LanguageProvider>          {/* ← ADD */}
+      <RouterProvider router={router} />
+    </LanguageProvider> 
   </React.StrictMode>
 );
