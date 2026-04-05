@@ -4,10 +4,12 @@ import { Nav } from './components/Nav';
 import { Footer } from './components/Footer';
 import { SketchTrail } from './components/SketchTrail';
 import { ScrollIndicator } from "./components/Scrollindicator.JSX";
-import { profileData } from "./data/profile";
+import { profileData as rawProfile } from "./data/profile";
+import { useLocalizedProfile } from "./hooks/useLocalizedProfile";
 import Admin from "./pages/Admin";
  
 export default function App() {
+  const profileData = useLocalizedProfile(rawProfile);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const scrollRef = useRef(null);
 
@@ -52,14 +54,12 @@ export default function App() {
       {/* Frame border */}
       <div className="fixed inset-0 border border-border/40 pointer-events-none z-[100] m-3"></div>
 
-      {/* ── HEADER — outside scroll container, always full width ── */}
       <header className="w-full z-50 shrink-0 border-b border-border h-20 flex flex-col justify-center bg-bg no-print">
         <Nav />
       </header>
 
       <ScrollIndicator flowerSrc={null} scrollRef={scrollRef} />
 
-      {/* ── SCROLLABLE CONTENT ── */}
       <div
         ref={scrollRef}
         className="flex-1 scroll-container overflow-y-auto overflow-x-hidden
