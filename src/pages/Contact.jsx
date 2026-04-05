@@ -1,8 +1,10 @@
 import React from "react";
-import { profileData } from "../data/profile";
+import { profileData as rawProfile } from "../data/profile";
+import { useLocalizedProfile } from '../hooks/useLocalizedProfile';
 import { ScribbleUnderline, CircleDoodle, FlowerDoodle } from "../components/DoodleLibrary";
 
 export default function Contact() {
+  const profileData = useLocalizedProfile(rawProfile);
   return (
     <div className="min-h-screen bg-bg py-20 relative overflow-hidden flex items-center">
       <FlowerDoodle className="absolute top-1/4 -right-20 w-96 h-96 text-accent opacity-10 rotate-12 pointer-events-none" />

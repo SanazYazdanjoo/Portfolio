@@ -5,6 +5,7 @@ import { FlowerDoodle } from '../components/DoodleLibrary';
 import { profileData as rawProfile } from '../data/profile';
 import { useLocalizedProfile } from '../hooks/useLocalizedProfile';
 export default function Privacy() {
+  const profileData = useLocalizedProfile(rawProfile);
   return (
     <main className="min-h-screen pt-32 pb-20 relative overflow-hidden">
       {/* Background Decorative Element */}

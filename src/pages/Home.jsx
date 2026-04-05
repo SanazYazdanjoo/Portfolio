@@ -5,11 +5,13 @@ import { AboutMe } from "../components/AboutMe";
 import { ProjectCard } from "../components/ProjectCard";
 import { ScribbleDivider } from "../components/ScribbleDivider";
 import { projects } from "../data/projects";
-import { profileData } from "../data/profile";
+import { profileData as rawProfile } from "../data/profile";
+import { useLocalizedProfile } from '../hooks/useLocalizedProfile';
 import { ScrollArrow } from "../components/Scrollarrow";
 import { motion } from "framer-motion";
 
 export default function Home() {
+  const profileData = useLocalizedProfile(rawProfile);
   return (
     <div className=" w-full relative snap-y snap-mandatory">
 
