@@ -33,6 +33,102 @@ function Field({ label, value, onChange, multiline, placeholder, mono }) {
   );
 }
 
+function BilingualField({ label, value, onChange, multiline, placeholder, mono }) {
+  const norm = (typeof value === "string" || value === null || value === undefined)
+    ? { en: value ?? "", de: "" }
+    : value;
+  const set = (lang, v) => onChange({ ...norm, [lang]: v });
+  const base =
+    "w-full bg-white border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#96150f]/30 focus:border-[#96150f] transition-colors";
+  return (
+    <div className="mb-4">
+      <span className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 block">
+        {label}
+      </span>
+      <div className={multiline ? "space-y-2" : "grid grid-cols-2 gap-2"}>
+        {["en", "de"].map((lang) => (
+          <div key={lang}>
+            <span className="text-[10px] font-black uppercase tracking-widest text-gray-300 mb-1 block">
+              {lang.toUpperCase()}
+            </span>
+            {multiline ? (
+              <textarea
+                className={`${base} min-h-[80px] resize-y ${mono ? "font-mono text-xs" : ""}`}
+                value={norm[lang] ?? ""}
+                onChange={(e) => set(lang, e.target.value)}
+                placeholder={placeholder}
+              />
+            ) : (
+              <input
+                className={`${base} ${mono ? "font-mono text-xs" : ""}`}
+                value={norm[lang] ?? ""}
+                onChange={(e) => set(lang, e.target.value)}
+                placeholder={placeholder}
+              />
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function BilingualArrayField({ label, items = [], onChange, placeholder }) {
+  const norm = items.map((item) =>
+    typeof item === "string" ? { en: item, de: "" } : item
+  );
+  const update = (i, lang, val) => {
+    const next = [...norm];
+    next[i] = { ...next[i], [lang]: val };
+    onChange(next);
+  };
+  const add = () => onChange([...norm, { en: "", de: "" }]);
+  const remove = (i) => onChange(norm.filter((_, idx) => idx !== i));
+
+  return (
+    <div className="mb-4">
+      <span className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 block">
+        {label}
+      </span>
+      {norm.map((item, i) => (
+        <div key={i} className="mb-3 border border-gray-100 p-3">
+          <div className="grid grid-cols-2 gap-2 mb-1">
+            {["en", "de"].map((lang) => (
+              <div key={lang}>
+                <span className="text-[10px] font-black uppercase tracking-widest text-gray-300 mb-1 block">
+                  {lang.toUpperCase()}
+                </span>
+                <div className="flex gap-1">
+                  <textarea
+                    className="flex-1 bg-white border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#96150f]/30 min-h-[60px] resize-y"
+                    value={item[lang] ?? ""}
+                    onChange={(e) => update(i, lang, e.target.value)}
+                    placeholder={placeholder}
+                  />
+                  {lang === "de" && (
+                    <button
+                      onClick={() => remove(i)}
+                      className="self-start px-2 py-2 text-xs font-bold text-red-500 border border-red-200 hover:bg-red-50 transition-colors"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+      <button
+        onClick={add}
+        className="text-xs font-bold uppercase tracking-widest text-[#96150f] hover:underline mt-1"
+      >
+        + Add item
+      </button>
+    </div>
+  );
+}
+
 function ArrayField({ label, items = [], onChange, placeholder }) {
   const update = (i, val) => {
     const next = [...items];
@@ -97,8 +193,8 @@ function PersonalTab({ data, setData }) {
     <>
       <Section title="Identity">
         <Field label="Full Name" value={data.name} onChange={(v) => set("name", v)} />
-        <Field label="Role / Title" value={data.role} onChange={(v) => set("role", v)} />
-        <Field label="Tagline" value={data.tagline} onChange={(v) => set("tagline", v)} />
+        <BilingualField label="Role / Title" value={data.role} onChange={(v) => set("role", v)} />
+        <BilingualField label="Tagline" value={data.tagline} onChange={(v) => set("tagline", v)} />
         <Field label="Year" value={data.year} onChange={(v) => set("year", v)} />
       </Section>
       <Section title="Contact">
@@ -113,7 +209,7 @@ function PersonalTab({ data, setData }) {
         </div>
       </Section>
       <Section title="Profile Summary">
-        <Field
+        <BilingualField
           label="Summary (used in CV header)"
           value={data.profileSummary}
           onChange={(v) => set("profileSummary", v)}
@@ -121,7 +217,7 @@ function PersonalTab({ data, setData }) {
         />
       </Section>
       <Section title="Bio">
-        <Field
+        <BilingualField
           label="Short bio (About page)"
           value={data.bio}
           onChange={(v) => set("bio", v)}
@@ -147,7 +243,7 @@ function ExperienceTab({ data, setData }) {
       ...d,
       experience: [
         ...d.experience,
-        { company: "", role: "", date: "", impactMetrics: [], tasks: [] },
+        { company: "", role: { en: "", de: "" }, date: "", impactMetrics: [], tasks: [] },
       ],
     }));
 
@@ -161,18 +257,16 @@ function ExperienceTab({ data, setData }) {
     <>
       {jobs.map((job, i) => (
         <Section key={i} title={job.company || `Position ${i + 1}`}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
-            <Field label="Company" value={job.company} onChange={(v) => setJob(i, "company", v)} />
-            <Field label="Role" value={job.role} onChange={(v) => setJob(i, "role", v)} />
-            <Field label="Date Range" value={job.date} onChange={(v) => setJob(i, "date", v)} placeholder="e.g. 10/2023 – 03/2024" />
-          </div>
+          <Field label="Company" value={job.company} onChange={(v) => setJob(i, "company", v)} />
+          <BilingualField label="Role" value={job.role} onChange={(v) => setJob(i, "role", v)} />
+          <Field label="Date Range" value={job.date} onChange={(v) => setJob(i, "date", v)} placeholder="e.g. 10/2023 – 03/2024" />
           <ArrayField
             label="Impact Metrics"
             items={job.impactMetrics}
             onChange={(v) => setJob(i, "impactMetrics", v)}
             placeholder="e.g. 50 survey participants"
           />
-          <ArrayField
+          <BilingualArrayField
             label="Tasks / Responsibilities"
             items={job.tasks}
             onChange={(v) => setJob(i, "tasks", v)}
@@ -284,8 +378,14 @@ function EducationTab({ data, setData }) {
       {items.map((edu, i) => (
         <Section key={i} title={edu.school || `Education ${i + 1}`}>
           <Field label="School / University" value={edu.school} onChange={(v) => setEdu(i, "school", v)} />
-          <Field label="Degree / Programme" value={edu.degree} onChange={(v) => setEdu(i, "degree", v)} />
+          <BilingualField label="Degree / Programme" value={edu.degree} onChange={(v) => setEdu(i, "degree", v)} />
           <Field label="Date Range" value={edu.date} onChange={(v) => setEdu(i, "date", v)} />
+          <button
+            onClick={() => removeEdu(i)}
+            className="text-xs font-bold uppercase tracking-widest text-red-500 hover:underline mt-2"
+          >
+            Remove this entry
+          </button>
         </Section>
       ))}
       <button
@@ -342,7 +442,7 @@ function PortfolioHighlightsTab({ data, setData }) {
       ...d,
       portfolioHighlights: [
         ...d.portfolioHighlights,
-        { id: `project-${Date.now()}`, title: "", type: "", metrics: [], summary: "" },
+        { id: `project-${Date.now()}`, title: "", type: "", metrics: [], summary: { en: "", de: "" } },
       ],
     }));
 
@@ -359,7 +459,7 @@ function PortfolioHighlightsTab({ data, setData }) {
           <Field label="Project ID" value={item.id} onChange={(v) => setItem(i, "id", v)} mono />
           <Field label="Title" value={item.title} onChange={(v) => setItem(i, "title", v)} />
           <Field label="Type / Methods" value={item.type} onChange={(v) => setItem(i, "type", v)} placeholder="e.g. Quantitative UX · Eye-Tracking · Python" />
-          <Field label="Summary" value={item.summary} onChange={(v) => setItem(i, "summary", v)} multiline />
+          <BilingualField label="Summary" value={item.summary} onChange={(v) => setItem(i, "summary", v)} multiline />
 
           <div className="mt-4">
             <span className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 block">
@@ -423,18 +523,18 @@ function VoluntaryTab({ voluntary, setVoluntary }) {
   };
 
   const addItem = () =>
-    setVoluntary([...items, { id: Date.now(), title: "", year: "", org: "", desc: "" }]);
+    setVoluntary([...items, { id: Date.now(), title: { en: "", de: "" }, year: "", org: "", desc: { en: "", de: "" } }]);
 
   const removeItem = (i) => setVoluntary(items.filter((_, idx) => idx !== i));
 
   return (
     <>
       {items.map((item, i) => (
-        <Section key={item.id || i} title={item.title || `Activity ${i + 1}`}>
-          <Field label="Title" value={item.title} onChange={(v) => setItem(i, "title", v)} />
+        <Section key={item.id || i} title={typeof item.title === "object" ? (item.title.en || `Activity ${i + 1}`) : (item.title || `Activity ${i + 1}`)}>
+          <BilingualField label="Title" value={item.title} onChange={(v) => setItem(i, "title", v)} />
           <Field label="Year(s)" value={item.year} onChange={(v) => setItem(i, "year", v)} placeholder="e.g. 2023 - Present" />
           <Field label="Organisation" value={item.org} onChange={(v) => setItem(i, "org", v)} />
-          <Field label="Description" value={item.desc} onChange={(v) => setItem(i, "desc", v)} multiline />
+          <BilingualField label="Description" value={item.desc} onChange={(v) => setItem(i, "desc", v)} multiline />
           <button
             onClick={() => removeItem(i)}
             className="text-xs font-bold uppercase tracking-widest text-red-500 hover:underline mt-2"
