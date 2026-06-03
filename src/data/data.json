@@ -20,6 +20,10 @@
       {
         "name": "CV",
         "path": "/cv"
+      },
+      {
+        "name": "Design System",
+        "path": "/designsystem"
       }
     ],
     "author": "Sanaz Yazdanjoo",

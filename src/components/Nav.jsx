@@ -1,140 +1,84 @@
-// src/components/Nav.jsx
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { profileData as rawProfile } from "../data/profile";
 import { useLocalizedProfile } from '../hooks/useLocalizedProfile';
-import { CircleDoodle } from "./DoodleLibrary";
 import { LanguageToggle } from './LanguageToggle';
-import { useTranslation } from "../context/LanguageContext";
 
-const PlusIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-    strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 5v14M5 12h14" />
-  </svg>
-);
-
-const listVariants = {
-  hidden: {},
-  show:  { transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
-  exit:  { transition: { staggerChildren: 0.04, staggerDirection: -1 } },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, x: -14 },
-  show:   { opacity: 1, x: 0, transition: { duration: 0.25, ease: "easeOut" } },
-  exit:   { opacity: 0, x: -10, transition: { duration: 0.18, ease: "easeIn" } },
-};
-
-export const Nav = () => {
+export const Nav = ({ isScrolled = false }) => {
   const profileData = useLocalizedProfile(rawProfile);
-  const { t } = useTranslation();
-  const [isOpen, setIsOpen] = useState(true);
-  const [hoveredPath, setHoveredPath] = useState(null);
-
-  // A counter that increments each time a new link is hovered.
-  // Passed as drawKey so the oval always redraws from scratch.
-  const [hoverCount, setHoverCount] = useState(0);
-
-  const handleMouseEnter = (path) => {
-    setHoveredPath(path);
-    setHoverCount((c) => c + 1);  // bump → new drawKey → CircleDoodle remounts → redraws
-  };
 
   return (
-    <nav data-no-sketch="true" className="w-full h-full no-print">
-      <div className="flex items-center justify-between h-full px-6 md:px-12 max-w-screen-2xl mx-auto w-full">
+    <nav data-no-sketch="true" className="w-full no-print">
+      {/* items-start = nav links align to TOP of the name, not baseline */}
+      <div className="flex items-start justify-between w-full">
 
-        {/* ── LOGO ── */}
-        <LanguageToggle className="ml-4" />
-        <NavLink
-          to="/"
-          onClick={() => setIsOpen(false)}
-          className="flex items-center group shrink-0 cursor-pointer"
-        >
-          <div className="relative flex items-center">
-            <span className="text-primary font-display text-4xl leading-none ml-1 self-end mb-2">Sanaz Yazdanjoo</span>
-          </div>
-        </NavLink>
-
-        {/* ── RIGHT SIDE: links + toggle ── */}
-        <div className="flex items-center gap-2 cursor-pointer">
-
-          <AnimatePresence>
-            {isOpen && (
-              <motion.ul
-                key="nav-links"
-                variants={listVariants}
-                initial="hidden"
-                animate="show"
-                exit="exit"
-                className="flex items-center gap-1 md:gap-2"
-              >
-                {profileData.navLinks.map((link) => (
-                  <motion.li key={link.path} variants={itemVariants}>
-                    <NavLink
-                      to={link.path}
-                      end={link.path === "/"}
-                      onClick={() => setIsOpen(false)}
-                      onMouseEnter={() => handleMouseEnter(link.path)}
-                      onMouseLeave={() => setHoveredPath(null)}
-                      className={({ isActive }) =>
-                        `relative px-3 py-2 text-xs md:text-sm font-bold uppercase tracking-widest
-                         transition-colors duration-300 inline-block
-                         ${isActive ? "text-primary" : "text-dim hover:text-text"}`
-                      }
-                    >
-                      {({ isActive }) => {
-                        const isHovered = hoveredPath === link.path;
-                        return (
-                          <>
-                            <span className="relative z-10">{link.name}</span>
-
-                            {/*
-                              Show the oval when active OR hovered.
-                              - isActive   → isAnimated=false  → instant full circle, no redraw
-                              - isHovered  → isAnimated=true   → draws in clockwise, fresh each hover
-                              - drawKey    → hoverCount ensures a remount (fresh draw) every hover
-                            */}
-                            {(isActive || isHovered) && (
-                              <CircleDoodle
-                                isAnimated={!isActive && isHovered}
-                                drawKey={hoverCount}
-                                className={`
-                                  absolute inset-0 w-full h-full pointer-events-none
-                                  ${isActive
-                                    ? "text-primary opacity-100 scale-110"
-                                    : "text-primary opacity-100 scale-105"
-                                  }
-                                `}
-                                style={{ transform: isActive ? "scale(1.1)" : "scale(1.05)" }}
-                              />
-                            )}
-                          </>
-                        );
-                      }}
-                    </NavLink>
-                  </motion.li>
-                ))}
-              </motion.ul>
-            )}
-          </AnimatePresence>
-
-          {/* ── + rotates to × on open ── */}
-          <motion.button
-            onClick={() => setIsOpen((prev) => !prev)}
-            className="text-primary p-2 shrink-0"
-            aria-label={isOpen ? t("nav.closeMenu") : t("nav.openMenu")}
-            whileTap={{ scale: 0.88 }}
-            animate={{ rotate: isOpen ? 45 : 0 }}
-            transition={{ duration: 0.22, ease: "easeOut" }}
-          >
-            <PlusIcon />
-          </motion.button>
-
+        {/* ── Name: large, bold, flush left ── */}
+        <div className="flex items-start gap-3 shrink-0">
+          <LanguageToggle />
+          <NavLink to="/">
+            <h1
+              className="font-display text-text leading-[0.95] transition-all duration-300"
+              style={{
+                fontWeight: 800,
+                fontSize: isScrolled ? "clamp(1.25rem, 2.5vw, 2rem)" : "clamp(2.5rem, 5vw, 5rem)",
+                letterSpacing: "-0.035em",
+              }}
+            >
+              {isScrolled ? "Sanaz Yazdanjoo" : <>{`Sanaz`}<br />{`Yazdanjoo`}</>}
+            </h1>
+          </NavLink>
         </div>
+
+        {/* ── Links: top-right, small, wide gaps ── */}
+        <ul className="hidden md:flex items-start gap-10 lg:gap-14 pt-1">
+          {profileData.navLinks.map((link) => (
+            <li key={link.path}>
+              <NavLink
+                to={link.path}
+                end={link.path === "/"}
+                className={({ isActive }) =>
+                  `text-[13px] md:text-[14px] transition-colors duration-200
+                   ${isActive ? "text-text" : "text-text/40 hover:text-text"}`
+                }
+              >
+                {link.name}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+
+        <MobileMenu links={profileData.navLinks} />
       </div>
     </nav>
   );
 };
+
+function MobileMenu({ links }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="md:hidden">
+      <button onClick={() => setOpen(!open)} className="text-text p-2" aria-label="Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+          {open
+            ? <><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></>
+            : <><line x1="4" y1="8" x2="20" y2="8"/><line x1="4" y1="16" x2="20" y2="16"/></>
+          }
+        </svg>
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
+            className="absolute top-full left-0 right-0 bg-[var(--bg)] px-8 py-8 flex flex-col gap-5 z-50">
+            {links.map((link) => (
+              <NavLink key={link.path} to={link.path} end={link.path === "/"} onClick={() => setOpen(false)}
+                className={({ isActive }) => `text-base ${isActive ? "text-text" : "text-text/40"}`}>
+                {link.name}
+              </NavLink>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}

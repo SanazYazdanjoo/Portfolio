@@ -16,28 +16,30 @@ import { projects } from "../data/projects";
 // ─── Token definitions ────────────────────────────────────────────────────────
 // Update these when you add new variables to index.css or theme.css.
 const COLOR_TOKENS = [
-  { name: "Primary",     var: "--primary",   role: "Burgundy — brand accent, headings, CTAs" },
-  { name: "Primary 600", var: "--primary-600",role: "Darker burgundy for hover states" },
-  { name: "Text",        var: "--text",      role: "Main body text (Inter)" },
-  { name: "Text Dim",    var: "--text-dim",  role: "Secondary / muted text" },
-  { name: "Background",  var: "--bg",        role: "Page background (Textured White)" },
-  { name: "Muted",       var: "--muted",     role: "Subtle fills, chip backgrounds" },
-  { name: "Border",      var: "--border",    role: "Dividers, card borders" },
-  { name: "Peach",       var: "--peach",     role: "Warm secondary tone for accents" },
-  { name: "Danger",      var: "--danger",    role: "Errors, destructive actions (QA States)" },
-  { name: "Success",     var: "--success",   role: "Confirmations, passing tests (QA States)" },
+  { name: "Primary",      var: "--primary",       role: "Burnt orange — brand accent, links, CTAs" },
+  { name: "Primary 600",  var: "--primary-600",   role: "Darker orange for hover states" },
+  { name: "Gold",         var: "--gold",          role: "Warm gold — hover states, highlights" },
+  { name: "Text",         var: "--text",          role: "Warm gray body text (DM Sans)" },
+  { name: "Text Display", var: "--text-display",  role: "Pure black — large name / display only" },
+  { name: "Text Dim",     var: "--text-dim",      role: "Secondary / muted text" },
+  { name: "Background",   var: "--bg",            role: "Page background" },
+  { name: "Muted",        var: "--muted",         role: "Subtle fills, chip backgrounds" },
+  { name: "Peach",        var: "--peach",         role: "Section backgrounds, warm secondary tone" },
+  { name: "Border",       var: "--border",        role: "Dividers, card borders" },
+  { name: "Danger",       var: "--danger",        role: "Errors, destructive actions (QA States)" },
+  { name: "Success",      var: "--success",       role: "Confirmations, passing tests (QA States)" },
 ];
 
 const TYPE_SCALE = [
-  { label: "Display",    size: "text-7xl",   weight: "font-black",   sample: "Portfolio." },
-  { label: "H1",         size: "text-5xl",   weight: "font-black",   sample: "Case Studies." },
-  { label: "H2",         size: "text-3xl",   weight: "font-black",   sample: "The Bridge." },
-  { label: "H3",         size: "text-xl",    weight: "font-bold",    sample: "Research Methodology" },
-  { label: "Body",       size: "text-base",  weight: "font-light",   sample: "I bridge the gap between complex human behavior and technical system design." },
-  { label: "Small",      size: "text-sm",    weight: "font-normal",  sample: "MSc. Human-Computer Interaction · Bauhaus University Weimar" },
-  { label: "Label",      size: "text-xs",    weight: "font-black",   sample: "QUALITATIVE DATA", extra: "uppercase tracking-widest" },
-  { label: "Micro",      size: "text-[9px]", weight: "font-black",   sample: "COMING SOON", extra: "uppercase tracking-[0.2em]" },
-  { label: "Handwritten",size: "text-4xl",   weight: "font-bold",    sample: "Engineering meets Research", extra: "font-hand" },
+  { label: "Display (Helvetica Now)", size: "text-7xl",   weight: "font-black",  sample: "Portfolio.",          extra: "font-display text-text-display" },
+  { label: "H1 (Helvetica Now)",      size: "text-5xl",   weight: "font-black",  sample: "Case Studies.",       extra: "font-display" },
+  { label: "H2 (Helvetica Now)",      size: "text-3xl",   weight: "font-black",  sample: "The Bridge.",         extra: "font-display" },
+  { label: "H3 (Helvetica Now)",      size: "text-xl",    weight: "font-bold",   sample: "Research Methodology",extra: "font-display" },
+  { label: "Body (DM Sans)",       size: "text-base",  weight: "font-light",  sample: "I bridge the gap between complex human behavior and technical system design." },
+  { label: "Small (DM Sans)",      size: "text-sm",    weight: "font-normal", sample: "MSc. Human-Computer Interaction · Bauhaus University Weimar" },
+  { label: "Label (DM Sans)",      size: "text-xs",    weight: "font-black",  sample: "QUALITATIVE DATA",    extra: "uppercase tracking-widest" },
+  { label: "Micro (DM Sans)",      size: "text-[9px]", weight: "font-black",  sample: "COMING SOON",         extra: "uppercase tracking-[0.2em]" },
+  { label: "Handwritten (Caveat)", size: "text-4xl",   weight: "font-bold",   sample: "Engineering meets Research", extra: "font-hand" },
 ];
 
 const BADGE_TONES = ["accent", "muted"];
@@ -164,33 +166,14 @@ export default function DesignSystem() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <p className="text-[9px] font-black uppercase tracking-[0.25em] text-primary mb-2">
-            Sanaz Yazdanjoo — Visual Language
-          </p>
+  
           <div className="relative inline-block mb-4">
-            <h1 className="text-5xl md:text-6xl font-black text-text tracking-tighter">
+            <h1 className="text-5xl md:text-6xl font-black text-text-display font-display tracking-tighter">
               Design System<span className="text-primary">.</span>
             </h1>
             <ScribbleUnderline className="absolute -bottom-2 left-0 w-full h-5 text-primary opacity-60" />
           </div>
-          <p className="text-sm text-text/45 mt-6 max-w-lg">
-            This system bridges engineering precision and human-centered design. 
-            All values are read live from your <code>theme.css</code> variables.
-          </p>
-
-          {/* Live stats */}
-          <div className="flex flex-wrap gap-8 mt-8 pt-6 border-t border-border/20">
-            {[
-              { value: COLOR_TOKENS.length, label: "Color tokens" },
-              { value: TYPE_SCALE.length,   label: "Type styles" },
-              { value: NAV_ITEMS.length,    label: "Components" },
-            ].map(stat => (
-              <div key={stat.label}>
-                <p className="font-black text-2xl text-primary leading-none">{stat.value}</p>
-                <p className="text-[9px] uppercase tracking-widest text-text/40 font-semibold mt-1">{stat.label}</p>
-              </div>
-            ))}
-          </div>
+          
         </motion.header>
 
         <div className="flex gap-12 md:gap-16">
@@ -206,11 +189,11 @@ export default function DesignSystem() {
             </Section>
 
             {/* ── TYPOGRAPHY ── */}
-            <Section id="typography" label="02 — Tokens" title="Typography" description="Inter handles UI and high-density technical data. Caveat (font-hand) provides research annotations.">
+            <Section id="typography" label="02 — Tokens" title="Typography" description="Helvetica Now (font-display) handles headings and the name logo. DM Sans (font-sans) handles body and UI. Caveat (font-hand) provides handwritten annotations.">
               <div className="space-y-px bg-border/15">
                 {TYPE_SCALE.map(t => (
                   <div key={t.label} className="bg-bg flex items-baseline gap-6 px-5 py-5 group hover:bg-primary/[0.02] transition-colors">
-                    <span className="text-[9px] font-black uppercase tracking-widest text-primary/50 w-20 shrink-0">{t.label}</span>
+                  <span className="text-[9px] font-black uppercase tracking-widest text-primary/50 w-36 shrink-0">{t.label}</span>
                     <span className={`${t.size} ${t.weight} ${t.extra || ""} text-text leading-tight flex-1 truncate`}>{t.sample}</span>
                     <span className="text-[9px] font-mono text-text/25 shrink-0 hidden sm:block">{t.size} {t.weight}</span>
                   </div>
