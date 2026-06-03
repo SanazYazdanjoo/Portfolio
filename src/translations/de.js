@@ -14,6 +14,8 @@ const de = {
   // ── Hero ──
   "hero.portfolio": "PORTFOLIO",
   "hero.tagline": "Ich spreche sowohl ‚User' als auch ‚Developer'.",
+  "hero.ctaWork": "Meine Projekte",
+  "hero.ctaCv": "Lebenslauf ansehen",
 
   // ── Projects ──
   "projects.heading": "Fallstudien",

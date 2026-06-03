@@ -33,9 +33,14 @@
       "de": "UX-Researcherin & HCI-Spezialistin"
     },
     "tagline": {
-      "en": "I speak both 'user' and 'developer'.",
-      "de": "Ich spreche sowohl ‚User‘ als auch ‚Entwickler‘."
+      "en": "I speak both ‘user’ and ‘developer’.",
+      "de": "Ich spreche sowohl ‚User’ als auch ‚Entwickler’."
     },
+    "heroStats": [
+      { "value": "5+ yrs",  "label": "Engineering & QA" },
+      { "value": "20+",     "label": "Sites shipped" },
+      { "value": "M.Sc.",   "label": "HCI · Bauhaus Weimar" }
+    ],
     "year": "2026",
     "contact": {
       "location": "Weimar, Germany",
@@ -301,62 +306,31 @@
         "year": "Graduated 09/2015"
       }
     ],
+    "bioParagraphs": [
+      "I bridge the gap between code and human behavior. With 5+ years in frontend engineering and QA — 20+ production sites shipped, acceptance-test teams built, custom automation tooling written — I now bring that technical depth into UX research.",
+      "I run mixed-methods studies, from contextual inquiries and stakeholder interviews to eye-tracking and ANOVA. After my M.Sc. in HCI at Bauhaus-Universität Weimar, I speak both 'user' and 'developer' fluently."
+    ],
     "skills": {
       "Research": [
-        "Mixed-Methods Research",
-        "Controlled Within-Subjects Experiments",
-        "Eye-Tracking Evaluation",
-        "Quantitative Analysis (ANOVA)",
-        "Reflexive Thematic Analysis",
-        "Fitts' Law Modeling",
-        "Contextual Inquiries",
-        "Usability Testing",
         "Stakeholder Interviews",
-        "Semi-structured Interviews",
+        "Contextual Inquiry",
+        "Usability Testing",
+        "Eye-Tracking & ANOVA",
         "Think-Aloud Protocol"
       ],
       "Design": [
         "Design Thinking",
-        "Wireframes & Prototypes",
+        "Wireframing & Prototyping",
         "User Flows",
         "Style Guides",
-        "Behavioral Design",
-        "Figma Prototyping"
+        "Figma"
       ],
       "Technical": [
-        "React",
-        "TypeScript",
-        "Tailwind CSS",
-        "Framer Motion",
-        "HTML/CSS/JavaScript",
-        "SVG Implementation",
-        "RESTful APIs",
-        "WordPress/Typo3",
-        "LaTeX",
-        "Python"
-      ],
-      "QA & Testing": [
-        "Postman",
-        "Selenium",
-        "Acceptance Testing",
-        "Manual QA",
-        "Heuristic Evaluation"
-      ],
-      "Tools": [
-        "Figma",
-        "Adobe XD",
-        "Pupil Labs Neon",
-        "Postman",
-        "Selenium",
-        "Google Analytics",
-        "Hotjar",
-        "MySQL",
-        "Git",
-        "GitHub",
-        "VS Code",
-        "R",
-        "Python (pandas)",
-        "Pupil Labs Data Analysis Tools"
+        "React + TypeScript",
+        "Tailwind + Framer Motion",
+        "SVG & Data-Viz",
+        "Python (analysis)",
+        "RESTful APIs"
       ]
     },
     "languages": [
@@ -384,6 +358,7 @@
       "en": "I bridge the gap between code and human behavior. With 5+ years across Frontend Development and QA Engineering — shipping 20+ production websites, setting up acceptance testing teams, and developing custom automation tools — I now apply that technical fluency to UX Research. I run mixed-methods studies, from contextual inquiries and stakeholder interviews to controlled eye-tracking experiments (Pupil Labs Neon), then translate findings into validated high-fidelity prototypes and working code. Having recently completed my M.Sc. in HCI at Bauhaus-Universität Weimar, I speak both 'user' and 'developer' fluently.",
       "de": "Ich schließe die Lücke zwischen Code und menschlichem Verhalten. Mit mehr als 5 Jahren Erfahrung in der Frontend-Entwicklung und im QA-Engineering — in denen ich über 20 produktionsreife Websites ausgeliefert, Teams für Abnahmetests aufgebaut und maßgeschneiderte Automatisierungstools entwickelt habe — bringe ich diese technische Kompetenz nun in den Bereich UX-Research ein. Ich führe Mixed-Methods-Studien durch, von kontextuellen Befragungen und Stakeholder-Interviews bis hin zu kontrollierten Eye-Tracking-Experimenten (Pupil Labs Neon), und übersetze die Ergebnisse in validierte High-Fidelity-Prototypen und funktionierenden Code. Nach dem kürzlich abgeschlossenem M.Sc. in HCI an der Bauhaus-Universität Weimar spreche ich fließend sowohl ‚User‘ als auch ‚Developer‘."
     },
+    
     "heroImage": "/assets/hero-portfolio.png",
     "aboutImage": "/assets/me.png",
     "doodles": {

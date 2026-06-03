@@ -35,7 +35,7 @@ export default function Home() {
         <div className="w-full h-px bg-text/20 mb-6" />
 
         <motion.span
-          className="block text-[11px] tracking-[0.2em] uppercase text-text/35 mb-14"
+          className="block text-[11px] tracking-[0.2em] uppercase text-text/55 mb-14"
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
