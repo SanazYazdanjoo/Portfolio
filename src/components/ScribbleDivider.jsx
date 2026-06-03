@@ -3,11 +3,11 @@ import { motion } from "framer-motion";
 
 const draw = {
   hidden: { pathLength: 0, opacity: 0 },
-  visible: (i) => ({
+  visible: {
     pathLength: 1,
     opacity: 1,
-    transition: { duration: 1.0 + i * 0.3, ease: "easeInOut", delay: i * 0.15 },
-  }),
+    transition: { duration: 1.2, ease: "easeInOut" },
+  },
 };
 
 const dotPop = {
@@ -15,42 +15,39 @@ const dotPop = {
   visible: (i) => ({
     scale: 1,
     opacity: 1,
-    transition: { duration: 0.3, delay: 0.8 + i * 0.1 },
+    transition: { duration: 0.3, delay: 0.9 + i * 0.12 },
   }),
 };
 
 export function ScribbleDivider() {
   return (
-    <div className="relative w-full h-0 overflow-visible z-10 no-print">
+    <div className="relative w-full py-1 no-print">
       <motion.svg
-        viewBox="0 0 400 50"
-        preserveAspectRatio="xMidYMid meet"
-        className="absolute left-1/2 -translate-x-1/2 w-[min(45%,320px)] h-10 -translate-y-1/2 text-primary"
+        viewBox="0 0 1200 6"
+        preserveAspectRatio="none"
+        className="w-full h-[1px]"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-40px" }}
       >
-        {/* Main ink stroke — thicker, wobbly, pressure-varying */}
+        {/* Full-width line with very subtle hand-drawn wobble */}
         <motion.path
-          d="M12 26 C 30 18, 52 32, 78 22 C 102 13, 118 30, 148 24
-             C 170 19, 185 28, 210 22 C 232 16, 258 31, 290 23
-             C 310 17, 338 27, 360 21 C 372 18, 382 24, 390 22"
+          d="M0 3 C 80 2.2, 160 3.8, 240 3 C 320 2.3, 400 3.6, 480 3
+             C 560 2.4, 640 3.5, 720 3 C 800 2.5, 880 3.4, 960 3
+             C 1040 2.6, 1120 3.3, 1200 3"
           stroke="currentColor"
-          strokeWidth="2.5"
+          strokeWidth="1.2"
           strokeLinecap="round"
-          opacity="0.45"
+          className="text-text/20"
           variants={draw}
-          custom={0}
         />
 
-      
-
-        {/* Ink splatter dots — tiny imperfections like a real pen */}
-        <motion.circle cx="75" cy="19" r="1.2" fill="currentColor" opacity="0.3" variants={dotPop} custom={0} />
-        <motion.circle cx="210" cy="28" r="0.8" fill="currentColor" opacity="0.25" variants={dotPop} custom={1} />
-        <motion.circle cx="330" cy="18" r="1" fill="currentColor" opacity="0.2" variants={dotPop} custom={2} />
+        {/* Tiny ink imperfections along the line */}
+        <motion.circle cx="300" cy="3" r="0.8" className="fill-text/15" variants={dotPop} custom={0} />
+        <motion.circle cx="720" cy="3" r="0.6" className="fill-text/10" variants={dotPop} custom={1} />
+        <motion.circle cx="1050" cy="3" r="0.7" className="fill-text/12" variants={dotPop} custom={2} />
       </motion.svg>
     </div>
   );

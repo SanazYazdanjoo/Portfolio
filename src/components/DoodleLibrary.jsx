@@ -95,7 +95,7 @@ export const FlowerDoodle = ({ className = "", ...props }) => (
 // ScribbleUnderline
 // ─────────────────────────────────────────────────────────────────────────────
 export const ScribbleUnderline = ({ className = "text-primary", ...props }) => (
-  <svg viewBox="0 0 100 20" fill="none" preserveAspectRatio="none" className={className} {...props}>
+  <svg viewBox="0 0 100 20" fill="none" preserveAspectRatio="none" className={className} style={{ opacity: 0 }} {...props}>
     <path
       d="M2,15 Q25,5 50,15 T98,15"
       stroke="currentColor"

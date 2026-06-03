@@ -1,4 +1,3 @@
-// src/components/AboutMe.jsx
 import React from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
@@ -7,74 +6,77 @@ export function AboutMe({ data }) {
   const { t } = useTranslation();
   const skills = data.skills || {};
 
+  // Split bio into two halves
+  const bio = data.bio || "";
+  const sentences = bio.match(/[^.!?]+[.!?]+/g) || [bio];
+  const mid = Math.ceil(sentences.length / 2);
+  const bioLeft = sentences.slice(0, mid).join(" ").trim();
+  const bioRight = sentences.slice(mid).join(" ").trim();
+
   return (
-    <div className="relative w-full px-[0] md:px-[0] font-sans text-text">
+    <div className="relative w-full font-sans text-text pt-5 md:pt-5">
 
-      <div className="relative w-full max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-x-10 items-start">
+  
 
+      {/* ── "About" label + two-column bio ── */}
       <motion.div
-          className="md:col-span-12 flex flex-col z-10"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+        className="grid grid-cols-1 md:grid-cols-12 gap-y-6"
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.5 }}
       >
-          {/* Handwritten Header */}
-          <div className="relative inline-block w-max mb-6 md:mb-10">
-            <h2 className="font-display text-text text-6xl md:text-8xl -rotate-6 relative z-10">
-              {t("about.heading")}
-            </h2>
-          </div>
+        {/* Label — cols 1-5 (left ~40%) */}
+        <div className="md:col-span-5">
+          <span className="text-[13px] font-normal text-text/60">
+            {t("about.heading")}
+          </span>
+        </div>
 
-          <div className="w-full grid grid-cols-1 md:grid-cols-1 gap-10 lg:gap-20 mt-2 max-w-5xl">
-            <p className="text-base leading-[1.85] text-text/90 font-light">
-              {data.bio}
+        {/* Bio — cols 6-12 (right ~60%), split into two sub-columns */}
+        <div className="md:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
+          <p className="text-[13.5px] leading-[1.9] text-text/70 font-light max-w-[52ch]">
+            {bioLeft}
+          </p>
+          {bioRight && (
+            <p className="text-[13.5px] leading-[1.9] text-text/70 font-light max-w-[52ch]">
+              {bioRight}
             </p>
-          </div>
+          )}
+        </div>
       </motion.div>
 
-      </div>
-
-      {/* ── Bottom Section: Skills List ── */}
+      {/* ── Skills ── */}
       <motion.div
-        className="w-full max-w-[1400px] mx-auto pt-5 border-t border-border/30"
-        initial={{ opacity: 0, y: 20 }}
+        className="w-full pt-20"
+        initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+        transition={{ duration: 0.5, delay: 0.1 }}
       >
-        <span className="block text-[10px] md:text-xs font-black tracking-[0.3em] text-primary mb-10">
+        <div className="w-full h-px bg-text/20 mb-6" />
+
+        <span className="block text-[11px] tracking-[0.2em] uppercase text-text/35 mb-10">
           {t("about.whatIBring")}
         </span>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16">
-          <div className="paper-bg">
-            <h3 className="text-[28px] md:text-xl font-display font-bold font-black tracking-[0.2em] text-text mb-4">
-              {t("about.skillsResearch")}
-            </h3>
-            <ul className="text-sm text-text/70 space-y-2 font-light leading-relaxed">
-              {(skills["Research"] || []).map((s) => <li key={s}>{s}</li>)}
-            </ul>
-          </div>
-          <div className="paper-bg">
-            <h3 className="text-[28px] md:text-xl font-display font-bold font-black tracking-[0.2em] text-text mb-4">
-              {t("about.skillsDesign")}
-            </h3>
-            <ul className="text-sm text-text/70 space-y-2 font-light leading-relaxed">
-              {(skills["Design"] || []).map((s) => <li key={s}>{s}</li>)}
-            </ul>
-          </div>
-          <div className="paper-bg">
-            <h3 className="text-[28px] md:text-xl font-display font-bold font-black tracking-[0.2em] text-text mb-4">
-              {t("about.skillsTechnical")}
-            </h3>
-            <ul className="text-sm text-text/70 space-y-2 font-light leading-relaxed">
-              {(skills["Technical"] || []).map((s) => <li key={s}>{s}</li>)}
-            </ul>
-          </div>
+          {[
+            { key: "Research", label: t("about.skillsResearch") },
+            { key: "Design", label: t("about.skillsDesign") },
+            { key: "Technical", label: t("about.skillsTechnical") },
+          ].map(({ key, label }) => (
+            <div key={key}>
+              <h3 className="text-[13px] font-semibold text-text mb-4">
+                {label}
+              </h3>
+              <ul className="text-[13px] text-text/45 space-y-2.5 font-light">
+                {(skills[key] || []).map((s) => <li key={s}>{s}</li>)}
+              </ul>
+            </div>
+          ))}
         </div>
       </motion.div>
-
     </div>
   );
 }

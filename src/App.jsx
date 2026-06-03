@@ -1,82 +1,47 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Outlet } from 'react-router-dom';
 import { Nav } from './components/Nav';
 import { Footer } from './components/Footer';
 import { SketchTrail } from './components/SketchTrail';
-import { ScrollIndicator } from "./components/Scrollindicator.JSX";
 import { profileData as rawProfile } from "./data/profile";
 import { useLocalizedProfile } from "./hooks/useLocalizedProfile";
-import Admin from "./pages/Admin";
- 
+
 export default function App() {
   const profileData = useLocalizedProfile(rawProfile);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const scrollRef = useRef(null);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePos({
-        x: (e.clientX / window.innerWidth - 0.5) * 20,
-        y: (e.clientY / window.innerHeight - 0.5) * 20,
-      });
-    };
-
-    const handleBrokenImages = (event) => {
-      const target = event.target;
-      if (target && target.tagName === 'IMG') {
-        if (target.src.includes('sketch-placeholder.png')) return;
-        target.src = '/assets/icons/photo-placeholder.svg';
-        target.className = "w-full h-full object-cover";
-      }
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener('error', handleBrokenImages, true);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener('error', handleBrokenImages, true);
-    };
+    const el = scrollRef.current;
+    if (!el) return;
+    const handleScroll = () => setIsScrolled(el.scrollTop > 60);
+    el.addEventListener("scroll", handleScroll, { passive: true });
+    return () => el.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <div className="h-screen flex flex-col bg-bg bg-grid-editorial relative">
+    <div className="h-screen flex flex-col bg-bg relative">
 
-      {/* Paper texture overlay */}
-      <div className="fixed inset-0 bg-paper-texture pointer-events-none z-[9]"></div>
-
-      {/* Moving ink speckle overlay */}
-      <div
-        className="fixed inset-[-50px] bg-ink-speckles pointer-events-none z-[100] transition-transform duration-300 ease-out"
-        style={{ transform: `translate(${mousePos.x}px, ${mousePos.y}px)` }}
-      ></div>
-
-      {/* Frame border */}
-      <div className="fixed inset-0 border border-border/40 pointer-events-none z-[100] m-3"></div>
-
-      <header className="w-full z-50 shrink-0 border-b border-border h-20 flex flex-col justify-center bg-bg no-print">
-        <Nav />
+      {/* No border, no fixed height — just padding */}
+      <header className="w-full z-50 shrink-0 px-8 md:px-12 lg:px-16 pt-6 md:pt-8 bg-bg no-print">
+        <Nav isScrolled={isScrolled} />
       </header>
-
-      <ScrollIndicator flowerSrc={null} scrollRef={scrollRef} />
 
       <div
         ref={scrollRef}
-        className="flex-1 scroll-container overflow-y-auto overflow-x-hidden
-                     relative z-10 scroll-smooth"
+        className="flex-1 overflow-y-auto overflow-x-hidden relative z-10 px-8 md:px-12 lg:px-16"
         style={{ scrollBehavior: 'smooth' }}
       >
         <main>
           <Outlet />
         </main>
 
-        <div className="snap-center w-full flex flex-col justify-center shrink-0 relative z-10">
+        <div className="w-full flex flex-col justify-center shrink-0 relative z-10">
           <Footer data={profileData} />
         </div>
 
         <SketchTrail />
       </div>
-
     </div>
   );
 }
