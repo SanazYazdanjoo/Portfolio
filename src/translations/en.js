@@ -16,6 +16,8 @@ const en = {
   // ── Hero ──
   "hero.portfolio": "PORTFOLIO",
   "hero.tagline": "I speak both 'user' and 'developer'.",
+  "hero.ctaWork": "View my work",
+  "hero.ctaCv": "View CV",
 
   // ── Projects ──
   "projects.heading": "Case Studies",
