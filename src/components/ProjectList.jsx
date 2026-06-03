@@ -15,7 +15,7 @@ export function ProjectList({ items = [] }) {
           </div>
           <div className="project-item-content">
             <div className="flex flex-col max-w-full mt-4">
-            <h3 className="text-2xl md:text-42xl font-bold text-text group-hover:text-primary transition-colors mb-4">
+            <h3 className="text-2xl md:text-4xl font-bold text-text group-hover:text-primary transition-colors mb-4">
               {p.title}
             </h3>
             

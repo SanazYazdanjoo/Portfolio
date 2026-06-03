@@ -75,6 +75,7 @@
     --print-primary: var(--color-print-primary);
     --peach: var(--color-peach-100);
     --gold: var(--color-gold-500);
+    --accent-weak: #e8ede8;
 
     /* Feedback */
     --danger: var(--color-red-500);
