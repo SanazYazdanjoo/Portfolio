@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useTranslation } from "../context/LanguageContext";
 
 // ─── Coming Soon card ────────────────────────────────────────────────────────
 function ComingSoonCard({ project, index }) {
@@ -34,7 +33,6 @@ function ComingSoonCard({ project, index }) {
 // ─── Main ProjectCard (zigzag editorial layout) ──────────────────────────────
 export function ProjectCard({ project, index }) {
   const [imgError, setImgError] = useState(false);
-  const { t } = useTranslation();
 
   if (!project || project.status === "coming-soon" || !project.id) {
     return <ComingSoonCard project={project || {}} index={index} />;
@@ -52,20 +50,18 @@ export function ProjectCard({ project, index }) {
     >
       <Link
         to={`/projects/${project.id}`}
-        className="group block py-5 md:py-5"
+        className="paper-bg group block py-14 md:py-20"
         aria-label={`View case study: ${project.title}`}
       >
         <div
-          className={` paper-bg flex flex-col gap-8
+          className={`flex flex-col gap-8
                       ${isEven
                         ? "md:flex-row md:items-stretch"
                         : "md:flex-row-reverse md:items-stretch"
                       }`}
         >
           {/* ── Image + Number cluster ──────────────────────── */}
-          <div
-            className={`relative  shrink-0 ${isEven ? "md:mr-8" : "md:ml-8"}`}
-          >
+          <div className={`relative shrink-0 ${isEven ? "md:mr-8" : "md:ml-8"}`}>
             {/* Large number */}
             <span
               className={`absolute z-10 font-sans font-black text-[5rem] md:text-[6.5rem]
@@ -80,13 +76,13 @@ export function ProjectCard({ project, index }) {
             </span>
 
             {/* Thumbnail */}
-            <div className="photo-frame  relative w-56 md:w-64 aspect-[3/4] overflow-hidden bg-primary/[0.03]">
+            <div className="photo-frame relative w-56 md:w-64 aspect-[3/4] overflow-hidden bg-primary/[0.03]">
               {hasImage ? (
                 <img
                   src={project.thumbnail}
                   alt={project.title}
                   onError={() => setImgError(true)}
-                  className="w-full h-full object-cover transition-all duration-700 
+                  className="w-full h-full object-cover transition-all duration-700
                              grayscale group-hover:grayscale-0 group-hover:scale-[1.03]"
                 />
               ) : (
@@ -101,7 +97,7 @@ export function ProjectCard({ project, index }) {
 
           {/* ── Text content ───────────────────────────────── */}
           <div
-            className={` TextContent flex-1 flex flex-col justify-start min-w-0 pt-2
+            className={`flex-1 flex flex-col justify-start min-w-0 pt-2
                         ${isEven ? "md:text-left" : "md:text-right"}`}
           >
             {/* Title */}
@@ -112,7 +108,7 @@ export function ProjectCard({ project, index }) {
               {project.title}
             </h3>
 
-            {/* Tagline — always visible as the hook */}
+            {/* Tagline — the hook */}
             {project.tagline && (
               <p
                 className={`text-sm text-text/45 leading-relaxed mt-2 max-w-md
@@ -122,61 +118,60 @@ export function ProjectCard({ project, index }) {
               </p>
             )}
 
-            {/* ── Hover reveal ─────────────────────────────── */}
-            <div
-              className="grid transition-all duration-500 ease-out
-                         max-h-0 opacity-100 group-hover:max-h-[300px]
-                         overflow-hidden"
-            >
-              <div className="pt-5 space-y-4">
+            {/* ── Evidence block — ALWAYS VISIBLE (methods + metrics) ──────────
+                Previously this was wrapped in a `max-h-0 group-hover:max-h-[300px]
+                overflow-hidden` reveal, which hid your strongest content until hover
+                and made it permanently invisible on touch devices (no hover on mobile).
+                Now it renders for every visitor, on every device. */}
+            <div className="pt-5 space-y-4">
 
-                {/* Methods — compact inline with mid-dots */}
-                {project.methods && project.methods.length > 0 && (
-                  <p
-                    className={`text-[11px] text-text/50 tracking-wide
-                                ${isEven ? "" : "md:text-right"}`}
-                  >
-                    {project.methods.map((method, i) => (
-                      <span key={method}>
-                        <span className="font-semibold text-text/60">{method}</span>
-                        {i < project.methods.length - 1 && (
-                          <span className="mx-2 text-primary/30">·</span>
-                        )}
+              {/* Methods — compact inline with mid-dots */}
+              {project.methods && project.methods.length > 0 && (
+                <p
+                  className={`text-[11px] text-text/50 tracking-wide
+                              ${isEven ? "" : "md:text-right"}`}
+                >
+                  {project.methods.map((method, i) => (
+                    <span key={method}>
+                      <span className="font-semibold text-text/60">{method}</span>
+                      {i < project.methods.length - 1 && (
+                        <span className="mx-2 text-primary/30">·</span>
+                      )}
+                    </span>
+                  ))}
+                </p>
+              )}
+
+              {/* Metrics — clean grid with accent border */}
+              {project.metrics && project.metrics.length > 0 && (
+                <div
+                  className={`flex flex-wrap gap-x-6 gap-y-2
+                              ${isEven
+                                ? "border-l-2 border-primary/20 pl-4"
+                                : "border-r-2 border-primary/20 pr-4 md:justify-end"
+                              }`}
+                >
+                  {project.metrics.map((m) => (
+                    <div key={m.label} className="flex items-baseline gap-1.5">
+                      <span className="font-black text-sm text-primary">{m.value}</span>
+                      <span className="text-[10px] text-text/35 uppercase tracking-wider">
+                        {m.label}
                       </span>
-                    ))}
-                  </p>
-                )}
+                    </div>
+                  ))}
+                </div>
+              )}
 
-                {/* Metrics — clean grid with accent border */}
-                {project.metrics && project.metrics.length > 0 && (
-                  <div
-                    className={`flex flex-wrap gap-x-6 gap-y-2
-                                ${isEven
-                                  ? "border-l-2 border-primary/20 pl-4"
-                                  : "border-r-2 border-primary/20 pr-4 md:justify-end"
-                                }`}
-                  >
-                    {project.metrics.map((m) => (
-                      <div key={m.label} className="flex items-baseline gap-1.5">
-                        <span className="font-black text-sm text-primary">{m.value}</span>
-                        <span className="text-[10px] text-text/35 uppercase tracking-wider">{m.label}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-              </div>
             </div>
-            {/* ── End hover reveal ─────────────────────────── */}
 
             {/* CTA — pinned to bottom of text column */}
             <span
               className={`mt-auto inline-flex items-center gap-1.5 md:text-xl font-display font-black
-                           tracking-[0.2em] text-primary/40
+                          tracking-[0.2em] text-primary/40
                           group-hover:text-primary/70 transition-colors duration-300 pt-4
                           ${isEven ? "" : "md:ml-auto"}`}
             >
-              {t("projects.viewProject")}
+              View Case Study
               <svg
                 className="w-3.5 h-3.5 transform group-hover:translate-x-1
                            transition-transform duration-300"
