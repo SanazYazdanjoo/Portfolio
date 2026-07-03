@@ -292,6 +292,7 @@
   .ink-highlight {
     position: relative;
     display: inline;
+    color: var(--color-ink-900); /* always ink on gold — readable in dark mode too */
     background-image: linear-gradient(
       100deg,
       transparent 1%,

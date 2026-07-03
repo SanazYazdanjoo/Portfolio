@@ -1,7 +1,8 @@
 // src/components/Hero.jsx
 // ─────────────────────────────────────────────────────────────────────────────
-// Editorial hero — 12-col grid, no absolute positioning, no theme.css overrides.
-// All content flows from profileData. New optional fields (with safe fallbacks):
+// Editorial hero — Ink & Bloom edition.
+// Same data contract as before: everything flows from profileData, with the
+// optional heroMeta fields and safe fallbacks:
 //
 //   heroMeta: {
 //     currently:  "MSc HCI · Bauhaus-Universität Weimar",
@@ -9,10 +10,13 @@
 //     focus:      "Mixed-methods research · Prototyping",
 //   }
 //
-// Delete these blocks from theme.css — they are no longer needed:
-//   #Hero-Section .container { width: 60% !important; }
-//   #Hero-Section .hero-photo { right: 10%; }
-//   #Hero-Section .portfolio-text { ... }
+// What changed visually:
+//   • Name is now set in the display serif (Fraunces via font-display)
+//   • Role annotation is rose (--secondary) — the feminine whisper
+//   • Photo uses the .photo-frame mat from theme.css (blush edge on hover)
+//   • Tagline carries the signature gold highlighter (.ink-highlight —
+//     the CSS version, because it wraps cleanly across lines on mobile)
+//   • Meta labels use primary-600, the AA-safe coral for small text
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React from "react";
@@ -46,7 +50,7 @@ export function Hero({ data }) {
       <motion.p
         {...fadeUp(0)}
         className="text-[10px] md:text-[11px] font-bold uppercase
-                   tracking-[0.28em] text-text/50 mb-6 md:mb-10"
+                   tracking-[0.28em] text-text-dim mb-6 md:mb-10"
       >
         UX Research × Engineering&nbsp;&nbsp;—&nbsp;&nbsp;{data.contact?.location || "Weimar, Germany"}
       </motion.p>
@@ -54,41 +58,43 @@ export function Hero({ data }) {
       {/* ── Name + Photo: 12-col editorial grid ── */}
       <div className="grid grid-cols-12 gap-x-4 md:gap-x-6 items-center">
 
-        {/* Name — spans under the photo edge for the editorial overlap,
-            but lives in normal flow, so it can never collide unpredictably. */}
+        {/* Name — now in Fraunces. Serifs are wider than the old grotesk,
+            so the clamp ceiling drops slightly and tracking relaxes. */}
         <motion.h1
           {...fadeUp(0.08)}
           className="col-span-12 md:col-span-8 md:col-start-1 md:row-start-1
-                     relative z-20 font-sans font-black uppercase
-                     leading-[0.88] tracking-tight text-text pointer-events-none"
-          style={{ fontSize: "clamp(3.25rem, 9vw, 10.5rem)" }}
+                     relative z-20 font-display font-black
+                     leading-[0.92] text-text pointer-events-none"
+          style={{
+            fontSize: "clamp(3rem, 8.5vw, 9.5rem)",
+            letterSpacing: "-0.015em",
+            fontVariationSettings: "'opsz' 144, 'SOFT' 30",
+          }}
         >
           <span className="block">{firstName}</span>
           <span className="block">{lastName}</span>
         </motion.h1>
 
-        {/* Photo — the single signature element. Hand-placed feel via a
-            1° rotation and the Caveat annotation; everything else stays quiet. */}
+        {/* Photo — hand-placed feel via 1° rotation; the mat now comes from
+            .photo-frame (white sheet, ink hairline, blush edge on hover). */}
         <motion.div
           {...fadeUp(0.2)}
           className="col-span-8 col-start-3 mt-10 md:mt-0
                      md:col-span-4 md:col-start-9 md:row-start-1
                      relative z-10"
         >
-          {/* Handwritten role annotation */}
+          {/* Handwritten role annotation — rose, the feminine whisper */}
           <span
             aria-hidden="true"
             className="hero-role absolute -top-7 -left-4 md:-top-9 md:-left-10
-                       font-hand text-primary text-3xl md:text-4xl lg:text-5xl
+                       font-hand text-secondary text-3xl md:text-4xl lg:text-5xl
                        -rotate-[8deg] z-30 select-none whitespace-nowrap"
           >
             {data.role}
           </span>
 
-          {/* Paper-framed photo */}
           <div
-            className="relative z-20 rotate-1 bg-white p-2 md:p-3
-                       shadow-[4px_6px_18px_rgba(0,0,0,0.12)]
+            className="photo-frame relative z-20 rotate-1
                        transition-transform duration-500 hover:rotate-0"
           >
             <img
@@ -102,20 +108,21 @@ export function Hero({ data }) {
         </motion.div>
       </div>
 
-      {/* ── Tagline: one voice, one size — the conflict-free version ── */}
+      {/* ── Tagline: the signature moment — gold highlighter over the thesis ── */}
       <motion.p
         {...fadeUp(0.32)}
-        className="hero-tagline font-display text-2xl md:text-4xl text-text/85
+        className="hero-tagline font-display text-2xl md:text-4xl
                    max-w-2xl mt-10 md:mt-14 leading-snug"
+        style={{ fontVariationSettings: "'opsz' 40" }}
       >
-        {data.tagline}
+        <span className="ink-highlight">{data.tagline}</span>
       </motion.p>
 
       {/* ── Meta strip: the 5-second recruiter read ── */}
       <motion.div
         {...fadeUp(0.44)}
         className="grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-8
-                   border-t border-border/40 mt-10 md:mt-14 pt-6"
+                   border-t border-border mt-10 md:mt-14 pt-6"
       >
         <MetaItem label="Currently" value={meta.currently} />
         <MetaItem label="Background" value={meta.background} />
@@ -134,7 +141,7 @@ export function Hero({ data }) {
 function MetaItem({ label, value, align = "" }) {
   return (
     <div className={align}>
-      <p className="text-[9px] font-black uppercase tracking-[0.22em] text-primary/70 mb-1.5">
+      <p className="text-[9px] font-black uppercase tracking-[0.22em] text-primary-600 mb-1.5">
         {label}
       </p>
       <p className="text-xs md:text-[13px] font-medium text-text/70 leading-relaxed">
