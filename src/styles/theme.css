@@ -124,10 +124,10 @@
     --success: var(--color-green-500);
 
     /* UI Surfaces */
-    --bg: var(--color-paper-100);      /* off-white paper, sitewide */
-    --surface: var(--color-white);     /* cards float as white sheets */
-    --muted: var(--color-paper-200);
-    --muted-surface: var(--color-paper-200);
+    --bg: var(--color-white);          /* clean white page, sitewide */
+    --surface: var(--color-white);
+    --muted: var(--color-paper-100);   /* old paper tone demoted to subtle fills */
+    --muted-surface: var(--color-paper-100);
     --border: rgba(33, 29, 28, 0.12);  /* ink at 12% — visible hairlines */
     --line: var(--color-paper-200);
 
