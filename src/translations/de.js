@@ -105,6 +105,29 @@ const de = {
   "common.backToPortfolio": "← Zurück zum Portfolio",
   "common.readMore": "Weiterlesen",
   "common.language": "Sprache",
+
+  // ── Hero meta strip ──
+"hero.kicker": "UX-Forschung × Engineering",
+"hero.meta.currently": "Aktuell",
+"hero.meta.background": "Hintergrund",
+"hero.meta.focus": "Fokus",
+"hero.meta.status": "Status",
+"hero.meta.currentlyValue": "M.Sc. HCI · Bauhaus-Universität Weimar",
+"hero.meta.backgroundValue": "Software-Engineering · QA",
+"hero.meta.focusValue": "Mixed-Methods-Forschung · Prototyping",
+"hero.meta.statusValue": "Offen für UX-Researcher-Rollen",
+
+// ── Footer ──
+"footer.status": "Status",
+"footer.directContact": "Direkter Kontakt",
+"footer.basedIn": "Derzeit ansässig in {location}.",
+"footer.openToRoles": "Offen für Rollen als {role}.",
+
+// ── Scroll indicator ──
+"scroll.hero": "Start",
+"scroll.about": "Über mich",
+"scroll.projects": "Projekte",
+
 };
 
 export default de;
