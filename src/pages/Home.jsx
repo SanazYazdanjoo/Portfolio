@@ -1,11 +1,17 @@
 // src/pages/Home.jsx
+// ─────────────────────────────────────────────────────────────────────────────
+// One change: the "Case Studies" label joins the unified label system
+// (tracked uppercase, primary-600, bold) — same as About Me / What I Bring.
+// Roadmap check ✓: id="projects" anchor confirmed for the /#projects link.
+// ─────────────────────────────────────────────────────────────────────────────
+
 import React from "react";
 import { Hero } from "../components/Hero";
 import { AboutMe } from "../components/AboutMe";
 import { StackedProjectCard } from "../components/StackedProjectCard";
 import { projects } from "../data/projects";
 import { profileData as rawProfile } from "../data/profile";
-import { useLocalizedProfile } from '../hooks/useLocalizedProfile';
+import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { motion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
 import { ScribbleDivider } from "../components/ScribbleDivider";
@@ -23,7 +29,7 @@ export default function Home() {
       </section>
 
       <ScribbleDivider />
-      
+
       {/* ── About — flows naturally after hero ── */}
       <section id="AboutMe-Section" className="w-full">
         <AboutMe data={profileData} />
@@ -32,10 +38,10 @@ export default function Home() {
       {/* ── Projects ── */}
       <section id="projects" className="w-full pt-24 pb-20">
 
-        <div className="w-full h-px bg-text/20 mb-6" />
+        <div className="w-full h-px bg-border mb-6" />
 
         <motion.span
-          className="block text-[11px] tracking-[0.2em] uppercase text-text/55 mb-14"
+          className="block text-[11px] tracking-[0.2em] uppercase text-primary-600 font-bold mb-14"
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
