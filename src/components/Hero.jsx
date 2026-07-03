@@ -42,8 +42,8 @@ const meta = {
   const lastName = nameParts.slice(1).join(" ");
 
   const meta = {
-    currently: data.heroMeta?.currently ?? "MSc HCI · Bauhaus-Universität Weimar",
-    background: data.heroMeta?.background ?? "Software Engineering · QA",
+    currently: data.heroMeta?.currently ?? "Project Assistant at IBS",
+    background: data.heroMeta?.background ?? "MSc HCI, B.Eng. Software Engineering",
     focus: data.heroMeta?.focus ?? "Mixed-methods research · Prototyping",
     status: data.heroMeta?.status ?? "Open to UX Researcher roles",
   };
@@ -126,7 +126,7 @@ const meta = {
                 {data.heroMeta?.photoCaption ?? "Weimar, 2026"}
               </span>
             </div>
-            
+
           </div>
         </motion.div>
       </div>
