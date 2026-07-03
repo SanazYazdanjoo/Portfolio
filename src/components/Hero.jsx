@@ -1,11 +1,21 @@
 // src/components/Hero.jsx
 // ─────────────────────────────────────────────────────────────────────────────
-// Ink & Bloom — final hero. TYPOGRAPHY v2 applied:
-//   • Name uses .type-hero (theme.css) — no more inline clamp/variation styles
-//   • font-black (900) → font-extrabold (800): open counters at display sizes
-//   • Micro labels lifted to the 10px floor (text-2xs), tracking token 0.18em
-//   • Tagline uses .type-tagline — opsz lives in CSS, not JSX
-// Data contract unchanged: profileData + optional heroMeta fallbacks.
+// MESSINESS FIX v3 — two changes, everything else untouched:
+//
+//   1. Handwritten role annotation no longer clips off the right viewport edge.
+//      Root cause: `whitespace-nowrap max-w-none` + negative left offset.
+//      Fix: anchored to the photo's RIGHT edge (`right-2`, `text-right`,
+//      `origin-bottom-right`) so it grows LEFT into the empty name column,
+//      and it's allowed to wrap (max-w-[16ch]). It can never overflow again.
+//
+//   2. Meta strip: "Portfolio [ 2026 ]" was filler in a prime column.
+//      Replaced with "Status" — the one thing a recruiter acts on.
+//      Value comes from profileData.heroMeta.status (bilingual-ready),
+//      with a safe English fallback.
+//
+// Data contract: add `status` to heroMeta in data.json when convenient:
+//   "heroMeta": { ..., "status": { "en": "Open to UX Researcher roles",
+//                                  "de": "Offen für UX-Researcher-Rollen" } }
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React from "react";
@@ -22,6 +32,7 @@ export function Hero({ data }) {
     currently: data.heroMeta?.currently ?? "MSc HCI · Bauhaus-Universität Weimar",
     background: data.heroMeta?.background ?? "Software Engineering · QA",
     focus: data.heroMeta?.focus ?? "Mixed-methods research · Prototyping",
+    status: data.heroMeta?.status ?? "Open to UX Researcher roles",
   };
 
   const fadeUp = (delay = 0) => ({
@@ -48,8 +59,7 @@ export function Hero({ data }) {
       {/* ── Name + Photo: 12-col editorial grid (≈ 70/30 split) ── */}
       <div className="grid grid-cols-12 gap-x-4 md:gap-x-6 items-center">
 
-        {/* Name — the one and only star of this screen.
-            All type styling lives in .type-hero (theme.css §3). */}
+        {/* Name — the one and only star of this screen. */}
         <motion.h1
           {...fadeUp(0.08)}
           className="type-hero col-span-12 md:col-span-8 md:col-start-1 md:row-start-1
@@ -66,15 +76,17 @@ export function Hero({ data }) {
                      md:col-span-4 md:col-start-9 md:row-start-1
                      relative z-10"
         >
-          {/* Handwritten role annotation — rose, capped size, grows toward
-              the empty name column, never off the right edge. */}
+          {/* Handwritten role annotation.
+              Right-anchored + wrappable = physically cannot clip.
+              −4° instead of −6°: a script face fights its own letterforms
+              past ~5° of rotation. */}
           <span
             aria-hidden="true"
-            className="hero-role absolute -top-8 left-0 md:-top-10 md:-left-8
-                       origin-bottom-left -rotate-[6deg]
+            className="hero-role absolute -top-9 right-2 md:-top-11 md:right-0
+                       origin-bottom-right -rotate-[4deg]
                        font-hand font-bold text-secondary
-                       text-2xl md:text-3xl leading-none
-                       z-30 select-none whitespace-nowrap max-w-none"
+                       text-2xl md:text-3xl leading-[1.05]
+                       z-30 select-none text-right max-w-[16ch]"
           >
             {data.role}
           </span>
@@ -94,7 +106,7 @@ export function Hero({ data }) {
         </motion.div>
       </div>
 
-      {/* ── Tagline: the gold highlighter over the thesis ── */}
+      {/* ── Tagline: the ONE gold-highlighter moment on this page ── */}
       <motion.p
         {...fadeUp(0.32)}
         className="type-tagline hero-tagline max-w-2xl mt-12 md:mt-16"
@@ -111,11 +123,7 @@ export function Hero({ data }) {
         <MetaItem label="Currently" value={meta.currently} />
         <MetaItem label="Background" value={meta.background} />
         <MetaItem label="Focus" value={meta.focus} />
-        <MetaItem
-          label="Portfolio"
-          value={`[ ${data.year || new Date().getFullYear()} ]`}
-          align="md:text-right"
-        />
+        <MetaItem label="Status" value={meta.status} align="md:text-right" />
       </motion.div>
     </div>
   );

@@ -1,6 +1,22 @@
 // src/components/StackedProjectCard.jsx
 // ─────────────────────────────────────────────────────────────────────────────
-// Updated with specified design refinements
+// MESSINESS FIX v3 — three targeted changes:
+//
+//   1. HEADLINE STAT: no more ink-highlight. The gold highlighter is reserved
+//      for ONE moment per page (the hero tagline). Stats are now big Fraunces
+//      numerals in ink — they still land, without shouting.
+//   2. ALIGNED STAT COLUMN: the badges (N=30 / 50 / Public) used to float at
+//      different positions per card (self-center + variable width = ragged
+//      right edge). Now: fixed w-[190px] column, top-aligned to the title
+//      baseline. All three cards snap to the same vertical axis.
+//   3. METHOD TAGS: were secondary-600 (rose) — they read as links/errors and
+//      competed with every other accent. Now muted ink (text-text/55), so the
+//      TITLE and the METRIC carry the card, in that order.
+//
+// NOTE: the expanded panel's image column was rebuilt (the original block
+// wasn't in project knowledge) — photo-frame thumbnail + "View Case Study"
+// hint, cols 9–12. Diff against your local version before replacing if you
+// had custom logic there.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React, { useState } from "react";
@@ -17,7 +33,6 @@ const DOMAIN_SPINES = {
 function Field({ label, children }) {
   return (
     <div className="flex flex-col">
-      {/* Updated font size and tracking per spec */}
       <span className="block font-mono text-2xs uppercase tracking-wider text-text/55 mb-2">
         {label}
       </span>
@@ -64,7 +79,6 @@ export function StackedProjectCard({ project, index }) {
           />
 
           <div className="flex items-start gap-6">
-            {/* Updated font-mono sizing */}
             <span className="font-mono text-2xs font-bold text-primary-600 tabular-nums mt-2 shrink-0">
               {String(index + 1).padStart(2, "0")}
             </span>
@@ -78,25 +92,29 @@ export function StackedProjectCard({ project, index }) {
                 {project.title}
               </h2>
 
+              {/* Methods — quiet ink, mid-dot separated. Proof, not decoration. */}
               {methods.length > 0 && (
                 <p className="mt-3 text-sm tracking-wide">
                   {methods.slice(0, 4).map((m, i, arr) => (
                     <span key={m}>
-                      <span className="font-semibold text-secondary-600">{m}</span>
-                      {i < arr.length - 1 && <span className="mx-2 text-primary/40">·</span>}
+                      <span className="font-medium text-text/55">{m}</span>
+                      {i < arr.length - 1 && <span className="mx-2 text-text/25">·</span>}
                     </span>
                   ))}
                 </p>
               )}
             </div>
 
-            <div className="hidden sm:flex flex-col items-end shrink-0 self-center">
+            {/* Headline stat — FIXED-WIDTH column, top-aligned.
+                Every card's number now sits on the same vertical axis. */}
+            <div className="hidden sm:flex w-[190px] shrink-0 flex-col items-end self-start pt-1">
               {headline && (
                 <div className="flex items-baseline gap-2">
-                  <span className="ink-highlight font-display font-extrabold text-2xl leading-none">
+                  <span className="font-display font-extrabold text-3xl leading-none text-text
+                                   transition-colors duration-300 group-hover:text-primary-600">
                     {headline.value}
                   </span>
-                  <span className="text-2xs uppercase tracking-wider text-text/55 max-w-[8ch] leading-tight">
+                  <span className="text-2xs uppercase tracking-wider text-text/55 max-w-[10ch] leading-tight text-right">
                     {headline.label}
                   </span>
                 </div>
@@ -112,9 +130,10 @@ export function StackedProjectCard({ project, index }) {
             </div>
           </div>
 
+          {/* Mobile headline stat — same quiet treatment */}
           {headline && (
             <div className="flex sm:hidden items-baseline gap-2 mt-4 pl-[calc(1rem+10px)]">
-              <span className="ink-highlight font-display font-extrabold text-2xl leading-none">
+              <span className="font-display font-extrabold text-2xl leading-none text-text">
                 {headline.value}
               </span>
               <span className="text-2xs uppercase tracking-wider text-text/55">
@@ -124,6 +143,7 @@ export function StackedProjectCard({ project, index }) {
           )}
         </div>
 
+        {/* ── Expanded panel ── */}
         <motion.div
           initial={false}
           animate={{ height: open ? "auto" : 0, opacity: open ? 1 : 0 }}
@@ -166,8 +186,29 @@ export function StackedProjectCard({ project, index }) {
                 </Field>
               )}
             </div>
-            
-            {/* ... remaining image logic ... */}
+
+            {/* Thumbnail + CTA — cols 9–12 */}
+            <div className="md:col-start-9 md:col-span-4 flex flex-col gap-4">
+              {hasImage && (
+                <div className="photo-frame aspect-video overflow-hidden bg-primary/[0.03]">
+                  <img
+                    src={project.thumbnail}
+                    alt={project.title}
+                    onError={() => setImgError(true)}
+                    className="w-full h-full object-cover grayscale
+                               transition-all duration-700 group-hover:grayscale-0"
+                  />
+                </div>
+              )}
+              <span className="inline-flex items-center gap-1.5 text-2xs font-extrabold
+                               uppercase tracking-[0.18em] text-primary-600">
+                View Case Study
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor"
+                     strokeWidth="2" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </span>
+            </div>
           </div>
         </motion.div>
       </Link>
