@@ -1,15 +1,11 @@
 // src/components/Hero.jsx
 // ─────────────────────────────────────────────────────────────────────────────
-// FIXES (screenshot feedback):
-//   1. The Nav is now a compact wordmark, so the Hero name is the ONLY giant
-//      name on screen — no more duplication.
-//   2. Annotation ("UX Researcher & HCI Specialist") capped at text-2xl/3xl
-//      and anchored to the photo's top-LEFT, rotating from its left edge —
-//      it can no longer bleed off the right side of the viewport.
-//   3. pt-12/pt-20 top spacing so the kicker stops hugging the Nav, and
-//      min-h keeps the hero filling the first screen with content centered.
-//
-// Data contract unchanged: everything flows from profileData + heroMeta.
+// Ink & Bloom — final hero.
+//   • Compact-Nav compatible: this is the ONLY giant name on screen
+//   • Ink name (both lines), gold .ink-highlight on the tagline
+//   • Annotation capped at text-2xl/3xl, grows toward the empty name column
+//   • pt + min-h keep the fold filled and the kicker clear of the Nav
+// Data contract unchanged: profileData + optional heroMeta fallbacks.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React from "react";
@@ -75,9 +71,8 @@ export function Hero({ data }) {
                      md:col-span-4 md:col-start-9 md:row-start-1
                      relative z-10"
         >
-          {/* Handwritten role annotation — rose, capped size, rotates from
-              its LEFT edge so long titles grow toward the empty name column,
-              never off the right side of the screen. */}
+          {/* Handwritten role annotation — rose, capped size, grows toward
+              the empty name column, never off the right edge. */}
           <span
             aria-hidden="true"
             className="hero-role absolute -top-8 left-0 md:-top-10 md:-left-8
@@ -104,7 +99,7 @@ export function Hero({ data }) {
         </motion.div>
       </div>
 
-      {/* ── Tagline: the signature moment — gold highlighter over the thesis ── */}
+      {/* ── Tagline: the gold highlighter over the thesis ── */}
       <motion.p
         {...fadeUp(0.32)}
         className="hero-tagline font-display text-2xl md:text-4xl
