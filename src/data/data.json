@@ -41,6 +41,9 @@
       { "value": "20+",     "label": "Sites shipped" },
       { "value": "M.Sc.",   "label": "HCI · Bauhaus Weimar" }
     ],
+    "heroMeta": {
+      "photoCaption": { "en": "Weimar, 2026", "de": "Weimar, 2026" }
+    },
     "year": "2026",
     "contact": {
       "location": "Weimar, Germany",

@@ -414,6 +414,37 @@
       var(--shadow-md);
   }
   .photo-frame:hover { box-shadow: 0 0 0 1px var(--blush), var(--shadow-md); }
+
+  /* ── Polaroid frame: Hero only. Thin mat + fat chin = instant polaroid. ──
+     Keeps .photo-frame untouched (About + ProjectTemplate still use it). */
+  .polaroid-frame {
+    background: var(--surface);
+    padding: 10px 10px 0 10px;      /* chin height comes from the caption row */
+    box-shadow:
+      0 0 0 1px var(--border),
+      0 10px 24px rgba(60, 40, 30, 0.14),
+      0 3px 8px rgba(60, 40, 30, 0.10);
+  }
+
+  /* Faint inset edge where photo meets frame — sells the "developed print" look */
+  .polaroid-frame .polaroid-photo {
+    box-shadow: inset 0 0 6px rgba(33, 29, 28, 0.18);
+  }
+
+  /* The chin: fixed min-height even when the caption is empty */
+  .polaroid-frame .polaroid-chin {
+    min-height: 3.25rem;            /* ≈ classic 1:4 chin-to-photo ratio */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .polaroid-frame:hover {
+    box-shadow:
+      0 0 0 1px var(--blush),
+      0 14px 32px rgba(60, 40, 30, 0.16),
+      0 4px 10px rgba(60, 40, 30, 0.10);
+  }
 }
 
 /* ── Button sketch-oval draw-on (was undefined — now animates) ── */
