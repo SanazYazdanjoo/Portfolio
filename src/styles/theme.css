@@ -74,7 +74,7 @@
  
  /* 2.1.2: Typography — primitives */
 --font-family-sans:    "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
---font-family-display: "Fraunces", Georgia, "Times New Roman", serif;
+--font-family-display: "Bricolage Grotesque", "DM Sans", system-ui, sans-serif;
 --font-family-hand:    "Caveat", "Segoe Script", cursive;
 --font-family-mono:    ui-monospace, "SF Mono", "Cascadia Code", Menlo, monospace;
 
@@ -120,7 +120,8 @@
     /* The watercolor wash — save the optimized image to /public/assets/watercolor.jpg.
        Swappable like any token: change this one line to repaint all three uses. */
     --watercolor-url: url('/assets/watercolor.jpg');
---cursor-pen-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 29 C4.5 26.5 6.5 23.5 8.5 20.5 C12.5 16.6 16.5 12.4 22 6.5 C23.5 7.2 25 8.7 26 10.5 C20.5 16.2 16.5 20.8 12.5 24.5 C9.5 26.4 6.2 27.9 3 29 Z' fill='%23fdfbf7' stroke='%23211d1c' stroke-width='1.8'/%3E%3Cpath d='M9.3 21.4 C10.6 21.9 11.8 23 12.9 24.2' fill='none' stroke='%23211d1c' stroke-width='1.5'/%3E%3Cpath d='M19.5 9.2 C16.8 12.1 14.6 14.4 12.8 16.4' fill='none' stroke='%23e43d12' stroke-width='1.4' opacity='0.5'/%3E%3Cpath d='M3 29 L5.1 25.9 L7.3 27.7 Z' fill='%23e43d12' stroke='%23e43d12' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E") 3 29, auto;  }
+    --cursor-pen-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cg transform='rotate(45 16 16)'%3E%3Crect x='12.5' y='1.5' width='7' height='7' rx='2.5' fill='%23211d1c'/%3E%3Crect x='14' y='2' width='1.2' height='5' rx='0.6' fill='%23555'/%3E%3Crect x='12' y='8.5' width='8' height='15' rx='1' fill='%23e43d12'/%3E%3Crect x='12.5' y='8.5' width='2' height='15' fill='rgba(255,255,255,0.12)'/%3E%3Crect x='17.5' y='8.5' width='2' height='15' fill='rgba(0,0,0,0.2)'/%3E%3Crect x='14.5' y='10' width='3' height='8' rx='0.5' fill='rgba(255,255,255,0.07)'/%3E%3Crect x='11.5' y='23.5' width='9' height='2' rx='0.5' fill='%23888'/%3E%3Crect x='12.5' y='25.5' width='7' height='3.5' rx='1' fill='%23211d1c'/%3E%3Cellipse cx='16' cy='29.5' rx='2.5' ry='1' fill='%230a0a0a'/%3E%3C/g%3E%3C/svg%3E") 6 26, auto;
+  }
 }
 
 /* ─── 2.2 Semantic Tokens ────────────────────────────────── */
@@ -288,7 +289,7 @@
   font-weight: 800;
   line-height: 0.92;
   letter-spacing: var(--tracking-display);
-  font-variation-settings: "opsz" 144, "SOFT" 30;
+  font-variation-settings: "opsz" 96;
 }
 
 .type-tagline {
@@ -296,7 +297,7 @@
   font-size: var(--fs-3xl);
   font-weight: 500;
   line-height: 1.3;
-  font-variation-settings: "opsz" 40;
+  font-variation-settings: "opsz" 24;
 }
 
 .type-display {
@@ -305,7 +306,7 @@
   font-weight: 800;
   line-height: var(--leading-display);
   letter-spacing: var(--tracking-display);
-  font-variation-settings: "opsz" 144, "SOFT" 40;
+  font-variation-settings: "opsz" 96;
   text-wrap: balance;
   color: var(--text-display);
 }
@@ -316,7 +317,7 @@
   font-weight: 800;
   line-height: var(--leading-heading);
   letter-spacing: var(--tracking-heading);
-  font-variation-settings: "opsz" 72, "SOFT" 40;
+  font-variation-settings: "opsz" 48;
   text-wrap: balance;
 }
 
@@ -326,7 +327,7 @@
   font-weight: 800;
   line-height: var(--leading-heading);
   letter-spacing: var(--tracking-heading);
-  font-variation-settings: "opsz" 72, "SOFT" 40;
+  font-variation-settings: "opsz" 48;
 }
 
 .type-h3 {
@@ -334,7 +335,7 @@
   font-size: var(--fs-2xl);
   font-weight: 700;
   line-height: var(--leading-heading);
-  font-variation-settings: "opsz" 40;
+  font-variation-settings: "opsz" 24;
 }
 
 .type-body {
@@ -414,37 +415,6 @@
       var(--shadow-md);
   }
   .photo-frame:hover { box-shadow: 0 0 0 1px var(--blush), var(--shadow-md); }
-
-  /* ── Polaroid frame: Hero only. Thin mat + fat chin = instant polaroid. ──
-     Keeps .photo-frame untouched (About + ProjectTemplate still use it). */
-  .polaroid-frame {
-    background: var(--surface);
-    padding: 10px 10px 0 10px;      /* chin height comes from the caption row */
-    box-shadow:
-      0 0 0 1px var(--border),
-      0 10px 24px rgba(60, 40, 30, 0.14),
-      0 3px 8px rgba(60, 40, 30, 0.10);
-  }
-
-  /* Faint inset edge where photo meets frame — sells the "developed print" look */
-  .polaroid-frame .polaroid-photo {
-    box-shadow: inset 0 0 6px rgba(33, 29, 28, 0.18);
-  }
-
-  /* The chin: fixed min-height even when the caption is empty */
-  .polaroid-frame .polaroid-chin {
-    min-height: 3.25rem;            /* ≈ classic 1:4 chin-to-photo ratio */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .polaroid-frame:hover {
-    box-shadow:
-      0 0 0 1px var(--blush),
-      0 14px 32px rgba(60, 40, 30, 0.16),
-      0 4px 10px rgba(60, 40, 30, 0.10);
-  }
 }
 
 /* ── Button sketch-oval draw-on (was undefined — now animates) ── */

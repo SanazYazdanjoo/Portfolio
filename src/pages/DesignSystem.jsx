@@ -31,11 +31,11 @@ const COLOR_TOKENS = [
 ];
 
 const TYPE_SCALE = [
-  { label: "Hero (Fraunces)",    size: "text-hero — .type-hero", weight: "font-extrabold", sample: "Sanaz.",              extra: "type-hero" },
-  { label: "Display (Fraunces)", size: "text-display",           weight: "font-extrabold", sample: "Portfolio.",          extra: "type-display" },
-  { label: "H1 (Fraunces)",      size: "text-4xl",               weight: "font-extrabold", sample: "Case Studies.",       extra: "font-display" },
-  { label: "H2 (Fraunces)",      size: "text-3xl",               weight: "font-extrabold", sample: "The Bridge.",         extra: "font-display" },
-  { label: "H3 (Fraunces)",      size: "text-2xl",               weight: "font-bold",      sample: "Research Methodology", extra: "font-display" },
+  { label: "Hero (Bricolage)",    size: "text-hero — .type-hero", weight: "font-extrabold", sample: "Sanaz.",              extra: "type-hero" },
+  { label: "Display (Bricolage)", size: "text-display",           weight: "font-extrabold", sample: "Portfolio.",          extra: "type-display" },
+  { label: "H1 (Bricolage)",      size: "text-4xl",               weight: "font-extrabold", sample: "Case Studies.",       extra: "font-display" },
+  { label: "H2 (Bricolage)",      size: "text-3xl",               weight: "font-extrabold", sample: "The Bridge.",         extra: "font-display" },
+  { label: "H3 (Bricolage)",      size: "text-2xl",               weight: "font-bold",      sample: "Research Methodology", extra: "font-display" },
   { label: "Body (DM Sans)",     size: "text-base",              weight: "font-normal",    sample: "I bridge the gap between complex human behavior and technical system design." },
   { label: "Small (DM Sans)",    size: "text-sm",                weight: "font-medium",    sample: "MSc Human-Computer Interaction — Bauhaus-Universität Weimar" },
   { label: "Label (DM Sans)",    size: "text-2xs",               weight: "font-extrabold", sample: "IMPACT METRICS",       extra: "uppercase tracking-[0.18em]" },
@@ -182,14 +182,14 @@ export default function DesignSystem() {
           <div className="flex-1 min-w-0">
 
             {/* ── COLORS ── */}
-            <Section id="colors" label="01 — Tokens" title="Colors" description="Read live from theme.css.">
+            <Section id="colors" label="01 — Tokens" title="Colors" description="Read live from theme.css. These tokens represent the brand color for Sanaz Yazdanjoo.">
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
                 {COLOR_TOKENS.map(token => <ColorSwatch key={token.var} token={token} />)}
               </div>
             </Section>
 
             {/* ── TYPOGRAPHY ── */}
-            <Section id="typography" label="02 — Tokens" title="Typography" description="Fraunces (font-display) handles headings and the name — a variable serif using optical sizing (opsz 144 at hero scale, 40 at card scale). DM Sans (font-sans) handles body and UI at weight 400+. Caveat (font-hand) provides handwritten annotations.">
+            <Section id="typography" label="02 — Tokens" title="Typography" description="Bricolage Grotesque (font-display) handles headings and the name — a variable grotesque using optical sizing (opsz 96 at hero scale, 24 at card scale). DM Sans (font-sans) handles body and UI at weight 400+. Caveat (font-hand) provides handwritten annotations.">
               <div className="space-y-px bg-border/15">
                 {TYPE_SCALE.map(t => (
                   <div key={t.label} className="bg-bg flex items-baseline gap-6 px-5 py-5 group hover:bg-primary/[0.02] transition-colors">
