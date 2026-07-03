@@ -1,10 +1,10 @@
 // src/components/Hero.jsx
 // ─────────────────────────────────────────────────────────────────────────────
-// Ink & Bloom — final hero.
-//   • Compact-Nav compatible: this is the ONLY giant name on screen
-//   • Ink name (both lines), gold .ink-highlight on the tagline
-//   • Annotation capped at text-2xl/3xl, grows toward the empty name column
-//   • pt + min-h keep the fold filled and the kicker clear of the Nav
+// Ink & Bloom — final hero. TYPOGRAPHY v2 applied:
+//   • Name uses .type-hero (theme.css) — no more inline clamp/variation styles
+//   • font-black (900) → font-extrabold (800): open counters at display sizes
+//   • Micro labels lifted to the 10px floor (text-2xs), tracking token 0.18em
+//   • Tagline uses .type-tagline — opsz lives in CSS, not JSX
 // Data contract unchanged: profileData + optional heroMeta fallbacks.
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -39,7 +39,7 @@ export function Hero({ data }) {
       {/* ── Kicker: the 2-second read ── */}
       <motion.p
         {...fadeUp(0)}
-        className="text-[10px] md:text-[11px] font-bold uppercase
+        className="text-2xs md:text-xs font-bold uppercase
                    tracking-[0.28em] text-text-dim mb-8 md:mb-12"
       >
         UX Research × Engineering&nbsp;&nbsp;—&nbsp;&nbsp;{data.contact?.location || "Weimar, Germany"}
@@ -48,17 +48,12 @@ export function Hero({ data }) {
       {/* ── Name + Photo: 12-col editorial grid (≈ 70/30 split) ── */}
       <div className="grid grid-cols-12 gap-x-4 md:gap-x-6 items-center">
 
-        {/* Name — the one and only star of this screen */}
+        {/* Name — the one and only star of this screen.
+            All type styling lives in .type-hero (theme.css §3). */}
         <motion.h1
           {...fadeUp(0.08)}
-          className="col-span-12 md:col-span-8 md:col-start-1 md:row-start-1
-                     relative z-20 font-display font-black
-                     leading-[0.92] text-text pointer-events-none"
-          style={{
-            fontSize: "clamp(3rem, 8vw, 8.5rem)",
-            letterSpacing: "-0.015em",
-            fontVariationSettings: "'opsz' 144, 'SOFT' 30",
-          }}
+          className="type-hero col-span-12 md:col-span-8 md:col-start-1 md:row-start-1
+                     relative z-20 text-text pointer-events-none"
         >
           <span className="block">{firstName}</span>
           <span className="block">{lastName}</span>
@@ -102,9 +97,7 @@ export function Hero({ data }) {
       {/* ── Tagline: the gold highlighter over the thesis ── */}
       <motion.p
         {...fadeUp(0.32)}
-        className="hero-tagline font-display text-2xl md:text-4xl
-                   max-w-2xl mt-12 md:mt-16 leading-snug"
-        style={{ fontVariationSettings: "'opsz' 40" }}
+        className="type-tagline hero-tagline max-w-2xl mt-12 md:mt-16"
       >
         <span className="ink-highlight">{data.tagline}</span>
       </motion.p>
@@ -131,10 +124,10 @@ export function Hero({ data }) {
 function MetaItem({ label, value, align = "" }) {
   return (
     <div className={align}>
-      <p className="text-[9px] font-black uppercase tracking-[0.22em] text-primary-600 mb-1.5">
+      <p className="text-2xs font-extrabold uppercase tracking-[0.18em] text-primary-600 mb-1.5">
         {label}
       </p>
-      <p className="text-xs md:text-[13px] font-medium text-text/70 leading-relaxed">
+      <p className="text-xs md:text-sm font-medium text-text-dim leading-relaxed">
         {value}
       </p>
     </div>
