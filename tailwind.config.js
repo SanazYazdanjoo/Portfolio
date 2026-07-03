@@ -47,13 +47,24 @@ export default {
         sm: "var(--shadow-sm)",
         md: "var(--shadow-md)",
       },
-      fontFamily: {
-        display: ["var(--font-display)"], // Fraunces — actually loads now
-        hand: ["var(--font-hand)"],
-        sans: ["var(--font-sans)"],
-        serif: ["var(--font-display)"],
-        mono: ['"JetBrains Mono"', "ui-monospace", "monospace"],
-      },
+fontFamily: {
+  sans:    "var(--font-family-sans)",
+  display: "var(--font-family-display)",
+  hand:    "var(--font-family-hand)",
+  mono:    "var(--font-family-mono)",
+},
+fontSize: {
+  "2xs":     ["var(--text-2xs)",     { lineHeight: "1.4", letterSpacing: "var(--tracking-caps)" }],
+  xs:        ["var(--text-xs)",      { lineHeight: "1.5" }],
+  sm:        ["var(--text-sm)",      { lineHeight: "1.6" }],
+  base:      ["var(--text-base)",    { lineHeight: "var(--leading-body)" }],
+  lg:        ["var(--text-lg)",      { lineHeight: "var(--leading-body)" }],
+  xl:        ["var(--text-xl)",      { lineHeight: "1.4" }],
+  "2xl":     ["var(--text-2xl)",     { lineHeight: "var(--leading-heading)" }],
+  "3xl":     ["var(--text-3xl)",     { lineHeight: "var(--leading-heading)", letterSpacing: "var(--tracking-heading)" }],
+  "4xl":     ["var(--text-4xl)",     { lineHeight: "var(--leading-heading)", letterSpacing: "var(--tracking-heading)" }],
+  display:   ["var(--text-display)", { lineHeight: "var(--leading-display)", letterSpacing: "var(--tracking-display)" }],
+},
       transitionTimingFunction: {
         smooth: "cubic-bezier(.22,.61,.36,1)",
       },
