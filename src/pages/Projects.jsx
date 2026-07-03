@@ -49,7 +49,7 @@ export default function Projects() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="font-display text-5xl md:text-7xl tracking-tighter text-text">
+          <h1 className="font-display text-5xl md:text-8xl tracking-tighter text-text">
             Case Studies<span className="text-primary">.</span>
           </h1>
 
