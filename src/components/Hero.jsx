@@ -1,40 +1,21 @@
 // src/components/Hero.jsx
 // ─────────────────────────────────────────────────────────────────────────────
-// MESSINESS FIX v3 — two changes, everything else untouched:
+// LAYOUT FIX v4 — one change from v3:
 //
-//   1. Handwritten role annotation no longer clips off the right viewport edge.
-//      Root cause: `whitespace-nowrap max-w-none` + negative left offset.
-//      Fix: anchored to the photo's RIGHT edge (`right-2`, `text-right`,
-//      `origin-bottom-right`) so it grows LEFT into the empty name column,
-//      and it's allowed to wrap (max-w-[16ch]). It can never overflow again.
+//   • Removed `min-h-[calc(100vh-160px)]` + `justify-center`.
+//     On tall/wide screens that combo distributed leftover viewport height
+//     BELOW the meta strip — that was a big part of the dead band before
+//     "About Me". The hero is now exactly as tall as its content, which at
+//     desktop sizes still fills the fold naturally.
 //
-//   2. Meta strip: "Portfolio [ 2026 ]" was filler in a prime column.
-//      Replaced with "Status" — the one thing a recruiter acts on.
-//      Value comes from profileData.heroMeta.status (bilingual-ready),
-//      with a safe English fallback.
-//
-// Data contract: add `status` to heroMeta in data.json when convenient:
-//   "heroMeta": { ..., "status": { "en": "Open to UX Researcher roles",
-//                                  "de": "Offen für UX-Researcher-Rollen" } }
+// v3 fixes retained: right-anchored wrappable role annotation (can't clip),
+// "Status" meta item replacing the "Portfolio [year]" filler.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { useTranslation } from "../context/LanguageContext";
-
 
 export function Hero({ data }) {
-
-  const { t, localize } = useTranslation();
-
-const meta = {
-  currently:  localize(data.heroMeta?.currently)  || t("hero.meta.currentlyValue"),
-  background: localize(data.heroMeta?.background) || t("hero.meta.backgroundValue"),
-  focus:      localize(data.heroMeta?.focus)      || t("hero.meta.focusValue"),
-  status:     localize(data.heroMeta?.status)     || t("hero.meta.statusValue"),
-};
-
-
   const prefersReducedMotion = useReducedMotion();
 
   const nameParts = (data.name || "").trim().split(" ");
@@ -42,8 +23,8 @@ const meta = {
   const lastName = nameParts.slice(1).join(" ");
 
   const meta = {
-    currently: data.heroMeta?.currently ?? "Project Assistant at IBS",
-    background: data.heroMeta?.background ?? "MSc HCI, B.Eng. Software Engineering",
+    currently: data.heroMeta?.currently ?? "MSc HCI · Bauhaus-Universität Weimar",
+    background: data.heroMeta?.background ?? "Software Engineering · QA",
     focus: data.heroMeta?.focus ?? "Mixed-methods research · Prototyping",
     status: data.heroMeta?.status ?? "Open to UX Researcher roles",
   };
@@ -55,10 +36,7 @@ const meta = {
   });
 
   return (
-    <div
-      className="relative w-full flex flex-col justify-center
-                 pt-12 md:pt-20 pb-12 min-h-[calc(100vh-160px)]"
-    >
+    <div className="relative w-full flex flex-col pt-12 md:pt-20 pb-4">
 
       {/* ── Kicker: the 2-second read ── */}
       <motion.p
@@ -72,7 +50,6 @@ const meta = {
       {/* ── Name + Photo: 12-col editorial grid (≈ 70/30 split) ── */}
       <div className="grid grid-cols-12 gap-x-4 md:gap-x-6 items-center">
 
-        {/* Name — the one and only star of this screen. */}
         <motion.h1
           {...fadeUp(0.08)}
           className="type-hero col-span-12 md:col-span-8 md:col-start-1 md:row-start-1
@@ -89,10 +66,7 @@ const meta = {
                      md:col-span-4 md:col-start-9 md:row-start-1
                      relative z-10"
         >
-          {/* Handwritten role annotation.
-              Right-anchored + wrappable = physically cannot clip.
-              −4° instead of −6°: a script face fights its own letterforms
-              past ~5° of rotation. */}
+          {/* Right-anchored + wrappable = physically cannot clip. */}
           <span
             aria-hidden="true"
             className="hero-role absolute -top-9 right-2 md:-top-11 md:right-0
@@ -105,10 +79,9 @@ const meta = {
           </span>
 
           <div
-            className="polaroid-frame relative z-20 rotate-1
+            className="photo-frame relative z-20 rotate-1
                        transition-transform duration-500 hover:rotate-0"
           >
-            <div className="polaroid-photo relative overflow-hidden">
             <img
               src={data.aboutImage}
               alt={data.name}
@@ -116,17 +89,6 @@ const meta = {
                          transition-all duration-700 hover:grayscale-0"
               style={{ aspectRatio: "4 / 5" }}
             />
-            </div>
-            {/* Chin — handwritten caption, data-driven with a safe fallback */}
-            <div className="polaroid-chin">
-              <span
-                className="font-hand text-lg md:text-xl text-text/70
-                           -rotate-1 select-none"
-              >
-                {data.heroMeta?.photoCaption ?? "Weimar, 2026"}
-              </span>
-            </div>
-
           </div>
         </motion.div>
       </div>
