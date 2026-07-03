@@ -3,8 +3,8 @@
 // Ink & Bloom edition. Data flow, translation keys, and section structure are
 // IDENTICAL to before — only the visual language changed:
 //
-//   • Headings set in Fraunces (font-display); the rotated "About Me" is now
-//     italic + −2° (a serif at −6° fights its own letterforms)
+//   • Headings set in Bricolage Grotesque (font-display); the rotated "About Me" is
+//     roman + −2° (Bricolage has no italic; rotation alone carries the gesture)
 //   • Big decorative numerals: blush pink, warming to rose on hover
 //   • Eyebrows / small accents: primary-600 & secondary-600 (AA-safe shades)
 //   • Hover fills: blush wash instead of coral tint
@@ -122,9 +122,9 @@ export default function About() {
           >
             <div className="relative inline-block w-max mb-6 md:mb-10">
               <h2
-                className="font-display italic font-extrabold text-text
+                className="font-display font-extrabold text-text
                            text-display -rotate-2 relative z-10"
-                style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 60" }}
+                style={{ fontVariationSettings: "'opsz' 96" }}
               >
                 {t("about.heading")}
               </h2>

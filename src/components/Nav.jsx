@@ -2,7 +2,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // FIX (screenshot feedback): the Nav no longer renders the giant two-line name.
 // The Hero owns the display-size name — one star per screen. The Nav is now a
-// compact Fraunces wordmark, always one line, shrinking slightly on scroll.
+// compact Bricolage wordmark, always one line, shrinking slightly on scroll.
 //
 // Everything else from the Ink & Bloom version stays:
 //   • active link = ink + coral pen-tap dot · hover = rose
@@ -35,7 +35,7 @@ export const Nav = ({ isScrolled = false }) => {
                 fontWeight: 700,
                 fontSize: isScrolled ? "1.15rem" : "1.45rem",
                 letterSpacing: "-0.01em",
-                fontVariationSettings: "'opsz' 40, 'SOFT' 30",
+                fontVariationSettings: "'opsz' 24",
               }}
             >
               Sanaz Yazdanjoo
