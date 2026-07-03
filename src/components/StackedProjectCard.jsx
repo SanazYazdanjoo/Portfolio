@@ -1,33 +1,34 @@
 // src/components/StackedProjectCard.jsx
 // ─────────────────────────────────────────────────────────────────────────────
-// Ink & Bloom edition — clean white rows, palette on the things that matter.
+// Ink & Bloom — WATERCOLOR edition.
 //
-// The color system survives, but inverted: instead of full-bleed tinted bands
-// (which read as dead grey stripes on a white page), each row is a white sheet
-// with a colored SPINE on its left edge. Color still encodes research DOMAIN:
+// The domain spine is now PAINTED: each research domain samples a different
+// region of the same watercolor wash, so the three cards share one material
+// but carry distinct hues — a system, rendered in paint:
 //
-//   attention     → coral  (gaze, multi-display, attention)
-//   collaboration → gold   (hybrid work, social, CSCW)
-//   affective     → rose   (emotion, care, HRI)
+//   attention     → the coral/red pour     (top-left of the wash)
+//   collaboration → the golden bleed       (bottom-center)
+//   affective     → the magenta bloom      (middle-left)
+//   unclassified  → the pale peach fade    (center-right)
 //
-// Add `domain` to each project in projects.js. Without it, the spine falls
-// back to blush — visible, but clearly "unclassified".
-//
-// Impact metrics get the gold highlighter (your signature + your content
-// goal: evidence-based impact, literally highlighted). Methods are listed
-// in rose — the HCI expertise proof, per your roadmap.
+// Each domain also keeps a solid token color as fallback — if the image
+// ever fails, the spine degrades to the flat palette color. Nothing breaks.
+// Everything else identical to the clean-white version: white rows, blush
+// hover, gold-highlighted headline metrics, rose method lists.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 
-/* Color encodes the research DOMAIN, not list position — a system, not decoration. */
-const DOMAIN_COLORS = {
-  attention: "var(--primary)",      // coral
-  collaboration: "var(--highlight)",// gold
-  affective: "var(--secondary)",    // rose
-  _default: "var(--blush)",         // unclassified → blush
+/* Color encodes the research DOMAIN, not list position — a system, not decoration.
+   `pos` = which region of the watercolor this domain samples.
+   `fallback` = flat token color if the image is unavailable. */
+const DOMAIN_SPINES = {
+  attention:     { pos: "12% 15%", fallback: "var(--primary)" },
+  collaboration: { pos: "55% 88%", fallback: "var(--highlight)" },
+  affective:     { pos: "20% 48%", fallback: "var(--secondary)" },
+  _default:      { pos: "70% 35%", fallback: "var(--blush)" },
 };
 
 function Field({ label, children }) {
@@ -48,7 +49,7 @@ export function StackedProjectCard({ project, index }) {
 
   if (!project || project.status === "coming-soon" || !project.id) return null;
 
-  const spine = DOMAIN_COLORS[project.domain] || DOMAIN_COLORS._default;
+  const spine = DOMAIN_SPINES[project.domain] || DOMAIN_SPINES._default;
   const hasImage = project.thumbnail && !imgError;
   const headline = project.metrics?.[0];          // the one number that ALWAYS shows
   const rest = (project.metrics || []).slice(1);  // the others live in the expand
@@ -67,17 +68,22 @@ export function StackedProjectCard({ project, index }) {
         to={`/projects/${project.id}`}
         className="block outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
       >
-        {/* ── Always-visible summary row: white sheet + domain spine ── */}
+        {/* ── Always-visible summary row: white sheet + painted spine ── */}
         <div
           className="relative px-8 md:px-16 py-7 bg-bg border-t border-border
                      transition-colors duration-300 hover:bg-blush-weak group"
         >
-          {/* Domain spine — the color system, now a clean 4px edge */}
+          {/* Domain spine — a strip of the actual watercolor */}
           <span
             aria-hidden="true"
-            className="absolute left-0 top-0 bottom-0 w-1 md:w-[5px]
-                       transition-all duration-300 group-hover:w-2"
-            style={{ backgroundColor: spine }}
+            className="absolute left-0 top-0 bottom-0 w-1.5 md:w-2
+                       transition-all duration-300 group-hover:w-3"
+            style={{
+              backgroundColor: spine.fallback,
+              backgroundImage: "var(--watercolor-url)",
+              backgroundSize: "600px auto",
+              backgroundPosition: spine.pos,
+            }}
           />
 
           <div className="flex items-start gap-6">
