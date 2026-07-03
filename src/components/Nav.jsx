@@ -1,17 +1,13 @@
 // src/components/Nav.jsx
 // ─────────────────────────────────────────────────────────────────────────────
-// Ink & Bloom edition.
+// FIX (screenshot feedback): the Nav no longer renders the giant two-line name.
+// The Hero owns the display-size name — one star per screen. The Nav is now a
+// compact Fraunces wordmark, always one line, shrinking slightly on scroll.
 //
-// What changed:
-//   • Logotype inherits Fraunces (font-display) — it IS the brand mark now.
-//     Demoted from <h1> to <p>: the page's real h1 lives in the Hero. One h1
-//     per page is the accessibility-correct structure.
-//   • Link language: active = ink + coral dot · hover = rose (the whisper).
-//   • MOBILE MENU BUG FIX: the old dropdown used `absolute top-full` with no
-//     positioned ancestor, so it rendered off-screen against the root div.
-//     Replaced with a fixed full-screen paper overlay — large Fraunces links,
-//     comfortable tap targets (your roadmap's Mobile UX Audit item).
-//   • aria-expanded + translated open/close labels (nav.openMenu/closeMenu).
+// Everything else from the Ink & Bloom version stays:
+//   • active link = ink + coral pen-tap dot · hover = rose
+//   • fixed full-screen mobile overlay (the old dropdown rendered off-screen)
+//   • aria-expanded + translated open/close labels
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React, { useState, useEffect } from "react";
@@ -27,29 +23,28 @@ export const Nav = ({ isScrolled = false }) => {
 
   return (
     <nav data-no-sketch="true" className="w-full no-print">
-      {/* items-start = nav links align to TOP of the name, not baseline */}
-      <div className="flex items-start justify-between w-full">
+      <div className="flex items-center justify-between w-full pb-4 border-b border-border">
 
-        {/* ── Name: the brand mark, flush left ── */}
-        <div className="flex items-start gap-3 shrink-0">
+        {/* ── Wordmark: compact, one line, always ── */}
+        <div className="flex items-center gap-3 shrink-0">
           <LanguageToggle />
           <NavLink to="/" aria-label="Home — Sanaz Yazdanjoo">
             <p
-              className="font-display text-text leading-[0.95] transition-all duration-300"
+              className="font-display text-text whitespace-nowrap transition-all duration-300"
               style={{
-                fontWeight: 800,
-                fontSize: isScrolled ? "clamp(1.25rem, 2.5vw, 2rem)" : "clamp(2.5rem, 5vw, 4.5rem)",
-                letterSpacing: "-0.015em",
-                fontVariationSettings: "'opsz' 72, 'SOFT' 30",
+                fontWeight: 700,
+                fontSize: isScrolled ? "1.15rem" : "1.45rem",
+                letterSpacing: "-0.01em",
+                fontVariationSettings: "'opsz' 40, 'SOFT' 30",
               }}
             >
-              {isScrolled ? "Sanaz Yazdanjoo" : <>{`Sanaz`}<br />{`Yazdanjoo`}</>}
+              Sanaz Yazdanjoo
             </p>
           </NavLink>
         </div>
 
-        {/* ── Links: top-right, small, wide gaps ── */}
-        <ul className="hidden md:flex items-start gap-10 lg:gap-14 pt-1">
+        {/* ── Links: right, small, wide gaps ── */}
+        <ul className="hidden md:flex items-center gap-9 lg:gap-12">
           {profileData.navLinks.map((link) => (
             <li key={link.path}>
               <NavLink
@@ -59,7 +54,7 @@ export const Nav = ({ isScrolled = false }) => {
                   `relative text-[13px] md:text-[14px] transition-colors duration-200
                    ${isActive
                      ? "text-text font-semibold"
-                     : "text-text/40 hover:text-secondary-600"
+                     : "text-text/45 hover:text-secondary-600"
                    }`
                 }
               >
@@ -126,9 +121,6 @@ function MobileMenu({ links }) {
             transition={{ duration: 0.25 }}
             className="fixed inset-0 z-[60] bg-bg flex flex-col justify-center px-10"
           >
-            {/* Paper grain carries into the overlay */}
-            <div className="absolute inset-0 bg-paper-texture pointer-events-none" aria-hidden="true" />
-
             <ul className="relative flex flex-col gap-2">
               {links.map((link, i) => (
                 <motion.li
