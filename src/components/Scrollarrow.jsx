@@ -68,7 +68,7 @@ export function ScrollArrow({ targetId = "AboutMe-Section", scrollRef }) {
         animate={{ opacity: hovered ? 1 : 0.5 }}
         transition={{ duration: 0.25 }}
       >
-        more TO EDIT
+        Scroll
       </motion.span>
 
       {/* ── The arrow itself ── */}
