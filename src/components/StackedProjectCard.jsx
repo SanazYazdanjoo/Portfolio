@@ -71,7 +71,7 @@ export function StackedProjectCard({ project, index }) {
 
             <div className="flex-1 min-w-0">
               <h2
-                className="font-display font-extrabold text-2xl md:text-3xl
+                className="font-display font-extrabold text-2xl
                            tracking-[-0.01em] uppercase leading-tight text-text
                            transition-colors duration-300 group-hover:text-primary-600"
               >
@@ -93,7 +93,7 @@ export function StackedProjectCard({ project, index }) {
             <div className="hidden sm:flex flex-col items-end shrink-0 self-center">
               {headline && (
                 <div className="flex items-baseline gap-2">
-                  <span className="ink-highlight font-display font-extrabold text-2xl md:text-3xl leading-none">
+                  <span className="ink-highlight font-display font-extrabold text-2xl leading-none">
                     {headline.value}
                   </span>
                   <span className="text-2xs uppercase tracking-wider text-text/55 max-w-[8ch] leading-tight">
