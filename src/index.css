@@ -64,6 +64,9 @@
     size: A4;
     margin: 1.8cm 1.5cm 1.5cm 1.5cm;
   }
+  html { font-size: 13px; } /* compresses the rem-based fluid scale for A4 */
+  .type-hero, .type-display, .type-h1 { font-variation-settings: "opsz" 72; }
+
 
   /* ── Kill UI chrome ──
      Target nav specifically — NOT bare `header`.

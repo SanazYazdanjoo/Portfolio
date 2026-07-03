@@ -38,10 +38,10 @@ function SectionHeader({ eyebrow, title, sub }) {
       className="mb-12"
       variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}
     >
-      <p className="text-[9px] font-black uppercase tracking-[0.25em] text-primary-600 mb-2">
+      <p className="text-2xs font-extrabold uppercase tracking-[0.18em] text-primary-600 mb-2">
         {eyebrow}
       </p>
-      <h2 className="font-display text-3xl md:text-4xl font-black text-text tracking-tight">
+      <h2 className="font-display text-4xl font-extrabold text-text">
         {title}
       </h2>
       {sub && <p className="text-sm text-text/60 mt-5 max-w-md">{sub}</p>}
@@ -53,7 +53,7 @@ function SectionHeader({ eyebrow, title, sub }) {
 function SkillColumn({ title, items }) {
   return (
     <div>
-      <h3 className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] text-text mb-2">
+      <h3 className="text-xs font-extrabold uppercase tracking-[0.18em] text-text mb-2">
         {title}
       </h3>
       <div className="w-8 border-b-2 border-primary mb-4" aria-hidden="true" />
@@ -122,15 +122,15 @@ export default function About() {
           >
             <div className="relative inline-block w-max mb-6 md:mb-10">
               <h2
-                className="font-display italic font-black text-text
-                           text-6xl md:text-8xl -rotate-2 relative z-10"
+                className="font-display italic font-extrabold text-text
+                           text-display -rotate-2 relative z-10"
                 style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 60" }}
               >
                 {t("about.heading")}
               </h2>
             </div>
 
-            <p className="text-base md:text-lg lg:text-xl leading-[1.8] text-text/90 font-light max-w-xl">
+            <p className="text-lg text-text/90 font-normal max-w-xl">
               {profileData.bio}
             </p>
           </motion.div>
@@ -167,7 +167,7 @@ export default function About() {
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
         >
-          <span className="block text-[10px] md:text-xs font-black uppercase tracking-[0.3em] text-primary-600 mb-10">
+          <span className="block text-2xs md:text-xs font-extrabold uppercase tracking-[0.18em] text-primary-600 mb-10">
             {t("about.whatIBring")}
           </span>
 
@@ -207,7 +207,7 @@ export default function About() {
               >
                 {/* Phase numeral — blush, warming to rose on hover */}
                 <span
-                  className={`block font-display font-black text-4xl leading-none mb-4 select-none
+                  className={`block font-display font-extrabold text-4xl leading-none mb-4 select-none
                     ${step.highlight
                       ? "text-white/40"
                       : "text-blush group-hover:text-secondary transition-colors duration-300"
@@ -217,10 +217,10 @@ export default function About() {
                   {step.phase}
                 </span>
 
-                <h3 className={`font-display font-black text-lg leading-tight mb-1 ${step.highlight ? "text-white" : "text-text"}`}>
+                <h3 className={`font-display font-bold text-xl leading-tight mb-1 ${step.highlight ? "text-white" : "text-text"}`}>
                   {step.label}
                 </h3>
-                <p className={`text-[10px] font-semibold uppercase tracking-widest mb-4 ${step.highlight ? "text-white/60" : "text-secondary-600"}`}>
+                <p className={`text-2xs font-semibold uppercase tracking-[0.18em] mb-4 ${step.highlight ? "text-white/60" : "text-secondary-600"}`}>
                   {step.years}
                 </p>
                 <p className={`text-sm leading-relaxed mb-6 ${step.highlight ? "text-white/85" : "text-text/70"}`}>
@@ -348,7 +348,7 @@ export default function About() {
             variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}
           >
             <div>
-              <p className="text-[9px] font-black uppercase tracking-[0.25em] text-primary-600 mb-2">
+              <p className="text-2xs font-extrabold uppercase tracking-[0.18em] text-primary-600 mb-2">
                 {t("about.whatsNext")}
               </p>
               <h2 className="font-display text-2xl md:text-3xl font-black text-text tracking-tight">

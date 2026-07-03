@@ -31,15 +31,15 @@ const COLOR_TOKENS = [
 ];
 
 const TYPE_SCALE = [
-  { label: "Display (Helvetica Now)", size: "text-7xl",   weight: "font-black",  sample: "Portfolio.",          extra: "font-display text-text-display" },
-  { label: "H1 (Helvetica Now)",      size: "text-5xl",   weight: "font-black",  sample: "Case Studies.",       extra: "font-display" },
-  { label: "H2 (Helvetica Now)",      size: "text-3xl",   weight: "font-black",  sample: "The Bridge.",         extra: "font-display" },
-  { label: "H3 (Helvetica Now)",      size: "text-xl",    weight: "font-bold",   sample: "Research Methodology",extra: "font-display" },
-  { label: "Body (DM Sans)",       size: "text-base",  weight: "font-light",  sample: "I bridge the gap between complex human behavior and technical system design." },
-  { label: "Small (DM Sans)",      size: "text-sm",    weight: "font-normal", sample: "MSc. Human-Computer Interaction · Bauhaus University Weimar" },
-  { label: "Label (DM Sans)",      size: "text-xs",    weight: "font-black",  sample: "QUALITATIVE DATA",    extra: "uppercase tracking-widest" },
-  { label: "Micro (DM Sans)",      size: "text-[9px]", weight: "font-black",  sample: "COMING SOON",         extra: "uppercase tracking-[0.2em]" },
-  { label: "Handwritten (Caveat)", size: "text-4xl",   weight: "font-bold",   sample: "Engineering meets Research", extra: "font-hand" },
+  { label: "Hero (Fraunces)",    size: "text-hero — .type-hero", weight: "font-extrabold", sample: "Sanaz.",              extra: "type-hero" },
+  { label: "Display (Fraunces)", size: "text-display",           weight: "font-extrabold", sample: "Portfolio.",          extra: "type-display" },
+  { label: "H1 (Fraunces)",      size: "text-4xl",               weight: "font-extrabold", sample: "Case Studies.",       extra: "font-display" },
+  { label: "H2 (Fraunces)",      size: "text-3xl",               weight: "font-extrabold", sample: "The Bridge.",         extra: "font-display" },
+  { label: "H3 (Fraunces)",      size: "text-2xl",               weight: "font-bold",      sample: "Research Methodology", extra: "font-display" },
+  { label: "Body (DM Sans)",     size: "text-base",              weight: "font-normal",    sample: "I bridge the gap between complex human behavior and technical system design." },
+  { label: "Small (DM Sans)",    size: "text-sm",                weight: "font-medium",    sample: "MSc Human-Computer Interaction — Bauhaus-Universität Weimar" },
+  { label: "Label (DM Sans)",    size: "text-2xs",               weight: "font-extrabold", sample: "IMPACT METRICS",       extra: "uppercase tracking-[0.18em]" },
+  { label: "Hand (Caveat)",      size: "text-2xl",               weight: "font-bold",      sample: "the researcher's margin note", extra: "font-hand text-secondary" },
 ];
 
 const BADGE_TONES = ["accent", "muted"];
@@ -189,7 +189,7 @@ export default function DesignSystem() {
             </Section>
 
             {/* ── TYPOGRAPHY ── */}
-            <Section id="typography" label="02 — Tokens" title="Typography" description="Helvetica Now (font-display) handles headings and the name logo. DM Sans (font-sans) handles body and UI. Caveat (font-hand) provides handwritten annotations.">
+            <Section id="typography" label="02 — Tokens" title="Typography" description="Fraunces (font-display) handles headings and the name — a variable serif using optical sizing (opsz 144 at hero scale, 40 at card scale). DM Sans (font-sans) handles body and UI at weight 400+. Caveat (font-hand) provides handwritten annotations.">
               <div className="space-y-px bg-border/15">
                 {TYPE_SCALE.map(t => (
                   <div key={t.label} className="bg-bg flex items-baseline gap-6 px-5 py-5 group hover:bg-primary/[0.02] transition-colors">
