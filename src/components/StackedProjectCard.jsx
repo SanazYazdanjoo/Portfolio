@@ -1,34 +1,22 @@
 // src/components/StackedProjectCard.jsx
 // ─────────────────────────────────────────────────────────────────────────────
-// Ink & Bloom — WATERCOLOR edition.
-//
-// The domain spine is now PAINTED: each research domain samples a different
-// region of the same watercolor wash, so the three cards share one material
-// but carry distinct hues — a system, rendered in paint:
-//
-//   attention     → the coral/red pour     (top-left of the wash)
-//   collaboration → the golden bleed       (bottom-center)
-//   affective     → the magenta bloom      (middle-left)
-//   unclassified  → the pale peach fade    (center-right)
-//
-// Each domain also keeps a solid token color as fallback — if the image
-// ever fails, the spine degrades to the flat palette color. Nothing breaks.
-// Everything else identical to the clean-white version: white rows, blush
-// hover, gold-highlighted headline metrics, rose method lists.
+// Ink & Bloom — clean white rows, palette on the things that matter.
+// Each row is a white sheet with a colored SPINE encoding the research DOMAIN:
+//   attention → coral · collaboration → gold · affective → rose
+// Add `domain` to each project in projects.js; missing domain falls back to
+// blush. Impact metrics wear the gold highlighter; methods are listed in rose.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 
-/* Color encodes the research DOMAIN, not list position — a system, not decoration.
-   `pos` = which region of the watercolor this domain samples.
-   `fallback` = flat token color if the image is unavailable. */
+/* Color encodes the research DOMAIN, not list position — a system, not decoration. */
 const DOMAIN_SPINES = {
-  attention:     { pos: "12% 15%", fallback: "var(--primary)" },
-  collaboration: { pos: "55% 88%", fallback: "var(--highlight)" },
-  affective:     { pos: "20% 48%", fallback: "var(--secondary)" },
-  _default:      { pos: "70% 35%", fallback: "var(--blush)" },
+  attention:     { fallback: "var(--primary)" },     // gaze, multi-display, attention
+  collaboration: { fallback: "var(--highlight)" },   // hybrid work, social, CSCW
+  affective:     { fallback: "var(--secondary)" },   // emotion, care, HRI
+  _default:      { fallback: "var(--blush)" },       // unclassified
 };
 
 function Field({ label, children }) {
@@ -73,17 +61,12 @@ export function StackedProjectCard({ project, index }) {
           className="relative px-8 md:px-16 py-7 bg-bg border-t border-border
                      transition-colors duration-300 hover:bg-blush-weak group"
         >
-          {/* Domain spine — a strip of the actual watercolor */}
+          {/* Domain spine — the color system as a clean edge */}
           <span
             aria-hidden="true"
             className="absolute left-0 top-0 bottom-0 w-1.5 md:w-2
                        transition-all duration-300 group-hover:w-3"
-            style={{
-              backgroundColor: spine.fallback,
-              backgroundImage: "var(--watercolor-url)",
-              backgroundSize: "600px auto",
-              backgroundPosition: spine.pos,
-            }}
+            style={{ backgroundColor: spine.fallback }}
           />
 
           <div className="flex items-start gap-6">

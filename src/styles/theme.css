@@ -410,49 +410,16 @@
   filter: grayscale(0%) contrast(1);
 }
 
-/* --- 7. WATERCOLOR SYSTEM --- */
-/* The wash appears in exactly THREE places on the homepage — the last name,
-   the tagline highlighter, and the project-card spines. It is ink, not
-   wallpaper. Resist the urge to add a fourth. */
-
-/* 7.1 — Watercolor text fill (the hero's last name).
-   Fallback-first: if the image is missing, the text is simply ink. */
-.watercolor-text {
-  color: var(--text);                      /* fallback */
+/* --- 7. WATERCOLOR PANEL --- */
+/* The wash appears in ONE place: a full-bleed panel inside the Contact card
+   (the Unsplash-modal pattern — image as furniture, not decoration).
+   Swap the artwork by changing --watercolor-url in §2.1. */
+.watercolor-panel {
+  background-color: var(--blush-weak);   /* graceful fallback if image missing */
   background-image: var(--watercolor-url);
   background-size: cover;
-  background-position: 30% 35%;            /* the rich coral→magenta region */
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  background-position: 42% 45%;          /* the coral→magenta→gold sweep */
 }
-@supports not (background-clip: text) {
-  .watercolor-text { background: none; color: var(--text); -webkit-text-fill-color: currentColor; }
-}
-
-/* 7.2 — Watercolor highlighter swipe (tagline).
-   Same geometry as .ink-highlight, but the marker is loaded with the wash.
-   The squashed strip reads as a single loose brushstroke. */
-.ink-highlight--wash {
-  position: relative;
-  display: inline;
-  color: var(--color-ink-900);
-  background-color: transparent;
-  background-image: var(--watercolor-url);
-  background-size: 100% 0.6em;
-  background-position: 35% 82%;
-  background-repeat: no-repeat;
-  padding: 0 0.12em;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-}
-
-/* 7.3 — Print + reduced data: watercolor never costs ink or bandwidth */
 @media print {
-  .watercolor-text {
-    background: none !important;
-    color: var(--text) !important;
-    -webkit-text-fill-color: currentColor !important;
-  }
-  .ink-highlight--wash { background: none !important; }
+  .watercolor-panel { display: none !important; }
 }
