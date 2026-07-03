@@ -1,19 +1,15 @@
 // src/components/Hero.jsx
 // ─────────────────────────────────────────────────────────────────────────────
-// Ink & Bloom — WATERCOLOR edition.
+// FIXES (screenshot feedback):
+//   1. The Nav is now a compact wordmark, so the Hero name is the ONLY giant
+//      name on screen — no more duplication.
+//   2. Annotation ("UX Researcher & HCI Specialist") capped at text-2xl/3xl
+//      and anchored to the photo's top-LEFT, rotating from its left edge —
+//      it can no longer bleed off the right side of the viewport.
+//   3. pt-12/pt-20 top spacing so the kicker stops hugging the Nav, and
+//      min-h keeps the hero filling the first screen with content centered.
 //
-// The wash (your uploaded watercolor, saved to /public/assets/watercolor.jpg)
-// appears here in its two hero moments:
-//
-//   1. THE LAST NAME is filled with the watercolor (background-clip: text).
-//      First name stays solid ink — the contrast IS the design: engineering
-//      rigor (ink) meets research humanity (paint). If the image ever fails
-//      to load, CSS falls back to plain ink. Nothing breaks.
-//   2. THE TAGLINE swipe upgrades from flat gold to a loose watercolor
-//      brushstroke (.ink-highlight--wash).
-//
-// Everything else unchanged from the fixed layout: compact-nav-compatible,
-// tamed annotation, min-h fold fill, heroMeta data contract intact.
+// Data contract unchanged: everything flows from profileData + heroMeta.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React from "react";
@@ -56,7 +52,7 @@ export function Hero({ data }) {
       {/* ── Name + Photo: 12-col editorial grid (≈ 70/30 split) ── */}
       <div className="grid grid-cols-12 gap-x-4 md:gap-x-6 items-center">
 
-        {/* Name — ink first name, watercolor last name */}
+        {/* Name — the one and only star of this screen */}
         <motion.h1
           {...fadeUp(0.08)}
           className="col-span-12 md:col-span-8 md:col-start-1 md:row-start-1
@@ -69,7 +65,7 @@ export function Hero({ data }) {
           }}
         >
           <span className="block">{firstName}</span>
-          <span className="block watercolor-text">{lastName}</span>
+          <span className="block">{lastName}</span>
         </motion.h1>
 
         {/* Photo cluster */}
@@ -79,8 +75,9 @@ export function Hero({ data }) {
                      md:col-span-4 md:col-start-9 md:row-start-1
                      relative z-10"
         >
-          {/* Handwritten role annotation — rose, capped size, grows toward
-              the empty name column, never off the right edge. */}
+          {/* Handwritten role annotation — rose, capped size, rotates from
+              its LEFT edge so long titles grow toward the empty name column,
+              never off the right side of the screen. */}
           <span
             aria-hidden="true"
             className="hero-role absolute -top-8 left-0 md:-top-10 md:-left-8
@@ -107,14 +104,14 @@ export function Hero({ data }) {
         </motion.div>
       </div>
 
-      {/* ── Tagline: the watercolor brushstroke over the thesis ── */}
+      {/* ── Tagline: the signature moment — gold highlighter over the thesis ── */}
       <motion.p
         {...fadeUp(0.32)}
         className="hero-tagline font-display text-2xl md:text-4xl
                    max-w-2xl mt-12 md:mt-16 leading-snug"
         style={{ fontVariationSettings: "'opsz' 40" }}
       >
-        <span className="ink-highlight--wash">{data.tagline}</span>
+        <span className="ink-highlight">{data.tagline}</span>
       </motion.p>
 
       {/* ── Meta strip: the 5-second recruiter read ── */}
