@@ -38,7 +38,7 @@
     },
     "heroStats": [
       { "value": "5+ yrs",  "label": "Engineering & QA" },
-      { "value": "20+",     "label": "Sites shipped" },
+      { "value": "10+",     "label": "Wordpress websites delivered" },
       { "value": "M.Sc.",   "label": "HCI · Bauhaus Weimar" }
     ],
     "heroMeta": {
