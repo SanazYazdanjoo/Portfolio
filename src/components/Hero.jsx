@@ -1,96 +1,145 @@
 // src/components/Hero.jsx
+// ─────────────────────────────────────────────────────────────────────────────
+// Editorial hero — 12-col grid, no absolute positioning, no theme.css overrides.
+// All content flows from profileData. New optional fields (with safe fallbacks):
+//
+//   heroMeta: {
+//     currently:  "MSc HCI · Bauhaus-Universität Weimar",
+//     background: "Software Engineering · QA",
+//     focus:      "Mixed-methods research · Prototyping",
+//   }
+//
+// Delete these blocks from theme.css — they are no longer needed:
+//   #Hero-Section .container { width: 60% !important; }
+//   #Hero-Section .hero-photo { right: 10%; }
+//   #Hero-Section .portfolio-text { ... }
+// ─────────────────────────────────────────────────────────────────────────────
+
 import React from "react";
-import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
-import { useTranslation } from "../context/LanguageContext";
 
 export function Hero({ data }) {
-  const { t, localize } = useTranslation();
-  const reduce = useReducedMotion();
+  const prefersReducedMotion = useReducedMotion();
 
-  const stats = data.heroStats || [];
+  // Split the name from profile.js — no hardcoded strings.
+  const nameParts = (data.name || "").trim().split(" ");
+  const firstName = nameParts[0] || "";
+  const lastName = nameParts.slice(1).join(" ");
 
-  const rise = (delay = 0) => ({
-    initial: { opacity: 0, y: reduce ? 0 : 16 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.5, delay, ease: "easeOut" },
-  });
-
-  const scrollToProjects = (e) => {
-    const el = document.getElementById("projects");
-    if (el) {
-      e.preventDefault();
-      el.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
-    }
+  const meta = {
+    currently: data.heroMeta?.currently ?? "MSc HCI · Bauhaus-Universität Weimar",
+    background: data.heroMeta?.background ?? "Software Engineering · QA",
+    focus: data.heroMeta?.focus ?? "Mixed-methods research · Prototyping",
   };
 
+  // Shared entrance — one orchestrated sequence, not scattered effects.
+  const fadeUp = (delay = 0) => ({
+    initial: prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 24 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.7, delay, ease: [0.22, 0.61, 0.36, 1] },
+  });
+
   return (
-    <section
-      className="relative w-full grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 items-center"
-      style={{ minHeight: "calc(72vh - 6rem)" }}
-    >
-      {/* ── Left: statement (~65%) ── */}
-      <div className="md:col-span-7 flex flex-col">
-        <motion.p
-          {...rise(0)}
-          className="text-[13px] uppercase tracking-[0.18em] text-primary font-semibold mb-5"
+    <div className="relative w-full flex flex-col justify-center">
+
+      {/* ── Kicker: the 2-second read ── */}
+      <motion.p
+        {...fadeUp(0)}
+        className="text-[10px] md:text-[11px] font-bold uppercase
+                   tracking-[0.28em] text-text/50 mb-6 md:mb-10"
+      >
+        UX Research × Engineering&nbsp;&nbsp;—&nbsp;&nbsp;{data.contact?.location || "Weimar, Germany"}
+      </motion.p>
+
+      {/* ── Name + Photo: 12-col editorial grid ── */}
+      <div className="grid grid-cols-12 gap-x-4 md:gap-x-6 items-center">
+
+        {/* Name — spans under the photo edge for the editorial overlap,
+            but lives in normal flow, so it can never collide unpredictably. */}
+        <motion.h1
+          {...fadeUp(0.08)}
+          className="col-span-12 md:col-span-8 md:col-start-1 md:row-start-1
+                     relative z-20 font-sans font-black uppercase
+                     leading-[0.88] tracking-tight text-text pointer-events-none"
+          style={{ fontSize: "clamp(3.25rem, 9vw, 10.5rem)" }}
         >
-          {localize(data.role)}
-        </motion.p>
+          <span className="block">{firstName}</span>
+          <span className="block">{lastName}</span>
+        </motion.h1>
 
-        <motion.h2
-          {...rise(0.05)}
-          className="font-display text-text leading-[1.15] text-2xl md:text-[2.1rem] lg:text-[2.5rem] tracking-[-0.01em] max-w-[20ch]"
+        {/* Photo — the single signature element. Hand-placed feel via a
+            1° rotation and the Caveat annotation; everything else stays quiet. */}
+        <motion.div
+          {...fadeUp(0.2)}
+          className="col-span-8 col-start-3 mt-10 md:mt-0
+                     md:col-span-4 md:col-start-9 md:row-start-1
+                     relative z-10"
         >
-          {t("hero.tagline")}
-        </motion.h2>
-
-        {stats.length > 0 && (
-          <motion.dl {...rise(0.12)} className="mt-10 flex flex-wrap gap-x-12 gap-y-4">
-            {stats.map((s) => (
-              <div key={s.label} className="flex flex-col">
-                <dt className="font-display font-black text-2xl md:text-3xl text-text leading-none">
-                  {s.value}
-                </dt>
-                <dd className="mt-1.5 text-[11px] uppercase tracking-[0.12em] text-text/55">
-                  {s.label}
-                </dd>
-              </div>
-            ))}
-          </motion.dl>
-        )}
-
-        <motion.div {...rise(0.18)} className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4">
-          <a
-            href="#projects"
-            onClick={scrollToProjects}
-            className="group inline-flex items-center gap-2 text-sm font-semibold text-text border-b-2 border-primary pb-1 transition-colors hover:text-primary"
+          {/* Handwritten role annotation */}
+          <span
+            aria-hidden="true"
+            className="hero-role absolute -top-7 -left-4 md:-top-9 md:-left-10
+                       font-hand text-primary text-3xl md:text-4xl lg:text-5xl
+                       -rotate-[8deg] z-30 select-none whitespace-nowrap"
           >
-            {t("hero.ctaWork")}
-            <span className="transition-transform group-hover:translate-x-1">→</span>
-          </a>
-          <Link
-            to="/cv"
-            className="text-sm font-medium text-text/55 hover:text-text transition-colors"
+            {data.role}
+          </span>
+
+          {/* Paper-framed photo */}
+          <div
+            className="relative z-20 rotate-1 bg-white p-2 md:p-3
+                       shadow-[4px_6px_18px_rgba(0,0,0,0.12)]
+                       transition-transform duration-500 hover:rotate-0"
           >
-            {t("hero.ctaCv")}
-          </Link>
+            <img
+              src={data.aboutImage}
+              alt={data.name}
+              className="w-full h-auto object-cover grayscale
+                         transition-all duration-700 hover:grayscale-0"
+              style={{ aspectRatio: "4 / 5" }}
+            />
+          </div>
         </motion.div>
       </div>
 
-      {/* ── Right: photo (~35%) ── */}
-      <motion.div {...rise(0.1)} className="md:col-span-5 flex justify-center md:justify-end">
-        <div className="relative">
-          <img
-            src={data.aboutImage}
-            alt={`Portrait of ${data.name}`}
-            className="object-cover w-[230px] h-[290px] md:w-[260px] md:h-[330px] grayscale hover:grayscale-0 transition-all duration-700"
-          />
-          <span className="absolute -bottom-3 -left-3 font-display text-[11px] tracking-[0.2em] text-text/55">
-            Portfolio [{data.year || "2026"}]
-          </span>
-        </div>
+      {/* ── Tagline: one voice, one size — the conflict-free version ── */}
+      <motion.p
+        {...fadeUp(0.32)}
+        className="hero-tagline font-display text-2xl md:text-4xl text-text/85
+                   max-w-2xl mt-10 md:mt-14 leading-snug"
+      >
+        {data.tagline}
+      </motion.p>
+
+      {/* ── Meta strip: the 5-second recruiter read ── */}
+      <motion.div
+        {...fadeUp(0.44)}
+        className="grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-8
+                   border-t border-border/40 mt-10 md:mt-14 pt-6"
+      >
+        <MetaItem label="Currently" value={meta.currently} />
+        <MetaItem label="Background" value={meta.background} />
+        <MetaItem label="Focus" value={meta.focus} />
+        <MetaItem
+          label="Portfolio"
+          value={`[ ${data.year || new Date().getFullYear()} ]`}
+          align="md:text-right"
+        />
       </motion.div>
-    </section>
+    </div>
+  );
+}
+
+/* Small, repeated pattern → shared component (composition over duplication). */
+function MetaItem({ label, value, align = "" }) {
+  return (
+    <div className={align}>
+      <p className="text-[9px] font-black uppercase tracking-[0.22em] text-primary/70 mb-1.5">
+        {label}
+      </p>
+      <p className="text-xs md:text-[13px] font-medium text-text/70 leading-relaxed">
+        {value}
+      </p>
+    </div>
   );
 }
