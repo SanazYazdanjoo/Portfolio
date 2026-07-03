@@ -1,20 +1,4 @@
 // src/components/AboutMe.jsx
-// ─────────────────────────────────────────────────────────────────────────────
-// MESSINESS FIX v3 — this file now exports pure content blocks.
-// Labels + dividers moved UP to <HomeSection> in Home.jsx, so the homepage
-// has exactly one rhythm system instead of three.
-//
-//   • AboutBio    — single reading column (max-w-[62ch]). The old two-column
-//                   bio had ragged, uneven bottoms — and two-column body text
-//                   hurts scannability, which is literally your headline skill.
-//                   First paragraph is the lead; the rest support it.
-//   • WhatIBring  — the 3-column skills grid, unchanged visually
-//                   (coral rule kept — same device as the About page).
-//
-// Data contract unchanged: bioParagraphs + skills from profile.js.
-// A legacy <AboutMe> export is kept as a safety alias in case any other
-// file still imports it.
-// ─────────────────────────────────────────────────────────────────────────────
 
 import React from "react";
 import { motion } from "framer-motion";
