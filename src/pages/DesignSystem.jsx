@@ -16,18 +16,18 @@ import { projects } from "../data/projects";
 // ─── Token definitions ────────────────────────────────────────────────────────
 // Update these when you add new variables to index.css or theme.css.
 const COLOR_TOKENS = [
-  { name: "Primary",      var: "--primary",       role: "Burnt orange — brand accent, links, CTAs" },
-  { name: "Primary 600",  var: "--primary-600",   role: "Darker orange for hover states" },
-  { name: "Gold",         var: "--gold",          role: "Warm gold — hover states, highlights" },
-  { name: "Text",         var: "--text",          role: "Warm gray body text (DM Sans)" },
-  { name: "Text Display", var: "--text-display",  role: "Pure black — large name / display only" },
-  { name: "Text Dim",     var: "--text-dim",      role: "Secondary / muted text" },
-  { name: "Background",   var: "--bg",            role: "Page background" },
-  { name: "Muted",        var: "--muted",         role: "Subtle fills, chip backgrounds" },
-  { name: "Peach",        var: "--peach",         role: "Section backgrounds, warm secondary tone" },
-  { name: "Border",       var: "--border",        role: "Dividers, card borders" },
-  { name: "Danger",       var: "--danger",        role: "Errors, destructive actions (QA States)" },
-  { name: "Success",      var: "--success",       role: "Confirmations, passing tests (QA States)" },
+  { name: "Primary",       var: "--primary",       role: "Coral #E43D12 — headings, CTAs, large accents only" },
+  { name: "Primary 600",   var: "--primary-600",   role: "AA-safe coral for small text & links" },
+  { name: "Secondary",     var: "--secondary",     role: "Rose #D6536D — hovers, annotations, UI accents" },
+  { name: "Secondary 600", var: "--secondary-600", role: "AA-safe rose for small text" },
+  { name: "Blush",         var: "--blush",         role: "Pastel pink #FFA2B6 — tints & selection, never text" },
+  { name: "Highlight",     var: "--highlight",     role: "Gold #EFB11D — highlighter swipes only" },
+  { name: "Text",          var: "--text",          role: "Warm ink #211D1C — body, display, doodles" },
+  { name: "Text Dim",      var: "--text-dim",      role: "Secondary / muted text" },
+  { name: "Background",    var: "--bg",            role: "Paper #EBE9E1 — page background" },
+  { name: "Surface",       var: "--surface",       role: "White — cards float as loose sheets" },
+  { name: "Muted",         var: "--muted",         role: "Subtle fills, hairlines" },
+  { name: "Border",        var: "--border",        role: "Ink @ 12% — dividers" },
 ];
 
 const TYPE_SCALE = [
