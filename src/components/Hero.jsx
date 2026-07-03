@@ -20,8 +20,21 @@
 
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslation } from "../context/LanguageContext";
+
 
 export function Hero({ data }) {
+
+  const { t, localize } = useTranslation();
+
+const meta = {
+  currently:  localize(data.heroMeta?.currently)  || t("hero.meta.currentlyValue"),
+  background: localize(data.heroMeta?.background) || t("hero.meta.backgroundValue"),
+  focus:      localize(data.heroMeta?.focus)      || t("hero.meta.focusValue"),
+  status:     localize(data.heroMeta?.status)     || t("hero.meta.statusValue"),
+};
+
+
   const prefersReducedMotion = useReducedMotion();
 
   const nameParts = (data.name || "").trim().split(" ");
