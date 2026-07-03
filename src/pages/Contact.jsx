@@ -28,7 +28,7 @@ import { ScribbleUnderline } from "../components/DoodleLibrary";
 function ContactBlock({ label, children }) {
   return (
     <div>
-      <h3 className="text-[10px] font-black uppercase tracking-[0.25em] text-primary-600 mb-3">
+      <h3 className="text-2xs font-extrabold uppercase tracking-[0.18em] text-primary-600 mb-3">
         {label}
       </h3>
       {children}
@@ -48,9 +48,7 @@ export default function Contact() {
         {/* ── Heading ── */}
         <header className="mb-12 md:mb-16 relative inline-block">
           <h1
-            className="font-display text-6xl md:text-8xl font-black tracking-tight text-text mb-4"
-            style={{ fontVariationSettings: "'opsz' 144" }}
-          >
+            className="type-display mb-4"          >
             {t("contact.hi")}<span className="text-primary">.</span>
           </h1>
           <ScribbleUnderline className="absolute -bottom-2 left-0 w-full h-5 text-primary opacity-80" />
