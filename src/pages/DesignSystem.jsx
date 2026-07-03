@@ -182,7 +182,7 @@ export default function DesignSystem() {
           <div className="flex-1 min-w-0">
 
             {/* ── COLORS ── */}
-            <Section id="colors" label="01 — Tokens" title="Colors" description="Read live from theme.css. These tokens represent the brand color for Sanaz Yazdanjoo.">
+            <Section id="colors" label="01 — Tokens" title="Colors" description="Read live from theme.css.">
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
                 {COLOR_TOKENS.map(token => <ColorSwatch key={token.var} token={token} />)}
               </div>
