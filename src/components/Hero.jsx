@@ -105,9 +105,10 @@ const meta = {
           </span>
 
           <div
-            className="photo-frame relative z-20 rotate-1
+            className="polaroid-frame relative z-20 rotate-1
                        transition-transform duration-500 hover:rotate-0"
           >
+            <div className="polaroid-photo relative overflow-hidden">
             <img
               src={data.aboutImage}
               alt={data.name}
@@ -115,6 +116,17 @@ const meta = {
                          transition-all duration-700 hover:grayscale-0"
               style={{ aspectRatio: "4 / 5" }}
             />
+            </div>
+            {/* Chin — handwritten caption, data-driven with a safe fallback */}
+            <div className="polaroid-chin">
+              <span
+                className="font-hand text-lg md:text-xl text-text/70
+                           -rotate-1 select-none"
+              >
+                {data.heroMeta?.photoCaption ?? "Weimar, 2026"}
+              </span>
+            </div>
+            
           </div>
         </motion.div>
       </div>
