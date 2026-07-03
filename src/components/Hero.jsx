@@ -1,22 +1,15 @@
 // src/components/Hero.jsx
 // ─────────────────────────────────────────────────────────────────────────────
-// Editorial hero — Ink & Bloom edition.
-// Same data contract as before: everything flows from profileData, with the
-// optional heroMeta fields and safe fallbacks:
+// FIXES (screenshot feedback):
+//   1. The Nav is now a compact wordmark, so the Hero name is the ONLY giant
+//      name on screen — no more duplication.
+//   2. Annotation ("UX Researcher & HCI Specialist") capped at text-2xl/3xl
+//      and anchored to the photo's top-LEFT, rotating from its left edge —
+//      it can no longer bleed off the right side of the viewport.
+//   3. pt-12/pt-20 top spacing so the kicker stops hugging the Nav, and
+//      min-h keeps the hero filling the first screen with content centered.
 //
-//   heroMeta: {
-//     currently:  "MSc HCI · Bauhaus-Universität Weimar",
-//     background: "Software Engineering · QA",
-//     focus:      "Mixed-methods research · Prototyping",
-//   }
-//
-// What changed visually:
-//   • Name is now set in the display serif (Fraunces via font-display)
-//   • Role annotation is rose (--secondary) — the feminine whisper
-//   • Photo uses the .photo-frame mat from theme.css (blush edge on hover)
-//   • Tagline carries the signature gold highlighter (.ink-highlight —
-//     the CSS version, because it wraps cleanly across lines on mobile)
-//   • Meta labels use primary-600, the AA-safe coral for small text
+// Data contract unchanged: everything flows from profileData + heroMeta.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React from "react";
@@ -25,7 +18,6 @@ import { motion, useReducedMotion } from "framer-motion";
 export function Hero({ data }) {
   const prefersReducedMotion = useReducedMotion();
 
-  // Split the name from profile.js — no hardcoded strings.
   const nameParts = (data.name || "").trim().split(" ");
   const firstName = nameParts[0] || "";
   const lastName = nameParts.slice(1).join(" ");
@@ -36,7 +28,6 @@ export function Hero({ data }) {
     focus: data.heroMeta?.focus ?? "Mixed-methods research · Prototyping",
   };
 
-  // Shared entrance — one orchestrated sequence, not scattered effects.
   const fadeUp = (delay = 0) => ({
     initial: prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 24 },
     animate: { opacity: 1, y: 0 },
@@ -44,29 +35,31 @@ export function Hero({ data }) {
   });
 
   return (
-    <div className="relative w-full flex flex-col justify-center">
+    <div
+      className="relative w-full flex flex-col justify-center
+                 pt-12 md:pt-20 pb-12 min-h-[calc(100vh-160px)]"
+    >
 
       {/* ── Kicker: the 2-second read ── */}
       <motion.p
         {...fadeUp(0)}
         className="text-[10px] md:text-[11px] font-bold uppercase
-                   tracking-[0.28em] text-text-dim mb-6 md:mb-10"
+                   tracking-[0.28em] text-text-dim mb-8 md:mb-12"
       >
         UX Research × Engineering&nbsp;&nbsp;—&nbsp;&nbsp;{data.contact?.location || "Weimar, Germany"}
       </motion.p>
 
-      {/* ── Name + Photo: 12-col editorial grid ── */}
+      {/* ── Name + Photo: 12-col editorial grid (≈ 70/30 split) ── */}
       <div className="grid grid-cols-12 gap-x-4 md:gap-x-6 items-center">
 
-        {/* Name — now in Fraunces. Serifs are wider than the old grotesk,
-            so the clamp ceiling drops slightly and tracking relaxes. */}
+        {/* Name — the one and only star of this screen */}
         <motion.h1
           {...fadeUp(0.08)}
           className="col-span-12 md:col-span-8 md:col-start-1 md:row-start-1
                      relative z-20 font-display font-black
                      leading-[0.92] text-text pointer-events-none"
           style={{
-            fontSize: "clamp(3rem, 8.5vw, 9.5rem)",
+            fontSize: "clamp(3rem, 8vw, 8.5rem)",
             letterSpacing: "-0.015em",
             fontVariationSettings: "'opsz' 144, 'SOFT' 30",
           }}
@@ -75,20 +68,23 @@ export function Hero({ data }) {
           <span className="block">{lastName}</span>
         </motion.h1>
 
-        {/* Photo — hand-placed feel via 1° rotation; the mat now comes from
-            .photo-frame (white sheet, ink hairline, blush edge on hover). */}
+        {/* Photo cluster */}
         <motion.div
           {...fadeUp(0.2)}
-          className="col-span-8 col-start-3 mt-10 md:mt-0
+          className="col-span-9 col-start-2 sm:col-span-8 sm:col-start-3 mt-14 md:mt-0
                      md:col-span-4 md:col-start-9 md:row-start-1
                      relative z-10"
         >
-          {/* Handwritten role annotation — rose, the feminine whisper */}
+          {/* Handwritten role annotation — rose, capped size, rotates from
+              its LEFT edge so long titles grow toward the empty name column,
+              never off the right side of the screen. */}
           <span
             aria-hidden="true"
-            className="hero-role absolute -top-7 -left-4 md:-top-9 md:-left-10
-                       font-hand text-secondary text-3xl md:text-4xl lg:text-5xl
-                       -rotate-[8deg] z-30 select-none whitespace-nowrap"
+            className="hero-role absolute -top-8 left-0 md:-top-10 md:-left-8
+                       origin-bottom-left -rotate-[6deg]
+                       font-hand font-bold text-secondary
+                       text-2xl md:text-3xl leading-none
+                       z-30 select-none whitespace-nowrap max-w-none"
           >
             {data.role}
           </span>
@@ -112,7 +108,7 @@ export function Hero({ data }) {
       <motion.p
         {...fadeUp(0.32)}
         className="hero-tagline font-display text-2xl md:text-4xl
-                   max-w-2xl mt-10 md:mt-14 leading-snug"
+                   max-w-2xl mt-12 md:mt-16 leading-snug"
         style={{ fontVariationSettings: "'opsz' 40" }}
       >
         <span className="ink-highlight">{data.tagline}</span>
@@ -137,7 +133,6 @@ export function Hero({ data }) {
   );
 }
 
-/* Small, repeated pattern → shared component (composition over duplication). */
 function MetaItem({ label, value, align = "" }) {
   return (
     <div className={align}>
