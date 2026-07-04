@@ -23,6 +23,8 @@ import Voluntary from './pages/Voluntary';
 import CurriculumVitae from './pages/CurriculumVitae';
 import Sitemap from './pages/Sitemap';
 import DesignSystem from './pages/DesignSystem';
+import TagsDirectory from './Tags/TagsDirectory';
+import SingleTagPage from './Tags/SingleTagPage';
 import './index.css';
 import { LanguageProvider } from './context/LanguageContext';
 
