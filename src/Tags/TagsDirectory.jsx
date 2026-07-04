@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { getTagData } from './data';
-import TagChip from './TagChip';
+import TagChip from '../components/TagChip';
 
 const TagsDirectory = () => {
   const [searchQuery, setSearchQuery] = useState('');
