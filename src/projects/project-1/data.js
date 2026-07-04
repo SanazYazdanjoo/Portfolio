@@ -6,12 +6,13 @@ export const projectData = {
   id: "project-1",
   status: "Done",
   title: "Gaze-Assisted Input in Dual-Display Environments",
+  tags: ["Quantitative UX", "Eye-Tracking", "Fitts' Law", "Mixed-Methods", "TypeScript"],
+
   subtitle: "A Comparative Evaluation of MAGIC Pointing, Ninja Cursors, and a Mouse Baseline",
   tagline: "Can gaze make cross-screen pointing faster — without sacrificing user trust?",
   role: "UX Researcher & Engineer (Master's Thesis)",
   // TODO: set the real start month — placeholder below
   timeline: "10/2025 – 04/2026",
-  tags: ["Quantitative UX", "Eye-Tracking", "Fitts' Law", "Mixed-Methods", "TypeScript"],
   thumbnail: thumbnailImg,
   heroImage: thumbnailImg,
 
