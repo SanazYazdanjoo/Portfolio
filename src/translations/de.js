@@ -112,8 +112,8 @@ const de = {
 "hero.meta.background": "Hintergrund",
 "hero.meta.focus": "Fokus",
 "hero.meta.status": "Status",
-"hero.meta.currentlyValue": "M.Sc. HCI · Bauhaus-Universität Weimar",
-"hero.meta.backgroundValue": "Software-Engineering · QA",
+"hero.meta.currentlyValue": "Open to Work",
+"hero.meta.backgroundValue": "M.Sc. HCI, B.En. Software-Engineering · QA",
 "hero.meta.focusValue": "Mixed-Methods-Forschung · Prototyping",
 "hero.meta.statusValue": "Offen für UX-Researcher-Rollen",
 
