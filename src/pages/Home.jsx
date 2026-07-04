@@ -1,22 +1,19 @@
 // src/pages/Home.jsx
 // ─────────────────────────────────────────────────────────────────────────────
-// LAYOUT FIX v4 — the wide-screen problems from the latest screenshot:
+// LAYOUT v4 (label rail) + COMING-SOON FIX.
 //
-//   1. DEAD BAND KILLED: ScribbleDivider (a horizontal line) + HomeSection's
-//      hairline were stacking into a double-divider sandwich with ~200px of
-//      void. ScribbleDivider is removed — HomeSection owns ALL dividers now.
-//      One divider system, zero ambiguity.
+// New in this version: Home previously rendered EVERY project — including
+// status: "coming-soon" — as a clickable StackedProjectCard. Coming-soon
+// projects have no /projects/{id} route yet (routes are auto-generated from
+// src/projects/*/index.jsx), so those cards were dead links waiting to
+// happen. Home now mirrors the split already used on /projects:
 //
-//   2. LABEL RAIL (the 70/30 fix): section labels no longer sit ABOVE content
-//      wasting a full row and leaving the right half of wide screens empty.
-//      Labels live in a left rail (cols 1–3), content in cols 4–12 — the same
-//      editorial split as the hero and your About page. Every section now
-//      shares one strong left content axis.
+//   • published    → StackedProjectCard (clickable, as before)
+//   • coming-soon  → muted, non-interactive teaser row
+//   • none at all  → existing WIP empty state
 //
-//   3. Case Studies uses `fullBleed` — label in the rail position, cards
-//      spanning the full width below (they need the edge-to-edge treatment).
-//
-// Roadmap check ✓: id="projects" anchor preserved for the /#projects link.
+// Roadmap check ✓: id="projects" anchor preserved for the /#projects link
+// (which actually works now — see the scroll manager in App.jsx).
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React from "react";
@@ -74,9 +71,51 @@ function HomeSection({ id, label, children, fullBleed = false }) {
   );
 }
 
+// ─── Coming-soon teaser row — deliberately NOT a link ────────────────────────
+// Same anatomy as StackedProjectCard (index · title · methods) so the list
+// reads as one system, but muted and inert. No spine, no hover, no route.
+function ComingSoonRow({ project, index }) {
+  const { t } = useTranslation();
+  const methods = project.methods || project.tags || [];
+
+  return (
+    <div
+      aria-disabled="true"
+      className="relative px-8 md:px-16 py-7 bg-bg border-t border-border opacity-60"
+    >
+      <div className="flex items-start gap-6">
+        <span className="font-mono text-2xs font-bold text-text/30 tabular-nums mt-2 shrink-0">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+
+        <div className="flex-1 min-w-0">
+          <h2 className="font-display font-extrabold text-2xl tracking-[-0.01em]
+                         uppercase leading-tight text-text/45">
+            {project.title}
+          </h2>
+          {methods.length > 0 && (
+            <p className="mt-3 text-sm tracking-wide text-text/35">
+              {methods.slice(0, 4).join(" · ")}
+            </p>
+          )}
+        </div>
+
+        <span className="shrink-0 mt-2 text-[9px] font-black uppercase tracking-[0.2em]
+                         text-text/35 border border-border px-2.5 py-1">
+          {t("projects.comingSoon")}
+        </span>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   const profileData = useLocalizedProfile(rawProfile);
   const { t } = useTranslation();
+
+  // Same split as /projects — one rule, two pages
+  const published = projects.filter((p) => p.status !== "coming-soon");
+  const comingSoon = projects.filter((p) => p.status === "coming-soon");
 
   return (
     <div className="w-full relative pb-24">
@@ -98,11 +137,22 @@ export default function Home() {
 
       {/* ── Case Studies — label in rail position, cards full-bleed ── */}
       <HomeSection id="projects" label={t("projects.heading")} fullBleed>
-        {projects.length > 0 ? (
+        {published.length > 0 || comingSoon.length > 0 ? (
           /* Negative margin breaks out of the page's px-8/12/16 padding */
           <div className="relative flex flex-col -mx-8 md:-mx-12 lg:-mx-16">
-            {projects.map((project, index) => (
-              <StackedProjectCard key={project.id || index} project={project} index={index} />
+            {published.map((project, index) => (
+              <StackedProjectCard
+                key={project.id || index}
+                project={project}
+                index={index}
+              />
+            ))}
+            {comingSoon.map((project, i) => (
+              <ComingSoonRow
+                key={project.id || `soon-${i}`}
+                project={project}
+                index={published.length + i}
+              />
             ))}
           </div>
         ) : (
