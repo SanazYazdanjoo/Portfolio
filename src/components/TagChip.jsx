@@ -25,3 +25,5 @@ const TagChip = ({ name, count, onRemove }) => {
     </div>
   );
 };
+
+export default TagChip;
