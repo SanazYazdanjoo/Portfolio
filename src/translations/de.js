@@ -48,10 +48,10 @@ const de = {
 
   // ── Career arc ──
   "about.career.phase1.label": "Software-Engineering",
-  "about.career.phase1.years": "2010 – 2019",
+  "about.career.phase1.years": "2015 – 2020",
   "about.career.phase1.summary": "20+ Produkte von Grund auf gebaut. Gelernt, dass Code einfach ist — zu wissen, was man bauen soll, ist schwer.",
   "about.career.phase2.label": "QA-Engineering",
-  "about.career.phase2.years": "2019 – 2023",
+  "about.career.phase2.years": "2020 – 2023",
   "about.career.phase2.summary": "Vom Bauen zum Brechen gewechselt — und erkannt, dass jeder Bug ein Nutzereinblick war, der gehört werden wollte.",
   "about.career.phase3.label": "UX-Forschung",
   "about.career.phase3.years": "2023 – Heute",
