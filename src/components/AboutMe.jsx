@@ -25,7 +25,7 @@ import { useTranslation } from "../context/LanguageContext";
 
 const FALLBACK_STATS = [
   { value: "5+", label: "Years in engineering & QA" },
-  { value: "20+", label: "Production sites shipped" },
+  { value: "10+", label: "Wordpress Websites delivered" },
   { value: "N=30", label: "Largest controlled study" },
 ];
 
