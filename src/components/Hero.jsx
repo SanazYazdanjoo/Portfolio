@@ -23,10 +23,9 @@ export function Hero({ data }) {
   const lastName = nameParts.slice(1).join(" ");
 
   const meta = {
-    currently: data.heroMeta?.currently ?? "MSc HCI · Bauhaus-Universität Weimar",
-    background: data.heroMeta?.background ?? "Software Engineering · QA",
+    background: data.heroMeta?.background ?? "M.Sc. HCI, B.En. Software-Engineering · QA",
     focus: data.heroMeta?.focus ?? "Mixed-methods research · Prototyping",
-    status: data.heroMeta?.status ?? "Open to UX Researcher roles",
+    status: data.heroMeta?.status ?? "Open to Collaboration",
   };
 
   const fadeUp = (delay = 0) => ({
