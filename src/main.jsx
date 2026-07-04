@@ -56,6 +56,8 @@ const router = createBrowserRouter([
       { path: "cv", element: <CurriculumVitae /> },
       { path: "sitemap", element: <Sitemap /> },
       { path: "designsystem", element: <DesignSystem /> },
+      { path: "tags", element: <TagsDirectory /> },
+      { path: "tags/:tagName", element: <SingleTagPage /> },
       // Dev-only content editor — never registered in production builds
       ...(import.meta.env.DEV
         ? [{
