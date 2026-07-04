@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { getTagData } from './data';
+import { getTagData } from '../data/projects';
 import TagChip from '../components/TagChip';
 
 const TagsDirectory = () => {
@@ -49,3 +49,5 @@ const TagsDirectory = () => {
     </div>
   );
 };
+
+export default TagsDirectory;
