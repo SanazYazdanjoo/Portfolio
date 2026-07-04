@@ -226,6 +226,7 @@
         "id": "project-1",
         "title": "Gaze-Assisted Input in Dual-Display Environments",
         "type": "Quantitative UX · Eye-Tracking · TypeScript",
+  
         "metrics": [
           {
             "value": "N=30",
