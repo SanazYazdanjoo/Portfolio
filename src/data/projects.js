@@ -12,12 +12,10 @@ export const projects = Object.values(autoImportedProjects)
     return true;
   });
 
-  
 export const getTagData = () => {
   const tagCounts = {};
   
   projects.forEach(project => {
-    // Safety check: ensure project exists and has a tags array
     if (project && project.tags && Array.isArray(project.tags)) { 
       project.tags.forEach(tag => {
         tagCounts[tag] = (tagCounts[tag] || 0) + 1;
