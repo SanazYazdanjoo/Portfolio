@@ -25,6 +25,8 @@ import { Footer } from "./components/Footer";
 import { SketchTrail } from "./components/SketchTrail";
 import { profileData as rawProfile } from "./data/profile";
 import { useLocalizedProfile } from "./hooks/useLocalizedProfile";
+import TagsDirectory from './Tags/TagsDirectory';
+import SingleTagPage from './Tags/SingleTagPage';
 
 export default function App() {
   const profileData = useLocalizedProfile(rawProfile);
