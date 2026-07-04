@@ -60,7 +60,7 @@
     },
     "experience": [
       {
-        "company": "Institut für Berufsbildung und Sozialmanagement (IBS)",
+        "company": "Institut für Berufsbildung und Sozialmanagement (IBS) GmbH",
         "role": {
           "en": "Project Assistant — Process Automation & UX",
           "de": "Projektassistenz — Prozessautomatisierung & UX"
@@ -93,8 +93,8 @@
       {
         "company": "deskbird Co. + Bauhaus-Universität Weimar",
         "role": {
-          "en": "UX Researcher (Research Project)",
-          "de": "UX-Researcherin (Forschungsprojekt)"
+          "en": "UX Researcher (UCD4UX Project)",
+          "de": "UX-Researcherin (UCD4UX-Projekt)"
         },
         "date": "10/2023 – 03/2024",
         "impactMetrics": [
@@ -124,7 +124,7 @@
       {
         "company": "Bauhaus-Universität Weimar",
         "role": {
-          "en": "Web Designer & Content Manager (Werkstudentin)",
+          "en": "Web Designer & Content Manager (Working Student)",
           "de": "Webdesignerin & Content-Managerin (Werkstudentin)"
         },
         "date": "04/2023 – 09/2023",
@@ -144,9 +144,9 @@
         ]
       },
       {
-        "company": "TDSoftware Co.",
+        "company": "TDSoftware GmbH",
         "role": {
-          "en": "QA Engineer (Werkstudentin)",
+          "en": "QA Engineer (Working Student)",
           "de": "QA-Ingenieurin (Werkstudentin)"
         },
         "date": "04/2022 – 06/2022",
@@ -169,8 +169,8 @@
       {
         "company": "Part Software Group",
         "role": {
-          "en": "Usability Engineer",
-          "de": "Usability-Ingenieurin"
+          "en": "Quality Assurance Engineer",
+          "de": "Qualitätsingenieurin"
         },
         "date": "07/2020 – 07/2021",
         "impactMetrics": [
