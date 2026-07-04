@@ -1,11 +1,9 @@
 import { useParams, Link } from 'react-router-dom';
-// FIX 1: Point to your actual projects data file
 import { projects } from '../data/projects';
 
 const SingleTagPage = () => {
   const { tagName } = useParams();
   
-  // FIX 2: Map over the 'projects' array, not portfolioItems
   const relatedItems = projects.filter(item => 
     item.tags && item.tags.includes(tagName)
   );
@@ -30,5 +28,4 @@ const SingleTagPage = () => {
   );
 };
 
-// FIX 3: Export the component so the router can actually render it
 export default SingleTagPage;
