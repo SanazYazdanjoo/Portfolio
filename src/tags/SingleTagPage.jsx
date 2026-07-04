@@ -4,6 +4,7 @@ import { projects } from '../data/projects';
 const SingleTagPage = () => {
   const { tagName } = useParams();
   
+  // Safely find all items that include this specific tag
   const relatedItems = projects.filter(item => 
     item.tags && item.tags.includes(tagName)
   );
