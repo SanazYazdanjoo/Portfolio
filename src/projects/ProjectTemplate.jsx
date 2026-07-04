@@ -33,12 +33,7 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 // ─── Phase config ─────────────────────────────────────────────────────────────
-const PHASE_META = {
-  discover: { label: "Discover", number: "01", color: "text-sky-600 border-sky-200 bg-sky-50" },
-  define:   { label: "Define",   number: "02", color: "text-amber-600 border-amber-200 bg-amber-50" },
-  design:   { label: "Design",   number: "03", color: "text-primary border-primary/20 bg-primary/5" },
-  deliver:  { label: "Deliver",  number: "04", color: "text-emerald-600 border-emerald-200 bg-emerald-50" },
-};
+
 
 // ─── Content section definitions ─────────────────────────────────────────────
 const SECTIONS = [
