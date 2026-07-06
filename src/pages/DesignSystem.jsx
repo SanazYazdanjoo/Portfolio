@@ -19,7 +19,7 @@ import { motion } from "framer-motion";
 // If these live elsewhere in your tree, adjust the paths:
 import { Button, SolidButton } from "../components/Button";
 import { Badge } from "../components/Badge";
-import { TagChip } from "../components/TagChip";
+import TagChip from "../components/TagChip";
 import { InkHighlight } from "../components/InkHighlight";
 import { ScribbleDivider } from "../components/ScribbleDivider";
 
