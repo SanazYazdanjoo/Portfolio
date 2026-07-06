@@ -2,6 +2,18 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+// 1. ADDED: Standard Button export to satisfy the import and fix the Vercel crash
+export const Button = ({ children, to, href, className = "", ...props }) => {
+  const baseStyles = "inline-block text-text hover:text-primary transition-colors font-medium";
+  const combinedClasses = `${baseStyles} ${className}`;
+
+  if (to) return <Link to={to} className={combinedClasses} {...props}>{children}</Link>;
+  if (href) return <a href={href} className={combinedClasses} {...props}>{children}</a>;
+  
+  return <button className={combinedClasses} {...props}>{children}</button>;
+};
+
+// 2. Your original SolidButton with the doodle-text and SketchOval
 export const SolidButton = ({ children, to, href, className = "", ...props }) => {
   const [isHovered, setIsHovered] = useState(false);
 
