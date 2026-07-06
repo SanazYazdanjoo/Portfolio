@@ -49,5 +49,19 @@ export const sortedProjects = [
   ...projects.filter((p) => p.status === "coming-soon"),
 ];
 
+
+export const getTagData = () => {
+  const tagCounts = {};
+  projects.forEach((p) => {
+    if (Array.isArray(p.tags)) {
+      p.tags.forEach((tag) => {
+        tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+      });
+    }
+  });
+  return Object.entries(tagCounts).map(([name, count]) => ({ name, count }));
+};
+
+
 /** Detail-page lookup: useProject("gaze-assisted-input") → project or undefined. */
 export const getProject = (slug) => projects.find((p) => p.slug === slug);
