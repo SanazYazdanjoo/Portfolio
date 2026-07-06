@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-export const Button = ({ children, to, href, className = "", ...props }) => {
+export const SolidButton = ({ children, to, href, className = "", ...props }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   // The Hand-Drawn Oval: Designed to "bleed" outside the text area
