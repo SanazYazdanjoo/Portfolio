@@ -1,97 +1,110 @@
 // src/projects/project-2/data.js
+// ─── Evidence-locked to UCD4UX_FINAL_PRESENTATION.pdf (deskbird × Bauhaus-Universität Weimar) ───
 import thumbnailImg from './project-thumbnail.png';
+
 export const projectData = {
   id: "project-2",
   status: "published",
   title: "UCD4UX: Encouraging Social Interactions in Hybrid Work",
-  subtitle: "Designing for Social Connection in Hybrid Work Environments",
+  subtitle: "Industry UX Research Project with deskbird × Bauhaus-Universität Weimar",
   tagline: "Reconnecting hybrid teams through evidence-based social feature design.",
-  role: "UX Researcher & Interaction Designer",
+  role: "UX Researcher (team of 6)",
   timeline: "10/2023 – 03/2024",
-  tags: ["User-Centered Design", "HCI Research", "Usability Engineering", "Interaction Design"],
+  tags: ["User-Centered Design", "HCI Research", "Mixed-Methods", "B2B SaaS", "Interaction Design"],
   thumbnail: thumbnailImg,
   heroImage: thumbnailImg,
 
   methods: [
-    "Online Survey",
-    "Remote Contextual Inquiry",
     "Stakeholder Interviews",
-    "Usability Testing",
-    "Iterative Prototyping",
+    "Online Survey",
+    "Remote Contextual Inquiry (90 min)",
+    "Semi-structured Follow-up Interviews (30 min)",
+    "Requirements Engineering",
+    "Concept Development & Prototyping",
   ],
 
   metrics: [
-    { value: "50", label: "survey respondents" },
-    { value: "6", label: "contextual inquiries" },
-    { value: "4", label: "stakeholder interviews" },
-    { value: "Hi-Fi", label: "Figma prototype" },
+    { value: "57", label: "survey respondents" },
+    { value: "6", label: "contextual inquiries + follow-ups" },
+    { value: "~75%", label: "relate more when knowing personal details" },
+    { value: "3 → 1", label: "concepts refined into final prototype" },
   ],
 
-  techStack: ["Figma", "FigJam", "Miro", "Online Survey Tools"],
+  techStack: ["Figma", "FigJam", "Online Survey Tools"],
+
+  challenge:
+    "Hybrid work reduced spontaneous social interactions: employees felt less integrated and new joiners struggled to connect. deskbird — a B2B SaaS platform for desk booking and hybrid week planning — wanted evidence, not assumptions, on how a social feature should work before committing it to the product roadmap.",
+
+  solution:
+    "We designed 'Interest-Based Communities': employees add interests to their profile, see colleagues' interests, and create or get invited to interest-based events. The concept connects both office-based and remote staff and was delivered as a high-fidelity prototype with development recommendations, grounded in every research finding along the way.",
+
+  methodology:
+    "We followed the full UCD process in an industry setting. Stakeholder interviews with deskbird defined brand identity, consumer aspirations, and the social-feature scope. An online survey (57 respondents, mainly aged 25–34, IT industry, hybrid workers recruited via convenience and snowball sampling) quantified work conditions, social interaction states, communication channels, and privacy preferences. Six 90-minute remote contextual inquiries — observing product managers, engineers, designers, and analysts in their real hybrid workday — were each paired with a 30-minute semi-structured follow-up interview.",
+
+  results:
+    "The research produced clear, actionable requirements: socialization happens during breaks, not meetings; the office is preferred for real interactions and faster communication while home office wins on focus; and nearly three-quarters of survey respondents agreed that knowing personal details about a colleague makes them relate more. Cross-seniority and cross-department interaction emerged as the hardest barrier. These findings eliminated two competing concepts (Chat2Meet, Flows & Breaks) and shaped the final Interest-Based Communities prototype.",
 
   // ── Process Gallery ──────────────────────────────────────────────────────
   process: [
     {
       phase: "discover",
+      type: "Stakeholder Interviews",
+      title: "Aligning on Scope with deskbird",
+      annotation:
+        "Interviews with deskbird stakeholders surfaced three insight clusters: brand identity (minimalist, usability-driven UX), consumer aspirations (fewer clicks, no extra browser tabs), and the social-feature mandate — transparent, non-intrusive, attracting people back to the office.",
+      insight:
+        "The business goal ('attract people back to the office') and the user goal ('meaningful connection') were not the same thing. Framing our requirements around both kept the project honest.",
+      imagePath: null,
+    },
+    {
+      phase: "discover",
       type: "Online Survey",
-      title: "Quantifying Social Disconnection",
-      annotation: "50 participants completed a structured survey measuring perceived belonging, frequency of spontaneous interactions, and barriers to connection in hybrid work environments.",
-      insight: "67% reported fewer spontaneous interactions since switching to hybrid. New joiners were disproportionately affected — directly shaping the feature scope.",
+      title: "Quantifying Hybrid Social Life (N=57)",
+      annotation:
+        "Multiple-choice, rating, and open-ended questions exploring work conditions, current state of social interactions, communication channels, and privacy preferences. Respondents were mainly juniors aged 25–34 in the IT industry, across various company sizes.",
+      insight:
+        "Nearly three-quarters agreed that knowing personal details about a colleague makes them relate more — the single strongest signal pointing toward interest-based connection.",
       imagePath: null,
     },
     {
       phase: "discover",
       type: "Remote Contextual Inquiry",
-      title: "Observing Hybrid Collaboration In-Context",
-      annotation: "6 participants observed during their actual hybrid workday — screen-shared sessions revealing real tool usage, communication patterns, and social workarounds.",
-      insight: "Employees had built homemade social infrastructure: informal Slack channels, lunch calendar invites. The platform had no designed space for this.",
+      title: "Observing the Hybrid Workday In-Context (N=6)",
+      annotation:
+        "Six 90-minute remote observations of hybrid workers in their real workplace — product manager, software engineer, customer success manager, product designer, UX working student, business analyst — followed by 30-minute semi-structured interviews to clarify observations and capture desires for improvement.",
+      insight:
+        "Breaks are when socialization happens — and breaks at the office differ fundamentally from breaks at home. Participants wanted variety and meaningful social breaks, not more scheduled meetings.",
       imagePath: null,
     },
     {
       phase: "define",
-      type: "Stakeholder Interviews",
-      title: "Aligning on Problem Scope with deskbird",
-      annotation: "4 structured interviews with deskbird stakeholders to understand business constraints, technical feasibility, and strategic priorities before defining the solution space.",
-      insight: "Social features were on the roadmap but lacked user evidence. Our research provided the justification and scope definition needed to prioritise the work.",
+      type: "Requirements Synthesis",
+      title: "From Findings to Four Requirement Categories",
+      annotation:
+        "Findings were synthesized into functional, environmental, user, and data requirements: foster interaction across seniority levels, integrate seamlessly on every platform, stay intuitive for all users, and collect data privacy-first.",
+      insight:
+        "Interaction between different seniority levels and departments was the hardest barrier — any concept had to lower that threshold, not just add another chat channel.",
       imagePath: null,
     },
     {
       phase: "design",
-      type: "Wireframes",
-      title: "Interest-Based Communities Feature",
-      annotation: "Low-fidelity wireframes exploring core interaction flows: creating a community, discovering events, tagging profiles with interests. Iterated through 3 rounds before high-fidelity.",
-      insight: "Early wireframes exposed a discoverability problem — users couldn't find communities unless they already knew they existed.",
+      type: "Concept Development",
+      title: "Three Concepts, One Winner",
+      annotation:
+        "We developed and compared three concepts against the requirements: Chat2Meet (template-based event messaging), Flows & Breaks (focus/break status synced across tools), and Interest-Based Communities.",
+      insight:
+        "Interest-Based Communities was the only concept satisfying both functional requirements (interaction across teams, remote and on-site) and the survey's strongest finding on personal connection.",
       imagePath: null,
     },
     {
-      phase: "design",
+      phase: "deliver",
       type: "High-Fidelity Prototype",
-      title: "Interactive Figma Prototype",
-      annotation: "Full interaction prototype covering the complete user journey from discovering an interest group to attending an event. Used directly in usability testing sessions.",
-      insight: "Interest tagging felt invasive when prompted on first login — users preferred to add interests voluntarily after exploring the platform.",
-      imagePath: null,
-    },
-    {
-      phase: "deliver",
-      type: "Usability Testing",
-      title: "Validating with Real Users",
-      annotation: "Moderated usability testing with target users navigating the high-fidelity prototype. Think-aloud protocol used to surface friction points and moments of confusion.",
-      insight: "Positive SUS scores and qualitative feedback after the discoverability fix. Users reported a genuine improvement in perceived belonging.",
-      imagePath: null,
-    },
-    {
-      phase: "deliver",
-      type: "Stakeholder Presentation",
-      title: "Research-to-Roadmap Handoff",
-      annotation: "Final presentation to deskbird stakeholders translating all research findings and prototype validation into a prioritised feature roadmap.",
-      insight: "Stakeholders accepted the full social feature proposal. The research documentation served as the evidence base for the decision.",
+      title: "Interest-Based Communities Prototype",
+      annotation:
+        "Final prototype: add your own interests, see colleagues' interests, get invited to events, and create events for like-minded people — accessible to both remote and on-site staff. Delivered with documentation and development recommendations to deskbird.",
+      insight:
+        "Success indicators were defined up front: number of interests created, profiles with interests, interest-based events, and attendees — making the feature's impact measurable post-launch.",
       imagePath: null,
     },
   ],
-
-  challenge: "Hybrid work increases flexibility and productivity, but it reduces spontaneous social interactions. Employees reported difficulty connecting with colleagues, especially new joiners, leading to loneliness and weaker team belonging.",
-  solution: "We designed an 'Interest-Based Communities & Events' feature for the deskbird hybrid workspace platform. This feature empowers employees to initiate events, discover shared hobbies, and connect beyond project-based collaboration through user-created groups and profile-based interest tagging.",
-  methodology: "We applied a mixed-methods approach including surveys to quantify social challenges, remote contextual inquiry to observe workflows, stakeholder interviews, and iterative usability testing to validate our interactive Figma prototypes.",
-  results: "The evaluation showed positive usability feedback and an improved perceived sense of belonging among users. We also achieved clear stakeholder alignment on the social feature roadmap.",
-  implications: "Designing for hybrid environments requires balancing asynchronous flexibility with intentional social opportunities. This project demonstrated the importance of translating qualitative insights into structured, feasible system features.",
 };
