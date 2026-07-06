@@ -22,6 +22,7 @@ import { AboutBio, WhatIBring } from "../components/AboutMe";
 import { StackedProjectCard } from "../components/StackedProjectCard";
 import { projects } from "../data/projects";
 import { profileData as rawProfile } from "../data/profile";
+import ProjectsSection from "../components/ProjectsSection";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { motion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
@@ -136,36 +137,9 @@ export default function Home() {
       </HomeSection>
 
       {/* ── Case Studies — label in rail position, cards full-bleed ── */}
-      <HomeSection id="projects" label={t("projects.heading")} fullBleed>
-        {published.length > 0 || comingSoon.length > 0 ? (
-          /* Negative margin breaks out of the page's px-8/12/16 padding */
-          <div className="relative flex flex-col -mx-8 md:-mx-12 lg:-mx-16">
-            {published.map((project, index) => (
-              <StackedProjectCard
-                key={project.id || index}
-                project={project}
-                index={index}
-              />
-            ))}
-            {comingSoon.map((project, i) => (
-              <ComingSoonRow
-                key={project.id || `soon-${i}`}
-                project={project}
-                index={published.length + i}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="py-20 text-center">
-            <p className="text-[13px] font-semibold text-text/30 uppercase tracking-widest mb-2">
-              {t("projects.wip")}
-            </p>
-            <p className="text-[13px] text-text/40 max-w-xs mx-auto leading-relaxed font-light">
-              {t("projects.wipDesc")}
-            </p>
-          </div>
-        )}
-      </HomeSection>
+ 
+ 
+<ProjectsSection />
 
     </div>
   );
