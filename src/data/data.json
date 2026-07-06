@@ -359,9 +359,8 @@
       }
     ],
     "bio": {
-      "en": "I bridge the gap between code and human behavior. With 5+ years across Frontend Development and QA Engineering — shipping 20+ production websites, setting up acceptance testing teams, and developing custom automation tools — I now apply that technical fluency to UX Research. I run mixed-methods studies, from contextual inquiries and stakeholder interviews to controlled eye-tracking experiments (Pupil Labs Neon), then translate findings into validated high-fidelity prototypes and working code. Having recently completed my M.Sc. in HCI at Bauhaus-Universität Weimar, I speak both 'user' and 'developer' fluently.",
-      "de": "Ich schließe die Lücke zwischen Code und menschlichem Verhalten. Mit mehr als 5 Jahren Erfahrung in der Frontend-Entwicklung und im QA-Engineering — in denen ich über 20 produktionsreife Websites ausgeliefert, Teams für Abnahmetests aufgebaut und maßgeschneiderte Automatisierungstools entwickelt habe — bringe ich diese technische Kompetenz nun in den Bereich UX-Research ein. Ich führe Mixed-Methods-Studien durch, von kontextuellen Befragungen und Stakeholder-Interviews bis hin zu kontrollierten Eye-Tracking-Experimenten (Pupil Labs Neon), und übersetze die Ergebnisse in validierte High-Fidelity-Prototypen und funktionierenden Code. Nach dem kürzlich abgeschlossenem M.Sc. in HCI an der Bauhaus-Universität Weimar spreche ich fließend sowohl ‚User‘ als auch ‚Developer‘."
-    },
+      "en": "Hi! I'm a UX researcher who ships code. Before my M.Sc. in Human-Computer Interaction at Bauhaus-Universität Weimar, I spent five years in industry as a front-end and QA engineer. I run mixed-methods studies — Quantitative and/or Qualitative — and translate the findings into wirerames, prototypes and working React/TypeScript code myself.",
+      "de": "Hi! Ich bin UX-Forscherin und entwickle selbst Code. Vor meinem Masterstudium in Mensch-Computer-Interaktion an der Bauhaus-Universität Weimar war ich fünf Jahre lang in der Industrie als Frontend- und QA-Entwicklerin tätig. Ich führe Studien mit gemischten Methoden durch – quantitativ und/oder qualitativ – und setze die Ergebnisse selbst in Wireframes, Prototypen und funktionierenden React/TypeScript-Code um."},
     
     "heroImage": "/assets/hero-portfolio.png",
     "aboutImage": "/assets/me.png",
