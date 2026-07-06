@@ -57,6 +57,7 @@ export const projects = Object.entries(modules)
       href: p.status === "published" ? `/projects/${slug}` : null,
     };
   })
+  .filter(Boolean) 
   .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
 
 /** Homepage order: published first (by `order`), coming-soon sinks. */
