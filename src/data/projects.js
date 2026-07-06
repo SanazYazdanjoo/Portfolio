@@ -24,11 +24,22 @@ const modules = import.meta.glob("../projects/*/data.js", { eager: true });
 /** All projects, sorted by their `order` field (missing order sinks last). */
 export const projects = Object.entries(modules)
   .map(([path, mod]) => {
-    const p = mod.default;
+    const p = mod.default ?? mod.projectData;
 
-    // Dev-time guard: catch a half-filled data.js before it ships
+    if (!p) {
+      console.warn(
+        `[projects] ${path} exports neither \`default\` nor \`projectData\` — skipped.`
+      );
+      return null;
+    }
+
+    // Slug = folder name ("../projects/project-1/data.js" → "project-1").
+    // Same source main.jsx builds routes from — link and route can't drift.
+    const folderSlug = path.split("/")[2];
+    const slug = p.slug ?? folderSlug;
+
     if (import.meta.env.DEV) {
-      for (const field of ["slug", "status", "title", "methods"]) {
+      for (const field of ["status", "title", "methods"]) {
         if (!p?.[field]) {
           console.warn(`[projects] ${path} is missing required field "${field}"`);
         }
@@ -37,8 +48,13 @@ export const projects = Object.entries(modules)
 
     return {
       ...p,
-      // Derived, never hand-written: edit the slug → every link updates
-      href: p.status === "published" ? `/projects/${p.slug}` : null,
+      slug,
+      tags: Array.isArray(p.tags)
+        ? p.tags
+        : Array.isArray(p.methods)
+        ? p.methods
+        : [],
+      href: p.status === "published" ? `/projects/${slug}` : null,
     };
   })
   .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
