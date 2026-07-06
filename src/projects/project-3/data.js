@@ -4,7 +4,7 @@ import thumbnailImg from './project-thumbnail.png';
 
 export const projectData = {
   id: "project-3",
-  status: "published",
+  status: "Published",
   title: "EmbraceMe – Inflatable Human-Robot for Emotional Care",
   subtitle: "A Pneumatic Soft-Robotic Hugging Interface, Exhibited & Evaluated in Public",
   tagline: "Engineering a soft-robotic hug — and honestly reporting where it fell short.",
@@ -118,3 +118,5 @@ export const projectData = {
     },
   ],
 };
+
+export default projectData;

@@ -4,7 +4,7 @@ import thumbnailImg from './project1.png';
 
 export const projectData = {
   id: "project-1",
-  status: "Done",
+  status: "Published",
   title: "Gaze-Assisted Input in Dual-Display Environments",
   tags: ["Quantitative UX", "Eye-Tracking", "Fitts' Law", "Mixed-Methods", "TypeScript"],
 
@@ -93,3 +93,5 @@ export const projectData = {
   results: "A significant technique × distance interaction (η²ₚ = .690) revealed a crossover: the mouse was fastest for short distances, but Ninja Cursors significantly outperformed it at the two intermediate cross-screen distances (1684 and 2243 px) and converged at the longest (3226 px). MAGIC was consistently slowest — its warp coupled gaze noise directly to landing accuracy, producing the highest repeat rate on small targets (4.69%). SUS ranked Mouse (85.2) > Ninja (72.6) > MAGIC (55.9), yet 60% of participants named Ninja their most preferred method.",
   implications: "Gaze assistance should be a context-aware accelerator, not an always-on replacement. Three design directions follow from the data: adaptive activation using the screen boundary itself as the trigger, semantic snapping toward UI elements to fix MAGIC's landing penalty, and stronger visual differentiation of the active cursor in multi-cursor designs. The broader lesson: predictability and trust — not speed alone — determine whether users adopt a novel input technique.",
 };
+
+export default projectData;
