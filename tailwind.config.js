@@ -16,6 +16,7 @@ export default {
         "text-muted": "var(--text-muted)",
         border: "var(--border)",
         line: "var(--line)",
+        ink: 'var(--text)',
         primary: {
           DEFAULT: "var(--primary)",      // #E43D12 — large text / UI only
           600: "var(--primary-600)",      // small-text-safe coral
