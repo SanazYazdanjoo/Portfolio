@@ -27,34 +27,23 @@ export default function CV() {
   const lastName = nameParts.slice(1).join(" ");
 
   return (
-    <div className="bg-bg min-h-screen py-10 px-4 print:p-0 print:m-0 print:bg-white print:min-h-0">
-
-      {/* ── Download Button — hidden on print ── */}
-      <div className="max-w-[850px] mx-auto mb-6 flex justify-end no-print">
-        <button
-          onClick={() => window.print()}
-          className="px-6 py-2 bg-primary text-white font-bold text-sm rounded-sm shadow-md hover:bg-primary/90 transition-all tracking-wider uppercase"
-        >
-          {t("cv.saveAsPdf")}
-        </button>
-      </div>
+    <div className="bg-white min-h-screen w-full print:min-h-0">
 
       {/* ═══════════════════════════════════════════
-          DOCUMENT CONTAINER
-          Allows content to flow naturally over multiple pages
+          FULL PAGE DOCUMENT CONTAINER
+          Fills the screen horizontally and vertically
       ═══════════════════════════════════════════ */}
       <div
         id="curriculum-vitae"
         className="
-          max-w-[850px] mx-auto bg-white text-black shadow-xl
-          px-10 py-12
-          print:shadow-none print:max-w-none print:m-0
-          print:px-8 print:py-8
+          w-full max-w-screen-2xl mx-auto bg-white text-black
+          px-6 py-12 md:px-16 lg:px-24 xl:px-32
+          print:max-w-none print:px-8 print:py-8 print:m-0
         "
       >
 
         {/* ── CV HEADER ── */}
-        <div className="cv-header flex items-end justify-between gap-6 pb-6 mb-6 border-b-[3px] border-primary">
+        <div className="cv-header flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 mb-8 border-b-[3px] border-primary">
 
           <div className="flex items-center gap-6">
             {/* Photo */}
@@ -63,9 +52,9 @@ export default function CV() {
                 src={photo}
                 alt={name}
                 className="
-                  w-24 h-24 rounded-full object-cover shrink-0
+                  w-24 h-24 md:w-32 md:h-32 rounded-full object-cover shrink-0
                   border-2 border-gray-200
-                  print:w-20 print:h-20
+                  print:w-24 print:h-24
                 "
               />
             )}
@@ -73,17 +62,17 @@ export default function CV() {
             {/* Stacked Name + Role */}
             <div>
               <h1 className="font-black text-primary uppercase leading-tight tracking-normal">
-                <span className="block text-4xl print:text-3xl">{firstName}</span>
-                <span className="block text-4xl print:text-3xl">{lastName}</span>
+                <span className="block text-4xl md:text-5xl print:text-4xl">{firstName}</span>
+                <span className="block text-4xl md:text-5xl print:text-4xl">{lastName}</span>
               </h1>
-              <p className="text-sm font-bold text-gray-500 mt-2 tracking-[0.15em] uppercase">
+              <p className="text-sm md:text-base font-bold text-gray-500 mt-2 tracking-[0.15em] uppercase">
                 {role}
               </p>
             </div>
           </div>
 
           {/* Contact */}
-          <div className="text-right text-sm leading-relaxed text-gray-600 shrink-0">
+          <div className="text-left md:text-right text-sm md:text-base leading-relaxed text-gray-600 shrink-0 mt-4 md:mt-0">
             {contact.location && <p>{contact.location}</p>}
             <p>{contact.phone}</p>
             <p>{contact.email}</p>
@@ -101,37 +90,37 @@ export default function CV() {
 
         {/* ── PROFILE SUMMARY ── */}
         {profileSummary && (
-          <p className="text-sm leading-relaxed text-gray-700 mb-8 print:mb-6">
+          <p className="text-base md:text-lg leading-relaxed text-gray-700 mb-10 print:text-sm print:mb-8 max-w-5xl">
             {profileSummary}
           </p>
         )}
 
         {/* ── BODY: 65 / 35 grid ── */}
-        <div className="grid grid-cols-[1.7fr_1fr] gap-10 print:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] lg:grid-cols-[2.5fr_1fr] gap-12 lg:gap-16 print:grid-cols-[2fr_1fr] print:gap-8">
 
           {/* ══════════════ LEFT COLUMN ══════════════ */}
           <div>
 
             {/* ── Work Experience ── */}
             <SectionHeading>{t("cv.experience")}</SectionHeading>
-            <div className="space-y-6 print:space-y-5">
+            <div className="space-y-8 print:space-y-6">
               {experience.map((job, i) => (
                 <article key={i} className="break-inside-avoid">
-                  <div className="flex justify-between items-baseline mb-1">
-                    <h3 className="font-black text-lg text-black uppercase tracking-wide print:text-base">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1">
+                    <h3 className="font-black text-xl text-black uppercase tracking-wide print:text-lg">
                       {job.company}
                     </h3>
-                    <span className="text-xs font-bold text-gray-500 uppercase shrink-0 ml-4 print:text-[11px]">
+                    <span className="text-sm font-bold text-gray-500 uppercase shrink-0 mt-1 sm:mt-0 sm:ml-4 print:text-xs">
                       {job.date}
                     </span>
                   </div>
 
-                  <p className="text-base font-bold text-primary mb-2 print:text-sm">
+                  <p className="text-lg font-bold text-primary mb-3 print:text-base">
                     {job.role}
                   </p>
 
                   {job.impactMetrics && job.impactMetrics.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mb-3">
+                    <div className="flex flex-wrap gap-2 mb-4">
                       {job.impactMetrics.map((m, mi) => (
                         <span
                           key={mi}
@@ -148,7 +137,7 @@ export default function CV() {
                     </div>
                   )}
 
-                  <ul className="list-disc list-outside ml-4 space-y-1.5 text-sm leading-relaxed text-gray-700 print:text-[13px]">
+                  <ul className="list-disc list-outside ml-5 space-y-2 text-base leading-relaxed text-gray-700 print:text-sm">
                     {job.tasks.map((task, t) => (
                       <li key={t}>{task}</li>
                     ))}
@@ -158,24 +147,24 @@ export default function CV() {
             </div>
 
             {/* ── Education ── */}
-            <div className="mt-8 print:mt-6">
+            <div className="mt-12 print:mt-8">
               <SectionHeading>{t("cv.education")}</SectionHeading>
-              <div className="space-y-5 print:space-y-4">
+              <div className="space-y-6 print:space-y-5">
                 {education.map((edu, i) => (
                   <div key={i} className="break-inside-avoid">
-                    <div className="flex justify-between items-baseline mb-1">
-                      <p className="font-black text-base text-black print:text-sm">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1">
+                      <p className="font-black text-lg text-black print:text-base">
                         {edu.degree}
                       </p>
-                      <span className="text-xs text-gray-500 shrink-0 ml-4 print:text-[11px]">
+                      <span className="text-sm text-gray-500 shrink-0 mt-1 sm:mt-0 sm:ml-4 print:text-xs">
                         {edu.year}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-600 print:text-[13px] mb-1">
+                    <p className="text-base text-gray-600 print:text-sm mb-1">
                       {edu.school}
                     </p>
                     {edu.awards?.map((a, ai) => (
-                      <p key={ai} className="text-primary font-semibold text-sm mt-1 print:text-[13px]">
+                      <p key={ai} className="text-primary font-semibold text-sm mt-1 print:text-xs">
                         ★ {a}
                       </p>
                     ))}
@@ -186,17 +175,17 @@ export default function CV() {
           </div>
 
           {/* ══════════════ RIGHT SIDEBAR ══════════════ */}
-          <aside className="border-l border-gray-200 pl-8 print:pl-6 space-y-8 print:space-y-6">
+          <aside className="md:border-l border-gray-200 md:pl-8 lg:pl-10 print:border-l print:pl-6 space-y-10 print:space-y-8">
 
             <section>
               <SectionHeading sidebar>{t("cv.skills")}</SectionHeading>
-              <div className="space-y-4 print:space-y-3">
+              <div className="space-y-5 print:space-y-4">
                 {Object.entries(skills).map(([category, items]) => (
                   <div key={category} className="break-inside-avoid">
-                    <h3 className="text-xs font-black uppercase text-gray-500 tracking-widest mb-1 print:text-[11px]">
+                    <h3 className="text-sm font-black uppercase text-gray-500 tracking-widest mb-1.5 print:text-xs">
                       {category}
                     </h3>
-                    <p className="text-sm leading-relaxed text-gray-700 print:text-[13px]">
+                    <p className="text-base leading-relaxed text-gray-700 print:text-sm">
                       {Array.isArray(items) ? items.join(", ") : items}
                     </p>
                   </div>
@@ -206,11 +195,11 @@ export default function CV() {
 
             <section>
               <SectionHeading sidebar>{t("cv.certificates")}</SectionHeading>
-              <div className="space-y-3 print:space-y-2">
+              <div className="space-y-4 print:space-y-3">
                 {certifications.map((cert, i) => (
-                  <div key={i} className="text-sm leading-snug print:text-[13px] break-inside-avoid">
+                  <div key={i} className="text-base leading-snug print:text-sm break-inside-avoid">
                     <p className="font-bold text-gray-900">{cert.title}</p>
-                    <p className="text-gray-500 text-xs mt-0.5">
+                    <p className="text-gray-500 text-sm mt-1 print:text-xs">
                       {cert.provider} ({cert.year})
                     </p>
                   </div>
@@ -220,11 +209,11 @@ export default function CV() {
 
             <section>
               <SectionHeading sidebar>{t("cv.languages")}</SectionHeading>
-              <div className="space-y-2">
+              <div className="space-y-3">
                 {languages.map((lang, i) => (
-                  <div key={i} className="flex justify-between items-baseline text-sm print:text-[13px]">
+                  <div key={i} className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline text-base print:text-sm">
                     <span className="font-bold text-gray-900">{lang.name}</span>
-                    <span className="text-gray-500 italic text-xs">{lang.level}</span>
+                    <span className="text-gray-500 italic text-sm mt-0.5 sm:mt-0 print:text-xs">{lang.level}</span>
                   </div>
                 ))}
               </div>
@@ -233,9 +222,9 @@ export default function CV() {
             {volunteerWork && volunteerWork.length > 0 && (
               <section>
                 <SectionHeading sidebar>{t("cv.volunteerWork")}</SectionHeading>
-                <div className="space-y-2">
+                <div className="space-y-3">
                   {volunteerWork.map((item, i) => (
-                    <p key={i} className="text-sm leading-snug text-gray-700 print:text-[13px] break-inside-avoid">
+                    <p key={i} className="text-base leading-snug text-gray-700 print:text-sm break-inside-avoid">
                       {item}
                     </p>
                   ))}
@@ -255,8 +244,8 @@ function SectionHeading({ children, sidebar = false }) {
       className={`
         font-black uppercase tracking-widest border-b
         ${sidebar
-          ? "text-sm text-primary border-gray-200 pb-2 mb-4 print:text-[13px] print:mb-3"
-          : "text-xl text-primary border-primary/30 pb-2 mb-5 print:text-lg print:mb-4"
+          ? "text-base text-primary border-gray-200 pb-2 mb-6 print:text-sm print:mb-4"
+          : "text-2xl text-primary border-primary/30 pb-3 mb-8 print:text-xl print:mb-6"
         }
       `}
     >
