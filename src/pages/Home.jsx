@@ -72,44 +72,6 @@ function HomeSection({ id, label, children, fullBleed = false }) {
   );
 }
 
-// ─── Coming-soon teaser row — deliberately NOT a link ────────────────────────
-// Same anatomy as StackedProjectCard (index · title · methods) so the list
-// reads as one system, but muted and inert. No spine, no hover, no route.
-function ComingSoonRow({ project, index }) {
-  const { t } = useTranslation();
-  const methods = project.methods || project.tags || [];
-
-  return (
-    <div
-      aria-disabled="true"
-      className="relative px-8 md:px-16 py-7 bg-bg border-t border-border opacity-60"
-    >
-      <div className="flex items-start gap-6">
-        <span className="font-mono text-2xs font-bold text-text/30 tabular-nums mt-2 shrink-0">
-          {String(index + 1).padStart(2, "0")}
-        </span>
-
-        <div className="flex-1 min-w-0">
-          <h2 className="font-display font-extrabold text-2xl tracking-[-0.01em]
-                         uppercase leading-tight text-text/45">
-            {project.title}
-          </h2>
-          {methods.length > 0 && (
-            <p className="mt-3 text-sm tracking-wide text-text/35">
-              {methods.slice(0, 4).join(" · ")}
-            </p>
-          )}
-        </div>
-
-        <span className="shrink-0 mt-2 text-[9px] font-black uppercase tracking-[0.2em]
-                         text-text/35 border border-border px-2.5 py-1">
-          {t("projects.comingSoon")}
-        </span>
-      </div>
-    </div>
-  );
-}
-
 export default function Home() {
   const profileData = useLocalizedProfile(rawProfile);
   const { t } = useTranslation();
@@ -117,6 +79,7 @@ export default function Home() {
   // Same split as /projects — one rule, two pages
   const published = projects.filter((p) => p.status !== "coming-soon");
   const comingSoon = projects.filter((p) => p.status === "coming-soon");
+  const hasAnyProjects = published.length > 0 || comingSoon.length > 0;
 
   return (
     <div className="w-full relative pb-24">
@@ -136,10 +99,41 @@ export default function Home() {
         <WhatIBring data={profileData} />
       </HomeSection>
 
-      {/* ── Case Studies — label in rail position, cards full-bleed ── */}
- 
- 
-<ProjectsSection />
+      {/* ── Case Studies — STACKED list, same system as /projects ──
+           id="projects" kept here so the /#projects nav anchor works;
+           scroll-mt offsets the sticky Nav (roadmap item 1.3 ✓) */}
+      <section id="projects" className="w-full pt-20 scroll-mt-24">
+        <div className="w-full h-px bg-border mb-12" />
+        <SectionLabel>{t("projects.heading")}</SectionLabel>
+
+        {/* Full-bleed: cards carry px-8 md:px-16 inner padding, so the
+            wrapper mirrors App.jsx's container padding (px-8 md:px-12
+            lg:px-16) with negative margins — card edge kisses viewport edge */}
+        <div className="-mx-8 md:-mx-12 lg:-mx-16 mt-10">
+          {hasAnyProjects ? (
+            <>
+              {published.map((project, i) => (
+                <StackedProjectCard key={project.slug} project={project} index={i} />
+              ))}
+              {comingSoon.map((project, i) => (
+                <ComingSoonRow
+                  key={project.slug}
+                  project={project}
+                  index={published.length + i}
+                />
+              ))}
+              {/* Closing hairline under the last row */}
+              <div className="w-full h-px bg-border" />
+            </>
+          ) : (
+            <div className="px-8 md:px-16 py-16 text-center">
+              <p className="doodle-text m-0 text-3xl text-dim">
+                Case studies are being inked — check back soon.
+              </p>
+            </div>
+          )}
+        </div>
+      </section>
 
     </div>
   );
