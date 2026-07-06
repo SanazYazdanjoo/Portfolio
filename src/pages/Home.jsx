@@ -22,7 +22,7 @@ import { AboutBio, WhatIBring } from "../components/AboutMe";
 import { StackedProjectCard } from "../components/StackedProjectCard";
 import { projects } from "../data/projects";
 import { profileData as rawProfile } from "../data/profile";
-import ProjectsSection from "../components/ProjectsSection";
+import { ComingSoonRow } from "../components/ComingSoonRow";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { motion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
