@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
-export const TagChip = ({ name, count, onRemove }) => {
-    return (
+const TagChip = ({ name, count, onRemove }) => {
+  return (
     <div className="inline-flex items-center border border-gray-300 rounded bg-[#f4f7ed] text-sm text-gray-800 m-1">
       {/* Count Section */}
       <span className="px-3 py-1 border-r border-gray-300 bg-white font-mono">
@@ -26,3 +26,4 @@ export const TagChip = ({ name, count, onRemove }) => {
   );
 };
 
+export default TagChip;
