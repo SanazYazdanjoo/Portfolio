@@ -108,15 +108,31 @@ const de = {
 
   // ── Hero meta strip ──
 "hero.kicker": "UX-Forschung × Engineering",
-"hero.meta.currently": "Aktuell",
+
 "hero.meta.background": "Hintergrund",
 "hero.meta.focus": "Fokus",
 "hero.meta.status": "Status",
-"hero.meta.currentlyValue": "Open to Work",
+"hero.meta.location": "Standort",
 "hero.meta.backgroundValue": "M.Sc. HCI, B.En. Software-Engineering · QA",
 "hero.meta.focusValue": "Mixed-Methods-Forschung · Prototyping",
 "hero.meta.statusValue": "Offen für UX-Researcher-Rollen",
+"hero.meta.locationValue": "Weimar, DE · Umzugsbereit",
 
+  // ── Hero meta strip ──
+"hero.kicker": "UX Research × Engineering",
+
+"hero.meta.background": "Background",
+"hero.meta.focus": "Focus",
+"hero.meta.status": "Status",
+"hero.meta.location": "Location",
+
+"hero.meta.backgroundValue": "Software Engineering · QA",
+"hero.meta.focusValue": "Mixed-methods research · Prototyping",
+"hero.meta.statusValue": "Open to UX Researcher roles",
+"hero.meta.locationValue": "Weimar, DE · Open to relocation",
+  
+
+  
 // ── Footer ──
 "footer.status": "Status",
 "footer.directContact": "Direkter Kontakt",
