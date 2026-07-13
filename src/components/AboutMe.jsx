@@ -1,22 +1,21 @@
 // src/components/AboutMe.jsx
 // ─────────────────────────────────────────────────────────────────────────────
-// LAYOUT FIX v4 — content blocks now live inside HomeSection's 9-col content
-// area (cols 4–12), next to the label rail. Two changes:
+// LAYOUT FIX v5 — SKILL KEY MISMATCH RESOLVED.
 //
-//   1. IMPACT STAT STACK: the empty field to the right of the bio now earns
-//      its keep — a vertical column of impact metrics ("focus on impact
-//      metrics", per your content goal). Reads from profileData.impactStats
-//      if present, with evidence-based fallbacks. Add to data.json when ready:
-//        "impactStats": [
-//          { "value": "5+",   "label": { "en": "Years engineering & QA", "de": "…" } },
-//          { "value": "20+",  "label": { "en": "Production sites shipped", "de": "…" } },
-//          { "value": "N=30", "label": { "en": "Largest controlled study", "de": "…" } }
-//        ]
+// Previous versions looked up skills["Research"] / skills["Technical"], but
+// data.json's actual keys are "Research Methods", "Analysis & Tools",
+// "Design", "Engineering", "QA". The `|| []` fallback silently swallowed the
+// miss, so two of the three columns rendered empty.
 //
-//   2. Inner grids are 9-col (matching the parent content area) so the bio
-//      (cols 1–6) and stats (cols 7–9) land on clean grid lines.
+// Fix: SKILL_COLUMNS below is the ONE place that maps the 5 data categories
+// onto the 3 display columns. It is exported so About.jsx uses the exact
+// same grouping — the two pages can no longer drift apart.
 //
-// Legacy <AboutMe> alias kept — delete once nothing else imports it.
+//   ⚠ The strings in `categories` MUST match data.json keys EXACTLY.
+//     If you rename a category in the Admin panel, update it here too.
+//     (A dev-only console.warn below will tell you if they fall out of sync.)
+//
+// Everything else (AboutBio, impact stats, legacy alias) unchanged from v4.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React from "react";
@@ -28,6 +27,45 @@ const FALLBACK_STATS = [
   { value: "10+", label: "Wordpress Websites delivered" },
   { value: "N=30", label: "Largest controlled study" },
 ];
+
+// ─── Single source of truth: data.json categories → 3 display columns ────────
+// labelKey  → translation key for the column heading
+// categories → data.json skill keys folded into this column (order preserved)
+export const SKILL_COLUMNS = [
+  {
+    labelKey: "about.skillsResearch",
+    categories: ["Research Methods"],
+  },
+  {
+    labelKey: "about.skillsDesign",
+    categories: ["Design", "Analysis & Tools"],
+  },
+  {
+    labelKey: "about.skillsTechnical",
+    categories: ["Engineering", "QA"],
+  },
+];
+
+// Shared resolver — also used by About.jsx. Warns in dev if a mapped
+// category no longer exists in the data (e.g. renamed via the Admin panel).
+export function resolveSkillColumns(skills = {}) {
+  return SKILL_COLUMNS.map(({ labelKey, categories }) => {
+    if (import.meta.env?.DEV) {
+      categories.forEach((cat) => {
+        if (!(cat in skills)) {
+          console.warn(
+            `[SKILL_COLUMNS] Category "${cat}" not found in data.json skills. ` +
+            `Available: ${Object.keys(skills).join(", ")}`
+          );
+        }
+      });
+    }
+    return {
+      labelKey,
+      items: categories.flatMap((cat) => skills[cat] || []),
+    };
+  });
+}
 
 // ─── Bio (cols 1–6) + Impact stats (cols 7–9) ────────────────────────────────
 export function AboutBio({ data }) {
@@ -81,7 +119,7 @@ export function AboutBio({ data }) {
 // ─── Skills: the scannable 3-column grid (fills cols 4–12 of the page) ───────
 export function WhatIBring({ data }) {
   const { t } = useTranslation();
-  const skills = data.skills || {};
+  const columns = resolveSkillColumns(data.skills);
 
   return (
     <motion.div
@@ -91,19 +129,15 @@ export function WhatIBring({ data }) {
       transition={{ duration: 0.5, delay: 0.1 }}
     >
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 md:gap-x-10">
-        {[
-          { key: "Research", label: t("about.skillsResearch") },
-          { key: "Design", label: t("about.skillsDesign") },
-          { key: "Technical", label: t("about.skillsTechnical") },
-        ].map(({ key, label }) => (
-          <div key={key}>
+        {columns.map(({ labelKey, items }) => (
+          <div key={labelKey}>
             <h3 className="text-[13px] font-bold text-text mb-2">
-              {label}
+              {t(labelKey)}
             </h3>
             {/* Short coral rule — same device as the About page columns */}
             <div className="w-8 border-b-2 border-primary mb-4" aria-hidden="true" />
             <ul className="text-[13px] text-text/80 space-y-2.5">
-              {(skills[key] || []).map((s) => <li key={s}>{s}</li>)}
+              {items.map((s) => <li key={s}>{s}</li>)}
             </ul>
           </div>
         ))}
