@@ -10,6 +10,11 @@
 //   • Hover fills: blush wash instead of coral tint
 //   • Current career phase stays the ONE loud coral moment on the page
 //   • The closing CTA line carries the gold highlighter signature
+//
+// ★ FIX (skills): previously looked up skills["Research"] / skills["Technical"],
+//   which don't exist in data.json ("Research Methods", "Engineering", "QA"…).
+//   Now uses resolveSkillColumns() from AboutMe.jsx — the same single-source
+//   mapping the homepage uses, so both pages always group skills identically.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React from "react";
@@ -19,6 +24,7 @@ import { profileData as rawProfile } from "../data/profile";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { voluntaryItems as rawVoluntary } from "../data/voluntary";
 import { useTranslation } from "../context/LanguageContext";
+import { resolveSkillColumns } from "../components/AboutMe"; // ★ FIX
 
 // ─── Animation variants ───────────────────────────────────────────────────────
 const fadeUp = {
@@ -101,7 +107,8 @@ export default function About() {
     { number: "04", title: t("about.process.deliver.title"),  desc: t("about.process.deliver.desc") },
   ];
 
-  const skills = profileData.skills || {};
+  // ★ FIX — same grouped columns as the homepage's WhatIBring
+  const skillColumns = resolveSkillColumns(profileData.skills);
 
   return (
     <main className="bg-bg min-h-screen relative overflow-hidden">
@@ -171,10 +178,11 @@ export default function About() {
             {t("about.whatIBring")}
           </span>
 
+          {/* ★ FIX — columns come from the shared mapping, not hard-coded keys */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16">
-            <SkillColumn title={t("about.skillsResearch")}  items={skills["Research"]} />
-            <SkillColumn title={t("about.skillsDesign")}    items={skills["Design"]} />
-            <SkillColumn title={t("about.skillsTechnical")} items={skills["Technical"]} />
+            {skillColumns.map(({ labelKey, items }) => (
+              <SkillColumn key={labelKey} title={t(labelKey)} items={items} />
+            ))}
           </div>
         </motion.div>
       </section>
