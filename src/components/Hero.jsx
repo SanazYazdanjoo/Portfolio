@@ -13,6 +13,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { motion, useReducedMotion } from "framer-motion";
 
 export function Hero({ data }) {
@@ -34,7 +35,7 @@ const meta = {
     animate: { opacity: 1, y: 0 },
     transition: { duration: 0.7, delay, ease: [0.22, 0.61, 0.36, 1] },
   });
-
+const { t } = useTranslation();
   return (
     <div className="relative w-full flex flex-col pt-12 md:pt-20 pb-4">
 
