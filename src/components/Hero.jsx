@@ -22,11 +22,12 @@ export function Hero({ data }) {
   const firstName = nameParts[0] || "";
   const lastName = nameParts.slice(1).join(" ");
 
-  const meta = {
-    background: data.heroMeta?.background ?? "M.Sc. HCI, B.En. Software-Engineering · QA",
-    focus: data.heroMeta?.focus ?? "Mixed-methods research · Prototyping",
-    status: data.heroMeta?.status ?? "Open to Collaboration",
-  };
+const meta = {
+  location: data.heroMeta?.location ?? "Weimar, DE · Open to relocation",
+  background: data.heroMeta?.background ?? "M.Sc. HCI, B.En. Software-Engineering · QA",
+  focus: data.heroMeta?.focus ?? "Mixed-methods research · Prototyping",
+  status: data.heroMeta?.status ?? "Open to UX Researcher roles",
+};
 
   const fadeUp = (delay = 0) => ({
     initial: prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 24 },
@@ -106,10 +107,13 @@ export function Hero({ data }) {
         className="grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-8
                    border-t border-border mt-10 md:mt-14 pt-6"
       >
-        <MetaItem label="Currently" value={meta.currently} />
-        <MetaItem label="Background" value={meta.background} />
-        <MetaItem label="Focus" value={meta.focus} />
-        <MetaItem label="Status" value={meta.status} align="md:text-right" />
+<MetaItem label={t("hero.meta.location")} value={meta.location} />
+<MetaItem label={t("hero.meta.background")} value={meta.background} />
+<MetaItem label={t("hero.meta.focus")} value={meta.focus} />
+<MetaItem label={t("hero.meta.status")} value={meta.status} align="md:text-right" />
+
+
+        
       </motion.div>
     </div>
   );
