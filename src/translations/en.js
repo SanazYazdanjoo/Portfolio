@@ -112,15 +112,17 @@ const en = {
 
   // ── Hero meta strip ──
 "hero.kicker": "UX Research × Engineering",
-"hero.meta.currently": "Currently",
+
 "hero.meta.background": "Background",
 "hero.meta.focus": "Focus",
 "hero.meta.status": "Status",
-"hero.meta.currentlyValue": "MSc HCI · Bauhaus-Universität Weimar",
+"hero.meta.location": "Location",
+
 "hero.meta.backgroundValue": "Software Engineering · QA",
 "hero.meta.focusValue": "Mixed-methods research · Prototyping",
 "hero.meta.statusValue": "Open to UX Researcher roles",
-
+"hero.meta.locationValue": "Weimar, DE · Open to relocation",
+  
 // ── Footer ──
 "footer.status": "Status",
 "footer.directContact": "Direct Contact",
