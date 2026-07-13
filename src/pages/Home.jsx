@@ -21,7 +21,7 @@ import { Hero } from "../components/Hero";
 import { AboutBio, WhatIBring } from "../components/AboutMe";
 import { StackedProjectCard } from "../components/StackedProjectCard";
 import { projects } from "../data/projects";
-import { profileData as rawProfile } from "../data/profile";
+import { profileData as rawProfile } from "../data/data";
 import { ComingSoonRow } from "../components/ComingSoonRow";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { motion } from "framer-motion";
