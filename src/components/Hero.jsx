@@ -1,13 +1,14 @@
 // src/components/Hero.jsx
 // ─────────────────────────────────────────────────────────────────────────────
-// LAYOUT FIX v4 — one change from v3:
+// LAYOUT FIX v5 — UX ENGINEER STRATEGY UPDATE
 //
-//   • Removed `min-h-[calc(100vh-160px)]` + `justify-center`.
-//     On tall/wide screens that combo distributed leftover viewport height
-//     BELOW the meta strip — that was a big part of the dead band before
-//     "About Me". The hero is now exactly as tall as its content, which at
-//     desktop sizes still fills the fold naturally.
+//   • Updated the hardcoded fallback values in the `meta` object to reflect
+//     the new hybrid UX Engineer positioning (Frontend focus, interdisciplinary
+//     status).
+//   • Added fallback text for `data.role` and `data.tagline` to ensure the 
+//     red handwritten text and gold highlight render safely.
 //
+// v4 fixes retained: hero height wraps content naturally.
 // v3 fixes retained: right-anchored wrappable role annotation (can't clip),
 // "Status" meta item replacing the "Portfolio [year]" filler.
 // ─────────────────────────────────────────────────────────────────────────────
@@ -23,19 +24,21 @@ export function Hero({ data }) {
   const firstName = nameParts[0] || "";
   const lastName = nameParts.slice(1).join(" ");
 
-const meta = {
-  location: data.heroMeta?.location ?? "Weimar, DE · Open to relocation",
-  background: data.heroMeta?.background ?? "M.Sc. HCI, B.En. Software-Engineering · QA",
-  focus: data.heroMeta?.focus ?? "Mixed-methods research · Prototyping",
-  status: data.heroMeta?.status ?? "Open to UX Researcher roles",
-};
+  const meta = {
+    location: data.heroMeta?.location ?? "Weimar, DE · Open to relocation",
+    background: data.heroMeta?.background ?? "M.Sc. HCI · B.E. Software Engineering · QA",
+    focus: data.heroMeta?.focus ?? "Frontend Development · UI Architecture · Mixed-methods research",
+    status: data.heroMeta?.status ?? "Open to interdisciplinary UX & Tech roles",
+  };
 
   const fadeUp = (delay = 0) => ({
     initial: prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 24 },
     animate: { opacity: 1, y: 0 },
     transition: { duration: 0.7, delay, ease: [0.22, 0.61, 0.36, 1] },
   });
-const { t } = useTranslation();
+  
+  const { t } = useTranslation();
+  
   return (
     <div className="relative w-full flex flex-col pt-12 md:pt-20 pb-4">
 
@@ -58,7 +61,7 @@ const { t } = useTranslation();
         >
           <span className="block">{firstName}</span>
           <span className="block">{lastName}</span>
-          <span className="sr-only"> — {data.role}</span>
+          <span className="sr-only"> — {data.role || "UX Engineer"}</span>
 
         </motion.h1>
 
@@ -78,7 +81,7 @@ const { t } = useTranslation();
                        text-2xl md:text-3xl leading-[1.05]
                        z-30 select-none text-right max-w-[16ch]"
           >
-            {data.role}
+            {data.role || "UX Engineer"}
           </span>
 
           <div
@@ -101,7 +104,7 @@ const { t } = useTranslation();
         {...fadeUp(0.32)}
         className="type-tagline hero-tagline max-w-2xl mt-12 md:mt-16"
       >
-        <span className="ink-highlight">{data.tagline}</span>
+        <span className="ink-highlight">{data.tagline || "I speak both ‘user’ and ‘developer’."}</span>
       </motion.p>
 
       {/* ── Meta strip: the 5-second recruiter read ── */}
@@ -110,12 +113,10 @@ const { t } = useTranslation();
         className="grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-8
                    border-t border-border mt-10 md:mt-14 pt-6"
       >
-<MetaItem label={t("hero.meta.location")} value={meta.location} />
-<MetaItem label={t("hero.meta.background")} value={meta.background} />
-<MetaItem label={t("hero.meta.focus")} value={meta.focus} />
-<MetaItem label={t("hero.meta.status")} value={meta.status} align="md:text-right" />
-
-
+        <MetaItem label={t("hero.meta.location")} value={meta.location} />
+        <MetaItem label={t("hero.meta.background")} value={meta.background} />
+        <MetaItem label={t("hero.meta.focus")} value={meta.focus} />
+        <MetaItem label={t("hero.meta.status")} value={meta.status} align="md:text-right" />
         
       </motion.div>
     </div>

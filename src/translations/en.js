@@ -33,9 +33,11 @@ const en = {
   // ── About ──
   "about.heading": "About Me",
   "about.whatIBring": "What I Bring",
-  "about.skillsResearch": "Research",
-  "about.skillsAnalysis": "Data & Analysis",
-  "about.skillsTechnical": "Design & Engineering",
+  // Adjusted to match the new UX Engineer constants in AboutMe.jsx
+  "about.skillsTechnical": "Frontend Engineering & QA",
+  "about.skillsResearch": "UX Research & Design",
+  "about.skillsAnalysis": "Analysis & Tools",
+  
   "about.howIGotHere": "How I Got Here",
   "about.theBridge": "The Bridge",
   "about.theBridgeDesc": "My path wasn't linear — it was deliberate. Every phase built the one after it.",
@@ -55,9 +57,9 @@ const en = {
   "about.career.phase2.label": "QA Engineering",
   "about.career.phase2.years": "2020 – 2023",
   "about.career.phase2.summary": "Shifted from building to breaking — and realised every bug was a user insight waiting to be heard.",
-  "about.career.phase3.label": "UX Research",
+  "about.career.phase3.label": "UX Engineering", // Updated
   "about.career.phase3.years": "2023 – Now",
-  "about.career.phase3.summary": "Now I ask 'why' before anyone writes a line of code. I speak both 'user' and 'developer' — fluently.",
+  "about.career.phase3.summary": "This is where research and engineering merge. I design methodologically sound studies and build the architecture (e.g., in TypeScript) to run them.", // Updated
 
   // ── Research process ──
   "about.process.discover.title": "Discover",
@@ -89,7 +91,7 @@ const en = {
   "contact.locationPhone": "Location & Phone",
   "contact.socials": "Socials",
   "contact.collaborate": "Let's collaborate in:",
-  "contact.location": "Currently based in Weimar, Germany, and open to UX Research opportunities and HCI collaborations.",
+  "contact.location": "Currently based in Weimar, Germany, and open to interdisciplinary UX and Tech roles.", // Updated
 
   // ── Footer ──
   "footer.rights": "All rights reserved.",
@@ -108,31 +110,30 @@ const en = {
   "common.readMore": "Read More",
   "common.language": "Language",
 
-
-
   // ── Hero meta strip ──
-"hero.kicker": "UX Research × Engineering",
+  "hero.kicker": "UX Research × Engineering",
 
-"hero.meta.background": "Background",
-"hero.meta.focus": "Focus",
-"hero.meta.status": "Status",
-"hero.meta.location": "Location",
+  "hero.meta.background": "Background",
+  "hero.meta.focus": "Focus",
+  "hero.meta.status": "Status",
+  "hero.meta.location": "Location",
 
-"hero.meta.backgroundValue": "Software Engineering · QA",
-"hero.meta.focusValue": "Mixed-methods research · Prototyping",
-"hero.meta.statusValue": "Open to UX Researcher roles",
-"hero.meta.locationValue": "Weimar, DE · Open to relocation",
+  // These values now mirror the exact length and meaning of the German translation
+  "hero.meta.backgroundValue": "M.Sc. HCI · B.E. Software Engineering · QA",
+  "hero.meta.focusValue": "Frontend Development · UI Architecture · Mixed-methods",
+  "hero.meta.statusValue": "Open to interdisciplinary UX & Tech roles",
+  "hero.meta.locationValue": "Weimar, DE · Open to relocation",
   
-// ── Footer ──
-"footer.status": "Status",
-"footer.directContact": "Direct Contact",
-"footer.basedIn": "Currently based in {location}.",
-"footer.openToRoles": "Open to {role} roles.",
+  // ── Footer ──
+  "footer.status": "Status",
+  "footer.directContact": "Direct Contact",
+  "footer.basedIn": "Currently based in {location}.",
+  "footer.openToRoles": "Open to {role} roles.",
 
-// ── Scroll indicator ──
-"scroll.hero": "Hero",
-"scroll.about": "About Me",
-"scroll.projects": "Projects",
+  // ── Scroll indicator ──
+  "scroll.hero": "Hero",
+  "scroll.about": "About Me",
+  "scroll.projects": "Projects",
 };
 
 export default en;

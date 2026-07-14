@@ -29,17 +29,17 @@
     "author": "Sanaz Yazdanjoo",
     "name": "Sanaz Yazdanjoo",
     "role": {
-      "en": "UX Researcher & HCI Specialist",
-      "de": "UX-Researcherin & HCI-Spezialistin"
+      "en": "UX Engineer",
+      "de": "UX Engineerin"
     },
     "tagline": {
-      "en": "I speak both \u2018user\u2019 and \u2018developer\u2019.",
-      "de": "Ich spreche sowohl \u201aUser\u2019 als auch \u201aEntwickler\u2019."
+      "en": "I speak both ‘user’ and ‘developer’.",
+      "de": "Ich spreche sowohl ‚User‘ als auch ‚Entwickler‘."
     },
     "heroStats": [
       { "value": "N=30",   "label": "Controlled eye-tracking experiment" },
       { "value": "110+",    "label": "Study participants across projects" },
-      { "value": "M.Sc.",  "label": "HCI \u00b7 Bauhaus-Universit\u00e4t Weimar" }
+      { "value": "M.Sc.",  "label": "HCI · Bauhaus-Universität Weimar" }
     ],
     "impactStats": [
       {
@@ -53,7 +53,7 @@
         "value": "110+",
         "label": {
           "en": "Study participants across projects",
-          "de": "Teilnehmende \u00fcber alle Projekte"
+          "de": "Teilnehmende über alle Projekte"
         }
       },
       {
@@ -67,20 +67,20 @@
     "heroMeta": {
       "photoCaption": { "en": "Weimar, 2026", "de": "Weimar, 2026" },
       "location": {
-        "en": "Weimar, DE \u00b7 Open to relocation",
-        "de": "Weimar, DE \u00b7 Umzugsbereit"
+        "en": "Weimar, DE · Open to relocation",
+        "de": "Weimar, DE · Umzugsbereit"
       },
       "background": {
-        "en": "M.Sc. HCI \u00b7 B.E. Software Engineering \u00b7 QA",
-        "de": "M.Sc. HCI \u00b7 B.E. Software-Engineering \u00b7 QA"
+        "en": "M.Sc. HCI · B.E. Software Engineering · QA",
+        "de": "M.Sc. HCI · B.E. Software-Engineering · QA"
       },
       "focus": {
-        "en": "Mixed-methods research \u00b7 Prototyping",
-        "de": "Mixed-Methods-Forschung \u00b7 Prototyping"
+        "en": "Frontend Development · UI Architecture · Mixed-methods research",
+        "de": "Frontend-Entwicklung · UI-Architektur · Mixed-Methods-Forschung"
       },
       "status": {
-        "en": "Open to UX Researcher roles",
-        "de": "Offen f\u00fcr UX-Researcher-Rollen"
+        "en": "Open to interdisciplinary UX & Tech roles",
+        "de": "Offen für interdisziplinäre UX- & Tech-Rollen"
       }
     },
     "year": "2026",
@@ -96,44 +96,44 @@
       "websiteHandle": "yazdanjoo.de"
     },
     "profileSummary": {
-      "en": "UX researcher specializing in mixed-methods studies \u2014 controlled experiments, eye-tracking evaluation, contextual inquiry, and reflexive thematic analysis \u2014 backed by a recently completed M.Sc. in Human-Computer Interaction (thesis on gaze-assisted input in dual-display environments) and five years across front-end development and QA. I design and run rigorous studies, then translate the findings into high-fidelity prototypes and working code (React, TypeScript). I am most effective on problems where understanding users and understanding systems are equally necessary.",
-      "de": "UX-Researcherin, spezialisiert auf Mixed-Methods-Studien \u2014 kontrollierte Experimente, Eye-Tracking-Evaluation, kontextuelle Befragungen und reflexive thematische Analyse, gest\u00fctzt auf einen k\u00fcrzlich abgeschlossenen M.Sc. in Human-Computer Interaction (Masterarbeit \u00fcber blickgest\u00fctzte Eingabe in Dual-Display-Umgebungen) sowie f\u00fcnf Jahre Erfahrung in Front-End-Entwicklung und QA. Ich entwerfe und f\u00fchre rigorose Studien durch und \u00fcbersetze die Ergebnisse anschlie\u00dfend in High-Fidelity-Prototypen und funktionierenden Code (React, TypeScript). Ich bin am effektivsten bei Problemen, bei denen das Verst\u00e4ndnis von Nutzern und das Verst\u00e4ndnis von Systemen gleicherma\u00dfen erforderlich sind."
+      "en": "UX Engineer with an M.Sc. in Human-Computer Interaction and over five years of experience across frontend development, user research, and QA. I specialize in the entire digital product lifecycle—from designing methodologically sound mixed-methods studies to the technical implementation of responsive, accessible user interfaces using React and TypeScript. I am most effective at the direct intersection of design and code, where a deep understanding of users and clean, scalable system architecture are equally crucial.",
+      "de": "UX Engineerin mit einem M.Sc. in Human-Computer Interaction und über fünf Jahren interdisziplinärer Erfahrung in Frontend-Entwicklung, User Research und Qualitätssicherung (QA). Spezialisiert auf den gesamten Lebenszyklus digitaler Produkte – von der Konzeption methodisch fundierter Studien bis hin zur technischen Umsetzung responsiver, barrierefreier Benutzeroberflächen (React, TypeScript). Ich arbeite am wirkungsvollsten an der direkten Schnittstelle zwischen Design und Code, wo tiefgreifendes Nutzerverständnis und eine saubere, skalierbare Systemarchitektur gleichermaßen entscheidend sind."
     },
     "experience": [
       {
-        "company": "Bauhaus-Universit\u00e4t Weimar",
+        "company": "Bauhaus-Universität Weimar",
         "role": {
-          "en": "UX Researcher - Master's Thesis",
-          "de": "UX-Researcherin - Masterarbeit"
+          "en": "UX Engineer / Researcher - Master's Thesis",
+          "de": "UX Engineer / Researcher - Masterarbeit"
         },
-        "date": "10/2025 \u2013 05/2026",
+        "date": "10/2025 – 05/2026",
         "impactMetrics": [
-          "n=30 within-subjects",
           "TypeScript experiment software",
+          "n=30 within-subjects",
           "Mixed methods analysis"
         ],
         "tasks": [
           {
-            "en": "Designed and ran a controlled within-subjects experiment (n=30) comparing two gaze-assisted input techniques (MAGIC Pointing, Ninja Cursors) against a mouse baseline in dual-display environments, using Pupil Labs Neon eye-tracking.",
-            "de": "Entwicklung und Durchf\u00fchrung eines kontrollierten Within-Subjects-Experiments (n=30), bei dem zwei blickgest\u00fctzte Eingabetechniken (MAGIC Pointing, Ninja Cursors) mit einer Maus-Baseline in Dual-Display-Umgebungen mithilfe des Pupil Labs Neon Eye-Trackers verglichen wurden."
+            "en": "Built the complete experiment software in TypeScript — handling stimulus presentation, technique implementations (MAGIC Pointing, Ninja Cursors), and performant data logging architecture.",
+            "de": "Eigenständige Entwicklung der gesamten Experimentalsoftware in TypeScript — Implementierung komplexer blickgestützter Interaktionstechniken (MAGIC Pointing, Ninja Cursors), Stimulus-Präsentation und performantes Datenlogging."
+          },
+          {
+            "en": "Designed and ran a controlled within-subjects experiment (n=30) comparing the gaze-assisted input techniques against a mouse baseline in dual-display environments, using Pupil Labs Neon eye-tracking.",
+            "de": "Konzeption und Durchführung eines kontrollierten Within-Subjects-Experiments (n=30) zum Vergleich der entwickelten Eingabetechniken mit einer Maus-Baseline in Dual-Display-Umgebungen."
           },
           {
             "en": "Analyzed performance and experience with mixed methods (ANOVA, Fitts' law modeling, reflexive thematic coding); found that predictability and user trust supersede raw speed in adoption.",
-            "de": "Analyse der Leistung und Benutzererfahrung mit gemischten Methoden (ANOVA, Fitts' Law Modellierung, reflexive thematische Kodierung); Erkenntnis, dass Vorhersehbarkeit und Nutzervertrauen bei der Akzeptanz wichtiger sind als reine Geschwindigkeit."
-          },
-          {
-            "en": "Built the complete experiment software in TypeScript \u2014 stimulus presentation, technique implementations, and data logging.",
-            "de": "Entwicklung der kompletten Experimentiersoftware in TypeScript \u2014 Stimuluspr\u00e4sentation, Implementierung der Techniken und Datenprotokollierung."
+            "de": "Auswertung von Leistung und Nutzererleben mit Mixed Methods; zentrales Ergebnis für zukünftige UI-Entwicklungen: Vorhersagbarkeit und Nutzervertrauen sind für die Akzeptanz wichtiger als reine Geschwindigkeit."
           }
         ]
       },
       {
-        "company": "Institut f\u00fcr Berufsbildung und Sozialmanagement (IBS)",
+        "company": "Institut für Berufsbildung und Sozialmanagement (IBS)",
         "role": {
-          "en": "Project Assistant \u2014 Internal Tools & Process Digitization",
-          "de": "Projektassistentin \u2014 Interne Tools & Prozessdigitalisierung"
+          "en": "Project Assistant — Internal Tools & Process Digitalization",
+          "de": "Projektassistentin — Interne Tools & Prozessdigitalisierung"
         },
-        "date": "12/2024 \u2013 Present",
+        "date": "12/2024 – Present",
         "impactMetrics": [
           "JavaScript tool development",
           "Process digitization",
@@ -141,22 +141,22 @@
         ],
         "tasks": [
           {
-            "en": "Built a JavaScript tool that structures and visualizes project data \u2014 substantially reducing manual entry, speeding up validity checks for the accounting and administrative teams, and giving the team a privacy-preserving overview of project status.",
-            "de": "Entwicklung eines JavaScript-Tools zur Strukturierung und Visualisierung von Projektdaten \u2014 deutlich reduzierter manueller Erfassungsaufwand, schnellere Validit\u00e4tspr\u00fcfungen f\u00fcr Buchhaltung und Verwaltung sowie ein Team-\u00dcberblick \u00fcber den Projektstand unter Wahrung von Datenschutz und Anonymit\u00e4t der Teilnehmendendaten."
+            "en": "Built a JavaScript tool that structures and visualizes project data — substantially reducing manual entry, speeding up validity checks for the accounting and administrative teams, and giving the team a privacy-preserving overview of project status.",
+            "de": "Entwicklung eines JavaScript-Tools zur Strukturierung und Visualisierung von Projektdaten — deutlich reduzierter manueller Erfassungsaufwand und schnellere Validitätsprüfungen für Buchhaltung und Verwaltung."
           },
           {
-            "en": "Digitized paper-based reimbursement workflows (15\u201320 monthly cases), delivering audit-ready accounting; handle day-to-day project communication in German with the team and institute participants.",
-            "de": "Digitalisierung papierbasierter Abrechnungsprozesse (15\u201320 F\u00e4lle monatlich) mit revisionssicherer Buchhaltung; laufende Projektkommunikation auf Deutsch mit Team und Teilnehmenden des Instituts."
+            "en": "Digitized paper-based reimbursement workflows (Public Sector / Educational Institutions), delivering audit-ready accounting; handle day-to-day project communication in German with the interdisciplinary team.",
+            "de": "Digitalisierung papierbasierter Abrechnungsprozesse (Public Sector / Bildungsträger); laufende Projektkommunikation auf Deutsch mit interdisziplinärem Team unter strenger Wahrung von Datenschutzrichtlinien."
           }
         ]
       },
       {
-        "company": "deskbird Co. x Bauhaus-Universit\u00e4t Weimar",
+        "company": "deskbird Co. x Bauhaus-Universität Weimar",
         "role": {
-          "en": "UX Researcher \u2014 Research Project",
-          "de": "UX-Researcherin \u2014 Forschungsprojekt"
+          "en": "UX Researcher — Research Project",
+          "de": "UX Researcher — Forschungsprojekt"
         },
-        "date": "10/2023 \u2013 03/2024",
+        "date": "10/2023 – 03/2024",
         "impactMetrics": [
           "Survey (n=57)",
           "Contextual inquiries (n=6)",
@@ -164,22 +164,22 @@
         ],
         "tasks": [
           {
-            "en": "Co-led end-to-end user research for a hybrid-workplace SaaS product \u2014 survey (n=50), semi-structured interviews (n=4), contextual inquiries (n=6), and stakeholder interviews aligning research objectives with product strategy.",
-            "de": "Co-Leitung von End-to-End User Research f\u00fcr ein Hybrid-Workplace SaaS-Produkt \u2014 Umfrage (n=50), halbstrukturierte Interviews (n=4), kontextuelle Befragungen (n=6) und Stakeholder-Interviews zur Abstimmung der Forschungsziele mit der Produktstrategie."
+            "en": "Co-led end-to-end user research for a hybrid-workplace SaaS product — survey (n=50), semi-structured interviews (n=4), contextual inquiries (n=6), and stakeholder interviews aligning research objectives with product strategy.",
+            "de": "Mitverantwortliche Leitung der End-to-End-Nutzerforschung für ein SaaS-Produkt im Bereich Hybrid Work (Umfragen, Contextual Inquiries, Stakeholder-Interviews)."
           },
           {
-            "en": "Synthesized findings into high-fidelity prototypes and presented strategic recommendations to company stakeholders, which were adopted into the product's development planning.",
-            "de": "Synthese der Ergebnisse in High-Fidelity-Prototypen und Pr\u00e4sentation strategischer Empfehlungen an die Stakeholder des Unternehmens, die in die Entwicklungsplanung des Produkts \u00fcbernommen wurden."
+            "en": "Synthesized findings into high-fidelity prototypes and presented strategic recommendations to company stakeholders, which were adopted directly into the product's frontend development roadmap.",
+            "de": "Synthese von Forschungsdaten in High-Fidelity-Prototypen und Präsentation strategischer UI/UX-Empfehlungen an die Stakeholder, die direkt in die Frontend-Entwicklungsplanung übernommen wurden."
           }
         ]
       },
       {
-        "company": "Bauhaus-Universit\u00e4t Weimar",
+        "company": "Bauhaus-Universität Weimar",
         "role": {
           "en": "Web Designer & Content Manager - Working Student",
           "de": "Webdesignerin & Content-Managerin - Werkstudentin"
         },
-        "date": "04/2023 \u2013 09/2023",
+        "date": "04/2023 – 09/2023",
         "impactMetrics": [
           "TYPO3 CMS",
           "Responsive HTML/CSS"
@@ -187,7 +187,7 @@
         "tasks": [
           {
             "en": "Built responsive front-end components (HTML/CSS) and maintained dynamic content across the university's TYPO3 sites, keeping pages consistent with corporate branding and accessibility standards.",
-            "de": "Entwicklung responsiver Front-End-Komponenten (HTML/CSS) und Pflege dynamischer Inhalte auf den TYPO3-Websites der Universit\u00e4t unter Einhaltung von Corporate Branding und Barrierefreiheitsstandards."
+            "de": "Entwicklung responsiver Frontend-Komponenten (HTML/CSS) und Pflege dynamischer Inhalte auf den TYPO3-Seiten der Universität. Strikte Einhaltung von Corporate Design-Vorgaben sowie Validierung nach modernen Barrierefreiheitsstandards."
           }
         ]
       },
@@ -195,9 +195,9 @@
         "company": "TDSoftware",
         "role": {
           "en": "QA Engineer - Working Student",
-          "de": "QA-Ingenieurin - Werkstudentin"
+          "de": "QA Engineer - Werkstudentin"
         },
-        "date": "04/2022 \u2013 06/2022",
+        "date": "04/2022 – 06/2022",
         "impactMetrics": [
           "Acceptance testing",
           "Heuristic evaluations",
@@ -205,8 +205,8 @@
         ],
         "tasks": [
           {
-            "en": "Ran acceptance testing and heuristic evaluations, partnering cross-functionally with developers to triage and resolve defects before release; validated REST endpoints with Postman.",
-            "de": "Durchf\u00fchrung von Abnahmetests und heuristischen Evaluationen, abteilungs\u00fcbergreifende Zusammenarbeit mit Entwicklern zur Priorisierung und Behebung von Fehlern vor dem Release; Validierung von REST-Endpunkten mit Postman."
+            "en": "Ran acceptance testing and heuristic evaluations, partnering cross-functionally with frontend developers to triage and resolve defects before release; technically validated REST endpoints with Postman.",
+            "de": "Durchführung von Abnahmetests und heuristischen Evaluationen in enger Zusammenarbeit mit der Frontend-Entwicklung zur Priorisierung und Behebung von Fehlern vor dem Release. Technische Validierung von REST-Endpunkten mit Postman."
           }
         ]
       },
@@ -214,9 +214,9 @@
         "company": "Part Software Group",
         "role": {
           "en": "Usability & QA Engineer",
-          "de": "Usability & QA-Ingenieurin"
+          "de": "Usability & QA Engineer"
         },
-        "date": "07/2020 \u2013 07/2021",
+        "date": "07/2020 – 07/2021",
         "impactMetrics": [
           "Manual-testing team setup",
           "Structured heuristic evaluations",
@@ -224,26 +224,22 @@
         ],
         "tasks": [
           {
-            "en": "Established the company's acceptance manual-testing team and introduced a test-management system for smoother bug-tracking workflows.",
-            "de": "Aufbau des Abnahmetest-Teams f\u00fcr manuelles Testen und Einf\u00fchrung eines Testmanagementsystems f\u00fcr reibungslosere Bug-Tracking-Workflows."
+            "en": "Established the company's acceptance manual-testing team and introduced agile test-management systems for smoother bug-tracking workflows.",
+            "de": "Aufbau des unternehmensweiten Teams für manuelle Abnahmetests und Einführung agiler Testmanagement-Systeme für effizientere Bug-Tracking-Workflows."
           },
           {
-            "en": "Authored and executed test plans in an agile framework and trained 4 colleagues in structured testing practices.",
-            "de": "Erstellung und Durchf\u00fchrung von Testpl\u00e4nen in einem agilen Framework sowie Schulung von 4 Kollegen in strukturierten Testpraktiken."
-          },
-          {
-            "en": "Ran structured heuristic evaluations across 5+ products and delivered prioritized issue reports that development teams used to ship usability fixes.",
-            "de": "Durchf\u00fchrung strukturierter heuristischer Evaluationen f\u00fcr \u00fcber 5 Produkte und \u00dcbergabe priorisierter Fehlerberichte, die von Entwicklungsteams zur Behebung von Usability-Problemen genutzt wurden."
+            "en": "Ran structured heuristic evaluations across 5+ products; collaborated closely with development teams to iteratively implement usability improvements.",
+            "de": "Durchführung strukturierter heuristischer Evaluationen für 5+ Produkte; enge Zusammenarbeit mit Entwicklerteams zur iterativen Umsetzung von Usability-Verbesserungen."
           }
         ]
       },
       {
         "company": "Mega-Tech",
         "role": {
-          "en": "Front-End Developer",
-          "de": "Front-End-Entwicklerin"
+          "en": "Frontend Developer",
+          "de": "Frontend-Entwicklerin"
         },
-        "date": "06/2015 \u2013 07/2020",
+        "date": "06/2015 – 07/2020",
         "impactMetrics": [
           "10+ websites delivered",
           "Cross-browser QA",
@@ -251,22 +247,22 @@
         ],
         "tasks": [
           {
-            "en": "Built 10+ WordPress sites (corporate, e-commerce, portfolio); ran cross-browser and cross-device acceptance testing.",
-            "de": "Erstellung von \u00fcber 10 WordPress-Websites (Unternehmens-, E-Commerce- und Portfolio-Seiten); Durchf\u00fchrung von browser- und ger\u00e4te\u00fcbergreifenden Abnahmetests."
+            "en": "Built 10+ WordPress sites (corporate, e-commerce, portfolio); ran cross-browser and cross-device optimization.",
+            "de": "Umsetzung von 10+ WordPress-Websites (Corporate, E-Commerce, Portfolio) inklusive Cross-Browser- und Cross-Device-Optimierung."
           },
           {
-            "en": "Applied SEO best practices across 10+ client sites, achieving page-1 Google rankings for targeted keywords.",
-            "de": "Anwendung von SEO-Best-Practices auf \u00fcber 10 Kunden-Websites; Platzierungen auf Seite 1 der Google-Ergebnisse f\u00fcr Ziel-Keywords."
+            "en": "Applied SEO and performance best practices across 10+ client sites, achieving page-1 Google rankings for targeted keywords.",
+            "de": "Anwendung von SEO- und Performance-Best-Practices, was bei 10+ Kundenwebsites zu Platzierungen auf Seite 1 der Google-Ergebnisse führte."
           }
         ]
       },
       {
         "company": "Mega-Tech & Black Citrus Co.",
         "role": {
-          "en": "Front-End Developer & QA Tester - Internship",
-          "de": "Front-End-Entwicklerin & QA-Testerin - Praktikum"
+          "en": "Frontend Developer & QA Tester - Internship",
+          "de": "Frontend-Entwicklerin & QA-Testerin - Praktikum"
         },
-        "date": "02/2015 \u2013 06/2015",
+        "date": "02/2015 – 06/2015",
         "impactMetrics": [
           "Web application testing",
           "Cross-browser compatibility"
@@ -274,7 +270,7 @@
         "tasks": [
           {
             "en": "Tested web applications, created test cases, identified bugs, and ensured cross-browser compatibility and responsiveness.",
-            "de": "Testen von Webanwendungen, Erstellung von Testf\u00e4llen, Identifizierung von Fehlern und Sicherstellung von browser\u00fcbergreifender Kompatibilit\u00e4t sowie Responsivit\u00e4t."
+            "de": "Testen von Webanwendungen, Erstellung von Testfällen, Identifikation von Fehlern sowie Sicherstellung von Cross-Browser-Kompatibilität und Responsivität."
           }
         ]
       }
@@ -283,33 +279,33 @@
       {
         "id": "project-1",
         "title": "Gaze-Assisted Input in Dual-Display Environments",
-        "type": "Quantitative UX \u00b7 Eye-Tracking \u00b7 TypeScript",
+        "type": "TypeScript Custom App · Quantitative UX · Eye-Tracking",
         "metrics": [
           {
             "value": "N=30",
             "label": "within-subjects experiment"
           },
           {
-            "value": "SUS 85.2",
-            "label": "Mouse baseline"
+            "value": "React",
+            "label": "UI architecture"
           },
           {
-            "value": "SUS 72.6",
-            "label": "Ninja Cursors condition"
+            "value": "SUS 85.2",
+            "label": "Mouse baseline"
           }
         ],
         "summary": {
-          "en": "Engineered a real-time gaze pipeline (Pupil Labs Neon + TypeScript) and ran a controlled experiment comparing MAGIC Pointing and Ninja Cursors against a mouse baseline. Key finding: gaze assistance should trigger conditionally for large cross-screen relocations only.",
-          "de": "Echtzeit-Blickpipeline (Pupil Labs Neon + TypeScript) entwickelt und ein kontrolliertes Experiment durchgef\u00fchrt, das MAGIC Pointing und Ninja Cursors mit einer Maus-Baseline verglich. Kernerkenntnis: Blickunterst\u00fctzung sollte nur bei gro\u00dfen bildschirm\u00fcbergreifenden Verlagerungen bedingt ausgel\u00f6st werden."
+          "en": "Engineered a real-time custom gaze pipeline architecture (Pupil Labs Neon + TypeScript) and ran a controlled experiment comparing MAGIC Pointing and Ninja Cursors. Key finding: gaze assistance should trigger conditionally for large cross-screen relocations only.",
+          "de": "Echtzeit-Blickpipeline-Architektur (Pupil Labs Neon + TypeScript) entwickelt und ein kontrolliertes Experiment durchgeführt, das MAGIC Pointing und Ninja Cursors mit einer Maus-Baseline verglich. Kernerkenntnis: Blickunterstützung sollte nur bei großen bildschirmübergreifenden Verlagerungen bedingt ausgelöst werden."
         }
       },
       {
         "id": "project-2",
-        "title": "Hybrid Workplace UX Research \u2014 deskbird",
-        "type": "User-Centered Design \u00b7 Mixed Methods \u00b7 Figma",
+        "title": "Hybrid Workplace UX Research — deskbird",
+        "type": "User-Centered Design · Mixed Methods · Figma",
         "metrics": [
           {
-            "value": "50",
+            "value": "57",
             "label": "survey respondents"
           },
           {
@@ -322,14 +318,14 @@
           }
         ],
         "summary": {
-          "en": "Co-led end-to-end UX research for a hybrid workplace SaaS product: stakeholder interviews, surveys (n=50), contextual inquiries (n=6), and usability testing. Delivered high-fidelity prototypes and strategic design recommendations to the product team.",
-          "de": "Co-Leitung des End-to-End-UX-Research f\u00fcr ein Hybrid-Workplace-SaaS-Produkt: Stakeholder-Interviews, Umfragen (n=50), kontextuelle Befragungen (n=6) und Usability-Tests. \u00dcbergabe von High-Fidelity-Prototypen und strategischen Designempfehlungen an das Produktteam."
+          "en": "Co-led end-to-end UX research for a hybrid workplace SaaS product: stakeholder interviews, surveys (n=50), contextual inquiries (n=6), and usability testing. Delivered high-fidelity prototypes and strategic design recommendations to the frontend product team.",
+          "de": "Co-Leitung des End-to-End-UX-Research für ein Hybrid-Workplace-SaaS-Produkt: Stakeholder-Interviews, Umfragen (n=50), kontextuelle Befragungen (n=6) und Usability-Tests. Übergabe von High-Fidelity-Prototypen und strategischen Designempfehlungen an das Frontend-Produktteam."
         }
       },
       {
         "id": "project-3",
-        "title": "EmbraceMe \u2013 Inflatable Human-Robot for Emotional Care",
-        "type": "HRI \u00b7 Soft Robotics \u00b7 Arduino \u00b7 Affective Computing",
+        "title": "EmbraceMe – Inflatable Human-Robot for Emotional Care",
+        "type": "Arduino · Capacitive Sensors · C++ · Soft Robotics",
         "metrics": [
           {
             "value": "Public",
@@ -341,14 +337,14 @@
           }
         ],
         "summary": {
-          "en": "Designed and built an inflatable soft-robotic hugging system using Arduino-controlled pneumatic actuators and capacitive sensors, demonstrated publicly with documented positive affective responses.",
-          "de": "Ein aufblasbares Soft-Robotik-Umarmungssystem mit Arduino-gesteuerten pneumatischen Aktoren und kapazitiven Sensoren entworfen und gebaut, \u00f6ffentlich demonstriert mit dokumentierten positiven affektiven Reaktionen."
+          "en": "Designed and engineered an inflatable soft-robotic hugging system using Arduino-controlled pneumatic actuators and capacitive sensors, demonstrated publicly with documented positive affective responses.",
+          "de": "Ein aufblasbares Soft-Robotik-Umarmungssystem mit Arduino-gesteuerten pneumatischen Aktoren und kapazitiven Sensoren technisch konzipiert und gebaut, öffentlich demonstriert mit dokumentierten positiven affektiven Reaktionen."
         }
       }
     ],
     "education": [
       {
-        "school": "Bauhaus-Universit\u00e4t Weimar",
+        "school": "Bauhaus-Universität Weimar",
         "degree": {
           "en": "M.Sc. Human-Computer Interaction",
           "de": "M.Sc. Human-Computer-Interaction"
@@ -369,45 +365,52 @@
       }
     ],
     "bioParagraphs": [
-      "UX researcher specializing in mixed-methods studies \u2014 controlled experiments, eye-tracking evaluation, contextual inquiry, and reflexive thematic analysis \u2014 backed by a recently completed M.Sc. in Human-Computer Interaction (thesis on gaze-assisted input in dual-display environments) and five years across front-end development and QA.",
-      "I design and run rigorous studies, then translate the findings into high-fidelity prototypes and working code (React, TypeScript). I am most effective on problems where understanding users and understanding systems are equally necessary."
+      "UX Engineer with an M.Sc. in Human-Computer Interaction and over five years of experience across frontend development, user research, and QA. I specialize in the entire digital product lifecycle—from designing methodologically sound mixed-methods studies to the technical implementation of responsive, accessible user interfaces using React and TypeScript.",
+      "I am most effective at the direct intersection of design and code, where a deep understanding of users and clean, scalable system architecture are equally crucial."
     ],
     "skills": {
-      "Research Methods": [
-        "Mixed-methods research",
-        "Controlled within-subjects experiments",
-        "Eye-tracking evaluation (Pupil Labs Neon)",
-        "Usability testing",
-        "Contextual inquiry",
-        "Semi-structured & stakeholder interviews",
-        "Reflexive thematic analysis",
-        "Think-aloud protocol",
-        "Survey design"
+      "Frontend Engineering": [
+        "React",
+        "TypeScript",
+        "JavaScript",
+        "HTML5",
+        "CSS3",
+        "Tailwind CSS",
+        "Vite",
+        "Framer Motion",
+        "Responsive Design",
+        "Web Accessibility",
+        "Git & GitHub",
+        "Vercel",
+        "RESTful APIs",
+        "Agentic Coding"
+      ],
+      "UX Research & Design": [
+        "Mixed-Methods Research",
+        "Usability Testing",
+        "Controlled Experiments",
+        "Eye-Tracking Evaluation (Pupil Labs Neon)",
+        "Contextual Inquiry",
+        "Questionnaire Design",
+        "Figma",
+        "Adobe XD"
+      ],
+      "QA & Testing": [
+        "Unit & Integration Testing (Vitest, Jest)",
+        "End-to-End Testing (Selenium)",
+        "Postman",
+        "Heuristic Evaluation",
+        "Acceptance Testing",
+        "Performance Optimization",
+        "Test Plan Creation"
       ],
       "Analysis & Tools": [
-        "Statistical analysis (ANOVA)",
-        "Fitts' law modeling",
         "R",
         "Python (pandas)",
         "Pupil Labs analysis tools",
         "Google Analytics",
-        "Hotjar"
-      ],
-      "Design": [
-        "Figma",
-        "Adobe XD"
-      ],
-      "Engineering": [
-        "React",
-        "TypeScript",
-        "JavaScript",
-        "Tailwind CSS",
-        "Git & GitHub"
-      ],
-      "QA": [
-        "Postman",
-        "Selenium",
-        "Heuristic evaluation"
+        "Hotjar",
+        "Jira"
       ]
     },
     "languages": [
@@ -437,8 +440,8 @@
       }
     ],
     "bio": {
-      "en": "UX researcher specializing in mixed-methods studies \u2014 controlled experiments, eye-tracking evaluation, contextual inquiry, and reflexive thematic analysis \u2014 backed by a recently completed M.Sc. in Human-Computer Interaction (thesis on gaze-assisted input in dual-display environments) and five years across front-end development and QA. I design and run rigorous studies, then translate the findings into high-fidelity prototypes and working code (React, TypeScript). I am most effective on problems where understanding users and understanding systems are equally necessary.",
-      "de": "UX-Researcherin, spezialisiert auf Mixed-Methods-Studien \u2014 kontrollierte Experimente, Eye-Tracking-Evaluation, kontextuelle Befragungen und reflexive thematische Analyse, gest\u00fctzt auf einen k\u00fcrzlich abgeschlossenen M.Sc. in Human-Computer Interaction (Masterarbeit \u00fcber blickgest\u00fctzte Eingabe in Dual-Display-Umgebungen) sowie f\u00fcnf Jahre Erfahrung in Front-End-Entwicklung und QA. Ich entwerfe und f\u00fchre rigorose Studien durch und \u00fcbersetze die Ergebnisse anschlie\u00dfend in High-Fidelity-Prototypen und funktionierenden Code (React, TypeScript). Ich bin am effektivsten bei Problemen, bei denen das Verst\u00e4ndnis von Nutzern und das Verst\u00e4ndnis von Systemen gleicherma\u00dfen erforderlich sind."
+      "en": "UX Engineer with an M.Sc. in Human-Computer Interaction and over five years of experience across frontend development, user research, and QA. I specialize in the entire digital product lifecycle—from designing methodologically sound mixed-methods studies to the technical implementation of responsive, accessible user interfaces using React and TypeScript. I am most effective at the direct intersection of design and code, where a deep understanding of users and clean, scalable system architecture are equally crucial.",
+      "de": "UX Engineerin mit einem M.Sc. in Human-Computer Interaction und über fünf Jahren interdisziplinärer Erfahrung in Frontend-Entwicklung, User Research und Qualitätssicherung (QA). Spezialisiert auf den gesamten Lebenszyklus digitaler Produkte – von der Konzeption methodisch fundierter Studien bis hin zur technischen Umsetzung responsiver, barrierefreier Benutzeroberflächen (React, TypeScript). Ich arbeite am wirkungsvollsten an der direkten Schnittstelle zwischen Design und Code, wo tiefgreifendes Nutzerverständnis und eine saubere, skalierbare Systemarchitektur gleichermaßen entscheidend sind."
     },
     "heroImage": "/assets/hero-portfolio.png",
     "aboutImage": "/assets/me.png",
@@ -457,11 +460,11 @@
         "en": "Awareness Member",
         "de": "Awareness-Mitglied"
       },
-      "year": "2024 \u2013 Present",
-      "org": "Bauhaus-Universit\u00e4t Weimar",
+      "year": "2024 – Present",
+      "org": "Bauhaus-Universität Weimar",
       "desc": {
         "en": "Acted as an active awareness team member, supporting university-wide student initiatives and ensuring safe, inclusive, and accessible environments.",
-        "de": "Aktive Mitwirkung im Awareness-Team zur Unterst\u00fctzung universit\u00e4tsweiter Studierendeninitiativen und zur Gew\u00e4hrleistung sicherer, inklusiver und barrierefreier R\u00e4ume."
+        "de": "Aktive Mitwirkung im Awareness-Team zur Unterstützung universitätsweiter Studierendeninitiativen und zur Gewährleistung sicherer, inklusiver und barrierefreier Räume."
       }
     },
     {
@@ -470,11 +473,11 @@
         "en": "Welcome Tutor",
         "de": "Welcome Tutorin"
       },
-      "year": "2022 \u2013 2024",
+      "year": "2022 – 2024",
       "org": "BUW International Office",
       "desc": {
         "en": "Guided incoming international students through their initial onboarding phases, cultural adjustments, and critical administrative processes.",
-        "de": "Begleitung internationaler Studierender w\u00e4hrend der ersten Onboarding-Phasen, bei der kulturellen Eingew\u00f6hnung und bei wichtigen administrativen Prozessen."
+        "de": "Begleitung internationaler Studierender während der ersten Onboarding-Phasen, bei der kulturellen Eingewöhnung und bei wichtigen administrativen Prozessen."
       }
     },
     {
@@ -505,4 +508,3 @@
     }
   ]
 }
-
