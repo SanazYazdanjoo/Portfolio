@@ -96,8 +96,8 @@
       "websiteHandle": "yazdanjoo.de"
     },
     "profileSummary": {
-      "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction and five years in frontend development, user research, and QA. I like working on both ends of a product: running solid mixed-methods studies to understand what people actually need, and then building it — responsive, accessible interfaces in React and TypeScript. That mix is the point. I don't stop at recommendations, and I don't build things nobody asked for. The case studies below show how that plays out in real projects.",
-      "de": "Ich bin UX Engineer mit einem M.Sc. in Human-Computer Interaction und fünf Jahren Erfahrung in Frontend-Entwicklung, User Research und QA. Ich arbeite gern an beiden Enden eines Produkts: Ich führe fundierte Mixed-Methods-Studien durch, um zu verstehen, was Menschen wirklich brauchen — und baue es dann: responsive, barrierefreie Interfaces in React und TypeScript. Genau diese Mischung ist der Punkt. Ich höre nicht bei Empfehlungen auf, und ich baue nichts, das niemand braucht. Die Case Studies unten zeigen, wie das in echten Projekten aussieht."
+      "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction and five years in frontend development, user research, and QA. I like working on both ends of a product: running solid mixed-methods studies to understand what people actually need, and then building it — responsive, accessible interfaces in React and TypeScript. That mix is the point. Research tells me what's worth building, and my engineering background means I can take it all the way to working code. The case studies below show how that plays out in real projects.",
+      "de": "Ich bin UX Engineer mit einem M.Sc. in Human-Computer Interaction und fünf Jahren Erfahrung in Frontend-Entwicklung, User Research und QA. Ich arbeite gern an beiden Enden eines Produkts: Ich führe fundierte Mixed-Methods-Studien durch, um zu verstehen, was Menschen wirklich brauchen — und baue es dann: responsive, barrierefreie Interfaces in React und TypeScript. Genau diese Mischung ist der Punkt. Research zeigt mir, was es wert ist, gebaut zu werden — und mein Engineering-Hintergrund bedeutet, dass ich es bis zum funktionierenden Code bringen kann. Die Case Studies unten zeigen, wie das in echten Projekten aussieht."
     },
     "experience": [
       {
@@ -366,7 +366,7 @@
     ],
     "bioParagraphs": [
       "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction and five years in frontend development, user research, and QA. I like working on both ends of a product: running solid mixed-methods studies to understand what people actually need, and then building it — responsive, accessible interfaces in React and TypeScript.",
-      "That mix is the point. I don't stop at recommendations, and I don't build things nobody asked for. The case studies below show how that plays out in real projects."
+      "That mix is the point. Research tells me what's worth building, and my engineering background means I can take it all the way to working code. The case studies below show how that plays out in real projects."
     ],
     "skills": {
       "Frontend Engineering": [
