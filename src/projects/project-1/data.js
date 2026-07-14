@@ -1,38 +1,38 @@
 // src/projects/project-1/data.js
-// ─── Evidence-locked to the final thesis (submitted 30/04/2026) ───
+// ─── UX Engineer Edition: Balances rigorous HCI research with technical execution ───
 import thumbnailImg from './project1.png';
 
 export const projectData = {
   id: "project-1",
   status: "Published",
   title: "Gaze-Assisted Input in Dual-Display Environments",
-  tags: ["Quantitative UX", "Eye-Tracking", "Fitts' Law", "Mixed-Methods", "TypeScript"],
+  tags: ["TypeScript Custom App", "Quantitative UX", "Eye-Tracking", "Real-Time API", "Mixed-Methods"],
 
   subtitle: "A Comparative Evaluation of MAGIC Pointing, Ninja Cursors, and a Mouse Baseline",
   tagline: "Can gaze make cross-screen pointing faster — without sacrificing user trust?",
-  role: "UX Researcher & Engineer (Master's Thesis)",
- 
+  role: "UX Engineer (Master's Thesis)",
+  
   timeline: "10/2025 – 04/2026",
   thumbnail: thumbnailImg,
   heroImage: thumbnailImg,
 
   methods: [
-    "Semi-structured Interviews",
-    "Workspace Visualisation",
+    "Custom TypeScript Architecture",
     "Within-Subjects Experiment (3×2×6)",
+    "Real-Time Data Logging",
     "Repeated-Measures ANOVA",
     "SUS Evaluation",
     "Reflexive Thematic Analysis",
   ],
 
   metrics: [
+    { value: "TypeScript", label: "experimental software built" },
     { value: "N=30", label: "within-subjects experiment" },
-    { value: "n=20", label: "formative pre-study" },
     { value: "η²ₚ=.69", label: "technique × distance interaction" },
     { value: "60%", label: "preferred the gaze-hybrid (Ninja)" },
   ],
 
-  techStack: ["Pupil Labs Neon", "Real-Time API", "AprilTag Marker Mapping", "TypeScript", "Python"],
+  techStack: ["TypeScript", "Pupil Labs Neon", "Real-Time API", "AprilTag Marker Mapping", "Python", "React"],
 
   // ── Process Gallery ──────────────────────────────────────────────────────
   process: [
@@ -62,10 +62,10 @@ export const projectData = {
     },
     {
       phase: "design",
-      type: "Technical Prototype",
-      title: "Real-Time Gaze Pipeline",
-      annotation: "Built the experiment software on the Pupil Labs Neon head-mounted tracker, using its real-time streaming API and AprilTag-based surface mapping to translate gaze onto each display. Implemented MAGIC (gaze-triggered warp, 20 px landing offset) and a gaze-augmented Ninja variant (one cursor per screen, gaze-based switching, 150 ms guard).",
-      insight: "The two techniques distribute risk differently: MAGIC couples gaze precision to every landing, while Ninja uses gaze only for the coarse display switch — a design difference that later explained the entire results pattern.",
+      type: "Frontend Engineering",
+      title: "TypeScript Architecture & Real-Time Gaze Pipeline",
+      annotation: "Engineered the complete experiment software from scratch in TypeScript. Interfaced with the Pupil Labs Neon head-mounted tracker via its real-time streaming API, utilizing AprilTag-based surface mapping to translate gaze onto each display. Implemented MAGIC (gaze-triggered warp, 20 px landing offset) and a gaze-augmented Ninja variant (one cursor per screen, gaze-based switching, 150 ms guard).",
+      insight: "The two techniques distribute risk differently on a system level: MAGIC couples gaze precision to every landing, while Ninja uses gaze only for the coarse display switch — an architectural difference that later explained the entire results pattern.",
       imagePath: null,
     },
     {
@@ -87,10 +87,10 @@ export const projectData = {
   ],
 
   challenge: "Multi-display workstations are everywhere, yet the mouse alone makes cross-display pointing costly: long pointer transits, cursor re-acquisition after bezel crossings, and attentional switches between screens. Prior work proposed gaze-assisted hybrids, but few controlled studies had compared MAGIC Pointing and Ninja Cursors against a mouse baseline in a dual-display setting — a comparison explicitly called for as future work by Räihä & Špakov (2009).",
-  solution: "I designed and built the complete evaluation: a dual-display eye-tracking apparatus (Pupil Labs Neon, real-time streaming API, AprilTag surface mapping) and working implementations of MAGIC Pointing (gaze-triggered cursor warp with manual fine-tuning) and a gaze-augmented Ninja Cursors variant (one persistent cursor per screen, activated by gaze). Both were evaluated against a standard mouse baseline in reciprocal pointing tasks.",
+  solution: "I engineered the complete technical architecture and evaluation framework. This included building a dual-display eye-tracking apparatus (Pupil Labs Neon, real-time streaming API, AprilTag surface mapping) and developing performant TypeScript implementations of MAGIC Pointing (gaze-triggered cursor warp with manual fine-tuning) and a gaze-augmented Ninja Cursors variant (one persistent cursor per screen, activated by gaze). Both were then evaluated against a standard mouse baseline in reciprocal pointing tasks.",
   methodology: "A two-phase mixed-methods design. Phase I: a formative pre-study (n=20) using semi-structured interviews and a Figma-based workspace visualisation task, analysed with reflexive thematic analysis, which grounded the lab configuration in real dual-display practice. Phase II: a controlled within-subjects experiment (N=30) with a 3×2×6 factorial design — input method × target size × distance (875–3226 px) — measuring movement time, repeat rate, and SUS, analysed with repeated-measures ANOVA (Greenhouse–Geisser corrected, Tukey post-hoc).",
   results: "A significant technique × distance interaction (η²ₚ = .690) revealed a crossover: the mouse was fastest for short distances, but Ninja Cursors significantly outperformed it at the two intermediate cross-screen distances (1684 and 2243 px) and converged at the longest (3226 px). MAGIC was consistently slowest — its warp coupled gaze noise directly to landing accuracy, producing the highest repeat rate on small targets (4.69%). SUS ranked Mouse (85.2) > Ninja (72.6) > MAGIC (55.9), yet 60% of participants named Ninja their most preferred method.",
-  implications: "Gaze assistance should be a context-aware accelerator, not an always-on replacement. Three design directions follow from the data: adaptive activation using the screen boundary itself as the trigger, semantic snapping toward UI elements to fix MAGIC's landing penalty, and stronger visual differentiation of the active cursor in multi-cursor designs. The broader lesson: predictability and trust — not speed alone — determine whether users adopt a novel input technique.",
+  implications: "Gaze assistance should be a context-aware accelerator, not an always-on replacement. Three design directions follow from the data: adaptive activation using the screen boundary itself as the trigger, semantic snapping toward UI elements to fix MAGIC's landing penalty, and stronger visual differentiation of the active cursor in multi-cursor designs. The broader lesson for UI engineers: predictability and system trust — not raw speed alone — determine whether users adopt a novel interaction pattern.",
 };
 
 export default projectData;

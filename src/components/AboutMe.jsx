@@ -1,21 +1,16 @@
 // src/components/AboutMe.jsx
 // ─────────────────────────────────────────────────────────────────────────────
-// LAYOUT FIX v5 — SKILL KEY MISMATCH RESOLVED.
+// LAYOUT FIX v6 — UX ENGINEER STRATEGY UPDATE
 //
-// Previous versions looked up skills["Research"] / skills["Technical"], but
-// data.json's actual keys are "Research Methods", "Analysis & Tools",
-// "Design", "Engineering", "QA". The `|| []` fallback silently swallowed the
-// miss, so two of the three columns rendered empty.
+// Updated SKILL_COLUMNS to match the new data.json keys: "Frontend Engineering",
+// "UX Research & Design", "QA & Testing", and "Analysis & Tools".
 //
-// Fix: SKILL_COLUMNS below is the ONE place that maps the 5 data categories
-// onto the 3 display columns. It is exported so About.jsx uses the exact
-// same grouping — the two pages can no longer drift apart.
+// The array order has been swapped so that Technical/Engineering renders 
+// in the first column (left), Research in the middle, and Analysis on the right. 
+// This perfectly aligns the visual hierarchy with the UX Engineer positioning 
+// without needing CSS order hacks.
 //
 //   ⚠ The strings in `categories` MUST match data.json keys EXACTLY.
-//     If you rename a category in the Admin panel, update it here too.
-//     (A dev-only console.warn below will tell you if they fall out of sync.)
-//
-// Everything else (AboutBio, impact stats, legacy alias) unchanged from v4.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React from "react";
@@ -24,7 +19,7 @@ import { useTranslation } from "../context/LanguageContext";
 
 const FALLBACK_STATS = [
   { value: "5+", label: "Years in engineering & QA" },
-  { value: "10+", label: "Wordpress Websites delivered" },
+  { value: "10+", label: "Websites delivered" },
   { value: "N=30", label: "Largest controlled study" },
 ];
 
@@ -33,16 +28,16 @@ const FALLBACK_STATS = [
 // categories → data.json skill keys folded into this column (order preserved)
 export const SKILL_COLUMNS = [
   {
-    labelKey: "about.skillsResearch",      // "Research"
-    categories: ["Research Methods"],
+    labelKey: "about.skillsTechnical",     // e.g., "Engineering & Design"
+    categories: ["Frontend Engineering", "QA & Testing"],
   },
   {
-    labelKey: "about.skillsAnalysis",      // "Data & Analysis"  ← new key
+    labelKey: "about.skillsResearch",      // e.g., "Research"
+    categories: ["UX Research & Design"],
+  },
+  {
+    labelKey: "about.skillsAnalysis",      // e.g., "Data & Analysis"
     categories: ["Analysis & Tools"],
-  },
-  {
-    labelKey: "about.skillsTechnical",     // "Design & Engineering"
-    categories: ["Design", "Engineering", "QA"],
   },
 ];
 

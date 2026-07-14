@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "../context/LanguageContext";
 
 export function Footer({ data }) {
-  const { name, contact, role } = data;
+  const { name, contact } = data;
   const { t } = useTranslation();
   const year = new Date().getFullYear();
 
@@ -27,7 +27,7 @@ export function Footer({ data }) {
               </span>
               <p className="text-sm text-text/80 leading-relaxed font-medium">
                 Currently based in {contact.location}.<br />
-                Open to {role} roles.
+                {data.heroMeta?.status || "Open to interdisciplinary UX & Tech roles"}
               </p>
             </div>
           </div>
