@@ -58,6 +58,8 @@ const { t } = useTranslation();
         >
           <span className="block">{firstName}</span>
           <span className="block">{lastName}</span>
+          <span className="sr-only"> — {data.role}</span>
+
         </motion.h1>
 
         {/* Photo cluster */}

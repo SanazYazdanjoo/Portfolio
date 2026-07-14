@@ -24,10 +24,10 @@ export const projectData = {
   ],
 
   metrics: [
-    { value: "3", label: "material iterations (balloons → 2× TPU)" },
-    { value: "80×16", label: "cm foam arms, PneuNet bending" },
-    { value: "3s / 9s", label: "inflate–deflate cycle timing" },
     { value: "Public", label: "exhibition with live user observation" },
+    { value: "3", label: "prototype iterations to a working hug" },
+    { value: "3s / 9s", label: "inflate–deflate cycle timing" },
+    { value: "80×16", label: "cm PneuNet foam arms" },
   ],
 
   techStack: ["Arduino", "Festo 5/3 Solenoid Valve", "5-Pad Capacitive Touch Sensor", "TPU (heat-sealed)", "Foam Fabrication", "LED Feedback"],

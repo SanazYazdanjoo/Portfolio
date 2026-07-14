@@ -92,7 +92,7 @@ export function StackedProjectCard({ project, index }) {
                 {project.title}
               </h2>
 
-              {/* Methods — quiet ink, mid-dot separated. Proof, not decoration. */}
+{/* Methods — quiet ink, mid-dot separated. Proof, not decoration. */}
               {methods.length > 0 && (
                 <p className="mt-3 text-sm tracking-wide">
                   {methods.slice(0, 4).map((m, i, arr) => (
@@ -103,6 +103,18 @@ export function StackedProjectCard({ project, index }) {
                   ))}
                 </p>
               )}
+
+              {/* Explicit CTA — same affordance on every row, works on touch */}
+              <p
+                className="mt-4 mb-0 inline-flex items-center gap-1.5 text-2xs font-black
+                           uppercase tracking-[0.2em] text-primary-600
+                           transition-transform duration-300 group-hover:translate-x-1"
+              >
+                Read case study
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </p>
             </div>
 
             {/* Headline stat — FIXED-WIDTH column, top-aligned.
