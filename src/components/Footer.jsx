@@ -21,9 +21,9 @@ export function Footer({ data }) {
               Status
             </h3>
             <div className="flex items-start gap-3">
-              <span className="relative flex h-2 w-2 mt-1.5 shrink-0">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-40"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+              <span className="relative flex h-2 w-2 mt-1.5 shrink-0" role="img" aria-label="Available">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-40"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
               <p className="text-sm text-text/80 leading-relaxed font-medium">
                 Currently based in {contact.location}.<br />
