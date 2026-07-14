@@ -42,8 +42,24 @@
       { "value": "M.Sc.",   "label": "HCI \u00b7 Bauhaus-Universit\u00e4t Weimar" }
     ],
     "heroMeta": {
-      "photoCaption": { "en": "Weimar, 2026", "de": "Weimar, 2026" }
-    },
+  "photoCaption": { "en": "Weimar, 2026", "de": "Weimar, 2026" },
+  "location": {
+    "en": "Weimar, DE · Open to relocation",
+    "de": "Weimar, DE · Umzugsbereit"
+  },
+  "background": {
+    "en": "M.Sc. HCI · B.E. Software Engineering · QA",
+    "de": "M.Sc. HCI · B.E. Software-Engineering · QA"
+  },
+  "focus": {
+    "en": "Mixed-methods research · Prototyping",
+    "de": "Mixed-Methods-Forschung · Prototyping"
+  },
+  "status": {
+    "en": "Open to UX Researcher roles",
+    "de": "Offen für UX-Researcher-Rollen"
+  }
+},
     "year": "2026",
     "contact": {
       "location": "Weimar, Germany",
