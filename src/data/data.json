@@ -37,29 +37,52 @@
       "de": "Ich spreche sowohl \u201aUser\u2019 als auch \u201aEntwickler\u2019."
     },
     "heroStats": [
-      { "value": "5+ yrs",  "label": "Engineering & QA" },
-      { "value": "10+",     "label": "Wordpress websites delivered" },
-      { "value": "M.Sc.",   "label": "HCI \u00b7 Bauhaus-Universit\u00e4t Weimar" }
+      { "value": "N=30",   "label": "Controlled eye-tracking experiment" },
+      { "value": "90+",    "label": "Study participants across projects" },
+      { "value": "M.Sc.",  "label": "HCI \u00b7 Bauhaus-Universit\u00e4t Weimar" }
+    ],
+    "impactStats": [
+      {
+        "value": "N=30",
+        "label": {
+          "en": "Controlled eye-tracking experiment",
+          "de": "Kontrolliertes Eye-Tracking-Experiment"
+        }
+      },
+      {
+        "value": "90+",
+        "label": {
+          "en": "Study participants across projects",
+          "de": "Studienteilnehmende \u00fcber alle Projekte"
+        }
+      },
+      {
+        "value": "5+ yrs",
+        "label": {
+          "en": "Engineering & QA background",
+          "de": "Engineering- & QA-Hintergrund"
+        }
+      }
     ],
     "heroMeta": {
-  "photoCaption": { "en": "Weimar, 2026", "de": "Weimar, 2026" },
-  "location": {
-    "en": "Weimar, DE · Open to relocation",
-    "de": "Weimar, DE · Umzugsbereit"
-  },
-  "background": {
-    "en": "M.Sc. HCI · B.E. Software Engineering · QA",
-    "de": "M.Sc. HCI · B.E. Software-Engineering · QA"
-  },
-  "focus": {
-    "en": "Mixed-methods research · Prototyping",
-    "de": "Mixed-Methods-Forschung · Prototyping"
-  },
-  "status": {
-    "en": "Open to UX Researcher roles",
-    "de": "Offen für UX-Researcher-Rollen"
-  }
-},
+      "photoCaption": { "en": "Weimar, 2026", "de": "Weimar, 2026" },
+      "location": {
+        "en": "Weimar, DE \u00b7 Open to relocation",
+        "de": "Weimar, DE \u00b7 Umzugsbereit"
+      },
+      "background": {
+        "en": "M.Sc. HCI \u00b7 B.E. Software Engineering \u00b7 QA",
+        "de": "M.Sc. HCI \u00b7 B.E. Software-Engineering \u00b7 QA"
+      },
+      "focus": {
+        "en": "Mixed-methods research \u00b7 Prototyping",
+        "de": "Mixed-Methods-Forschung \u00b7 Prototyping"
+      },
+      "status": {
+        "en": "Open to UX Researcher roles",
+        "de": "Offen f\u00fcr UX-Researcher-Rollen"
+      }
+    },
     "year": "2026",
     "contact": {
       "location": "Weimar, Germany",
@@ -359,11 +382,11 @@
         "Semi-structured & stakeholder interviews",
         "Reflexive thematic analysis",
         "Think-aloud protocol",
-        "Survey design",
-        "Statistical analysis (ANOVA)",
-        "Fitts' law modeling"
+        "Survey design"
       ],
       "Analysis & Tools": [
+        "Statistical analysis (ANOVA)",
+        "Fitts' law modeling",
         "R",
         "Python (pandas)",
         "Pupil Labs analysis tools",
@@ -379,19 +402,12 @@
         "TypeScript",
         "JavaScript",
         "Tailwind CSS",
-        "Vite",
-        "Framer Motion",
-        "HTML/CSS",
-        "Git & GitHub",
-        "Vercel",
-        "RESTful APIs"
+        "Git & GitHub"
       ],
       "QA": [
         "Postman",
         "Selenium",
-        "Heuristic evaluation",
-        "Acceptance testing",
-        "Test-plan authoring"
+        "Heuristic evaluation"
       ]
     },
     "languages": [
