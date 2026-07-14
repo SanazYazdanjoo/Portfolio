@@ -33,16 +33,16 @@ const FALLBACK_STATS = [
 // categories → data.json skill keys folded into this column (order preserved)
 export const SKILL_COLUMNS = [
   {
-    labelKey: "about.skillsResearch",
+    labelKey: "about.skillsResearch",      // "Research"
     categories: ["Research Methods"],
   },
   {
-    labelKey: "about.skillsDesign",
-    categories: ["Design", "Analysis & Tools"],
+    labelKey: "about.skillsAnalysis",      // "Data & Analysis"  ← new key
+    categories: ["Analysis & Tools"],
   },
   {
-    labelKey: "about.skillsTechnical",
-    categories: ["Engineering", "QA"],
+    labelKey: "about.skillsTechnical",     // "Design & Engineering"
+    categories: ["Design", "Engineering", "QA"],
   },
 ];
 
