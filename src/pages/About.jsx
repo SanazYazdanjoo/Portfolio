@@ -11,10 +11,9 @@
 //   • Current career phase stays the ONE loud coral moment on the page
 //   • The closing CTA line carries the gold highlighter signature
 //
-// ★ FIX (skills): previously looked up skills["Research"] / skills["Technical"],
-//   which don't exist in data.json ("Research Methods", "Engineering", "QA"…).
-//   Now uses resolveSkillColumns() from AboutMe.jsx — the same single-source
-//   mapping the homepage uses, so both pages always group skills identically.
+// ★ FIX (skills): uses resolveSkillColumns() from AboutMe.jsx — the same 
+//   single-source mapping the homepage uses, so both pages automatically inherit
+//   the new UX Engineer column ordering.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React from "react";
@@ -24,7 +23,7 @@ import { profileData as rawProfile } from "../data/profile";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { voluntaryItems as rawVoluntary } from "../data/voluntary";
 import { useTranslation } from "../context/LanguageContext";
-import { resolveSkillColumns } from "../components/AboutMe"; // ★ FIX
+import { resolveSkillColumns } from "../components/AboutMe";
 
 // ─── Animation variants ───────────────────────────────────────────────────────
 const fadeUp = {
@@ -95,7 +94,9 @@ export default function About() {
       label: t("about.career.phase3.label"),
       years: t("about.career.phase3.years"),
       summary: t("about.career.phase3.summary"),
-      tags: ["HCI Research", "Contextual Inquiry", "Prototyping"],
+      // UX Engineer Tweak: Replaced "Prototyping/Contextual Inquiry" with technical skills 
+      // to show that Phase 3 is where Research and Engineering finally merged.
+      tags: ["HCI Research", "Mixed Methods", "TypeScript"], 
       highlight: true,
     },
   ];
@@ -107,7 +108,7 @@ export default function About() {
     { number: "04", title: t("about.process.deliver.title"),  desc: t("about.process.deliver.desc") },
   ];
 
-  // ★ FIX — same grouped columns as the homepage's WhatIBring
+  // Uses the shared mapping from AboutMe.jsx to guarantee the new [Technical, Research, Analysis] order
   const skillColumns = resolveSkillColumns(profileData.skills);
 
   return (
@@ -178,7 +179,6 @@ export default function About() {
             {t("about.whatIBring")}
           </span>
 
-          {/* ★ FIX — columns come from the shared mapping, not hard-coded keys */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16">
             {skillColumns.map(({ labelKey, items }) => (
               <SkillColumn key={labelKey} title={t(labelKey)} items={items} />

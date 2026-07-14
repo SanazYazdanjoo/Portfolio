@@ -1,19 +1,17 @@
 // src/pages/Home.jsx
 // ─────────────────────────────────────────────────────────────────────────────
-// LAYOUT v4 (label rail) + COMING-SOON FIX.
+// LAYOUT v5 — UX ENGINEER STRATEGY UPDATE
 //
-// New in this version: Home previously rendered EVERY project — including
-// status: "coming-soon" — as a clickable StackedProjectCard. Coming-soon
-// projects have no /projects/{id} route yet (routes are auto-generated from
-// src/projects/*/index.jsx), so those cards were dead links waiting to
-// happen. Home now mirrors the split already used on /projects:
+// Because this page is fully data-driven, it automatically inherits the new 
+// UX Engineer positioning (Frontend focus, rearranged skills columns) directly 
+// from profileData and the updated child components (Hero, AboutMe).
 //
-//   • published    → StackedProjectCard (clickable, as before)
-//   • coming-soon  → muted, non-interactive teaser row
-//   • none at all  → existing WIP empty state
+// Retained from v4:
+//   • published   → StackedProjectCard (clickable)
+//   • coming-soon → muted, non-interactive teaser row
+//   • empty state → WIP doodle message
 //
-// Roadmap check ✓: id="projects" anchor preserved for the /#projects link
-// (which actually works now — see the scroll manager in App.jsx).
+// Roadmap check ✓: id="projects" anchor preserved for the /#projects link.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React from "react";
