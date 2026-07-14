@@ -11,7 +11,7 @@ export const projectData = {
   subtitle: "A Comparative Evaluation of MAGIC Pointing, Ninja Cursors, and a Mouse Baseline",
   tagline: "Can gaze make cross-screen pointing faster — without sacrificing user trust?",
   role: "UX Researcher & Engineer (Master's Thesis)",
-  // TODO: set the real start month — placeholder below
+ 
   timeline: "10/2025 – 04/2026",
   thumbnail: thumbnailImg,
   heroImage: thumbnailImg,
@@ -32,7 +32,6 @@ export const projectData = {
     { value: "60%", label: "preferred the gaze-hybrid (Ninja)" },
   ],
 
-  // TODO: confirm TypeScript vs Python split — delete whichever is wrong
   techStack: ["Pupil Labs Neon", "Real-Time API", "AprilTag Marker Mapping", "TypeScript", "Python"],
 
   // ── Process Gallery ──────────────────────────────────────────────────────
