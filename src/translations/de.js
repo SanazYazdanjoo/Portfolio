@@ -118,21 +118,6 @@ const de = {
 "hero.meta.statusValue": "Offen für UX-Researcher-Rollen",
 "hero.meta.locationValue": "Weimar, DE · Umzugsbereit",
 
-  // ── Hero meta strip ──
-"hero.kicker": "UX Research × Engineering",
-
-"hero.meta.background": "Background",
-"hero.meta.focus": "Focus",
-"hero.meta.status": "Status",
-"hero.meta.location": "Location",
-
-"hero.meta.backgroundValue": "Software Engineering · QA",
-"hero.meta.focusValue": "Mixed-methods research · Prototyping",
-"hero.meta.statusValue": "Open to UX Researcher roles",
-"hero.meta.locationValue": "Weimar, DE · Open to relocation",
-  
-
-  
 // ── Footer ──
 "footer.status": "Status",
 "footer.directContact": "Direkter Kontakt",
