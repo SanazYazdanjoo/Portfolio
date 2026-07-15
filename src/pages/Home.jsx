@@ -84,6 +84,7 @@ export default function Home() {
 
       {/* ── Hero — natural height, no viewport lock ── */}
       <section id="Hero-Section" className="w-full">
+      <EtherealGradient />
         <Hero data={profileData} />
       </section>
 
