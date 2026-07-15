@@ -1,86 +1,130 @@
 // ─────────────────────────────────────────────────────────────
-// EtherealGradient.jsx — "drawn-in" grain-gradient wash (Hero)
+// EtherealGradient.jsx — reusable "ethereal grain" wash, Ink & Bloom
 //
-// Behavior: each wash draws itself in ONCE on load — soft fade +
-// settle — then holds perfectly still. No infinite loops, no idle
-// GPU cost. Pairs with the sketch-oval draw-on: everything on the
-// page "gets drawn", nothing runs forever.
-//
-// Ink & Bloom rules honored:
-// - Blush / gold TINTS only (backgrounds, never text) → WCAG safe
-// - Grain via feTurbulence, multiply — matches .bg-paper-texture
-// - House easing [0.22, 0.61, 0.36, 1], durations in the 0.45–1.2s family
-// - prefers-reduced-motion → renders final state instantly, no motion
-// - aria-hidden + pointer-events-none: pure decoration
-// - Hidden in print
-//
-// Usage in Hero:
-//   <section id="Hero-Section" className="relative overflow-hidden">
-//     <EtherealGradient />
-//     <div className="relative z-10"> ...existing hero content... </div>
+// One primitive, used anywhere:
+//   <section className="relative overflow-hidden">
+//     <EtherealGradient color="blush" position="top-right" />
+//     <div className="relative z-10">...section content...</div>
 //   </section>
+//
+// Props:
+//   color    "blush" | "gold" | "rose" | "paper"     (default "blush")
+//            → always the pale -100 tint. Palette rule enforced:
+//              tints are backgrounds-only, so text on top stays AA.
+//   position "top-left" | "top-right" | "bottom-left" |
+//            "bottom-right" | "center"                (default "top-right")
+//   size     "sm" | "md" | "lg"                       (default "md")
+//   grain    "none" | "soft" | "medium" | "heavy"     (default "medium")
+//            → grain is MASKED to the wash shape, so it reads as
+//              textured pigment, not a noise layer over the section.
+//   delay    seconds before the draw-in starts         (default 0.15)
+//
+// Behavior: draws in once (fade + settle, house easing), then holds
+// still. prefers-reduced-motion → final state instantly. Decorative:
+// aria-hidden, pointer-events-none, hidden in print.
+//
+// The parent section MUST be `relative overflow-hidden`.
 // ─────────────────────────────────────────────────────────────
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
 const EASE = [0.22, 0.61, 0.36, 1]; // house easing
 
-// Soft radial washes built from PALETTE TINTS.
-// radial-gradient falloff does the "blur" for free — no filter: blur().
-const WASHES = [
-  {
-    // Behind the polaroid, top-right — arrives first
-    className: "top-[-15%] right-[-10%] h-[55vw] w-[55vw] max-h-[640px] max-w-[640px]",
-    background:
-      "radial-gradient(circle at center, var(--color-blush-100) 0%, transparent 65%)",
-    from: { opacity: 0, scale: 0.92, y: 24 },
-    delay: 0.15,
-  },
-  {
-    // Bottom-left edge — settles a beat later, like a second brushstroke
-    className: "bottom-[-20%] left-[-15%] h-[50vw] w-[50vw] max-h-[560px] max-w-[560px]",
-    background:
-      "radial-gradient(circle at center, var(--color-gold-100) 0%, transparent 65%)",
-    from: { opacity: 0, scale: 0.92, y: -20 },
-    delay: 0.4,
-  },
-];
+// Tints only — never the 500-strength accents (palette contrast rule).
+const COLOR_VAR = {
+  blush: "var(--color-blush-100)",
+  gold: "var(--color-gold-100)",
+  rose: "var(--color-rose-400)", // used at low alpha below — see ALPHA
+  paper: "var(--color-paper-200)",
+};
+// Rose has no -100 tint in the palette, so it gets extra transparency
+// to land in the same "whisper" range as blush/gold washes.
+const COLOR_ALPHA = { blush: 1, gold: 1, rose: 0.22, paper: 1 };
 
-// Same feTurbulence recipe family as .bg-ink-speckles — one data URI, repeats.
-const GRAIN =
-  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E\")";
+// Full literal class strings so Tailwind JIT keeps them.
+// Negative insets bleed the wash off the section edge (lots of
+// whitespace stays intact — the wash is a corner event, not a bg).
+const POSITION_CLASSES = {
+  "top-left": "top-[-15%] left-[-12%]",
+  "top-right": "top-[-15%] right-[-12%]",
+  "bottom-left": "bottom-[-18%] left-[-12%]",
+  "bottom-right": "bottom-[-18%] right-[-12%]",
+  center: "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
+};
 
-export default function EtherealGradient() {
+// Settle direction: the wash drifts INTO place from its own corner.
+const SETTLE_FROM = {
+  "top-left": { x: -24, y: -20 },
+  "top-right": { x: 24, y: -20 },
+  "bottom-left": { x: -24, y: 20 },
+  "bottom-right": { x: 24, y: 20 },
+  center: { x: 0, y: 16 },
+};
+
+const SIZE_CLASSES = {
+  sm: "h-[36vw] w-[36vw] max-h-[420px] max-w-[420px]",
+  md: "h-[50vw] w-[50vw] max-h-[560px] max-w-[560px]",
+  lg: "h-[62vw] w-[62vw] max-h-[720px] max-w-[720px]",
+};
+
+const GRAIN_OPACITY = { none: 0, soft: 0.15, medium: 0.3, heavy: 0.5 };
+
+// feTurbulence noise — same recipe family as .bg-ink-speckles.
+const GRAIN_URL =
+  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E\")";
+
+// Radial falloff does the blur for free (no filter: blur, no repaints).
+// Reused as the wash fill AND as the mask that clips the grain.
+const RADIAL = (fill) =>
+  `radial-gradient(circle at center, ${fill} 0%, transparent 66%)`;
+const MASK = RADIAL("black"); // mask uses alpha: black = visible
+
+export default function EtherealGradient({
+  color = "blush",
+  position = "top-right",
+  size = "md",
+  grain = "medium",
+  delay = 0.15,
+}) {
   const reduceMotion = useReducedMotion();
 
-  return (
-    <div
-      aria-hidden="true"
-      className="pointer-events-none absolute inset-0 z-0 overflow-hidden print:hidden"
-    >
-      {WASHES.map((wash, i) => (
-        <motion.div
-          key={i}
-          className={`absolute rounded-full ${wash.className}`}
-          style={{ background: wash.background }}
-          initial={reduceMotion ? false : wash.from}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={
-            reduceMotion
-              ? { duration: 0 }
-              : { duration: 1.2, ease: EASE, delay: wash.delay }
-          }
-        />
-      ))}
+  const fill = COLOR_VAR[color] ?? COLOR_VAR.blush;
+  const alpha = COLOR_ALPHA[color] ?? 1;
+  const settle = SETTLE_FROM[position] ?? SETTLE_FROM["top-right"];
+  const grainOpacity = GRAIN_OPACITY[grain] ?? GRAIN_OPACITY.medium;
 
-      {/* Grain fades in with the washes, then sits still on top of them */}
-      <motion.div
-        className="absolute inset-0 mix-blend-multiply"
-        style={{ backgroundImage: GRAIN, backgroundSize: "240px" }}
-        initial={reduceMotion ? false : { opacity: 0 }}
-        animate={{ opacity: 0.18 }}
-        transition={reduceMotion ? { duration: 0 } : { duration: 1.4, ease: EASE, delay: 0.3 }}
+  return (
+    <motion.div
+      aria-hidden="true"
+      className={`pointer-events-none absolute z-0 rounded-full print:hidden
+        ${POSITION_CLASSES[position] ?? POSITION_CLASSES["top-right"]}
+        ${SIZE_CLASSES[size] ?? SIZE_CLASSES.md}`}
+      initial={
+        reduceMotion ? false : { opacity: 0, scale: 0.92, ...settle }
+      }
+      animate={{ opacity: 1, scale: 1, x: position === "center" ? "-50%" : 0, y: position === "center" ? "-50%" : 0 }}
+      transition={
+        reduceMotion ? { duration: 0 } : { duration: 1.2, ease: EASE, delay }
+      }
+    >
+      {/* Layer 1 — the color wash */}
+      <div
+        className="absolute inset-0"
+        style={{ background: RADIAL(fill), opacity: alpha }}
       />
-    </div>
+      {/* Layer 2 — grain, masked to the same radial shape */}
+      {grainOpacity > 0 && (
+        <div
+          className="absolute inset-0 mix-blend-multiply"
+          style={{
+            backgroundImage: GRAIN_URL,
+            backgroundSize: "240px",
+            opacity: grainOpacity,
+            WebkitMaskImage: MASK,
+            maskImage: MASK,
+          }}
+        />
+      )}
+    </motion.div>
   );
 }
