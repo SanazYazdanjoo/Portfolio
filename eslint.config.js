@@ -16,7 +16,18 @@ export default [
     rules: {
       ...js.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
-      "no-undef": "error", // ← the rule that would've caught the missing import
+      "no-undef": "error",
+      // Automatic JSX runtime: `import React` is legal but unused
+      "no-unused-vars": ["error", { varsIgnorePattern: "^React$", argsIgnorePattern: "^_" }],
+      // New compiler-era rules: real advice, but not tonight's blockers
+      "react-hooks/set-state-in-effect": "warn",
+    },
+  },
+  {
+    // Vitest files get test globals
+    files: ["**/*.test.{js,jsx}", "src/test/**"],
+    languageOptions: {
+      globals: { test: "readonly", expect: "readonly", describe: "readonly", it: "readonly", vi: "readonly", beforeEach: "readonly" },
     },
   },
 ];
