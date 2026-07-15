@@ -58,6 +58,25 @@ export const projectData = {
 
   techStack: ["TypeScript", "Pupil Labs Neon", "Real-Time API", "AprilTag Marker Mapping", "Python", "React"],
 
+  figures: {
+    solution: [
+      {
+        type: "video",
+        src: magicDemo,
+        poster: thumbnailImg,
+        alt: "MAGIC pointing demo in a dual-display experiment",
+        caption: "MAGIC Pointing demo",
+      },
+      {
+        type: "video",
+        src: ninjaDemo,
+        poster: thumbnailImg,
+        alt: "Ninja cursors demo in a dual-display experiment",
+        caption: "Ninja Cursors demo",
+      },
+    ],
+  },
+
   // ── Process Gallery ──────────────────────────────────────────────────────
   process: [
     {
