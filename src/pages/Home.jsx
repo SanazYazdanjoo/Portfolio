@@ -85,7 +85,7 @@ export default function Home() {
 
       {/* ── Hero — natural height, no viewport lock ── */}
       <section id="Hero-Section" className="w-full relative overflow-hidden">
-        <EtherealGradient color="gold" position="bottom-left" size="sm" grain="heavy" delay={0.3} />
+        <EtherealGradient color="blush" position="top-right" size="lg" grain="medium" delay={0.3} />
         <Hero data={profileData} />
         
 
