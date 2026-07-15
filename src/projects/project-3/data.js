@@ -1,6 +1,6 @@
 // src/projects/project-3/data.js
 // ─── Evidence-locked to Group_Report__EmbraceMe__.docx + FBHCI_Individual_Final_Report.pdf ───
-import thumbnailImg from './project-thumbnail.png';
+import thumbnailImg from './Embrace_Me.png';
 
 export const projectData = {
   id: "project-3",
