@@ -84,7 +84,7 @@ export default function Home() {
     <div className="w-full relative pb-24">
 
       {/* ── Hero — natural height, no viewport lock ── */}
-      <section id="Hero-Section" className="w-full">
+      <section id="Hero-Section" className="w-full relative overflow-hidden">
         <EtherealGradient />
         <Hero data={profileData} />
       </section>
