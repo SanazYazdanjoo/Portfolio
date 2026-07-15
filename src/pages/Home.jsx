@@ -24,7 +24,6 @@ import { ComingSoonRow } from "../components/ComingSoonRow";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { motion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
-import EtherealGradient from "../components/EtherealGradient";
 
 // ─── Section label — one style, used everywhere ───────────────────────────────
 function SectionLabel({ children }) {
