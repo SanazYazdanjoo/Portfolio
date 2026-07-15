@@ -33,6 +33,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import SectionMedia from "./SectionMedia";
 
 // ─── Phase config — monochrome, numbered ─────────────────────────────────────
 const PHASE_META = {
@@ -461,6 +462,8 @@ export default function ProjectTemplate({ meta, children }) {
                 <p className="text-base md:text-lg text-text/80 leading-relaxed max-w-prose">
                   {meta.solution}
                 </p>
+                <SectionMedia items={meta.figures?.solution} />
+
               </ContentSection>
             )}
 
@@ -470,6 +473,7 @@ export default function ProjectTemplate({ meta, children }) {
                 <p className="text-base md:text-lg text-text/80 leading-relaxed max-w-prose mb-6">
                   {meta.methodology}
                 </p>
+                <SectionMedia items={meta.figures?.methodology} />
                 {meta.techStack && meta.techStack.length > 0 && (
                   <div className="border-l-2 border-border pl-5">
                     <span className="block font-mono text-2xs uppercase tracking-wider text-text/45 mb-2">
@@ -491,6 +495,8 @@ export default function ProjectTemplate({ meta, children }) {
                 <p className="text-base md:text-lg text-text/80 leading-relaxed max-w-prose">
                   {meta.results}
                 </p>
+                    <SectionMedia items={meta.figures?.results} />
+
                 <MetricsStrip metrics={meta.metrics} />
               </ContentSection>
             )}
