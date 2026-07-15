@@ -5,23 +5,23 @@ import thumbnailImg from './project1.png';
 
 // ── Demos (MP4 = the GIFs from the defence deck, 94% smaller) ──────────────
 import magicDemo from './media/magic-demo.mp4';
-import magicPoster from './media/magic-demo-poster.jpg';
+// import magicPoster from './media/magic-demo-poster.jpg';
 import ninjaDemo from './media/ninja-demo.mp4';
-import ninjaPoster from './media/ninja-demo-poster.jpg';
+// import ninjaPoster from './media/ninja-demo-poster.jpg';
  
 // ── Concept & method figures ────────────────────────────────────────────────
-import figMagicConcept from './media/fig-magic-concept.jpg';
-import figNinjaConcept from './media/fig-ninja-concept.jpg';
-import figTaskLayout from './media/fig-task-layout.png';
-import figApparatus from './media/fig-apparatus.jpg';
-import figPrestudy from './media/fig-prestudy-workspaces.png';
+// import figMagicConcept from './media/fig-magic-concept.jpg';
+// import figNinjaConcept from './media/fig-ninja-concept.jpg';
+// import figTaskLayout from './media/fig-task-layout.png';
+// import figApparatus from './media/fig-apparatus.jpg';
+// import figPrestudy from './media/fig-prestudy-workspaces.png';
  
 // ── Results charts ──────────────────────────────────────────────────────────
-import chartMovementTime from './media/chart-movement-time.png';
-import chartRepeatRate from './media/chart-repeat-rate.jpg';
-import chartSus from './media/chart-sus.jpg';
-import chartPreference from './media/chart-preference.jpg';
-import chartThemes from './media/chart-themes-1.jpg';
+// import chartMovementTime from './media/chart-movement-time.png';
+// import chartRepeatRate from './media/chart-repeat-rate.jpg';
+// import chartSus from './media/chart-sus.jpg';
+// import chartPreference from './media/chart-preference.jpg';
+// import chartThemes from './media/chart-themes-1.jpg';
  
 
 
