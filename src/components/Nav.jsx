@@ -11,7 +11,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React, { useState, useEffect } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { profileData as rawProfile } from "../data/profile";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
@@ -86,11 +86,9 @@ export const Nav = ({ isScrolled = false }) => {
 function MobileMenu({ links }) {
   const [open, setOpen] = useState(false);
   const { t } = useTranslation();
-  const location = useLocation();
   const prefersReducedMotion = useReducedMotion();
 
-  // Close on route change + lock body scroll while open
-  useEffect(() => setOpen(false), [location.pathname]);
+  // Lock body scroll while open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
