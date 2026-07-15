@@ -1,6 +1,6 @@
 // src/projects/project-2/data.js
 // ─── Evidence-locked to UCD4UX_FINAL_PRESENTATION.pdf (deskbird × Bauhaus-Universität Weimar) ───
-import thumbnailImg from './project-thumbnail.png';
+import thumbnailImg from './Ucd4ux.png';
 
 export const projectData = {
   id: "project-2",
