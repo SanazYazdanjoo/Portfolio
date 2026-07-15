@@ -1,6 +1,6 @@
 // src/components/ScrollArrow.jsx
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, useAnimationControls } from "framer-motion";
 
 export function ScrollArrow({ targetId = "AboutMe-Section", scrollRef }) {

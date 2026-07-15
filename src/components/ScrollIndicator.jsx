@@ -39,13 +39,11 @@ export function ScrollIndicator({ scrollRef }) {
   const [isScrolling,    setIsScrolling]    = useState(false);
   const [pathLength,     setPathLength]     = useState(VB_H);
   const [dotPoints,      setDotPoints]      = useState([]);
-  const [rotation,       setRotation]       = useState(0);
   const [margins,        setMargins]        = useState({ top: 80, bottom: 80 });
 
   const pathRef      = useRef(null);
   const trackRef     = useRef(null);
   const scrollTimer  = useRef(null);
-  const rotationRef  = useRef(0);
   const animFrameRef = useRef(null);
 
   // ── Measure header/footer heights ──────────────────────────────────────
@@ -122,25 +120,23 @@ export function ScrollIndicator({ scrollRef }) {
   }, [scrollRef]);
 
   useEffect(() => {
-    if (isScrolling) {
-      let last = null;
-      const spin = (ts) => {
-        if (last !== null) {
-          rotationRef.current += (ts - last) * 0.22;
-          setRotation(rotationRef.current);
-        }
-        last = ts;
-        animFrameRef.current = requestAnimationFrame(spin);
-      };
-      animFrameRef.current = requestAnimationFrame(spin);
-    } else {
+    if (!isScrolling) {
       cancelAnimationFrame(animFrameRef.current);
+      return () => cancelAnimationFrame(animFrameRef.current);
     }
+
+    let last = null;
+    const spin = (ts) => {
+      last = last ?? ts;
+      animFrameRef.current = requestAnimationFrame(spin);
+    };
+
+    animFrameRef.current = requestAnimationFrame(spin);
     return () => cancelAnimationFrame(animFrameRef.current);
   }, [isScrolling]);
 
   // ── Scroll to section — let snap-center handle vertical centering ──────
-  const scrollToSection = useCallback((sectionId, index) => {
+  const scrollToSection = useCallback((sectionId, _index) => {
     const container = scrollRef?.current;
     if (!container) return;
 
@@ -217,9 +213,9 @@ export function ScrollIndicator({ scrollRef }) {
         </svg>
 
         {/* ── Section dots — exactly on path ── */}
-        {SECTIONS.map((section, i) => {
-          const isActive = activeSection === i;
-          const pos = dotPoints[i] ?? { left: "50%", top: `${DOT_PROGRESS[i] * 100}%` };
+        {SECTIONS.map((section, _index) => {
+          const isActive = activeSection === _index;
+          const pos = dotPoints[_index] ?? { left: "50%", top: `${DOT_PROGRESS[_index] * 100}%` };
 
           return (
             <div
@@ -228,7 +224,7 @@ export function ScrollIndicator({ scrollRef }) {
               style={{ left: pos.left, top: pos.top }}
             >
               <button
-                onClick={() => scrollToSection(section.sectionId, i)}
+                onClick={() => scrollToSection(section.sectionId, _index)}
                 className="pointer-events-auto flex items-center justify-center
                            cursor-pointer group w-11 h-11"
                 aria-label={`Go to ${section.label}`}
