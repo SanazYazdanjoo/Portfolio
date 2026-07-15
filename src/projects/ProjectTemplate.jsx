@@ -324,7 +324,6 @@ function MetaField({ label, children }) {
 
 // ─── Main template ────────────────────────────────────────────────────────────
 export default function ProjectTemplate({ meta, children }) {
-  const [activeId, setActiveId] = useState(null);
   const prefersReducedMotion = useReducedMotion();
 
   // Only include sidebar items for sections that have data
@@ -333,13 +332,14 @@ export default function ProjectTemplate({ meta, children }) {
     return !!meta[s.dataKey];
   });
 
+  const [activeId, setActiveId] = useState(() => activeSections[0]?.id ?? null);
+
   // Section numbers must match the sidebar — compute once
   const sectionNumber = (id) =>
     String(activeSections.findIndex((s) => s.id === id) + 1).padStart(2, "0");
 
   useEffect(() => {
     if (activeSections.length === 0) return;
-    setActiveId(activeSections[0].id);
 
     const observers = [];
     activeSections.forEach((section) => {

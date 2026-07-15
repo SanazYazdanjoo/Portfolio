@@ -679,7 +679,8 @@ export default function Admin() {
     }
   }, [showStatus]);
 
-  useEffect(() => { loadData(); }, [loadData]);
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  useEffect(() => { void loadData(); }, [loadData]);
 
   // ── Save ────────────────────────────────────────────────────────────────
   const save = useCallback(async () => {
