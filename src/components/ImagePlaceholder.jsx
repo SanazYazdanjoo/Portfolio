@@ -1,5 +1,4 @@
 import React from 'react';
-import { FlowerDoodle, CircleDoodle } from './DoodleLibrary';
 
 export const ImagePlaceholder = ({ text = "Coming Soon" }) => {
   return (

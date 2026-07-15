@@ -642,13 +642,13 @@ export default function Admin() {
   const [isDirty, setIsDirty] = useState(false);
   const statusTimerRef = React.useRef(null);
 
-  const showStatus = (type, msg) => {
+  const showStatus = useCallback((type, msg) => {
     setStatus({ type, msg });
     if (statusTimerRef.current) clearTimeout(statusTimerRef.current);
     if (type !== "error") {
       statusTimerRef.current = setTimeout(() => setStatus({ type: "", msg: "" }), 3000);
     }
-  };
+  }, []);
 
   const setProfile = useCallback((updater) => {
     setProfileData(updater);
@@ -672,29 +672,17 @@ export default function Admin() {
       setProfileData(await pRes.json());
       setVoluntary(await vRes.json());
       setIsDirty(false);
-    } catch (err) {
+    } catch {
       showStatus("error", "Cannot reach admin-server. Run: node admin-server.mjs");
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [showStatus]);
 
   useEffect(() => { loadData(); }, [loadData]);
 
-  // ── Ctrl+S shortcut ──────────────────────────────────────────────────────
-  useEffect(() => {
-    const handler = (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === "s") {
-        e.preventDefault();
-        if (!saving && profileData) save();
-      }
-    };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  });
-
   // ── Save ────────────────────────────────────────────────────────────────
-  const save = async () => {
+  const save = useCallback(async () => {
     setSaving(true);
     try {
       const [pRes, vRes] = await Promise.all([
@@ -712,12 +700,25 @@ export default function Admin() {
       if (!pRes.ok || !vRes.ok) throw new Error("Save failed");
       setIsDirty(false);
       showStatus("ok", "Saved! Vite will hot-reload your site.");
-    } catch (err) {
-      showStatus("error", err.message);
+    } catch (error) {
+      console.error("Save failed", error);
+      showStatus("error", "Failed to save changes.");
     } finally {
       setSaving(false);
     }
-  };
+  }, [profileData, voluntary, showStatus]);
+
+  // ── Ctrl+S shortcut ──────────────────────────────────────────────────────
+  useEffect(() => {
+    const handler = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "s") {
+        e.preventDefault();
+        if (!saving && profileData) save();
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [profileData, save, saving]);
 
   // ── Render ──────────────────────────────────────────────────────────────
 
