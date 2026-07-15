@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite --open",
-    "build": "vite build",
     "preview": "vite preview",
     "test": "vitest",
-    "test:run": "vitest run"
+    "test:run": "vitest run", 
+    "build": "eslint src && vite build"
   },
   "dependencies": {
     "cors": "^2.8.6",
