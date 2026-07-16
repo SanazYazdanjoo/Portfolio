@@ -13,7 +13,7 @@
 // - framer-motion fade-ups with the house easing
 // - Gold highlighter appears exactly ONCE on this page
 // ─────────────────────────────────────────────────────────────
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 // If these live elsewhere in your tree, adjust the paths:
@@ -71,35 +71,100 @@ const MOTION_RULES = [
   { name: "Accessibility", value: "prefers-reduced-motion", note: "All animation collapses to ~0ms." },
 ];
 
-// ── Local building blocks ──
-function SectionLabel({ children }) {
-  return (
-    <p
-      className="type-label"
-      style={{ color: "var(--primary-600)", position: "sticky", top: 96, margin: 0 }}
-    >
-      {children}
-    </p>
-  );
-}
+const DS_SECTIONS = [
+  { id: "colors", label: "01 · Colors" },
+  { id: "typography", label: "02 · Typography" },
+  { id: "ink", label: "03 · Ink" },
+  { id: "components", label: "04 · Components" },
+  { id: "motion", label: "05 · Motion" },
+  { id: "icons", label: "06 · Icons" },
+];
 
-function DSSection({ label, children }) {
+function DSSection({ id, children }) {
   return (
     <motion.section
+      id={id}
       variants={fadeUp}
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, margin: "-60px" }}
-      className="w-full pt-16 md:pt-20"
+      className="w-full pt-12 md:pt-16 scroll-mt-32"
     >
       <div className="w-full h-px mb-8" style={{ background: "var(--border)" }} />
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-x-10 gap-y-6">
-        <div className="md:col-span-3">
-          <SectionLabel>{label}</SectionLabel>
-        </div>
-        <div className="md:col-span-9">{children}</div>
-      </div>
+      <div className="grid grid-cols-1 gap-y-6">{children}</div>
     </motion.section>
+  );
+}
+
+function DSNav({ sections, activeId }) {
+  const scrollToSection = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  return (
+    <nav aria-label="Design System sections" className="pt-1">
+      <p className="text-[10px] font-black uppercase tracking-[0.28em] text-gray-500 mb-5 pl-3">
+        On this page
+      </p>
+      <ul className="space-y-0.5">
+        {sections.map((section, index) => {
+          const isActive = activeId === section.id;
+
+          return (
+            <li key={section.id}>
+              <button
+                type="button"
+                onClick={() => scrollToSection(section.id)}
+                aria-current={isActive ? "true" : undefined}
+                className={`w-full text-left flex items-baseline gap-3 px-3 py-2 transition-colors duration-200 relative border-l-2 ${
+                  isActive
+                    ? "border-primary text-primary"
+                    : "border-transparent text-gray-500 hover:text-gray-900 hover:border-gray-300"
+                }`}
+              >
+                <span className={`font-mono text-[10px] font-bold uppercase tracking-[0.2em] tabular-nums shrink-0 ${
+                  isActive ? "text-primary" : "text-gray-500"
+                }`}>
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className={`text-[11px] font-bold uppercase tracking-[0.2em] leading-tight ${
+                  isActive ? "text-primary" : "text-gray-600"
+                }`}>
+                  {section.label}
+                </span>
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+  );
+}
+
+function MobilePillBar({ sections, activeId }) {
+  const scrollToSection = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  return (
+    <div className="sticky top-[72px] z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 -mx-6 px-6 py-3 no-print md:hidden">
+      <div className="flex gap-2 overflow-x-auto pb-1">
+        {sections.map((section) => (
+          <button
+            key={section.id}
+            type="button"
+            onClick={() => scrollToSection(section.id)}
+            className={`shrink-0 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.18em] border transition-colors duration-200 ${
+              activeId === section.id
+                ? "bg-primary text-white border-primary"
+                : "text-gray-500 border-gray-200 hover:text-primary"
+            }`}
+          >
+            {section.label}
+          </button>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -139,206 +204,240 @@ function RuleRow({ name, value, note }) {
 
 // ─────────────────────────────────────────────────────────────
 export default function DesignSystem() {
+  const [activeId, setActiveId] = useState(DS_SECTIONS[0]?.id ?? null);
+
+  useEffect(() => {
+    if (DS_SECTIONS.length === 0) return undefined;
+
+    const observers = [];
+
+    DS_SECTIONS.forEach((section) => {
+      const el = document.getElementById(section.id);
+      if (!el) return;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setActiveId(section.id);
+          }
+        },
+        { rootMargin: "-12% 0px -60% 0px", threshold: 0 }
+      );
+
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((observer) => observer.disconnect());
+  }, []);
+
   return (
-    <main className="max-w-[80rem] mx-auto px-6 md:px-10 pb-28">
-      {/* ── Header ── */}
-      <motion.header variants={stagger} initial="hidden" animate="show" className="pt-16 md:pt-24">
-        <motion.p
-          variants={fadeUp}
-          className="type-label m-0 mb-8"
-          style={{ letterSpacing: ".28em", color: "var(--text-dim)", fontSize: 11 }}
-        >
-          INK &amp; BLOOM · V2&nbsp;&nbsp;—&nbsp;&nbsp;LIVING STYLE GUIDE
-        </motion.p>
-        <motion.h1 variants={fadeUp} className="type-display m-0">
-          Design System
-        </motion.h1>
-        <motion.p variants={fadeUp} className="type-lead mt-6 mb-0 max-w-2xl" style={{ color: "var(--text-dim)" }}>
-          The concept is a <InkHighlight>researcher&rsquo;s field notebook</InkHighlight>: a clean
-          white page, true-black ink for text and hand-drawn doodles, one loud coral accent,
-          a rose whisper, and a gold highlighter as the signature mark. Every specimen below
-          renders from the live CSS tokens — this page can&rsquo;t drift from the site.
-        </motion.p>
-      </motion.header>
-
-      {/* ── 01 · Colors ── */}
-      <DSSection label="01 · Colors">
-        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
-          <h2 className="type-h3 mt-0 mb-4">Ink &amp; paper</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
-            {INK_PAPER.map((s) => <Swatch key={s.varName} {...s} />)}
+    <main className="bg-white min-h-screen w-full pb-28">
+      <div className="flex gap-10 lg:gap-14 items-start">
+        <aside className="hidden md:block w-[180px] lg:w-[220px] shrink-0 no-print sticky top-36 self-start">
+          <div className="border-l border-gray-200 pl-3 py-2">
+            <DSNav sections={DS_SECTIONS} activeId={activeId} />
           </div>
+        </aside>
 
-          <h2 className="type-h3 mt-10 mb-4">Accents</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
-            {ACCENTS.map((s) => <Swatch key={s.varName} {...s} />)}
-          </div>
+        <div className="w-full px-6 py-12 md:px-16 lg:px-24 xl:px-32">
+          <div className="max-w-5xl">
+            <MobilePillBar sections={DS_SECTIONS} activeId={activeId} />
 
-          <motion.div
-            variants={fadeUp}
-            className="mt-6 p-4"
-            style={{ background: "var(--muted)", borderRadius: "var(--radius)", border: "1px solid var(--border)" }}
-          >
-            <p className="type-label m-0 mb-2" style={{ color: "var(--primary-600)" }}>Contrast rules (WCAG AA)</p>
-            <p className="type-body m-0" style={{ fontSize: "var(--fs-sm)" }}>
-              <code style={{ fontFamily: "var(--font-mono)" }}>--primary / --secondary</code> → large text (≥24px), headings, UI shapes only.{" "}
-              <code style={{ fontFamily: "var(--font-mono)" }}>--primary-600 / --secondary-600</code> → small text, links, body-size accents.{" "}
-              <code style={{ fontFamily: "var(--font-mono)" }}>--blush / --highlight</code> → backgrounds and tints only, never text.
-              Dark mode is warm charcoal, never blue-black.
-            </p>
-          </motion.div>
-        </motion.div>
-      </DSSection>
+            <motion.header variants={stagger} initial="hidden" animate="show" className="pt-16 md:pt-20">
+              <motion.p
+                variants={fadeUp}
+                className="type-label m-0 mb-8"
+                style={{ letterSpacing: ".28em", color: "var(--text-dim)", fontSize: 11 }}
+              >
+                INK &amp; BLOOM · V2&nbsp;&nbsp;—&nbsp;&nbsp;LIVING STYLE GUIDE
+              </motion.p>
+              <motion.h1 variants={fadeUp} className="type-display m-0">
+                Design System
+              </motion.h1>
+              <motion.p variants={fadeUp} className="type-lead mt-6 mb-0 max-w-2xl" style={{ color: "var(--text-dim)" }}>
+                The concept is a <InkHighlight>researcher&rsquo;s field notebook</InkHighlight>: a clean
+                white page, true-black ink for text and hand-drawn doodles, one loud coral accent,
+                a rose whisper, and a gold highlighter as the signature mark. Every specimen below
+                renders from the live CSS tokens — this page can&rsquo;t drift from the site.
+              </motion.p>
+            </motion.header>
 
-      {/* ── 02 · Typography ── */}
-      <DSSection label="02 · Typography">
-        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
-          <motion.p variants={fadeUp} className="type-body mt-0 mb-8" style={{ color: "var(--text-dim)" }}>
-            Bricolage Grotesque for display (variable opsz, 500–800), DM Sans 400 for body —
-            never 300 — and Caveat for handwritten asides. Components use the{" "}
-            <code style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-sm)" }}>.type-*</code>{" "}
-            role classes below, not raw sizes.
-          </motion.p>
-
-          {TYPE_SPECIMENS.map(({ cls, label, spec, sample }) => (
-            <motion.div key={cls} variants={fadeUp} className="py-5" style={{ borderBottom: "1px solid var(--border)" }}>
-              <div className="flex flex-wrap items-baseline gap-x-4 mb-2">
-                <code style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-xs)", color: "var(--primary-600)" }}>{label}</code>
-                <span className="type-label" style={{ color: "var(--text-dim)" }}>{spec}</span>
+            <DSSection id="colors">
+            <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
+              <h2 className="type-h3 mt-0 mb-4">Ink &amp; paper</h2>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
+                {INK_PAPER.map((s) => <Swatch key={s.varName} {...s} />)}
               </div>
-              <p className={`${cls} m-0`} style={{ overflowWrap: "anywhere" }}>{sample}</p>
+
+              <h2 className="type-h3 mt-10 mb-4">Accents</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+                {ACCENTS.map((s) => <Swatch key={s.varName} {...s} />)}
+              </div>
+
+              <motion.div
+                variants={fadeUp}
+                className="mt-6 p-4"
+                style={{ background: "var(--muted)", borderRadius: "var(--radius)", border: "1px solid var(--border)" }}
+              >
+                <p className="type-label m-0 mb-2" style={{ color: "var(--primary-600)" }}>Contrast rules (WCAG AA)</p>
+                <p className="type-body m-0" style={{ fontSize: "var(--fs-sm)" }}>
+                  <code style={{ fontFamily: "var(--font-mono)" }}>--primary / --secondary</code> → large text (≥24px), headings, UI shapes only.{" "}
+                  <code style={{ fontFamily: "var(--font-mono)" }}>--primary-600 / --secondary-600</code> → small text, links, body-size accents.{" "}
+                  <code style={{ fontFamily: "var(--font-mono)" }}>--blush / --highlight</code> → backgrounds and tints only, never text.
+                  Dark mode is warm charcoal, never blue-black.
+                </p>
+              </motion.div>
             </motion.div>
-          ))}
+          </DSSection>
 
-          <motion.div variants={fadeUp} className="py-5" style={{ borderBottom: "1px solid var(--border)" }}>
-            <div className="flex flex-wrap items-baseline gap-x-4 mb-2">
-              <code style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-xs)", color: "var(--primary-600)" }}>.type-body / .type-lead</code>
-              <span className="type-label" style={{ color: "var(--text-dim)" }}>DM Sans 400 · leading 1.7</span>
-            </div>
-            <p className="type-lead m-0 mb-2">Copy leads with proof, not adjectives.</p>
-            <p className="type-body m-0" style={{ color: "var(--text-dim)" }}>
-              Metrics are the vocabulary: N=30, SUS 85.2, 50 survey respondents. Sentence case
-              for body; tiny UPPERCASE tracked labels for kickers and metadata.
-            </p>
-          </motion.div>
+          <DSSection id="typography">
+            <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
+              <motion.p variants={fadeUp} className="type-body mt-0 mb-8" style={{ color: "var(--text-dim)" }}>
+                Bricolage Grotesque for display (variable opsz, 500–800), DM Sans 400 for body —
+                never 300 — and Caveat for handwritten asides. Components use the{" "}
+                <code style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-sm)" }}>.type-*</code>{" "}
+                role classes below, not raw sizes.
+              </motion.p>
 
-          <motion.div variants={fadeUp} className="py-5">
-            <div className="flex flex-wrap items-baseline gap-x-4 mb-2">
-              <code style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-xs)", color: "var(--primary-600)" }}>.doodle-text</code>
-              <span className="type-label" style={{ color: "var(--text-dim)" }}>Caveat · warm asides only</span>
-            </div>
-            <p className="doodle-text m-0" style={{ fontSize: "2rem" }}>
-              handwritten notes, captions &amp; &ldquo;Coming Soon&rdquo;
-            </p>
-          </motion.div>
-        </motion.div>
-      </DSSection>
+              {TYPE_SPECIMENS.map(({ cls, label, spec, sample }) => (
+                <motion.div key={cls} variants={fadeUp} className="py-5" style={{ borderBottom: "1px solid var(--border)" }}>
+                  <div className="flex flex-wrap items-baseline gap-x-4 mb-2">
+                    <code style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-xs)", color: "var(--primary-600)" }}>{label}</code>
+                    <span className="type-label" style={{ color: "var(--text-dim)" }}>{spec}</span>
+                  </div>
+                  <p className={`${cls} m-0`} style={{ overflowWrap: "anywhere" }}>{sample}</p>
+                </motion.div>
+              ))}
 
-      {/* ── 03 · Ink elements ── */}
-      <DSSection label="03 · Ink">
-        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
-          <motion.p variants={fadeUp} className="type-body mt-0 mb-6" style={{ color: "var(--text-dim)" }}>
-            The signature layer. The gold <code style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-sm)" }}>InkHighlight</code> appears{" "}
-            <strong>once per page</strong> — it&rsquo;s a signature, not wallpaper (this page&rsquo;s
-            single swipe lives in the intro above). The rose variant is the quieter alternative.
-            Scribble dividers draw themselves on scroll-in; doodles are pointer-events-none decoration.
-          </motion.p>
-
-          <motion.div variants={fadeUp} className="mb-6">
-            <p className="type-tagline m-0 mb-3" style={{ fontSize: "var(--fs-2xl)" }}>
-              <InkHighlight tone="rose">slightly feminine, always evidence-led</InkHighlight>
-            </p>
-            <p className="type-body m-0" style={{ fontSize: "var(--fs-sm)", color: "var(--text-dim)" }}>
-              Try selecting this line — ::selection is blush, like a highlighter.
-            </p>
-          </motion.div>
-
-          <motion.div variants={fadeUp}>
-            <p className="type-label m-0 mb-3" style={{ color: "var(--text-dim)" }}>ScribbleDivider — wobbly hairline + ink dots</p>
-            <ScribbleDivider />
-          </motion.div>
-        </motion.div>
-      </DSSection>
-
-      {/* ── 04 · Components ── */}
-      <DSSection label="04 · Components">
-        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
-          <motion.div variants={fadeUp} className="mb-10">
-            <h2 className="type-h3 mt-0 mb-1">Buttons</h2>
-            <p className="type-body mt-0 mb-5" style={{ fontSize: "var(--fs-sm)", color: "var(--text-dim)" }}>
-              The doodle button (Caveat label, coral oval sketches itself on hover) is for hero
-              CTAs; the .btn system is for denser UI.
-            </p>
-            <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
-              <Button href="#projects">See my work</Button>
-              <SolidButton variant="primary">Download CV</SolidButton>
-              <SolidButton variant="ghost">Say hello</SolidButton>
-            </div>
-          </motion.div>
-
-          <motion.div variants={fadeUp} className="mb-10">
-            <h2 className="type-h3 mt-0 mb-1">Badges &amp; tags</h2>
-            <p className="type-body mt-0 mb-5" style={{ fontSize: "var(--fs-sm)", color: "var(--text-dim)" }}>
-              Notebook-tag chips: ink outlines and soft washes, no heavy solid fills. Text is
-              always AA — ink or the -600 accent shades.
-            </p>
-            <div className="flex flex-wrap items-center gap-2 mb-4">
-              <Badge tone="accent">Eye-Tracking</Badge>
-              <Badge tone="rose">Contextual Inquiry</Badge>
-              <Badge tone="highlight">N=30</Badge>
-              <Badge tone="muted">Coming Soon</Badge>
-            </div>
-            <div className="flex flex-wrap items-center">
-              <TagChip name="usability-testing" count={4} />
-              <TagChip name="mixed-methods" count={3} />
-            </div>
-          </motion.div>
-
-          <motion.div variants={fadeUp}>
-            <h2 className="type-h3 mt-0 mb-1">Surfaces &amp; imagery</h2>
-            <p className="type-body mt-0 mb-5" style={{ fontSize: "var(--fs-sm)", color: "var(--text-dim)" }}>
-              Cards use 12px radius; paper sheets, photo frames and project rows stay
-              square-cornered. Shadows are warm brown-tinted, never gray. Photos sit in a
-              white 8px mat, grayscale by default, colorizing on hover.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div className="card">
-                <p className="type-label m-0 mb-2" style={{ color: "var(--primary-600)" }}>.card</p>
-                <p className="type-body m-0" style={{ fontSize: "var(--fs-sm)" }}>
-                  Surface + hairline border + shadow-sm. Radius 12px.
+              <motion.div variants={fadeUp} className="py-5" style={{ borderBottom: "1px solid var(--border)" }}>
+                <div className="flex flex-wrap items-baseline gap-x-4 mb-2">
+                  <code style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-xs)", color: "var(--primary-600)" }}>.type-body / .type-lead</code>
+                  <span className="type-label" style={{ color: "var(--text-dim)" }}>DM Sans 400 · leading 1.7</span>
+                </div>
+                <p className="type-lead m-0 mb-2">Copy leads with proof, not adjectives.</p>
+                <p className="type-body m-0" style={{ color: "var(--text-dim)" }}>
+                  Metrics are the vocabulary: N=30, SUS 85.2, 50 survey respondents. Sentence case
+                  for body; tiny UPPERCASE tracked labels for kickers and metadata.
                 </p>
-              </div>
-              <div className="paper-bg p-4">
-                <p className="type-label m-0 mb-2" style={{ color: "var(--primary-600)" }}>.paper-bg</p>
-                <p className="type-body m-0" style={{ fontSize: "var(--fs-sm)" }}>
-                  Layered warm sheet shadow, white top sheen. Square corners — like a real page.
+              </motion.div>
+
+              <motion.div variants={fadeUp} className="py-5">
+                <div className="flex flex-wrap items-baseline gap-x-4 mb-2">
+                  <code style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-xs)", color: "var(--primary-600)" }}>.doodle-text</code>
+                  <span className="type-label" style={{ color: "var(--text-dim)" }}>Caveat · warm asides only</span>
+                </div>
+                <p className="doodle-text m-0" style={{ fontSize: "2rem" }}>
+                  handwritten notes, captions &amp; &ldquo;Coming Soon&rdquo;
                 </p>
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
-      </DSSection>
+              </motion.div>
+            </motion.div>
+          </DSSection>
 
-      {/* ── 05 · Motion ── */}
-      <DSSection label="05 · Motion">
-        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
-          {MOTION_RULES.map((r) => <RuleRow key={r.name} {...r} />)}
-        </motion.div>
-      </DSSection>
+          <DSSection id="ink">
+            <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
+              <motion.p variants={fadeUp} className="type-body mt-0 mb-6" style={{ color: "var(--text-dim)" }}>
+                The signature layer. The gold <code style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-sm)" }}>InkHighlight</code> appears{" "}
+                <strong>once per page</strong> — it&rsquo;s a signature, not wallpaper (this page&rsquo;s
+                single swipe lives in the intro above). The rose variant is the quieter alternative.
+                Scribble dividers draw themselves on scroll-in; doodles are pointer-events-none decoration.
+              </motion.p>
 
-      {/* ── 06 · Iconography ── */}
-      <DSSection label="06 · Icons">
-        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
-          <motion.p variants={fadeUp} className="type-body mt-0 mb-4">
-            No icon fonts, no icon libraries. Three sources only:
-          </motion.p>
-          <motion.div variants={fadeUp}>
-            <RuleRow name="Doodles" value="assets/icons/*.svg via CSS mask" note="Hand-drawn ink marks, tinted with currentColor (CustomIcon)." />
-            <RuleRow name="Inline strokes" value="stroke-width: 2 · currentColor" note="Arrow, chevron, hamburger/close — tiny inline SVGs only." />
-            <RuleRow name="Unicode" value="↗ · ×" note="External links, separators, close. No emoji, ever." />
-          </motion.div>
-        </motion.div>
-      </DSSection>
+              <motion.div variants={fadeUp} className="mb-6">
+                <p className="type-tagline m-0 mb-3" style={{ fontSize: "var(--fs-2xl)" }}>
+                  <InkHighlight tone="rose">slightly feminine, always evidence-led</InkHighlight>
+                </p>
+                <p className="type-body m-0" style={{ fontSize: "var(--fs-sm)", color: "var(--text-dim)" }}>
+                  Try selecting this line — ::selection is blush, like a highlighter.
+                </p>
+              </motion.div>
+
+              <motion.div variants={fadeUp}>
+                <p className="type-label m-0 mb-3" style={{ color: "var(--text-dim)" }}>ScribbleDivider — wobbly hairline + ink dots</p>
+                <ScribbleDivider />
+              </motion.div>
+            </motion.div>
+          </DSSection>
+
+          <DSSection id="components">
+            <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
+              <motion.div variants={fadeUp} className="mb-10">
+                <h2 className="type-h3 mt-0 mb-1">Buttons</h2>
+                <p className="type-body mt-0 mb-5" style={{ fontSize: "var(--fs-sm)", color: "var(--text-dim)" }}>
+                  The doodle button (Caveat label, coral oval sketches itself on hover) is for hero
+                  CTAs; the .btn system is for denser UI.
+                </p>
+                <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
+                  <Button href="#projects">See my work</Button>
+                  <SolidButton variant="primary">Download CV</SolidButton>
+                  <SolidButton variant="ghost">Say hello</SolidButton>
+                </div>
+              </motion.div>
+
+              <motion.div variants={fadeUp} className="mb-10">
+                <h2 className="type-h3 mt-0 mb-1">Badges &amp; tags</h2>
+                <p className="type-body mt-0 mb-5" style={{ fontSize: "var(--fs-sm)", color: "var(--text-dim)" }}>
+                  Notebook-tag chips: ink outlines and soft washes, no heavy solid fills. Text is
+                  always AA — ink or the -600 accent shades.
+                </p>
+                <div className="flex flex-wrap items-center gap-2 mb-4">
+                  <Badge tone="accent">Eye-Tracking</Badge>
+                  <Badge tone="rose">Contextual Inquiry</Badge>
+                  <Badge tone="highlight">N=30</Badge>
+                  <Badge tone="muted">Coming Soon</Badge>
+                </div>
+                <div className="flex flex-wrap items-center">
+                  <TagChip name="usability-testing" count={4} />
+                  <TagChip name="mixed-methods" count={3} />
+                </div>
+              </motion.div>
+
+              <motion.div variants={fadeUp}>
+                <h2 className="type-h3 mt-0 mb-1">Surfaces &amp; imagery</h2>
+                <p className="type-body mt-0 mb-5" style={{ fontSize: "var(--fs-sm)", color: "var(--text-dim)" }}>
+                  Cards use 12px radius; paper sheets, photo frames and project rows stay
+                  square-cornered. Shadows are warm brown-tinted, never gray. Photos sit in a
+                  white 8px mat, grayscale by default, colorizing on hover.
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="card">
+                    <p className="type-label m-0 mb-2" style={{ color: "var(--primary-600)" }}>.card</p>
+                    <p className="type-body m-0" style={{ fontSize: "var(--fs-sm)" }}>
+                      Surface + hairline border + shadow-sm. Radius 12px.
+                    </p>
+                  </div>
+                  <div className="paper-bg p-4">
+                    <p className="type-label m-0 mb-2" style={{ color: "var(--primary-600)" }}>.paper-bg</p>
+                    <p className="type-body m-0" style={{ fontSize: "var(--fs-sm)" }}>
+                      Layered warm sheet shadow, white top sheen. Square corners — like a real page.
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          </DSSection>
+
+          <DSSection id="motion">
+            <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
+              {MOTION_RULES.map((r) => <RuleRow key={r.name} {...r} />)}
+            </motion.div>
+          </DSSection>
+
+            <DSSection id="icons">
+              <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
+                <motion.p variants={fadeUp} className="type-body mt-0 mb-4">
+                  No icon fonts, no icon libraries. Three sources only:
+                </motion.p>
+                <motion.div variants={fadeUp}>
+                  <RuleRow name="Doodles" value="assets/icons/*.svg via CSS mask" note="Hand-drawn ink marks, tinted with currentColor (CustomIcon)." />
+                  <RuleRow name="Inline strokes" value="stroke-width: 2 · currentColor" note="Arrow, chevron, hamburger/close — tiny inline SVGs only." />
+                  <RuleRow name="Unicode" value="↗ · ×" note="External links, separators, close. No emoji, ever." />
+                </motion.div>
+              </motion.div>
+            </DSSection>
+          </div>
+        </div>
+      </div>
     </main>
   );
 }
