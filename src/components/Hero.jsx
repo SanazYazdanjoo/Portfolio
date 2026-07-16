@@ -16,6 +16,7 @@
 import React from "react";
 import { useTranslation } from "../context/LanguageContext";
 import { motion, useReducedMotion } from "framer-motion";
+import { SolidButton } from "./Button";
 
 export function Hero({ data }) {
   const prefersReducedMotion = useReducedMotion();
@@ -106,6 +107,15 @@ export function Hero({ data }) {
       >
         <span className="ink-highlight">{data.tagline || "I speak both ‘user’ and ‘developer’."}</span>
       </motion.p>
+
+      <motion.div {...fadeUp(0.4)} className="mt-8 md:mt-10">
+        <SolidButton
+          to="/about"
+          className="text-sm md:text-base uppercase tracking-[0.18em]"
+        >
+          {t("nav.about")}
+        </SolidButton>
+      </motion.div>
 
       {/* ── Meta strip: the 5-second recruiter read ── */}
       <motion.div
