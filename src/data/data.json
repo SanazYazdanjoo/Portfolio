@@ -411,8 +411,8 @@
       ],
       "Analysis & Tools": [
         "R",
-        "Python (pandas)",
-        "Pupil Labs analysis tools",
+        "Python",
+        "Pupil Labs Eyetracker",
         "Google Analytics",
         "Hotjar",
         "Jira", 
