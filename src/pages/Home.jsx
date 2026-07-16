@@ -24,6 +24,7 @@ import { ComingSoonRow } from "../components/ComingSoonRow";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { motion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
+import CareerArc  from "../components/CareerArc";
 
 // ─── Section label — one style, used everywhere ───────────────────────────────
 function SectionLabel({ children }) {
@@ -96,7 +97,7 @@ export default function Home() {
   <div className="mt-12 pt-10 border-t border-border/60">
     <CareerArc variant="compact" />
   </div>
-  
+
         <AboutBio data={profileData} />
       </HomeSection>
 
