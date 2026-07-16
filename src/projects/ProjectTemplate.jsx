@@ -362,76 +362,73 @@ export default function ProjectTemplate({ meta, children }) {
 
   return (
     <main className="min-h-screen bg-bg pt-32 pb-16">
-      <div className="container max-w-6xl mx-auto px-4 md:px-8">
+      <div className="w-full px-4 md:px-8">
 
-        {/* ── Header ── */}
-        <motion.header
-          className="mb-12 max-w-4xl"
-          initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          {/* Tags — quiet eyebrow, not chips */}
-          {tags.length > 0 && (
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary-600 mb-4">
-              {tags.slice(0, 4).join("  ·  ")}
-            </p>
-          )}
-
-          <h1 className="font-display text-4xl md:text-6xl font-extrabold text-text
-                         tracking-tighter leading-tight mb-5">
-            {meta.title}
-          </h1>
-
-          {meta.tagline && (
-            <p className="text-lg md:text-xl text-text/60 font-medium leading-relaxed mb-8 max-w-3xl">
-              {meta.tagline}
-            </p>
-          )}
-
-          {/* ONE meta block — Role · Timeline · Methods, all quiet ink */}
-          <div className="border-t border-b border-border py-5 space-y-5">
-            <div className="flex flex-wrap gap-x-14 gap-y-4">
-              {meta.role && (
-                <MetaField label="Role">
-                  <span className="text-sm font-semibold text-text">{meta.role}</span>
-                </MetaField>
-              )}
-              {meta.timeline && (
-                <MetaField label="Timeline">
-                  <span className="font-mono text-xs text-text/70">{meta.timeline}</span>
-                </MetaField>
-              )}
-            </div>
-
-            {methods.length > 0 && (
-              <MetaField label="Research Methods">
-                <p className="text-sm tracking-wide leading-relaxed">
-                  {methods.map((m, i, arr) => (
-                    <span key={m}>
-                      <span className="font-medium text-text/60">{m}</span>
-                      {i < arr.length - 1 && <span className="mx-2 text-text/25">·</span>}
-                    </span>
-                  ))}
-                </p>
-              </MetaField>
-            )}
-          </div>
-        </motion.header>
-
-        {/* ── Mobile pill bar ── */}
-        <MobilePillBar sections={activeSections} activeId={activeId} />
-
-        {/* ── Body: sidebar + content ── */}
-        <div className="flex gap-12 md:gap-16 lg:gap-20 mt-8">
-
-          <aside className="hidden md:block w-[180px] lg:w-[200px] shrink-0 no-print">
-            <div className="sticky top-36">
-              <SidebarNav sections={activeSections} activeId={activeId} />
-            </div>
+        <div className="flex gap-12 md:gap-16 lg:gap-20 items-start">
+          <aside className="hidden md:block w-[180px] lg:w-[220px] shrink-0 no-print sticky top-36 self-start">
+            <SidebarNav sections={activeSections} activeId={activeId} />
           </aside>
 
-          <article className="flex-1 min-w-0">
+          <div className="flex-1 min-w-0">
+            {/* ── Header ── */}
+            <motion.header
+              className="mb-12"
+              initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              {/* Tags — quiet eyebrow, not chips */}
+              {tags.length > 0 && (
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary-600 mb-4">
+                  {tags.slice(0, 4).join("  ·  ")}
+                </p>
+              )}
+
+              <h1 className="font-display text-4xl md:text-6xl font-extrabold text-text
+                             tracking-tighter leading-tight mb-5">
+                {meta.title}
+              </h1>
+
+              {meta.tagline && (
+                <p className="text-lg md:text-xl text-text/60 font-medium leading-relaxed mb-8 max-w-3xl">
+                  {meta.tagline}
+                </p>
+              )}
+
+              {/* ONE meta block — Role · Timeline · Methods, all quiet ink */}
+              <div className="border-t border-b border-border py-5 space-y-5">
+                <div className="flex flex-wrap gap-x-14 gap-y-4">
+                  {meta.role && (
+                    <MetaField label="Role">
+                      <span className="text-sm font-semibold text-text">{meta.role}</span>
+                    </MetaField>
+                  )}
+                  {meta.timeline && (
+                    <MetaField label="Timeline">
+                      <span className="font-mono text-xs text-text/70">{meta.timeline}</span>
+                    </MetaField>
+                  )}
+                </div>
+
+                {methods.length > 0 && (
+                  <MetaField label="Research Methods">
+                    <p className="text-sm tracking-wide leading-relaxed">
+                      {methods.map((m, i, arr) => (
+                        <span key={m}>
+                          <span className="font-medium text-text/60">{m}</span>
+                          {i < arr.length - 1 && <span className="mx-2 text-text/25">·</span>}
+                        </span>
+                      ))}
+                    </p>
+                  </MetaField>
+                )}
+              </div>
+            </motion.header>
+
+            {/* ── Mobile pill bar ── */}
+            <MobilePillBar sections={activeSections} activeId={activeId} />
+
+            <article className="min-w-0">
 
             {/* Process gallery — replaces hero image when present */}
             {meta.process && meta.process.length > 0 ? (
@@ -537,7 +534,8 @@ export default function ProjectTemplate({ meta, children }) {
               </Link>
             </div>
 
-          </article>
+            </article>
+          </div>
         </div>
       </div>
     </main>
