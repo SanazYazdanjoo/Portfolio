@@ -112,15 +112,6 @@ export function Hero({ data }) {
           {t("nav.about")}
         </SolidButton>
       </motion.div>
-
-      {/* ── Meta strip: the 5-second recruiter read ── */}
-      <motion.div
-        {...fadeUp(0.44)}
-        className="grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-8
-                   border-t border-border mt-10 md:mt-14 pt-6"
-      >
-          <CareerArc variant="compact" />
-      </motion.div>
     </div>
   );
 }

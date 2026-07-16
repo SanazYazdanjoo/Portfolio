@@ -91,6 +91,12 @@ export default function Home() {
 
       {/* ── About ── */}
       <HomeSection id="AboutMe-Section" label={t("about.heading")}>
+
+  {/* The Bridge — visual proof of the bio's "five years in..." sentence */}
+  <div className="mt-12 pt-10 border-t border-border/60">
+    <CareerArc variant="compact" />
+  </div>
+  
         <AboutBio data={profileData} />
       </HomeSection>
 
