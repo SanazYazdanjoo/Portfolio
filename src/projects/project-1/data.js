@@ -22,6 +22,9 @@ import ninjaDemo from './media/ninja-demo.mp4';
 // import chartSus from './media/chart-sus.jpg';
 // import chartPreference from './media/chart-preference.jpg';
 // import chartThemes from './media/chart-themes-1.jpg';
+import SUS from './media/sus.png';
+import experimentalDesign from './media/experimental_design.png';
+import threeInputMethods from './media/three_input_methods.png';
 import conclusion from './media/conclusion.png';
 
 
@@ -73,6 +76,34 @@ export const projectData = {
         poster: thumbnailImg,
         alt: "Ninja cursors demo in a dual-display experiment",
         caption: "Ninja Cursors demo",
+      },
+      {
+        type: "image",
+        src: threeInputMethods,
+        alt: "Three input methods compared in the study",
+        caption: "Three input methods in the evaluation",
+        span: 2,
+        className: "w-full h-auto block",
+      },
+    ],
+    methodology: [
+      {
+        type: "image",
+        src: experimentalDesign,
+        alt: "Experimental design overview for the study",
+        caption: "Experimental design overview",
+        span: 2,
+        className: "w-full h-auto block",
+      },
+    ],
+    results: [
+      {
+        type: "image",
+        src: SUS,
+        alt: "SUS score comparison for mouse, Ninja Cursors, and MAGIC Pointing",
+        caption: "SUS results across input methods",
+        span: 2,
+        className: "w-full h-auto block",
       },
     ],
   },
