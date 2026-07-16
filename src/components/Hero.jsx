@@ -17,7 +17,6 @@ import React from "react";
 import { useTranslation } from "../context/LanguageContext";
 import { motion, useReducedMotion } from "framer-motion";
 import { SolidButton } from "./Button";
-import CareerArc from "./CareerArc";
 
 export function Hero({ data }) {
   const prefersReducedMotion = useReducedMotion();
