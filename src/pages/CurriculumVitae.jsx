@@ -8,9 +8,7 @@ export default function CV() {
   const profileData = useLocalizedProfile(rawProfile);
   const { t } = useTranslation();
   const {
-    name,
     role,
-    contact,
     profileSummary,
     bio,
     experience,
@@ -19,7 +17,6 @@ export default function CV() {
     languages,
     certifications,
     volunteerWork,
-    photo,
   } = profileData;
 
   const cvSections = useMemo(
@@ -64,10 +61,6 @@ export default function CV() {
     return () => observers.forEach((observer) => observer.disconnect());
   }, [cvSections]);
 
-  const nameParts = name.split(" ");
-  const firstName = nameParts[0];
-  const lastName = nameParts.slice(1).join(" ");
-
   return (
     <div className="bg-white min-h-screen w-full print:min-h-0">
       <div className="flex gap-10 lg:gap-14 items-start print:block">
@@ -86,46 +79,9 @@ export default function CV() {
           "
         >
           <div className="max-w-5xl">
-            <div className="cv-header flex flex-col md:flex-row md:items-end justify-between gap-8 pb-6 mb-8 border-b-[3px] border-primary">
-              <div className="flex items-center gap-6 md:gap-8">
-            {photo && (
-              <img
-                src={photo}
-                alt={name}
-                className="
-                  w-24 h-24 md:w-32 md:h-32 rounded-full object-cover shrink-0
-                  border-2 border-gray-200
-                  print:w-24 print:h-24
-                "
-              />
-            )}
-
-            <div>
-              <h1 className="font-black text-primary uppercase leading-tight tracking-normal">
-                <span className="block text-4xl md:text-5xl print:text-4xl">{firstName}</span>
-                <span className="block text-4xl md:text-5xl print:text-4xl">{lastName}</span>
-              </h1>
-              <p className="text-sm md:text-base font-bold text-gray-500 mt-2 tracking-[0.15em] uppercase">
-                {role}
-              </p>
-            </div>
-          </div>
-
-          <div className="text-left md:text-right text-sm md:text-base leading-relaxed text-gray-600 shrink-0 mt-2 md:mt-0 md:pl-8">
-            {contact.location && <p>{contact.location}</p>}
-            <p>{contact.phone}</p>
-            <p>{contact.email}</p>
-            {contact.linkedinHandle && (
-              <p className="text-primary font-medium">{contact.linkedinHandle}</p>
-            )}
-            {contact.githubHandle && (
-              <p className="text-primary font-medium">{contact.githubHandle}</p>
-            )}
-            {contact.website && (
-              <p className="text-primary font-medium">{contact.website}</p>
-            )}
-          </div>
-        </div>
+            <h1 className="font-black text-primary uppercase leading-tight tracking-normal text-4xl md:text-5xl print:text-4xl mb-10 print:mb-8">
+              {role}
+            </h1>
 
           <div className="md:hidden sticky top-[72px] z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 -mx-6 px-6 py-3 no-print">
             <div className="flex gap-2 overflow-x-auto pb-1">
@@ -153,9 +109,9 @@ export default function CV() {
           <div className="space-y-12 print:space-y-8 mt-6 md:mt-0">
             <section id="about" className="scroll-mt-32">
               <SectionHeading>{t("nav.about")}</SectionHeading>
-              <div className="border-l-2 border-primary/30 bg-primary/[0.03] pl-4 md:pl-5 print:border-l print:pl-3 py-4 md:py-5 pr-4 md:pr-6 rounded-r-sm">
+              <div className="w-full">
                 {(bio || profileSummary) && (
-                  <p className="text-base md:text-lg leading-relaxed text-gray-700 print:text-sm max-w-4xl font-medium">
+                  <p className="text-base md:text-lg leading-relaxed text-gray-700 print:text-sm font-medium w-full">
                     {bio || profileSummary}
                   </p>
                 )}
@@ -164,9 +120,12 @@ export default function CV() {
 
             <section id="experience" className="scroll-mt-32">
               <SectionHeading>{t("cv.experience")}</SectionHeading>
-              <div className="space-y-8 print:space-y-6">
+              <div className="space-y-5 print:space-y-4">
                 {experience.map((job, i) => (
-                  <article key={i} className="break-inside-avoid">
+                  <article
+                    key={i}
+                    className={`break-inside-avoid ${i > 0 ? "border-t border-gray-100 pt-5" : ""}`}
+                  >
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1">
                       <h3 className="font-black text-xl text-black uppercase tracking-wide print:text-lg">
                         {job.company}
