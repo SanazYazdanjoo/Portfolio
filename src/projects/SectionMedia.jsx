@@ -36,14 +36,14 @@ export default function SectionMedia({ items }) {
                 playsInline
                 preload="metadata"
                 aria-label={f.alt}
-                className="w-full h-auto block print:hidden"
+                className={`w-full h-auto block print:hidden ${f.className || ""}`}
               />
             ) : (
               <img
                 src={f.type === "video" ? f.poster : f.src}
                 alt={f.alt}
                 loading="lazy"
-                className="w-full h-auto block"
+                className={`w-full h-auto block ${f.className || ""}`}
               />
             )}
             {/* Print fallback for videos: show the poster frame instead */}
