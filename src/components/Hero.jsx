@@ -17,6 +17,7 @@ import React from "react";
 import { useTranslation } from "../context/LanguageContext";
 import { motion, useReducedMotion } from "framer-motion";
 import { SolidButton } from "./Button";
+import CareerArc from "./CareerArc";
 
 export function Hero({ data }) {
   const prefersReducedMotion = useReducedMotion();
@@ -123,11 +124,7 @@ export function Hero({ data }) {
         className="grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-8
                    border-t border-border mt-10 md:mt-14 pt-6"
       >
-        <MetaItem label={t("hero.meta.location")} value={meta.location} />
-        <MetaItem label={t("hero.meta.background")} value={meta.background} />
-        <MetaItem label={t("hero.meta.focus")} value={meta.focus} />
-        <MetaItem label={t("hero.meta.status")} value={meta.status} align="md:text-right" />
-        
+          <CareerArc variant="compact" />
       </motion.div>
     </div>
   );

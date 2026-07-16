@@ -24,6 +24,7 @@ import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { voluntaryItems as rawVoluntary } from "../data/voluntary";
 import { useTranslation } from "../context/LanguageContext";
 import { resolveSkillColumns } from "../components/AboutMe";
+import CareerArc from "../components/CareerArc";
 
 // ─── Animation variants ───────────────────────────────────────────────────────
 const fadeUp = {
@@ -74,32 +75,7 @@ export default function About() {
   const voluntaryItems = useLocalizedProfile(rawVoluntary);
   const { t } = useTranslation();
 
-  const careerArc = [
-    {
-      phase: "01",
-      label: t("about.career.phase1.label"),
-      years: t("about.career.phase1.years"),
-      summary: t("about.career.phase1.summary"),
-      tags: ["Frontend Dev", "WordPress", "HTML/CSS/JS"],
-    },
-    {
-      phase: "02",
-      label: t("about.career.phase2.label"),
-      years: t("about.career.phase2.years"),
-      summary: t("about.career.phase2.summary"),
-      tags: ["Usability Testing", "Bug Tracking", "Agile"],
-    },
-    {
-      phase: "03",
-      label: t("about.career.phase3.label"),
-      years: t("about.career.phase3.years"),
-      summary: t("about.career.phase3.summary"),
-      // UX Engineer Tweak: Replaced "Prototyping/Contextual Inquiry" with technical skills 
-      // to show that Phase 3 is where Research and Engineering finally merged.
-      tags: ["HCI Research", "Mixed Methods", "TypeScript"], 
-      highlight: true,
-    },
-  ];
+  <CareerArc variant="full" />
 
   const processSteps = [
     { number: "01", title: t("about.process.discover.title"), desc: t("about.process.discover.desc") },
