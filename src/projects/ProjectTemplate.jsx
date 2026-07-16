@@ -51,6 +51,7 @@ const SECTIONS = [
   { id: "methodology",  label: "Methodology",  dataKey: "methodology"  },
   { id: "results",      label: "Results",      dataKey: "results"      },
   { id: "implications", label: "Implications", dataKey: "implications" },
+  { id: "conclusion",   label: "Conclusion",   dataKey: "conclusion"   },
 ];
 
 // ─── Section head — THE one heading pattern, used by every section ──────────
@@ -507,6 +508,13 @@ export default function ProjectTemplate({ meta, children }) {
                 <p className="text-base md:text-lg text-text/80 leading-relaxed max-w-prose">
                   {meta.implications}
                 </p>
+              </ContentSection>
+            )}
+
+            {meta.conclusion && (
+              <ContentSection id="conclusion" number={sectionNumber("conclusion")}
+                kicker="Closing Reflection" heading="Conclusion">
+                <SectionMedia items={meta.conclusion} />
               </ContentSection>
             )}
 
