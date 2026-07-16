@@ -29,7 +29,7 @@ const FALLBACK_STATS = [
 export const SKILL_COLUMNS = [
   {
     labelKey: "about.skillsTechnical",     // e.g., "Engineering & Design"
-    categories: ["Frontend Engineering", "QA & Testing"],
+    categories: ["Frontend Engineering", "AI-Assisted Development", "QA & Testing"],
   },
   {
     labelKey: "about.skillsResearch",      // e.g., "Research"

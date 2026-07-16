@@ -164,7 +164,7 @@
         ],
         "tasks": [
           {
-            "en": "Co-led end-to-end user research for a hybrid-workplace SaaS product — survey (n=50), semi-structured interviews (n=4), contextual inquiries (n=6), and stakeholder interviews aligning research objectives with product strategy.",
+            "en": "Co-led end-to-end user research for a hybrid-workplace SaaS product — survey (n=57), semi-structured interviews (n=4), contextual inquiries (n=6), and stakeholder interviews aligning research objectives with product strategy.",
             "de": "Mitverantwortliche Leitung der End-to-End-Nutzerforschung für ein SaaS-Produkt im Bereich Hybrid Work (Umfragen, Contextual Inquiries, Stakeholder-Interviews)."
           },
           {
@@ -186,7 +186,7 @@
         ],
         "tasks": [
           {
-            "en": "Built responsive front-end components (HTML/CSS) and maintained dynamic content across the university's TYPO3 sites, keeping pages consistent with corporate branding and accessibility standards.",
+            "en": "Built responsive Frontend components (HTML/CSS) and maintained dynamic content across the university's TYPO3 sites, keeping pages consistent with corporate branding and accessibility standards.",
             "de": "Entwicklung responsiver Frontend-Komponenten (HTML/CSS) und Pflege dynamischer Inhalte auf den TYPO3-Seiten der Universität. Strikte Einhaltung von Corporate Design-Vorgaben sowie Validierung nach modernen Barrierefreiheitsstandards."
           }
         ]
@@ -318,8 +318,8 @@
           }
         ],
         "summary": {
-          "en": "Co-led end-to-end UX research for a hybrid workplace SaaS product: stakeholder interviews, surveys (n=50), contextual inquiries (n=6), and usability testing. Delivered high-fidelity prototypes and strategic design recommendations to the frontend product team.",
-          "de": "Co-Leitung des End-to-End-UX-Research für ein Hybrid-Workplace-SaaS-Produkt: Stakeholder-Interviews, Umfragen (n=50), kontextuelle Befragungen (n=6) und Usability-Tests. Übergabe von High-Fidelity-Prototypen und strategischen Designempfehlungen an das Frontend-Produktteam."
+          "en": "Co-led end-to-end UX research for a hybrid workplace SaaS product: stakeholder interviews, surveys (n=57), contextual inquiries (n=6), and usability testing. Delivered high-fidelity prototypes and strategic design recommendations to the frontend product team.",
+          "de": "Co-Leitung des End-to-End-UX-Research für ein Hybrid-Workplace-SaaS-Produkt: Stakeholder-Interviews, Umfragen (n=57), kontextuelle Befragungen (n=6) und Usability-Tests. Übergabe von High-Fidelity-Prototypen und strategischen Designempfehlungen an das Frontend-Produktteam."
         }
       },
       {
@@ -382,9 +382,14 @@
         "Web Accessibility",
         "Git & GitHub",
         "Vercel",
-        "RESTful APIs",
-        "Agentic Coding"
+        "RESTful APIs"
       ],
+      "AI-Assisted Development": [
+    "Claude Code & GitHub Copilot (daily use)",
+    "Precise Prompting",
+    "Critical Review of AI-Generated Code",
+    "LLM Risk Awareness (Hallucinations)"
+  ],
       "UX Research & Design": [
         "Mixed-Methods Research",
         "Usability Testing",
@@ -396,8 +401,8 @@
         "Adobe XD"
       ],
       "QA & Testing": [
-        "Unit & Integration Testing (Vitest, Jest)",
-        "End-to-End Testing (Selenium)",
+        "Unit & Integration Testing (Vitest)",
+        "End-to-End Testing",
         "Postman",
         "Heuristic Evaluation",
         "Acceptance Testing",
@@ -410,7 +415,8 @@
         "Pupil Labs analysis tools",
         "Google Analytics",
         "Hotjar",
-        "Jira"
+        "Jira", 
+        "TestLink"
       ]
     },
     "languages": [
@@ -434,7 +440,7 @@
         "year": "2019"
       },
       {
-        "title": "Front-End Development Internship",
+        "title": "Frontend Development Internship",
         "provider": "Part Software Group",
         "year": "2021"
       }

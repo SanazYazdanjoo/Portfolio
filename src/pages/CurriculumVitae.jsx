@@ -163,6 +163,9 @@ export default function CV() {
                     <p className="text-base text-gray-600 print:text-sm mb-1">
                       {edu.school}
                     </p>
+                    {edu.grade && (
+  <p className="text-sm text-gray-600 print:text-xs">{edu.grade}</p>
+)}
                     {edu.awards?.map((a, ai) => (
                       <p key={ai} className="text-primary font-semibold text-sm mt-1 print:text-xs">
                         ★ {a}
