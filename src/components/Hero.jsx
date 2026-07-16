@@ -87,9 +87,9 @@ export function Hero({ data }) {
           {/* Evidence line — numbers do the selling */}
           <motion.p
             {...fadeUp(0.26)}
-            className="text-sm text-text-dim leading-relaxed max-w-[42ch] m-0"
+            className="text-sm text-text-dim leading-relaxed m-0"
           >
-            M.Sc. Human–Computer Interaction · 5 years across UI development, UX research & QA.
+            M.Sc. Human–Computer Interaction, 5+ years across UI development, UX research & QA.
           </motion.p>
 
           {/* CTA pair: loud → projects, quiet → about */}
@@ -100,14 +100,6 @@ export function Hero({ data }) {
             <SolidButton to="/projects">
               See my projects
             </SolidButton>
-            <a
-              href="/about"
-              className="text-sm font-semibold text-text no-underline
-                         border-b border-border pb-[3px]
-                         transition-colors hover:text-primary"
-            >
-              More about me →
-            </a>
           </motion.div>
         </div>
 
