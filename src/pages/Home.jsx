@@ -24,7 +24,7 @@ import { ComingSoonRow } from "../components/ComingSoonRow";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { motion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
-import CareerArc  from "../components/CareerArc";
+import CareerArc from "../components/CareerArc";
 
 // ─── Section label — one style, used everywhere ───────────────────────────────
 function SectionLabel({ children }) {
@@ -92,14 +92,13 @@ export default function Home() {
 
       {/* ── About ── */}
       <HomeSection id="AboutMe-Section" label={t("about.heading")}>
+       <AboutBio data={profileData} />
 
-  {/* The Bridge — visual proof of the bio's "five years in..." sentence */}
-  <div className="mt-12 pt-10 border-t border-border/60">
-    <CareerArc variant="compact" />
-  </div>
-
-        <AboutBio data={profileData} />
-      </HomeSection>
+       {/* The Bridge — visual proof of the bio's "five years in..." sentence */}
+       <div className="mt-14">
+       <CareerArc variant="compact" />
+        </div>
+        </HomeSection>
 
       {/* ── What I Bring ── */}
       <HomeSection id="WhatIBring-Section" label={t("about.whatIBring")}>

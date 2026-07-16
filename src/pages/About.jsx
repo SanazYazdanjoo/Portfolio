@@ -75,8 +75,6 @@ export default function About() {
   const voluntaryItems = useLocalizedProfile(rawVoluntary);
   const { t } = useTranslation();
 
-  <CareerArc variant="full" />
-
   const processSteps = [
     { number: "01", title: t("about.process.discover.title"), desc: t("about.process.discover.desc") },
     { number: "02", title: t("about.process.define.title"),   desc: t("about.process.define.desc") },
@@ -173,7 +171,7 @@ export default function About() {
             title={t("about.theBridge")}
             sub={t("about.theBridgeDesc")}
           />
-<CareerArc variant="full" />
+          <CareerArc variant="full" />
      
         </div>
       </section>
