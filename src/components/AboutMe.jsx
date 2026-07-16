@@ -57,34 +57,30 @@ export function resolveSkillColumns(skills = {}) {
   });
 }
 
-// ─── Bio (cols 1–6) + Impact stats (cols 7–9) ────────────────────────────────
+// ─── Bio — one calm reading column, full measure now that stats are gone ────
 export function AboutBio({ data }) {
   const bioParagraphs = data.bioParagraphs || [];
 
   return (
     <motion.div
-      className="grid grid-cols-1 md:grid-cols-9 gap-x-10 gap-y-10"
+      className="max-w-[72ch] space-y-6"
       initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.5 }}
     >
-      {/* Bio — one calm reading column */}
-      <div className="md:col-span-6 max-w-[62ch] space-y-6">
-        {bioParagraphs.map((para, i) => (
-          <p
-            key={i}
-            className={
-              i === 0
-                ? "text-[15px] md:text-base leading-[1.85] text-text"
-                : "text-[13.5px] leading-[1.9] text-text/75"
-            }
-          >
-            {para}
-          </p>
-        ))}
-      </div>
-      
+      {bioParagraphs.map((para, i) => (
+        <p
+          key={i}
+          className={
+            i === 0
+              ? "text-[15px] md:text-base leading-[1.85] text-text"
+              : "text-sm leading-[1.9] text-text/75"
+          }
+        >
+          {para}
+        </p>
+      ))}
     </motion.div>
   );
 }
