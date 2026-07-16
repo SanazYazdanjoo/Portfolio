@@ -63,7 +63,7 @@ export function AboutBio({ data }) {
 
   return (
     <motion.div
-      className="max-w-[72ch] space-y-6"
+      className="space-y-6"
       initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
