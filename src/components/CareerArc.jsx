@@ -175,7 +175,7 @@ function CareerArcCompact({ steps }) {
         <React.Fragment key={step.phase}>
           <motion.li
             {...fade(0.05 * i)}
-            className="flex items-baseline gap-3 md:block md:text-center group"
+            className="flex items-baseline gap-3 md:block md:text-left group"
           >
             <span
               className={`font-display font-extrabold text-2xl md:text-3xl leading-none select-none
