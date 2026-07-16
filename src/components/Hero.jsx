@@ -90,8 +90,7 @@ export function Hero({ data }) {
             {...fadeUp(0.26)}
             className="text-sm text-text-dim leading-relaxed max-w-[42ch] m-0"
           >
-            {t("hero.proof") ||
-              "M.Sc. Human–Computer Interaction · 5 years across frontend, research & QA · 20+ products built."}
+            M.Sc. Human–Computer Interaction · 5 years across UI development, UX research & QA.
           </motion.p>
 
           {/* CTA pair: loud → projects, quiet → about */}
@@ -100,7 +99,7 @@ export function Hero({ data }) {
             className="flex items-center flex-wrap gap-x-10 gap-y-4 mt-1"
           >
             <SolidButton to="/projects">
-              {t("hero.ctaProjects") || "See my projects"}
+              See my projects
             </SolidButton>
             <a
               href="/about"
@@ -108,7 +107,7 @@ export function Hero({ data }) {
                          border-b border-border pb-[3px]
                          transition-colors hover:text-primary"
             >
-              {t("hero.ctaAbout") || "More about me"} →
+              More about me →
             </a>
           </motion.div>
         </div>
