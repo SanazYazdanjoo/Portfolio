@@ -34,7 +34,7 @@ const en = {
   "about.heading": "About Me",
   "about.whatIBring": "What I Bring",
   // Adjusted to match the new UX Engineer constants in AboutMe.jsx
-  "about.skillsTechnical": "Frontend Engineering & QA",
+  "about.skillsTechnical": "Frontend Engineering, AI-Assisted Development & QA",
   "about.skillsResearch": "UX Research & Design",
   "about.skillsAnalysis": "Analysis & Tools",
   
