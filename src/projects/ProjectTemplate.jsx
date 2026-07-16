@@ -451,6 +451,7 @@ export default function ProjectTemplate({ meta, children }) {
                 <p className="text-base md:text-lg text-text/80 leading-relaxed max-w-prose">
                   {meta.challenge}
                 </p>
+                <SectionMedia items={meta.figures?.challenge} />
               </ContentSection>
             )}
 
