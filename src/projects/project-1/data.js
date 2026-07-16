@@ -141,7 +141,8 @@ export const projectData = {
         poster: thumbnailImg,
         alt: "conclusion",
         caption: "conclusion",
-        className="w-full h-auto block"
+        span: 2,
+        className: "w-full h-auto block"
       }
   ],
   
