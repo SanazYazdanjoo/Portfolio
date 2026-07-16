@@ -1,27 +1,10 @@
 // src/projects/project-1/data.js
-// ─── UX Engineer Edition: Balances rigorous HCI research with technical execution ───
+
 import thumbnailImg from './project1.png';
-
-
-// ── Demos (MP4 = the GIFs from the defence deck, 94% smaller) ──────────────
+import challenge from './media/challenge.png';
 import magicDemo from './media/magic-demo.mp4';
-// import magicPoster from './media/magic-demo-poster.jpg';
 import ninjaDemo from './media/ninja-demo.mp4';
-// import ninjaPoster from './media/ninja-demo-poster.jpg';
  
-// ── Concept & method figures ────────────────────────────────────────────────
-// import figMagicConcept from './media/fig-magic-concept.jpg';
-// import figNinjaConcept from './media/fig-ninja-concept.jpg';
-// import figTaskLayout from './media/fig-task-layout.png';
-// import figApparatus from './media/fig-apparatus.jpg';
-// import figPrestudy from './media/fig-prestudy-workspaces.png';
- 
-// ── Results charts ──────────────────────────────────────────────────────────
-// import chartMovementTime from './media/chart-movement-time.png';
-// import chartRepeatRate from './media/chart-repeat-rate.jpg';
-// import chartSus from './media/chart-sus.jpg';
-// import chartPreference from './media/chart-preference.jpg';
-// import chartThemes from './media/chart-themes-1.jpg';
 import SUS from './media/sus.png';
 import experimentalDesign from './media/experimental_design.png';
 import threeInputMethods from './media/three_input_methods.png';
@@ -62,7 +45,25 @@ export const projectData = {
   techStack: ["TypeScript", "Pupil Labs Neon", "Real-Time API", "AprilTag Marker Mapping", "Python", "React"],
 
   figures: {
+    challenge: [
+      {
+        type: "image",
+        src: challenge,
+        alt: "challenge",
+        caption: "challenge",
+        span: 2,
+        className: "w-full h-auto block",
+      },
+    ],
     solution: [
+      {
+        type: "image",
+        src: threeInputMethods,
+        alt: "Three input methods compared in the study",
+        caption: "Three input methods in the evaluation",
+        span: 2,
+        className: "w-full h-auto block",
+      },
       {
         type: "video",
         src: magicDemo,
@@ -76,15 +77,7 @@ export const projectData = {
         poster: thumbnailImg,
         alt: "Ninja cursors demo in a dual-display experiment",
         caption: "Ninja Cursors demo",
-      },
-      {
-        type: "image",
-        src: threeInputMethods,
-        alt: "Three input methods compared in the study",
-        caption: "Three input methods in the evaluation",
-        span: 2,
-        className: "w-full h-auto block",
-      },
+      }
     ],
     methodology: [
       {
