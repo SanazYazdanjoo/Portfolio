@@ -24,7 +24,7 @@ import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { voluntaryItems as rawVoluntary } from "../data/voluntary";
 import { useTranslation } from "../context/LanguageContext";
 import { resolveSkillColumns } from "../components/AboutMe";
-import CareerArc from "../components/CareerArc";
+import {CareerArc} from "../components/CareerArc";
 
 // ─── Animation variants ───────────────────────────────────────────────────────
 const fadeUp = {
