@@ -80,13 +80,14 @@ export default function CV() {
         <div
           id="curriculum-vitae"
           className="
-            w-full max-w-4xl bg-white text-black
+            w-full bg-white text-black
             px-6 py-12 md:px-16 lg:px-24 xl:px-32
             print:max-w-none print:px-8 print:py-8 print:m-0
           "
         >
-          <div className="cv-header flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 mb-8 border-b-[3px] border-primary">
-          <div className="flex items-center gap-6">
+          <div className="max-w-5xl">
+            <div className="cv-header flex flex-col md:flex-row md:items-end justify-between gap-8 pb-6 mb-8 border-b-[3px] border-primary">
+              <div className="flex items-center gap-6 md:gap-8">
             {photo && (
               <img
                 src={photo}
@@ -110,7 +111,7 @@ export default function CV() {
             </div>
           </div>
 
-          <div className="text-left md:text-right text-sm md:text-base leading-relaxed text-gray-600 shrink-0 mt-4 md:mt-0">
+          <div className="text-left md:text-right text-sm md:text-base leading-relaxed text-gray-600 shrink-0 mt-2 md:mt-0 md:pl-8">
             {contact.location && <p>{contact.location}</p>}
             <p>{contact.phone}</p>
             <p>{contact.email}</p>
@@ -145,6 +146,8 @@ export default function CV() {
                 </button>
               ))}
             </div>
+          </div>
+
           </div>
 
           <div className="space-y-12 print:space-y-8 mt-6 md:mt-0">
