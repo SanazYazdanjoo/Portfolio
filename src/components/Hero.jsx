@@ -17,7 +17,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React from "react";
-import { useTranslation } from "../context/LanguageContext";
+//import { useTranslation } from "../context/LanguageContext";
 import { motion, useReducedMotion } from "framer-motion";
 import { SolidButton } from "./Button";
 
@@ -36,7 +36,6 @@ function HighlightQuoted({ text }) {
 
 export function Hero({ data }) {
   const prefersReducedMotion = useReducedMotion();
-  const { t } = useTranslation();
 
   const nameParts = (data.name || "").trim().split(" ");
   const firstName = nameParts[0] || "";
