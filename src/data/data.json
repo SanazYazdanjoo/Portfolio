@@ -36,11 +36,6 @@
       "en": "I speak both ‘user’ and ‘developer’.",
       "de": "Ich spreche sowohl ‚User‘ als auch ‚Entwickler‘."
     },
-    "heroStats": [
-      { "value": "N=30",   "label": "Controlled eye-tracking experiment" },
-      { "value": "110+",    "label": "Study participants across projects" },
-      { "value": "M.Sc.",  "label": "HCI · Bauhaus-Universität Weimar" }
-    ],
     "impactStats": [
       {
         "value": "N=30",
