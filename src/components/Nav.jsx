@@ -28,7 +28,7 @@ export const Nav = ({ isScrolled = false }) => {
         {/* ── Wordmark: compact, one line, always ── */}
         <div className="flex items-center gap-3 shrink-0">
           <LanguageToggle />
-          <NavLink to="/" aria-label="Home — Sanaz Yazdanjoo">
+          <NavLink to="/" aria-label="PRTFOLIO">
             <p
               className="font-display text-text whitespace-nowrap transition-all duration-300"
               style={{
