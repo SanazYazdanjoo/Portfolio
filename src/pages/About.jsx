@@ -24,7 +24,7 @@ import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { voluntaryItems as rawVoluntary } from "../data/voluntary";
 import { useTranslation } from "../context/LanguageContext";
 import { resolveSkillColumns } from "../components/AboutMe";
-import {CareerArc} from "../components/CareerArc";
+import CareerArc from "../components/CareerArc";
 
 // ─── Animation variants ───────────────────────────────────────────────────────
 const fadeUp = {
@@ -173,73 +173,8 @@ export default function About() {
             title={t("about.theBridge")}
             sub={t("about.theBridgeDesc")}
           />
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border">
-            {careerArc.map((step, i) => (
-              <motion.div
-                key={step.phase}
-                custom={i}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-                className={`relative p-8 group
-                  ${step.highlight
-                    ? "bg-primary text-white"            /* the ONE loud coral moment */
-                    : "bg-bg hover:bg-blush-weak transition-colors duration-300"
-                  }`}
-              >
-                {/* Phase numeral — blush, warming to rose on hover */}
-                <span
-                  className={`block font-display font-extrabold text-4xl leading-none mb-4 select-none
-                    ${step.highlight
-                      ? "text-white/40"
-                      : "text-blush group-hover:text-secondary transition-colors duration-300"
-                    }`}
-                  aria-hidden="true"
-                >
-                  {step.phase}
-                </span>
-
-                <h3 className={`font-display font-bold text-xl leading-tight mb-1 ${step.highlight ? "text-white" : "text-text"}`}>
-                  {step.label}
-                </h3>
-                <p className={`text-2xs font-semibold uppercase tracking-[0.18em] mb-4 ${step.highlight ? "text-white/60" : "text-secondary-600"}`}>
-                  {step.years}
-                </p>
-                <p className={`text-sm leading-relaxed mb-6 ${step.highlight ? "text-white/85" : "text-text/70"}`}>
-                  {step.summary}
-                </p>
-
-                <div className="flex flex-wrap gap-1.5">
-                  {step.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className={`text-[9px] font-bold uppercase tracking-wide px-2 py-1 rounded-full
-                        ${step.highlight
-                          ? "border border-white/30 text-white/80"
-                          : "border border-border text-text/60 group-hover:border-secondary/40"
-                        }`}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                {i < careerArc.length - 1 && (
-                  <div className="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2 z-10">
-                    {/* Hand-drawn ink arrow — one imperfect stroke, like the doodles */}
-                    <svg width="26" height="24" viewBox="0 0 26 24" fill="none" className="text-text/60">
-                      <path
-                        d="M3 12.5 C9 11.5, 15 12.8, 21.5 12 M16 6.5 C18.5 9, 20.8 11, 22.5 12 C20.5 13.5, 18 15.8, 16.5 18"
-                        stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"
-                      />
-                    </svg>
-                  </div>
-                )}
-              </motion.div>
-            ))}
-          </div>
+<CareerArc variant="full" />
+     
         </div>
       </section>
 

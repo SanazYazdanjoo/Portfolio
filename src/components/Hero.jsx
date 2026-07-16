@@ -17,7 +17,7 @@ import React from "react";
 import { useTranslation } from "../context/LanguageContext";
 import { motion, useReducedMotion } from "framer-motion";
 import { SolidButton } from "./Button";
-import {CareerArc} from "./CareerArc";
+import CareerArc from "./CareerArc";
 
 export function Hero({ data }) {
   const prefersReducedMotion = useReducedMotion();
@@ -26,12 +26,7 @@ export function Hero({ data }) {
   const firstName = nameParts[0] || "";
   const lastName = nameParts.slice(1).join(" ");
 
-  const meta = {
-    location: data.heroMeta?.location ?? "Weimar, DE · Open to relocation",
-    background: data.heroMeta?.background ?? "M.Sc. HCI · B.E. Software Engineering · QA",
-    focus: data.heroMeta?.focus ?? "Frontend Development · UI Architecture · Mixed-methods research",
-    status: data.heroMeta?.status ?? "Open to interdisciplinary UX & Tech roles",
-  };
+  
 
   const fadeUp = (delay = 0) => ({
     initial: prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 24 },
@@ -126,19 +121,6 @@ export function Hero({ data }) {
       >
           <CareerArc variant="compact" />
       </motion.div>
-    </div>
-  );
-}
-
-function MetaItem({ label, value, align = "" }) {
-  return (
-    <div className={align}>
-      <p className="text-2xs font-extrabold uppercase tracking-[0.18em] text-primary-600 mb-1.5">
-        {label}
-      </p>
-      <p className="text-xs md:text-sm font-medium text-text-dim leading-relaxed">
-        {value}
-      </p>
     </div>
   );
 }
