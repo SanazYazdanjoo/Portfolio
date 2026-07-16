@@ -61,13 +61,13 @@ export function Footer({ data }) {
             <ul className="space-y-3 text-sm font-medium">
               <li>
                 <Link to="/cv" className="text-text hover:text-primary transition-colors duration-300 inline-flex items-center gap-1.5">
-                  Download CV (PDF) <span className="text-[10px] opacity-50">↗</span>
+                  Curriculum Vitae (CV)<span className="text-[10px] opacity-50">↗</span>
                 </Link>
               </li>
               {contact.github && (
                 <li>
                   <a href={contact.github} target="_blank" rel="noopener noreferrer" className="text-text hover:text-primary transition-colors duration-300 inline-flex items-center gap-1.5">
-                    GitHub <span className="text-[10px] opacity-50">↗</span>
+                    My GitHub <span className="text-[10px] opacity-50">↗</span>
                   </a>
                 </li>
               )}
