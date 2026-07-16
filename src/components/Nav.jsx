@@ -1,13 +1,10 @@
 // src/components/Nav.jsx
 // ─────────────────────────────────────────────────────────────────────────────
-// FIX (screenshot feedback): the Nav no longer renders the giant two-line name.
-// The Hero owns the display-size name — one star per screen. The Nav is now a
-// compact Bricolage wordmark, always one line, shrinking slightly on scroll.
-//
-// Everything else from the Ink & Bloom version stays:
-//   • active link = ink + coral pen-tap dot · hover = rose
-//   • fixed full-screen mobile overlay (the old dropdown rendered off-screen)
-//   • aria-expanded + translated open/close labels
+// CHANGE: LanguageToggle moved from the left (next to the wordmark) to the
+// far right of the bar. Desktop order: links → toggle. Mobile order: toggle →
+// burger (burger stays at the screen edge for thumb reach).
+// Everything else unchanged: coral pen-tap dot, full-screen mobile overlay,
+// aria-expanded + translated labels, scroll-shrink wordmark.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React, { useState, useEffect } from "react";
@@ -25,64 +22,66 @@ export const Nav = ({ isScrolled = false }) => {
     <nav data-no-sketch="true" className="w-full no-print">
       <div className="flex items-center justify-between w-full pb-4 border-b border-border">
 
-        {/* ── Wordmark: compact, one line, always ── */}
-        <div className="flex items-center gap-3 shrink-0">
+        {/* ── Wordmark: left, compact, one line ── */}
+        <NavLink to="/" aria-label="PRTFOLIO" className="shrink-0">
+          <p
+            className="font-display text-text whitespace-nowrap transition-all duration-300"
+            style={{
+              fontWeight: 700,
+              fontSize: isScrolled ? "1.15rem" : "1.45rem",
+              letterSpacing: "-0.01em",
+              fontVariationSettings: "'opsz' 24",
+            }}
+          >
+            PORTFOLIO
+          </p>
+        </NavLink>
+
+        {/* ── Right cluster: links → language toggle → (mobile) burger ── */}
+        <div className="flex items-center gap-6 md:gap-9 lg:gap-12">
+          <ul className="hidden md:flex items-center gap-9 lg:gap-12">
+            {profileData.navLinks.map((link) => (
+              <li key={link.path}>
+                <NavLink
+                  to={link.path}
+                  end={link.path === "/"}
+                  className={({ isActive }) =>
+                    `relative text-[13px] md:text-[14px] transition-colors duration-200
+                     ${isActive
+                       ? "text-text font-semibold"
+                       : "text-text/45 hover:text-secondary-600"
+                     }`
+                  }
+                >
+                  {({ isActive }) => (
+                    <>
+                      {link.name}
+                      {/* Coral dot — a pen tap under the current page */}
+                      {isActive && (
+                        <span
+                          aria-hidden="true"
+                          className="absolute left-1/2 -translate-x-1/2 -bottom-2
+                                     w-1.5 h-1.5 rounded-full bg-primary"
+                        />
+                      )}
+                    </>
+                  )}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+
+          {/* Far right on desktop; inside the burger on mobile */}
           <LanguageToggle />
-          <NavLink to="/" aria-label="PRTFOLIO">
-            <p
-              className="font-display text-text whitespace-nowrap transition-all duration-300"
-              style={{
-                fontWeight: 700,
-                fontSize: isScrolled ? "1.15rem" : "1.45rem",
-                letterSpacing: "-0.01em",
-                fontVariationSettings: "'opsz' 24",
-              }}
-            >
-              PORTFOLIO
-            </p>
-          </NavLink>
+
+          <MobileMenu links={profileData.navLinks} />
         </div>
-
-        {/* ── Links: right, small, wide gaps ── */}
-        <ul className="hidden md:flex items-center gap-9 lg:gap-12">
-          {profileData.navLinks.map((link) => (
-            <li key={link.path}>
-              <NavLink
-                to={link.path}
-                end={link.path === "/"}
-                className={({ isActive }) =>
-                  `relative text-[13px] md:text-[14px] transition-colors duration-200
-                   ${isActive
-                     ? "text-text font-semibold"
-                     : "text-text/45 hover:text-secondary-600"
-                   }`
-                }
-              >
-                {({ isActive }) => (
-                  <>
-                    {link.name}
-                    {/* Coral dot — a pen tap under the current page */}
-                    {isActive && (
-                      <span
-                        aria-hidden="true"
-                        className="absolute left-1/2 -translate-x-1/2 -bottom-2
-                                   w-1.5 h-1.5 rounded-full bg-primary"
-                      />
-                    )}
-                  </>
-                )}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-
-        <MobileMenu links={profileData.navLinks} />
       </div>
     </nav>
   );
 };
 
-/* ── Full-screen mobile overlay (replaces the off-screen dropdown) ── */
+/* ── Full-screen mobile overlay (unchanged) ── */
 function MobileMenu({ links }) {
   const [open, setOpen] = useState(false);
   const { t } = useTranslation();
