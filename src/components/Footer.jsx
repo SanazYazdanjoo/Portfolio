@@ -10,7 +10,7 @@ export function Footer({ data }) {
 
   return (
     <footer className="relative border-t border-border/20 bg-bg no-print">
-      <div className="container mx-auto px-4 md:px-8 py-10">
+      <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 py-10">
 
         {/* ── Minimalist HR Grid ── */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-x-10 mb-16 pt-8">
