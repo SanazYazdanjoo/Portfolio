@@ -25,7 +25,6 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React from "react";
-import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
 
@@ -157,7 +156,6 @@ function CareerArcFull({ steps }) {
 // ═══════════════════════════════════════════════════════════════════════════
 function CareerArcCompact({ steps }) {
   const prefersReducedMotion = useReducedMotion();
-  const { t } = useTranslation();
 
   const fade = (delay = 0) => ({
     initial: prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 },
@@ -166,62 +164,54 @@ function CareerArcCompact({ steps }) {
   });
 
   return (
-    <div>
-      {/* One row on md+, stacked with left rail on mobile */}
-      <ol className="flex flex-col md:flex-row md:items-start gap-5 md:gap-0 list-none m-0 p-0">
-        {steps.map((step, i) => (
-          <React.Fragment key={step.phase}>
-            <motion.li
-              {...fade(0.05 * i)}
-              className="flex items-baseline md:block gap-3 md:flex-1 group"
+    // Explicit 5-track grid: phase · arrow · phase · arrow · phase.
+    // 1fr tracks force full-width distribution no matter how the parent
+    // sizes itself — this is what the flex version failed to guarantee.
+    <ol
+      className="grid grid-cols-1 gap-y-5 list-none m-0 p-0 w-full
+                 md:grid-cols-[1fr_auto_1fr_auto_1fr] md:gap-x-4 md:items-center"
+    >
+      {steps.map((step, i) => (
+        <React.Fragment key={step.phase}>
+          <motion.li
+            {...fade(0.05 * i)}
+            className="flex items-baseline gap-3 md:block md:text-center group"
+          >
+            <span
+              className={`font-display font-extrabold text-2xl md:text-3xl leading-none select-none
+                ${step.highlight
+                  ? "text-primary"
+                  : "text-blush group-hover:text-secondary transition-colors duration-300"
+                }`}
+              aria-hidden="true"
             >
+              {step.phase}
+            </span>
+            <span className="md:block md:mt-2">
               <span
-                className={`font-display font-extrabold text-2xl md:text-3xl leading-none select-none
-                  ${step.highlight
-                    ? "text-primary"
-                    : "text-blush group-hover:text-secondary transition-colors duration-300"
-                  }`}
-                aria-hidden="true"
-              >
-                {step.phase}
-              </span>
-              <span className="md:block md:mt-2">
-                <span className={`block font-display font-bold text-sm md:text-base leading-tight
+                className={`block font-display font-bold text-sm md:text-base leading-tight md:whitespace-nowrap
                   ${step.highlight ? "text-primary-600" : "text-text"}`}
-                >
-                  {step.label}
-                </span>
-                <span className="block text-2xs font-semibold uppercase tracking-[0.18em] text-text-dim mt-1">
-                  {step.years}
-                </span>
-              </span>
-            </motion.li>
-
-            {i < steps.length - 1 && (
-              <motion.li
-                {...fade(0.05 * i + 0.03)}
-                aria-hidden="true"
-                className="hidden md:flex items-start pt-1 px-3 shrink-0"
               >
-                <InkArrow className="text-text/50" />
-              </motion.li>
-            )}
-          </React.Fragment>
-        ))}
-      </ol>
+                {step.label}
+              </span>
+              <span className="block text-2xs font-semibold uppercase tracking-[0.18em] text-text-dim mt-1">
+                {step.years}
+              </span>
+            </span>
+          </motion.li>
 
-      {/* Teaser → payoff: Home hints, About tells the full story */}
-      <motion.div {...fade(0.25)} className="mt-4">
-        <Link
-          to="/about"
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-primary-600
-                     hover:text-primary transition-colors duration-200
-                     focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-600"
-        >
-          {t("about.theBridge")} — {t("common.readMore")}
-        </Link>
-      </motion.div>
-    </div>
+          {i < steps.length - 1 && (
+            <motion.li
+              {...fade(0.05 * i + 0.03)}
+              aria-hidden="true"
+              className="hidden md:flex justify-center"
+            >
+              <InkArrow className="text-text/50" />
+            </motion.li>
+          )}
+        </React.Fragment>
+      ))}
+    </ol>
   );
 }
 
