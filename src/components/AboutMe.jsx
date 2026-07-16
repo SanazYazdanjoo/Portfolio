@@ -17,11 +17,6 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
 
-const FALLBACK_STATS = [
-  { value: "5+", label: "Years in engineering & QA" },
-  { value: "10+", label: "Websites delivered" },
-  { value: "N=30", label: "Largest controlled study" },
-];
 
 // ─── Single source of truth: data.json categories → 3 display columns ────────
 // labelKey  → translation key for the column heading
@@ -65,7 +60,6 @@ export function resolveSkillColumns(skills = {}) {
 // ─── Bio (cols 1–6) + Impact stats (cols 7–9) ────────────────────────────────
 export function AboutBio({ data }) {
   const bioParagraphs = data.bioParagraphs || [];
-  const stats = data.impactStats?.length ? data.impactStats : FALLBACK_STATS;
 
   return (
     <motion.div
@@ -90,23 +84,7 @@ export function AboutBio({ data }) {
           </p>
         ))}
       </div>
-
-      {/* Impact stats — evidence at a glance, filling the former dead zone */}
-      <div
-        className="md:col-span-3 flex flex-row flex-wrap md:flex-col
-                   gap-x-10 gap-y-7 md:border-l md:border-border md:pl-8"
-      >
-        {stats.map((s) => (
-          <div key={s.label}>
-            <p className="font-display font-extrabold text-3xl leading-none text-text">
-              {s.value}
-            </p>
-            <p className="text-2xs uppercase tracking-[0.14em] text-text/55 font-semibold mt-1.5">
-              {s.label}
-            </p>
-          </div>
-        ))}
-      </div>
+      
     </motion.div>
   );
 }
