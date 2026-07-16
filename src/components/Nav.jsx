@@ -38,7 +38,7 @@ export const Nav = ({ isScrolled = false }) => {
                 fontVariationSettings: "'opsz' 24",
               }}
             >
-              Sanaz Yazdanjoo
+              PORTFOLIO
             </p>
           </NavLink>
         </div>
