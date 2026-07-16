@@ -32,7 +32,7 @@ const de = {
   "about.heading": "Über mich",
   "about.whatIBring": "Was ich mitbringe",
   // Angepasst an die neuen UX Engineer Konstanten in AboutMe.jsx
-  "about.skillsTechnical": "Frontend Engineering & QA",
+  "about.skillsTechnical": "Frontend Engineering, KI-gestützte Entwicklung & QA",
   "about.skillsResearch": "UX-Research & Design",
   "about.skillsAnalysis": "Analyse & Tools",
   
