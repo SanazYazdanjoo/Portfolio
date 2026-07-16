@@ -22,8 +22,7 @@ import ninjaDemo from './media/ninja-demo.mp4';
 // import chartSus from './media/chart-sus.jpg';
 // import chartPreference from './media/chart-preference.jpg';
 // import chartThemes from './media/chart-themes-1.jpg';
-  import conclusion from './media/conslusion.png';
- 
+import conclusion from './media/conclusion.png';
 
 
 
@@ -135,18 +134,16 @@ export const projectData = {
   methodology: "A two-phase mixed-methods design. Phase I: a formative pre-study (n=20) using semi-structured interviews and a Figma-based workspace visualisation task, analysed with reflexive thematic analysis, which grounded the lab configuration in real dual-display practice. Phase II: a controlled within-subjects experiment (N=30) with a 3×2×6 factorial design — input method × target size × distance (875–3226 px) — measuring movement time, repeat rate, and SUS, analysed with repeated-measures ANOVA (Greenhouse–Geisser corrected, Tukey post-hoc).",
   results: "A significant technique × distance interaction (η²ₚ = .690) revealed a crossover: the mouse was fastest for short distances, but Ninja Cursors significantly outperformed it at the two intermediate cross-screen distances (1684 and 2243 px) and converged at the longest (3226 px). MAGIC was consistently slowest — its warp coupled gaze noise directly to landing accuracy, producing the highest repeat rate on small targets (4.69%). SUS ranked Mouse (85.2) > Ninja (72.6) > MAGIC (55.9), yet 60% of participants named Ninja their most preferred method.",
   implications: "Gaze assistance should be a context-aware accelerator, not an always-on replacement. Three design directions follow from the data: adaptive activation using the screen boundary itself as the trigger, semantic snapping toward UI elements to fix MAGIC's landing penalty, and stronger visual differentiation of the active cursor in multi-cursor designs. The broader lesson for UI engineers: predictability and system trust — not raw speed alone — determine whether users adopt a novel interaction pattern.",
-
-  figures: {
-    conclusion: [
+  conclusion: [
       {
         type: "image",
         src: conclusion,
         poster: thumbnailImg,
-        alt: "conclusion figure showing the results of the dual-display pointing experiment",
+        alt: "conclusion",
         caption: "conclusion",
       }
-    ],
-  },
+  ],
+  
 
 };
 
