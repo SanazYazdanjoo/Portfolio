@@ -88,7 +88,7 @@ export default function App() {
 
         <SketchTrail />
       </div>
-      <Analytics/>
+      <Analytics />
     </div>
   );
 }
