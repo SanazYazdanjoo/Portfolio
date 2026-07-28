@@ -25,7 +25,7 @@ import { Footer } from "./components/Footer";
 import { SketchTrail } from "./components/SketchTrail";
 import { profileData as rawProfile } from "./data/profile";
 import { useLocalizedProfile } from "./hooks/useLocalizedProfile";
-
+import { Analytics } from "@vercel/analytics/next"
 
 export default function App() {
   const profileData = useLocalizedProfile(rawProfile);
