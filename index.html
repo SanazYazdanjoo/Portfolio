@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=DM+Sans:opsz,wght@9..40,400..700&family=Caveat:wght@500;700&display=swap"
-  rel="stylesheet"
+      rel="stylesheet"
     />
     <!-- ── Identity ── -->
     <title>Sanaz Yazdanjoo — Portfolio UX Engineer</title>
@@ -18,35 +18,25 @@
     <meta name="author" content="Sanaz Yazdanjoo" />
 
     <!-- ── Favicons ── -->
-    <title>Portfolio Sanaz Yazdanjoo</title>
     <link rel="icon" type="image/svg+xml" href="public/assets/favicon.svg" />
     <link rel="icon" type="image/png" href="public/assets/favicon.png" />
     <link rel="apple-touch-icon" href="public/assets/apple-touch-icon.png" />
     
+    <!-- 1. Cookiebot Script (Placed FIRST to block trackers until consent) -->
+    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="cb504ac2-0680-40c4-9de7-659565f4c602" type="text/javascript" async></script>
+
+    <!-- 2. Google Analytics Script (Placed SECOND) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-20Q8K2V97V"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-20Q8K2V97V');
+    </script>
   </head>
   <body class="bg-white">
     <div id="root" class=""></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
-  <!-- Google tag (gtag.js) -->
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-20Q8K2V97V"></script>
-
-<script>
-
-window.dataLayer = window.dataLayer || [];
-
-function gtag(){dataLayer.push(arguments);}
-
-gtag('js', new Date());
-
-
-
-gtag('config', 'G-20Q8K2V97V');
-
-</script> 
-
-
-<script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="cb504ac2-0680-40c4-9de7-659565f4c602" type="text/javascript" async></script>
-
 </html>
