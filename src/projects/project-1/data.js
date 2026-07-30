@@ -15,6 +15,7 @@ import conclusion from './media/conclusion.png';
 export const projectData = {
   id: "project-1",
   status: "Published",
+  order: 1,
   title: "Gaze-Assisted Input in Dual-Display Environments",
   tags: ["TypeScript Custom App", "Quantitative UX", "Eye-Tracking", "Real-Time API", "Mixed-Methods"],
 
