@@ -30,7 +30,7 @@
 // All data flows from src/projects/*/data.js — nothing hardcoded.
 // ─────────────────────────────────────────────────────────────────────────────
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import SectionMedia from "./SectionMedia";
@@ -56,22 +56,67 @@ const SECTIONS = [
 ];
 
 // ─── Section head — THE one heading pattern, used by every section ──────────
-function SectionHead({ number, kicker, heading }) {
+// The <button> nests INSIDE the <h2> rather than the reverse — <h2> is not
+// permitted content inside <button>, and this is the pattern the ARIA
+// Authoring Practices accordion example uses.
+function CollapsibleSectionHead({ id, number, kicker, heading, isOpen, onToggle }) {
   return (
     <>
       <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary-600 mb-3">
         {number} — {kicker}
       </p>
-      <h2 className="font-display font-extrabold text-2xl md:text-3xl tracking-tight
-                     text-text leading-tight mb-8">
-        {heading}
+      <h2 className="mb-8">
+        <button
+          type="button"
+          onClick={onToggle}
+          aria-expanded={isOpen}
+          aria-controls={`${id}-body`}
+          className="group flex w-full items-center justify-between gap-4 border-0 bg-transparent
+                     p-0 text-left font-display font-extrabold text-2xl md:text-3xl tracking-tight
+                     leading-tight text-text focus:outline-none focus-visible:ring-2
+                     focus-visible:ring-primary-600"
+        >
+          <span>{heading}</span>
+          <span className="mt-0.5 shrink-0 text-text/30 transition-colors duration-200 group-hover:text-primary-600 no-print">
+            <Chevron isOpen={isOpen} />
+          </span>
+        </button>
       </h2>
     </>
   );
 }
 
-// ─── Content section wrapper — divider → head → body ────────────────────────
-function ContentSection({ id, number, kicker, heading, children }) {
+// ─── Chevron — rotates open/closed, no separate open/closed icon needed ─────
+function Chevron({ isOpen }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      className={`w-4 h-4 md:w-5 md:h-5 shrink-0 transition-transform duration-300 ${
+        isOpen ? "rotate-180" : ""
+      }`}
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6" />
+    </svg>
+  );
+}
+
+// ─── Content section wrapper — divider → clickable head → collapsible body ──
+// Closed by default (controlled from the parent's openSections set). The body
+// height is animated with the CSS grid 0fr/1fr trick rather than measuring
+// pixel heights in JS, so it works for arbitrary content — text, figures,
+// the metrics strip — without a resize observer.
+//
+// Content stays mounted at all times (never conditionally rendered): that
+// keeps in-page find, screen-reader access via the section id, and print
+// output correct regardless of open/closed state. `[data-collapsible-body]`
+// is force-opened in print CSS (src/index.css) for exactly that reason.
+function ContentSection({ id, number, kicker, heading, isOpen, onToggle, children }) {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <motion.section
       id={id}
@@ -81,8 +126,26 @@ function ContentSection({ id, number, kicker, heading, children }) {
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.45, ease: "easeOut" }}
     >
-      <SectionHead number={number} kicker={kicker} heading={heading} />
-      {children}
+      <CollapsibleSectionHead
+        id={id} number={number} kicker={kicker} heading={heading}
+        isOpen={isOpen} onToggle={onToggle}
+      />
+
+      <div
+        id={`${id}-body`}
+        data-collapsible-body
+        aria-hidden={!isOpen}
+        {...(!isOpen ? { inert: "" } : {})}
+        style={{
+          display: "grid",
+          gridTemplateRows: isOpen ? "1fr" : "0fr",
+          transition: prefersReducedMotion ? "none" : "grid-template-rows 350ms ease",
+        }}
+      >
+        <div style={{ overflow: "hidden", minHeight: 0 }}>
+          <div className="pb-1">{children}</div>
+        </div>
+      </div>
     </motion.section>
   );
 }
@@ -186,38 +249,51 @@ function ProcessCard({ item, index }) {
 }
 
 // ─── Process gallery — horizontal snap rail, legend removed ──────────────────
-function ProcessGallerySection({ items, number }) {
+function ProcessGallerySection({ items, number, isOpen, onToggle }) {
   if (!items || items.length === 0) return null;
 
   return (
     <section id="process" className="pt-12 mb-12 border-t border-border scroll-mt-32">
-      <SectionHead number={number} kicker="Behind the Work" heading="Research Process" />
+      <CollapsibleSectionHead
+        id="process" number={number} kicker="Behind the Work" heading="Research Process"
+        isOpen={isOpen} onToggle={onToggle}
+      />
 
       <div
-        className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4
-                   -mx-4 px-4 md:-mx-0 md:px-0
-                   [scrollbar-width:thin] [scrollbar-color:theme(colors.border)_transparent]"
-        role="list"
-        aria-label="Research process steps"
+        id="process-body"
+        data-collapsible-body
+        aria-hidden={!isOpen}
+        {...(!isOpen ? { inert: "" } : {})}
+        style={{
+          display: "grid",
+          gridTemplateRows: isOpen ? "1fr" : "0fr",
+          transition: "grid-template-rows 350ms ease",
+        }}
       >
-        {items.map((item, i) => (
-          <ProcessCard key={`${item.phase}-${i}`} item={item} index={i} />
-        ))}
-      </div>
+        <div style={{ overflow: "hidden", minHeight: 0 }}>
+          <div
+            className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4
+                       -mx-4 px-4 md:-mx-0 md:px-0
+                       [scrollbar-width:thin] [scrollbar-color:theme(colors.border)_transparent]"
+            role="list"
+            aria-label="Research process steps"
+          >
+            {items.map((item, i) => (
+              <ProcessCard key={`${item.phase}-${i}`} item={item} index={i} />
+            ))}
+          </div>
 
-      <p className="text-2xs font-semibold uppercase tracking-widest text-text/30 mt-1 md:hidden">
-        Swipe to explore →
-      </p>
+          <p className="text-2xs font-semibold uppercase tracking-widest text-text/30 mt-1 md:hidden">
+            Swipe to explore →
+          </p>
+        </div>
+      </div>
     </section>
   );
 }
 
 // ─── Sidebar nav — numbers + labels, progress bar removed ────────────────────
-function SidebarNav({ sections, activeId }) {
-  const scrollToSection = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
+function SidebarNav({ sections, activeId, onNavigate, allOpen, onToggleAll }) {
   return (
     <nav aria-label="Page sections">
       <Link
@@ -238,7 +314,7 @@ function SidebarNav({ sections, activeId }) {
           return (
             <li key={section.id}>
               <button
-                onClick={() => scrollToSection(section.id)}
+                onClick={() => onNavigate(section.id)}
                 className={`w-full text-left flex items-baseline gap-3 px-3 py-2
                   transition-colors duration-200 relative border-l-2
                   ${isActive
@@ -256,12 +332,22 @@ function SidebarNav({ sections, activeId }) {
           );
         })}
       </ul>
+
+      <button
+        onClick={onToggleAll}
+        className="mt-6 pt-4 border-t border-border w-full text-left flex items-center gap-2
+                   text-2xs font-bold uppercase tracking-[0.15em] text-text/35
+                   hover:text-primary-600 transition-colors duration-200"
+      >
+        <Chevron isOpen={allOpen} />
+        {allOpen ? "Collapse all" : "Expand all"}
+      </button>
     </nav>
   );
 }
 
 // ─── Mobile pill bar ──────────────────────────────────────────────────────────
-function MobilePillBar({ sections, activeId }) {
+function MobilePillBar({ sections, activeId, onNavigate }) {
   return (
     <div className="sticky top-[80px] z-40 bg-bg/90 backdrop-blur-md border-b border-border
                     -mx-4 px-4 py-2 md:hidden no-print">
@@ -271,8 +357,7 @@ function MobilePillBar({ sections, activeId }) {
           return (
             <button
               key={section.id}
-              onClick={() => document.getElementById(section.id)
-                ?.scrollIntoView({ behavior: "smooth", block: "start" })}
+              onClick={() => onNavigate(section.id)}
               className={`shrink-0 px-3 py-1.5 text-2xs font-black uppercase tracking-widest
                 transition-colors duration-200
                 ${isActive
@@ -358,7 +443,7 @@ const PHASE_STATUS = {
   },
 };
 
-function ResearchPhases({ phases, intro, number }) {
+function ResearchPhases({ phases, intro, number, isOpen, onToggle }) {
   const prefersReducedMotion = useReducedMotion();
 
   return (
@@ -367,9 +452,11 @@ function ResearchPhases({ phases, intro, number }) {
       number={number}
       kicker="Where This Stands"
       heading="Research Phases"
+      isOpen={isOpen}
+      onToggle={onToggle}
     >
       {intro && (
-        <p className="text-base md:text-lg text-text/80 leading-relaxed max-w-prose mb-8">
+        <p className="text-base md:text-lg text-text/80 leading-relaxed mb-8">
           {intro}
         </p>
       )}
@@ -401,7 +488,7 @@ function ResearchPhases({ phases, intro, number }) {
                 </span>
               </div>
               {p.note && (
-                <p className="mt-1.5 ml-5 text-sm text-text/60 leading-relaxed max-w-prose">
+                <p className="mt-1.5 ml-5 text-sm text-text/60 leading-relaxed">
                   {p.note}
                 </p>
               )}
@@ -420,12 +507,54 @@ export default function ProjectTemplate({ meta, children }) {
   // Only include sidebar items for sections that have data.
   // Arrays are length-checked so an empty `process`/`phases` can't create a
   // sidebar link pointing at a section that never renders.
-  const activeSections = SECTIONS.filter((s) => {
-    const value = meta[s.dataKey];
-    return Array.isArray(value) ? value.length > 0 : !!value;
-  });
+  // Memoized so the IntersectionObserver effect and the openSections helpers
+  // below aren't recomputing/re-diffing a fresh array identity every render.
+  const activeSections = useMemo(
+    () =>
+      SECTIONS.filter((s) => {
+        const value = meta[s.dataKey];
+        return Array.isArray(value) ? value.length > 0 : !!value;
+      }),
+    [meta]
+  );
 
   const [activeId, setActiveId] = useState(() => activeSections[0]?.id ?? null);
+
+  // Collapsed by default — every section starts closed, opened only on
+  // request. A Set rather than one id, since more than one section can be
+  // open at a time (this is an accordion of independent panels, not a
+  // single-select tab strip).
+  const [openSections, setOpenSections] = useState(() => new Set());
+
+  const toggleSection = (id) => {
+    setOpenSections((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  // Sidebar / mobile-pill navigation: opening a closed section and scrolling
+  // to it in one action. Scrolling first would target the same position
+  // either way — a section's own height doesn't depend on whether ITS body
+  // is open, only on sections above it — but opening first keeps the two
+  // conceptually in the right order (reveal, then move to it).
+  const navigateToSection = (id) => {
+    setOpenSections((prev) => (prev.has(id) ? prev : new Set(prev).add(id)));
+    const el = document.getElementById(id);
+    el?.scrollIntoView?.({
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+      block: "start",
+    });
+  };
+
+  const allOpen =
+    activeSections.length > 0 && activeSections.every((s) => openSections.has(s.id));
+
+  const toggleAllSections = () => {
+    setOpenSections(allOpen ? new Set() : new Set(activeSections.map((s) => s.id)));
+  };
 
   // Section numbers must match the sidebar — compute once
   const sectionNumber = (id) =>
@@ -446,7 +575,7 @@ export default function ProjectTemplate({ meta, children }) {
       observers.push(observer);
     });
     return () => observers.forEach((o) => o.disconnect());
-  }, [meta]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [activeSections]);
 
   const methods = meta.methods || [];
   const tags = meta.tags || [];
@@ -457,7 +586,8 @@ export default function ProjectTemplate({ meta, children }) {
 
         <div className="flex gap-12 md:gap-16 lg:gap-20 items-start">
           <aside className="hidden md:block w-[180px] lg:w-[220px] shrink-0 no-print sticky top-36 self-start">
-            <SidebarNav sections={activeSections} activeId={activeId} />
+            <SidebarNav sections={activeSections} activeId={activeId}
+              onNavigate={navigateToSection} allOpen={allOpen} onToggleAll={toggleAllSections} />
           </aside>
 
           <div className="flex-1 min-w-0">
@@ -534,13 +664,14 @@ export default function ProjectTemplate({ meta, children }) {
             </motion.header>
 
             {/* ── Mobile pill bar ── */}
-            <MobilePillBar sections={activeSections} activeId={activeId} />
+            <MobilePillBar sections={activeSections} activeId={activeId} onNavigate={navigateToSection} />
 
             <article className="min-w-0">
 
             {/* Process gallery — replaces hero image when present */}
             {meta.process && meta.process.length > 0 ? (
-              <ProcessGallerySection items={meta.process} number={sectionNumber("process")} />
+              <ProcessGallerySection items={meta.process} number={sectionNumber("process")}
+                isOpen={openSections.has("process")} onToggle={() => toggleSection("process")} />
             ) : meta.heroImage && (
               <motion.div
                 className="photo-frame text-text w-full aspect-video bg-muted mb-16"
@@ -555,8 +686,9 @@ export default function ProjectTemplate({ meta, children }) {
 
             {meta.challenge && (
               <ContentSection id="challenge" number={sectionNumber("challenge")}
+                isOpen={openSections.has("challenge")} onToggle={() => toggleSection("challenge")}
                 kicker="The Problem Space" heading="The Challenge">
-                <p className="text-base md:text-lg text-text/80 leading-relaxed max-w-prose">
+                <p className="text-base md:text-lg text-text/80 leading-relaxed">
                   {meta.challenge}
                 </p>
                 <SectionMedia items={meta.figures?.challenge} />
@@ -565,8 +697,9 @@ export default function ProjectTemplate({ meta, children }) {
 
             {meta.solution && (
               <ContentSection id="solution" number={sectionNumber("solution")}
+                isOpen={openSections.has("solution")} onToggle={() => toggleSection("solution")}
                 kicker="What I Built" heading="The Solution">
-                <p className="text-base md:text-lg text-text/80 leading-relaxed max-w-prose">
+                <p className="text-base md:text-lg text-text/80 leading-relaxed">
                   {meta.solution}
                 </p>
                 <SectionMedia items={meta.figures?.solution} />
@@ -576,8 +709,9 @@ export default function ProjectTemplate({ meta, children }) {
 
             {meta.methodology && (
               <ContentSection id="methodology" number={sectionNumber("methodology")}
+                isOpen={openSections.has("methodology")} onToggle={() => toggleSection("methodology")}
                 kicker="How I Studied It" heading="Methodology & Approach">
-                <p className="text-base md:text-lg text-text/80 leading-relaxed max-w-prose mb-6">
+                <p className="text-base md:text-lg text-text/80 leading-relaxed mb-6">
                   {meta.methodology}
                 </p>
                 <SectionMedia items={meta.figures?.methodology} />
@@ -598,8 +732,9 @@ export default function ProjectTemplate({ meta, children }) {
 
             {meta.results && (
               <ContentSection id="results" number={sectionNumber("results")}
+                isOpen={openSections.has("results")} onToggle={() => toggleSection("results")}
                 kicker="What the Data Showed" heading="Key Findings">
-                <p className="text-base md:text-lg text-text/80 leading-relaxed max-w-prose">
+                <p className="text-base md:text-lg text-text/80 leading-relaxed">
                   {meta.results}
                 </p>
                     <SectionMedia items={meta.figures?.results} />
@@ -610,8 +745,9 @@ export default function ProjectTemplate({ meta, children }) {
 
             {meta.implications && (
               <ContentSection id="implications" number={sectionNumber("implications")}
+                isOpen={openSections.has("implications")} onToggle={() => toggleSection("implications")}
                 kicker="So What" heading="Design Implications">
-                <p className="text-base md:text-lg text-text/80 leading-relaxed max-w-prose">
+                <p className="text-base md:text-lg text-text/80 leading-relaxed">
                   {meta.implications}
                 </p>
               </ContentSection>
@@ -622,11 +758,14 @@ export default function ProjectTemplate({ meta, children }) {
                 phases={meta.phases}
                 intro={meta.phasesIntro}
                 number={sectionNumber("phases")}
+                isOpen={openSections.has("phases")}
+                onToggle={() => toggleSection("phases")}
               />
             )}
 
             {meta.conclusion && (
               <ContentSection id="conclusion" number={sectionNumber("conclusion")}
+                isOpen={openSections.has("conclusion")} onToggle={() => toggleSection("conclusion")}
                 kicker="Closing Reflection" heading="Conclusion">
                 <SectionMedia items={meta.conclusion} />
               </ContentSection>

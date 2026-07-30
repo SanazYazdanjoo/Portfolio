@@ -154,7 +154,7 @@ export default function SectionMedia({ items }) {
                     </h4>
                   )}
                   {f.description && (
-                    <p className="m-0 max-w-prose text-sm md:text-base leading-relaxed text-text/70">
+                    <p className="m-0 text-sm md:text-base leading-relaxed text-text/70">
                       {f.description}
                     </p>
                   )}
@@ -207,7 +207,7 @@ export default function SectionMedia({ items }) {
                   <p className="m-0 mb-1 font-mono text-2xs uppercase tracking-[0.2em] text-primary-600">
                     {f.takeawayLabel || "What it shows"}
                   </p>
-                  <p className="m-0 max-w-prose text-sm leading-relaxed text-text/75">
+                  <p className="m-0 text-sm leading-relaxed text-text/75">
                     {f.takeaway}
                   </p>
                 </div>

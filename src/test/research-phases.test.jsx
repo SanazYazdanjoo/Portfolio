@@ -48,7 +48,7 @@ describe("Reimbursement case study is live", () => {
   it("stays anonymised — no internal system names or institution in any string", () => {
     const serialised = JSON.stringify(projectData);
     // Report §8.3: internal system names and network paths must never ship.
-    ["eDoc", "EKN", "T:\\", "Bauhaus"].forEach((term) => {
+    ["eDoc", "EKN", "T:\\", "Bauhaus", "Kristin"].forEach((term) => {
       expect(serialised).not.toContain(term);
     });
   });
