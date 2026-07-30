@@ -22,6 +22,16 @@
 // the six-line index.jsx and flip the status below.
 // ─────────────────────────────────────────────────────────────────────────────
 
+import stakeholderMap from './media/stakeholder-map.webp';
+import informationArchitecture from './media/information-architecture.webp';
+import personaSelin from './media/persona-p1-selin-admin.webp';
+import personaYusuf from './media/persona-p2-yusuf-online-ticket.webp';
+import personaAesha from './media/persona-p3-aesha-abo-karte.webp';
+import personaSylvia from './media/persona-p4-sylvia-pkw.webp';
+import personaDozent from './media/persona-p5-dozent.webp';
+import personaApprover from './media/persona-p6-approver.webp';
+import personaFinance from './media/persona-p7-finance-compliance.webp';
+
 export const projectData = {
   id: "project-4",
   status: "Published",
@@ -43,8 +53,7 @@ export const projectData = {
   timeline: "2025 – 2026 · active, research phase closing",
 
   tags: [
-    "Service Design",
-    "Process Modelling",
+    "Service Design",    "Process Modelling",
     "Thematic Analysis",
     "Stakeholder Validation",
     "Requirements Engineering",
@@ -104,6 +113,71 @@ export const projectData = {
   // ── Implications ───────────────────────────────────────────────────────────
   implications:
     "Three results changed the brief rather than decorating it. First, completing the persona set inverted an assumption: the three participant variants map exactly onto the three proof branches in the governing document, and the participant with the lightest monthly paperwork — one bank statement — is the one most likely to fail, because her barrier is the submission channel, not the documentation. She cannot use the cloud link, so she sends documents by email, which the instructions forbid, which leaves no trace in the folder the Admin checks, and which is a live data-protection exposure in today's process independent of anything being built. A rule that can only be followed by users with a particular skill level is a design failure, not a compliance failure. Second, the cheapest organisational fix — replacing email reminders with a notice in the class hour — structurally excludes the participants who attend rarely, and does so invisibly, because the people it fails are the people who are not there. Visibility has to exist before reminders are withdrawn, not after. Third, a risk recorded as hypothetical materialised three weeks later when the approval role became vacant with no deputy arrangement defined — which demonstrated the model had predictive rather than merely descriptive value, and upgraded fallback logic from a nice-to-have to a live organisational need. The report also retains a correction: an earlier draft credited my own process documentation with solving the handover problem, and the stakeholder evidence contradicted it — a HowTo and an overview table already existed and went unused, because the binding constraint was staff capacity, not documentation. Being visibly wrong and then corrected by evidence is what validation is for, so the correction stayed in.",
+
+  // ── Figures ────────────────────────────────────────────────────────────────
+  // All zoomable: these are 1600–1800px research artefacts, so inline they are
+  // previews and the detail lives behind a click.
+  figures: {
+    challenge: [
+      {
+        src: stakeholderMap,
+        span: 2,
+        alt:
+          "Stakeholder map in two views. Left: concentric proximity rings with the reimbursement process at the core, direct stakeholders (Admin, Manager, Dozent, participants) in the inner ring and indirect stakeholders (Finance & Compliance, Accounting, IT/Cloud) in the outer ring. Right: an influence-by-interest grid sorting the same nine stakeholders into Manage Closely, Keep Satisfied, Engage as Needed and Monitor.",
+        caption:
+          "Nine stakeholders, two views — proximity to the process, and where to spend attention",
+      },
+    ],
+
+    solution: [
+      {
+        src: informationArchitecture,
+        span: 2,
+        alt:
+          "Information architecture tree for the reimbursement portal. One root branches into four role-based views: Participant (submit documents, my claims and status, notifications), Admin (dashboard, attendance import, document review, calculate, log and archive), Approver (approval queue, case detail and history, deputy settings), and Accounting (payment queue, paid and reconciliation).",
+        caption:
+          "One portal, four role-based views — structure follows the process, not the org chart",
+      },
+    ],
+
+    methodology: [
+      {
+        src: personaSelin,
+        alt: "Persona board P1, the Admin: goals, pain points, needs and a validation note recording that a former occupant of the role confirmed the entire failure set.",
+        caption: "P1 · the Admin — validated by an independent former occupant of the role",
+      },
+      {
+        src: personaYusuf,
+        alt: "Persona board P2, a participant with an online ticket: heaviest monthly proof set, on internship and off-site for weeks.",
+        caption: "P2 · online ticket — heaviest proof set · constructed, unvalidated",
+      },
+      {
+        src: personaAesha,
+        alt: "Persona board P3, a participant with a subscription card: lightest proof set but highest failure risk, because she cannot use the cloud upload and sends documents by email instead.",
+        caption: "P3 · subscription card — lightest proof set, highest risk · observed case",
+      },
+      {
+        src: personaSylvia,
+        alt: "Persona board P4, a participant who drives her own car: irregular attendance, no transport ticket, and unreachable by classroom notices.",
+        caption: "P4 · own car — irregular attendance · observed case",
+      },
+      {
+        src: personaDozent,
+        alt: "Persona board P5, the Dozent who owns the attendance list every calculation depends on.",
+        caption: "P5 · the Dozent — owns the attendance source of truth · constructed",
+      },
+      {
+        src: personaApprover,
+        alt: "Persona board P6, the Approver. The quote slot is deliberately empty because no verbatim was captured and the role is currently vacant.",
+        caption: "P6 · the Approver — quote slot deliberately empty · role currently vacant",
+      },
+      {
+        src: personaFinance,
+        alt: "Persona board P7, the Finance and Compliance authority. Every note is an assumption or an interview question, and the user journey column reads 'entirely unmapped'.",
+        caption: "P7 · Finance & Compliance — hypothesis only, and says so on the board",
+      },
+    ],
+  },
 
   // ── Research phases ────────────────────────────────────────────────────────
   // Left deliberately visible, per the report's own portfolio brief: most
