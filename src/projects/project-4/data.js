@@ -56,14 +56,14 @@ export const projectData = {
   timeline: "2025 – 2026 · ongoing, research wrapping up",
 
   tags: [
+    "System Design",
+    "Requirements Writing",
     "Service Design",
     "Process Mapping",
     "User Research",
     "Stakeholder Interviews",
-    "Requirements Writing",
     "Public Sector",
     "Accessibility",
-    "System Design",
   ],
 
   // First four are the card-visible line (ProjectCard slices to 4) — kept short
