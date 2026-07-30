@@ -10,16 +10,20 @@
 //   • Persona names are fictional; the observed cases behind P3/P4 are
 //     generalised, not portraits
 //   • No participant first names, no ticket-type attributions, no IBAN fragments
+//   • The flow diagram's source image had a real first name baked into its
+//     pixels ("Kristin"); redacted to "She" before the file was ever added here
+//     — see media/current-flow.webp and the anonymisation test guard
 //
 // NO ESTIMATED FIGURES. Every number below is a count of evidence that exists
 // (problems, roles, lanes, months), not a claimed impact. Baseline measurement
 // is a declared open gap (report Part VII) and is stated as such.
 //
-// STATUS: "Coming Soon" on purpose. Publication permission is a blocking item
-// (§8.3) and is not yet in writing. There is deliberately no index.jsx in this
-// folder, so main.jsx's route glob generates NO public route for it — the card
-// renders as a teaser and the case study itself is unreachable until you add
-// the six-line index.jsx and flip the status below.
+// WRITING STYLE: plain language on purpose. This page is public and most
+// readers are not UX researchers — recruiters, hiring managers, other
+// designers skimming quickly. Every fact below still traces back to the
+// report; only the wording was simplified. If you need the denser,
+// methods-vocabulary version for an academic audience, that's what the
+// source report is for — this page doesn't need to also be that document.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import stakeholderMap from './media/stakeholder-map.webp';
@@ -44,76 +48,74 @@ export const projectData = {
 
   stage: "In progress",
 
-  title: "Redesigning a Public-Programme Reimbursement Service",
-  subtitle:
-    "A nine-role, paper-bound service — modelled from the inside, then scoped by the people inside it",
-  tagline:
-    "I spent a year operating the process I was studying, then let the two problems nobody could solve define the scope.",
+  title: "Fixing a Broken Travel-Reimbursement Process",
+  subtitle: "A paper-based process with nine people involved — mapped from the inside, then fixed with the people who run it",
+  tagline: "I ran this process myself for a year. Then I let the two problems nobody could solve set my plan.",
 
-  role: "UX Engineer & insider-practitioner — operator, researcher and builder of the same process",
-  timeline: "2025 – 2026 · active, research phase closing",
+  role: "UX Engineer — I ran this process myself, studied it, and I'm now building the fix",
+  timeline: "2025 – 2026 · ongoing, research wrapping up",
 
   tags: [
-    "Service Design",    "Process Modelling",
-    "Thematic Analysis",
-    "Stakeholder Validation",
-    "Requirements Engineering",
+    "Service Design",
+    "Process Mapping",
+    "User Research",
+    "Stakeholder Interviews",
+    "Requirements Writing",
     "Public Sector",
     "Accessibility",
-    "System Architecture",
+    "System Design",
   ],
 
   // First four are the card-visible line (ProjectCard slices to 4) — kept short
-  // so the row stays scannable next to the other projects. The counts these
-  // drop are all still carried by `metrics` and the methodology prose.
+  // so the row stays scannable next to the other projects.
   methods: [
-    "Document Analysis",
-    "Practitioner Autoethnography (12 mo)",
-    "Swimlane Process Modelling (7 lanes)",
-    "Thematic Analysis",
-    "Expert Stakeholder Validation",
-    "Persona Development (7 boards, validation-status differentiated)",
-    "Journey Mapping (3 journeys)",
-    "Requirements Engineering (15 FR / 8 NFR)",
-    "Participant Survey (in preparation)",
+    "Reading the Rules",
+    "12 Months on the Job",
+    "Mapping the Process",
+    "Finding the Patterns",
+    "Checking with an Expert",
+    "Building the Personas",
+    "Mapping the Journeys",
+    "Writing the Requirements",
+    "Planning a Survey",
   ],
 
   metrics: [
-    { value: "16/16", label: "problems confirmed by the former process owner — none rejected" },
-    { value: "10/16", label: "independently sorted into the Admin lane, reproducing the structural finding" },
-    { value: "2", label: "problems nobody could solve — these became the scope" },
-    { value: "12 mo", label: "insider practice, captured as a register rather than anecdotes" },
+    { value: "16/16", label: "problems confirmed by someone who used to do this job" },
+    { value: "10/16", label: "problems that land on one person — the Admin" },
+    { value: "2", label: "problems nobody could solve — these set my starting point" },
+    { value: "12 mo", label: "I spent doing this job myself before I started" },
   ],
 
   techStack: [
     "React",
     "TypeScript",
-    "SQLite (single-file system of record)",
-    "OIDC (institutional single sign-on)",
-    "WebDAV",
+    "SQLite (one simple file, no server to run)",
+    "Single sign-on (log in with an account people already have)",
+    "WebDAV (connects to folders people already use)",
     "Spreadsheet export",
     "Single container",
   ],
 
   // ── Challenge ──────────────────────────────────────────────────────────────
   challenge:
-    "A monthly travel-cost reimbursement service inside a publicly-funded qualification programme in Thuringia spans nine roles and runs on a spreadsheet, a cloud folder, a network drive, printed paper, a wet-ink signature and sticky notes. Participants who miss the deadline or submit an incomplete set lose their claim entirely. The system therefore pushes the highest financial risk onto the actor with the least visibility: participants cannot see whether their upload arrived, whether it was complete, what was calculated, or why — they discover failure when the money does not come. That asymmetry, not the inefficiency, is the ethical centre of the case. The eligibility rules, proof requirements, approval chain and archiving obligations are legally binding constraints to design within, not UX friction to simplify away, so the design goal is to make compliance cheap, not optional.",
+    "Every month, people in a publicly funded training programme get their travel costs paid back. Right now, that runs on a spreadsheet, a shared folder, a printer, a signed paper form, and sticky notes. Nine different people touch each claim before it's done.\n\nIf someone misses the deadline, or their documents are incomplete, they lose the money — no exceptions. And there's no way for them to check if their claim is even on track. They only find out something went wrong when the payment doesn't arrive.\n\nThat's the real problem: the people with the most to lose can see the least. The underlying rules — who qualifies, what proof is needed, who has to sign off — are fixed and legally binding, so simplifying the rules isn't an option. The goal is to make the existing rules easy to follow, not to rewrite them.",
 
   // ── Solution ───────────────────────────────────────────────────────────────
   solution:
-    "A status-visibility layer, delivered as a production system in increments rather than a prototype — scoped by an explicit rule derived from stakeholder evidence: build what the organisation cannot solve by policy, and let policy solve the rest. Increment 1 is an internal Admin dashboard (all participants × current month: document completeness, attendance state, amount, eligibility flags, process status) — the only increment that is simultaneously unblocked, immediately valuable and demonstrable, because it runs on data already under my control and needs no approval that does not already exist. Increment 2 delivers participant transparency without building a participant-facing application at all: a generated status file placed each month into the cloud folder each participant already uses, stating what arrived, what is missing, the amount with its arithmetic in plain German, the current state and the next deadline. That decision removed a login, a frontend, an authentication surface and the accessibility barrier the persona work had just surfaced. Increment 3 closes the chain — approval queue with deputy fallback, digital attendance entry, and a handoff that integrates with the document system already in the chain.",
+    "The fix is simple to describe: let people see what's happening with their own claim. I'm building it in stages, as a real tool people will use — not a demo that only looks finished.\n\nStage 1 is a dashboard for the Admin, the person running this process today. It shows every claim at a glance: what's missing, what's approved, what's overdue. It needs no extra permission, so it can start immediately.\n\nStage 2 gives participants visibility without a whole new app to learn. Once a month, a simple status file appears in the same cloud folder they already use — what arrived, what's missing, how much they'll get and why, and the next deadline. No new login, no new interface. That choice also solves an accessibility problem for anyone who struggles with new tools.\n\nStage 3 closes the loop: backup approvers so nothing stalls if someone's away, and a proper connection to the paperwork system already in place.",
 
   // ── Methodology ────────────────────────────────────────────────────────────
   methodology:
-    "Multi-method and deliberately sequenced, so each stage constrains the next: rule extraction from four governing documents; twelve months of insider practice captured as a role-attributed problem register rather than anecdotes; a seven-lane swimlane with every failure point pinned to a step; thematic analysis clustering the register into five failure themes; then expert stakeholder validation before any scoping decision was made. The primary validity threat is that I built the problem list from inside the role that suffers most from it — the position from which every complaint looks like a requirement. Mitigations are stated rather than assumed: problems are attributed by affected role so Admin-only pain is visible as such, validation happened before scope was set, and the participant survey is scheduled before design freeze. Mitigations still outstanding are marked as outstanding: five of nine stakeholder roles remain uninterviewed, the process model itself has never been externally confirmed, and the expert review was reactive rather than generative — it confirmed all sixteen problems and added none, which is either a complete model or a response format that only permitted reaction.",
+    "I didn't just complain about the process — I studied it properly, in this order:\n\n1. Read the four official documents that set the actual rules.\n2. Logged every problem I ran into over 12 months, and who it really hurt — not just me.\n3. Mapped the whole process, step by step, and pinned every problem to the exact point it happens.\n4. Grouped those problems into a handful of clear patterns.\n5. Showed everything to someone who used to have my job, before deciding what to build.\n\nThe obvious risk: I built this list from the one role that suffers most from these problems, so of course it looked like a strong case for fixing them. That's why I checked it with someone else before deciding what to build, not after. I still owe interviews with 5 of the other 9 people involved, and nobody outside my own head has checked the process map itself yet.",
 
   // ── Results ────────────────────────────────────────────────────────────────
   results:
-    "Two independent clusterings of the register converged on five themes — the Chasing Loop, Media Breaks, Status Opacity, Bus Factor of One, and Manual Rule Execution — and on one structural finding: the Admin is the system's only integration layer. Every arrow in the model passes through one human; no other pair of roles communicates directly. I then put the model in front of the one person more qualified to critique it than me: the current Manager, who held my role before me. She confirmed all sixteen problems, rejected none, and — sorting them independently by affected party — placed ten of sixteen in the Admin bucket, reproducing my structural finding by a different method. She proposed an organisational fix for every problem except two. Those two, both pure information-visibility problems, came back marked '?' and 'Keine Idee.' That became the scope. She also derived the dependency chain herself: she proposed abolishing manual reminders, then immediately identified the blocker — for that we would need a system where participants can check their own status. One system unlocks three problems, only one of which it addresses directly, and the argument is considerably stronger for having been made by a stakeholder rather than by the designer. There are currently no impact numbers in this project, and none are estimated anywhere: baseline capture over two to three cycles is defined but not yet started, and 'I redesigned a process' without a baseline is unfalsifiable.",
+    "I found five clear patterns in the sixteen problems, and one big one underneath them all: almost everything runs through the Admin. One person is the only link connecting every other role.\n\nThen I showed my findings to the current Manager — the only person who has done both her job and mine. She agreed with every single problem, all 16, and rejected none. When she sorted them by who they actually hurt, she put 10 of the 16 on the Admin — matching what I'd found completely separately, using a different method.\n\nShe had a fix for almost everything, except two problems. Both came down to the same thing: people can't see the status of their own claim. She had no real idea how to solve that without building something new.\n\nThat's how I picked what to build first. She even worked out, on her own, that fixing the endless reminder emails needs a status system in place first — you can't stop chasing people until they can check things themselves.\n\nI don't have hard numbers yet on time or money saved. That's the next thing to measure, not something I'm claiming today.",
 
   // ── Implications ───────────────────────────────────────────────────────────
   implications:
-    "Three results changed the brief rather than decorating it. First, completing the persona set inverted an assumption: the three participant variants map exactly onto the three proof branches in the governing document, and the participant with the lightest monthly paperwork — one bank statement — is the one most likely to fail, because her barrier is the submission channel, not the documentation. She cannot use the cloud link, so she sends documents by email, which the instructions forbid, which leaves no trace in the folder the Admin checks, and which is a live data-protection exposure in today's process independent of anything being built. A rule that can only be followed by users with a particular skill level is a design failure, not a compliance failure. Second, the cheapest organisational fix — replacing email reminders with a notice in the class hour — structurally excludes the participants who attend rarely, and does so invisibly, because the people it fails are the people who are not there. Visibility has to exist before reminders are withdrawn, not after. Third, a risk recorded as hypothetical materialised three weeks later when the approval role became vacant with no deputy arrangement defined — which demonstrated the model had predictive rather than merely descriptive value, and upgraded fallback logic from a nice-to-have to a live organisational need. The report also retains a correction: an earlier draft credited my own process documentation with solving the handover problem, and the stakeholder evidence contradicted it — a HowTo and an overview table already existed and went unused, because the binding constraint was staff capacity, not documentation. Being visibly wrong and then corrected by evidence is what validation is for, so the correction stayed in.",
+    "A few things changed my plan along the way, and they're worth stating plainly.\n\nThe person with the least paperwork turned out to be the most likely to lose her claim — because her real problem isn't the paperwork, it's that she can't use the upload system. She emails her documents instead, which isn't allowed, and it doesn't show up anywhere the Admin checks. That's not her fault. A rule only works if the people it applies to can actually follow it.\n\nThe cheapest fix on the table — swapping email reminders for an announcement in class — would quietly leave out the people who barely attend in person. Nobody would even notice, because the people it fails aren't in the room to say so.\n\nA risk I'd written down as 'this could happen someday' actually happened three weeks later: the approver's role sat empty, with no backup plan. A good process map should help you see that coming, not just describe the process after the fact.\n\nOne thing I got wrong, and I'm keeping it in this write-up on purpose: I assumed my own written instructions had already solved the handover problem. They hadn't — the real issue was that nobody had time to read them. Being wrong, and then getting corrected by the evidence, is exactly what this kind of check is for.",
 
   // ── Figures ────────────────────────────────────────────────────────────────
   // All zoomable: these are 1600–1800px research artefacts, so inline they are
@@ -123,16 +125,15 @@ export const projectData = {
       {
         src: stakeholderMap,
         span: 2,
-        label: "Stakeholder Map",
-        title: "Nine roles, and where the attention has to go",
+        label: "Who's Involved",
+        title: "Nine people, and where the attention needs to go",
         description:
-          "Two views of the same nine stakeholders. Left, proximity to the process: a direct ring that touches a claim every month, and an indirect ring that shapes what is allowed but never handles a case. Right, the same nine sorted by influence against interest, with an engagement level per quadrant. PK and BL denote the programme's two participant cohorts, which matters because they attend on different rhythms.",
+          "Two ways of looking at the same nine people. On the left: how close each person sits to the day-to-day process. On the right: how much say each person has, versus how much they care — which shows where to spend the most attention.",
         alt:
-          "Stakeholder map in two views. Left: concentric proximity rings with the reimbursement process at the core, direct stakeholders (Admin, Manager, Dozent, participants) in the inner ring and indirect stakeholders (Finance & Compliance, Accounting, IT/Cloud) in the outer ring. Right: an influence-by-interest grid sorting the same nine stakeholders into Manage Closely, Keep Satisfied, Engage as Needed and Monitor.",
-        caption:
-          "Nine stakeholders, two views — proximity to the process, and where to spend attention",
+          "Stakeholder map in two views. Left: circles showing how close each role sits to the process — the Admin at the centre, then the Manager, Dozent and participants, with Finance, Accounting and IT further out. Right: a grid sorting the same nine roles by how much influence they have and how interested they are, split into four zones for how closely to manage each one.",
+        caption: "Nine people, two ways to see who matters most",
         takeaway:
-          "The Admin sits alone at the centre because every arrow in the process model passes through that one role — no other pair of roles communicates directly. The map also exposes the gap that reframed the project: Finance & Compliance sits in the outer, indirect ring, yet owns the two legal decisions that determine whether the system can exist in its intended form. A role that gates the design space was invisible in the original process model entirely.",
+          "The Admin sits at the centre because nearly everything in this process runs through that one role. The map also shows a gap worth noticing: the Finance team is drawn as distant and low-involvement, but they're actually the ones who decide whether the biggest fixes — like digital signatures — are even allowed. That's a decision-maker the original process map had completely missed.",
       },
     ],
 
@@ -140,17 +141,16 @@ export const projectData = {
       {
         src: informationArchitecture,
         span: 2,
-        label: "Information Architecture",
-        title: "One portal, four role-based views",
+        label: "How It's Organised",
+        title: "One tool, four simple views",
         description:
-          "Structure follows the process rather than the org chart: participants submit proof, the Dozent confirms attendance, the Admin runs collection, calculation and archiving, an Approver signs off each case, and Accounting pays and reconciles. Each role sees one view containing only the steps it actually performs.",
+          "Each person only sees the part of the process that's theirs. Participants submit their documents and check their claim. The Admin runs the process day to day. An approver signs off on each case. Accounting pays out.",
         alt:
-          "Information architecture tree for the reimbursement portal. One root branches into four role-based views: Participant (submit documents, my claims and status, notifications), Admin (dashboard, attendance import, document review, calculate, log and archive), Approver (approval queue, case detail and history, deputy settings), and Accounting (payment queue, paid and reconciliation).",
-        caption:
-          "One portal, four role-based views — structure follows the process, not the org chart",
-        takeawayLabel: "How to read it",
+          "Diagram showing one tool split into four views by role. Participant view: submit documents, check claims and status, get notifications. Admin view: dashboard, import attendance, review documents, calculate the amount, log and archive. Approver view: approval queue, case history, backup settings. Accounting view: payment queue, paid and reconciled.",
+        caption: "One tool, four views — one for each role",
+        takeawayLabel: "Worth knowing",
         takeaway:
-          "The Admin branch is deliberately the deepest, because that is where the integration labour currently sits — and it is exactly the branch Increment 1 builds, since it needs no approval that does not already exist. Two branches carry decisions rather than features: the Approver view includes deputy settings because the vacancy risk stopped being hypothetical during the study, and the Participant branch is the deferred option, not the committed one. Increment 2 delivers those same three functions as a generated status file in the folder participants already use — no login, no participant frontend. Real accounts stay available as a later step, and only if the survey shows the file is not enough.",
+          "The Admin's view is the biggest one here, because that's where most of the day-to-day work happens today — and it's the first piece I'm actually building. The participant view shown is the plan for a future full app, if it's ever needed. For now, participants get the same information a simpler way: a status file in the folder they already use, with no new login required.",
       },
     ],
 
@@ -158,182 +158,181 @@ export const projectData = {
       {
         src: currentFlow,
         span: 2,
-        label: "As-Is Process Map",
-        title: "The simple version — eight steps, six roles, one loop back",
+        label: "How It Works Today",
+        title: "The process, simplified",
         description:
-          "A simplified hero version of the full process model, which runs to seven lanes and roughly thirty steps and is a working artefact rather than something legible on a web page. This compressed version keeps the handoffs that matter: participant submits, the Dozent logs attendance, Admin collects, calculates and archives, the Manager reviews, and Accounting pays. TN denotes the participant, co-signing the reimbursement form alongside Admin at step 5.",
+          "The real process runs to about thirty steps across seven teams — too much to put on one page and still make sense. This is the short version: the handoffs that actually matter, from submitting a document to getting paid.",
         alt:
-          "Flow diagram titled 'the simple version', eight numbered steps across six roles. 1 Participant submits travel documents to a shared cloud folder by the 15th. 2 Dozent logs monthly attendance. 3 Admin collects and checks documents. 4 Admin calculates the reimbursement from attendance days and the ticket rule. 5 Admin and the participant fill and sign the form. 6 the Manager reviews and approves, with a dashed line labelled 'needs a fix' looping back to the collection and calculation steps when something is off. 7 Admin logs and archives the case. 8 Accounting processes payment.",
-        caption: "The as-is process — eight steps, one rework loop",
-        takeawayLabel: "What the loop shows",
+          "Flow diagram titled 'the simple version', eight numbered steps. 1: the participant submits travel documents to a shared cloud folder by the 15th. 2: the teacher logs monthly attendance. 3: Admin collects and checks the documents. 4: Admin works out the amount from attendance and the ticket rule. 5: Admin and the participant fill in and sign the form. 6: the Manager reviews and approves, with a dashed line labelled 'needs a fix' looping back to the earlier collection and calculation steps if something's wrong. 7: Admin logs and files the case. 8: Accounting pays out.",
+        caption: "Eight steps, one loop back when something's wrong",
+        takeawayLabel: "The interesting part",
         takeaway:
-          "The dashed 'needs a fix' line from Review & approve back to Collect & check documents is a media break made visible: a rejected case re-enters the process on paper, without the participant ever seeing why. It is the same rework cost the report's Theme B (Media Breaks) and Theme C (Status Opacity) describe from two different angles — the Manager can see enough to reject a case, but nobody downstream can see that rejection happen until the corrected packet reappears. This compressed version deliberately omits the finance authority and the document-management system the full model added after stakeholder review (§3.8) — it shows the process as participants and Admin experience it, not the complete actor set.",
+          "See the dashed line? That's what happens when the Manager rejects a claim — it gets sent back on paper, and the person who submitted it has no way of knowing why. It's the same underlying gap showing up twice: paper causes delays, and nobody downstream can see what's actually happening.",
       },
       {
         src: personaSelin,
         span: 2,
         label: "Persona P1",
-        title: "The Admin — the only validated board in the set",
+        title: "The Admin — the one person everything runs through",
         description:
-          "The operator of the process, built from twelve months of insider practice and then checked against someone else's memory of the same job.",
-        alt: "Persona board P1, the Admin: goals, pain points, needs and a validation note recording that a former occupant of the role confirmed the entire failure set.",
-        caption: "P1 · the Admin — validated by an independent former occupant of the role",
-        takeawayLabel: "Why it carries weight",
+          "Built from a year of doing this job myself, then checked against someone else's experience of the same role.",
+        alt: "Persona board for the Admin: her goals, frustrations, needs, and a note confirming that someone who used to have this job agreed with every problem on the list.",
+        caption: "The Admin — confirmed by someone who used to do this job",
+        takeawayLabel: "Why this one matters",
         takeaway:
-          "This is the one board that is not self-report. An independent former occupant of the role confirmed the entire failure set, which is what moved the primary persona from assertion to evidence. Her line — nothing moves unless she pushes it — is the human statement of the structural finding the process map produced separately.",
+          "This is the only profile here that isn't just my own opinion — someone who's actually done this job before confirmed every part of it. Her own words say it best: nothing moves unless she pushes it.",
       },
       {
         src: personaYusuf,
         span: 2,
         label: "Persona P2",
-        title: "Online ticket — the heaviest proof set",
+        title: "Online ticket — the most paperwork",
         description:
-          "Smartphone-first, on internship, off-site for weeks. Buys his ticket online, so he owes the largest monthly document set of the three proof paths: screenshot, bank statement and invoice, every month.",
-        alt: "Persona board P2, a participant with an online ticket: heaviest monthly proof set, on internship and off-site for weeks.",
-        caption: "P2 · online ticket — heaviest proof set · constructed, unvalidated",
+          "Buys his ticket online and works away from the office for weeks at a time. Because of that, he has to submit more documents than anyone else, every single month.",
+        alt: "Persona board for a participant who buys an online ticket: the heaviest monthly paperwork, often away on placement for weeks at a time.",
+        caption: "The most paperwork · not yet confirmed",
         takeawayLabel: "Status",
         takeaway:
-          "Constructed from the governing documents and general observation rather than from a specific case, and labelled as such. He is the participant the paperwork rules were clearly written for — which is precisely why he is not the one most likely to fail.",
+          "This one is my best guess based on the rules, not a confirmed real case yet. He's also, a little ironically, not the one most likely to fail — the rules were basically written with him in mind.",
       },
       {
         src: personaAesha,
         span: 2,
         label: "Persona P3",
-        title: "Subscription card — the lightest paperwork, the highest risk",
+        title: "Subscription card — least paperwork, most risk",
         description:
-          "Mid-50s, finds technology difficult, and German is not her first language. Her ticket type means she owes a single document a month — the lightest burden of the three proof paths.",
-        alt: "Persona board P3, a participant with a subscription card: lightest proof set but highest failure risk, because she cannot use the cloud upload and sends documents by email instead.",
-        caption: "P3 · subscription card — lightest proof set, highest risk · observed case",
+          "In her 50s, not confident with technology, and German isn't her first language. Her ticket type means she only has to submit one document a month — the lightest paperwork of anyone in the process.",
+        alt: "Persona board for a participant with a monthly subscription ticket: the lightest paperwork of the three ticket types, but the highest real risk of losing her claim.",
+        caption: "Least paperwork, highest risk · a real case",
         takeawayLabel: "Why she matters most",
         takeaway:
-          "She inverts the assumption that proof burden predicts failure. Her barrier is not the paperwork — it is the submission channel. She cannot use the cloud link, so she sends her bank statement by email: which the instructions forbid, which leaves no trace in the folder the Admin checks, and which is a live data-protection exposure in today's process independent of anything being built. A rule that can only be followed by users with a particular skill level is a design failure, not a compliance failure. She is the reason the upload path must be completable without help — a harder requirement than mobile-friendliness, and the one that drove the architecture decision to remove the participant interface from the critical path entirely.",
+          "She's proof that less paperwork doesn't mean less risk. Her actual problem is that she can't use the upload system, so she emails her bank statement instead — which isn't allowed, and which nobody ever sees. That's not a paperwork problem. It's a design problem, and it's the strongest reason the new upload flow has to work without anyone's help.",
       },
       {
         src: personaSylvia,
         span: 2,
         label: "Persona P4",
-        title: "Own car — irregular attendance, structurally unreachable",
+        title: "Drives her own car — hard to reach",
         description:
-          "Mid-30s, German is not her first language, and she has no transport ticket at all — she drives her own car in on the handful of days she attends.",
-        alt: "Persona board P4, a participant who drives her own car: irregular attendance, no transport ticket, and unreachable by classroom notices.",
-        caption: "P4 · own car — irregular attendance · observed case",
+          "Only comes in a handful of days a month, and German isn't her first language either. She has no transport ticket at all — she just drives.",
+        alt: "Persona board for a participant with irregular attendance who drives her own car: rarely on site, and hard to reach through classroom announcements.",
+        caption: "Rarely on site · a real case",
         takeawayLabel: "Why she matters",
         takeaway:
-          "She breaks the cheapest organisational fix on the table. Replacing email reminders with a notice in the class hour cannot reach a participant who is rarely in the classroom — and it fails invisibly, because the people it excludes are the people who are not there. That is the argument for building visibility before withdrawing reminders, not after. She also carries the highest Admin cost per euro reimbursed, since low attendance triggers the manual comparison calculation, and her own words compress three separate register items into one sentence: signed the paper, then waiting.",
+          "The cheapest fix on the table — swap emails for an announcement in class — simply doesn't reach her, because she's almost never in class to hear it. She also costs the Admin the most time per case, since her irregular attendance triggers extra manual checks.",
       },
       {
         src: personaDozent,
         span: 2,
         label: "Persona P5",
-        title: "The Dozent — owns the attendance source of truth",
+        title: "The teacher who tracks attendance",
         description:
-          "Competent with spreadsheets, impatient with administration, and the owner of the attendance list every single calculation depends on.",
-        alt: "Persona board P5, the Dozent who owns the attendance list every calculation depends on.",
-        caption: "P5 · the Dozent — owns the attendance source of truth · constructed",
+          "Comfortable with spreadsheets, less comfortable with admin work — and everyone's payment depends on the attendance list she keeps.",
+        alt: "Persona board for the teacher who owns the attendance list that every payment calculation depends on.",
+        caption: "Owns the attendance list · not yet confirmed",
         takeawayLabel: "Status",
         takeaway:
-          "Constructed and unvalidated. His frustration points at a timing failure rather than a diligence failure: queries reach him weeks after the lesson, so the fix is making gaps visible while the lesson is still recent, not chasing him harder afterwards.",
+          "His frustration isn't laziness, it's timing — he gets asked about a specific day weeks after it happened, once he's already forgotten the details.",
       },
       {
         src: personaApprover,
         span: 2,
         label: "Persona P6",
-        title: "The Approver — and a deliberately empty quote",
+        title: "The Approver — an empty quote, on purpose",
         description:
-          "Wants per-case summaries rather than files, and currently receives paper stacks or scattered email threads with nothing to approve against.",
-        alt: "Persona board P6, the Approver. The quote slot is deliberately empty because no verbatim was captured and the role is currently vacant.",
-        caption: "P6 · the Approver — quote slot deliberately empty · role currently vacant",
-        takeawayLabel: "Why the gap is visible",
+          "Wants a short summary for each case, not a stack of paper or a messy email thread with nothing clear to approve against.",
+        alt: "Persona board for the Approver role, with an intentionally empty quote because the role is currently vacant.",
+        caption: "Role currently empty",
+        takeawayLabel: "Why there's no quote",
         takeaway:
-          "The quote slot is empty on purpose: no verbatim was captured, and the role became vacant during the study with no deputy arrangement defined. Nothing has been invented to fill it. That vacancy is also the risk the process model had recorded as hypothetical three weeks earlier, which is what upgraded deputy and fallback logic from a nice-to-have to a live organisational need.",
+          "There's no quote here because there's genuinely no one in the role right now — it became vacant during this project, with no backup plan in place. Rather than invent something, I left it blank.",
       },
       {
         src: personaFinance,
         span: 2,
         label: "Persona P7",
-        title: "Finance & Compliance — a persona with no evidence in it",
+        title: "Finance — the decision-maker nobody had drawn",
         description:
-          "Owns whether digital signatures and paperless archiving are permitted at all: the two decisions that determine whether the system can exist in its intended form.",
-        alt: "Persona board P7, the Finance and Compliance authority. Every note is an assumption or an interview question, and the user journey column reads 'entirely unmapped'.",
-        caption: "P7 · Finance & Compliance — hypothesis only, and says so on the board",
-        takeawayLabel: "Why it is in the set at all",
+          "Decides whether digital signatures and paperless records are even allowed — a decision that shapes what this whole project is allowed to become.",
+        alt: "Persona board for Finance and Compliance, who decide whether digital signatures and paperless records are permitted. Marked as not yet interviewed.",
+        caption: "Not yet interviewed, and this board says so",
+        takeawayLabel: "Why include a persona with no data?",
         takeaway:
-          "Every note on this board is an assumption or an interview question rather than a finding, and the board says so — the user journey column reads entirely unmapped. It is named owner of five register items and was absent from the process model completely. It functions as interview preparation, to be rebuilt from evidence afterwards. A persona that openly contains no evidence, and names what would fill it, is a more honest artefact than a confident fabrication.",
+          "Honestly, because this role turned out to matter more than anyone realised. It didn't even appear in the original process map, despite holding the two decisions that matter most. This board is really a list of questions to ask, not a finished profile — and I'd rather show that clearly than fake it.",
       },
     ],
   },
 
-  // ── Research phases ────────────────────────────────────────────────────────
-  // Left deliberately visible, per the report's own portfolio brief: most
-  // portfolios show polished outcomes, and showing a live plan with its
-  // unfinished phases marked is what demonstrates the method.
+  // ── Where things stand ─────────────────────────────────────────────────────
+  // Left deliberately visible: most portfolios only show the finished result.
+  // Showing an honest, unfinished plan is more useful than hiding it.
   phasesIntro:
-    "This is a live project, not a retrospective. The research phase is closing and the build has not started, so the phases below are marked as they actually stand — complete, in progress, planned, or blocked on a decision that belongs to someone else. Nothing here is padded to look finished, and no impact numbers are claimed anywhere in this case study, because the baseline has not been captured yet.",
+    "This project is still going. The research is nearly done, but nothing has been built yet. Below is where things actually stand — nothing here is dressed up to look more finished than it is.",
 
   phases: [
     {
-      phase: "Document analysis — rule extraction",
+      phase: "Reading the rules",
       status: "complete",
-      note: "Four governing documents read against each other to recover the binding rule set.",
+      note: "Read the four official documents to find the actual rules.",
     },
     {
-      phase: "Practitioner autoethnography — 12 months",
+      phase: "12 months on the job",
       status: "complete",
-      note: "Sixteen failure points logged as a role-attributed register rather than recalled as anecdotes.",
+      note: "Logged every problem I ran into for a year, as it happened — not from memory afterwards.",
     },
     {
-      phase: "Process modelling — 7-lane swimlane",
+      phase: "Mapping the process",
       status: "complete",
-      note: "Needs re-baselining: the review surfaced two actors missing from the model, and the approval chain has since changed.",
+      note: "Needs an update — the review turned up two people and one system missing from the first version.",
     },
     {
-      phase: "Thematic analysis — five failure themes",
+      phase: "Finding the patterns",
       status: "complete",
     },
     {
-      phase: "Expert stakeholder validation",
+      phase: "Checking with an expert",
       status: "complete",
-      note: "Confirmation-only, which is weaker than independent elicitation. A generative round — which problems would you have listed that I didn't, and where is the map wrong — is still owed.",
+      note: "She agreed with everything I found, but I'd still like to ask what I might have missed.",
     },
     {
-      phase: "Personas & journey mapping",
+      phase: "Personas & journeys",
       status: "complete",
-      note: "Seven boards, each carrying its own validation status. Two participant boards are observed cases awaiting survey confirmation; one is hypothesis-only and says so.",
+      note: "Two of the participant profiles are real cases; one is still just an educated guess, and says so.",
     },
     {
-      phase: "Requirements & architecture",
+      phase: "Requirements & how it's built",
       status: "complete",
-      note: "15 functional and 8 non-functional requirements; architecture decided against continuity and budget constraints.",
+      note: "Decided what to build and how, given a small budget and the chance I won't be around to maintain it forever.",
     },
     {
-      phase: "Participant survey",
+      phase: "Talking to participants",
       status: "in-progress",
-      note: "Instrument in preparation, distributed through a channel the organisation proposed rather than solicited one-to-one by the person who processes their claims.",
+      note: "Survey is being written. It'll go out through the class itself, not from me directly, so people don't feel pressured.",
     },
     {
-      phase: "Stakeholder interviews — 5 remaining roles",
+      phase: "Talking to the other 5 people",
       status: "planned",
-      note: "Five of nine roles are still uninterviewed. This is the largest open validity gap.",
+      note: "Still haven't spoken with 5 of the 9 people in this process. This is the biggest open question right now.",
     },
     {
-      phase: "Baseline measurement",
+      phase: "Measuring the real impact",
       status: "planned",
-      note: "The largest remaining gap in the project. There are currently no measured quantities, and 'I redesigned a process' without a baseline is unfalsifiable.",
+      note: "No real numbers yet on time or money saved. This has to happen before I can claim any results.",
     },
     {
-      phase: "Data-protection review",
+      phase: "Data protection check",
       status: "planned",
-      note: "On the critical path, not a closing formality: production intent means this must complete before the system holds a single real file.",
+      note: "Has to happen before this touches anyone's real documents — not a formality to leave until the end.",
     },
     {
-      phase: "Increment 1 — Admin dashboard",
+      phase: "Building the Admin dashboard",
       status: "planned",
-      note: "The one increment that is unblocked, immediately valuable and demonstrable without approval that doesn't already exist.",
+      note: "First thing to actually build. Doesn't need anyone's permission I don't already have.",
     },
     {
-      phase: "Digital sign-off authorisation",
+      phase: "Getting sign-off on digital signatures",
       status: "blocked",
-      note: "The highest-leverage requirement in the set, and the decision belongs to a role I don't control. Designed around rather than assumed — one state machine, two terminal implementations.",
+      note: "Not my decision to make. I've designed around it so the project can move forward without it, and switch it on later if it's approved.",
     },
   ],
 
@@ -341,102 +340,102 @@ export const projectData = {
   process: [
     {
       phase: "discover",
-      type: "Document Analysis",
-      title: "Extracting the Rules Nobody Had in One Place",
+      type: "Reading the Rules",
+      title: "Finding the Real Rules",
       annotation:
-        "Four governing documents were read against each other to recover the actual rule set: the eligibility threshold, the ticket default and its cheaper-alternative proof, the comparison calculation triggered below a two-week attendance threshold, the required proof set per ticket type, the approval chain, the audit trail and the archiving obligation.",
+        "I compared four official documents to work out the actual rules — who qualifies, what proof is needed, and how approval works.",
       insight:
-        "The rules were not wrong — they were scattered. And they are legally binding, which reframed the whole project: the target is not a simpler process but cheaper compliance with the process that must exist.",
+        "The rules weren't bad, they were just scattered across four documents. And since they're legally binding, the real goal became making them easy to follow, not simplifying them away.",
       imagePath: null,
     },
     {
       phase: "discover",
-      type: "Practitioner Autoethnography",
-      title: "Twelve Months Inside the Failing Process",
+      type: "12 Months on the Job",
+      title: "Living the Problem for a Year",
       annotation:
-        "Rather than recalling frustrations, I logged them: sixteen failure points, each attributed to the role it actually harms, versioned as a register. Attribution mattered more than the list — it makes items that only hurt the Admin visible as such.",
+        "Instead of just remembering my complaints, I wrote them down as they happened — 16 problems, each tagged with who it actually hurts.",
       insight:
-        "Role-attribution is what converts an insider's complaint list into evidence. Without it, the register would simply have been a record of my own worst month, generalised.",
+        "Tagging who each problem hurts is what turns a personal complaint list into real evidence.",
       imagePath: null,
     },
     {
       phase: "define",
-      type: "Swimlane Process Modelling",
-      title: "Seven Lanes, ~30 Steps, Sixteen Pinned Failures",
+      type: "Mapping the Process",
+      title: "Every Step, One Month",
       annotation:
-        "One reimbursement cycle modelled as a swimlane activity diagram with every problem localised to the step where it occurs, rather than listed separately from the process it breaks.",
+        "I drew out one full reimbursement cycle, step by step, and marked exactly where each of the 16 problems happens.",
       insight:
-        "Three structural properties fell out of the model: a hub-and-spoke topology with a human hub, at least four paper/digital media breaks per cycle each of which destroys status information, and a critical path that is time-driven rather than work-driven — nothing can start until two chronically late inputs arrive, both enforced only by a person sending reminders.",
+        "Three patterns fell out of the map: one person does almost everything, paper and email cause delays at several points, and nothing can start until two things arrive late — both chased by a human, every single time.",
       imagePath: null,
     },
     {
       phase: "define",
-      type: "Expert Stakeholder Validation",
-      title: "Handing the Model to the Person Who Held My Role Before Me",
+      type: "Checking with an Expert",
+      title: "Asking Someone Who's Done Both Jobs",
       annotation:
-        "The former process owner — now Manager, and the only person to have occupied both the operational and the authority position — reviewed all sixteen problems along two dimensions: who can solve this, and what would the fix be.",
+        "I showed the list of 16 problems to the current Manager, who used to do my job. I asked who's responsible for each one, and how she'd fix it.",
       insight:
-        "Zero problems rejected or downgraded. Sorting by affected party, she put ten of sixteen in the Admin bucket — independently reproducing the hub-and-spoke finding I had derived from the swimlane. Two methods, one conclusion. I also logged the weakness: confirmation-only validation is weaker evidence than independent elicitation, so the next round asks which problems she would have listed that I did not.",
+        "She agreed with all 16 and rejected none. Sorting them her own way, she put 10 on the Admin — matching my map, from a completely different angle. I also noted a weakness: she only reacted to my list, so next time I'll ask what she'd add that I missed.",
       imagePath: null,
     },
     {
       phase: "define",
       type: "Scoping from Evidence",
-      title: "The Two Empty Cells That Became the Scope",
+      title: "The Two Problems Nobody Could Fix",
       annotation:
-        "Every register item had an organisational answer available — stricter rules, a classroom notice, a team channel, a checklist, a legal ruling, a spreadsheet, a control point in the team meeting. Two did not: document status tracking came back '?', and payment status visibility came back 'Keine Idee.'",
+        "Every problem had someone who could fix it — except two. Both came down to the same thing: nobody can see where their claim stands.",
       insight:
-        "Build what the organisation cannot solve by policy; let policy solve the rest. That rule also forced a trade-off I recorded rather than made quietly: the calculation engine is the most enjoyable thing to build and is explicitly not first, because building the fun thing first is exactly the failure mode this exercise exists to prevent.",
+        "So that became the rule: build what nobody else can fix, and let normal policy fixes handle the rest. The calculation tool would have been more fun to build first — but that's exactly the trap this whole exercise exists to avoid.",
       imagePath: null,
     },
     {
       phase: "design",
-      type: "Persona Development",
-      title: "Seven Boards, Each Carrying Its Own Validation Status",
+      type: "Building the Personas",
+      title: "Seven People, Labelled Honestly",
       annotation:
-        "Personas built by position in the service, with provenance and validation status stated on every board — validated, observed-case, constructed, or hypothesis-only. One board's quote slot was left deliberately empty because no verbatim was captured and the role is currently vacant; nothing was invented to fill it. Avatars are initial monograms, not stock photographs.",
+        "I built a profile for everyone in the process, and labelled how solid each one actually is — confirmed, a real case, my best guess, or just a hypothesis.",
       insight:
-        "Persona sets normally present every profile as equally solid, which would quietly undo the evidentiary discipline of everything else. The board with no evidence at all names what would fill it and functions as interview preparation — a more honest artefact than a confident fabrication.",
+        "Most persona sets pretend every profile is equally solid. Mine doesn't. One board is left honestly blank rather than made up, because there simply wasn't evidence for it yet.",
       imagePath: null,
     },
     {
       phase: "design",
-      type: "Designing Around a Blocked Requirement",
-      title: "One State Machine, Two Terminal Implementations",
+      type: "Designing Around What I Can't Control",
+      title: "Building for Today, Ready for Tomorrow",
       annotation:
-        "Digital sign-off is the highest-leverage requirement in the set — it removes the printing, the weeks-long signature wait and the physical-presence dependency in one move. It is also not authorised, and the decision belongs to a role I do not control. State A prepares a complete pre-filled print-ready form and tracks the signature as an explicit pending state visible to all parties; State B satisfies the same node in-app if authorisation arrives.",
+        "Digital signatures would remove the biggest delay in this process — but that's not my decision to make. So I designed two versions: one that works today with paper, and one that switches on instantly if it's ever approved.",
       insight:
-        "The signature stops being a black hole even while it remains paper. Designing for the constraint you have while remaining able to adopt the constraint you want is the difference between a demo and a deployable system.",
+        "That way, paper stops being a black hole even before anything officially changes — and the project doesn't have to sit and wait for permission to make progress.",
       imagePath: null,
     },
     {
       phase: "design",
-      type: "Architecture Review",
-      title: "Designing a System That Outlives Its Author",
+      type: "Planning for the Long Run",
+      title: "Building Something That Can Outlive Me",
       annotation:
-        "The dominant constraint is not technical: the budget is small and I may not be maintaining this in a few years. Decisions follow from that — institutional single sign-on so no password is ever stored and access ends when someone leaves; a single-file database with no server to operate, backed up by copying a file and readable in fifteen years; spreadsheets demoted from storage to disposable output regenerated after every change; documents left in the folders they already occupy; versioned effective-dated rules so old months stay reproducible; one deployment per team, which removes multi-tenancy entirely.",
+        "The budget is small, and I might not be around to maintain this in a few years. So I kept it as simple as possible: no servers to manage, log in with an account people already have, and a spreadsheet copy always available as a plain-text backup.",
       insight:
-        "Files could not be the system of record, and the reason is a direct conflict between two of my own requirements: 'anyone can edit the file directly' and 'every change is attributable to a person' cannot both be true. Moving spreadsheets from storage to output kept every convenience — familiarity, portability, survivability — and returned the audit trail. The design principle is graceful degradation to nothing: if the app stops running and nobody fixes it, the process must still be doable by hand, and no data may be trapped inside it.",
+        "If this app ever stops working, the process still has to be doable by hand, with nothing trapped inside it.",
       imagePath: null,
     },
     {
       phase: "deliver",
-      type: "Honest State Modelling",
-      title: "Ship Fewer States, All True",
+      type: "Only Showing What's True",
+      title: "No Status That Can Lie",
       annotation:
-        "Confirming production intent invalidated the earlier plan to demonstrate attendance and payment panels with mock data. An upstream accounting-side process appears to refresh on a multi-week cycle — which is plausibly why payment visibility was the problem nobody could solve, since the data does not exist at the needed frequency. It is flagged as unverified and promoted to a build blocker rather than written into the spec.",
+        "Once I decided this had to be a real working tool, not a demo, I dropped the plan to fake a 'Paid' status with placeholder data. It turns out the actual payment records might only update every couple of months — so promising a real-time status there would just be untrue.",
       insight:
-        "A tracker with a 'Paid' state that nobody can update is worse than one that honestly ends at 'Sent to Accounting.' It teaches participants that the status is unreliable — and once they learn that, the system has lost the only thing it was built to provide. Interfaces must declare latency rather than imply freshness.",
+        "A status that's sometimes wrong is worse than no status at all. It's better to honestly say 'sent for payment' than to guess and be wrong later.",
       imagePath: null,
     },
     {
       phase: "deliver",
-      type: "Ethics, Privacy & Open Gaps",
-      title: "What Is Not Done Yet, Marked As Not Done",
+      type: "What's Still Not Done",
+      title: "Being Honest About the Gaps",
       annotation:
-        "Data protection moved onto the critical path the moment this became a production system touching bank statements and medical certificates: documented legal basis, retention and deletion concept, role-based access model, DPO review, and data minimisation designed into the upload flow rather than delegated to an instruction in a PDF. Also open: the participant survey, five stakeholder interviews, and every baseline metric. The power asymmetry is handled explicitly — I process these participants' reimbursements, so the survey is distributed through a channel the organisation proposed rather than solicited one-to-one by me.",
+        "Since this will handle real bank statements and medical certificates, data protection has to be sorted out before anything goes live — not left until the end. Also still open: talking to participants, five more stakeholder interviews, and any real numbers on impact.",
       insight:
-        "The unfinished phases are marked as unfinished on purpose. A method you can only see once it has produced a polished result isn't a method. An internal tool stalling at 90% because approval was sought too late is one of the most common ways projects like this die — so the review is sequenced ahead of the participant-facing increment, deliberately.",
+        "I'm listing what's unfinished on purpose. A method you only get to see once everything is polished isn't really a method at all.",
       imagePath: null,
     },
   ],
