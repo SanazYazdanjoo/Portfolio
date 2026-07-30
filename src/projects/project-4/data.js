@@ -24,8 +24,10 @@
 
 export const projectData = {
   id: "project-4",
-  status: "Coming Soon",
+  status: "Published",
   order: 1,
+
+  stage: "In progress",
 
   title: "Redesigning a Public-Programme Reimbursement Service",
   subtitle:
@@ -98,6 +100,80 @@ export const projectData = {
   // ── Implications ───────────────────────────────────────────────────────────
   implications:
     "Three results changed the brief rather than decorating it. First, completing the persona set inverted an assumption: the three participant variants map exactly onto the three proof branches in the governing document, and the participant with the lightest monthly paperwork — one bank statement — is the one most likely to fail, because her barrier is the submission channel, not the documentation. She cannot use the cloud link, so she sends documents by email, which the instructions forbid, which leaves no trace in the folder the Admin checks, and which is a live data-protection exposure in today's process independent of anything being built. A rule that can only be followed by users with a particular skill level is a design failure, not a compliance failure. Second, the cheapest organisational fix — replacing email reminders with a notice in the class hour — structurally excludes the participants who attend rarely, and does so invisibly, because the people it fails are the people who are not there. Visibility has to exist before reminders are withdrawn, not after. Third, a risk recorded as hypothetical materialised three weeks later when the approval role became vacant with no deputy arrangement defined — which demonstrated the model had predictive rather than merely descriptive value, and upgraded fallback logic from a nice-to-have to a live organisational need. The report also retains a correction: an earlier draft credited my own process documentation with solving the handover problem, and the stakeholder evidence contradicted it — a HowTo and an overview table already existed and went unused, because the binding constraint was staff capacity, not documentation. Being visibly wrong and then corrected by evidence is what validation is for, so the correction stayed in.",
+
+  // ── Research phases ────────────────────────────────────────────────────────
+  // Left deliberately visible, per the report's own portfolio brief: most
+  // portfolios show polished outcomes, and showing a live plan with its
+  // unfinished phases marked is what demonstrates the method.
+  phasesIntro:
+    "This is a live project, not a retrospective. The research phase is closing and the build has not started, so the phases below are marked as they actually stand — complete, in progress, planned, or blocked on a decision that belongs to someone else. Nothing here is padded to look finished, and no impact numbers are claimed anywhere in this case study, because the baseline has not been captured yet.",
+
+  phases: [
+    {
+      phase: "Document analysis — rule extraction",
+      status: "complete",
+      note: "Four governing documents read against each other to recover the binding rule set.",
+    },
+    {
+      phase: "Practitioner autoethnography — 12 months",
+      status: "complete",
+      note: "Sixteen failure points logged as a role-attributed register rather than recalled as anecdotes.",
+    },
+    {
+      phase: "Process modelling — 7-lane swimlane",
+      status: "complete",
+      note: "Needs re-baselining: the review surfaced two actors missing from the model, and the approval chain has since changed.",
+    },
+    {
+      phase: "Thematic analysis — five failure themes",
+      status: "complete",
+    },
+    {
+      phase: "Expert stakeholder validation",
+      status: "complete",
+      note: "Confirmation-only, which is weaker than independent elicitation. A generative round — which problems would you have listed that I didn't, and where is the map wrong — is still owed.",
+    },
+    {
+      phase: "Personas & journey mapping",
+      status: "complete",
+      note: "Seven boards, each carrying its own validation status. Two participant boards are observed cases awaiting survey confirmation; one is hypothesis-only and says so.",
+    },
+    {
+      phase: "Requirements & architecture",
+      status: "complete",
+      note: "15 functional and 8 non-functional requirements; architecture decided against continuity and budget constraints.",
+    },
+    {
+      phase: "Participant survey",
+      status: "in-progress",
+      note: "Instrument in preparation, distributed through a channel the organisation proposed rather than solicited one-to-one by the person who processes their claims.",
+    },
+    {
+      phase: "Stakeholder interviews — 5 remaining roles",
+      status: "planned",
+      note: "Five of nine roles are still uninterviewed. This is the largest open validity gap.",
+    },
+    {
+      phase: "Baseline measurement",
+      status: "planned",
+      note: "The largest remaining gap in the project. There are currently no measured quantities, and 'I redesigned a process' without a baseline is unfalsifiable.",
+    },
+    {
+      phase: "Data-protection review",
+      status: "planned",
+      note: "On the critical path, not a closing formality: production intent means this must complete before the system holds a single real file.",
+    },
+    {
+      phase: "Increment 1 — Admin dashboard",
+      status: "planned",
+      note: "The one increment that is unblocked, immediately valuable and demonstrable without approval that doesn't already exist.",
+    },
+    {
+      phase: "Digital sign-off authorisation",
+      status: "blocked",
+      note: "The highest-leverage requirement in the set, and the decision belongs to a role I don't control. Designed around rather than assumed — one state machine, two terminal implementations.",
+    },
+  ],
 
   // ── Process gallery ────────────────────────────────────────────────────────
   process: [
