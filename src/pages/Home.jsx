@@ -1,17 +1,31 @@
 // src/pages/Home.jsx
 // ─────────────────────────────────────────────────────────────────────────────
-// LAYOUT v5 — UX ENGINEER STRATEGY UPDATE
+// LAYOUT v6 — CONTAINER QA PASS (no content, copy, or data changed)
 //
-// Because this page is fully data-driven, it automatically inherits the new 
-// UX Engineer positioning (Frontend focus, rearranged skills columns) directly 
-// from profileData and the updated child components (Hero, AboutMe).
+// The child components were already fixed. This file was quietly undoing them:
 //
-// Retained from v4:
-//   • published   → StackedProjectCard (clickable)
-//   • coming-soon → muted, non-interactive teaser row
-//   • empty state → WIP doodle message
+//   1. HERO→ABOUT GAP (~150px → ~48px): HomeSection hardcoded pt-20 (80px) on
+//      every section, which stacked on top of the Hero's own trailing margin.
+//      HomeSection now takes a `tight` prop; the About section uses it.
+//      Every OTHER section keeps pt-20 so the page rhythm stays intact.
 //
-// Roadmap check ✓: id="projects" anchor preserved for the /#projects link.
+//   2. OVERFLOW-HIDDEN REMOVED from #Hero-Section. This single class was
+//      responsible for TWO reported bugs:
+//        • the handwritten "UX Engineer" badge clipping at the top-right
+//        • the "QA & Analysis" column truncating in What I Bring
+//      A clipping ancestor beats any `overflow-visible` a child declares.
+//      Hero.jsx v6 already reserves headroom (pt-10 md:pt-12), so nothing
+//      needs to hang outside the box anymore — the class was pure downside.
+//
+//   3. FOOTER GAP (pb-24 → pb-6): 96px of wrapper padding sat on top of the
+//      Footer's own 128px of internal lead-in. See the Footer.jsx patch note
+//      in chat — BOTH halves must change or the gap only shrinks by half.
+//
+//   4. Stray empty JSX lines inside #Hero-Section removed (they were adding
+//      nothing, but they made the gap look intentional in review).
+//
+// Retained from v5: data-driven positioning, published/coming-soon split,
+// empty state, and the id="projects" anchor for the /#projects nav link.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React from "react";
@@ -43,9 +57,21 @@ function SectionLabel({ children }) {
 }
 
 // ─── The ONE section rhythm: divider → label rail (3) + content (9) ──────────
-function HomeSection({ id, label, children, fullBleed = false }) {
+//
+// `tight` = the section directly follows the Hero, which already carries its
+// own trailing space. 80px on top of that read as a hole in the page.
+//   tight  → pt-10 md:pt-12  (40 / 48px)
+//   normal → pt-20           (80px)
+//
+// ⚠ overflow-visible is deliberate and load-bearing: WhatIBring's tallest
+//   column must be allowed to grow past its siblings. Never add a max-height
+//   or overflow-hidden to this component or its ancestors.
+function HomeSection({ id, label, children, fullBleed = false, tight = false }) {
   return (
-    <section id={id} className="w-full pt-20">
+    <section
+      id={id}
+      className={`w-full overflow-visible ${tight ? "pt-10 md:pt-12" : "pt-20"}`}
+    >
       <div className="w-full h-px bg-border mb-8" />
 
       {fullBleed ? (
@@ -56,7 +82,7 @@ function HomeSection({ id, label, children, fullBleed = false }) {
           {children}
         </>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-x-10 gap-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-x-10 gap-y-8 overflow-visible">
           {/* Label rail — sticky so the label keeps you oriented in long sections */}
           <div className="md:col-span-3">
             <div className="md:sticky md:top-28">
@@ -64,7 +90,7 @@ function HomeSection({ id, label, children, fullBleed = false }) {
             </div>
           </div>
           {/* Content — cols 4–12, the same axis in every section */}
-          <div className="md:col-span-9">{children}</div>
+          <div className="md:col-span-9 overflow-visible">{children}</div>
         </div>
       )}
     </section>
@@ -81,24 +107,26 @@ export default function Home() {
   const hasAnyProjects = published.length > 0 || comingSoon.length > 0;
 
   return (
-    <div className="w-full relative pb-24">
+    // pb-24 → pb-6: the Footer owns the space above itself now (see patch note)
+    <div className="w-full relative pb-6 overflow-visible">
 
-      {/* ── Hero — natural height, no viewport lock ── */}
-      <section id="Hero-Section" className="w-full relative overflow-hidden">
+      {/* ── Hero — natural height, no viewport lock, NO overflow clip ──
+          Do not re-add overflow-hidden here. It clips the role badge and the
+          What-I-Bring columns further down the page. */}
+      <section id="Hero-Section" className="w-full relative overflow-visible">
         <Hero data={profileData} />
-        
-
       </section>
 
-      {/* ── About ── */}
-      <HomeSection id="AboutMe-Section" label={t("about.heading")}>
-       <AboutBio data={profileData} />
+      {/* ── About — tight rhythm: sits ~48px under the Hero, not ~150px ── */}
+      <HomeSection id="AboutMe-Section" label={t("about.heading")} tight>
+        <AboutBio data={profileData} />
 
-       {/* The Bridge — visual proof of the bio's "five years in..." sentence */}
-       <div className="mt-14">
-       <CareerArc variant="compact" />
+        {/* The Bridge — visual proof of the bio's "five years in..." sentence.
+            mt-14 → mt-12 so the arc breathes without reopening a gap. */}
+        <div className="mt-12">
+          <CareerArc variant="compact" />
         </div>
-        </HomeSection>
+      </HomeSection>
 
       {/* ── What I Bring ── */}
       <HomeSection id="WhatIBring-Section" label={t("about.whatIBring")}>
@@ -108,7 +136,7 @@ export default function Home() {
       {/* ── Case Studies — STACKED list, same system as /projects ──
            id="projects" kept here so the /#projects nav anchor works;
            scroll-mt offsets the sticky Nav (roadmap item 1.3 ✓) */}
-      <section id="projects" className="w-full pt-20 scroll-mt-24">
+      <section id="projects" className="w-full pt-20 scroll-mt-24 overflow-visible">
         <div className="w-full h-px bg-border mb-12" />
         <SectionLabel>{t("projects.heading")}</SectionLabel>
 
