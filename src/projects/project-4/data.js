@@ -40,11 +40,11 @@ import personaFinance from './media/persona-p7-finance-compliance.webp';
 export const projectData = {
   id: "project-4",
   status: "Published",
-  // Display position 3 (the numeral on the card comes from list position, not
+  // Display position 1 (the numeral on the card comes from list position, not
   // the folder name). The folder stays `project-4` deliberately: the folder
   // name is the URL, and renaming it would repoint /projects/project-3 at this
   // case study while moving EmbraceMe to a new address.
-  order: 3,
+  order: 1,
 
   stage: "In progress",
 

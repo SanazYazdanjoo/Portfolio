@@ -5,7 +5,7 @@ import thumbnailImg from './Ucd4ux.png';
 export const projectData = {
   id: "project-2",
   status: "Published",
-  order: 2,
+  order: 3,
   title: "UCD4UX: Encouraging Social Interactions in Hybrid Work",
   subtitle: "Industry UX Research Project with deskbird × Bauhaus-Universität Weimar",
   tagline: "Reconnecting hybrid teams through evidence-based social feature design.",

@@ -55,11 +55,11 @@ describe("Reimbursement case study is live", () => {
 });
 
 describe("Project display order", () => {
-  it("lists projects in explicit order with the reimbursement study third", () => {
+  it("lists projects in explicit order with the reimbursement study first", () => {
     expect(sortedProjects.map((p) => p.slug)).toEqual([
-      "project-1",
-      "project-2",
-      "project-4", // reimbursement service — displays as 03
+      "project-4", // reimbursement service — displays as 01
+      "project-1", // Gaze-Assisted Input — displays as 02
+      "project-2", // UCD4UX — displays as 03
       "project-3", // EmbraceMe — displays as 04
     ]);
   });
