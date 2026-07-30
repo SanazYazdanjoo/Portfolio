@@ -51,6 +51,7 @@ const SECTIONS = [
   { id: "methodology",  label: "Methodology",  dataKey: "methodology"  },
   { id: "results",      label: "Results",      dataKey: "results"      },
   { id: "implications", label: "Implications", dataKey: "implications" },
+  { id: "phases",       label: "Status",       dataKey: "phases"       },
   { id: "conclusion",   label: "Conclusion",   dataKey: "conclusion"   },
 ];
 
@@ -324,14 +325,104 @@ function MetaField({ label, children }) {
   );
 }
 
+// ─── Research phase status ───────────────────────────────────────────────────
+// The honest "what's done / what's still open" block. Showing unfinished
+// phases as unfinished is the point, not an omission — a method you can only
+// see once it has produced a polished result isn't a method.
+//
+// Status is always carried by a TEXT LABEL, never by colour alone (WCAG 1.4.1).
+// Colour choice is deliberate: completed work sits in quiet ink, live work sits
+// in the signature primary — so the eye lands on what's moving, not what's done.
+// `highlight` (gold) is intentionally unused here; per the token comments it is
+// a highlighter wash, not a small-text colour.
+const PHASE_STATUS = {
+  complete: {
+    label: "Complete",
+    dot: "bg-text",
+    text: "text-text",
+  },
+  "in-progress": {
+    label: "In progress",
+    dot: "bg-primary-600",
+    text: "text-primary-600",
+  },
+  planned: {
+    label: "Planned",
+    dot: "bg-transparent border border-dim",
+    text: "text-dim",
+  },
+  blocked: {
+    label: "Blocked",
+    dot: "bg-danger",
+    text: "text-danger",
+  },
+};
+
+function ResearchPhases({ phases, intro, number }) {
+  const prefersReducedMotion = useReducedMotion();
+
+  return (
+    <ContentSection
+      id="phases"
+      number={number}
+      kicker="Where This Stands"
+      heading="Research Phases"
+    >
+      {intro && (
+        <p className="text-base md:text-lg text-text/80 leading-relaxed max-w-prose mb-8">
+          {intro}
+        </p>
+      )}
+
+      <ol className="list-none p-0 m-0">
+        {phases.map((p, i) => {
+          const s = PHASE_STATUS[p.status] ?? PHASE_STATUS.planned;
+          return (
+            <motion.li
+              key={p.phase}
+              className="border-t border-border py-4 first:border-t-0 first:pt-0"
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.35, ease: "easeOut", delay: i * 0.04 }}
+            >
+              <div className="flex items-baseline gap-3 flex-wrap">
+                <span
+                  aria-hidden="true"
+                  className={`shrink-0 w-2 h-2 rounded-full translate-y-[-1px] ${s.dot}`}
+                />
+                <span className="text-sm md:text-base font-semibold text-text">
+                  {p.phase}
+                </span>
+                <span
+                  className={`text-2xs font-black uppercase tracking-[0.2em] ${s.text}`}
+                >
+                  {s.label}
+                </span>
+              </div>
+              {p.note && (
+                <p className="mt-1.5 ml-5 text-sm text-text/60 leading-relaxed max-w-prose">
+                  {p.note}
+                </p>
+              )}
+            </motion.li>
+          );
+        })}
+      </ol>
+    </ContentSection>
+  );
+}
+
 // ─── Main template ────────────────────────────────────────────────────────────
 export default function ProjectTemplate({ meta, children }) {
   const prefersReducedMotion = useReducedMotion();
 
-  // Only include sidebar items for sections that have data
+  // Only include sidebar items for sections that have data.
+  // Arrays are length-checked so an empty `process`/`phases` can't create a
+  // sidebar link pointing at a section that never renders.
   const activeSections = SECTIONS.filter((s) => {
-    if (s.dataKey === "process") return meta.process && meta.process.length > 0;
-    return !!meta[s.dataKey];
+    const value = meta[s.dataKey];
+    return Array.isArray(value) ? value.length > 0 : !!value;
   });
 
   const [activeId, setActiveId] = useState(() => activeSections[0]?.id ?? null);
@@ -377,6 +468,23 @@ export default function ProjectTemplate({ meta, children }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
+              {/* Live-stage chip — optional. Signals an in-flight case study
+                  above the fold, so a recruiter isn't reading a partial page
+                  wondering why sections are missing. */}
+              {meta.stage && (
+                <div className="mb-4">
+                  <span className="inline-flex items-center gap-2 border border-border px-2.5 py-1">
+                    <span
+                      aria-hidden="true"
+                      className="w-1.5 h-1.5 rounded-full bg-primary-600"
+                    />
+                    <span className="text-2xs font-black uppercase tracking-[0.2em] text-primary-600">
+                      {meta.stage}
+                    </span>
+                  </span>
+                </div>
+              )}
+
               {/* Tags — quiet eyebrow, not chips */}
               {tags.length > 0 && (
                 <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary-600 mb-4">
@@ -507,6 +615,14 @@ export default function ProjectTemplate({ meta, children }) {
                   {meta.implications}
                 </p>
               </ContentSection>
+            )}
+
+            {meta.phases && meta.phases.length > 0 && (
+              <ResearchPhases
+                phases={meta.phases}
+                intro={meta.phasesIntro}
+                number={sectionNumber("phases")}
+              />
             )}
 
             {meta.conclusion && (
