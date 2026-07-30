@@ -63,8 +63,12 @@ describe("Reimbursement case study figures", () => {
     });
   });
 
-  it("ships one board per persona in the seven-board set", () => {
-    expect(projectData.figures.methodology).toHaveLength(7);
+  it("ships one board per persona in the seven-board set, plus the flow diagram", () => {
+    expect(projectData.figures.methodology).toHaveLength(8);
+    const personaBoards = projectData.figures.methodology.filter((f) =>
+      f.label?.startsWith("Persona")
+    );
+    expect(personaBoards).toHaveLength(7);
   });
 });
 
@@ -104,7 +108,9 @@ describe("Figure framing fields", () => {
   });
 
   it("renders all seven persona boards full width with a takeaway each", () => {
-    const personas = projectData.figures.methodology;
+    const personas = projectData.figures.methodology.filter((f) =>
+      f.label?.startsWith("Persona")
+    );
     expect(personas).toHaveLength(7);
     personas.forEach((p) => {
       expect(p.span).toBe(2);
