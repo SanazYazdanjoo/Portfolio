@@ -67,3 +67,49 @@ describe("Reimbursement case study figures", () => {
     expect(projectData.figures.methodology).toHaveLength(7);
   });
 });
+
+describe("Figure framing fields", () => {
+  const rich = [{
+    src: "/c.webp",
+    alt: "Diagram C",
+    label: "Stakeholder Map",
+    title: "Nine roles",
+    description: "How to read it.",
+    takeaway: "The finding.",
+    takeawayLabel: "Why it matters",
+  }];
+
+  it("renders label, title, description and takeaway when provided", () => {
+    renderWithProviders(<SectionMedia items={rich} />);
+    expect(screen.getByText("Stakeholder Map")).toBeInTheDocument();
+    expect(screen.getByText("Nine roles")).toBeInTheDocument();
+    expect(screen.getByText("How to read it.")).toBeInTheDocument();
+    expect(screen.getByText("The finding.")).toBeInTheDocument();
+    expect(screen.getByText("Why it matters")).toBeInTheDocument();
+  });
+
+  it("falls back to a default takeaway label", () => {
+    renderWithProviders(
+      <SectionMedia items={[{ src: "/d.webp", alt: "D", takeaway: "X" }]} />
+    );
+    expect(screen.getByText("What it shows")).toBeInTheDocument();
+  });
+
+  it("stays backward compatible for figures with only src, alt and caption", () => {
+    renderWithProviders(
+      <SectionMedia items={[{ src: "/e.webp", alt: "E", caption: "Just a caption" }]} />
+    );
+    expect(screen.getByText(/just a caption/i)).toBeInTheDocument();
+    expect(screen.queryByText("What it shows")).not.toBeInTheDocument();
+  });
+
+  it("renders all seven persona boards full width with a takeaway each", () => {
+    const personas = projectData.figures.methodology;
+    expect(personas).toHaveLength(7);
+    personas.forEach((p) => {
+      expect(p.span).toBe(2);
+      expect(p.takeaway).toBeTruthy();
+      expect(p.title).toBeTruthy();
+    });
+  });
+});

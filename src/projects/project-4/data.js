@@ -122,10 +122,16 @@ export const projectData = {
       {
         src: stakeholderMap,
         span: 2,
+        label: "Stakeholder Map",
+        title: "Nine roles, and where the attention has to go",
+        description:
+          "Two views of the same nine stakeholders. Left, proximity to the process: a direct ring that touches a claim every month, and an indirect ring that shapes what is allowed but never handles a case. Right, the same nine sorted by influence against interest, with an engagement level per quadrant. PK and BL denote the programme's two participant cohorts, which matters because they attend on different rhythms.",
         alt:
           "Stakeholder map in two views. Left: concentric proximity rings with the reimbursement process at the core, direct stakeholders (Admin, Manager, Dozent, participants) in the inner ring and indirect stakeholders (Finance & Compliance, Accounting, IT/Cloud) in the outer ring. Right: an influence-by-interest grid sorting the same nine stakeholders into Manage Closely, Keep Satisfied, Engage as Needed and Monitor.",
         caption:
           "Nine stakeholders, two views — proximity to the process, and where to spend attention",
+        takeaway:
+          "The Admin sits alone at the centre because every arrow in the process model passes through that one role — no other pair of roles communicates directly. The map also exposes the gap that reframed the project: Finance & Compliance sits in the outer, indirect ring, yet owns the two legal decisions that determine whether the system can exist in its intended form. A role that gates the design space was invisible in the original process model entirely.",
       },
     ],
 
@@ -133,48 +139,111 @@ export const projectData = {
       {
         src: informationArchitecture,
         span: 2,
+        label: "Information Architecture",
+        title: "One portal, four role-based views",
+        description:
+          "Structure follows the process rather than the org chart: participants submit proof, the Dozent confirms attendance, the Admin runs collection, calculation and archiving, an Approver signs off each case, and Accounting pays and reconciles. Each role sees one view containing only the steps it actually performs.",
         alt:
           "Information architecture tree for the reimbursement portal. One root branches into four role-based views: Participant (submit documents, my claims and status, notifications), Admin (dashboard, attendance import, document review, calculate, log and archive), Approver (approval queue, case detail and history, deputy settings), and Accounting (payment queue, paid and reconciliation).",
         caption:
           "One portal, four role-based views — structure follows the process, not the org chart",
+        takeawayLabel: "How to read it",
+        takeaway:
+          "The Admin branch is deliberately the deepest, because that is where the integration labour currently sits — and it is exactly the branch Increment 1 builds, since it needs no approval that does not already exist. Two branches carry decisions rather than features: the Approver view includes deputy settings because the vacancy risk stopped being hypothetical during the study, and the Participant branch is the deferred option, not the committed one. Increment 2 delivers those same three functions as a generated status file in the folder participants already use — no login, no participant frontend. Real accounts stay available as a later step, and only if the survey shows the file is not enough.",
       },
     ],
 
     methodology: [
       {
         src: personaSelin,
+        span: 2,
+        label: "Persona P1",
+        title: "The Admin — the only validated board in the set",
+        description:
+          "The operator of the process, built from twelve months of insider practice and then checked against someone else's memory of the same job.",
         alt: "Persona board P1, the Admin: goals, pain points, needs and a validation note recording that a former occupant of the role confirmed the entire failure set.",
         caption: "P1 · the Admin — validated by an independent former occupant of the role",
+        takeawayLabel: "Why it carries weight",
+        takeaway:
+          "This is the one board that is not self-report. An independent former occupant of the role confirmed the entire failure set, which is what moved the primary persona from assertion to evidence. Her line — nothing moves unless she pushes it — is the human statement of the structural finding the process map produced separately.",
       },
       {
         src: personaYusuf,
+        span: 2,
+        label: "Persona P2",
+        title: "Online ticket — the heaviest proof set",
+        description:
+          "Smartphone-first, on internship, off-site for weeks. Buys his ticket online, so he owes the largest monthly document set of the three proof paths: screenshot, bank statement and invoice, every month.",
         alt: "Persona board P2, a participant with an online ticket: heaviest monthly proof set, on internship and off-site for weeks.",
         caption: "P2 · online ticket — heaviest proof set · constructed, unvalidated",
+        takeawayLabel: "Status",
+        takeaway:
+          "Constructed from the governing documents and general observation rather than from a specific case, and labelled as such. He is the participant the paperwork rules were clearly written for — which is precisely why he is not the one most likely to fail.",
       },
       {
         src: personaAesha,
+        span: 2,
+        label: "Persona P3",
+        title: "Subscription card — the lightest paperwork, the highest risk",
+        description:
+          "Mid-50s, finds technology difficult, and German is not her first language. Her ticket type means she owes a single document a month — the lightest burden of the three proof paths.",
         alt: "Persona board P3, a participant with a subscription card: lightest proof set but highest failure risk, because she cannot use the cloud upload and sends documents by email instead.",
         caption: "P3 · subscription card — lightest proof set, highest risk · observed case",
+        takeawayLabel: "Why she matters most",
+        takeaway:
+          "She inverts the assumption that proof burden predicts failure. Her barrier is not the paperwork — it is the submission channel. She cannot use the cloud link, so she sends her bank statement by email: which the instructions forbid, which leaves no trace in the folder the Admin checks, and which is a live data-protection exposure in today's process independent of anything being built. A rule that can only be followed by users with a particular skill level is a design failure, not a compliance failure. She is the reason the upload path must be completable without help — a harder requirement than mobile-friendliness, and the one that drove the architecture decision to remove the participant interface from the critical path entirely.",
       },
       {
         src: personaSylvia,
+        span: 2,
+        label: "Persona P4",
+        title: "Own car — irregular attendance, structurally unreachable",
+        description:
+          "Mid-30s, German is not her first language, and she has no transport ticket at all — she drives her own car in on the handful of days she attends.",
         alt: "Persona board P4, a participant who drives her own car: irregular attendance, no transport ticket, and unreachable by classroom notices.",
         caption: "P4 · own car — irregular attendance · observed case",
+        takeawayLabel: "Why she matters",
+        takeaway:
+          "She breaks the cheapest organisational fix on the table. Replacing email reminders with a notice in the class hour cannot reach a participant who is rarely in the classroom — and it fails invisibly, because the people it excludes are the people who are not there. That is the argument for building visibility before withdrawing reminders, not after. She also carries the highest Admin cost per euro reimbursed, since low attendance triggers the manual comparison calculation, and her own words compress three separate register items into one sentence: signed the paper, then waiting.",
       },
       {
         src: personaDozent,
+        span: 2,
+        label: "Persona P5",
+        title: "The Dozent — owns the attendance source of truth",
+        description:
+          "Competent with spreadsheets, impatient with administration, and the owner of the attendance list every single calculation depends on.",
         alt: "Persona board P5, the Dozent who owns the attendance list every calculation depends on.",
         caption: "P5 · the Dozent — owns the attendance source of truth · constructed",
+        takeawayLabel: "Status",
+        takeaway:
+          "Constructed and unvalidated. His frustration points at a timing failure rather than a diligence failure: queries reach him weeks after the lesson, so the fix is making gaps visible while the lesson is still recent, not chasing him harder afterwards.",
       },
       {
         src: personaApprover,
+        span: 2,
+        label: "Persona P6",
+        title: "The Approver — and a deliberately empty quote",
+        description:
+          "Wants per-case summaries rather than files, and currently receives paper stacks or scattered email threads with nothing to approve against.",
         alt: "Persona board P6, the Approver. The quote slot is deliberately empty because no verbatim was captured and the role is currently vacant.",
         caption: "P6 · the Approver — quote slot deliberately empty · role currently vacant",
+        takeawayLabel: "Why the gap is visible",
+        takeaway:
+          "The quote slot is empty on purpose: no verbatim was captured, and the role became vacant during the study with no deputy arrangement defined. Nothing has been invented to fill it. That vacancy is also the risk the process model had recorded as hypothetical three weeks earlier, which is what upgraded deputy and fallback logic from a nice-to-have to a live organisational need.",
       },
       {
         src: personaFinance,
+        span: 2,
+        label: "Persona P7",
+        title: "Finance & Compliance — a persona with no evidence in it",
+        description:
+          "Owns whether digital signatures and paperless archiving are permitted at all: the two decisions that determine whether the system can exist in its intended form.",
         alt: "Persona board P7, the Finance and Compliance authority. Every note is an assumption or an interview question, and the user journey column reads 'entirely unmapped'.",
         caption: "P7 · Finance & Compliance — hypothesis only, and says so on the board",
+        takeawayLabel: "Why it is in the set at all",
+        takeaway:
+          "Every note on this board is an assumption or an interview question rather than a finding, and the board says so — the user journey column reads entirely unmapped. It is named owner of five register items and was absent from the process model completely. It functions as interview preparation, to be rebuilt from evidence afterwards. A persona that openly contains no evidence, and names what would fill it, is a more honest artefact than a confident fabrication.",
       },
     ],
   },

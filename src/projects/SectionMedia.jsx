@@ -10,6 +10,15 @@
 //   • images are click-to-zoom by default (`zoom: false` opts out). Research
 //     diagrams are 1600–1800px wide; inline they are previews, so without a
 //     zoom affordance the detail is decorative rather than readable.
+//   • optional framing per figure, for artefacts that need explaining rather
+//     than just labelling:
+//         label       → mono eyebrow above the title
+//         title       → short display heading
+//         description → what the diagram shows and how to read it
+//         takeaway    → the finding, set off by a primary rule so it can be
+//                       scanned without the setup
+//         takeawayLabel → overrides the default "What it shows"
+//     A figure that omits all of them renders exactly as it always did.
 //
 // Fully additive: projects without a `figures` key render exactly as before.
 // ─────────────────────────────────────────────────────────────────────────────
@@ -98,7 +107,7 @@ export default function SectionMedia({ items }) {
 
   return (
     <>
-      <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8">
+      <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-12">
         {items.map((f, i) => {
           const isVideo = f.type === "video";
           const canZoom = !isVideo && f.zoom !== false && !!f.src;
@@ -129,6 +138,29 @@ export default function SectionMedia({ items }) {
               key={i}
               className={`m-0 ${f.span === 2 ? "sm:col-span-2" : ""}`}
             >
+              {/* Optional framing above the image. Any figure that omits these
+                  renders exactly as it did before — project-1's charts are
+                  unaffected. */}
+              {(f.label || f.title || f.description) && (
+                <div className="mb-4">
+                  {f.label && (
+                    <p className="m-0 mb-2 font-mono text-2xs uppercase tracking-[0.2em] text-primary-600">
+                      {f.label}
+                    </p>
+                  )}
+                  {f.title && (
+                    <h4 className="m-0 mb-2 font-display text-lg md:text-xl font-extrabold tracking-tight text-text">
+                      {f.title}
+                    </h4>
+                  )}
+                  {f.description && (
+                    <p className="m-0 max-w-prose text-sm md:text-base leading-relaxed text-text/70">
+                      {f.description}
+                    </p>
+                  )}
+                </div>
+              )}
+
               <div className="border border-border bg-muted/30 overflow-hidden">
                 {canZoom ? (
                   <button
@@ -166,6 +198,19 @@ export default function SectionMedia({ items }) {
                     </span>
                   )}
                 </figcaption>
+              )}
+
+              {/* The "so what". Kept visually distinct from the description so
+                  a scanning reader can take the finding without the setup. */}
+              {f.takeaway && (
+                <div className="mt-4 border-l-2 border-primary-600 pl-4">
+                  <p className="m-0 mb-1 font-mono text-2xs uppercase tracking-[0.2em] text-primary-600">
+                    {f.takeawayLabel || "What it shows"}
+                  </p>
+                  <p className="m-0 max-w-prose text-sm leading-relaxed text-text/75">
+                    {f.takeaway}
+                  </p>
+                </div>
               )}
             </figure>
           );
