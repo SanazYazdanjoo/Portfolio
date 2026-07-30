@@ -2,26 +2,16 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // THE BRIDGE — single source of truth for the career arc.
 //
-//   • variant="full"    → the About page section, pixel-identical to the old
-//                         hardcoded version (numerals, coral highlight card,
-//                         tags, hand-drawn arrows).
-//   • variant="compact" → homepage hero strip: numeral + label + years only.
-//                         No summaries, no tags, no coral block — the hero
-//                         already owns the loud moments. Ends with a
-//                         "full story" link so Home teases and About pays off.
+// VISUAL QA PASS: compact-variant step labels are now typographically
+// IDENTICAL across all three phases — same face, weight, size, and explicit
+// no-underline / no-border. The only differentiator is color: step 03
+// ("UX Engineering / now") carries the accent because it's the current phase.
+// The hover color-shift on non-highlight numerals was removed too — it made
+// steps look interactive (they aren't) and created the perceived
+// treatment drift between phases.
 //
-//   Data resolves ONCE here from the existing about.career.* translation keys
-//   (EN/DE both inherit automatically). About.jsx and Hero.jsx no longer
-//   hardcode any career content.
-//
-// INTEGRATION
-//   About.jsx →  replace the local `careerArc` array + the entire
-//                <div className="grid grid-cols-1 md:grid-cols-3 gap-px …">
-//                block inside Section 2 with:  <CareerArc variant="full" />
-//                (keep the SectionHeader — it stays page-owned)
-//   Hero.jsx  →  replace the 4-item meta grid with:
-//                <CareerArc variant="compact" />  + the status line
-//                (see snippet in chat)
+//   • variant="full"    → About page section (unchanged).
+//   • variant="compact" → homepage strip: numeral + label + years only.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React from "react";
@@ -45,8 +35,6 @@ function InkArrow({ className = "" }) {
 }
 
 // ─── Data — resolved once, translation-driven ─────────────────────────────────
-// Tags are presentation metadata for the FULL variant only, so they live here
-// (not in profile.js — they're not CV data, they're About-page seasoning).
 export function useCareerArc() {
   const { t } = useTranslation();
   return [
@@ -85,7 +73,7 @@ const fadeUp = {
 };
 
 // ═══════════════════════════════════════════════════════════════════════════
-// FULL — About page (visually identical to the previous hardcoded block)
+// FULL — About page (unchanged from previous version)
 // ═══════════════════════════════════════════════════════════════════════════
 function CareerArcFull({ steps }) {
   return (
@@ -152,7 +140,11 @@ function CareerArcFull({ steps }) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// COMPACT — homepage hero strip (numeral · label · years, arrows between)
+// COMPACT — homepage strip (numeral · label · years, arrows between)
+//
+// One label treatment for all three steps. Explicit `no-underline` +
+// `border-b-0` guards against any inherited link/underline styling leaking
+// in (this was the source of the "only QA Engineering is underlined" drift).
 // ═══════════════════════════════════════════════════════════════════════════
 function CareerArcCompact({ steps }) {
   const prefersReducedMotion = useReducedMotion();
@@ -164,9 +156,6 @@ function CareerArcCompact({ steps }) {
   });
 
   return (
-    // Explicit 5-track grid: phase · arrow · phase · arrow · phase.
-    // 1fr tracks force full-width distribution no matter how the parent
-    // sizes itself — this is what the flex version failed to guarantee.
     <ol
       className="grid grid-cols-1 gap-y-5 list-none m-0 p-0 w-full
                  md:grid-cols-[1fr_auto_1fr_auto_1fr] md:gap-x-4 md:items-center"
@@ -175,26 +164,30 @@ function CareerArcCompact({ steps }) {
         <React.Fragment key={step.phase}>
           <motion.li
             {...fade(0.05 * i)}
-            className="flex items-baseline gap-3 md:block md:text-left group"
+            className="flex items-baseline gap-3 md:block md:text-left"
           >
+            {/* Numeral — static color, no hover shift (steps aren't links) */}
             <span
               className={`font-display font-extrabold text-2xl md:text-3xl leading-none select-none
-                ${step.highlight
-                  ? "text-primary"
-                  : "text-blush group-hover:text-secondary transition-colors duration-300"
-                }`}
+                ${step.highlight ? "text-primary" : "text-blush"}`}
               aria-hidden="true"
             >
               {step.phase}
             </span>
             <span className="md:block md:mt-2">
+              {/* Label — IDENTICAL treatment on all steps; accent color is
+                  the only differentiator for the current phase. */}
               <span
-                className={`block font-display font-bold text-sm md:text-base leading-tight md:whitespace-nowrap
+                className={`block font-display font-bold text-sm md:text-base leading-tight
+                            md:whitespace-nowrap no-underline border-b-0
                   ${step.highlight ? "text-primary-600" : "text-text"}`}
               >
                 {step.label}
               </span>
-              <span className="block text-2xs font-semibold uppercase tracking-[0.18em] text-text-dim mt-1">
+              <span
+                className={`block text-2xs font-semibold uppercase tracking-[0.18em] mt-1
+                  ${step.highlight ? "text-primary-600" : "text-text-dim"}`}
+              >
                 {step.years}
               </span>
             </span>
