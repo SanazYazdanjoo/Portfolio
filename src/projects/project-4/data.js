@@ -66,17 +66,19 @@ export const projectData = {
     "Accessibility",
   ],
 
-  // First four are the card-visible line (ProjectCard slices to 4) — kept short
-  // so the row stays scannable next to the other projects.
+  // First four are the card-visible line (ProjectCard slices to 4) — leads
+  // with the engineering work (mapping, requirements, architecture) to match
+  // the retitle and tag order, research methods follow.
   methods: [
+    "Mapping the Process",
+    "Writing the Requirements",
+    "Designing the System",
     "Reading the Rules",
     "12 Months on the Job",
-    "Mapping the Process",
     "Finding the Patterns",
     "Checking with an Expert",
     "Building the Personas",
     "Mapping the Journeys",
-    "Writing the Requirements",
     "Planning a Survey",
   ],
 
