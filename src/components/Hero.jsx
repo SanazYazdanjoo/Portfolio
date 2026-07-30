@@ -19,7 +19,7 @@
 import React from "react";
 //import { useTranslation } from "../context/LanguageContext";
 import { motion, useReducedMotion } from "framer-motion";
-import { SolidButton } from "./Button";
+import { Button, SolidButton } from "./Button";
 
 // Wrap each ‘quoted’ segment of the tagline in the gold swipe.
 // "I speak both ‘user’ and ‘developer’." → highlights only ‘user’ / ‘developer’.
@@ -100,6 +100,12 @@ export function Hero({ data }) {
             <SolidButton to="/projects">
               See my projects
             </SolidButton>
+
+            {/* Quiet half of the pair. Underlined rather than bare, so it
+                reads as a link without competing with the solid CTA. */}
+            <Button to="/about" className="underline underline-offset-4 decoration-border">
+              More about me
+            </Button>
           </motion.div>
         </div>
 
