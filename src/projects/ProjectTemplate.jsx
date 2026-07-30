@@ -48,6 +48,7 @@ const SECTIONS = [
   { id: "process",      label: "Process",      dataKey: "process"      },
   { id: "challenge",    label: "Challenge",    dataKey: "challenge"    },
   { id: "solution",     label: "Solution",     dataKey: "solution"     },
+  { id: "prototype",    label: "Prototype",    dataKey: "prototype"    },
   { id: "methodology",  label: "Methodology",  dataKey: "methodology"  },
   { id: "results",      label: "Results",      dataKey: "results"      },
   { id: "implications", label: "Implications", dataKey: "implications" },
@@ -513,7 +514,14 @@ export default function ProjectTemplate({ meta, children }) {
     () =>
       SECTIONS.filter((s) => {
         const value = meta[s.dataKey];
-        return Array.isArray(value) ? value.length > 0 : !!value;
+        const hasValue = Array.isArray(value) ? value.length > 0 : !!value;
+        // Prototype is the one section that might be nothing but a link or a
+        // couple of screenshots — no paragraph required — so it also counts
+        // as active on those alone.
+        if (s.id === "prototype") {
+          return hasValue || !!meta.prototypeUrl || (meta.figures?.prototype?.length > 0);
+        }
+        return hasValue;
       }),
     [meta]
   );
@@ -704,6 +712,36 @@ export default function ProjectTemplate({ meta, children }) {
                 </p>
                 <SectionMedia items={meta.figures?.solution} />
 
+              </ContentSection>
+            )}
+
+            {(meta.prototype || meta.prototypeUrl || (meta.figures?.prototype?.length > 0)) && (
+              <ContentSection id="prototype" number={sectionNumber("prototype")}
+                isOpen={openSections.has("prototype")} onToggle={() => toggleSection("prototype")}
+                kicker="See It In Action" heading="Prototype">
+                {meta.prototype && (
+                  <p className="text-base md:text-lg text-text/80 leading-relaxed">
+                    {meta.prototype}
+                  </p>
+                )}
+
+                {meta.prototypeUrl && (
+                  <a
+                    href={meta.prototypeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-6 inline-flex items-center gap-2 border border-border px-4 py-2.5
+                               text-2xs font-black uppercase tracking-[0.2em] text-text
+                               hover:border-primary-600 hover:text-primary-600 transition-colors duration-200"
+                  >
+                    {meta.prototypeUrlLabel || "Open the prototype"}
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H8M17 7V16" />
+                    </svg>
+                  </a>
+                )}
+
+                <SectionMedia items={meta.figures?.prototype} />
               </ContentSection>
             )}
 
