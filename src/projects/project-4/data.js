@@ -23,6 +23,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import stakeholderMap from './media/stakeholder-map.webp';
+import currentFlow from './media/current-flow.webp';
 import informationArchitecture from './media/information-architecture.webp';
 import personaSelin from './media/persona-p1-selin-admin.webp';
 import personaYusuf from './media/persona-p2-yusuf-online-ticket.webp';
@@ -154,6 +155,20 @@ export const projectData = {
     ],
 
     methodology: [
+      {
+        src: currentFlow,
+        span: 2,
+        label: "As-Is Process Map",
+        title: "The simple version — eight steps, six roles, one loop back",
+        description:
+          "A simplified hero version of the full process model, which runs to seven lanes and roughly thirty steps and is a working artefact rather than something legible on a web page. This compressed version keeps the handoffs that matter: participant submits, the Dozent logs attendance, Admin collects, calculates and archives, the Manager reviews, and Accounting pays. TN denotes the participant, co-signing the reimbursement form alongside Admin at step 5.",
+        alt:
+          "Flow diagram titled 'the simple version', eight numbered steps across six roles. 1 Participant submits travel documents to a shared cloud folder by the 15th. 2 Dozent logs monthly attendance. 3 Admin collects and checks documents. 4 Admin calculates the reimbursement from attendance days and the ticket rule. 5 Admin and the participant fill and sign the form. 6 the Manager reviews and approves, with a dashed line labelled 'needs a fix' looping back to the collection and calculation steps when something is off. 7 Admin logs and archives the case. 8 Accounting processes payment.",
+        caption: "The as-is process — eight steps, one rework loop",
+        takeawayLabel: "What the loop shows",
+        takeaway:
+          "The dashed 'needs a fix' line from Review & approve back to Collect & check documents is a media break made visible: a rejected case re-enters the process on paper, without the participant ever seeing why. It is the same rework cost the report's Theme B (Media Breaks) and Theme C (Status Opacity) describe from two different angles — the Manager can see enough to reject a case, but nobody downstream can see that rejection happen until the corrected packet reappears. This compressed version deliberately omits the finance authority and the document-management system the full model added after stakeholder review (§3.8) — it shows the process as participants and Admin experience it, not the complete actor set.",
+      },
       {
         src: personaSelin,
         span: 2,
