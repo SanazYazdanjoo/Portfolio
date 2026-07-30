@@ -48,11 +48,11 @@ export const projectData = {
 
   stage: "In progress",
 
-  title: "Fixing a Broken Travel-Reimbursement Process",
-  subtitle: "A paper-based process with nine people involved — mapped from the inside, then fixed with the people who run it",
-  tagline: "I ran this process myself for a year. Then I let the two problems nobody could solve set my plan.",
+  title: "Digitalizing the Travel-Reimbursement Process",
+  subtitle: "Turning a paper-based process into working software — mapped from the inside, then engineered with the people who run it",
+  tagline: "I ran this process myself for a year. Then I let the two problems nobody could solve set what I'd build.",
 
-  role: "UX Engineer — I ran this process myself, studied it, and I'm now building the fix",
+  role: "UX Engineer — I ran this process myself, mapped it, and I'm now building the software that replaces it",
   timeline: "2025 – 2026 · ongoing, research wrapping up",
 
   tags: [
@@ -103,7 +103,7 @@ export const projectData = {
 
   // ── Solution ───────────────────────────────────────────────────────────────
   solution:
-    "The fix is simple to describe: let people see what's happening with their own claim. I'm building it in stages, as a real tool people will use — not a demo that only looks finished.\n\nStage 1 is a dashboard for the Admin, the person running this process today. It shows every claim at a glance: what's missing, what's approved, what's overdue. It needs no extra permission, so it can start immediately.\n\nStage 2 gives participants visibility without a whole new app to learn. Once a month, a simple status file appears in the same cloud folder they already use — what arrived, what's missing, how much they'll get and why, and the next deadline. No new login, no new interface. That choice also solves an accessibility problem for anyone who struggles with new tools.\n\nStage 3 closes the loop: backup approvers so nothing stalls if someone's away, and a proper connection to the paperwork system already in place.",
+    "The plan is simple to describe: turn this into working software that shows people what's happening with their own claim. I'm building it in stages, as a real tool people will actually use — not a demo that only looks finished.\n\nStage 1 is a dashboard for the Admin, the person running this process today. It shows every claim at a glance: what's missing, what's approved, what's overdue. It needs no extra permission, so it can start immediately.\n\nStage 2 gives participants visibility without a whole new app to learn. Once a month, a simple status file appears in the same cloud folder they already use — what arrived, what's missing, how much they'll get and why, and the next deadline. No new login, no new interface. That choice also solves an accessibility problem for anyone who struggles with new tools.\n\nStage 3 closes the loop: backup approvers so nothing stalls if someone's away, and a proper connection to the paperwork system already in place.",
 
   // ── Methodology ────────────────────────────────────────────────────────────
   methodology:
