@@ -47,11 +47,14 @@ export const projectData = {
     "System Architecture",
   ],
 
+  // First four are the card-visible line (ProjectCard slices to 4) — kept short
+  // so the row stays scannable next to the other projects. The counts these
+  // drop are all still carried by `metrics` and the methodology prose.
   methods: [
-    "Document Analysis (4 governing documents)",
-    "Practitioner Autoethnography (12 months, structured register)",
-    "Swimlane Process Modelling (7 lanes, ~30 steps)",
-    "Thematic Analysis (16-item problem register)",
+    "Document Analysis",
+    "Practitioner Autoethnography (12 mo)",
+    "Swimlane Process Modelling (7 lanes)",
+    "Thematic Analysis",
     "Expert Stakeholder Validation",
     "Persona Development (7 boards, validation-status differentiated)",
     "Journey Mapping (3 journeys)",
