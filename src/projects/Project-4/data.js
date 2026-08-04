@@ -5,7 +5,7 @@
 //
 // ⚠️ Phase 4 (evaluation) has not completed. Nothing in `metrics` or `results`
 // claims an outcome. Anything not yet evidenced is marked TODO and left null.
-import thumbnailImg from './thumbnail.png';
+import thumbnailImg from './project4-Thumbnail.png';
 
 export const projectData = {
   id: 'project-4',
