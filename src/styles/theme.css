@@ -71,6 +71,16 @@
     --color-dark-text: #f2efea;
     --color-dark-text-muted: #c4beb6;
 
+    /* Rolle Workflow Palette */
+    --tn: #346280;
+    --dozent: #408B8B;
+    --intern: #3B8080;
+    --admin: #BD6E6E;
+    --edoc: #89916F;
+    --kst: #647B26;
+    --fin: #425F0B;
+    --awo: #2E400C;
+    --ekn: #212F05;
  
  /* 2.1.2: Typography — primitives */
 --font-family-sans:    "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
