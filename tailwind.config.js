@@ -39,6 +39,17 @@ export default {
         gold: "var(--gold)",              // legacy alias → highlight
         danger: "var(--danger)",
         success: "var(--success)",
+        tn: "var(--tn)", 
+        
+        // color pallete of Roles
+        dozent: "var(--dozent)", 
+        intern: "var(--intern)", 
+        admin: "var(--admin)", 
+        edoc: "var(--edoc)", 
+        kst: "var(--kst)", 
+        fin: "var(--fin)", 
+        awo: "var(--awo)", 
+        ekn: "var(--ekn)",
       },
       borderRadius: {
         xl: "var(--radius)",
