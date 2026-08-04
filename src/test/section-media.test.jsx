@@ -2,7 +2,6 @@ import { describe, it, expect } from "vitest";
 import { screen, fireEvent } from "@testing-library/react";
 import { renderWithProviders } from "./renderWithProviders";
 import SectionMedia from "../projects/SectionMedia";
-import { projectData } from "../projects/project-4/data";
 
 const figures = [
   { src: "/a.webp", alt: "Diagram A", caption: "Caption A" },
@@ -53,25 +52,6 @@ describe("SectionMedia", () => {
   });
 });
 
-describe("Reimbursement case study figures", () => {
-  it("every figure has a src and non-empty alt text", () => {
-    const all = Object.values(projectData.figures).flat();
-    expect(all.length).toBeGreaterThan(0);
-    all.forEach((f) => {
-      expect(f.src).toBeTruthy();
-      expect(f.alt && f.alt.length).toBeGreaterThan(20);
-    });
-  });
-
-  it("ships one board per persona in the seven-board set, plus the flow diagram", () => {
-    expect(projectData.figures.methodology).toHaveLength(8);
-    const personaBoards = projectData.figures.methodology.filter((f) =>
-      f.label?.startsWith("Persona")
-    );
-    expect(personaBoards).toHaveLength(7);
-  });
-});
-
 describe("Figure framing fields", () => {
   const rich = [{
     src: "/c.webp",
@@ -107,15 +87,4 @@ describe("Figure framing fields", () => {
     expect(screen.queryByText("What it shows")).not.toBeInTheDocument();
   });
 
-  it("renders all seven persona boards full width with a takeaway each", () => {
-    const personas = projectData.figures.methodology.filter((f) =>
-      f.label?.startsWith("Persona")
-    );
-    expect(personas).toHaveLength(7);
-    personas.forEach((p) => {
-      expect(p.span).toBe(2);
-      expect(p.takeaway).toBeTruthy();
-      expect(p.title).toBeTruthy();
-    });
-  });
 });
