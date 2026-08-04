@@ -590,6 +590,22 @@ export default function ProjectTemplate({ meta, children }) {
 
   return (
     <main className="min-h-screen bg-bg pt-32 pb-16">
+      {/* Banner — project thumbnail, full-bleed, above everything else */}
+      {meta.thumbnail && (
+        <motion.div
+          className="photo-frame w-full aspect-[21/9] md:aspect-[3/1] overflow-hidden bg-muted mb-12 md:mb-16"
+          initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: -12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <img
+            src={meta.thumbnail}
+            alt={meta.title}
+            className="w-full h-full object-cover"
+          />
+        </motion.div>
+      )}
+
       <div className="w-full px-4 md:px-8">
 
         <div className="flex gap-12 md:gap-16 lg:gap-20 items-start">
