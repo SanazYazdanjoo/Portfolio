@@ -216,6 +216,20 @@ const en = {
   "project.media.enlargedDefault": "Enlarged figure",
   "project.media.clickToEnlarge": "click to enlarge",
   "project.media.whatItShows": "What it shows",
+
+  // ── Credentials ──
+  "credentials.heading": "Credentials",
+  "credentials.subheading": "Workshops, courses, and certifications — with the original documents on file.",
+  "credentials.viewCredential": "View credential",
+  "credentials.viewAll": "View all",
+  "credentials.download": "Download PDF",
+  "credentials.close": "Close",
+  "credentials.verify": "Verify",
+  "credentials.empty": "Credentials are being added — check back soon.",
+  "credentials.type.workshop": "Workshop",
+  "credentials.type.course": "Course",
+  "credentials.type.internship": "Internship",
+  "credentials.type.certification": "Certification",
 };
 
 export default en;
