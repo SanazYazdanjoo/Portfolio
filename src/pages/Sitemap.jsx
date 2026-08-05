@@ -137,6 +137,7 @@ function RouteNode({ path, label, description, children, index, isActive }) {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default function Sitemap() {
   const profileData = useLocalizedProfile(rawProfile);
+  const localizedProjects = useLocalizedProfile(projects);
   // Build the main nav routes from profileData — stays in sync automatically
   const mainRoutes = profileData.navLinks.map((link) => {
     const path = link.path;
@@ -144,7 +145,7 @@ export default function Sitemap() {
 
     // Inject dynamic project children under /projects
     const children = path === "/projects"
-      ? projects.map((p) => ({
+      ? localizedProjects.map((p) => ({
           label: p.title,
           description: p.role,
           subItems: PROJECT_SECTIONS,
@@ -155,7 +156,7 @@ export default function Sitemap() {
   });
 
   // Dynamic project detail routes
-  const projectRoutes = projects.map((p) => ({
+  const projectRoutes = localizedProjects.map((p) => ({
     path: `/projects/${p.id}`,
     label: p.title,
     description: p.role,
@@ -164,7 +165,7 @@ export default function Sitemap() {
 
   // Stats
   const totalRoutes = mainRoutes.length + projectRoutes.length + LEGAL_ROUTES.length;
-  const totalProjects = projects.filter(p => p.status !== "coming-soon").length;
+  const totalProjects = localizedProjects.filter(p => p.status !== "coming-soon").length;
 
   return (
     <main className="min-h-screen pt-32 pb-24 bg-bg">
