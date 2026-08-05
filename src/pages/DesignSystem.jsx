@@ -107,7 +107,7 @@ function DSNav({ sections, activeId }) {
         On this page
       </p>
       <ul className="space-y-0.5">
-        {sections.map((section, index) => {
+        {sections.map((section) => {
           const isActive = activeId === section.id;
 
           return (
@@ -122,11 +122,6 @@ function DSNav({ sections, activeId }) {
                     : "border-transparent text-gray-500 hover:text-gray-900 hover:border-gray-300"
                 }`}
               >
-                <span className={`font-mono text-[10px] font-bold uppercase tracking-[0.2em] tabular-nums shrink-0 ${
-                  isActive ? "text-primary" : "text-gray-500"
-                }`}>
-                  {String(index + 1).padStart(2, "0")}
-                </span>
                 <span className={`text-[11px] font-bold uppercase tracking-[0.2em] leading-tight ${
                   isActive ? "text-primary" : "text-gray-600"
                 }`}>
@@ -256,10 +251,10 @@ export default function DesignSystem() {
                 Design System
               </motion.h1>
               <motion.p variants={fadeUp} className="type-lead mt-6 mb-0 max-w-2xl" style={{ color: "var(--text-dim)" }}>
-                The concept is a <InkHighlight>researcher&rsquo;s field notebook</InkHighlight>: a clean
-                white page, true-black ink for text and hand-drawn doodles, one loud coral accent,
-                a rose whisper, and a gold highlighter as the signature mark. Every specimen below
-                renders from the live CSS tokens — this page can&rsquo;t drift from the site.
+                Think <InkHighlight>researcher&rsquo;s field notebook</InkHighlight>: a clean white
+                page, true-black ink, hand-drawn doodles, one loud coral accent, and a gold
+                highlighter saved for what matters most. Everything below is pulled straight from
+                the live CSS tokens, so it never falls out of sync with the real site.
               </motion.p>
             </motion.header>
 
