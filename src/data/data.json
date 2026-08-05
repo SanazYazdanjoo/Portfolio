@@ -427,38 +427,60 @@
     ],
     "certifications": [
   {
+    "title": "M.Sc. Human-Computer Interaction",
+    "provider": "Bauhaus-Universität Weimar, Faculty of Media",
+    "year": "2026",
+    "type": "degree",
+    "skills": ["HCI Research", "Visual Interfaces", "Design Theory"],
+    "file": "",
+    "thumb": "",
+    "verifyUrl": "",
+    "detail": {
+      "en": "Final grade 1.7 (gut), 120 ECTS. Thesis: Gaze-Assisted Input in Dual-Display Environments — a comparative evaluation of MAGIC Pointing, Ninja Cursors, and a mouse baseline (1.5).",
+      "de": "Gesamtprädikat 1,7 (gut), 120 ECTS. Masterarbeit: Gaze-Assisted Input in Dual-Display Environments — vergleichende Evaluation von MAGIC Pointing, Ninja Cursors und einer Maus-Baseline (1,5)."
+    }
+  },
+  {
     "title": "Figma 101 Workshop",
     "provider": "Human-Computer Interaction Group, Bauhaus-Universität Weimar",
     "year": "2025",
+    "type": "workshop",
+    "skills": ["Figma", "Auto Layout", "Design Systems", "Prototyping"],
+    "file": "/assets/certificates/figma-101-workshop.pdf",
+    "thumb": "/assets/certificates/figma-101-workshop.webp",
+    "verifyUrl": "",
     "detail": {
       "en": "Auto Layout, wireframe libraries, design systems and prototyping — three assignments, concluding in a mini portfolio.",
       "de": "Auto Layout, Wireframe-Bibliotheken, Designsysteme und Prototyping — drei Aufgaben, abgeschlossen mit einem Mini-Portfolio."
-    },
-    "file": "",
-    "thumb": "",
-    "verifyUrl": "",
-    "type": "workshop",
-    "skills": ["Figma", "Design Systems", "Prototyping"]
+    }
   },
   {
-    "title": "Frontend Development Internship",
-    "provider": "Part Software Group",
-    "year": "2021",
-    "file": "",
-    "thumb": "",
+    "title": "Student Volunteer — Mensch und Computer 2022",
+    "provider": "Gesellschaft für Informatik (GI e.V.) · ACM In-Cooperation",
+    "year": "2022",
+    "type": "recognition",
+    "skills": ["Session Chairing", "Conference Operations"],
+    "file": "/assets/certificates/muc-2022-student-volunteer.pdf",
+    "thumb": "/assets/certificates/muc-2022-student-volunteer.webp",
     "verifyUrl": "",
-    "type": "internship",
-    "skills": ["HTML", "CSS", "JavaScript"]
+    "detail": {
+      "en": "Session and workshop support at Europe's largest HCI conference series (~600 participants), hosted by TU Darmstadt.",
+      "de": "Betreuung von Sessions und Workshops bei Europas größter HCI-Konferenzreihe (~600 Teilnehmende), ausgerichtet von der TU Darmstadt."
+    }
   },
   {
-    "title": "Python Programming",
-    "provider": "Technical & Vocational Training Organization",
-    "year": "2019",
+    "title": "DSH-2 (German Language Proficiency for University Admission)",
+    "provider": "Sprachenzentrum, Bauhaus-Universität Weimar",
+    "year": "2026",
+    "type": "language",
+    "skills": ["German C1"],
     "file": "",
     "thumb": "",
     "verifyUrl": "",
-    "type": "course",
-    "skills": ["Python"]
+    "detail": {
+      "en": "Unrestricted admission to all German degree programmes.",
+      "de": "Uneingeschränkte Zulassung zu allen Studiengängen an deutschen Hochschulen."
+    }
   }
 ],
     "bio": {

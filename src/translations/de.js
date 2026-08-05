@@ -228,6 +228,9 @@ const de = {
   "credentials.type.course": "Kurs",
   "credentials.type.internship": "Praktikum",
   "credentials.type.certification": "Zertifizierung",
+  "credentials.type.degree": "Abschluss",
+  "credentials.type.recognition": "Anerkennung",
+  "credentials.type.language": "Sprachnachweis",
 };
 
 export default de;

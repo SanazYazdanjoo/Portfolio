@@ -230,6 +230,9 @@ const en = {
   "credentials.type.course": "Course",
   "credentials.type.internship": "Internship",
   "credentials.type.certification": "Certification",
+  "credentials.type.degree": "Degree",
+  "credentials.type.recognition": "Recognition",
+  "credentials.type.language": "Language",
 };
 
 export default en;
