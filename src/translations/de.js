@@ -127,11 +127,92 @@ const de = {
   "footer.directContact": "Direkter Kontakt",
   "footer.basedIn": "Derzeit ansässig in {location}.",
   "footer.openToRoles": "Offen für Rollen als {role}.",
+  "footer.utility": "Weiteres",
+  "footer.available": "Verfügbar",
+  "footer.timezone": "Zeitzone: MEZ (UTC+1)",
+  "footer.cvLink": "Lebenslauf (CV)",
+  "footer.githubLink": "Mein GitHub",
+  "footer.legalAriaLabel": "Rechtliches",
 
   // ── Scroll indicator ──
   "scroll.hero": "Start",
   "scroll.about": "Über mich",
   "scroll.projects": "Projekte",
+
+  // ── Project detail — sidebar / mobile pill labels (short form) ──
+  "project.sidebar.allProjects": "Alle Projekte",
+  "project.sidebar.collapseAll": "Alles einklappen",
+  "project.sidebar.expandAll": "Alles ausklappen",
+  "project.sidebar.process": "Prozess",
+  "project.sidebar.challenge": "Herausforderung",
+  "project.sidebar.solution": "Lösung",
+  "project.sidebar.prototype": "Prototyp",
+  "project.sidebar.methodology": "Methodik",
+  "project.sidebar.results": "Ergebnisse",
+  "project.sidebar.implications": "Implikationen",
+  "project.sidebar.status": "Status",
+  "project.sidebar.conclusion": "Fazit",
+
+  // ── Project detail — section kickers + headings (long form) ──
+  "project.process.kicker": "Hinter der Arbeit",
+  "project.process.heading": "Forschungsprozess",
+  "project.process.swipe": "Zum Entdecken wischen →",
+  "project.process.keyInsight": "Kernerkenntnis",
+  "project.process.hideInsight": "Erkenntnis ausblenden",
+  "project.process.ariaLabel": "Schritte des Forschungsprozesses",
+
+  "project.phase.discover": "Entdecken",
+  "project.phase.define": "Definieren",
+  "project.phase.design": "Gestalten",
+  "project.phase.deliver": "Liefern",
+
+  "project.challenge.kicker": "Der Problemraum",
+  "project.challenge.heading": "Die Herausforderung",
+
+  "project.solution.kicker": "Was ich gebaut habe",
+  "project.solution.heading": "Die Lösung",
+
+  "project.prototype.kicker": "In Aktion sehen",
+  "project.prototype.heading": "Prototyp",
+  "project.prototype.openLink": "Prototyp öffnen",
+
+  "project.methodology.kicker": "Wie ich es untersucht habe",
+  "project.methodology.heading": "Methodik & Vorgehen",
+  "project.methodology.techStack": "Tech-Stack",
+
+  "project.results.kicker": "Was die Daten zeigten",
+  "project.results.heading": "Zentrale Ergebnisse",
+  "project.results.glance": "Studie auf einen Blick",
+
+  "project.implications.kicker": "Was das bedeutet",
+  "project.implications.heading": "Gestaltungsimplikationen",
+
+  "project.phases.kicker": "Wo dies gerade steht",
+  "project.phases.heading": "Forschungsphasen",
+
+  "project.conclusion.kicker": "Abschließende Reflexion",
+  "project.conclusion.heading": "Fazit",
+
+  "project.meta.role": "Rolle",
+  "project.meta.timeline": "Zeitrahmen",
+  "project.meta.methods": "Forschungsmethoden",
+  "project.meta.context": "Kontext",
+  "project.meta.furtherImpact": "Weitere Wirkung",
+
+  "project.status.complete": "Abgeschlossen",
+  "project.status.inProgress": "In Bearbeitung",
+  "project.status.planned": "Geplant",
+  "project.status.blocked": "Blockiert",
+
+  "project.footer.back": "Zurück zu allen Projekten",
+  "project.card.readCaseStudy": "Fallstudie lesen",
+
+  // ── Project detail — figure viewer chrome ──
+  "project.media.close": "Schließen",
+  "project.media.enlarge": "Abbildung vergrößern",
+  "project.media.enlargedDefault": "Vergrößerte Abbildung",
+  "project.media.clickToEnlarge": "zum Vergrößern klicken",
+  "project.media.whatItShows": "Was das zeigt",
 };
 
 export default de;

@@ -99,12 +99,14 @@ function HomeSection({ id, label, children, fullBleed = false, tight = false }) 
 
 export default function Home() {
   const profileData = useLocalizedProfile(rawProfile);
+  const localizedProjects = useLocalizedProfile(projects);
   const { t } = useTranslation();
 
   // Same split as /projects — one rule, two pages
-  const published = projects.filter((p) => p.status !== "coming-soon");
-  const comingSoon = projects.filter((p) => p.status === "coming-soon");
-  const hasAnyProjects = published.length > 0 || comingSoon.length > 0;
+  const published  = localizedProjects.filter((p) => p.status === "published");
+  const inProgress = localizedProjects.filter((p) => p.status === "in-progress");
+  const comingSoon = localizedProjects.filter((p) => p.status === "coming-soon");
+  const hasAnyProjects = published.length > 0 || inProgress.length > 0 || comingSoon.length > 0;
 
   return (
     // pb-24 → pb-6: the Footer owns the space above itself now (see patch note)
@@ -149,11 +151,18 @@ export default function Home() {
               {published.map((project, i) => (
                 <StackedProjectCard key={project.slug} project={project} index={i} />
               ))}
+              {inProgress.map((project, i) => (
+                <StackedProjectCard
+                  key={project.slug}
+                  project={project}
+                  index={published.length + i}
+                />
+              ))}
               {comingSoon.map((project, i) => (
                 <ComingSoonRow
                   key={project.slug}
                   project={project}
-                  index={published.length + i}
+                  index={published.length + inProgress.length + i}
                 />
               ))}
               {/* Closing hairline under the last row */}
