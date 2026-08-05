@@ -21,6 +21,7 @@ const en = {
 
   // ── Projects ──
   "projects.heading": "Case Studies",
+  "projects.title": "Projects",
   "projects.viewProject": "View Case Study",
   "projects.comingSoon": "Coming Soon",
   "projects.methods": "Methods",

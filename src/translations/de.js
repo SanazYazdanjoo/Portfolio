@@ -19,6 +19,7 @@ const de = {
 
   // ── Projects ──
   "projects.heading": "Fallstudien",
+  "projects.title": "Projekte",
   "projects.viewProject": "Fallstudie ansehen",
   "projects.comingSoon": "Demnächst",
   "projects.methods": "Methoden",

@@ -218,8 +218,8 @@ export function StackedProjectCard({ project, index }) {
                     src={project.thumbnail}
                     alt={project.title}
                     onError={() => setImgError(true)}
-                    className="w-full h-full object-cover grayscale
-                               transition-all duration-700 group-hover:grayscale-0"
+                    className="w-full h-full object-cover
+                               transition-all duration-700"
                   />
                 </div>
               )}

@@ -1,24 +1,24 @@
 // src/pages/Projects.jsx
 // ─────────────────────────────────────────────────────────────────────────────
-// STACKED EDITION — /projects now uses the SAME list system as Home:
+// Grid view (default) and List view, toggled by the user:
 //
-//   • published    → StackedProjectCard (spine, hover-expand panel, route)
-//   • coming-soon  → ComingSoonRow (shared component — extracted from Home)
-//   • none at all  → WIP empty state (same i18n keys as Home, so both pages
-//                    stay in sync when translations change)
+//   grid → ProjectTile, 2-column, every case study visible at a glance
+//   list → ProjectListRow, a plain non-expanding row per project (no
+//          hover-expand panel — that behavior stays on Home's StackedProjectCard)
+//   coming-soon → ComingSoonRow in both views (shared component)
+//   none at all → WIP empty state (same i18n keys as Home, so both pages
+//                 stay in sync when translations change)
 //
-// The old ProjectCard grid is gone. One list language across the whole site.
-//
-// Layout note: cards carry their own px-8 md:px-16 inner padding, so they
-// break out of the page container with negative margins that MIRROR the
-// container's px-4 md:px-8 — the card edge kisses the viewport edge exactly
-// like on Home.
+// Layout note: list rows carry their own px-8 md:px-16 inner padding, so
+// they break out of the page container with negative margins that MIRROR
+// the container's px-4 md:px-8 — the row edge kisses the viewport edge
+// exactly like on Home.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { projects } from "../data/projects";
-import { StackedProjectCard } from "../components/StackedProjectCard";
+import { ProjectListRow } from "../components/ProjectListRow";
 import { ProjectTile } from "../components/ProjectTile";
 import { ComingSoonRow } from "../components/ComingSoonRow";
 import { useTranslation } from "../context/LanguageContext";
@@ -27,7 +27,7 @@ import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 export default function Projects() {
   const { t } = useTranslation();
   const localizedProjects = useLocalizedProfile(projects);
-  const [view, setView] = useState("list"); // "list" | "grid"
+  const [view, setView] = useState("grid"); // "list" | "grid"
 
   // Same split as Home — one rule, two pages
   const published  = localizedProjects.filter((p) => p.status === "published");
@@ -48,12 +48,8 @@ export default function Projects() {
           transition={{ duration: 0.5 }}
         >
           <div>
-            <span className="block text-[11px] tracking-[0.2em] uppercase
-                             text-primary-600 font-bold mb-4">
-              {t("projects.heading")}
-            </span>
             <h1 className="font-display text-5xl md:text-8xl tracking-tighter text-text">
-              Case Studies<span className="text-primary">.</span>
+              {t("projects.title")}<span className="text-primary">.</span>
             </h1>
           </div>
 
@@ -97,14 +93,14 @@ export default function Projects() {
           view === "list" ? (
             <div className="relative flex flex-col -mx-4 md:-mx-8 border-b border-border">
               {published.map((project, index) => (
-                <StackedProjectCard
+                <ProjectListRow
                   key={project.id || index}
                   project={project}
                   index={index}
                 />
               ))}
               {inProgress.map((project, i) => (
-                <StackedProjectCard
+                <ProjectListRow
                   key={project.id || `wip-${i}`}
                   project={project}
                   index={published.length + i}
