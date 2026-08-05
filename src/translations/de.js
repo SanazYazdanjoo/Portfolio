@@ -214,6 +214,20 @@ const de = {
   "project.media.enlargedDefault": "Vergrößerte Abbildung",
   "project.media.clickToEnlarge": "zum Vergrößern klicken",
   "project.media.whatItShows": "Was das zeigt",
+
+  // ── Zeugnisse & Zertifikate ──
+  "credentials.heading": "Zeugnisse & Zertifikate",
+  "credentials.subheading": "Workshops, Kurse und Zertifizierungen — mit den Originaldokumenten hinterlegt.",
+  "credentials.viewCredential": "Nachweis ansehen",
+  "credentials.viewAll": "Alle ansehen",
+  "credentials.download": "PDF herunterladen",
+  "credentials.close": "Schließen",
+  "credentials.verify": "Verifizieren",
+  "credentials.empty": "Nachweise werden gerade ergänzt — schau bald wieder vorbei.",
+  "credentials.type.workshop": "Workshop",
+  "credentials.type.course": "Kurs",
+  "credentials.type.internship": "Praktikum",
+  "credentials.type.certification": "Zertifizierung",
 };
 
 export default de;

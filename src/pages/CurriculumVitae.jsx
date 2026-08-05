@@ -1,5 +1,6 @@
 // src/pages/CurriculumVitae.jsx
 import React, { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { profileData as rawProfile } from "../data/profile";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { useTranslation } from "../context/LanguageContext";
@@ -248,10 +249,26 @@ export default function CV() {
                     <p className="font-bold text-gray-900">{cert.title}</p>
                     <p className="text-gray-500 text-sm mt-1 print:text-xs">
                       {cert.provider} ({cert.year})
+                      {(cert.file || cert.verifyUrl) && (
+                        <a
+                          href={cert.file || cert.verifyUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="no-print ml-2 text-primary hover:underline"
+                        >
+                          {t("credentials.viewCredential")} &#8599;
+                        </a>
+                      )}
                     </p>
                   </div>
                 ))}
               </div>
+              <Link
+                to="/credentials"
+                className="no-print mt-5 inline-block text-sm font-bold text-primary hover:underline"
+              >
+                {t("credentials.viewAll")} &rarr;
+              </Link>
             </section>
 
             <section id="languages" className="scroll-mt-32">

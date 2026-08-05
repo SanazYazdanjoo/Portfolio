@@ -21,6 +21,7 @@ import Contact from './pages/Contact';
 import Projects from './pages/Projects';
 import Voluntary from './pages/Voluntary';
 import CurriculumVitae from './pages/CurriculumVitae';
+import Credentials from './pages/Credentials';
 import Sitemap from './pages/Sitemap';
 import DesignSystem from './pages/DesignSystem';
 import TagsDirectory from './tags/TagsDirectory';
@@ -56,6 +57,7 @@ const router = createBrowserRouter([
       { path: "projects", element: <Projects /> },
       { path: "voluntary", element: <Voluntary /> },
       { path: "cv", element: <CurriculumVitae /> },
+      { path: "credentials", element: <Credentials /> },
       { path: "sitemap", element: <Sitemap /> },
       { path: "designsystem", element: <DesignSystem /> },
       { path: "tags", element: <TagsDirectory /> },

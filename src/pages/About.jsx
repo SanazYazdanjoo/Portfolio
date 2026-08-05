@@ -139,6 +139,41 @@ export default function About() {
       </section>
 
       {/* ══════════════════════════════════════════════
+          SECTION 2.5 — Credentials (passive discovery, no thumbnails —
+          the full gallery lives at /credentials so this stays a compact
+          one-line list and never competes with the skills grid above)
+      ══════════════════════════════════════════════ */}
+      {profileData.certifications && profileData.certifications.length > 0 && (
+        <section className="py-20 border-t border-border">
+          <div className="container mx-auto px-4 md:px-8">
+            <SectionHeader
+              eyebrow={t("cv.certifications")}
+              title={t("credentials.heading")}
+            />
+            <ul className="space-y-3 max-w-2xl">
+              {profileData.certifications.slice(0, 4).map((cert, i) => (
+                <li
+                  key={i}
+                  className="flex flex-wrap items-baseline gap-x-2 text-sm text-text/75"
+                >
+                  <span className="font-bold text-text">{cert.title}</span>
+                  <span className="text-text/30" aria-hidden="true">&mdash;</span>
+                  <span>{cert.provider}</span>
+                  {cert.year && <span className="text-text/40">({cert.year})</span>}
+                </li>
+              ))}
+            </ul>
+            <Link
+              to="/credentials"
+              className="mt-6 inline-block text-xs font-black uppercase tracking-widest text-primary-600 hover:underline"
+            >
+              {t("credentials.viewAll")} &rarr;
+            </Link>
+          </div>
+        </section>
+      )}
+
+      {/* ══════════════════════════════════════════════
           SECTION 3 — Research Process
       ══════════════════════════════════════════════ */}
       <section className="py-20 border-t border-border">

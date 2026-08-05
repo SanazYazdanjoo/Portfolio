@@ -64,6 +64,11 @@ export function Footer({ data }) {
                   {t("footer.cvLink")}<span className="text-[10px] opacity-50">↗</span>
                 </Link>
               </li>
+              <li>
+                <Link to="/credentials" className="text-text hover:text-primary transition-colors duration-300 inline-flex items-center gap-1.5">
+                  {t("credentials.heading")}<span className="text-[10px] opacity-50">↗</span>
+                </Link>
+              </li>
               {contact.github && (
                 <li>
                   <a href={contact.github} target="_blank" rel="noopener noreferrer" className="text-text hover:text-primary transition-colors duration-300 inline-flex items-center gap-1.5">

@@ -433,17 +433,32 @@
     "detail": {
       "en": "Auto Layout, wireframe libraries, design systems and prototyping — three assignments, concluding in a mini portfolio.",
       "de": "Auto Layout, Wireframe-Bibliotheken, Designsysteme und Prototyping — drei Aufgaben, abgeschlossen mit einem Mini-Portfolio."
-    }
+    },
+    "file": "",
+    "thumb": "",
+    "verifyUrl": "",
+    "type": "workshop",
+    "skills": ["Figma", "Design Systems", "Prototyping"]
   },
   {
     "title": "Frontend Development Internship",
     "provider": "Part Software Group",
-    "year": "2021"
+    "year": "2021",
+    "file": "",
+    "thumb": "",
+    "verifyUrl": "",
+    "type": "internship",
+    "skills": ["HTML", "CSS", "JavaScript"]
   },
   {
     "title": "Python Programming",
     "provider": "Technical & Vocational Training Organization",
-    "year": "2019"
+    "year": "2019",
+    "file": "",
+    "thumb": "",
+    "verifyUrl": "",
+    "type": "course",
+    "skills": ["Python"]
   }
 ],
     "bio": {
