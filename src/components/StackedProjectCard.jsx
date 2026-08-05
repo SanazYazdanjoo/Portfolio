@@ -24,6 +24,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslation } from "../context/LanguageContext";
 
 const DOMAIN_SPINES = {
   attention:     { fallback: "var(--primary)" },
@@ -66,6 +67,7 @@ export function StackedProjectCard({ project, index }) {
   const [open, setOpen] = useState(false);
   const [imgError, setImgError] = useState(false);
   const reduce = useReducedMotion();
+  const { t } = useTranslation();
 
   if (!project || project.status === "coming-soon" || !project.id) return null;
 
@@ -131,7 +133,7 @@ export function StackedProjectCard({ project, index }) {
                            uppercase tracking-[0.2em] text-primary-600
                            transition-transform duration-300 group-hover:translate-x-1"
               >
-                Read case study
+                {t("project.card.readCaseStudy")}
                 <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
@@ -177,12 +179,12 @@ export function StackedProjectCard({ project, index }) {
           <div className="px-8 md:px-16 py-8 grid grid-cols-1 md:grid-cols-12 gap-8 border-b border-border">
             <div className="md:col-span-3 flex flex-col gap-5">
               {project.role && (
-                <Field label="Role">
+                <Field label={t("project.meta.role")}>
                   <p className="text-sm font-semibold text-text/85 leading-snug">{project.role}</p>
                 </Field>
               )}
               {project.timeline && (
-                <Field label="Timeline">
+                <Field label={t("project.meta.timeline")}>
                   <p className="font-mono text-xs text-text/70">{project.timeline}</p>
                 </Field>
               )}
@@ -190,12 +192,12 @@ export function StackedProjectCard({ project, index }) {
 
             <div className="md:col-start-5 md:col-span-4 flex flex-col gap-5">
               {project.tagline && (
-                <Field label="Context">
+                <Field label={t("project.meta.context")}>
                   <p className="text-xs text-text/70 leading-relaxed">{project.tagline}</p>
                 </Field>
               )}
               {rest.length > 0 && (
-                <Field label="Further impact">
+                <Field label={t("project.meta.furtherImpact")}>
                   <div className="flex flex-wrap gap-x-6 gap-y-2">
                     {rest.map((m) => (
                       <div key={m.label} className="flex items-baseline gap-1.5">
@@ -223,7 +225,7 @@ export function StackedProjectCard({ project, index }) {
               )}
               <span className="inline-flex items-center gap-1.5 text-xs font-extrabold
                                uppercase tracking-[0.18em] text-primary-600">
-                View Case Study
+                {t("projects.viewProject")}
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor"
                      strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />

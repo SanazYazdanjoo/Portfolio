@@ -26,12 +26,14 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useReducedMotion } from "framer-motion";
+import { useTranslation } from "../context/LanguageContext";
 
 // ─── Zoom overlay ────────────────────────────────────────────────────────────
 // Rendered through a portal to document.body on purpose: figures sit inside a
 // framer-motion section, and a transformed ancestor would otherwise become the
 // containing block for `position: fixed` and break the overlay mid-animation.
 function ZoomOverlay({ figure, onClose }) {
+  const { t } = useTranslation();
   const closeRef = useRef(null);
 
   useEffect(() => {
@@ -54,7 +56,7 @@ function ZoomOverlay({ figure, onClose }) {
     <div
       role="dialog"
       aria-modal="true"
-      aria-label={figure.alt || "Enlarged figure"}
+      aria-label={figure.alt || t("project.media.enlargedDefault")}
       className="fixed inset-0 z-[100] overflow-auto bg-bg/95 print:hidden"
       onClick={onClose}
     >
@@ -67,7 +69,7 @@ function ZoomOverlay({ figure, onClose }) {
                      uppercase tracking-wider text-text hover:text-primary-600
                      focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
         >
-          Close &#10005;
+          {t("project.media.close")} &#10005;
         </button>
       </div>
 
@@ -92,6 +94,7 @@ function ZoomOverlay({ figure, onClose }) {
 }
 
 export default function SectionMedia({ items }) {
+  const { t } = useTranslation();
   const prefersReducedMotion = useReducedMotion();
   const [zoomed, setZoomed] = useState(null);
   const triggerRef = useRef(null);
@@ -166,7 +169,7 @@ export default function SectionMedia({ items }) {
                   <button
                     type="button"
                     onClick={(e) => { triggerRef.current = e.currentTarget; setZoomed(f); }}
-                    aria-label={`Enlarge figure: ${f.alt}`}
+                    aria-label={`${t("project.media.enlarge")}: ${f.alt}`}
                     className="group block w-full cursor-zoom-in appearance-none border-0 bg-transparent p-0
                                focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
                   >
@@ -194,7 +197,7 @@ export default function SectionMedia({ items }) {
                   {f.caption}
                   {canZoom && (
                     <span className="ml-2 normal-case tracking-normal text-text/30 print:hidden">
-                      &mdash; click to enlarge
+                      &mdash; {t("project.media.clickToEnlarge")}
                     </span>
                   )}
                 </figcaption>
@@ -205,7 +208,7 @@ export default function SectionMedia({ items }) {
               {f.takeaway && (
                 <div className="mt-4 border-l-2 border-primary-600 pl-4">
                   <p className="m-0 mb-1 font-mono text-2xs uppercase tracking-[0.2em] text-primary-600">
-                    {f.takeawayLabel || "What it shows"}
+                    {f.takeawayLabel || t("project.media.whatItShows")}
                   </p>
                   <p className="m-0 text-sm leading-relaxed text-text/75">
                     {f.takeaway}

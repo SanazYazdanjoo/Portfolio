@@ -59,7 +59,7 @@ export const projects = Object.entries(modules)
           console.warn(`[projects] ${path} is missing required field "${field}"`);
         }
       }
-      if (status && !["published", "coming-soon"].includes(status)) {
+      if (status && !["published", "in-progress", "coming-soon"].includes(status)) {
         console.warn(
           `[projects] ${path} has unknown status "${p.status}" — it will not appear in sortedProjects.`
         );
@@ -75,15 +75,18 @@ export const projects = Object.entries(modules)
         : Array.isArray(p.methods)
         ? p.methods
         : [],
-      href: status === "published" ? `/projects/${slug}` : null,
+      // "in-progress" projects have a real, linkable detail page too (see
+      // Project-4) — only "coming-soon" has nothing to route to yet.
+      href: status === "published" || status === "in-progress" ? `/projects/${slug}` : null,
     };
   })
   .filter(Boolean)
   .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
 
-/** Homepage order: published first (by `order`), coming-soon sinks. */
+/** Homepage order: published first (by `order`), then in-progress, coming-soon sinks. */
 export const sortedProjects = [
   ...projects.filter((p) => p.status === "published"),
+  ...projects.filter((p) => p.status === "in-progress"),
   ...projects.filter((p) => p.status === "coming-soon"),
 ];
 
