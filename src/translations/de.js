@@ -26,6 +26,9 @@ const de = {
   "projects.allProjects": "Alle Projekte",
   "projects.wip": "In Bearbeitung",
   "projects.wipDesc": "Fallstudien werden gerade dokumentiert. Bald verfügbar.",
+  "projects.view.label": "Ansicht wechseln",
+  "projects.view.list": "Liste",
+  "projects.view.grid": "Raster",
   "projects.wipDescLong": "Fallstudien werden gerade dokumentiert. Bald verfügbar — gute Forschung braucht Zeit, um richtig erzählt zu werden.",
 
   // ── About ──

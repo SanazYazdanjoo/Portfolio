@@ -29,6 +29,9 @@ const en = {
   "projects.wip": "Work in Progress",
   "projects.wipDesc": "Case studies are being documented. Check back soon.",
   "projects.wipDescLong": "Case studies are being documented. Check back soon — good research takes time to tell properly.",
+  "projects.view.label": "Switch view",
+  "projects.view.list": "List",
+  "projects.view.grid": "Grid",
 
   // ── About ──
   "about.heading": "About Me",
