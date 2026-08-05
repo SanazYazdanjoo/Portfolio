@@ -10,10 +10,9 @@
 //      Every OTHER section keeps pt-20 so the page rhythm stays intact.
 //
 //   2. OVERFLOW-HIDDEN REMOVED from #Hero-Section. This single class was
-//      responsible for TWO reported bugs:
-//        • the handwritten "UX Engineer" badge clipping at the top-right
-//        • the "QA & Analysis" column truncating in What I Bring
-//      A clipping ancestor beats any `overflow-visible` a child declares.
+//      responsible for the handwritten "UX Engineer" badge clipping at the
+//      top-right. A clipping ancestor beats any `overflow-visible` a child
+//      declares.
 //      Hero.jsx v6 already reserves headroom (pt-10 md:pt-12), so nothing
 //      needs to hang outside the box anymore — the class was pure downside.
 //
@@ -30,7 +29,7 @@
 
 import React from "react";
 import { Hero } from "../components/Hero";
-import { AboutBio, WhatIBring } from "../components/AboutMe";
+import { AboutBio } from "../components/AboutMe";
 import { StackedProjectCard } from "../components/StackedProjectCard";
 import { projects } from "../data/projects";
 import { profileData as rawProfile } from "../data/profile";
@@ -62,10 +61,6 @@ function SectionLabel({ children }) {
 // own trailing space. 80px on top of that read as a hole in the page.
 //   tight  → pt-10 md:pt-12  (40 / 48px)
 //   normal → pt-20           (80px)
-//
-// ⚠ overflow-visible is deliberate and load-bearing: WhatIBring's tallest
-//   column must be allowed to grow past its siblings. Never add a max-height
-//   or overflow-hidden to this component or its ancestors.
 function HomeSection({ id, label, children, fullBleed = false, tight = false }) {
   return (
     <section
@@ -113,8 +108,7 @@ export default function Home() {
     <div className="w-full relative pb-6 overflow-visible">
 
       {/* ── Hero — natural height, no viewport lock, NO overflow clip ──
-          Do not re-add overflow-hidden here. It clips the role badge and the
-          What-I-Bring columns further down the page. */}
+          Do not re-add overflow-hidden here. It clips the role badge. */}
       <section id="Hero-Section" className="w-full relative overflow-visible">
         <Hero data={profileData} />
       </section>
@@ -123,16 +117,11 @@ export default function Home() {
       <HomeSection id="AboutMe-Section" label={t("about.heading")} tight>
         <AboutBio data={profileData} />
 
-        {/* The Bridge — visual proof of the bio's "five years in..." sentence.
+        {/* The Bridge — visual proof of the bio's "eight years across..." claim.
             mt-14 → mt-12 so the arc breathes without reopening a gap. */}
         <div className="mt-12">
           <CareerArc variant="compact" />
         </div>
-      </HomeSection>
-
-      {/* ── What I Bring ── */}
-      <HomeSection id="WhatIBring-Section" label={t("about.whatIBring")}>
-        <WhatIBring data={profileData} />
       </HomeSection>
 
       {/* ── Case Studies — STACKED list, same system as /projects ──
