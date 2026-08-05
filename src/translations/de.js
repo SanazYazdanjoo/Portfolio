@@ -91,6 +91,17 @@ const de = {
   "contact.socials": "Soziale Netzwerke",
   "contact.collaborate": "Zusammenarbeit auf:",
   "contact.location": "Derzeit in Weimar, Deutschland, und offen für interdisziplinäre UX- und Tech-Rollen.", // Aktualisiert
+  "contact.kicker": "Kontakt",
+  "contact.headline": "Sprechen wir",
+  "contact.emailCta": "Schreiben Sie mir",
+  "contact.copyEmail": "Adresse kopieren",
+  "contact.copied": "Kopiert",
+  "contact.details": "Details",
+  "contact.basedIn": "Standort",
+  "contact.replyTime": "Antwortzeit",
+  "contact.phone": "Telefon",
+  "contact.goodToSend": "Worüber ich gerne spreche",
+  "contact.viewCv": "Lebenslauf ansehen",
 
   // ── Footer ──
   "footer.rights": "Alle Rechte vorbehalten.",

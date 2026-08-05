@@ -46,6 +46,11 @@ const PHASE_META = {
   deliver:  { labelKey: "project.phase.deliver",  number: "04" },
 };
 
+// Sections a recruiter should see without clicking anything: the proof
+// (process), the problem (challenge), and the payoff (results). Everything
+// else stays closed until asked for.
+const DEFAULT_OPEN_SECTIONS = new Set(["process", "challenge", "results"]);
+
 // ─── Content section definitions ─────────────────────────────────────────────
 // `labelKey` drives the sidebar/mobile-pill text (short form).
 const SECTIONS = [
@@ -125,7 +130,7 @@ function ContentSection({ id, number, kicker, heading, isOpen, onToggle, childre
   return (
     <motion.section
       id={id}
-      className="pt-12 mb-12 border-t border-border scroll-mt-32"
+      className="pt-10 mb-14 md:pt-16 md:mb-20 border-t border-border scroll-mt-32"
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
@@ -260,7 +265,7 @@ function ProcessGallerySection({ items, number, isOpen, onToggle }) {
   if (!items || items.length === 0) return null;
 
   return (
-    <section id="process" className="pt-12 mb-12 border-t border-border scroll-mt-32">
+    <section id="process" className="pt-10 mb-14 md:pt-16 md:mb-20 border-t border-border scroll-mt-32">
       <CollapsibleSectionHead
         id="process" number={number} kicker={t("project.process.kicker")} heading={t("project.process.heading")}
         isOpen={isOpen} onToggle={onToggle}
@@ -467,7 +472,7 @@ function ResearchPhases({ phases, intro, number, isOpen, onToggle }) {
       onToggle={onToggle}
     >
       {intro && (
-        <p className="text-base md:text-lg text-text/80 leading-relaxed mb-8">
+        <p className="max-w-[68ch] text-base md:text-lg text-text/90 leading-[1.7] mb-8">
           {intro}
         </p>
       )}
@@ -544,11 +549,14 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
 
   const [activeId, setActiveId] = useState(() => activeSections[0]?.id ?? null);
 
-  // Collapsed by default — every section starts closed, opened only on
-  // request. A Set rather than one id, since more than one section can be
-  // open at a time (this is an accordion of independent panels, not a
-  // single-select tab strip).
-  const [openSections, setOpenSections] = useState(() => new Set());
+  // Process, challenge and results start open — the evidence a recruiter
+  // needs shouldn't be gated behind a click. Everything else starts closed.
+  // A Set rather than one id, since more than one section can be open at a
+  // time (this is an accordion of independent panels, not a single-select
+  // tab strip).
+  const [openSections, setOpenSections] = useState(
+    () => new Set(activeSections.filter((s) => DEFAULT_OPEN_SECTIONS.has(s.id)).map((s) => s.id))
+  );
 
   const toggleSection = (id) => {
     setOpenSections((prev) => {
@@ -728,7 +736,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
               <ContentSection id="challenge" number={sectionNumber("challenge")}
                 isOpen={openSections.has("challenge")} onToggle={() => toggleSection("challenge")}
                 kicker={t("project.challenge.kicker")} heading={t("project.challenge.heading")}>
-                <p className="text-base md:text-lg text-text/80 leading-relaxed">
+                <p className="max-w-[68ch] text-base md:text-lg text-text/90 leading-[1.7]">
                   {meta.challenge}
                 </p>
                 <SectionMedia items={meta.figures?.challenge} />
@@ -739,7 +747,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
               <ContentSection id="solution" number={sectionNumber("solution")}
                 isOpen={openSections.has("solution")} onToggle={() => toggleSection("solution")}
                 kicker={t("project.solution.kicker")} heading={t("project.solution.heading")}>
-                <p className="text-base md:text-lg text-text/80 leading-relaxed">
+                <p className="max-w-[68ch] text-base md:text-lg text-text/90 leading-[1.7]">
                   {meta.solution}
                 </p>
                 <SectionMedia items={meta.figures?.solution} />
@@ -752,7 +760,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                 isOpen={openSections.has("prototype")} onToggle={() => toggleSection("prototype")}
                 kicker={t("project.prototype.kicker")} heading={t("project.prototype.heading")}>
                 {meta.prototype && (
-                  <p className="text-base md:text-lg text-text/80 leading-relaxed">
+                  <p className="max-w-[68ch] text-base md:text-lg text-text/90 leading-[1.7]">
                     {meta.prototype}
                   </p>
                 )}
@@ -781,7 +789,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
               <ContentSection id="methodology" number={sectionNumber("methodology")}
                 isOpen={openSections.has("methodology")} onToggle={() => toggleSection("methodology")}
                 kicker={t("project.methodology.kicker")} heading={t("project.methodology.heading")}>
-                <p className="text-base md:text-lg text-text/80 leading-relaxed mb-6">
+                <p className="max-w-[68ch] text-base md:text-lg text-text/90 leading-[1.7] mb-6">
                   {meta.methodology}
                 </p>
                 <SectionMedia items={meta.figures?.methodology} />
@@ -804,7 +812,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
               <ContentSection id="results" number={sectionNumber("results")}
                 isOpen={openSections.has("results")} onToggle={() => toggleSection("results")}
                 kicker={t("project.results.kicker")} heading={t("project.results.heading")}>
-                <p className="text-base md:text-lg text-text/80 leading-relaxed">
+                <p className="max-w-[68ch] text-base md:text-lg text-text/90 leading-[1.7]">
                   {meta.results}
                 </p>
                     <SectionMedia items={meta.figures?.results} />
@@ -817,7 +825,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
               <ContentSection id="implications" number={sectionNumber("implications")}
                 isOpen={openSections.has("implications")} onToggle={() => toggleSection("implications")}
                 kicker={t("project.implications.kicker")} heading={t("project.implications.heading")}>
-                <p className="text-base md:text-lg text-text/80 leading-relaxed">
+                <p className="max-w-[68ch] text-base md:text-lg text-text/90 leading-[1.7]">
                   {meta.implications}
                 </p>
               </ContentSection>

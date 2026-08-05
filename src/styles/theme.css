@@ -504,16 +504,3 @@
   filter: grayscale(0%) contrast(1);
 }
 
-/* --- 7. WATERCOLOR PANEL --- */
-/* The wash appears in ONE place: a full-bleed panel inside the Contact card
-   (the Unsplash-modal pattern — image as furniture, not decoration).
-   Swap the artwork by changing --watercolor-url in §2.1. */
-.watercolor-panel {
-  background-color: var(--blush-weak);   /* graceful fallback if image missing */
-  background-image: var(--watercolor-url);
-  background-size: cover;
-  background-position: 42% 45%;          /* the coral→magenta→gold sweep */
-}
-@media print {
-  .watercolor-panel { display: none !important; }
-}

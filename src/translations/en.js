@@ -93,6 +93,17 @@ const en = {
   "contact.socials": "Socials",
   "contact.collaborate": "Let's collaborate in:",
   "contact.location": "Currently based in Weimar, Germany, and open to interdisciplinary UX and Tech roles.", // Updated
+  "contact.kicker": "Contact",
+  "contact.headline": "Let's talk",
+  "contact.emailCta": "Write me an email",
+  "contact.copyEmail": "Copy address",
+  "contact.copied": "Copied",
+  "contact.details": "Details",
+  "contact.basedIn": "Based in",
+  "contact.replyTime": "Reply time",
+  "contact.phone": "Phone",
+  "contact.goodToSend": "Good things to send me",
+  "contact.viewCv": "View CV",
 
   // ── Footer ──
   "footer.rights": "All rights reserved.",

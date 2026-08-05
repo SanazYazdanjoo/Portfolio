@@ -1,30 +1,31 @@
 // src/components/Footer.jsx
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "../context/LanguageContext";
+import { StatusDot } from "./StatusDot";
 
 export function Footer({ data }) {
   const { name, contact } = data;
   const { t } = useTranslation();
+  const { pathname } = useLocation();
   const year = new Date().getFullYear();
+  const isContactPage = pathname === "/contact";
 
   return (
     <footer className="relative border-t border-border/20 bg-bg no-print">
       <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 pt-12 pb-10">
 
         {/* ── Minimalist HR Grid ── */}
+        {!isContactPage && (
         <div className="grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-x-10 mb-10">
-          
+
           {/* Column 1: Status (Matches AboutMe heading alignment) */}
           <div className="md:col-span-5">
             <h3 className="text-[10px] font-black uppercase tracking-widest text-text/40 mb-5">
               {t("footer.status")}
             </h3>
             <div className="flex items-start gap-3">
-              <span className="relative flex h-2 w-2 mt-1.5 shrink-0" role="img" aria-label={t("footer.available")}>
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-40"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-              </span>
+              <StatusDot label={t("footer.available")} />
               <p className="text-sm text-text/80 leading-relaxed font-medium">
                 {t("footer.basedIn").replace("{location}", contact.location)}<br />
                 {data.heroMeta?.status || t("hero.meta.statusValue")}
@@ -82,6 +83,7 @@ export function Footer({ data }) {
             </ul>
           </div>
         </div>
+        )}
 
         {/* ── Divider ── */}
         <div className="h-px bg-border/10 mb-4" />
