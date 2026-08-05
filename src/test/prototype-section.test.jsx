@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { screen, within, fireEvent } from "@testing-library/react";
+import { screen, within } from "@testing-library/react";
 import { renderWithProviders } from "./renderWithProviders";
 import ProjectTemplate from "../projects/ProjectTemplate";
 import { projectData as baseProject } from "../projects/project-1/data";
@@ -50,7 +50,6 @@ describe("Prototype CTA link", () => {
     renderWithProviders(
       <ProjectTemplate meta={metaWithout({ prototypeUrl: "https://example.com/demo" })} />
     );
-    fireEvent.click(within(screen.getByRole("heading", { name: /prototype/i })).getByRole("button"));
 
     const link = screen.getByRole("link", { name: /open the prototype/i });
     expect(link).toHaveAttribute("href", "https://example.com/demo");
@@ -67,7 +66,6 @@ describe("Prototype CTA link", () => {
         })}
       />
     );
-    fireEvent.click(within(screen.getByRole("heading", { name: /prototype/i })).getByRole("button"));
 
     expect(screen.getByRole("link", { name: /try the live dashboard/i })).toBeInTheDocument();
   });
@@ -76,18 +74,17 @@ describe("Prototype CTA link", () => {
     renderWithProviders(
       <ProjectTemplate meta={metaWithout({ prototype: "Text only, no link yet." })} />
     );
-    fireEvent.click(within(screen.getByRole("heading", { name: /prototype/i })).getByRole("button"));
 
     expect(screen.queryByRole("link", { name: /open the prototype/i })).not.toBeInTheDocument();
   });
 });
 
-describe("Prototype section respects the closed-by-default accordion", () => {
-  it("starts collapsed like every other section", () => {
+describe("Prototype section respects the open-by-default accordion", () => {
+  it("starts open like every other section", () => {
     renderWithProviders(
       <ProjectTemplate meta={metaWithout({ prototype: "Here is what I built." })} />
     );
     const heading = screen.getByRole("heading", { name: /prototype/i });
-    expect(within(heading).getByRole("button")).toHaveAttribute("aria-expanded", "false");
+    expect(within(heading).getByRole("button")).toHaveAttribute("aria-expanded", "true");
   });
 });
