@@ -88,7 +88,30 @@
       "github": "https://github.com/SanazYazdanjoo",
       "githubHandle": "github.com/SanazYazdanjoo",
       "website": "https://yazdanjoo.de",
-      "websiteHandle": "yazdanjoo.de"
+      "websiteHandle": "yazdanjoo.de",
+      "availability": {
+        "en": "Open to UX Research and UX Engineering roles from March 2026. Weimar-based, EU work authorisation, open to relocation.",
+        "de": "Offen für UX-Research- und UX-Engineering-Rollen ab März 2026. Ansässig in Weimar, EU-Arbeitserlaubnis, umzugsbereit."
+      },
+      "timezone": "CET (UTC+1)",
+      "responseTime": {
+        "en": "Within 48 hours",
+        "de": "Innerhalb von 48 Stunden"
+      },
+      "collaborateOn": [
+        {
+          "en": "A role description — I'll tell you honestly if I'm a fit",
+          "de": "Eine Stellenbeschreibung — ich sage ehrlich, ob ich passe"
+        },
+        {
+          "en": "A research problem you're stuck on",
+          "de": "Ein Forschungsproblem, bei dem Sie feststecken"
+        },
+        {
+          "en": "Collaboration on HCI or accessibility work",
+          "de": "Zusammenarbeit zu HCI- oder Accessibility-Themen"
+        }
+      ]
     },
     "profileSummary": {
       "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction and five years in frontend development, user research, and QA. I like working on both ends of a product: running solid mixed-methods studies to understand what people actually need, and then building it — responsive, accessible interfaces in React and TypeScript. That mix is the point. Research tells me what's worth building, and my engineering background means I can take it all the way to working code. The case studies below show how that plays out in real projects.",
