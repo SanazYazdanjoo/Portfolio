@@ -15,10 +15,11 @@
 // like on Home.
 // ─────────────────────────────────────────────────────────────────────────────
 
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { projects } from "../data/projects";
 import { StackedProjectCard } from "../components/StackedProjectCard";
+import { ProjectTile } from "../components/ProjectTile";
 import { ComingSoonRow } from "../components/ComingSoonRow";
 import { useTranslation } from "../context/LanguageContext";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
@@ -26,12 +27,14 @@ import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 export default function Projects() {
   const { t } = useTranslation();
   const localizedProjects = useLocalizedProfile(projects);
+  const [view, setView] = useState("list"); // "list" | "grid"
 
   // Same split as Home — one rule, two pages
   const published  = localizedProjects.filter((p) => p.status === "published");
   const inProgress = localizedProjects.filter((p) => p.status === "in-progress");
   const comingSoon = localizedProjects.filter((p) => p.status === "coming-soon");
   const hasAnyProjects = published.length > 0 || inProgress.length > 0 || comingSoon.length > 0;
+  const allForGrid = [...published, ...inProgress, ...comingSoon];
 
   return (
     <main className="min-h-screen pt-32 pb-24 relative overflow-hidden bg-transparent">
@@ -39,45 +42,93 @@ export default function Projects() {
 
         {/* ── Page header ── */}
         <motion.header
-          className="mb-16"
+          className="mb-10 flex flex-wrap items-end justify-between gap-6"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <span className="block text-[11px] tracking-[0.2em] uppercase
-                           text-primary-600 font-bold mb-4">
-            {t("projects.heading")}
-          </span>
-          <h1 className="font-display text-5xl md:text-8xl tracking-tighter text-text">
-            Case Studies<span className="text-primary">.</span>
-          </h1>
+          <div>
+            <span className="block text-[11px] tracking-[0.2em] uppercase
+                             text-primary-600 font-bold mb-4">
+              {t("projects.heading")}
+            </span>
+            <h1 className="font-display text-5xl md:text-8xl tracking-tighter text-text">
+              Case Studies<span className="text-primary">.</span>
+            </h1>
+          </div>
+
+          {/* ── View toggle: list ↔ 2-col tile grid ── */}
+          {hasAnyProjects && (
+            <div
+              role="group"
+              aria-label={t("projects.view.label")}
+              className="flex shrink-0 items-center gap-1 border border-border p-1"
+            >
+              <button
+                type="button"
+                onClick={() => setView("list")}
+                aria-pressed={view === "list"}
+                className={`flex items-center gap-2 px-3 py-2 text-xs font-bold uppercase tracking-widest transition-colors duration-200
+                           ${view === "list" ? "bg-primary text-white" : "text-text/60 hover:text-text"}`}
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <span className="hidden sm:inline">{t("projects.view.list")}</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setView("grid")}
+                aria-pressed={view === "grid"}
+                className={`flex items-center gap-2 px-3 py-2 text-xs font-bold uppercase tracking-widest transition-colors duration-200
+                           ${view === "grid" ? "bg-primary text-white" : "text-text/60 hover:text-text"}`}
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 5h7v7H4V5zm9 0h7v7h-7V5zM4 14h7v7H4v-7zm9 0h7v7h-7v-7z" />
+                </svg>
+                <span className="hidden sm:inline">{t("projects.view.grid")}</span>
+              </button>
+            </div>
+          )}
         </motion.header>
 
-        {/* ── Stacked list — mirrors container padding to go full-bleed ── */}
+        {/* ── List / Grid — mirrors container padding to go full-bleed in list mode ── */}
         {hasAnyProjects ? (
-          <div className="relative flex flex-col -mx-4 md:-mx-8 border-b border-border">
-            {published.map((project, index) => (
-              <StackedProjectCard
-                key={project.id || index}
-                project={project}
-                index={index}
-              />
-            ))}
-            {inProgress.map((project, i) => (
-              <StackedProjectCard
-                key={project.id || `wip-${i}`}
-                project={project}
-                index={published.length + i}
-              />
-            ))}
-            {comingSoon.map((project, i) => (
-              <ComingSoonRow
-                key={project.id || `soon-${i}`}
-                project={project}
-                index={published.length + inProgress.length + i}
-              />
-            ))}
-          </div>
+          view === "list" ? (
+            <div className="relative flex flex-col -mx-4 md:-mx-8 border-b border-border">
+              {published.map((project, index) => (
+                <StackedProjectCard
+                  key={project.id || index}
+                  project={project}
+                  index={index}
+                />
+              ))}
+              {inProgress.map((project, i) => (
+                <StackedProjectCard
+                  key={project.id || `wip-${i}`}
+                  project={project}
+                  index={published.length + i}
+                />
+              ))}
+              {comingSoon.map((project, i) => (
+                <ComingSoonRow
+                  key={project.id || `soon-${i}`}
+                  project={project}
+                  index={published.length + inProgress.length + i}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
+              {allForGrid.map((project, index) => (
+                <ProjectTile
+                  key={project.id || `tile-${index}`}
+                  project={project}
+                  index={index}
+                />
+              ))}
+            </div>
+          )
         ) : (
           /* ── Empty state — same keys as Home so both pages stay in sync ── */
           <motion.div
