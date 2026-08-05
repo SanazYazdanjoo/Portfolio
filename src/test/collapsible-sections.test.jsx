@@ -11,28 +11,38 @@ function bodyFor(id) {
   return document.getElementById(`${id}-body`);
 }
 
-describe("Collapsible sections — closed by default", () => {
-  it("every section body starts collapsed", () => {
+describe("Collapsible sections — process, challenge and results open on mount", () => {
+  it("process, challenge and results start open; solution and methodology start closed", () => {
     renderWithProviders(<ProjectTemplate meta={project1} />);
-    ["challenge", "solution", "methodology", "results"].forEach((id) => {
+    ["process", "challenge", "results"].forEach((id) => {
       const body = bodyFor(id);
-      if (body) {
-        expect(body).toHaveAttribute("aria-hidden", "true");
-        expect(body.style.gridTemplateRows).toBe("0fr");
-      }
+      expect(body).toHaveAttribute("aria-hidden", "false");
+      expect(body.style.gridTemplateRows).toBe("1fr");
+    });
+    ["solution", "methodology"].forEach((id) => {
+      const body = bodyFor(id);
+      expect(body).toHaveAttribute("aria-hidden", "true");
+      expect(body.style.gridTemplateRows).toBe("0fr");
     });
   });
 
-  it("every section header is a collapsed toggle button", () => {
+  it("a section that starts open reports aria-expanded true on its header", () => {
     renderWithProviders(<ProjectTemplate meta={project1} />);
     const heading = screen.getByRole("heading", { name: /the challenge|challenge/i, level: 2 });
+    const button = within(heading).getByRole("button");
+    expect(button).toHaveAttribute("aria-expanded", "true");
+  });
+
+  it("a section that starts closed reports aria-expanded false on its header", () => {
+    renderWithProviders(<ProjectTemplate meta={project1} />);
+    const heading = screen.getByRole("heading", { name: /solution/i, level: 2 });
     const button = within(heading).getByRole("button");
     expect(button).toHaveAttribute("aria-expanded", "false");
   });
 
-  it("clicking a section header opens it", () => {
+  it("clicking a closed section header opens it", () => {
     renderWithProviders(<ProjectTemplate meta={project1} />);
-    const heading = screen.getAllByRole("heading", { level: 2 })[0];
+    const heading = screen.getByRole("heading", { name: /solution/i, level: 2 });
     const button = within(heading).getByRole("button");
 
     fireEvent.click(button);
@@ -40,9 +50,9 @@ describe("Collapsible sections — closed by default", () => {
     expect(button).toHaveAttribute("aria-expanded", "true");
   });
 
-  it("clicking an open header closes it again", () => {
+  it("clicking an open section header closes it again", () => {
     renderWithProviders(<ProjectTemplate meta={project1} />);
-    const heading = screen.getAllByRole("heading", { level: 2 })[0];
+    const heading = screen.getByRole("heading", { name: /solution/i, level: 2 });
     const button = within(heading).getByRole("button");
 
     fireEvent.click(button);
