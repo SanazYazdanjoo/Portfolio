@@ -550,7 +550,15 @@ function PortfolioHighlightsTab({ data, setData }) {
   );
 }
 
-const CERT_TYPES = ["workshop", "course", "internship", "certification"];
+const CERT_TYPES = [
+  "workshop",
+  "course",
+  "internship",
+  "certification",
+  "degree",
+  "recognition",
+  "language",
+];
 
 function CertificationsTab({ data, setData }) {
   const items = data.certifications || [];
