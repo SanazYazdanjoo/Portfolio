@@ -17,8 +17,8 @@ const STATIC_SECTIONS = {
     { label: "Projects", description: "Snap-scroll project index" },
   ],
   "/about": [
-    { label: "Bio + Skills", description: "Research, Design, Technical columns" },
-    { label: "The Bridge", description: "Career arc: SE → QA → UX" },
+    { label: "Bio", description: "Photo & intro" },
+    { label: "The Bridge", description: "Career arc: SE → QA → UX, skills grouped by era" },
     { label: "How I Work", description: "4-step research process" },
     { label: "Voluntary Work", description: "Mentorship & workshops" },
   ],

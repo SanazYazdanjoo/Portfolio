@@ -1,7 +1,7 @@
 // src/pages/About.jsx
 // ─────────────────────────────────────────────────────────────────────────────
 // Ink & Bloom edition. Data flow, translation keys, and section structure are
-// IDENTICAL to before — only the visual language changed:
+// otherwise IDENTICAL to before — only the visual language changed:
 //
 //   • Headings set in Bricolage Grotesque (font-display); the rotated "About Me" is
 //     roman + −2° (Bricolage has no italic; rotation alone carries the gesture)
@@ -11,9 +11,9 @@
 //   • Current career phase stays the ONE loud coral moment on the page
 //   • The closing CTA line carries the gold highlighter signature
 //
-// ★ FIX (skills): uses resolveSkillColumns() from AboutMe.jsx — the same 
-//   single-source mapping the homepage uses, so both pages automatically inherit
-//   the new UX Engineer column ordering.
+// The old "What I Bring" skills wall is gone — skills now live inside The
+// Bridge (CareerArc, variant="full") as chronologically-grouped chips, so
+// each skill carries its era instead of sitting in a flat list.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React from "react";
@@ -23,7 +23,6 @@ import { profileData as rawProfile } from "../data/profile";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { voluntaryItems as rawVoluntary } from "../data/voluntary";
 import { useTranslation } from "../context/LanguageContext";
-import { resolveSkillColumns } from "../components/AboutMe";
 import CareerArc from "../components/CareerArc";
 
 // ─── Animation variants ───────────────────────────────────────────────────────
@@ -36,8 +35,8 @@ const fadeUp = {
   }),
 };
 
-/* Shared section eyebrow + title — appears 4× on this page (composition
-   over duplication). Small text → primary-600 for AA contrast. */
+/* Shared section eyebrow + title — appears on Career Arc + How I Work.
+   Small text → primary-600 for AA contrast. */
 function SectionHeader({ eyebrow, title, sub }) {
   return (
     <motion.div
@@ -50,23 +49,8 @@ function SectionHeader({ eyebrow, title, sub }) {
       <h2 className="font-display text-4xl font-extrabold text-text">
         {title}
       </h2>
-      {sub && <p className="text-sm text-text/60 mt-5 max-w-md">{sub}</p>}
+      {sub && <p className="text-sm text-text/65 mt-5 max-w-md">{sub}</p>}
     </motion.div>
-  );
-}
-
-/* Skills column — ink heading over a short coral rule */
-function SkillColumn({ title, items }) {
-  return (
-    <div>
-      <h3 className="text-xs font-extrabold uppercase tracking-[0.18em] text-text mb-2">
-        {title}
-      </h3>
-      <div className="w-8 border-b-2 border-primary mb-4" aria-hidden="true" />
-      <ul className="text-sm text-text/70 space-y-2 font-medium leading-relaxed">
-        {(items || []).map((s) => <li key={s}>{s}</li>)}
-      </ul>
-    </div>
   );
 }
 
@@ -82,14 +66,11 @@ export default function About() {
     { number: "04", title: t("about.process.deliver.title"),  desc: t("about.process.deliver.desc") },
   ];
 
-  // Uses the shared mapping from AboutMe.jsx to guarantee the new [Technical, Research, Analysis] order
-  const skillColumns = resolveSkillColumns(profileData.skills);
-
   return (
     <main className="bg-bg min-h-screen relative overflow-hidden">
 
       {/* ══════════════════════════════════════════════
-          SECTION 1 — Bio, Photo & Skills
+          SECTION 1 — Bio & Photo
       ══════════════════════════════════════════════ */}
       <section className="relative w-full px-[6%] md:px-[8%] pb-24 md:pb-32 font-sans text-text">
         <div className="relative w-full max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-x-10 items-start">
@@ -140,29 +121,10 @@ export default function About() {
           </motion.div>
 
         </div>
-
-        {/* ── Skills — the scannable 3-column read ── */}
-        <motion.div
-          className="w-full max-w-[1400px] mx-auto mt-20 md:mt-32 pt-10 border-t border-border"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-        >
-          <span className="block text-2xs md:text-xs font-extrabold uppercase tracking-[0.18em] text-primary-600 mb-10">
-            {t("about.whatIBring")}
-          </span>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16">
-            {skillColumns.map(({ labelKey, items }) => (
-              <SkillColumn key={labelKey} title={t(labelKey)} items={items} />
-            ))}
-          </div>
-        </motion.div>
       </section>
 
       {/* ══════════════════════════════════════════════
-          SECTION 2 — Career Arc
+          SECTION 2 — Career Arc (skills now live here, chip-grouped)
       ══════════════════════════════════════════════ */}
       <section className="py-20 border-t border-border relative">
         <div className="container mx-auto px-4 md:px-8">
@@ -172,7 +134,7 @@ export default function About() {
             sub={t("about.theBridgeDesc")}
           />
           <CareerArc variant="full" />
-     
+
         </div>
       </section>
 
@@ -207,7 +169,7 @@ export default function About() {
                 <h3 className="font-black text-base text-text mb-3 uppercase tracking-wide">
                   {step.title}
                 </h3>
-                <p className="text-[12px] leading-relaxed text-text/60">
+                <p className="text-[12px] leading-relaxed text-text/65">
                   {step.desc}
                 </p>
               </motion.div>
@@ -217,15 +179,18 @@ export default function About() {
       </section>
 
       {/* ══════════════════════════════════════════════
-          SECTION 4 — Voluntary Work
+          SECTION 4 — Voluntary Work (compressed: eyebrow only, no h2,
+          dense 2-column list — this section shouldn't compete with The Bridge)
       ══════════════════════════════════════════════ */}
       {voluntaryItems.length > 0 && (
         <section className="py-20 border-t border-border">
           <div className="container mx-auto px-4 md:px-8">
-            <SectionHeader
-              eyebrow={t("about.beyondTheBrief")}
-              title={t("about.voluntaryWork")}
-            />
+            <motion.p
+              className="text-2xs font-extrabold uppercase tracking-[0.18em] text-primary-600 mb-8"
+              variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}
+            >
+              {t("about.beyondTheBrief")}
+            </motion.p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border">
               {voluntaryItems.map((item, i) => (
@@ -236,18 +201,18 @@ export default function About() {
                   initial="hidden"
                   whileInView="show"
                   viewport={{ once: true }}
-                  className="bg-bg px-8 py-8 group hover:bg-blush-weak transition-colors duration-300"
+                  className="bg-bg px-5 py-4 group hover:bg-blush-weak transition-colors duration-300"
                 >
-                  <div className="flex justify-between items-baseline mb-3">
-                    <h3 className="font-black text-base text-text">{item.title}</h3>
+                  <div className="flex justify-between items-baseline mb-1.5">
+                    <h3 className="font-black text-sm text-text">{item.title}</h3>
                     <span className="text-[9px] font-semibold uppercase tracking-widest text-secondary-600 shrink-0 ml-4">
                       {item.year}
                     </span>
                   </div>
-                  <p className="text-[10.5px] font-bold uppercase tracking-widest text-text/40 mb-3">
+                  <p className="text-[9px] font-bold uppercase tracking-widest text-text/40 mb-1.5">
                     {item.org}
                   </p>
-                  <p className="text-sm leading-relaxed text-text/65">{item.desc}</p>
+                  <p className="text-xs leading-relaxed text-text/65">{item.desc}</p>
                 </motion.div>
               ))}
             </div>

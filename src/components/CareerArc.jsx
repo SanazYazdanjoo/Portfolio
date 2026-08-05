@@ -2,21 +2,22 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // THE BRIDGE — single source of truth for the career arc.
 //
-// VISUAL QA PASS: compact-variant step labels are now typographically
-// IDENTICAL across all three phases — same face, weight, size, and explicit
-// no-underline / no-border. The only differentiator is color: step 03
-// ("UX Engineering / now") carries the accent because it's the current phase.
-// The hover color-shift on non-highlight numerals was removed too — it made
-// steps look interactive (they aren't) and created the perceived
-// treatment drift between phases.
+// Phase data lives in src/data/career.js; this component only resolves
+// translation keys and renders. Skill chips now live here too (relocated
+// from the old "What I Bring" wall) — each phase carries its own
+// chronologically-grouped chips instead of a flat skills list.
 //
-//   • variant="full"    → About page section (unchanged).
+//   • variant="full"    → About page section: numeral, label, years, summary,
+//                          then skill-group chips.
 //   • variant="compact" → homepage strip: numeral + label + years only.
+//     Skills are intentionally NOT rendered in compact — that's the wall this
+//     refactor removed, not something to re-introduce on the homepage.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
+import { careerPhases } from "../data/career";
 
 // ─── Hand-drawn ink arrow — shared by both variants ──────────────────────────
 function InkArrow({ className = "" }) {
@@ -37,30 +38,17 @@ function InkArrow({ className = "" }) {
 // ─── Data — resolved once, translation-driven ─────────────────────────────────
 export function useCareerArc() {
   const { t } = useTranslation();
-  return [
-    {
-      phase: "01",
-      label: t("about.career.phase1.label"),
-      years: t("about.career.phase1.years"),
-      summary: t("about.career.phase1.summary"),
-      tags: ["Frontend Dev", "WordPress", "HTML/CSS/JS"],
-    },
-    {
-      phase: "02",
-      label: t("about.career.phase2.label"),
-      years: t("about.career.phase2.years"),
-      summary: t("about.career.phase2.summary"),
-      tags: ["Usability Testing", "Bug Tracking", "Agile"],
-    },
-    {
-      phase: "03",
-      label: t("about.career.phase3.label"),
-      years: t("about.career.phase3.years"),
-      summary: t("about.career.phase3.summary"),
-      tags: ["HCI Research", "Mixed Methods", "TypeScript"],
-      highlight: true,
-    },
-  ];
+  return careerPhases.map((p) => ({
+    phase: p.phase,
+    label: t(p.labelKey),
+    years: t(p.yearsKey),
+    summary: t(p.summaryKey),
+    highlight: !!p.highlight,
+    skillGroups: p.skillGroups.map((g) => ({
+      label: g.groupKey ? t(g.groupKey) : null,
+      items: g.items,
+    })),
+  }));
 }
 
 const fadeUp = {
@@ -73,11 +61,11 @@ const fadeUp = {
 };
 
 // ═══════════════════════════════════════════════════════════════════════════
-// FULL — About page (unchanged from previous version)
+// FULL — About page
 // ═══════════════════════════════════════════════════════════════════════════
 function CareerArcFull({ steps }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border items-stretch">
       {steps.map((step, i) => (
         <motion.div
           key={step.phase}
@@ -113,20 +101,36 @@ function CareerArcFull({ steps }) {
             {step.summary}
           </p>
 
-          <div className="flex flex-wrap gap-1.5">
-            {step.tags.map((tag) => (
-              <span
-                key={tag}
-                className={`text-[9px] font-bold uppercase tracking-wide px-2 py-1 rounded-full
-                  ${step.highlight
-                    ? "border border-white/30 text-white/80"
-                    : "border border-border text-text/60 group-hover:border-secondary/40"
-                  }`}
+          {step.skillGroups.map((group, gi) => (
+            <div key={group.label ?? `group-${gi}`} className={gi > 0 ? "mt-5" : ""}>
+              {group.label && (
+                <p
+                  className={`text-[9px] font-black uppercase tracking-[0.2em] mb-2
+                    ${step.highlight ? "text-white" : "text-secondary-600"}`}
+                >
+                  {group.label}
+                </p>
+              )}
+              <ul
+                className="flex flex-wrap gap-1.5 list-none m-0 p-0"
+                aria-label={group.label || undefined}
               >
-                {tag}
-              </span>
-            ))}
-          </div>
+                {group.items.map((item) => (
+                  <li key={item}>
+                    <span
+                      className={`inline-block text-[9px] font-bold uppercase tracking-wide px-2 py-1 rounded-full border
+                        ${step.highlight
+                          ? "border-white/40 text-white"
+                          : "border-border text-text/65"
+                        }`}
+                    >
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
 
           {i < steps.length - 1 && (
             <div className="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2 z-10">

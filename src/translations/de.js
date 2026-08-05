@@ -34,15 +34,10 @@ const de = {
 
   // ── About ──
   "about.heading": "Über mich",
-  "about.whatIBring": "Was ich mitbringe",
-  // Angepasst an die neuen UX Engineer Konstanten in AboutMe.jsx
-  "about.skillsTechnical": "Frontend Engineering",
-  "about.skillsResearch": "Research & KI-Workflow",
-  "about.skillsAnalysis": "QA & Analyse",
-  
+
   "about.howIGotHere": "Wie ich hierher gelangt bin",
   "about.theBridge": "Die Brücke",
-  "about.theBridgeDesc": "Mein Weg war nicht linear — er war bewusst. Jede Phase baute auf der vorherigen auf.",
+  "about.theBridgeDesc": "Mein Weg war nicht linear — er war bewusst. Jede Phase trug ihr Werkzeug in die nächste.",
   "about.methodology": "Methodik",
   "about.howIWork": "Wie ich arbeite",
   "about.beyondTheBrief": "Über den Auftrag hinaus",
@@ -62,6 +57,8 @@ const de = {
   "about.career.phase3.label": "UX Engineering", // Aktualisiert
   "about.career.phase3.years": "2023 – Heute",
   "about.career.phase3.summary": "Hier verschmelzen Forschung und Entwicklung. Ich konzipiere methodisch fundierte Studien und setze die Architektur (z. B. in TypeScript) direkt selbst um.", // Aktualisiert
+  "about.career.group.research": "Forschung",
+  "about.career.group.build": "Umsetzung",
 
   // ── Research process ──
   "about.process.discover.title": "Entdecken",
