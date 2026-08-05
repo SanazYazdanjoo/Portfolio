@@ -35,7 +35,7 @@ export function ProjectTile({ project, index }) {
   const inner = (
     <div
       className={`group relative flex h-full flex-col overflow-hidden border border-border bg-bg
-                 transition-colors duration-300 ${isComingSoon ? "opacity-60" : "hover:bg-blush-weak"}`}
+                 ${isComingSoon ? "opacity-60" : ""}`}
     >
       <span
         aria-hidden="true"
@@ -50,7 +50,7 @@ export function ProjectTile({ project, index }) {
             alt={project.title}
             onError={() => setImgError(true)}
             className={`h-full w-full object-cover transition-all duration-700 ${
-              isComingSoon ? "grayscale" : "grayscale group-hover:grayscale-0"
+              isComingSoon ? "grayscale" : ""
             }`}
           />
         ) : (
@@ -62,7 +62,10 @@ export function ProjectTile({ project, index }) {
         )}
       </div>
 
-      <div className="flex flex-1 flex-col gap-3 p-6">
+      <div
+        className={`flex flex-1 flex-col gap-3 p-6 bg-muted transition-colors duration-300
+                   ${isComingSoon ? "" : "group-hover:bg-blush-weak"}`}
+      >
         <div className="flex items-start justify-between gap-4">
           <span className="font-mono text-xs font-bold tabular-nums text-primary-600 shrink-0 mt-1">
             {String(index + 1).padStart(2, "0")}
