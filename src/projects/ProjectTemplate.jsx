@@ -34,26 +34,30 @@ import React, { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import SectionMedia from "./SectionMedia";
+import { useTranslation } from "../context/LanguageContext";
+import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 
 // ─── Phase config — monochrome, numbered ─────────────────────────────────────
+// Labels resolved via t() at render time (see usage below) — keys only here.
 const PHASE_META = {
-  discover: { label: "Discover", number: "01" },
-  define:   { label: "Define",   number: "02" },
-  design:   { label: "Design",   number: "03" },
-  deliver:  { label: "Deliver",  number: "04" },
+  discover: { labelKey: "project.phase.discover", number: "01" },
+  define:   { labelKey: "project.phase.define",   number: "02" },
+  design:   { labelKey: "project.phase.design",   number: "03" },
+  deliver:  { labelKey: "project.phase.deliver",  number: "04" },
 };
 
 // ─── Content section definitions ─────────────────────────────────────────────
+// `labelKey` drives the sidebar/mobile-pill text (short form).
 const SECTIONS = [
-  { id: "process",      label: "Process",      dataKey: "process"      },
-  { id: "challenge",    label: "Challenge",    dataKey: "challenge"    },
-  { id: "solution",     label: "Solution",     dataKey: "solution"     },
-  { id: "prototype",    label: "Prototype",    dataKey: "prototype"    },
-  { id: "methodology",  label: "Methodology",  dataKey: "methodology"  },
-  { id: "results",      label: "Results",      dataKey: "results"      },
-  { id: "implications", label: "Implications", dataKey: "implications" },
-  { id: "phases",       label: "Status",       dataKey: "phases"       },
-  { id: "conclusion",   label: "Conclusion",   dataKey: "conclusion"   },
+  { id: "process",      labelKey: "project.sidebar.process",      dataKey: "process"      },
+  { id: "challenge",    labelKey: "project.sidebar.challenge",    dataKey: "challenge"    },
+  { id: "solution",     labelKey: "project.sidebar.solution",     dataKey: "solution"     },
+  { id: "prototype",    labelKey: "project.sidebar.prototype",    dataKey: "prototype"    },
+  { id: "methodology",  labelKey: "project.sidebar.methodology",  dataKey: "methodology"  },
+  { id: "results",      labelKey: "project.sidebar.results",      dataKey: "results"      },
+  { id: "implications", labelKey: "project.sidebar.implications", dataKey: "implications" },
+  { id: "phases",       labelKey: "project.sidebar.status",       dataKey: "phases"       },
+  { id: "conclusion",   labelKey: "project.sidebar.conclusion",   dataKey: "conclusion"   },
 ];
 
 // ─── Section head — THE one heading pattern, used by every section ──────────
@@ -153,6 +157,7 @@ function ContentSection({ id, number, kicker, heading, isOpen, onToggle, childre
 
 // ─── Process card — monochrome ───────────────────────────────────────────────
 function ProcessCard({ item, index }) {
+  const { t } = useTranslation();
   const [expanded, setExpanded] = useState(false);
   const [imgError, setImgError] = useState(false);
   const phase = PHASE_META[item.phase] || PHASE_META.discover;
@@ -190,7 +195,7 @@ function ProcessCard({ item, index }) {
       <div className="p-5 flex flex-col flex-1">
         {/* Phase + type — one quiet micro-line, no color coding */}
         <p className="font-mono text-2xs uppercase tracking-wider text-text/45 mb-2">
-          {phase.number} {phase.label}
+          {phase.number} {t(phase.labelKey)}
           <span className="mx-1.5 text-text/25">·</span>
           {item.type}
         </p>
@@ -213,7 +218,7 @@ function ProcessCard({ item, index }) {
             >
               <span className="text-2xs font-extrabold uppercase tracking-[0.18em]
                                text-primary-600">
-                {expanded ? "Hide insight" : "Key insight"}
+                {expanded ? t("project.process.hideInsight") : t("project.process.keyInsight")}
               </span>
               <motion.span
                 animate={{ rotate: expanded ? 180 : 0 }}
@@ -251,12 +256,13 @@ function ProcessCard({ item, index }) {
 
 // ─── Process gallery — horizontal snap rail, legend removed ──────────────────
 function ProcessGallerySection({ items, number, isOpen, onToggle }) {
+  const { t } = useTranslation();
   if (!items || items.length === 0) return null;
 
   return (
     <section id="process" className="pt-12 mb-12 border-t border-border scroll-mt-32">
       <CollapsibleSectionHead
-        id="process" number={number} kicker="Behind the Work" heading="Research Process"
+        id="process" number={number} kicker={t("project.process.kicker")} heading={t("project.process.heading")}
         isOpen={isOpen} onToggle={onToggle}
       />
 
@@ -277,7 +283,7 @@ function ProcessGallerySection({ items, number, isOpen, onToggle }) {
                        -mx-4 px-4 md:-mx-0 md:px-0
                        [scrollbar-width:thin] [scrollbar-color:theme(colors.border)_transparent]"
             role="list"
-            aria-label="Research process steps"
+            aria-label={t("project.process.ariaLabel")}
           >
             {items.map((item, i) => (
               <ProcessCard key={`${item.phase}-${i}`} item={item} index={i} />
@@ -285,7 +291,7 @@ function ProcessGallerySection({ items, number, isOpen, onToggle }) {
           </div>
 
           <p className="text-2xs font-semibold uppercase tracking-widest text-text/30 mt-1 md:hidden">
-            Swipe to explore →
+            {t("project.process.swipe")}
           </p>
         </div>
       </div>
@@ -295,6 +301,7 @@ function ProcessGallerySection({ items, number, isOpen, onToggle }) {
 
 // ─── Sidebar nav — numbers + labels, progress bar removed ────────────────────
 function SidebarNav({ sections, activeId, onNavigate, allOpen, onToggleAll }) {
+  const { t } = useTranslation();
   return (
     <nav aria-label="Page sections">
       <Link
@@ -306,7 +313,7 @@ function SidebarNav({ sections, activeId, onNavigate, allOpen, onToggleAll }) {
           fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
-        All Projects
+        {t("project.sidebar.allProjects")}
       </Link>
 
       <ul className="space-y-0.5">
@@ -326,7 +333,7 @@ function SidebarNav({ sections, activeId, onNavigate, allOpen, onToggleAll }) {
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <span className="text-[11px] font-bold uppercase tracking-widest">
-                  {section.label}
+                  {t(section.labelKey)}
                 </span>
               </button>
             </li>
@@ -341,7 +348,7 @@ function SidebarNav({ sections, activeId, onNavigate, allOpen, onToggleAll }) {
                    hover:text-primary-600 transition-colors duration-200"
       >
         <Chevron isOpen={allOpen} />
-        {allOpen ? "Collapse all" : "Expand all"}
+        {allOpen ? t("project.sidebar.collapseAll") : t("project.sidebar.expandAll")}
       </button>
     </nav>
   );
@@ -349,6 +356,7 @@ function SidebarNav({ sections, activeId, onNavigate, allOpen, onToggleAll }) {
 
 // ─── Mobile pill bar ──────────────────────────────────────────────────────────
 function MobilePillBar({ sections, activeId, onNavigate }) {
+  const { t } = useTranslation();
   return (
     <div className="sticky top-[80px] z-40 bg-bg/90 backdrop-blur-md border-b border-border
                     -mx-4 px-4 py-2 md:hidden no-print">
@@ -366,7 +374,7 @@ function MobilePillBar({ sections, activeId, onNavigate }) {
                   : "text-text/40 hover:text-text border border-border"
                 }`}
             >
-              {section.label}
+              {t(section.labelKey)}
             </button>
           );
         })}
@@ -377,11 +385,12 @@ function MobilePillBar({ sections, activeId, onNavigate }) {
 
 // ─── Metrics strip — ink numerals, same fix as StackedProjectCard ────────────
 function MetricsStrip({ metrics }) {
+  const { t } = useTranslation();
   if (!metrics || metrics.length === 0) return null;
   return (
     <div className="mt-8 border-t border-b border-border py-6">
       <p className="text-[10px] font-black uppercase tracking-[0.2em] text-text/40 mb-5">
-        Study at a Glance
+        {t("project.results.glance")}
       </p>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-6 gap-x-6">
         {metrics.map((m, i) => (
@@ -423,22 +432,22 @@ function MetaField({ label, children }) {
 // a highlighter wash, not a small-text colour.
 const PHASE_STATUS = {
   complete: {
-    label: "Complete",
+    labelKey: "project.status.complete",
     dot: "bg-text",
     text: "text-text",
   },
   "in-progress": {
-    label: "In progress",
+    labelKey: "project.status.inProgress",
     dot: "bg-primary-600",
     text: "text-primary-600",
   },
   planned: {
-    label: "Planned",
+    labelKey: "project.status.planned",
     dot: "bg-transparent border border-dim",
     text: "text-dim",
   },
   blocked: {
-    label: "Blocked",
+    labelKey: "project.status.blocked",
     dot: "bg-danger",
     text: "text-danger",
   },
@@ -446,13 +455,14 @@ const PHASE_STATUS = {
 
 function ResearchPhases({ phases, intro, number, isOpen, onToggle }) {
   const prefersReducedMotion = useReducedMotion();
+  const { t } = useTranslation();
 
   return (
     <ContentSection
       id="phases"
       number={number}
-      kicker="Where This Stands"
-      heading="Research Phases"
+      kicker={t("project.phases.kicker")}
+      heading={t("project.phases.heading")}
       isOpen={isOpen}
       onToggle={onToggle}
     >
@@ -485,7 +495,7 @@ function ResearchPhases({ phases, intro, number, isOpen, onToggle }) {
                 <span
                   className={`text-2xs font-black uppercase tracking-[0.2em] ${s.text}`}
                 >
-                  {s.label}
+                  {t(s.labelKey)}
                 </span>
               </div>
               {p.note && (
@@ -502,8 +512,14 @@ function ResearchPhases({ phases, intro, number, isOpen, onToggle }) {
 }
 
 // ─── Main template ────────────────────────────────────────────────────────────
-export default function ProjectTemplate({ meta, children }) {
+export default function ProjectTemplate({ meta: rawMeta, children }) {
   const prefersReducedMotion = useReducedMotion();
+  const { t } = useTranslation();
+  // Resolve any { en, de } bilingual fields in the project data (title,
+  // challenge/solution/methodology/…, process[], figures{}, metrics[]…)
+  // recursively, once, here — so every caller (real pages and tests alike)
+  // can just pass the raw src/projects/*/data.js export straight through.
+  const meta = useLocalizedProfile(rawMeta);
 
   // Only include sidebar items for sections that have data.
   // Arrays are length-checked so an empty `process`/`phases` can't create a
@@ -661,19 +677,19 @@ export default function ProjectTemplate({ meta, children }) {
               <div className="border-t border-b border-border py-5 space-y-5">
                 <div className="flex flex-wrap gap-x-14 gap-y-4">
                   {meta.role && (
-                    <MetaField label="Role">
+                    <MetaField label={t("project.meta.role")}>
                       <span className="text-sm font-semibold text-text">{meta.role}</span>
                     </MetaField>
                   )}
                   {meta.timeline && (
-                    <MetaField label="Timeline">
+                    <MetaField label={t("project.meta.timeline")}>
                       <span className="font-mono text-xs text-text/70">{meta.timeline}</span>
                     </MetaField>
                   )}
                 </div>
 
                 {methods.length > 0 && (
-                  <MetaField label="Research Methods">
+                  <MetaField label={t("project.meta.methods")}>
                     <p className="text-sm tracking-wide leading-relaxed">
                       {methods.map((m, i, arr) => (
                         <span key={m}>
@@ -711,7 +727,7 @@ export default function ProjectTemplate({ meta, children }) {
             {meta.challenge && (
               <ContentSection id="challenge" number={sectionNumber("challenge")}
                 isOpen={openSections.has("challenge")} onToggle={() => toggleSection("challenge")}
-                kicker="The Problem Space" heading="The Challenge">
+                kicker={t("project.challenge.kicker")} heading={t("project.challenge.heading")}>
                 <p className="text-base md:text-lg text-text/80 leading-relaxed">
                   {meta.challenge}
                 </p>
@@ -722,7 +738,7 @@ export default function ProjectTemplate({ meta, children }) {
             {meta.solution && (
               <ContentSection id="solution" number={sectionNumber("solution")}
                 isOpen={openSections.has("solution")} onToggle={() => toggleSection("solution")}
-                kicker="What I Built" heading="The Solution">
+                kicker={t("project.solution.kicker")} heading={t("project.solution.heading")}>
                 <p className="text-base md:text-lg text-text/80 leading-relaxed">
                   {meta.solution}
                 </p>
@@ -734,7 +750,7 @@ export default function ProjectTemplate({ meta, children }) {
             {(meta.prototype || meta.prototypeUrl || (meta.figures?.prototype?.length > 0)) && (
               <ContentSection id="prototype" number={sectionNumber("prototype")}
                 isOpen={openSections.has("prototype")} onToggle={() => toggleSection("prototype")}
-                kicker="See It In Action" heading="Prototype">
+                kicker={t("project.prototype.kicker")} heading={t("project.prototype.heading")}>
                 {meta.prototype && (
                   <p className="text-base md:text-lg text-text/80 leading-relaxed">
                     {meta.prototype}
@@ -750,7 +766,7 @@ export default function ProjectTemplate({ meta, children }) {
                                text-2xs font-black uppercase tracking-[0.2em] text-text
                                hover:border-primary-600 hover:text-primary-600 transition-colors duration-200"
                   >
-                    {meta.prototypeUrlLabel || "Open the prototype"}
+                    {meta.prototypeUrlLabel || t("project.prototype.openLink")}
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H8M17 7V16" />
                     </svg>
@@ -764,7 +780,7 @@ export default function ProjectTemplate({ meta, children }) {
             {meta.methodology && (
               <ContentSection id="methodology" number={sectionNumber("methodology")}
                 isOpen={openSections.has("methodology")} onToggle={() => toggleSection("methodology")}
-                kicker="How I Studied It" heading="Methodology & Approach">
+                kicker={t("project.methodology.kicker")} heading={t("project.methodology.heading")}>
                 <p className="text-base md:text-lg text-text/80 leading-relaxed mb-6">
                   {meta.methodology}
                 </p>
@@ -772,11 +788,11 @@ export default function ProjectTemplate({ meta, children }) {
                 {meta.techStack && meta.techStack.length > 0 && (
                   <div className="border-l-2 border-border pl-5">
                     <span className="block font-mono text-2xs uppercase tracking-wider text-text/45 mb-2">
-                      Tech Stack
+                      {t("project.methodology.techStack")}
                     </span>
                     <div className="flex flex-wrap gap-x-5 gap-y-1.5">
-                      {meta.techStack.map((t) => (
-                        <span key={t} className="text-xs font-semibold text-text/60">{t}</span>
+                      {meta.techStack.map((tech) => (
+                        <span key={tech} className="text-xs font-semibold text-text/60">{tech}</span>
                       ))}
                     </div>
                   </div>
@@ -787,7 +803,7 @@ export default function ProjectTemplate({ meta, children }) {
             {meta.results && (
               <ContentSection id="results" number={sectionNumber("results")}
                 isOpen={openSections.has("results")} onToggle={() => toggleSection("results")}
-                kicker="What the Data Showed" heading="Key Findings">
+                kicker={t("project.results.kicker")} heading={t("project.results.heading")}>
                 <p className="text-base md:text-lg text-text/80 leading-relaxed">
                   {meta.results}
                 </p>
@@ -800,7 +816,7 @@ export default function ProjectTemplate({ meta, children }) {
             {meta.implications && (
               <ContentSection id="implications" number={sectionNumber("implications")}
                 isOpen={openSections.has("implications")} onToggle={() => toggleSection("implications")}
-                kicker="So What" heading="Design Implications">
+                kicker={t("project.implications.kicker")} heading={t("project.implications.heading")}>
                 <p className="text-base md:text-lg text-text/80 leading-relaxed">
                   {meta.implications}
                 </p>
@@ -820,7 +836,7 @@ export default function ProjectTemplate({ meta, children }) {
             {meta.conclusion && (
               <ContentSection id="conclusion" number={sectionNumber("conclusion")}
                 isOpen={openSections.has("conclusion")} onToggle={() => toggleSection("conclusion")}
-                kicker="Closing Reflection" heading="Conclusion">
+                kicker={t("project.conclusion.kicker")} heading={t("project.conclusion.heading")}>
                 <SectionMedia items={meta.conclusion} />
               </ContentSection>
             )}
@@ -840,7 +856,7 @@ export default function ProjectTemplate({ meta, children }) {
                   fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
-                Back to All Projects
+                {t("project.footer.back")}
               </Link>
             </div>
 

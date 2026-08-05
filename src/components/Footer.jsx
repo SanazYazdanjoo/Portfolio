@@ -18,16 +18,16 @@ export function Footer({ data }) {
           {/* Column 1: Status (Matches AboutMe heading alignment) */}
           <div className="md:col-span-5">
             <h3 className="text-[10px] font-black uppercase tracking-widest text-text/40 mb-5">
-              Status
+              {t("footer.status")}
             </h3>
             <div className="flex items-start gap-3">
-              <span className="relative flex h-2 w-2 mt-1.5 shrink-0" role="img" aria-label="Available">
+              <span className="relative flex h-2 w-2 mt-1.5 shrink-0" role="img" aria-label={t("footer.available")}>
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-40"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
               <p className="text-sm text-text/80 leading-relaxed font-medium">
-                Currently based in {contact.location}.<br />
-                {data.heroMeta?.status || "Open to interdisciplinary UX & Tech roles"}
+                {t("footer.basedIn").replace("{location}", contact.location)}<br />
+                {data.heroMeta?.status || t("hero.meta.statusValue")}
               </p>
             </div>
           </div>
@@ -35,7 +35,7 @@ export function Footer({ data }) {
           {/* Column 2: Direct Contact */}
           <div className="md:col-span-4">
             <h3 className="text-[10px] font-black uppercase tracking-widest text-text/40 mb-5">
-              Direct Contact
+              {t("footer.directContact")}
             </h3>
             <ul className="space-y-3 text-sm font-medium">
               <li>
@@ -56,23 +56,23 @@ export function Footer({ data }) {
           {/* Column 3: Utility */}
           <div className="md:col-span-3">
             <h3 className="text-[10px] font-black uppercase tracking-widest text-text/40 mb-5">
-              Utility
+              {t("footer.utility")}
             </h3>
             <ul className="space-y-3 text-sm font-medium">
               <li>
                 <Link to="/cv" className="text-text hover:text-primary transition-colors duration-300 inline-flex items-center gap-1.5">
-                  Curriculum Vitae (CV)<span className="text-[10px] opacity-50">↗</span>
+                  {t("footer.cvLink")}<span className="text-[10px] opacity-50">↗</span>
                 </Link>
               </li>
               {contact.github && (
                 <li>
                   <a href={contact.github} target="_blank" rel="noopener noreferrer" className="text-text hover:text-primary transition-colors duration-300 inline-flex items-center gap-1.5">
-                    My GitHub <span className="text-[10px] opacity-50">↗</span>
+                    {t("footer.githubLink")} <span className="text-[10px] opacity-50">↗</span>
                   </a>
                 </li>
               )}
               <li className="text-text/50 pt-1 text-[11px] uppercase tracking-wide font-bold">
-                Timezone: CET (UTC+1)
+                {t("footer.timezone")}
               </li>
             </ul>
           </div>
@@ -85,7 +85,7 @@ export function Footer({ data }) {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <p className="text-[11px] text-text/30 font-medium">© {year} {name}</p>
 
-          <nav className="flex items-center gap-5" aria-label="Legal">
+          <nav className="flex items-center gap-5" aria-label={t("footer.legalAriaLabel")}>
             <Link
               to="/impressum"
               className="text-[10px] font-bold uppercase tracking-widest text-text/30

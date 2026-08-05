@@ -45,7 +45,7 @@ export function Hero({ data }) {
         className="text-2xs md:text-xs font-bold uppercase
                    tracking-[0.28em] text-text-dim mb-8 md:mb-12"
       >
-        UX Research × Engineering&nbsp;&nbsp;—&nbsp;&nbsp;{data.contact?.location || "Weimar, Germany"}
+        {t("hero.kicker")}&nbsp;&nbsp;—&nbsp;&nbsp;{data.heroMeta?.location ?? data.contact?.location}
       </motion.p>
 
       {/* ── Name + Photo: 12-col editorial grid (≈ 70/30 split) ── */}

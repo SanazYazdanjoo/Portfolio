@@ -103,9 +103,9 @@
         },
         "date": "10/2025 – 05/2026",
         "impactMetrics": [
-          "TypeScript experiment software",
-          "n=30 within-subjects",
-          "Mixed methods analysis"
+          { "en": "Trust > speed: key adoption finding", "de": "Vertrauen vor Tempo: Kernbefund" },
+          { "en": "n=30 within-subjects, 3 conditions",   "de": "n=30 Within-Subjects, 3 Bedingungen" },
+          { "en": "Custom TypeScript gaze pipeline",      "de": "Eigene TypeScript-Gaze-Pipeline" }
         ],
         "tasks": [
           {
@@ -130,9 +130,8 @@
         },
         "date": "12/2024 – Present",
         "impactMetrics": [
-          "JavaScript tool development",
-          "Process digitization",
-          "Audit-ready accounting"
+          { "en": "Digitised paper reimbursement workflow", "de": "Papierbasierte Abrechnung digitalisiert" },
+          { "en": "Privacy-first internal tooling (JS)",    "de": "Datenschutzkonformes internes Tooling (JS)" }
         ],
         "tasks": [
           {
@@ -153,9 +152,9 @@
         },
         "date": "10/2023 – 03/2024",
         "impactMetrics": [
-          "Survey (n=57)",
-          "Contextual inquiries (n=6)",
-          "High-fidelity prototypes"
+          { "en": "Adopted into frontend roadmap",         "de": "In die Frontend-Roadmap übernommen" },
+          { "en": "3 concepts → 1, evidence-decided",      "de": "3 Konzepte → 1, evidenzbasiert" },
+          { "en": "n=57 survey · n=6 contextual inquiry",  "de": "n=57 Umfrage · n=6 Contextual Inquiry" }
         ],
         "tasks": [
           {
@@ -176,8 +175,8 @@
         },
         "date": "04/2023 – 09/2023",
         "impactMetrics": [
-          "TYPO3 CMS",
-          "Responsive HTML/CSS"
+          { "en": "Accessibility-validated components", "de": "Barrierefreiheitsgeprüfte Komponenten" },
+          { "en": "Corporate design compliance, TYPO3", "de": "Corporate-Design-Konformität, TYPO3" }
         ],
         "tasks": [
           {
@@ -194,9 +193,8 @@
         },
         "date": "04/2022 – 06/2022",
         "impactMetrics": [
-          "Acceptance testing",
-          "Heuristic evaluations",
-          "REST endpoint validation"
+          { "en": "Cross-functional defect triage pre-release", "de": "Cross-funktionale Defekt-Triage vor Release" },
+          { "en": "Heuristic evaluation + REST validation",     "de": "Heuristische Evaluation + REST-Validierung" }
         ],
         "tasks": [
           {
@@ -213,9 +211,8 @@
         },
         "date": "07/2020 – 07/2021",
         "impactMetrics": [
-          "Manual-testing team setup",
-          "Structured heuristic evaluations",
-          "Agile framework"
+          { "en": "Founded company's acceptance-test team",   "de": "Abnahmetest-Team im Unternehmen aufgebaut" },
+          { "en": "Heuristic evaluation across 5+ products",  "de": "Heuristische Evaluation für 5+ Produkte" }
         ],
         "tasks": [
           {
@@ -236,9 +233,9 @@
         },
         "date": "06/2015 – 07/2020",
         "impactMetrics": [
-          "10+ websites delivered",
-          "Cross-browser QA",
-          "SEO best practices"
+          { "en": "Page-1 Google rankings, 10+ client sites", "de": "Google-Seite-1-Rankings, 10+ Kundenseiten" },
+          { "en": "10+ sites shipped over 5 years",           "de": "10+ Websites in 5 Jahren ausgeliefert" },
+          { "en": "Cross-browser & cross-device QA",          "de": "Cross-Browser- und Cross-Device-QA" }
         ],
         "tasks": [
           {
@@ -259,8 +256,8 @@
         },
         "date": "02/2015 – 06/2015",
         "impactMetrics": [
-          "Web application testing",
-          "Cross-browser compatibility"
+          { "en": "Test-case authoring from scratch", "de": "Testfallerstellung von Grund auf" },
+          { "en": "Cross-browser compatibility QA",   "de": "Cross-Browser-Kompatibilitätsprüfung" }
         ],
         "tasks": [
           {

@@ -129,11 +129,92 @@ const en = {
   "footer.directContact": "Direct Contact",
   "footer.basedIn": "Currently based in {location}.",
   "footer.openToRoles": "Open to {role} roles.",
+  "footer.utility": "Utility",
+  "footer.available": "Available",
+  "footer.timezone": "Timezone: CET (UTC+1)",
+  "footer.cvLink": "Curriculum Vitae (CV)",
+  "footer.githubLink": "My GitHub",
+  "footer.legalAriaLabel": "Legal",
 
   // ── Scroll indicator ──
   "scroll.hero": "Hero",
   "scroll.about": "About Me",
   "scroll.projects": "Projects",
+
+  // ── Project detail — sidebar / mobile pill labels (short form) ──
+  "project.sidebar.allProjects": "All Projects",
+  "project.sidebar.collapseAll": "Collapse all",
+  "project.sidebar.expandAll": "Expand all",
+  "project.sidebar.process": "Process",
+  "project.sidebar.challenge": "Challenge",
+  "project.sidebar.solution": "Solution",
+  "project.sidebar.prototype": "Prototype",
+  "project.sidebar.methodology": "Methodology",
+  "project.sidebar.results": "Results",
+  "project.sidebar.implications": "Implications",
+  "project.sidebar.status": "Status",
+  "project.sidebar.conclusion": "Conclusion",
+
+  // ── Project detail — section kickers + headings (long form) ──
+  "project.process.kicker": "Behind the Work",
+  "project.process.heading": "Research Process",
+  "project.process.swipe": "Swipe to explore →",
+  "project.process.keyInsight": "Key insight",
+  "project.process.hideInsight": "Hide insight",
+  "project.process.ariaLabel": "Research process steps",
+
+  "project.phase.discover": "Discover",
+  "project.phase.define": "Define",
+  "project.phase.design": "Design",
+  "project.phase.deliver": "Deliver",
+
+  "project.challenge.kicker": "The Problem Space",
+  "project.challenge.heading": "The Challenge",
+
+  "project.solution.kicker": "What I Built",
+  "project.solution.heading": "The Solution",
+
+  "project.prototype.kicker": "See It In Action",
+  "project.prototype.heading": "Prototype",
+  "project.prototype.openLink": "Open the prototype",
+
+  "project.methodology.kicker": "How I Studied It",
+  "project.methodology.heading": "Methodology & Approach",
+  "project.methodology.techStack": "Tech Stack",
+
+  "project.results.kicker": "What the Data Showed",
+  "project.results.heading": "Key Findings",
+  "project.results.glance": "Study at a Glance",
+
+  "project.implications.kicker": "So What",
+  "project.implications.heading": "Design Implications",
+
+  "project.phases.kicker": "Where This Stands",
+  "project.phases.heading": "Research Phases",
+
+  "project.conclusion.kicker": "Closing Reflection",
+  "project.conclusion.heading": "Conclusion",
+
+  "project.meta.role": "Role",
+  "project.meta.timeline": "Timeline",
+  "project.meta.methods": "Research Methods",
+  "project.meta.context": "Context",
+  "project.meta.furtherImpact": "Further impact",
+
+  "project.status.complete": "Complete",
+  "project.status.inProgress": "In progress",
+  "project.status.planned": "Planned",
+  "project.status.blocked": "Blocked",
+
+  "project.footer.back": "Back to All Projects",
+  "project.card.readCaseStudy": "Read case study",
+
+  // ── Project detail — figure viewer chrome ──
+  "project.media.close": "Close",
+  "project.media.enlarge": "Enlarge figure",
+  "project.media.enlargedDefault": "Enlarged figure",
+  "project.media.clickToEnlarge": "click to enlarge",
+  "project.media.whatItShows": "What it shows",
 };
 
 export default en;

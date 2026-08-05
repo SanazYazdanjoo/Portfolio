@@ -23,7 +23,7 @@ export const Nav = ({ isScrolled = false }) => {
       <div className="flex items-center justify-between w-full pb-4 border-b border-border">
 
         {/* ── Wordmark: left, compact, one line ── */}
-        <NavLink to="/" aria-label="PRTFOLIO" className="shrink-0">
+        <NavLink to="/" aria-label={profileData.name} className="shrink-0">
           <p
             className="font-display text-text whitespace-nowrap transition-all duration-300"
             style={{
@@ -33,7 +33,7 @@ export const Nav = ({ isScrolled = false }) => {
               fontVariationSettings: "'opsz' 24",
             }}
           >
-            PORTFOLIO
+            {profileData.name}
           </p>
         </NavLink>
 

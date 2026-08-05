@@ -21,14 +21,17 @@ import { projects } from "../data/projects";
 import { StackedProjectCard } from "../components/StackedProjectCard";
 import { ComingSoonRow } from "../components/ComingSoonRow";
 import { useTranslation } from "../context/LanguageContext";
+import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 
 export default function Projects() {
   const { t } = useTranslation();
+  const localizedProjects = useLocalizedProfile(projects);
 
   // Same split as Home — one rule, two pages
-  const published = projects.filter((p) => p.status !== "coming-soon");
-  const comingSoon = projects.filter((p) => p.status === "coming-soon");
-  const hasAnyProjects = published.length > 0 || comingSoon.length > 0;
+  const published  = localizedProjects.filter((p) => p.status === "published");
+  const inProgress = localizedProjects.filter((p) => p.status === "in-progress");
+  const comingSoon = localizedProjects.filter((p) => p.status === "coming-soon");
+  const hasAnyProjects = published.length > 0 || inProgress.length > 0 || comingSoon.length > 0;
 
   return (
     <main className="min-h-screen pt-32 pb-24 relative overflow-hidden bg-transparent">
@@ -60,11 +63,18 @@ export default function Projects() {
                 index={index}
               />
             ))}
+            {inProgress.map((project, i) => (
+              <StackedProjectCard
+                key={project.id || `wip-${i}`}
+                project={project}
+                index={published.length + i}
+              />
+            ))}
             {comingSoon.map((project, i) => (
               <ComingSoonRow
                 key={project.id || `soon-${i}`}
                 project={project}
-                index={published.length + i}
+                index={published.length + inProgress.length + i}
               />
             ))}
           </div>

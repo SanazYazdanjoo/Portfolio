@@ -8,6 +8,9 @@ export default function CV() {
   const profileData = useLocalizedProfile(rawProfile);
   const { t } = useTranslation();
   const {
+    name,
+    contact,
+    aboutImage,
     role,
     profileSummary,
     bio,
@@ -79,6 +82,31 @@ export default function CV() {
           "
         >
           <div className="max-w-5xl">
+            {/* Name + contact — the one line that must survive both screen and
+                print, so a forwarded/printed PDF is still attributable to a
+                person, not just a role. `.cv-header` is exempt from the
+                print stylesheet's chrome-kill rules (see index.css) on
+                purpose — this block is content, not UI chrome. */}
+            <header className="cv-header flex items-center gap-5 mb-6 print:mb-5">
+              {aboutImage && (
+                <img
+                  src={aboutImage}
+                  alt={name}
+                  className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover shrink-0 grayscale"
+                />
+              )}
+              <div>
+                <p className="font-black text-black uppercase tracking-normal text-xl md:text-2xl print:text-xl leading-tight">
+                  {name}
+                </p>
+                {contact && (
+                  <p className="text-sm text-gray-600 mt-1 print:text-xs">
+                    {[contact.email, contact.phone, contact.location].filter(Boolean).join(" · ")}
+                  </p>
+                )}
+              </div>
+            </header>
+
             <h1 className="font-black text-primary uppercase leading-tight tracking-normal text-4xl md:text-5xl print:text-4xl mb-10 print:mb-8">
               {role}
             </h1>

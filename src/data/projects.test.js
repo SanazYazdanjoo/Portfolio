@@ -24,7 +24,7 @@ describe("projects aggregator — data contract", () => {
 
   it("status is always a known value", () => {
     for (const p of projects) {
-      expect(["published", "coming-soon"]).toContain(p.status);
+      expect(["published", "in-progress", "coming-soon"]).toContain(p.status);
     }
   });
 
@@ -39,9 +39,9 @@ describe("projects aggregator — data contract", () => {
     }
   });
 
-  it("href follows the publish rule: /projects/<slug> or null", () => {
+  it("href follows the publish rule: /projects/<slug> for published/in-progress, else null", () => {
     for (const p of projects) {
-      if (p.status === "published") {
+      if (p.status === "published" || p.status === "in-progress") {
         expect(p.href).toBe(`/projects/${p.slug}`);
       } else {
         expect(p.href).toBeNull();
@@ -66,6 +66,17 @@ describe("sortedProjects — homepage ordering", () => {
       .slice(firstComingSoon)
       .some((p) => p.status === "published");
     expect(publishedAfter).toBe(false);
+  });
+
+  it("all in-progress projects appear before any coming-soon project", () => {
+    const firstComingSoon = sortedProjects.findIndex(
+      (p) => p.status === "coming-soon"
+    );
+    if (firstComingSoon === -1) return; // nothing coming-soon: trivially true
+    const inProgressAfter = sortedProjects
+      .slice(firstComingSoon)
+      .some((p) => p.status === "in-progress");
+    expect(inProgressAfter).toBe(false);
   });
 
   it("contains exactly the same projects as `projects` (nothing lost)", () => {

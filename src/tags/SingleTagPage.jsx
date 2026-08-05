@@ -1,11 +1,13 @@
 import { useParams, Link } from 'react-router-dom';
 import { projects } from '../data/projects';
+import { useLocalizedProfile } from '../hooks/useLocalizedProfile';
 
 const SingleTagPage = () => {
   const { tagName } = useParams();
-  
+  const localizedProjects = useLocalizedProfile(projects);
+
   // Safely find all items that include this specific tag
-  const relatedItems = projects.filter(item => 
+  const relatedItems = localizedProjects.filter(item =>
     item.tags && item.tags.includes(tagName)
   );
 
