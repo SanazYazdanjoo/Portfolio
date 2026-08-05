@@ -86,7 +86,7 @@ export default function About() {
             <div className="relative inline-block w-max mb-6 md:mb-10">
               <h2
                 className="font-display font-extrabold text-text
-                           text-display -rotate-2 relative z-10"
+                           text-display relative z-10"
                 style={{ fontVariationSettings: "'opsz' 96" }}
               >
                 {t("about.heading")}
@@ -241,7 +241,7 @@ export default function About() {
 
             <div className="flex flex-wrap gap-4">
               <Link
-                to="/#projects"
+                to="/projects"
                 className="px-8 py-3 bg-primary text-white text-xs font-black uppercase tracking-widest
                            hover:bg-primary-600 transition-all duration-200"
               >
