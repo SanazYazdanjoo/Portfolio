@@ -129,6 +129,26 @@ function BilingualArrayField({ label, items = [], onChange, placeholder }) {
   );
 }
 
+function SelectField({ label, value, onChange, options }) {
+  const base =
+    "w-full bg-white border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#96150f]/30 focus:border-[#96150f] transition-colors";
+  return (
+    <label className="block mb-4">
+      <span className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1 block">
+        {label}
+      </span>
+      <select className={base} value={value ?? ""} onChange={(e) => onChange(e.target.value)}>
+        <option value="">—</option>
+        {options.map((opt) => (
+          <option key={opt} value={opt}>
+            {opt}
+          </option>
+        ))}
+      </select>
+    </label>
+  );
+}
+
 function ArrayField({ label, items = [], onChange, placeholder }) {
   const update = (i, val) => {
     const next = [...items];
@@ -530,6 +550,107 @@ function PortfolioHighlightsTab({ data, setData }) {
   );
 }
 
+const CERT_TYPES = ["workshop", "course", "internship", "certification"];
+
+function CertificationsTab({ data, setData }) {
+  const items = data.certifications || [];
+
+  const setCert = (i, key, val) =>
+    setData((d) => {
+      const next = [...(d.certifications || [])];
+      next[i] = { ...next[i], [key]: val };
+      return { ...d, certifications: next };
+    });
+
+  const addCert = () =>
+    setData((d) => ({
+      ...d,
+      certifications: [
+        ...(d.certifications || []),
+        {
+          title: "",
+          provider: "",
+          year: "",
+          type: "",
+          skills: [],
+          file: "",
+          thumb: "",
+          verifyUrl: "",
+          detail: { en: "", de: "" },
+        },
+      ],
+    }));
+
+  const removeCert = (i) =>
+    setData((d) => ({
+      ...d,
+      certifications: d.certifications.filter((_, idx) => idx !== i),
+    }));
+
+  return (
+    <>
+      {items.map((cert, i) => (
+        <Section key={i} title={cert.title || `Certification ${i + 1}`}>
+          <Field label="Title" value={cert.title} onChange={(v) => setCert(i, "title", v)} />
+          <Field label="Provider" value={cert.provider} onChange={(v) => setCert(i, "provider", v)} />
+          <Field label="Year" value={cert.year} onChange={(v) => setCert(i, "year", v)} placeholder="e.g. 2025" />
+          <SelectField
+            label="Type"
+            value={cert.type}
+            onChange={(v) => setCert(i, "type", v)}
+            options={CERT_TYPES}
+          />
+          <ArrayField
+            label="Skills"
+            items={cert.skills || []}
+            onChange={(v) => setCert(i, "skills", v)}
+            placeholder="e.g. Figma"
+          />
+          <BilingualField
+            label="Detail"
+            value={cert.detail}
+            onChange={(v) => setCert(i, "detail", v)}
+            multiline
+          />
+          <Field
+            label="File (PDF or image path)"
+            value={cert.file}
+            onChange={(v) => setCert(i, "file", v)}
+            mono
+            placeholder="/assets/certificates/slug.pdf"
+          />
+          <Field
+            label="Thumbnail path"
+            value={cert.thumb}
+            onChange={(v) => setCert(i, "thumb", v)}
+            mono
+            placeholder="/assets/certificates/slug.webp"
+          />
+          <Field
+            label="Verify URL"
+            value={cert.verifyUrl}
+            onChange={(v) => setCert(i, "verifyUrl", v)}
+            mono
+            placeholder="https://..."
+          />
+          <button
+            onClick={() => removeCert(i)}
+            className="text-xs font-bold uppercase tracking-widest text-red-500 hover:underline mt-2"
+          >
+            Remove this certification
+          </button>
+        </Section>
+      ))}
+      <button
+        onClick={addCert}
+        className="w-full py-3 border-2 border-dashed border-gray-300 text-sm font-bold uppercase tracking-widest text-gray-400 hover:border-[#96150f] hover:text-[#96150f] transition-colors"
+      >
+        + Add Certification
+      </button>
+    </>
+  );
+}
+
 function VoluntaryTab({ voluntary, setVoluntary }) {
   const items = voluntary || [];
 
@@ -628,6 +749,7 @@ const TABS = [
   { id: "skills", label: "Skills" },
   { id: "education", label: "Education" },
   { id: "highlights", label: "Portfolio" },
+  { id: "certifications", label: "Certifications" },
   { id: "voluntary", label: "Voluntary" },
   { id: "nav", label: "Navigation" },
 ];
@@ -826,6 +948,7 @@ export default function Admin() {
           {tab === "skills" && <SkillsTab data={profileData} setData={setProfile} />}
           {tab === "education" && <EducationTab data={profileData} setData={setProfile} />}
           {tab === "highlights" && <PortfolioHighlightsTab data={profileData} setData={setProfile} />}
+          {tab === "certifications" && <CertificationsTab data={profileData} setData={setProfile} />}
           {tab === "voluntary" && <VoluntaryTab voluntary={voluntary} setVoluntary={setVol} />}
           {tab === "nav" && <NavLinksTab data={profileData} setData={setProfile} />}
         </main>

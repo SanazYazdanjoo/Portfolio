@@ -32,6 +32,19 @@ const STATIC_SECTIONS = {
   "/contact": [],
 };
 
+// /credentials isn't in profileData.navLinks (five nav items is the ceiling),
+// so it's never picked up by the mainRoutes loop below like the sections
+// above — it gets its own standalone entry, rendered the same way as the
+// legal routes.
+const CREDENTIALS_ROUTE = {
+  path: "/credentials",
+  label: "Credentials",
+  children: [
+    { label: "Certificate Grid", description: "Thumbnail cards with type & skill tags" },
+    { label: "Lightbox", description: "Full document preview + download" },
+  ],
+};
+
 const LEGAL_ROUTES = [
   { path: "/impressum", label: "Impressum" },
   { path: "/privacy", label: "Privacy Policy" },
@@ -164,7 +177,7 @@ export default function Sitemap() {
   }));
 
   // Stats
-  const totalRoutes = mainRoutes.length + projectRoutes.length + LEGAL_ROUTES.length;
+  const totalRoutes = mainRoutes.length + projectRoutes.length + LEGAL_ROUTES.length + 1; // +1 for /credentials
   const totalProjects = localizedProjects.filter(p => p.status !== "coming-soon").length;
 
   return (
@@ -224,6 +237,19 @@ export default function Sitemap() {
               children={route.children}
             />
           ))}
+        </section>
+
+        {/* ── Credentials (standalone — not part of primary nav) ── */}
+        <section className="mb-12">
+          <p className="text-[9px] font-black uppercase tracking-[0.2em] text-primary/60 mb-6">
+            Credential Gallery
+          </p>
+          <RouteNode
+            index={0}
+            path={CREDENTIALS_ROUTE.path}
+            label={CREDENTIALS_ROUTE.label}
+            children={CREDENTIALS_ROUTE.children}
+          />
         </section>
 
         {/* ── Project detail routes (dynamic) ── */}
