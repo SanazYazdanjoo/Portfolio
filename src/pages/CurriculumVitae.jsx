@@ -66,8 +66,8 @@ export default function CV() {
 
   return (
     <div className="bg-white min-h-screen w-full print:min-h-0">
-      <div className="flex gap-10 lg:gap-14 items-start print:block">
-        <aside className="hidden md:block w-[180px] lg:w-[220px] shrink-0 no-print sticky top-36 self-start">
+      <div className="flex items-start print:block">
+        <aside className="hidden md:block w-[180px] lg:w-[220px] shrink-0 no-print sticky top-36 self-start pr-6 lg:pr-8">
           <div className="border-l border-gray-200 pl-3 py-2">
             <CVSidebarNav sections={cvSections} activeId={activeId} />
           </div>
@@ -76,9 +76,9 @@ export default function CV() {
         <div
           id="curriculum-vitae"
           className="
-            w-full bg-white text-black
+            w-full bg-white text-black md:border-l md:border-gray-200
             px-6 py-12 md:px-16 lg:px-24 xl:px-32
-            print:max-w-none print:px-8 print:py-8 print:m-0
+            print:max-w-none print:px-8 print:py-8 print:m-0 print:border-0
           "
         >
           <div className="max-w-5xl">

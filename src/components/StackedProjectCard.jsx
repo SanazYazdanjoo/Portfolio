@@ -1,13 +1,9 @@
-// Each row's right-hand stat shows an uppercase label above the value,
-// pulled from headline.label in projects.js. Every value normalizes to the
-// same 36px/800 display treatment; strings over 4 characters (e.g.
-// "TypeScript") drop to a smaller variant so they don't overrun the fixed
-// stat column. The label is clamped to 2 lines so the value's baseline
-// never shifts between rows. Meta text sits at text-meta (#57534A, AA on
-// white). The chevron signals the hover-expand panel and stays aria-hidden
-// since the row itself is the accessible link. The stat column sits in a
-// fixed w-[190px] track with a min-height so row height, padding, and
-// border stay identical whether the value is a number or a word.
+// The content column (index → title → methods → CTA) spans the full row
+// width — no right-hand stat column stealing space from the title. The
+// chevron that signals the hover-expand panel is absolutely positioned so
+// it costs the title zero layout width, and stays aria-hidden since the
+// row itself is the accessible link. All of a project's metrics (not just
+// one) surface inside the hover-expand panel under "Impact at a glance."
 
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
@@ -50,26 +46,6 @@ function MetricValue({ value, className = "" }) {
   return <span ref={ref} className={className}>{shown}</span>;
 }
 
-/* One metric treatment for every row: 2-line-clamped label above, uniform
-   value below — same visual weight whether the value is "57" or "Public". */
-function HeadlineMetric({ metric, className = "" }) {
-  if (!metric) return null;
-  const isLong = String(metric.value).length > 4;
-  return (
-    <div className={`flex flex-col ${className}`}>
-      <span className="line-clamp-2 min-h-[2.6em] text-xs font-extrabold uppercase tracking-[0.14em] text-text/70 leading-tight">
-        {metric.label}
-      </span>
-      <MetricValue
-        value={metric.value}
-        className={`mt-1.5 font-display font-extrabold leading-none text-text tabular-nums
-                    transition-colors duration-300 group-hover:text-primary-600
-                    ${isLong ? "text-[22px] md:text-[24px]" : "text-[36px]"}`}
-      />
-    </div>
-  );
-}
-
 export function StackedProjectCard({ project, index }) {
   const [open, setOpen] = useState(false);
   const [imgError, setImgError] = useState(false);
@@ -80,8 +56,7 @@ export function StackedProjectCard({ project, index }) {
 
   const isInProgress = project.status === "in-progress";
   const hasImage = project.thumbnail && !imgError;
-  const headline = project.metrics?.[0];
-  const rest = (project.metrics || []).slice(1);
+  const metrics = project.metrics || [];
   const methods = project.methods || project.tags || [];
 
   return (
@@ -108,17 +83,30 @@ export function StackedProjectCard({ project, index }) {
             style={{ backgroundColor: "var(--accent-spine)" }}
           />
 
+          {/* Chevron — announces the hover-expand panel. Absolutely
+              positioned so it costs the title zero layout width. */}
+          <motion.svg
+            aria-hidden="true"
+            className="absolute right-8 md:right-16 top-8 w-4 h-4 text-text/30
+                       transition-colors duration-200 group-hover:text-primary-600"
+            viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+            animate={{ rotate: open ? 180 : 0 }}
+            transition={{ duration: reduce ? 0 : 0.3, ease: [0.22, 0.61, 0.36, 1] }}
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6" />
+          </motion.svg>
+
           <div className="flex items-start gap-6">
             <span className="font-mono text-xs font-bold text-primary-600 tabular-nums mt-2 shrink-0">
               {String(index + 1).padStart(2, "0")}
             </span>
 
-            <div className="flex-1 min-w-0">
+            <div className="flex-1 min-w-0 pr-8">
               {/* Badge sits inline with the title so it never pushes rows
                   without one out of baseline alignment with rows that have it. */}
               <div className="flex items-start gap-3 flex-wrap">
                 <h2
-                  className="font-display font-extrabold text-[26px] max-w-[30ch]
+                  className="font-display font-extrabold text-2xl md:text-3xl
                              tracking-[-0.01em] uppercase leading-tight text-text
                              line-clamp-2 transition-colors duration-300 group-hover:text-primary-600"
                 >
@@ -158,31 +146,7 @@ export function StackedProjectCard({ project, index }) {
                 </svg>
               </p>
             </div>
-
-            {/* Stat column — fixed width + min-height = identical row anatomy
-                whether the value is "16/16" or "TypeScript". */}
-            <div className="hidden sm:flex w-[190px] min-h-[72px] shrink-0 flex-col items-end text-right self-start pt-1">
-              <HeadlineMetric metric={headline} className="items-end" />
-              {/* Chevron — announces the hover-expand panel. Darkened for AA
-                  contrast against the light row background. */}
-              <motion.svg
-                aria-hidden="true"
-                className="mt-3 w-5 h-5 text-text-meta"
-                viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
-                animate={{ rotate: open ? 180 : 0 }}
-                transition={{ duration: reduce ? 0 : 0.3, ease: [0.22, 0.61, 0.36, 1] }}
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6" />
-              </motion.svg>
-            </div>
           </div>
-
-          {/* Mobile stat — same label-above-value treatment, same sizes */}
-          {headline && (
-            <div className="sm:hidden mt-4 pl-[calc(0.75rem+8px)]">
-              <HeadlineMetric metric={headline} className="items-start" />
-            </div>
-          )}
         </div>
 
         {/* Expanded panel */}
@@ -215,13 +179,16 @@ export function StackedProjectCard({ project, index }) {
                   <p className="text-xs text-text/70 leading-relaxed">{project.tagline}</p>
                 </Field>
               )}
-              {rest.length > 0 && (
-                <Field label={t("project.meta.furtherImpact")}>
-                  <div className="flex flex-wrap gap-x-6 gap-y-2">
-                    {rest.map((m) => (
-                      <div key={m.label} className="flex items-baseline gap-1.5">
-                        <span className="font-display font-extrabold text-sm text-primary-600">{m.value}</span>
-                        <span className="text-xs text-text/70 uppercase tracking-wider">{m.label}</span>
+              {metrics.length > 0 && (
+                <Field label={t("project.meta.impactAtGlance")}>
+                  <div className="flex flex-wrap gap-x-8 gap-y-4">
+                    {metrics.map((m) => (
+                      <div key={m.label} className="flex flex-col">
+                        <span className="text-2xs uppercase tracking-wider text-text/60">{m.label}</span>
+                        <MetricValue
+                          value={m.value}
+                          className="mt-1 font-display font-extrabold text-lg text-primary-600 tabular-nums"
+                        />
                       </div>
                     ))}
                   </div>

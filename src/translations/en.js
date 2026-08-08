@@ -19,6 +19,7 @@ const en = {
 
   // Projects
   "projects.heading": "Case Studies",
+  "home.projects.kicker": "02 — Selected Work",
   "projects.title": "Projects",
   "projects.viewProject": "View Case Study",
   "projects.comingSoon": "Coming Soon",
@@ -35,6 +36,7 @@ const en = {
 
   // About
   "about.heading": "About Me",
+  "home.about.kicker": "01 — Who I Am",
 
   "about.howIGotHere": "How I Got Here",
   "about.theBridge": "The Bridge",
@@ -156,6 +158,7 @@ const en = {
   "project.sidebar.allProjects": "All Projects",
   "project.sidebar.collapseAll": "Collapse all",
   "project.sidebar.expandAll": "Expand all",
+  "project.sidebar.about": "About",
   "project.sidebar.process": "Process",
   "project.sidebar.challenge": "Challenge",
   "project.sidebar.solution": "Solution",
@@ -167,6 +170,9 @@ const en = {
   "project.sidebar.conclusion": "Conclusion",
 
   // Project detail — section kickers + headings (long form)
+  "project.about.kicker": "Project Overview",
+  "project.about.heading": "About the Project",
+
   "project.process.kicker": "Behind the Work",
   "project.process.heading": "Research Process",
   "project.process.swipe": "Swipe to explore →",
@@ -211,6 +217,7 @@ const en = {
   "project.meta.methods": "Research Methods",
   "project.meta.context": "Context",
   "project.meta.furtherImpact": "Further impact",
+  "project.meta.impactAtGlance": "Impact at a glance",
 
   "project.status.complete": "Complete",
   "project.status.inProgress": "In progress",
@@ -218,6 +225,9 @@ const en = {
   "project.status.blocked": "Blocked",
 
   "project.footer.back": "Back to All Projects",
+  "project.nav.label": "Project navigation",
+  "project.nav.previous": "Previous project",
+  "project.nav.next": "Next project",
   "project.card.readCaseStudy": "Read case study",
   "project.card.readInProgress": "Read work in progress",
 

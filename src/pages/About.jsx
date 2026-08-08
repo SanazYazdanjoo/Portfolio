@@ -34,7 +34,7 @@ function SectionHeader({ eyebrow, title, sub }) {
       <p className="text-2xs font-extrabold uppercase tracking-[0.18em] text-primary-600 mb-2">
         {eyebrow}
       </p>
-      <h2 className="font-display text-4xl font-extrabold text-text">
+      <h2 className="type-section">
         {title}
       </h2>
       {sub && <p className="text-sm text-text/65 mt-5 max-w-md">{sub}</p>}
@@ -241,7 +241,7 @@ export default function About() {
               <p className="text-2xs font-extrabold uppercase tracking-[0.18em] text-primary-600 mb-2">
                 {t("about.whatsNext")}
               </p>
-              <h2 className="font-display text-2xl md:text-3xl font-black text-text tracking-tight">
+              <h2 className="type-section">
                 {/* Gold highlighter — the page's closing signature */}
                 <span className="ink-highlight">{t("about.seeResearch")}</span>
               </h2>
