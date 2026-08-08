@@ -1,19 +1,13 @@
-// src/pages/Projects.jsx
-// ─────────────────────────────────────────────────────────────────────────────
-// Grid view (default) and List view, toggled by the user:
+// Grid view (default) and list view, toggled by the user: grid renders
+// ProjectTile in a 2-column layout; list renders ProjectListRow, a plain
+// non-expanding row (the hover-expand panel stays on Home's
+// StackedProjectCard); coming-soon items render ComingSoonRow in both views;
+// the empty state uses the same i18n keys as Home so the two pages stay in
+// sync.
 //
-//   grid → ProjectTile, 2-column, every case study visible at a glance
-//   list → ProjectListRow, a plain non-expanding row per project (no
-//          hover-expand panel — that behavior stays on Home's StackedProjectCard)
-//   coming-soon → ComingSoonRow in both views (shared component)
-//   none at all → WIP empty state (same i18n keys as Home, so both pages
-//                 stay in sync when translations change)
-//
-// Layout note: list rows carry their own px-8 md:px-16 inner padding, so
-// they break out of the page container with negative margins that MIRROR
-// the container's px-4 md:px-8 — the row edge kisses the viewport edge
-// exactly like on Home.
-// ─────────────────────────────────────────────────────────────────────────────
+// List rows carry their own px-8 md:px-16 inner padding and break out of the
+// page container with negative margins that mirror the container's
+// px-4 md:px-8, so the row edge meets the viewport edge exactly like on Home.
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
@@ -40,7 +34,7 @@ export default function Projects() {
     <main className="min-h-screen pt-32 pb-24 relative overflow-hidden bg-transparent">
       <div className="container relative z-10 mx-auto px-4 md:px-8">
 
-        {/* ── Page header ── */}
+        {/* Page header */}
         <motion.header
           className="mb-10 flex flex-wrap items-end justify-between gap-6"
           initial={{ opacity: 0, y: 16 }}
@@ -53,7 +47,7 @@ export default function Projects() {
             </h1>
           </div>
 
-          {/* ── View toggle: list ↔ 2-col tile grid ── */}
+          {/* View toggle: list vs 2-col tile grid */}
           {hasAnyProjects && (
             <div
               role="group"
@@ -88,7 +82,7 @@ export default function Projects() {
           )}
         </motion.header>
 
-        {/* ── List / Grid — mirrors container padding to go full-bleed in list mode ── */}
+        {/* List / Grid — mirrors container padding to go full-bleed in list mode */}
         {hasAnyProjects ? (
           view === "list" ? (
             <div className="relative flex flex-col -mx-4 md:-mx-8 border-b border-border">
@@ -126,7 +120,7 @@ export default function Projects() {
             </div>
           )
         ) : (
-          /* ── Empty state — same keys as Home so both pages stay in sync ── */
+          /* Empty state — same keys as Home so both pages stay in sync */
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -141,7 +135,7 @@ export default function Projects() {
             <p className="text-[13px] font-semibold text-text/30 uppercase tracking-widest mb-2">
               {t("projects.wip")}
             </p>
-            <p className="text-[13px] text-text/40 max-w-xs mx-auto leading-relaxed font-light">
+            <p className="text-[13px] text-dim max-w-xs mx-auto leading-relaxed font-light">
               {t("projects.wipDesc")}
             </p>
           </motion.div>

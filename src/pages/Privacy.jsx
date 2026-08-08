@@ -1,4 +1,3 @@
-// src/pages/Privacy.jsx
 import React from 'react';
 import { Button } from '../components/Button';
 import { FlowerDoodle } from '../components/DoodleLibrary';

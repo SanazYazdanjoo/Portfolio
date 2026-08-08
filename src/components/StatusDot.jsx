@@ -1,4 +1,3 @@
-// src/components/StatusDot.jsx
 import React from "react";
 
 export function StatusDot({ label, className = "" }) {

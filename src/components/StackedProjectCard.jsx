@@ -1,25 +1,11 @@
-// src/components/StackedProjectCard.jsx
-// ─────────────────────────────────────────────────────────────────────────────
-// VISUAL QA PASS v4 — row consistency + a11y contrast
-//
-//   1. LABELED METRIC BLOCK: every row's right-hand stat now has an uppercase
-//      label ABOVE the value ("Problems confirmed" / "Built with" / …), pulled
-//      from headline.label in projects.js — no content changes, just placement.
-//   2. NORMALIZED VALUE TYPE: one size + weight for ALL values, numeric or
-//      word ("16/16", "TypeScript", "57", "Public" all render font-display
-//      extrabold text-2xl). No more per-row size drift.
-//   3. CAPTION SIZE + CONTRAST: all meta text bumped from text-2xs (10px) to
-//      text-xs (12px min) and from text-text/55 to text-text/70
-//      (≈ #5e5e5e on white → >7:1, comfortably WCAG AA at 12px bold caps).
-//   4. CHEVRON: it signals the hover-expand panel, so it now reads as an
-//      affordance — w-5 h-5, strokeWidth 2.5, primary-600. Still aria-hidden
-//      (the whole row is already the accessible link).
-//   5. ROW RHYTHM: stat column top-aligned in a fixed w-[190px] track with a
-//      min-height, so row height/padding/border stay identical regardless of
-//      whether the value is a number or a proper noun.
-//
-// v3 retained: no ink-highlight on stats, muted method tags, fixed stat axis.
-// ─────────────────────────────────────────────────────────────────────────────
+// Each row's right-hand stat shows an uppercase label above the value,
+// pulled from headline.label in projects.js. Every value uses the same
+// size and weight (font-display extrabold text-2xl) regardless of type —
+// numeric or word. Meta text is text-xs (12px) at text-text/70 for WCAG AA
+// contrast. The chevron signals the hover-expand panel and stays
+// aria-hidden since the row itself is the accessible link. The stat column
+// sits in a fixed w-[190px] track with a min-height so row height, padding,
+// and border stay identical whether the value is a number or a word.
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
@@ -71,6 +57,7 @@ export function StackedProjectCard({ project, index }) {
 
   if (!project || project.status === "coming-soon" || !project.id) return null;
 
+  const isInProgress = project.status === "in-progress";
   const spine = DOMAIN_SPINES[project.domain] || DOMAIN_SPINES._default;
   const hasImage = project.thumbnail && !imgError;
   const headline = project.metrics?.[0];
@@ -107,6 +94,14 @@ export function StackedProjectCard({ project, index }) {
             </span>
 
             <div className="flex-1 min-w-0">
+              {isInProgress && (
+                <span
+                  className="inline-block mb-2 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.2em] text-primary-600"
+                  style={{ border: "1px solid var(--primary-600)" }}
+                >
+                  {t("projects.inProgress")}
+                </span>
+              )}
               <h2
                 className="font-display font-extrabold text-2xl
                            tracking-[-0.01em] uppercase leading-tight text-text
@@ -133,7 +128,7 @@ export function StackedProjectCard({ project, index }) {
                            uppercase tracking-[0.2em] text-primary-600
                            transition-transform duration-300 group-hover:translate-x-1"
               >
-                {t("project.card.readCaseStudy")}
+                {isInProgress ? t("project.card.readInProgress") : t("project.card.readCaseStudy")}
                 <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
@@ -166,7 +161,7 @@ export function StackedProjectCard({ project, index }) {
           )}
         </div>
 
-        {/* ── Expanded panel ── */}
+        {/* Expanded panel */}
         <motion.div
           initial={false}
           animate={{ height: open ? "auto" : 0, opacity: open ? 1 : 0 }}

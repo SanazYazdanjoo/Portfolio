@@ -1,8 +1,5 @@
-// src/translations/de.js
-// ─── Deutsche UI-Strings ───────────────────────────────────────────────────────
-
 const de = {
-  // ── Navigation ──
+  // Navigation
   "nav.home": "Startseite",
   "nav.projects": "Projekte",
   "nav.about": "Über mich",
@@ -11,17 +8,18 @@ const de = {
   "nav.openMenu": "Menü öffnen",
   "nav.closeMenu": "Menü schließen",
 
-  // ── Hero ──
+  // Hero
   "hero.portfolio": "PORTFOLIO",
   "hero.tagline": "Ich spreche sowohl ‚User' als auch ‚Developer'.",
   "hero.ctaWork": "Meine Projekte",
   "hero.ctaCv": "Lebenslauf ansehen",
 
-  // ── Projects ──
+  // Projects
   "projects.heading": "Fallstudien",
   "projects.title": "Projekte",
   "projects.viewProject": "Fallstudie ansehen",
   "projects.comingSoon": "Demnächst",
+  "projects.inProgress": "In Arbeit",
   "projects.methods": "Methoden",
   "projects.metrics": "Kennzahlen",
   "projects.allProjects": "Alle Projekte",
@@ -32,7 +30,7 @@ const de = {
   "projects.view.grid": "Raster",
   "projects.wipDescLong": "Fallstudien werden gerade dokumentiert. Bald verfügbar — gute Forschung braucht Zeit, um richtig erzählt zu werden.",
 
-  // ── About ──
+  // About
   "about.heading": "Über mich",
 
   "about.howIGotHere": "Wie ich hierher gelangt bin",
@@ -47,20 +45,20 @@ const de = {
   "about.viewProjects": "Projekte ansehen",
   "about.viewCV": "Lebenslauf ansehen",
 
-  // ── Career arc ──
+  // Career arc
   "about.career.phase1.label": "Software-Engineering",
   "about.career.phase1.years": "2015 – 2020",
   "about.career.phase1.summary": "20+ Produkte von Grund auf gebaut. Gelernt, dass Code einfach ist — zu wissen, was man bauen soll, ist schwer.",
   "about.career.phase2.label": "QA-Engineering",
   "about.career.phase2.years": "2020 – 2023",
   "about.career.phase2.summary": "Vom Bauen zum Brechen gewechselt — und erkannt, dass jeder Bug ein Nutzereinblick war, der gehört werden wollte.",
-  "about.career.phase3.label": "UX Engineering", // Aktualisiert
+  "about.career.phase3.label": "UX Engineering",
   "about.career.phase3.years": "2023 – Heute",
-  "about.career.phase3.summary": "Hier verschmelzen Forschung und Entwicklung. Ich konzipiere methodisch fundierte Studien und setze die Architektur (z. B. in TypeScript) direkt selbst um.", // Aktualisiert
+  "about.career.phase3.summary": "Hier verschmelzen Forschung und Entwicklung. Ich konzipiere methodisch fundierte Studien und setze die Architektur (z. B. in TypeScript) direkt selbst um.",
   "about.career.group.research": "Forschung",
   "about.career.group.build": "Umsetzung",
 
-  // ── Research process ──
+  // Research process
   "about.process.discover.title": "Entdecken",
   "about.process.discover.desc": "Stakeholder-Interviews, Kontextbefragungen und Desk Research, um das richtige Problem zu formulieren, bevor eine Lösung in Betracht gezogen wird.",
   "about.process.define.title": "Definieren",
@@ -70,7 +68,7 @@ const de = {
   "about.process.deliver.title": "Liefern",
   "about.process.deliver.desc": "Usability-Tests, Iteration und Stakeholder-Abstimmung — mit dokumentierten messbaren Ergebnissen in jeder Phase.",
 
-  // ── CV ──
+  // CV
   "cv.heading": "Lebenslauf",
   "cv.experience": "Berufserfahrung",
   "cv.education": "Ausbildung",
@@ -83,14 +81,14 @@ const de = {
   "cv.download": "PDF herunterladen",
   "cv.saveAsPdf": "Als PDF speichern",
 
-  // ── Contact ──
+  // Contact
   "contact.heading": "Kontakt aufnehmen",
   "contact.hi": "Hallo",
   "contact.email": "E-Mail",
   "contact.locationPhone": "Standort & Telefon",
   "contact.socials": "Soziale Netzwerke",
   "contact.collaborate": "Zusammenarbeit auf:",
-  "contact.location": "Derzeit in Weimar, Deutschland, und offen für interdisziplinäre UX- und Tech-Rollen.", // Aktualisiert
+  "contact.location": "Derzeit in Weimar, Deutschland, und offen für interdisziplinäre UX- und Tech-Rollen.",
   "contact.kicker": "Kontakt",
   "contact.headline": "Sprechen wir",
   "contact.emailCta": "Schreiben Sie mir",
@@ -103,7 +101,7 @@ const de = {
   "contact.goodToSend": "Worüber ich gerne spreche",
   "contact.viewCv": "Lebenslauf ansehen",
 
-  // ── Footer ──
+  // Footer
   "footer.rights": "Alle Rechte vorbehalten.",
   "footer.privacy": "Datenschutzerklärung",
   "footer.impressum": "Impressum",
@@ -111,30 +109,30 @@ const de = {
   "footer.letsWork": "Lass uns zusammenarbeiten.",
   "footer.openTo": "Offen für {role}-Stellen in Deutschland",
 
-  // ── Voluntary ──
+  // Voluntary
   "voluntary.heading": "Ehrenamt",
   "voluntary.description": "Gemeinschaftsaufbau, Mentoring und außercurriculare Initiativen.",
 
-  // ── Common ──
+  // Common
   "common.backToPortfolio": "← Zurück zum Portfolio",
   "common.readMore": "Weiterlesen",
   "common.language": "Sprache",
 
-  // ── Hero meta strip ──
+  // Hero meta strip
   "hero.kicker": "UX Research × Engineering",
 
   "hero.meta.background": "Hintergrund",
   "hero.meta.focus": "Fokus",
   "hero.meta.status": "Status",
   "hero.meta.location": "Standort",
-  
-  // Diese Werte spiegeln nun exakt das englische Pendant wider
+
+  // These values mirror the English counterpart exactly
   "hero.meta.backgroundValue": "M.Sc. HCI · B.E. Software-Engineering · QA",
   "hero.meta.focusValue": "Frontend-Entwicklung · UI-Architektur · Mixed-Methods",
   "hero.meta.statusValue": "Offen für interdisziplinäre UX- & Tech-Rollen",
   "hero.meta.locationValue": "Weimar, DE · Umzugsbereit",
 
-  // ── Footer ──
+  // Footer
   "footer.status": "Status",
   "footer.directContact": "Direkter Kontakt",
   "footer.basedIn": "Derzeit ansässig in {location}.",
@@ -146,12 +144,12 @@ const de = {
   "footer.githubLink": "Mein GitHub",
   "footer.legalAriaLabel": "Rechtliches",
 
-  // ── Scroll indicator ──
+  // Scroll indicator
   "scroll.hero": "Start",
   "scroll.about": "Über mich",
   "scroll.projects": "Projekte",
 
-  // ── Project detail — sidebar / mobile pill labels (short form) ──
+  // Project detail — sidebar / mobile pill labels (short form)
   "project.sidebar.allProjects": "Alle Projekte",
   "project.sidebar.collapseAll": "Alles einklappen",
   "project.sidebar.expandAll": "Alles ausklappen",
@@ -165,7 +163,7 @@ const de = {
   "project.sidebar.status": "Status",
   "project.sidebar.conclusion": "Fazit",
 
-  // ── Project detail — section kickers + headings (long form) ──
+  // Project detail — section kickers + headings (long form)
   "project.process.kicker": "Hinter der Arbeit",
   "project.process.heading": "Forschungsprozess",
   "project.process.swipe": "Zum Entdecken wischen →",
@@ -218,15 +216,16 @@ const de = {
 
   "project.footer.back": "Zurück zu allen Projekten",
   "project.card.readCaseStudy": "Fallstudie lesen",
+  "project.card.readInProgress": "Laufende Arbeit lesen",
 
-  // ── Project detail — figure viewer chrome ──
+  // Project detail — figure viewer chrome
   "project.media.close": "Schließen",
   "project.media.enlarge": "Abbildung vergrößern",
   "project.media.enlargedDefault": "Vergrößerte Abbildung",
   "project.media.clickToEnlarge": "zum Vergrößern klicken",
   "project.media.whatItShows": "Was das zeigt",
 
-  // ── Zeugnisse & Zertifikate ──
+  // Zeugnisse & Zertifikate
   "credentials.heading": "Zeugnisse & Zertifikate",
   "credentials.subheading": "Workshops, Kurse und Zertifizierungen — mit den Originaldokumenten hinterlegt.",
   "credentials.viewCredential": "Nachweis ansehen",

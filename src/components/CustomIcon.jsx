@@ -1,4 +1,3 @@
-// src/components/CustomIcon.jsx
 import React from 'react';
 
 export function CustomIcon({ name, className = "", alt, ext = "svg" }) {
@@ -10,10 +9,10 @@ export function CustomIcon({ name, className = "", alt, ext = "svg" }) {
       role="img"
       aria-label={alt || `${name} icon`}
       style={{
-        // 1. currentColor tells it to use whatever text color Tailwind gives it!
-        backgroundColor: 'currentColor', 
-        
-        // 2. The Cookie Cutter: These tell the browser to mask the background color using your file
+        // currentColor resolves to the element's text color, so the icon inherits it.
+        backgroundColor: 'currentColor',
+
+        // Masks the background color with the icon's shape, so it renders as a filled icon.
         WebkitMaskImage: `url(${iconPath})`,
         WebkitMaskSize: 'contain',
         WebkitMaskRepeat: 'no-repeat',

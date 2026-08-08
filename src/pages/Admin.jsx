@@ -1,10 +1,9 @@
-// src/pages/Admin.jsx
 // Portfolio Dashboard — edit profile.js and voluntary.js via the admin-server API
 import React, { useState, useEffect, useCallback } from "react";
 
 const API = "http://localhost:3001/api";
 
-// ─── Tiny reusable field components ─────────────────────────────────────────
+// Tiny reusable field components
 
 function Field({ label, value, onChange, multiline, placeholder, mono }) {
   const base =
@@ -189,7 +188,7 @@ function ArrayField({ label, items = [], onChange, placeholder }) {
   );
 }
 
-// ─── Section wrapper ────────────────────────────────────────────────────────
+// Section wrapper
 
 function Section({ title, children }) {
   return (
@@ -202,7 +201,7 @@ function Section({ title, children }) {
   );
 }
 
-// ─── Tab panels ─────────────────────────────────────────────────────────────
+// Tab panels
 
 function PersonalTab({ data, setData }) {
   const set = (key, val) => setData((d) => ({ ...d, [key]: val }));
@@ -749,7 +748,7 @@ function NavLinksTab({ data, setData }) {
   );
 }
 
-// ─── Main Dashboard ─────────────────────────────────────────────────────────
+// Main Dashboard
 
 const TABS = [
   { id: "personal", label: "Personal" },
@@ -790,7 +789,7 @@ export default function Admin() {
     setIsDirty(true);
   }, []);
 
-  // ── Load data from the admin-server API ─────────────────────────────────
+  // Load data from the admin-server API
   const loadData = useCallback(async () => {
     setLoading(true);
     try {
@@ -812,7 +811,7 @@ export default function Admin() {
   // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { void loadData(); }, [loadData]);
 
-  // ── Save ────────────────────────────────────────────────────────────────
+  // Save
   const save = useCallback(async () => {
     setSaving(true);
     try {
@@ -839,7 +838,7 @@ export default function Admin() {
     }
   }, [profileData, voluntary, showStatus]);
 
-  // ── Ctrl+S shortcut ──────────────────────────────────────────────────────
+  // Ctrl+S shortcut
   useEffect(() => {
     const handler = (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key === "s") {
@@ -851,7 +850,7 @@ export default function Admin() {
     return () => window.removeEventListener("keydown", handler);
   }, [profileData, save, saving]);
 
-  // ── Render ──────────────────────────────────────────────────────────────
+  // Render
 
   if (loading) {
     return (
@@ -884,7 +883,7 @@ export default function Admin() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* ── Header bar ── */}
+      {/* Header bar */}
       <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -928,7 +927,7 @@ export default function Admin() {
         </div>
       </header>
 
-      {/* ── Layout: Sidebar + Content ── */}
+      {/* Layout: Sidebar + Content */}
       <div className="max-w-5xl mx-auto px-6 py-8 flex gap-8">
         {/* Sidebar tabs */}
         <nav className="w-48 shrink-0">
