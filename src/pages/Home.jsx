@@ -30,10 +30,10 @@ const EASE = [0.22, 0.61, 0.36, 1];
 // different scale. Lives in the sticky label rail so it scrolls with its
 // section instead of leaving a dead gutter.
 //
-// Note: the coral spec'd for the eyebrow (#D9481F) computes to ~4.3:1 on
-// white, short of WCAG AA's 4.5:1 for text this small — `primary-600`
-// (#B93110) is the codebase's existing AA-safe coral for exactly this case
-// (see theme.css) and is used here instead so verification item 5 holds.
+// Note: `primary-600` (#5E1605) is the codebase's AA-safe coral for small
+// text (see theme.css) and is used here for the eyebrow so verification
+// item 5 holds — both -600 and the base -700/-500 clear WCAG AA on white
+// now that the palette runs on the darker Brandy coral.
 function SectionHeading({ eyebrow, heading }) {
   const reduce = useReducedMotion();
   return (
