@@ -24,9 +24,9 @@ const VIEW_STORAGE_KEY = "projects.view";
 function readStoredView() {
   try {
     const stored = localStorage.getItem(VIEW_STORAGE_KEY);
-    return stored === "list" || stored === "grid" ? stored : "grid";
+    return stored === "list" || stored === "grid" ? stored : "list";
   } catch {
-    return "grid";
+    return "list";
   }
 }
 

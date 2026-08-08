@@ -7,7 +7,7 @@ import { useTranslation } from "../context/LanguageContext";
 export default function Voluntary() {
   const { t } = useTranslation();
   return (
-    <main className="min-h-screen pt-32 pb-24 relative overflow-hidden bg-transparent">
+    <main className="min-h-screen pt-20 md:pt-24 pb-24 relative overflow-hidden bg-transparent">
       
       {/* Background Decor */}
       <FlowerDoodle className="absolute top-32 -left-20 w-96 h-96 text-accent opacity-10 -rotate-12 pointer-events-none" />

@@ -179,7 +179,7 @@ export default function Sitemap() {
   const totalProjects = localizedProjects.filter(p => p.status !== "coming-soon").length;
 
   return (
-    <main className="min-h-screen pt-32 pb-24 bg-bg">
+    <main className="min-h-screen pt-20 md:pt-24 pb-24 bg-bg">
       <div className="container mx-auto px-6 md:px-12 max-w-4xl">
 
         {/* Header */}
