@@ -9,9 +9,25 @@ import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { useTranslation } from "../context/LanguageContext";
 import { LanguageToggle } from "./LanguageToggle";
 
+// Maps each nav route to its translation key so labels follow the current
+// language instead of the raw (English-only) name stored in profile data.
+const NAV_LABEL_KEYS = {
+  "/": "nav.home",
+  "/projects": "nav.projects",
+  "/about": "nav.about",
+  "/contact": "nav.contact",
+  "/cv": "nav.cv",
+  "/designsystem": "nav.designSystem",
+};
+
 export const Nav = ({ isScrolled = false }) => {
   const profileData = useLocalizedProfile(rawProfile);
   const prefersReducedMotion = useReducedMotion();
+  const { t } = useTranslation();
+  const navLinks = profileData.navLinks.map((link) => ({
+    ...link,
+    name: NAV_LABEL_KEYS[link.path] ? t(NAV_LABEL_KEYS[link.path]) : link.name,
+  }));
 
   return (
     <motion.nav
@@ -41,7 +57,7 @@ export const Nav = ({ isScrolled = false }) => {
         {/* Right cluster: links → language toggle → (mobile) burger */}
         <div className="flex items-center gap-6 md:gap-9 lg:gap-12">
           <ul className="hidden md:flex items-center gap-9 lg:gap-12">
-            {profileData.navLinks.map((link) => (
+            {navLinks.map((link) => (
               <li key={link.path}>
                 <NavLink
                   to={link.path}
@@ -85,7 +101,7 @@ export const Nav = ({ isScrolled = false }) => {
           {/* Far right on desktop; inside the burger on mobile */}
           <LanguageToggle />
 
-          <MobileMenu links={profileData.navLinks} />
+          <MobileMenu links={navLinks} />
         </div>
       </div>
     </motion.nav>

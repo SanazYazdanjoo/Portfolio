@@ -5,27 +5,29 @@ import { profileData as rawProfile } from "../data/profile";
 import { useLocalizedProfile } from '../hooks/useLocalizedProfile';
 import { projects } from "../data/projects";
 import { ScribbleUnderline } from "../components/DoodleLibrary";
+import { useTranslation } from "../context/LanguageContext";
 
 // Static route tree. Top-level routes are pulled from profileData.navLinks
-// automatically; sub-routes and legal pages are defined here.
+// automatically; sub-routes and legal pages are defined here. Labels/
+// descriptions are translation keys, resolved at render time via t().
 const STATIC_SECTIONS = {
   "/": [
-    { label: "Hero", description: "Name, role, year" },
-    { label: "About Me", description: "Bio, photo, skills" },
-    { label: "Projects", description: "Snap-scroll project index" },
+    { labelKey: "sitemap.sections.hero.label", descKey: "sitemap.sections.hero.desc" },
+    { labelKey: "sitemap.sections.aboutMe.label", descKey: "sitemap.sections.aboutMe.desc" },
+    { labelKey: "sitemap.sections.projectsIndex.label", descKey: "sitemap.sections.projectsIndex.desc" },
   ],
   "/about": [
-    { label: "Bio", description: "Photo & intro" },
-    { label: "The Bridge", description: "Career arc: SE → QA → UX, skills grouped by era" },
-    { label: "How I Work", description: "4-step research process" },
-    { label: "Voluntary Work", description: "Mentorship & workshops" },
+    { labelKey: "sitemap.sections.bio.label", descKey: "sitemap.sections.bio.desc" },
+    { labelKey: "sitemap.sections.bridge.label", descKey: "sitemap.sections.bridge.desc" },
+    { labelKey: "sitemap.sections.howIWork.label", descKey: "sitemap.sections.howIWork.desc" },
+    { labelKey: "sitemap.sections.voluntaryWork.label", descKey: "sitemap.sections.voluntaryWork.desc" },
   ],
   "/projects": [], // children generated dynamically from projects data
   "/cv": [
-    { label: "Work Experience", description: "With impact metrics" },
-    { label: "Portfolio Highlights", description: "3 projects with metrics" },
-    { label: "Skills / Education / Languages", description: "Sidebar" },
-    { label: "Save as PDF", description: "A4 print-optimised" },
+    { labelKey: "sitemap.sections.workExperience.label", descKey: "sitemap.sections.workExperience.desc" },
+    { labelKey: "sitemap.sections.portfolioHighlights.label", descKey: "sitemap.sections.portfolioHighlights.desc" },
+    { labelKey: "sitemap.sections.skillsEduLang.label", descKey: "sitemap.sections.skillsEduLang.desc" },
+    { labelKey: "sitemap.sections.saveAsPdf.label", descKey: "sitemap.sections.saveAsPdf.desc" },
   ],
   "/contact": [],
 };
@@ -36,24 +38,35 @@ const STATIC_SECTIONS = {
 // legal routes.
 const CREDENTIALS_ROUTE = {
   path: "/credentials",
-  label: "Credentials",
+  labelKey: "sitemap.credentials.label",
   children: [
-    { label: "Certificate Grid", description: "Thumbnail cards with type & skill tags" },
-    { label: "Lightbox", description: "Full document preview + download" },
+    { labelKey: "sitemap.credentials.certGrid.label", descKey: "sitemap.credentials.certGrid.desc" },
+    { labelKey: "sitemap.credentials.lightbox.label", descKey: "sitemap.credentials.lightbox.desc" },
   ],
 };
 
 const LEGAL_ROUTES = [
-  { path: "/impressum", label: "Impressum" },
-  { path: "/privacy", label: "Privacy Policy" },
+  { path: "/impressum", labelKey: "footer.impressum" },
+  { path: "/privacy", labelKey: "footer.privacy" },
 ];
 
-const PROJECT_SECTIONS = [
-  "Challenge",
-  "Solution",
-  "Methodology",
-  "Results",
-  "Implications",
+// Same mapping Nav.jsx uses — profileData.navLinks[].name is English-only,
+// so route labels are resolved through translation keys instead.
+const NAV_LABEL_KEYS = {
+  "/": "nav.home",
+  "/projects": "nav.projects",
+  "/about": "nav.about",
+  "/contact": "nav.contact",
+  "/cv": "nav.cv",
+  "/designsystem": "nav.designSystem",
+};
+
+const PROJECT_SECTION_KEYS = [
+  "project.sidebar.challenge",
+  "project.sidebar.solution",
+  "project.sidebar.methodology",
+  "project.sidebar.results",
+  "project.sidebar.implications",
 ];
 
 // Animation
@@ -67,6 +80,7 @@ const fadeUp = {
 
 // Single route node
 function RouteNode({ path, label, description, children, index, isActive }) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const hasChildren = children && children.length > 0;
 
@@ -113,7 +127,7 @@ function RouteNode({ path, label, description, children, index, isActive }) {
               <motion.span animate={{ rotate: open ? 90 : 0 }} transition={{ duration: 0.2 }}>
                 ▶
               </motion.span>
-              {open ? "Hide" : "Show"} {children.length} sub-section{children.length !== 1 ? "s" : ""}
+              {open ? t("sitemap.hide") : t("sitemap.show")} {children.length} {t("sitemap.subsections")}
             </button>
           )}
         </div>
@@ -147,23 +161,30 @@ function RouteNode({ path, label, description, children, index, isActive }) {
 
 // Page
 export default function Sitemap() {
+  const { t } = useTranslation();
   const profileData = useLocalizedProfile(rawProfile);
   const localizedProjects = useLocalizedProfile(projects);
+  const projectSectionLabels = PROJECT_SECTION_KEYS.map((k) => t(k));
+
   // Build the main nav routes from profileData — stays in sync automatically
   const mainRoutes = profileData.navLinks.map((link) => {
     const path = link.path;
-    const sections = STATIC_SECTIONS[path] || [];
+    const sections = (STATIC_SECTIONS[path] || []).map((s) => ({
+      label: t(s.labelKey),
+      description: t(s.descKey),
+    }));
 
     // Inject dynamic project children under /projects
     const children = path === "/projects"
       ? localizedProjects.map((p) => ({
           label: p.title,
           description: p.role,
-          subItems: PROJECT_SECTIONS,
+          subItems: projectSectionLabels,
         }))
       : sections;
 
-    return { path, label: link.name, children };
+    const label = NAV_LABEL_KEYS[path] ? t(NAV_LABEL_KEYS[path]) : link.name;
+    return { path, label, children };
   });
 
   // Dynamic project detail routes
@@ -171,11 +192,21 @@ export default function Sitemap() {
     path: `/projects/${p.id}`,
     label: p.title,
     description: p.role,
-    children: PROJECT_SECTIONS.map((s) => ({ label: s })),
+    children: projectSectionLabels.map((label) => ({ label })),
   }));
 
+  const legalRoutes = LEGAL_ROUTES.map((r) => ({ path: r.path, label: t(r.labelKey) }));
+  const credentialsRoute = {
+    path: CREDENTIALS_ROUTE.path,
+    label: t(CREDENTIALS_ROUTE.labelKey),
+    children: CREDENTIALS_ROUTE.children.map((c) => ({
+      label: t(c.labelKey),
+      description: t(c.descKey),
+    })),
+  };
+
   // Stats
-  const totalRoutes = mainRoutes.length + projectRoutes.length + LEGAL_ROUTES.length + 1; // +1 for /credentials
+  const totalRoutes = mainRoutes.length + projectRoutes.length + legalRoutes.length + 1; // +1 for /credentials
   const totalProjects = localizedProjects.filter(p => p.status !== "coming-soon").length;
 
   return (
@@ -190,26 +221,25 @@ export default function Sitemap() {
           transition={{ duration: 0.5 }}
         >
           <p className="text-[9px] font-black uppercase tracking-[0.25em] text-primary mb-2">
-            Architecture
+            {t("sitemap.kicker")}
           </p>
           <div className="relative inline-block mb-4">
             <h1 className="text-5xl md:text-6xl font-black text-text tracking-tighter">
-              Sitemap<span className="text-primary">.</span>
+              {t("sitemap.title")}<span className="text-primary">.</span>
             </h1>
             <ScribbleUnderline className="absolute -bottom-2 left-0 w-full h-4 text-primary opacity-60" />
           </div>
           <p className="text-sm text-text/45 mt-6">
-            Auto-generated from live route and project data.
-            Updates automatically as new projects and pages are added.
+            {t("sitemap.subtitle")}
           </p>
 
           {/* Stats row */}
           <div className="flex gap-8 mt-8 pt-6 border-t border-border/20">
             {[
-              { value: totalRoutes, label: "Total routes" },
-              { value: mainRoutes.length, label: "Nav pages" },
-              { value: totalProjects, label: "Published projects" },
-              { value: LEGAL_ROUTES.length, label: "Legal pages" },
+              { value: totalRoutes, label: t("sitemap.stats.totalRoutes") },
+              { value: mainRoutes.length, label: t("sitemap.stats.navPages") },
+              { value: totalProjects, label: t("sitemap.stats.publishedProjects") },
+              { value: legalRoutes.length, label: t("sitemap.stats.legalPages") },
             ].map((stat) => (
               <div key={stat.label}>
                 <p className="font-black text-2xl text-primary leading-none">{stat.value}</p>
@@ -224,7 +254,7 @@ export default function Sitemap() {
         {/* Main navigation routes */}
         <section className="mb-12">
           <p className="text-[9px] font-black uppercase tracking-[0.2em] text-primary/60 mb-6">
-            Main Navigation
+            {t("sitemap.section.mainNav")}
           </p>
           {mainRoutes.map((route, i) => (
             <RouteNode
@@ -240,20 +270,20 @@ export default function Sitemap() {
         {/* Credentials — standalone, not part of primary nav */}
         <section className="mb-12">
           <p className="text-[9px] font-black uppercase tracking-[0.2em] text-primary/60 mb-6">
-            Credential Gallery
+            {t("sitemap.section.credentials")}
           </p>
           <RouteNode
             index={0}
-            path={CREDENTIALS_ROUTE.path}
-            label={CREDENTIALS_ROUTE.label}
-            children={CREDENTIALS_ROUTE.children}
+            path={credentialsRoute.path}
+            label={credentialsRoute.label}
+            children={credentialsRoute.children}
           />
         </section>
 
         {/* Project detail routes (dynamic) */}
         <section className="mb-12">
           <p className="text-[9px] font-black uppercase tracking-[0.2em] text-primary/60 mb-6">
-            Project Detail Pages — auto-generated from{" "}
+            {t("sitemap.section.projectDetail")}{" "}
             <code className="text-[9px] bg-primary/8 px-1.5 py-0.5 text-primary">
               src/projects/**/data.js
             </code>
@@ -273,9 +303,9 @@ export default function Sitemap() {
         {/* Legal routes */}
         <section>
           <p className="text-[9px] font-black uppercase tracking-[0.2em] text-primary/60 mb-6">
-            Legal
+            {t("sitemap.section.legal")}
           </p>
-          {LEGAL_ROUTES.map((route, i) => (
+          {legalRoutes.map((route, i) => (
             <RouteNode
               key={route.path}
               index={i}
