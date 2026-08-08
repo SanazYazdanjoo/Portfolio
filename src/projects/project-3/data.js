@@ -1,5 +1,5 @@
 // Content is sourced from Group_Report__EmbraceMe__.docx and FBHCI_Individual_Final_Report.pdf.
-import thumbnailImg from './Embrace_Me.png';
+import thumbnailImg from './Project-3.png';
 
 export const projectData = {
   id: "project-3",

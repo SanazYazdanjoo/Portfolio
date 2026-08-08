@@ -1,5 +1,5 @@
 // Content is sourced from UCD4UX_FINAL_PRESENTATION.pdf (deskbird x Bauhaus-Universität Weimar).
-import thumbnailImg from './Ucd4ux.png';
+import thumbnailImg from './Project-2.png';
 
 export const projectData = {
   id: "project-2",
