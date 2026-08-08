@@ -7,6 +7,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
+import { fitMethods } from "../utils/fitMethods";
+
+const EASE = [0.22, 0.61, 0.36, 1];
 
 const DOMAIN_SPINES = {
   attention:     "var(--primary)",
@@ -25,38 +28,53 @@ export function ProjectListRow({ project, index }) {
   const isInProgress = project.status === "in-progress";
   const spine = DOMAIN_SPINES[project.domain] || DOMAIN_SPINES._default;
   const hasImage = project.thumbnail && !imgError;
-  const headline = project.metrics?.[0];
-  const methods = project.methods || project.tags || [];
+  const rawMethods = project.methods || project.tags || [];
+  // Two budgets: the row is narrower below md (no thumbnail, less room)
+  // than at md+ — each renders its own <p> and only one is visible at a time.
+  const methodsNarrow = fitMethods(rawMethods, { max: 3, maxChars: 38 });
+  const methodsWide = fitMethods(rawMethods, { max: 3, maxChars: 64 });
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: reduce ? 0 : 12 }}
+      initial={{ opacity: 0, y: reduce ? 0 : 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: Math.min(index, 8) * 0.05, duration: 0.4 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ delay: Math.min(index, 10) * 0.06, duration: 0.4, ease: EASE }}
     >
       <Link
         to={`/projects/${project.id}`}
+        style={{ "--row-spine": spine }}
         className="group relative flex items-center gap-5 md:gap-8 px-8 md:px-16 py-6 bg-bg border-t border-border
-                   transition-colors duration-300 hover:bg-blush-weak outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                   transition-colors duration-200 hover:bg-primary/[0.03] outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
       >
+        {/* Domain spine — neutral at rest, fills with its color on hover so
+            the color reads as a hover affordance, not a permanent decoration. */}
         <span
           aria-hidden="true"
-          className="absolute left-0 top-0 bottom-0 w-1.5 md:w-2 transition-all duration-300 group-hover:w-3"
-          style={{ backgroundColor: spine }}
+          className="absolute left-0 top-0 bottom-0 w-1 bg-border transition-all duration-200
+                     group-hover:w-1.5 group-hover:bg-[var(--row-spine)]"
         />
 
-        <span className="font-mono text-xs font-bold text-primary-600 tabular-nums shrink-0">
+        <span className="font-mono text-xs font-bold text-primary-600 tabular-nums shrink-0 self-start mt-1">
           {String(index + 1).padStart(2, "0")}
         </span>
 
+        {isInProgress && (
+          <span
+            className="hidden md:inline-block shrink-0 self-start mt-0.5 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.2em] text-primary-600"
+            style={{ border: "1px solid var(--primary-600)" }}
+          >
+            {t("projects.inProgress")}
+          </span>
+        )}
+
         {hasImage && (
-          <div className="hidden sm:block w-28 md:w-36 aspect-video shrink-0 overflow-hidden border border-border">
+          <div className="hidden sm:block w-[220px] md:w-[280px] aspect-[16/10] shrink-0 overflow-hidden border border-border">
             <img
               src={project.thumbnail}
               alt={project.title}
               onError={() => setImgError(true)}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover transition-transform duration-200 ease-smooth group-hover:scale-[1.04]"
             />
           </div>
         )}
@@ -64,22 +82,33 @@ export function ProjectListRow({ project, index }) {
         <div className="flex-1 min-w-0">
           {isInProgress && (
             <span
-              className="inline-block mb-1.5 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.2em] text-primary-600"
+              className="md:hidden inline-block mb-1.5 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.2em] text-primary-600"
               style={{ border: "1px solid var(--primary-600)" }}
             >
               {t("projects.inProgress")}
             </span>
           )}
           <h2
-            className="font-display font-extrabold text-lg md:text-xl uppercase leading-tight text-text
-                       transition-colors duration-300 group-hover:text-primary-600 truncate"
+            className="font-display font-extrabold text-[24px] uppercase leading-tight text-text
+                       line-clamp-2 transition-all duration-200 ease-smooth
+                       group-hover:translate-x-0.5 group-hover:text-primary-600"
           >
             {project.title}
           </h2>
-          {methods.length > 0 && (
-            <p className="mt-1.5 text-xs md:text-sm tracking-wide truncate">
-              {methods.slice(0, 3).map((m, i, arr) => (
-                <span key={m}>
+          {methodsNarrow.length > 0 && (
+            <p className="md:hidden mt-1.5 text-xs tracking-wide line-clamp-1">
+              {methodsNarrow.map((m, i, arr) => (
+                <span key={m} className="whitespace-nowrap">
+                  <span className="font-medium text-text/60">{m}</span>
+                  {i < arr.length - 1 && <span className="mx-2 text-text/25">·</span>}
+                </span>
+              ))}
+            </p>
+          )}
+          {methodsWide.length > 0 && (
+            <p className="hidden md:block mt-1.5 text-sm tracking-wide line-clamp-1">
+              {methodsWide.map((m, i, arr) => (
+                <span key={m} className="whitespace-nowrap">
                   <span className="font-medium text-text/60">{m}</span>
                   {i < arr.length - 1 && <span className="mx-2 text-text/25">·</span>}
                 </span>
@@ -88,23 +117,9 @@ export function ProjectListRow({ project, index }) {
           )}
         </div>
 
-        {headline && (
-          <div className="hidden md:flex w-[150px] shrink-0 flex-col items-end text-right">
-            <span className="text-2xs uppercase tracking-[0.1em] text-text/60">
-              {headline.label}
-            </span>
-            <span
-              className="mt-1 font-display font-extrabold text-lg leading-none text-text
-                         transition-colors duration-300 group-hover:text-primary-600"
-            >
-              {headline.value}
-            </span>
-          </div>
-        )}
-
         <svg
           aria-hidden="true"
-          className="hidden sm:block w-4 h-4 text-primary-600 shrink-0 transition-transform duration-300 group-hover:translate-x-1"
+          className="hidden sm:block w-5 h-5 text-primary-600 shrink-0 transition-transform duration-200 group-hover:translate-x-1.5"
           viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
         >
           <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
