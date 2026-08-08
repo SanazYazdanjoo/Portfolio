@@ -168,7 +168,7 @@ export default function Home() {
           ) : (
             <div className="py-16 text-center">
               <p className="doodle-text m-0 text-3xl text-dim">
-                Case studies are being inked — check back soon.
+                {t("home.projects.empty")}
               </p>
             </div>
           )}
