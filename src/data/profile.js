@@ -5,7 +5,7 @@ export const profileData = data.profile;
 export const getTagData = () => {
   const tagCounts = {};
   
-  // FIX: Changed from .projects to .portfolioHighlights
+  // Tag counts are derived from portfolioHighlights, not a separate projects list
   if (profileData.portfolioHighlights) {
     profileData.portfolioHighlights.forEach(item => {
       // Safety check: only map if the item actually has a tags array

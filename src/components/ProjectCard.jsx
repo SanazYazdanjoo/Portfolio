@@ -1,18 +1,7 @@
-// ─────────────────────────────────────────────────────────────
-// ProjectCard.jsx — full-bleed case-study row ("Ink & Bloom v2").
-//
-// Anatomy:  [domain spine] [mono index] [UPPERCASE Bricolage title
-//           + mid-dot methods]                [headline metric →]
-//
-// Two variants, one component:
-//   status: "published"   → interactive <Link>, hover choreography
-//   status: "coming-soon" → muted, inert, badged. NOT a link.
-//
-// Hover (published): row tints blush-weak, spine widens 8→12px,
-// title + stat shift to coral-600. All on the house easing.
-//
-// Data contract: see projects.js. Never hardcode content here.
-// ─────────────────────────────────────────────────────────────
+// Full-bleed case-study row. Two variants: status "published" renders as an
+// interactive Link with hover styling (row tint, spine widens, title/stat
+// shift to coral-600); "coming-soon" is muted, inert, and badged, not a
+// link. Content comes entirely from projects.js.
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -32,7 +21,7 @@ const fadeUp = {
   show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
 };
 
-// ── Shared sub-parts ─────────────────────────────────────────
+// Shared sub-parts
 
 function IndexNumeral({ index, muted }) {
   return (
@@ -101,7 +90,7 @@ function HeadlineMetric({ metric }) {
   );
 }
 
-// ── Published row ────────────────────────────────────────────
+// Published row
 
 function PublishedRow({ project, index }) {
   return (
@@ -143,7 +132,7 @@ function PublishedRow({ project, index }) {
   );
 }
 
-// ── Coming Soon row — same anatomy, muted and inert ──────────
+// Coming soon row — same anatomy, muted and inert
 
 function ComingSoonRow({ project, index }) {
   return (
@@ -185,7 +174,7 @@ function ComingSoonRow({ project, index }) {
   );
 }
 
-// ── Public component ─────────────────────────────────────────
+// Public component
 
 export default function ProjectCard({ project, index = 0 }) {
   return project.status === "coming-soon" ? (

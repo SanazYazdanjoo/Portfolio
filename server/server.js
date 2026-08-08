@@ -18,9 +18,7 @@ const readData = () => {
   return JSON.parse(rawData);
 };
 
-// ==========================================
-// --- GET ROUTES (Loading data) ---
-// ==========================================
+// GET routes (loading data)
 
 app.get('/api/profile', (req, res) => {
   res.json(readData().profile || {});
@@ -30,9 +28,7 @@ app.get('/api/voluntary', (req, res) => {
   res.json(readData().voluntary || []);
 });
 
-// ==========================================
-// --- PUT ROUTES (Saving data) ---
-// ==========================================
+// PUT routes (saving data)
 
 app.put('/api/profile', (req, res) => {
   const data = readData();

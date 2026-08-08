@@ -1,5 +1,3 @@
-// src/projects/project-1/data.js
-
 import thumbnailImg from './project1.png';
 import challenge from './media/challenge.png';
 import magicDemo from './media/magic-demo.mp4';
@@ -114,7 +112,7 @@ export const projectData = {
     ],
   },
 
-  // ── Process Gallery ──────────────────────────────────────────────────────
+  // Process gallery
   process: [
     {
       phase: "discover",

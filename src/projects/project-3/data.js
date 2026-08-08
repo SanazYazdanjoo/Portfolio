@@ -1,5 +1,4 @@
-// src/projects/project-3/data.js
-// ─── Evidence-locked to Group_Report__EmbraceMe__.docx + FBHCI_Individual_Final_Report.pdf ───
+// Content is sourced from Group_Report__EmbraceMe__.docx and FBHCI_Individual_Final_Report.pdf.
 import thumbnailImg from './Embrace_Me.png';
 
 export const projectData = {
@@ -65,7 +64,7 @@ export const projectData = {
     de: "Bei einer öffentlichen Universitätsausstellung beschrieben Besucher:innen die Interaktion als lustig und überraschend — das 'Aufwachen' des Bots, um zurückzuumarmen, war der Höhepunkt. Die Evaluation zeigte auch ehrliche Designfehler: Manche Nutzer:innen empfanden die pinken, muskulösen Arme als unheimlich und vermieden vollen Kontakt, und ohne klare Signifikanten konnte niemand ohne Anleitung erraten, wie eine Umarmung eingeleitet wird. Meine individuelle Nachbetrachtung wandte Offenhubers Data-Physicalization-Framework an, um die nächste Iteration vorzuschlagen: Emotionserkennungsdaten (Wearables, Stimmungs-Tracking), die auf Armausdehnung und Umarmungsintensität abgebildet werden — ein binär ausgelöster Mechanismus wird so zu einem emotional adaptiven Interface.",
   },
 
-  // ── Process Gallery ──────────────────────────────────────────────────────
+  // Process gallery
   process: [
     {
       phase: "discover",

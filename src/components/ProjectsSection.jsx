@@ -1,16 +1,9 @@
-// ─────────────────────────────────────────────────────────────
-// ProjectsSection.jsx — the "Case Studies" muscle on Home.
-//
-// - id="projects" → /#projects nav anchor scrolls here
-//   (scroll-mt offsets the sticky Nav so the title isn't hidden)
-// - Full-bleed stacked rows: no gaps, each row carries its own
-//   top hairline (per the Ink & Bloom layout rules)
-// - Published rows first, coming-soon sinks to the bottom
-//   (ordering lives in projects.js, not here)
-// - Empty state: if there are no published projects at all,
-//   a Caveat handwritten note instead of a blank void
-// - Stagger fade-up on scroll-in, house easing, once only
-// ─────────────────────────────────────────────────────────────
+// The "Case Studies" section on Home. id="projects" is the /#projects nav
+// anchor; scroll-mt offsets the sticky nav so the title isn't hidden. Rows
+// are full-bleed with no gaps, and each carries its own top hairline.
+// Published projects render first, coming-soon last — ordering lives in
+// projects.js, not here. If there are no published projects, a handwritten
+// note replaces the list.
 import React from "react";
 import { motion } from "framer-motion";
 import { sortedProjects } from "../data/projects";

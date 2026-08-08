@@ -1,5 +1,3 @@
-// src/hooks/useLocalizedProfile.js
-// ─── Localized Profile Hook ────────────────────────────────────────────────────
 // Resolves bilingual fields in profile.js to the current language.
 // Handles nested objects and arrays recursively.
 //
