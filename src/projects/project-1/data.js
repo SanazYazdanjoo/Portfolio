@@ -1,4 +1,4 @@
-import thumbnailImg from './project1.png';
+import thumbnailImg from './Project-1.png';
 import challenge from './media/challenge.png';
 import magicDemo from './media/magic-demo.mp4';
 import ninjaDemo from './media/ninja-demo.mp4';
