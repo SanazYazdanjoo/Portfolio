@@ -2,23 +2,40 @@
 // chronologically-grouped chips; see src/data/career.js.
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.06 } },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.22, 0.61, 0.36, 1] } },
+};
+
+const itemReduced = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { duration: 0 } },
+};
 
 // Bio — one calm reading column
 export function AboutBio({ data }) {
   const bioParagraphs = data.bioParagraphs || [];
+  const reduce = useReducedMotion();
 
   return (
     <motion.div
       className="space-y-6"
-      initial={{ opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.5 }}
+      variants={container}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, margin: "-10%" }}
     >
       {bioParagraphs.map((para, i) => (
-        <p
+        <motion.p
           key={i}
+          variants={reduce ? itemReduced : item}
           className={
             i === 0
               ? "text-[15px] md:text-base leading-[1.85] text-text"
@@ -26,7 +43,7 @@ export function AboutBio({ data }) {
           }
         >
           {para}
-        </p>
+        </motion.p>
       ))}
     </motion.div>
   );
