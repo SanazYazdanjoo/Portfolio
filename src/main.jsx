@@ -72,6 +72,13 @@ const router = createBrowserRouter([
 ]);
 
 
+// A colophon for anyone who pops the console instead of scrolling the footer.
+console.log(
+  "%cChecking under the hood?%c\nBuilt from scratch with React, Tailwind CSS & Framer Motion.\nSource: https://github.com/SanazYazdanjoo/Portfolio",
+  "font-weight: bold; font-size: 13px; color: #d3a22e;",
+  "font-weight: normal; color: inherit;"
+);
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <LanguageProvider>

@@ -145,6 +145,8 @@ const de = {
   "footer.cvLink": "Lebenslauf (CV)",
   "footer.githubLink": "Mein GitHub",
   "footer.legalAriaLabel": "Rechtliches",
+  "footer.colophon": "Von Grund auf entworfen & entwickelt — React, Tailwind CSS, Framer Motion.",
+  "footer.viewSource": "Quellcode ansehen",
 
   // Scroll indicator
   "scroll.hero": "Start",

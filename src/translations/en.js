@@ -148,6 +148,8 @@ const en = {
   "footer.cvLink": "Curriculum Vitae (CV)",
   "footer.githubLink": "My GitHub",
   "footer.legalAriaLabel": "Legal",
+  "footer.colophon": "Designed & engineered from scratch — React, Tailwind CSS, Framer Motion.",
+  "footer.viewSource": "View source",
 
   // Scroll indicator
   "scroll.hero": "Hero",
