@@ -1,6 +1,6 @@
 // Notebook-tag chips. Ink outlines + soft washes — no heavy solid fills.
 // Text always sits at AA contrast: ink or the -600 accent shades.
-export function Badge({ tone = "accent", children }) {
+export function Badge({ tone = "accent", children, className = "" }) {
   const tones = {
     accent:    "bg-blush-weak text-primary-600 border border-primary/25",
     rose:      "bg-blush-weak text-secondary-600 border border-secondary/25",
@@ -12,7 +12,7 @@ export function Badge({ tone = "accent", children }) {
   return (
     <span
       className={`inline-flex items-center rounded-full px-3 py-1
-                  text-xs font-semibold tracking-wide ${tones[tone] || tones.accent}`}
+                  text-xs font-semibold tracking-wide ${tones[tone] || tones.accent} ${className}`}
     >
       {children}
     </span>
