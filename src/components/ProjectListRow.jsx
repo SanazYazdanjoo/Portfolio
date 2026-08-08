@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
-import { fitMethods } from "../utils/fitMethods";
+import { SkillTagRow } from "./SkillTagRow";
 
 const EASE = [0.22, 0.61, 0.36, 1];
 
@@ -28,11 +28,7 @@ export function ProjectListRow({ project, index }) {
   const isInProgress = project.status === "in-progress";
   const spine = DOMAIN_SPINES[project.domain] || DOMAIN_SPINES._default;
   const hasImage = project.thumbnail && !imgError;
-  const rawMethods = project.methods || project.tags || [];
-  // Two budgets: the row is narrower below md (no thumbnail, less room)
-  // than at md+ — each renders its own <p> and only one is visible at a time.
-  const methodsNarrow = fitMethods(rawMethods, { max: 3, maxChars: 38 });
-  const methodsWide = fitMethods(rawMethods, { max: 3, maxChars: 64 });
+  const tags = project.tags || [];
 
   return (
     <motion.div
@@ -95,26 +91,7 @@ export function ProjectListRow({ project, index }) {
           >
             {project.title}
           </h2>
-          {methodsNarrow.length > 0 && (
-            <p className="md:hidden mt-1.5 text-xs tracking-wide line-clamp-1">
-              {methodsNarrow.map((m, i, arr) => (
-                <span key={m} className="whitespace-nowrap">
-                  <span className="font-medium text-text/60">{m}</span>
-                  {i < arr.length - 1 && <span className="mx-2 text-text/25">·</span>}
-                </span>
-              ))}
-            </p>
-          )}
-          {methodsWide.length > 0 && (
-            <p className="hidden md:block mt-1.5 text-sm tracking-wide line-clamp-1">
-              {methodsWide.map((m, i, arr) => (
-                <span key={m} className="whitespace-nowrap">
-                  <span className="font-medium text-text/60">{m}</span>
-                  {i < arr.length - 1 && <span className="mx-2 text-text/25">·</span>}
-                </span>
-              ))}
-            </p>
-          )}
+          <SkillTagRow tags={tags} className="mt-2" />
         </div>
 
         <svg
