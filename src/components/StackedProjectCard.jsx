@@ -1,4 +1,4 @@
-// The content column (index → title → methods → CTA) spans the full row
+// The content column (index → title → skill tags → CTA) spans the full row
 // width — no right-hand stat column stealing space from the title. The
 // chevron that signals the hover-expand panel is absolutely positioned so
 // it costs the title zero layout width, and stays aria-hidden since the
@@ -9,6 +9,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion, useInView, animate as animateValue } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
+import { SkillTagRow } from "./SkillTagRow";
 
 function Field({ label, children }) {
   return (
@@ -57,7 +58,7 @@ export function StackedProjectCard({ project, index }) {
   const isInProgress = project.status === "in-progress";
   const hasImage = project.thumbnail && !imgError;
   const metrics = project.metrics || [];
-  const methods = project.methods || project.tags || [];
+  const tags = project.tags || [];
 
   return (
     <motion.div
@@ -122,17 +123,7 @@ export function StackedProjectCard({ project, index }) {
                 )}
               </div>
 
-              {/* Methods — quiet ink, mid-dot separated. */}
-              {methods.length > 0 && (
-                <p className="mt-3 text-[15px] tracking-wide">
-                  {methods.slice(0, 4).map((m, i, arr) => (
-                    <span key={m}>
-                      <span className="font-medium text-text-meta">{m}</span>
-                      {i < arr.length - 1 && <span className="mx-2 text-text/30">·</span>}
-                    </span>
-                  ))}
-                </p>
-              )}
+              <SkillTagRow tags={tags} className="mt-3" />
 
               {/* Explicit CTA — same affordance on every row, works on touch */}
               <p
