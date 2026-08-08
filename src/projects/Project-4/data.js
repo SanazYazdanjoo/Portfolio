@@ -37,6 +37,9 @@ export const projectData = {
     'Public Sector',
     'Accessibility',
     'GDPR / DSGVO',
+    'Requirements Traceability',
+    'Persona Development',
+    'Automated Testing (Vitest)',
   ],
   thumbnail: thumbnailImg,
   heroImage: '/projects/project-4/hero-overview-uml.png', // TODO: export from Overview UML

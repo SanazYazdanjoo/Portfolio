@@ -22,7 +22,7 @@ export const projectData = {
     de: "HCI-Researcherin & Prototyping-Engineer (3-köpfiges Team)",
   },
   timeline: "SoSe 2023",
-  tags: ["Soft Robotics", "Human-Robot Interaction", "Data Physicalization", "Shape-Changing Interfaces", "Arduino"],
+  tags: ["Soft Robotics", "Human-Robot Interaction", "Arduino", "Physical Prototyping", "Sensor Integration", "Material Testing", "Data Physicalization", "Shape-Changing Interfaces", "Public Exhibition Research"],
   thumbnail: thumbnailImg,
   heroImage: thumbnailImg,
 
