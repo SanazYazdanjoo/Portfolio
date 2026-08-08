@@ -18,7 +18,7 @@ export const projectData = {
     en: "Gaze-Assisted Input in Dual-Display Environments",
     de: "Blickgestützte Eingabe in Dual-Display-Umgebungen",
   },
-  tags: ["TypeScript Custom App", "Quantitative UX", "Eye-Tracking", "Real-Time API", "Mixed-Methods"],
+  tags: ["TypeScript", "React", "Python", "Eye-Tracking", "Real-Time API Integration", "Quantitative UX Research", "Experimental Design", "Statistical Analysis (ANOVA)", "SUS Evaluation", "Mixed-Methods Research"],
 
   subtitle: {
     en: "A Comparative Evaluation of MAGIC Pointing, Ninja Cursors, and a Mouse Baseline",
