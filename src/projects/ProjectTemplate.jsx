@@ -122,7 +122,7 @@ function PullQuote({ text }) {
   if (!text) return null;
   return (
     <blockquote className="hidden xl:block border-l-2 border-primary-600 pl-5 pt-1">
-      <p className="font-display text-[22px] leading-snug text-text/80">{text}</p>
+      <p className="font-hand text-[28px] leading-snug text-text/80">{text}</p>
     </blockquote>
   );
 }
