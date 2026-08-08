@@ -19,7 +19,7 @@ export default [
       "no-undef": "error",
       // Automatic JSX runtime: `import React` is legal but unused
       "no-unused-vars": ["error", { varsIgnorePattern: "^React$", argsIgnorePattern: "^_" }],
-      // New compiler-era rules: real advice, but not tonight's blockers
+      // Newer React compiler rule; kept as a warning rather than an error
       "react-hooks/set-state-in-effect": "warn",
     },
   },

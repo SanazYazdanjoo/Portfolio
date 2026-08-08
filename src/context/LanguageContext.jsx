@@ -1,5 +1,3 @@
-// src/context/LanguageContext.jsx
-// ─── i18n Context ──────────────────────────────────────────────────────────────
 // Lightweight translation system — no external dependencies.
 // Stores language preference in localStorage, defaults to browser language.
 
@@ -72,7 +70,6 @@ export function LanguageProvider({ children }) {
   );
 }
 
-// ─── Hook ──────────────────────────────────────────────────────────────────────
 export function useTranslation() {
   const context = useContext(LanguageContext);
   if (!context) {

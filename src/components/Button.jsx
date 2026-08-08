@@ -1,4 +1,3 @@
-// src/components/Button.jsx
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -49,7 +48,7 @@ const ArrowIcon = ({ className = "" }) => (
   </svg>
 );
 
-// 1. ADDED: Standard Button export to satisfy the import and fix the Vercel crash
+// Plain text/link button, used where the doodle styling of SolidButton isn't wanted.
 export const Button = ({ children, to, href, className = "", ...props }) => {
   const baseStyles = "inline-block text-text hover:text-primary transition-colors font-medium";
   const combinedClasses = `${baseStyles} ${className}`;
@@ -60,7 +59,7 @@ export const Button = ({ children, to, href, className = "", ...props }) => {
   return <button className={combinedClasses} {...props}>{children}</button>;
 };
 
-// 2. Your original SolidButton with the doodle-text and SketchOval
+// Primary button with doodle-text styling and the hand-drawn SketchOval on hover.
 export const SolidButton = ({ children, to, href, className = "", ...props }) => {
   const [isHovered, setIsHovered] = useState(false);
 

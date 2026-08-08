@@ -1,34 +1,14 @@
-// src/projects/ProjectTemplate.jsx
-// ─────────────────────────────────────────────────────────────────────────────
-// QUIET EDITION — the detail page finally speaks the same language as
-// Home v4 / About / StackedProjectCard. What changed and why:
+// Section headings follow one pattern: a border-t divider, a numbered
+// kicker in primary-600, then a font-display heading in ink, matching the
+// rhythm used elsewhere on the site. The process rail uses numbered
+// micro-labels on each card rather than a color-coded phase legend. Header
+// tags render as a quiet, mid-dot-separated eyebrow line, and methods as a
+// plain ink list, rather than chips. Metrics are font-display ink, with the
+// kicker as the only coral accent. There is no sidebar progress bar — the
+// numbered active state in the nav communicates position instead.
 //
-//   1. ONE HEADING SYSTEM, IN INK: font-hand script headings are gone.
-//      Every section = border-t divider → numbered kicker (primary-600)
-//      → font-display heading in ink. Same rhythm as Home's sections.
-//      The script font stays available for ONE annotation moment if you
-//      ever want it — but it no longer titles six sections.
-//
-//   2. MONOCHROME PROCESS RAIL: the 4-color phase legend (sky/amber/
-//      coral/emerald) is deleted. Phases are now numbered micro-labels in
-//      ink on each card. Four rainbow chips proved nothing; the card
-//      content does.
-//
-//   3. ONE CHIP ROW → ZERO: header tags become a quiet eyebrow line
-//      (mid-dot separated, uppercase micro-type). Methods render as the
-//      same quiet ink list used on StackedProjectCard — proof, not
-//      decoration. No more coral chip wall.
-//
-//   4. METRICS IN INK: "Study at a Glance" numerals are font-display ink,
-//      matching the card's stat fix. The kicker stays the only coral.
-//
-//   5. LESS CHROME: sidebar progress bar (Start/End) removed — the
-//      numbered active state already communicates position. Sticky
-//      surfaces reduced = fewer print/screenshot edge cases.
-//
-// Contract unchanged: default export ProjectTemplate({ meta, children }).
-// All data flows from src/projects/*/data.js — nothing hardcoded.
-// ─────────────────────────────────────────────────────────────────────────────
+// Default export is ProjectTemplate({ meta, children }). All data comes
+// from src/projects/*/data.js.
 
 import React, { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
@@ -37,8 +17,7 @@ import SectionMedia from "./SectionMedia";
 import { useTranslation } from "../context/LanguageContext";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 
-// ─── Phase config — monochrome, numbered ─────────────────────────────────────
-// Labels resolved via t() at render time (see usage below) — keys only here.
+// Phase config. Labels are resolved via t() at render time; only keys live here.
 const PHASE_META = {
   discover: { labelKey: "project.phase.discover", number: "01" },
   define:   { labelKey: "project.phase.define",   number: "02" },
@@ -46,8 +25,7 @@ const PHASE_META = {
   deliver:  { labelKey: "project.phase.deliver",  number: "04" },
 };
 
-// ─── Content section definitions ─────────────────────────────────────────────
-// `labelKey` drives the sidebar/mobile-pill text (short form).
+// Content section definitions. `labelKey` drives the sidebar/mobile-pill text (short form).
 const SECTIONS = [
   { id: "process",      labelKey: "project.sidebar.process",      dataKey: "process"      },
   { id: "challenge",    labelKey: "project.sidebar.challenge",    dataKey: "challenge"    },
@@ -60,10 +38,10 @@ const SECTIONS = [
   { id: "conclusion",   labelKey: "project.sidebar.conclusion",   dataKey: "conclusion"   },
 ];
 
-// ─── Section head — THE one heading pattern, used by every section ──────────
-// The <button> nests INSIDE the <h2> rather than the reverse — <h2> is not
-// permitted content inside <button>, and this is the pattern the ARIA
-// Authoring Practices accordion example uses.
+// Section head — the one heading pattern, used by every section. The
+// <button> nests inside the <h2> rather than the reverse: <h2> is not
+// permitted content inside <button>, and this matches the ARIA Authoring
+// Practices accordion example.
 function CollapsibleSectionHead({ id, number, kicker, heading, isOpen, onToggle }) {
   return (
     <>
@@ -91,7 +69,7 @@ function CollapsibleSectionHead({ id, number, kicker, heading, isOpen, onToggle 
   );
 }
 
-// ─── Chevron — rotates open/closed, no separate open/closed icon needed ─────
+// Chevron — rotates open/closed; no separate open/closed icon needed.
 function Chevron({ isOpen }) {
   return (
     <svg
@@ -109,16 +87,16 @@ function Chevron({ isOpen }) {
   );
 }
 
-// ─── Content section wrapper — divider → clickable head → collapsible body ──
-// Closed by default (controlled from the parent's openSections set). The body
-// height is animated with the CSS grid 0fr/1fr trick rather than measuring
-// pixel heights in JS, so it works for arbitrary content — text, figures,
-// the metrics strip — without a resize observer.
+// Content section wrapper: divider, clickable head, collapsible body. Open
+// state is controlled by the parent's openSections set. Body height is
+// animated with the CSS grid 0fr/1fr trick rather than measured in JS, so
+// it works for arbitrary content — text, figures, the metrics strip —
+// without a resize observer.
 //
-// Content stays mounted at all times (never conditionally rendered): that
-// keeps in-page find, screen-reader access via the section id, and print
-// output correct regardless of open/closed state. `[data-collapsible-body]`
-// is force-opened in print CSS (src/index.css) for exactly that reason.
+// Content stays mounted at all times rather than conditionally rendered, so
+// in-page find, screen-reader access via the section id, and print output
+// stay correct regardless of open/closed state. `[data-collapsible-body]`
+// is force-opened in print CSS (src/index.css) for the same reason.
 function ContentSection({ id, number, kicker, heading, isOpen, onToggle, children }) {
   const prefersReducedMotion = useReducedMotion();
 
@@ -155,7 +133,7 @@ function ContentSection({ id, number, kicker, heading, isOpen, onToggle, childre
   );
 }
 
-// ─── Process card — monochrome ───────────────────────────────────────────────
+// Process card
 function ProcessCard({ item, index }) {
   const { t } = useTranslation();
   const [expanded, setExpanded] = useState(false);
@@ -208,7 +186,7 @@ function ProcessCard({ item, index }) {
           {item.annotation}
         </p>
 
-        {/* Insight — progressive disclosure, kept */}
+        {/* Insight — progressive disclosure */}
         {item.insight && (
           <div className="mt-4 pt-3 border-t border-border">
             <button
@@ -254,7 +232,7 @@ function ProcessCard({ item, index }) {
   );
 }
 
-// ─── Process gallery — horizontal snap rail, legend removed ──────────────────
+// Process gallery — horizontal snap rail
 function ProcessGallerySection({ items, number, isOpen, onToggle }) {
   const { t } = useTranslation();
   if (!items || items.length === 0) return null;
@@ -299,7 +277,7 @@ function ProcessGallerySection({ items, number, isOpen, onToggle }) {
   );
 }
 
-// ─── Sidebar nav — numbers + labels, progress bar removed ────────────────────
+// Sidebar nav — numbers and labels
 function SidebarNav({ sections, activeId, onNavigate, allOpen, onToggleAll }) {
   const { t } = useTranslation();
   return (
@@ -307,7 +285,7 @@ function SidebarNav({ sections, activeId, onNavigate, allOpen, onToggleAll }) {
       <Link
         to="/projects"
         className="flex items-center gap-2 text-2xs font-black uppercase tracking-[0.2em]
-                   text-text/40 hover:text-primary-600 transition-colors duration-200 mb-8 group"
+                   text-dim hover:text-primary-600 transition-colors duration-200 mb-8 group"
       >
         <svg className="w-3 h-3 transform group-hover:-translate-x-0.5 transition-transform"
           fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
@@ -327,7 +305,7 @@ function SidebarNav({ sections, activeId, onNavigate, allOpen, onToggleAll }) {
                   transition-colors duration-200 relative border-l-2
                   ${isActive
                     ? "border-primary text-primary-600"
-                    : "border-transparent text-text/40 hover:text-text/80"}`}
+                    : "border-transparent text-dim hover:text-text/80"}`}
               >
                 <span className="font-mono text-2xs font-bold tabular-nums shrink-0">
                   {String(i + 1).padStart(2, "0")}
@@ -354,7 +332,7 @@ function SidebarNav({ sections, activeId, onNavigate, allOpen, onToggleAll }) {
   );
 }
 
-// ─── Mobile pill bar ──────────────────────────────────────────────────────────
+// Mobile pill bar
 function MobilePillBar({ sections, activeId, onNavigate }) {
   const { t } = useTranslation();
   return (
@@ -371,7 +349,7 @@ function MobilePillBar({ sections, activeId, onNavigate }) {
                 transition-colors duration-200
                 ${isActive
                   ? "bg-primary text-white"
-                  : "text-text/40 hover:text-text border border-border"
+                  : "text-dim hover:text-text border border-border"
                 }`}
             >
               {t(section.labelKey)}
@@ -383,13 +361,13 @@ function MobilePillBar({ sections, activeId, onNavigate }) {
   );
 }
 
-// ─── Metrics strip — ink numerals, same fix as StackedProjectCard ────────────
+// Metrics strip — ink numerals, matching StackedProjectCard
 function MetricsStrip({ metrics }) {
   const { t } = useTranslation();
   if (!metrics || metrics.length === 0) return null;
   return (
     <div className="mt-8 border-t border-b border-border py-6">
-      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-text/40 mb-5">
+      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-dim mb-5">
         {t("project.results.glance")}
       </p>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-6 gap-x-6">
@@ -408,7 +386,7 @@ function MetricsStrip({ metrics }) {
   );
 }
 
-// ─── Quiet meta field (header) ───────────────────────────────────────────────
+// Quiet meta field (header)
 function MetaField({ label, children }) {
   return (
     <div>
@@ -420,16 +398,13 @@ function MetaField({ label, children }) {
   );
 }
 
-// ─── Research phase status ───────────────────────────────────────────────────
-// The honest "what's done / what's still open" block. Showing unfinished
-// phases as unfinished is the point, not an omission — a method you can only
-// see once it has produced a polished result isn't a method.
-//
-// Status is always carried by a TEXT LABEL, never by colour alone (WCAG 1.4.1).
-// Colour choice is deliberate: completed work sits in quiet ink, live work sits
-// in the signature primary — so the eye lands on what's moving, not what's done.
-// `highlight` (gold) is intentionally unused here; per the token comments it is
-// a highlighter wash, not a small-text colour.
+// Research phase status. Shows unfinished phases as unfinished rather than
+// omitting them, since a method that's only visible once it has produced a
+// polished result isn't a method. Status is always carried by a text
+// label, never by color alone (WCAG 1.4.1): completed work sits in quiet
+// ink, live work in the signature primary, so the eye lands on what's
+// moving. `highlight` (gold) is intentionally unused here — per the token
+// comments it is a highlighter wash, not a small-text color.
 const PHASE_STATUS = {
   complete: {
     labelKey: "project.status.complete",
@@ -511,7 +486,7 @@ function ResearchPhases({ phases, intro, number, isOpen, onToggle }) {
   );
 }
 
-// ─── Main template ────────────────────────────────────────────────────────────
+// Main template
 export default function ProjectTemplate({ meta: rawMeta, children }) {
   const prefersReducedMotion = useReducedMotion();
   const { t } = useTranslation();
@@ -633,7 +608,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
           </aside>
 
           <div className="flex-1 min-w-0">
-            {/* ── Header ── */}
+            {/* Header */}
             <motion.header
               className="mb-12"
               initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
@@ -675,7 +650,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                 </p>
               )}
 
-              {/* ONE meta block — Role · Timeline · Methods, all quiet ink */}
+              {/* Meta block — Role, Timeline, Methods, all quiet ink */}
               <div className="border-t border-b border-border py-5 space-y-5">
                 <div className="flex flex-wrap gap-x-14 gap-y-4">
                   {meta.role && (
@@ -705,7 +680,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
               </div>
             </motion.header>
 
-            {/* ── Mobile pill bar ── */}
+            {/* Mobile pill bar */}
             <MobilePillBar sections={activeSections} activeId={activeId} onNavigate={navigateToSection} />
 
             <article className="min-w-0">
@@ -846,7 +821,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
             {/* Escape hatch for per-project custom content */}
             {children}
 
-            {/* ── Footer back link ── */}
+            {/* Footer back link */}
             <div className="pt-10 border-t border-border">
               <Link
                 to="/projects"

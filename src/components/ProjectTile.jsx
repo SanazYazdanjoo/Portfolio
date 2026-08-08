@@ -1,10 +1,7 @@
-// src/components/ProjectTile.jsx
-// ─────────────────────────────────────────────────────────────────────────────
-// Grid-view counterpart to StackedProjectCard — same data, same domain-spine
+// Grid-view counterpart to StackedProjectCard: same data and domain-spine
 // language, but a self-contained tile instead of a full-bleed row. Used by
-// the Projects page's 2-column "tile view" so every case study is visible
-// at a glance without hover-to-expand.
-// ─────────────────────────────────────────────────────────────────────────────
+// the Projects page's 2-column tile view so every case study is visible at
+// a glance without hover-to-expand.
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
@@ -26,6 +23,7 @@ export function ProjectTile({ project, index }) {
   if (!project) return null;
 
   const isComingSoon = project.status === "coming-soon";
+  const isInProgress = project.status === "in-progress";
   const spine = DOMAIN_SPINES[project.domain] || DOMAIN_SPINES._default;
   const hasImage = project.thumbnail && !imgError;
   const methods = project.methods || project.tags || [];
@@ -76,6 +74,14 @@ export function ProjectTile({ project, index }) {
               style={{ border: "1px solid var(--border)" }}
             >
               {t("projects.comingSoon")}
+            </span>
+          )}
+          {isInProgress && (
+            <span
+              className="shrink-0 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.2em] text-primary-600"
+              style={{ border: "1px solid var(--primary-600)" }}
+            >
+              {t("projects.inProgress")}
             </span>
           )}
         </div>

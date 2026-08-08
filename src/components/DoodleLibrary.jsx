@@ -1,22 +1,16 @@
-// src/components/DoodleLibrary.jsx
 import React from 'react';
 import { motion, useReducedMotion } from "framer-motion";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// CircleDoodle
-//
-// Draws a wobbly oval clockwise using Framer Motion pathLength (0 → 1).
+// CircleDoodle draws a wobbly oval clockwise using Framer Motion pathLength (0 -> 1).
 //
 // Props:
-//   isAnimated  — true  → draw-in animation plays (hover state)
-//                 false → full circle appears instantly (active state)
-//   drawKey     — change this value to force a full redraw from scratch.
+//   isAnimated  - true  -> draw-in animation plays (hover state)
+//                 false -> full circle appears instantly (active state)
+//   drawKey     - changing this value forces a full redraw from scratch;
 //                 Nav passes hoveredPath so each new hover restarts cleanly.
-//   className   — colour + size classes from parent
-// ─────────────────────────────────────────────────────────────────────────────
+//   className   - colour + size classes from parent
 
-// ── Clockwise wobbly oval ────────────────────────────────────────────────────
-// Starts at top-centre (52,4), arcs RIGHT → BOTTOM → LEFT → back to top.
+// Clockwise wobbly oval, starting at top-centre (52,4), arcing right -> bottom -> left -> back to top.
 // In SVG screen-coords (Y increases downward), this traces clockwise.
 // Slight point-by-point wobble makes it feel hand-drawn rather than perfect.
 const OVAL_PATH =
@@ -40,12 +34,12 @@ export const CircleDoodle = ({
       {...props}
     >
       {/*
-        The key here is crucial:
-        - When isAnimated flips true (new hover), drawKey changes
-          → React remounts this element → pathLength resets to 0
-          → the draw-in animation fires fresh every time
-        - When isAnimated=false (active), key is stable
-          → pathLength jumps to 1 instantly (duration 0)
+        The key controls whether the draw-in animation restarts:
+        - When isAnimated is true (new hover), drawKey changes, so React
+          remounts this element and pathLength resets to 0, replaying the
+          draw-in animation.
+        - When isAnimated is false (active), key is stable, so pathLength
+          jumps to 1 instantly (duration 0).
       */}
       <motion.path
         key={isAnimated ? `draw-${drawKey}` : "static"}
@@ -55,7 +49,7 @@ export const CircleDoodle = ({
         strokeLinecap="round"
         fill="none"
 
-        // Always start from nothing so the draw feels intentional
+        // Start from nothing so the draw-in reads as intentional
         initial={{ pathLength: 0, opacity: 0 }}
 
         animate={{
@@ -69,7 +63,7 @@ export const CircleDoodle = ({
             : {
                 pathLength: {
                   duration: 0.55,
-                  ease: [0.22, 0.61, 0.36, 1],        // ease-out-cubic — fast start, gentle finish
+                  ease: [0.22, 0.61, 0.36, 1],        // ease-out-cubic: fast start, gentle finish
                 },
                 opacity: { duration: 0.01 },          // appear immediately, then draw
               }
@@ -79,9 +73,7 @@ export const CircleDoodle = ({
   );
 };
 
-// ─────────────────────────────────────────────────────────────────────────────
 // FlowerDoodle
-// ─────────────────────────────────────────────────────────────────────────────
 export const FlowerDoodle = ({ className = "", ...props }) => (
   <img
     src="/assets/flower-doodle.png"
@@ -91,9 +83,7 @@ export const FlowerDoodle = ({ className = "", ...props }) => (
   />
 );
 
-// ─────────────────────────────────────────────────────────────────────────────
 // ScribbleUnderline
-// ─────────────────────────────────────────────────────────────────────────────
 export const ScribbleUnderline = ({ className = "text-primary", ...props }) => (
   <svg viewBox="0 0 100 20" fill="none" preserveAspectRatio="none" className={className} style={{ opacity: 0 }} {...props}>
     <path
@@ -105,9 +95,7 @@ export const ScribbleUnderline = ({ className = "text-primary", ...props }) => (
   </svg>
 );
 
-// ─────────────────────────────────────────────────────────────────────────────
 // VerticalMarginLine
-// ─────────────────────────────────────────────────────────────────────────────
 export const VerticalMarginLine = ({ className = "text-border opacity-40" }) => (
   <div className={`vertical-line fixed left-4 md:left-8 top-0 bottom-0 w-4 pointer-events-none z-[60] ${className}`}>
     <svg width="100%" height="100%" viewBox="0 0 20 1000" preserveAspectRatio="none">
@@ -122,9 +110,7 @@ export const VerticalMarginLine = ({ className = "text-border opacity-40" }) => 
   </div>
 );
 
-// ─────────────────────────────────────────────────────────────────────────────
 // HorizontalMarginLine
-// ─────────────────────────────────────────────────────────────────────────────
 export const HorizontalMarginLine = ({ isVisible = true, className = "text-primary opacity-40" }) => (
   <motion.div
     initial={{ opacity: 0 }}
@@ -143,9 +129,7 @@ export const HorizontalMarginLine = ({ isVisible = true, className = "text-prima
   </motion.div>
 );
 
-// ─────────────────────────────────────────────────────────────────────────────
-// SpeckleCluster  ─ "Research Affinity Board"
-// ─────────────────────────────────────────────────────────────────────────────
+// SpeckleCluster — "Research Affinity Board"
 const shift = (x, y, amount) => ({
   x: +(((x - 50) * amount).toFixed(2)),
   y: +(((y - 50) * amount).toFixed(2)),
