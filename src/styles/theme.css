@@ -36,6 +36,14 @@
     --color-coral-500: #e43d12;
     --color-coral-600: #b93110; /* AA-safe for small text on paper/white */
     --color-coral-400: #ff6a45; /* dark-mode accent */
+    --color-coral-700: #d9481f; /* deep coral — case-study spine accent */
+
+    /* Ink — meta/method text, AA on white (~5.7:1) without going full ink-900 */
+    --color-ink-700: #57534a;
+
+    /* Paper — warm off-white for the About/Bridge alternate surface band */
+    --color-paper-50: #faf8f4;
+    --color-dark-surface-warm: #1c1917;
 
     /* Rose — the feminine whisper (#D6536D) */
     --color-rose-500: #d6536d;
@@ -132,6 +140,9 @@
     --highlight: var(--color-gold-500);
     --highlight-weak: var(--color-gold-100);
     --print-primary: var(--color-print-primary);
+    --accent-spine: var(--color-coral-700);
+    --text-meta: var(--color-ink-700);
+    --surface-warm: var(--color-paper-50);
 
     /* Legacy aliases — old components keep working without edits */
     --peach: var(--color-blush-100);   /* was peach section bands → blush wash */
@@ -192,6 +203,10 @@
       --text-display: var(--color-white);
       --text-muted: var(--color-dark-text-muted);
       --text-dim: var(--color-dark-text-muted);
+
+      --accent-spine: var(--color-coral-400);
+      --text-meta: var(--color-dark-text-muted);
+      --surface-warm: var(--color-dark-surface-warm);
     }
   }
 }

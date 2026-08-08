@@ -12,7 +12,7 @@ export function Footer({ data }) {
 
   return (
     <footer className="relative border-t border-border/20 bg-bg no-print">
-      <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 pt-12 pb-10">
+      <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8 pt-12 pb-10">
 
         {/* Minimalist HR grid */}
         {!isContactPage && (

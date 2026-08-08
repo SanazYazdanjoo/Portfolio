@@ -11,10 +11,24 @@
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
-export function InkHighlight({ children, tone = "gold", animate = true, className = "" }) {
+export function InkHighlight({
+  children,
+  tone = "gold",
+  animate = true,
+  className = "",
+  delay = 0.15,
+  duration = 0.5,
+  triggerOnLoad = false,
+}) {
   const prefersReducedMotion = useReducedMotion();
   const color = tone === "rose" ? "var(--blush)" : "var(--highlight)";
   const shouldAnimate = animate && !prefersReducedMotion;
+
+  // triggerOnLoad: fire once on mount (e.g. above-the-fold hero) instead of
+  // waiting for the viewport intersection — same visual sweep, different cue.
+  const revealProps = triggerOnLoad
+    ? { animate: { scaleX: 1 } }
+    : { whileInView: { scaleX: 1 }, viewport: { once: true, margin: "-60px" } };
 
   return (
     <span className={`relative inline whitespace-normal ${className}`}>
@@ -25,9 +39,8 @@ export function InkHighlight({ children, tone = "gold", animate = true, classNam
         preserveAspectRatio="none"
         className="absolute left-[-0.15em] right-[-0.15em] bottom-[-0.06em] h-[0.72em] w-[calc(100%+0.3em)] -z-10 -rotate-[0.6deg]"
         initial={shouldAnimate ? { scaleX: 0 } : { scaleX: 1 }}
-        whileInView={{ scaleX: 1 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.5, ease: [0.22, 0.61, 0.36, 1], delay: 0.15 }}
+        {...revealProps}
+        transition={{ duration: shouldAnimate ? duration : 0, ease: [0.22, 0.61, 0.36, 1], delay }}
         style={{ transformOrigin: "left center" }}
       >
         {/* Wobbly quad path = marker stroke, not a rectangle */}

@@ -136,67 +136,91 @@ function CareerArcFull({ steps }) {
 
 // COMPACT — homepage strip (numeral · label · years, arrows between)
 //
-// All three steps use the same label treatment. `no-underline` and
-// `border-b-0` guard against inherited link/underline styling.
+// A proper container: three equal-width columns spanning the full content
+// width, with a thin connector line running behind the arrows at the
+// numeral baseline. The line draws itself left-to-right on scroll-in
+// (stroke-dashoffset), and each step fades in as the line "reaches" it.
+// `no-underline` and `border-b-0` guard against inherited link styling.
 function CareerArcCompact({ steps }) {
   const prefersReducedMotion = useReducedMotion();
+  const reduce = prefersReducedMotion;
 
   const fade = (delay = 0) => ({
-    initial: prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6, delay, ease: [0.22, 0.61, 0.36, 1] },
+    initial: reduce ? { opacity: 1 } : { opacity: 0, y: 16 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, margin: "-10%" },
+    transition: { duration: reduce ? 0 : 0.4, delay, ease: [0.22, 0.61, 0.36, 1] },
   });
 
   return (
-    <ol
-      className="grid grid-cols-1 gap-y-5 list-none m-0 p-0 w-full
-                 md:grid-cols-[1fr_auto_1fr_auto_1fr] md:gap-x-4 md:items-center"
-    >
-      {steps.map((step, i) => (
-        <React.Fragment key={step.phase}>
-          <motion.li
-            {...fade(0.05 * i)}
-            className="flex items-baseline gap-3 md:block md:text-left"
-          >
-            {/* Numeral — static color, no hover shift (steps aren't links) */}
-            <span
-              className={`font-display font-extrabold text-2xl md:text-3xl leading-none select-none
-                ${step.highlight ? "text-primary" : "text-blush"}`}
-              aria-hidden="true"
-            >
-              {step.phase}
-            </span>
-            <span className="md:block md:mt-2">
-              {/* Label — same treatment on all steps; accent color is
-                  the only differentiator for the current phase. */}
-              <span
-                className={`block font-display font-bold text-sm md:text-base leading-tight
-                            md:whitespace-nowrap no-underline border-b-0
-                  ${step.highlight ? "text-primary-600" : "text-text"}`}
-              >
-                {step.label}
-              </span>
-              <span
-                className={`block text-2xs font-semibold uppercase tracking-[0.18em] mt-1
-                  ${step.highlight ? "text-primary-600" : "text-text-dim"}`}
-              >
-                {step.years}
-              </span>
-            </span>
-          </motion.li>
+    <div className="relative w-full">
+      {/* Connector line — behind the arrows, at the numeral baseline.
+          Hidden on mobile, where steps stack instead of running inline. */}
+      <svg
+        aria-hidden="true"
+        className="hidden md:block absolute left-0 right-0 top-[27px] w-full h-[2px] overflow-visible -z-10"
+        preserveAspectRatio="none"
+      >
+        <motion.line
+          x1="0" y1="1" x2="100%" y2="1"
+          stroke="var(--border)"
+          strokeWidth="1.5"
+          initial={reduce ? { pathLength: 1 } : { pathLength: 0 }}
+          whileInView={{ pathLength: 1 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: reduce ? 0 : 0.6, ease: [0.22, 0.61, 0.36, 1] }}
+        />
+      </svg>
 
-          {i < steps.length - 1 && (
-            <motion.li
-              {...fade(0.05 * i + 0.03)}
-              aria-hidden="true"
-              className="hidden md:flex justify-center"
-            >
-              <InkArrow className="text-text/50" />
-            </motion.li>
-          )}
-        </React.Fragment>
-      ))}
-    </ol>
+      <ol className="relative grid grid-cols-1 gap-y-5 list-none m-0 p-0 w-full md:grid-cols-3 md:gap-x-8">
+        {steps.map((step, i) => (
+          <li
+            key={step.phase}
+            className="relative md:text-left"
+          >
+            <motion.div {...fade(i * 0.15)} className="flex items-baseline gap-3 md:block">
+              {/* Numeral — static color, no hover shift (steps aren't links) */}
+              <span
+                className={`font-display font-extrabold text-2xl md:text-3xl leading-none select-none
+                  ${step.highlight ? "text-primary" : "text-blush"}`}
+                aria-hidden="true"
+              >
+                {step.phase}
+              </span>
+              <span className="md:block md:mt-2">
+                {/* Label — same treatment on all steps; accent color is
+                    the only differentiator for the current phase. */}
+                <span
+                  className={`block font-display font-bold text-sm md:text-base leading-tight
+                              md:whitespace-nowrap no-underline border-b-0
+                    ${step.highlight ? "text-primary-600" : "text-text"}`}
+                >
+                  {step.label}
+                </span>
+                <span
+                  className={`block text-2xs font-semibold uppercase tracking-[0.18em] mt-1
+                    ${step.highlight ? "text-primary-600" : "text-text-dim"}`}
+                >
+                  {step.years}
+                </span>
+              </span>
+            </motion.div>
+
+            {/* Arrow — sits over the connector line in the gutter between
+                columns, bigger and in the same pink as the numeral accent. */}
+            {i < steps.length - 1 && (
+              <motion.span
+                {...fade(i * 0.15 + 0.15)}
+                aria-hidden="true"
+                className="hidden md:flex absolute top-[9px] -right-4 translate-x-1/2 items-center justify-center text-secondary"
+              >
+                <InkArrow className="w-9 h-8" />
+              </motion.span>
+            )}
+          </li>
+        ))}
+      </ol>
+    </div>
   );
 }
 

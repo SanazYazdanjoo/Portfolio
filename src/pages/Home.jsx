@@ -1,7 +1,13 @@
-// HomeSection controls the vertical gap above each section via its `tight`
-// prop; the Hero-Section wrapper must stay overflow-visible or it clips the
-// handwritten role badge in Hero.jsx. Footer padding here (pb-6) pairs with
-// Footer's own internal lead-in — both sides define the gap between them.
+// One shared grid for the whole page: a 1200px column, 12 tracks, held by
+// every section (Hero, About, Bridge, Case Studies) via `.home-grid`. Case
+// Studies used to bleed its cards to the viewport edge with negative
+// margins — it now lives on the same label-rail + content-column axis as
+// About/Bridge instead, via HomeSection, so the content column never drifts
+// between sections. HomeSection controls the vertical gap above each
+// section via its `tight` prop; the Hero-Section wrapper must stay
+// overflow-visible or it clips the handwritten role badge in Hero.jsx.
+// Footer padding here (pb-6) pairs with Footer's own internal lead-in —
+// both sides define the gap between them.
 
 import React from "react";
 import { Hero } from "../components/Hero";
@@ -11,59 +17,60 @@ import { projects } from "../data/projects";
 import { profileData as rawProfile } from "../data/profile";
 import { ComingSoonRow } from "../components/ComingSoonRow";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
 import CareerArc from "../components/CareerArc";
 
-// Section label — one style, used everywhere
-function SectionLabel({ children }) {
+const EASE = [0.22, 0.61, 0.36, 1];
+
+// Eyebrow (11px caps) + a proper 32–40px display heading — the mid-tier
+// this page was missing. Lives in the sticky label rail so it scrolls with
+// its section instead of leaving a dead 270px gutter.
+function SectionHeading({ eyebrow, heading }) {
+  const reduce = useReducedMotion();
   return (
-    <motion.span
-      className="block text-[11px] tracking-[0.2em] uppercase
-                 text-primary-600 font-bold"
-      initial={{ opacity: 0, y: 12 }}
+    <motion.div
+      initial={reduce ? { opacity: 1 } : { opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
+      viewport={{ once: true, margin: "-10%" }}
+      transition={{ duration: reduce ? 0 : 0.4, ease: EASE }}
     >
-      {children}
-    </motion.span>
+      <span className="block text-[11px] tracking-[0.2em] uppercase text-primary-600 font-bold">
+        {eyebrow}
+      </span>
+      <h2 className="mt-2 font-display font-extrabold text-[32px] md:text-[40px] leading-[1.05] tracking-[-0.01em] text-text">
+        {heading}
+      </h2>
+    </motion.div>
   );
 }
 
-// The one section rhythm: divider → label rail (3) + content (9)
+// The one section rhythm: divider → label rail (3) + content (9), held to
+// the shared 1200px column everywhere it's used.
 //
 // `tight` is for a section that directly follows the Hero, which already
 // carries its own trailing space — the default pt-20 would double it up.
 //   tight  → pt-10 md:pt-12  (40 / 48px)
 //   normal → pt-20           (80px)
-function HomeSection({ id, label, children, fullBleed = false, tight = false }) {
+function HomeSection({ id, label, children, tight = false }) {
   return (
     <section
       id={id}
-      className={`w-full overflow-visible ${tight ? "pt-10 md:pt-12" : "pt-20"}`}
+      className={`w-full overflow-visible scroll-mt-24 ${tight ? "pt-10 md:pt-12" : "pt-20"}`}
     >
       <div className="w-full h-px bg-border mb-8" />
 
-      {fullBleed ? (
-        <>
-          <div className="mb-12">
-            <SectionLabel>{label}</SectionLabel>
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-x-10 gap-y-8 overflow-visible">
+        {/* Label rail — sticky so the label stays visible in long sections;
+            a hairline at the rail edge reads the empty space as structure. */}
+        <div className="md:col-span-3 md:border-r md:border-border/60 md:pr-6">
+          <div className="md:sticky md:top-28">
+            <SectionHeading eyebrow={label} heading={label} />
           </div>
-          {children}
-        </>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-x-10 gap-y-8 overflow-visible">
-          {/* Label rail — sticky so the label stays visible in long sections */}
-          <div className="md:col-span-3">
-            <div className="md:sticky md:top-28">
-              <SectionLabel>{label}</SectionLabel>
-            </div>
-          </div>
-          {/* Content — cols 4–12, the same axis in every section */}
-          <div className="md:col-span-9 overflow-visible">{children}</div>
         </div>
-      )}
+        {/* Content — cols 4–12, the same axis in every section */}
+        <div className="md:col-span-9 overflow-visible">{children}</div>
+      </div>
     </section>
   );
 }
@@ -85,33 +92,36 @@ export default function Home() {
 
       {/* Hero — natural height, no viewport lock. Keep overflow-visible:
           overflow-hidden here clips the handwritten role badge. */}
-      <section id="Hero-Section" className="w-full relative overflow-visible">
+      <section id="Hero-Section" className="w-full relative overflow-visible max-w-[1200px] mx-auto">
         <Hero data={profileData} />
       </section>
 
-      {/* About — tight rhythm, sits close under the Hero */}
-      <HomeSection id="AboutMe-Section" label={t("about.heading")} tight>
-        <AboutBio data={profileData} />
+      {/* About + Bridge — the page's one alternate surface: a warm off-white
+          band, bled edge-to-edge (matching App.jsx's own px-8/12/16 gutter)
+          so the page isn't a single uninterrupted white sheet. Content
+          inside still holds the shared 1200px column. */}
+      <div className="-mx-8 md:-mx-12 lg:-mx-16 bg-surface-warm">
+        <div className="px-8 md:px-12 lg:px-16 pb-14 md:pb-16">
+          <div className="max-w-[1200px] mx-auto w-full">
+            <HomeSection id="AboutMe-Section" label={t("about.heading")} tight>
+              <AboutBio data={profileData} />
 
-        {/* The Bridge — visual proof of the bio's "eight years across..." claim */}
-        <div className="mt-12">
-          <CareerArc variant="compact" />
+              {/* The Bridge — visual proof of the bio's "eight years across..." claim */}
+              <div className="mt-12">
+                <CareerArc variant="compact" />
+              </div>
+            </HomeSection>
+          </div>
         </div>
-      </HomeSection>
+      </div>
 
-      {/* Case Studies — stacked list, same system as /projects.
-          id="projects" is the target of the /#projects nav anchor;
-          scroll-mt offsets the sticky Nav. */}
-      <section id="projects" className="w-full pt-20 scroll-mt-24 overflow-visible">
-        <div className="w-full h-px bg-border mb-12" />
-        <SectionLabel>{t("projects.heading")}</SectionLabel>
-
-        {/* Full-bleed: cards carry px-8 md:px-16 inner padding, so the
-            wrapper mirrors App.jsx's container padding (px-8 md:px-12
-            lg:px-16) with negative margins — card edge meets viewport edge */}
-        <div className="-mx-8 md:-mx-12 lg:-mx-16 mt-10">
+      {/* Case Studies — same label-rail + content-column system as
+          About/Bridge, so the content axis never drifts between sections.
+          id="projects" is the target of the /#projects nav anchor. */}
+      <div className="max-w-[1200px] mx-auto w-full">
+        <HomeSection id="projects" label={t("projects.heading")}>
           {hasAnyProjects ? (
-            <>
+            <div>
               {published.map((project, i) => (
                 <StackedProjectCard key={project.slug} project={project} index={i} />
               ))}
@@ -131,16 +141,16 @@ export default function Home() {
               ))}
               {/* Closing hairline under the last row */}
               <div className="w-full h-px bg-border" />
-            </>
+            </div>
           ) : (
-            <div className="px-8 md:px-16 py-16 text-center">
+            <div className="py-16 text-center">
               <p className="doodle-text m-0 text-3xl text-dim">
                 Case studies are being inked — check back soon.
               </p>
             </div>
           )}
-        </div>
-      </section>
+        </HomeSection>
+      </div>
 
     </div>
   );

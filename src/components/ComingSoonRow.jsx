@@ -12,7 +12,7 @@ export function ComingSoonRow({ project, index }) {
   return (
     <div
       aria-disabled="true"
-      className="relative px-8 md:px-16 py-7 bg-bg border-t border-border opacity-60"
+      className="relative px-6 md:px-8 py-7 bg-bg border-t border-border opacity-60"
     >
       <div className="flex items-start gap-6">
         <span className="font-mono text-2xs font-bold text-text/30 tabular-nums mt-2 shrink-0">
@@ -20,12 +20,12 @@ export function ComingSoonRow({ project, index }) {
         </span>
 
         <div className="flex-1 min-w-0">
-          <h2 className="font-display font-extrabold text-2xl tracking-[-0.01em]
+          <h2 className="font-display font-extrabold text-[26px] max-w-[30ch] line-clamp-2 tracking-[-0.01em]
                          uppercase leading-tight text-text/45">
             {project.title}
           </h2>
           {methods.length > 0 && (
-            <p className="mt-3 text-sm tracking-wide text-text/35">
+            <p className="mt-3 text-[15px] tracking-wide text-text/35">
               {methods.slice(0, 4).join(" · ")}
             </p>
           )}

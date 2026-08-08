@@ -1,23 +1,18 @@
 // Each row's right-hand stat shows an uppercase label above the value,
-// pulled from headline.label in projects.js. Every value uses the same
-// size and weight (font-display extrabold text-2xl) regardless of type —
-// numeric or word. Meta text is text-xs (12px) at text-text/70 for WCAG AA
-// contrast. The chevron signals the hover-expand panel and stays
-// aria-hidden since the row itself is the accessible link. The stat column
-// sits in a fixed w-[190px] track with a min-height so row height, padding,
-// and border stay identical whether the value is a number or a word.
+// pulled from headline.label in projects.js. Every value normalizes to the
+// same 36px/800 display treatment; strings over 4 characters (e.g.
+// "TypeScript") drop to a smaller variant so they don't overrun the fixed
+// stat column. The label is clamped to 2 lines so the value's baseline
+// never shifts between rows. Meta text sits at text-meta (#57534A, AA on
+// white). The chevron signals the hover-expand panel and stays aria-hidden
+// since the row itself is the accessible link. The stat column sits in a
+// fixed w-[190px] track with a min-height so row height, padding, and
+// border stay identical whether the value is a number or a word.
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, useInView, animate as animateValue } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
-
-const DOMAIN_SPINES = {
-  attention:     { fallback: "var(--primary)" },
-  collaboration: { fallback: "var(--highlight)" },
-  affective:     { fallback: "var(--secondary)" },
-  _default:      { fallback: "var(--blush)" },
-};
 
 function Field({ label, children }) {
   return (
@@ -31,20 +26,46 @@ function Field({ label, children }) {
   );
 }
 
-/* One metric treatment for every row: label above, uniform value below. */
+// Counts 0 → value once the row scrolls into view. Only pure integers
+// ("57", "19") animate; word/mixed values ("TypeScript", "60%") render
+// immediately — counting them up would be meaningless.
+function MetricValue({ value, className = "" }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-10%" });
+  const reduce = useReducedMotion();
+  const isPureInteger = /^\d+$/.test(String(value));
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    if (!isPureInteger || !inView || reduce) return;
+    const controls = animateValue(0, Number(value), {
+      duration: 0.8,
+      ease: "easeOut",
+      onUpdate: (v) => setDisplay(Math.round(v)),
+    });
+    return () => controls.stop();
+  }, [inView, isPureInteger, value, reduce]);
+
+  const shown = !isPureInteger || reduce ? value : (inView ? display : 0);
+  return <span ref={ref} className={className}>{shown}</span>;
+}
+
+/* One metric treatment for every row: 2-line-clamped label above, uniform
+   value below — same visual weight whether the value is "57" or "Public". */
 function HeadlineMetric({ metric, className = "" }) {
   if (!metric) return null;
+  const isLong = String(metric.value).length > 4;
   return (
     <div className={`flex flex-col ${className}`}>
-      <span className="text-xs font-extrabold uppercase tracking-[0.14em] text-text/70 leading-tight">
+      <span className="line-clamp-2 min-h-[2.6em] text-xs font-extrabold uppercase tracking-[0.14em] text-text/70 leading-tight">
         {metric.label}
       </span>
-      <span
-        className="mt-1.5 font-display font-extrabold text-2xl leading-none text-text
-                   transition-colors duration-300 group-hover:text-primary-600"
-      >
-        {metric.value}
-      </span>
+      <MetricValue
+        value={metric.value}
+        className={`mt-1.5 font-display font-extrabold leading-none text-text tabular-nums
+                    transition-colors duration-300 group-hover:text-primary-600
+                    ${isLong ? "text-[22px] md:text-[24px]" : "text-[36px]"}`}
+      />
     </div>
   );
 }
@@ -58,7 +79,6 @@ export function StackedProjectCard({ project, index }) {
   if (!project || project.status === "coming-soon" || !project.id) return null;
 
   const isInProgress = project.status === "in-progress";
-  const spine = DOMAIN_SPINES[project.domain] || DOMAIN_SPINES._default;
   const hasImage = project.thumbnail && !imgError;
   const headline = project.metrics?.[0];
   const rest = (project.metrics || []).slice(1);
@@ -68,24 +88,24 @@ export function StackedProjectCard({ project, index }) {
     <motion.div
       onHoverStart={() => setOpen(true)}
       onHoverEnd={() => setOpen(false)}
-      initial={{ opacity: 0, y: reduce ? 0 : 16 }}
+      initial={{ opacity: 0, y: reduce ? 0 : 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1, duration: 0.45 }}
+      viewport={{ once: true, margin: "-10%" }}
+      transition={{ delay: index * 0.06, duration: reduce ? 0 : 0.4, ease: [0.22, 0.61, 0.36, 1] }}
     >
       <Link
         to={`/projects/${project.id}`}
         className="block outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
       >
         <div
-          className="relative px-8 md:px-16 py-7 bg-bg border-t border-border
-                     transition-colors duration-300 hover:bg-blush-weak group"
+          className="relative px-6 md:px-8 py-7 bg-bg border-t border-border
+                     transition-colors duration-200 ease-smooth hover:bg-primary/[0.03] group"
         >
           <span
             aria-hidden="true"
-            className="absolute left-0 top-0 bottom-0 w-1.5 md:w-2
-                       transition-all duration-300 group-hover:w-3"
-            style={{ backgroundColor: spine.fallback }}
+            className="absolute left-0 top-0 bottom-0 w-1 group-hover:w-2
+                       transition-all duration-200 ease-smooth"
+            style={{ backgroundColor: "var(--accent-spine)" }}
           />
 
           <div className="flex items-start gap-6">
@@ -94,28 +114,32 @@ export function StackedProjectCard({ project, index }) {
             </span>
 
             <div className="flex-1 min-w-0">
-              {isInProgress && (
-                <span
-                  className="inline-block mb-2 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.2em] text-primary-600"
-                  style={{ border: "1px solid var(--primary-600)" }}
+              {/* Badge sits inline with the title so it never pushes rows
+                  without one out of baseline alignment with rows that have it. */}
+              <div className="flex items-start gap-3 flex-wrap">
+                <h2
+                  className="font-display font-extrabold text-[26px] max-w-[30ch]
+                             tracking-[-0.01em] uppercase leading-tight text-text
+                             line-clamp-2 transition-colors duration-300 group-hover:text-primary-600"
                 >
-                  {t("projects.inProgress")}
-                </span>
-              )}
-              <h2
-                className="font-display font-extrabold text-2xl
-                           tracking-[-0.01em] uppercase leading-tight text-text
-                           transition-colors duration-300 group-hover:text-primary-600"
-              >
-                {project.title}
-              </h2>
+                  {project.title}
+                </h2>
+                {isInProgress && (
+                  <span
+                    className="shrink-0 mt-0.5 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.2em] text-primary-600"
+                    style={{ border: "1px solid var(--primary-600)" }}
+                  >
+                    {t("projects.inProgress")}
+                  </span>
+                )}
+              </div>
 
-              {/* Methods — quiet ink, mid-dot separated. /70 for AA. */}
+              {/* Methods — quiet ink, mid-dot separated. */}
               {methods.length > 0 && (
-                <p className="mt-3 text-sm tracking-wide">
+                <p className="mt-3 text-[15px] tracking-wide">
                   {methods.slice(0, 4).map((m, i, arr) => (
                     <span key={m}>
-                      <span className="font-medium text-text/70">{m}</span>
+                      <span className="font-medium text-text-meta">{m}</span>
                       {i < arr.length - 1 && <span className="mx-2 text-text/30">·</span>}
                     </span>
                   ))}
@@ -126,7 +150,7 @@ export function StackedProjectCard({ project, index }) {
               <p
                 className="mt-4 mb-0 inline-flex items-center gap-1.5 text-xs font-black
                            uppercase tracking-[0.2em] text-primary-600
-                           transition-transform duration-300 group-hover:translate-x-1"
+                           transition-transform duration-200 ease-smooth group-hover:translate-x-1"
               >
                 {isInProgress ? t("project.card.readInProgress") : t("project.card.readCaseStudy")}
                 <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" aria-hidden="true">
@@ -139,14 +163,14 @@ export function StackedProjectCard({ project, index }) {
                 whether the value is "16/16" or "TypeScript". */}
             <div className="hidden sm:flex w-[190px] min-h-[72px] shrink-0 flex-col items-end text-right self-start pt-1">
               <HeadlineMetric metric={headline} className="items-end" />
-              {/* Chevron — announces the hover-expand panel. Bigger + bolder
-                  so it reads as interactive, not lint. */}
+              {/* Chevron — announces the hover-expand panel. Darkened for AA
+                  contrast against the light row background. */}
               <motion.svg
                 aria-hidden="true"
-                className="mt-3 w-5 h-5 text-primary-600"
+                className="mt-3 w-5 h-5 text-text-meta"
                 viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
                 animate={{ rotate: open ? 180 : 0 }}
-                transition={{ duration: reduce ? 0 : 0.3 }}
+                transition={{ duration: reduce ? 0 : 0.3, ease: [0.22, 0.61, 0.36, 1] }}
               >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6" />
               </motion.svg>
@@ -155,7 +179,7 @@ export function StackedProjectCard({ project, index }) {
 
           {/* Mobile stat — same label-above-value treatment, same sizes */}
           {headline && (
-            <div className="sm:hidden mt-4 pl-[calc(1rem+10px)]">
+            <div className="sm:hidden mt-4 pl-[calc(0.75rem+8px)]">
               <HeadlineMetric metric={headline} className="items-start" />
             </div>
           )}
@@ -166,12 +190,12 @@ export function StackedProjectCard({ project, index }) {
           initial={false}
           animate={{ height: open ? "auto" : 0, opacity: open ? 1 : 0 }}
           transition={{
-            height: { duration: reduce ? 0 : 0.6, ease: [0.65, 0, 0.35, 1] },
-            opacity: { duration: reduce ? 0 : 0.35, delay: open ? 0.1 : 0 },
+            height: { duration: reduce ? 0 : 0.3, ease: [0.22, 0.61, 0.36, 1] },
+            opacity: { duration: reduce ? 0 : 0.3, delay: open ? 0.05 : 0 },
           }}
           className="overflow-hidden bg-muted/40"
         >
-          <div className="px-8 md:px-16 py-8 grid grid-cols-1 md:grid-cols-12 gap-8 border-b border-border">
+          <div className="px-6 md:px-8 py-8 grid grid-cols-1 md:grid-cols-12 gap-8 border-b border-border">
             <div className="md:col-span-3 flex flex-col gap-5">
               {project.role && (
                 <Field label={t("project.meta.role")}>
