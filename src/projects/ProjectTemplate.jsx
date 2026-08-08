@@ -333,7 +333,7 @@ function ProcessGallerySection({ items, number, isOpen, onToggle, staggerDelayMs
 function SidebarNav({ sections, activeId, onNavigate, allOpen, onToggleAll }) {
   const { t } = useTranslation();
   return (
-    <nav aria-label="Page sections">
+    <nav aria-label={t("project.sidebar.ariaLabel")}>
       <Link
         to="/projects"
         className="flex items-center gap-2 text-2xs font-black uppercase tracking-[0.2em]

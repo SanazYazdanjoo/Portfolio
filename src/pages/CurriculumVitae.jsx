@@ -302,6 +302,7 @@ export default function CV() {
 }
 
 function CVSidebarNav({ sections, activeId }) {
+  const { t } = useTranslation();
   const scrollToSection = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
@@ -309,7 +310,7 @@ function CVSidebarNav({ sections, activeId }) {
   return (
     <nav aria-label="CV sections" className="pt-1">
       <p className="text-[10px] font-black uppercase tracking-[0.28em] text-gray-500 mb-5 pl-3">
-        On this page
+        {t("cv.onThisPage")}
       </p>
       <ul className="space-y-0.5">
         {sections.map((section, index) => {
