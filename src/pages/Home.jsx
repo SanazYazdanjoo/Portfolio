@@ -23,36 +23,58 @@ import CareerArc from "../components/CareerArc";
 
 const EASE = [0.22, 0.61, 0.36, 1];
 
-// Eyebrow (11px caps) + a proper 32–40px display heading — the mid-tier
-// this page was missing. Lives in the sticky label rail so it scrolls with
-// its section instead of leaving a dead 270px gutter.
+// Eyebrow + heading, animated in as a pair rather than one block: the
+// eyebrow only earns its line when it carries information the heading
+// doesn't (a number + a short descriptor — "01 — Who I Am" — not a repeat
+// of "About Me"). Both share `type-section` so no two sections read at a
+// different scale. Lives in the sticky label rail so it scrolls with its
+// section instead of leaving a dead gutter.
+//
+// Note: the coral spec'd for the eyebrow (#D9481F) computes to ~4.3:1 on
+// white, short of WCAG AA's 4.5:1 for text this small — `primary-600`
+// (#B93110) is the codebase's existing AA-safe coral for exactly this case
+// (see theme.css) and is used here instead so verification item 5 holds.
 function SectionHeading({ eyebrow, heading }) {
   const reduce = useReducedMotion();
   return (
-    <motion.div
-      initial={reduce ? { opacity: 1 } : { opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-10%" }}
-      transition={{ duration: reduce ? 0 : 0.4, ease: EASE }}
-    >
-      <span className="block text-[11px] tracking-[0.2em] uppercase text-primary-600 font-bold">
+    <div>
+      <motion.span
+        className="block text-[11px] tracking-[0.12em] uppercase text-primary-600 font-bold"
+        initial={reduce ? { opacity: 1 } : { opacity: 0, x: -8 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "-10%" }}
+        transition={{ duration: reduce ? 0 : 0.25, ease: EASE }}
+      >
         {eyebrow}
-      </span>
-      <h2 className="mt-2 font-display font-extrabold text-[32px] md:text-[40px] leading-[1.05] tracking-[-0.01em] text-text">
+      </motion.span>
+      <motion.h2
+        className="type-section mt-2"
+        initial={reduce ? { opacity: 1 } : { opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-10%" }}
+        transition={{ duration: reduce ? 0 : 0.3, delay: reduce ? 0 : 0.08, ease: EASE }}
+      >
         {heading}
-      </h2>
-    </motion.div>
+      </motion.h2>
+    </div>
   );
 }
 
-// The one section rhythm: divider → label rail (3) + content (9), held to
-// the shared 1200px column everywhere it's used.
+// The one section rhythm: divider → label rail + content, held to the
+// shared 1200px column everywhere it's used.
+//
+// Rail collapses to a stacked single column below 1024px (lg:) rather than
+// 768px (md:) — narrower than that and there isn't room for a sticky rail
+// beside the content without cramping it. The rail is 4/12 columns (not 3)
+// so "Case Studies" always sets on one line; a hairline at its right edge
+// reads the resulting gutter as intentional structure rather than leftover
+// space, and the sticky offset matches the fixed nav's height.
 //
 // `tight` is for a section that directly follows the Hero, which already
 // carries its own trailing space — the default pt-20 would double it up.
 //   tight  → pt-10 md:pt-12  (40 / 48px)
 //   normal → pt-20           (80px)
-function HomeSection({ id, label, children, tight = false }) {
+function HomeSection({ id, eyebrow, heading, children, tight = false }) {
   return (
     <section
       id={id}
@@ -60,16 +82,17 @@ function HomeSection({ id, label, children, tight = false }) {
     >
       <div className="w-full h-px bg-border mb-8" />
 
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-x-10 gap-y-8 overflow-visible">
-        {/* Label rail — sticky so the label stays visible in long sections;
-            a hairline at the rail edge reads the empty space as structure. */}
-        <div className="md:col-span-3 md:border-r md:border-border/60 md:pr-6">
-          <div className="md:sticky md:top-28">
-            <SectionHeading eyebrow={label} heading={label} />
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-10 gap-y-8 overflow-visible">
+        {/* Label rail — sticky so the heading stays visible in long
+            sections; releases at this wrapper's own bottom edge, which
+            CSS Grid stretches to match the content column's height. */}
+        <div className="lg:col-span-4 lg:pr-6 lg:border-r lg:border-[rgba(33,29,28,0.08)]">
+          <div className="lg:sticky lg:top-24">
+            <SectionHeading eyebrow={eyebrow} heading={heading} />
           </div>
         </div>
-        {/* Content — cols 4–12, the same axis in every section */}
-        <div className="md:col-span-9 overflow-visible">{children}</div>
+        {/* Content — the same axis in every section */}
+        <div className="lg:col-span-8 overflow-visible">{children}</div>
       </div>
     </section>
   );
@@ -103,7 +126,7 @@ export default function Home() {
       <div className="-mx-8 md:-mx-12 lg:-mx-16 bg-surface-warm">
         <div className="px-8 md:px-12 lg:px-16 pb-14 md:pb-16">
           <div className="max-w-[1200px] mx-auto w-full">
-            <HomeSection id="AboutMe-Section" label={t("about.heading")} tight>
+            <HomeSection id="AboutMe-Section" eyebrow={t("home.about.kicker")} heading={t("about.heading")} tight>
               <AboutBio data={profileData} />
 
               {/* The Bridge — visual proof of the bio's "eight years across..." claim */}
@@ -119,7 +142,7 @@ export default function Home() {
           About/Bridge, so the content axis never drifts between sections.
           id="projects" is the target of the /#projects nav anchor. */}
       <div className="max-w-[1200px] mx-auto w-full">
-        <HomeSection id="projects" label={t("projects.heading")}>
+        <HomeSection id="projects" eyebrow={t("home.projects.kicker")} heading={t("projects.heading")}>
           {hasAnyProjects ? (
             <div>
               {published.map((project, i) => (

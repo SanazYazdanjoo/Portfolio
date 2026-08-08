@@ -1,12 +1,16 @@
 // Grid-view counterpart to StackedProjectCard: same data and domain-spine
 // language, but a self-contained tile instead of a full-bleed row. Used by
-// the Projects page's 2-column tile view so every case study is visible at
-// a glance without hover-to-expand.
+// the Projects page's tile-grid view so every case study is visible at a
+// glance without hover-to-expand.
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
+import { ProjectMetric } from "./ProjectMetric";
+import { fitMethods, clampText } from "../utils/fitMethods";
+
+const EASE = [0.22, 0.61, 0.36, 1];
 
 const DOMAIN_SPINES = {
   attention:     "var(--primary)",
@@ -26,28 +30,31 @@ export function ProjectTile({ project, index }) {
   const isInProgress = project.status === "in-progress";
   const spine = DOMAIN_SPINES[project.domain] || DOMAIN_SPINES._default;
   const hasImage = project.thumbnail && !imgError;
-  const methods = project.methods || project.tags || [];
+  const methods = fitMethods(project.methods || project.tags || [], { max: 3, maxChars: 58 });
   const headline = project.metrics?.[0];
-  const blurb = project.tagline || project.subtitle || project.challenge;
+  const blurb = clampText(project.tagline || project.subtitle || project.challenge, 68);
 
   const inner = (
     <div
-      className={`group relative flex h-full flex-col overflow-hidden border border-border bg-bg
-                 ${isComingSoon ? "opacity-60" : ""}`}
+      style={{ "--card-spine": spine }}
+      className={`group relative flex h-full flex-col overflow-hidden border border-border bg-muted
+                 transition-all duration-[250ms] ease-smooth
+                 ${isComingSoon ? "opacity-60" : "hover:-translate-y-1 hover:shadow-[0_12px_24px_rgba(30,25,20,0.07)]"}`}
     >
+      {/* Domain spine — neutral at rest, grows and colors in on hover. */}
       <span
         aria-hidden="true"
-        className="absolute left-0 top-0 h-1.5 w-full transition-all duration-300 group-hover:h-2"
-        style={{ backgroundColor: spine }}
+        className="absolute left-0 top-0 h-[3px] w-full bg-border transition-all duration-200
+                   group-hover:h-[5px] group-hover:bg-[var(--card-spine)]"
       />
 
-      <div className="aspect-video w-full overflow-hidden bg-primary/[0.03]">
+      <div className="aspect-[16/10] w-full overflow-hidden bg-muted border-b border-border">
         {hasImage ? (
           <img
             src={project.thumbnail}
             alt={project.title}
             onError={() => setImgError(true)}
-            className={`h-full w-full object-cover transition-all duration-700 ${
+            className={`h-full w-full object-cover transition-transform duration-[250ms] ease-smooth group-hover:scale-[1.04] ${
               isComingSoon ? "grayscale" : ""
             }`}
           />
@@ -60,10 +67,7 @@ export function ProjectTile({ project, index }) {
         )}
       </div>
 
-      <div
-        className={`flex flex-1 flex-col gap-3 p-6 bg-muted transition-colors duration-300
-                   ${isComingSoon ? "" : "group-hover:bg-blush-weak"}`}
-      >
+      <div className="flex flex-1 flex-col gap-3 p-6">
         <div className="flex items-start justify-between gap-4">
           <span className="font-mono text-xs font-bold tabular-nums text-primary-600 shrink-0 mt-1">
             {String(index + 1).padStart(2, "0")}
@@ -87,7 +91,7 @@ export function ProjectTile({ project, index }) {
         </div>
 
         <h3
-          className={`font-display text-xl font-extrabold uppercase leading-tight tracking-[-0.01em] transition-colors duration-300
+          className={`font-display text-xl font-extrabold uppercase leading-tight tracking-[-0.01em] line-clamp-3 transition-colors duration-200
                      ${isComingSoon ? "text-text/45" : "text-text group-hover:text-primary-600"}`}
         >
           {project.title}
@@ -100,9 +104,9 @@ export function ProjectTile({ project, index }) {
         )}
 
         {methods.length > 0 && (
-          <p className="mt-auto pt-2 text-xs tracking-wide">
+          <p className="text-xs tracking-wide line-clamp-2">
             {methods.slice(0, 3).map((m, i, arr) => (
-              <span key={m}>
+              <span key={m} className="whitespace-nowrap">
                 <span className={`font-medium ${isComingSoon ? "text-text/30" : "text-text/60"}`}>{m}</span>
                 {i < arr.length - 1 && <span className="mx-2 text-text/25">·</span>}
               </span>
@@ -110,25 +114,20 @@ export function ProjectTile({ project, index }) {
           </p>
         )}
 
+        {/* Pinned to the bottom regardless of how many lines the copy above
+            takes, so metric rows align across every card in a grid row. */}
         {!isComingSoon && headline && (
-          <div className="flex items-baseline gap-2 pt-1">
-            <span className="font-display text-lg font-extrabold leading-none text-text transition-colors duration-300 group-hover:text-primary-600">
-              {headline.value}
-            </span>
-            <span className="text-2xs uppercase tracking-[0.1em] text-text/60">
-              {headline.label}
-            </span>
-          </div>
+          <ProjectMetric metric={headline} className="mt-auto pt-1" />
         )}
       </div>
     </div>
   );
 
   const motionProps = {
-    initial: { opacity: 0, y: reduce ? 0 : 16 },
+    initial: { opacity: 0, y: reduce ? 0 : 24 },
     whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true },
-    transition: { delay: Math.min(index, 5) * 0.06, duration: 0.45 },
+    viewport: { once: true, margin: "-40px" },
+    transition: { delay: Math.min(index, 8) * 0.07, duration: 0.4, ease: EASE },
   };
 
   if (isComingSoon) {
