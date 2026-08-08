@@ -744,7 +744,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
   const hasHeroImage = !!meta.thumbnail;
 
   return (
-    <main ref={mainRef} className="min-h-screen bg-bg pt-32 pb-16">
+    <main ref={mainRef} className="min-h-screen bg-bg pt-20 md:pt-24 pb-16">
       {/* Scroll-progress bar — reflects the custom scroll container above,
           not window scroll. */}
       <motion.div
