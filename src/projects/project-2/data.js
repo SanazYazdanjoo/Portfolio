@@ -22,7 +22,7 @@ export const projectData = {
     de: "UX Researcherin (6-köpfiges Team)",
   },
   timeline: "10/2023 – 03/2024",
-  tags: ["User-Centered Design", "HCI Research", "Mixed-Methods", "B2B SaaS", "Interaction Design"],
+  tags: ["User-Centered Design", "HCI Research", "Stakeholder Interviews", "Contextual Inquiry", "Survey Design", "Requirements Engineering", "Interaction Design", "Rapid Prototyping", "Figma", "B2B SaaS"],
   thumbnail: thumbnailImg,
   heroImage: thumbnailImg,
 
