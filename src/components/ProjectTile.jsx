@@ -7,7 +7,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
-import { ProjectMetric } from "./ProjectMetric";
 import { fitMethods, clampText } from "../utils/fitMethods";
 
 const EASE = [0.22, 0.61, 0.36, 1];
@@ -31,7 +30,6 @@ export function ProjectTile({ project, index }) {
   const spine = DOMAIN_SPINES[project.domain] || DOMAIN_SPINES._default;
   const hasImage = project.thumbnail && !imgError;
   const methods = fitMethods(project.methods || project.tags || [], { max: 3, maxChars: 58 });
-  const headline = project.metrics?.[0];
   const blurb = clampText(project.tagline || project.subtitle || project.challenge, 68);
 
   const inner = (
@@ -112,12 +110,6 @@ export function ProjectTile({ project, index }) {
               </span>
             ))}
           </p>
-        )}
-
-        {/* Pinned to the bottom regardless of how many lines the copy above
-            takes, so metric rows align across every card in a grid row. */}
-        {!isComingSoon && headline && (
-          <ProjectMetric metric={headline} className="mt-auto pt-1" />
         )}
       </div>
     </div>
