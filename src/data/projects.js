@@ -1,23 +1,7 @@
-// ─────────────────────────────────────────────────────────────
-// src/data/projects.js — DYNAMIC aggregator. Do not edit
-// project content here; edit src/projects/<folder>/data.js.
-//
-// How it works:
-//   import.meta.glob scans src/projects/*/data.js at build time
-//   (and hot-reloads in dev). Every folder that contains a
-//   data.js is discovered automatically:
-//
-//     src/projects/
-//       project-1/data.js   ← edit → site updates everywhere
-//       project-2/data.js
-//       project-3/data.js
-//       my-new-study/…      ← just add a folder. That's it.
-//
-//   No registration, no imports to maintain, no drift.
-//
-// NOTE: `import.meta.glob` is Vite-only. (CRA equivalent would
-// be require.context — but you're on Vite, so we're good.)
-// ─────────────────────────────────────────────────────────────
+// Dynamic aggregator — project content is edited in src/projects/<folder>/data.js,
+// not here. import.meta.glob scans src/projects/*/data.js at build time (and
+// hot-reloads in dev), so any folder containing a data.js is discovered
+// automatically with no manual registration. import.meta.glob is Vite-only.
 
 const modules = import.meta.glob("../projects/*/data.js", { eager: true });
 

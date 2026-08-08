@@ -1,13 +1,6 @@
-// src/main.jsx
-// ─────────────────────────────────────────────────────────────────────────────
-// ADMIN GUARD — /admin was routed in production. It only writes to your local
-// Express server (localhost:3001), so on Vercel it silently fails — but the
-// editing UI itself was still publicly reachable. It's now:
-//   • lazy-loaded (kept out of the production bundle entirely), and
-//   • registered only when import.meta.env.DEV is true.
-// Everything else — including the "Magic Sweeper" dynamic project routes —
-// is unchanged.
-// ─────────────────────────────────────────────────────────────────────────────
+// The admin route only works against a local Express server (localhost:3001),
+// so it's lazy-loaded and registered only in dev — it has no function in
+// production and shouldn't ship in the bundle or be publicly reachable.
 
 import React, { Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
@@ -32,7 +25,7 @@ import { LanguageProvider } from './context/LanguageContext';
 // Dev-only: lazy so the Admin dashboard never ships in the production bundle
 const Admin = lazy(() => import('./pages/Admin'));
 
-// The Magic Sweeper: looks for any 'index.jsx' inside your 'src/projects/' folders
+// Auto-discovers a route for every 'index.jsx' under 'src/projects/'
 const projectFiles = import.meta.glob('./projects/*/index.jsx', { eager: true });
 
 const dynamicProjectRoutes = Object.keys(projectFiles).map((filePath) => {

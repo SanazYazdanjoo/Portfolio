@@ -1,20 +1,8 @@
-// src/components/Hero.jsx
-// ─────────────────────────────────────────────────────────────────────────────
-// LAYOUT FIX v6 — VISUAL QA PASS
-//
-//   • ROLE BADGE CLIP FIX: the handwritten "UX Engineer" label used to hang
-//     ABOVE the photo cluster via negative top offsets (-top-9 / -top-11).
-//     Combined with `overflow-hidden` on the hero <section> wrapper in
-//     Home.jsx, the top of the text was cut off. Fix: the photo cluster now
-//     RESERVES headroom (pt-10 md:pt-12) and the badge sits at top-0 inside
-//     that space. It is physically inside the layout box → cannot clip,
-//     regardless of any parent overflow rules.
-//     (Pair this with removing `overflow-hidden` from the Hero-Section
-//     wrapper in Home.jsx — see chat notes.)
-//
-// v5 retained: UX Engineer fallbacks for data.role / data.tagline.
-// v4 retained: hero height wraps content naturally.
-// ─────────────────────────────────────────────────────────────────────────────
+// The photo cluster reserves headroom (pt-10 md:pt-12) so the handwritten
+// role badge sits inside the layout box at top-0 instead of hanging above it
+// via negative offsets — that way it can't get clipped by an ancestor's
+// overflow-hidden. Home.jsx's Hero-Section wrapper must stay overflow-visible
+// to match.
 
 import React from "react";
 import { useTranslation } from "../context/LanguageContext";
@@ -39,7 +27,7 @@ export function Hero({ data }) {
   return (
     <div className="relative w-full flex flex-col pt-12 md:pt-20 pb-4">
 
-      {/* ── Kicker: the 2-second read ── */}
+      {/* Kicker: the 2-second read */}
       <motion.p
         {...fadeUp(0)}
         className="text-2xs md:text-xs font-bold uppercase
@@ -48,7 +36,7 @@ export function Hero({ data }) {
         {t("hero.kicker")}&nbsp;&nbsp;—&nbsp;&nbsp;{data.heroMeta?.location ?? data.contact?.location}
       </motion.p>
 
-      {/* ── Name + Photo: 12-col editorial grid (≈ 70/30 split) ── */}
+      {/* Name + Photo: 12-col editorial grid (≈ 70/30 split) */}
       <div className="grid grid-cols-12 gap-x-4 md:gap-x-6 items-center">
 
         <motion.h1
@@ -61,7 +49,7 @@ export function Hero({ data }) {
           <span className="sr-only"> — {data.role || "UX Engineer"}</span>
         </motion.h1>
 
-        {/* Photo cluster — pt-* reserves space for the badge INSIDE the box */}
+        {/* Photo cluster — pt-* reserves space for the badge inside the box */}
         <motion.div
           {...fadeUp(0.2)}
           className="col-span-9 col-start-2 sm:col-span-8 sm:col-start-3 mt-6 md:mt-0
@@ -69,7 +57,7 @@ export function Hero({ data }) {
                      relative z-10 pt-10 md:pt-12"
         >
           {/* Badge lives in the reserved headroom: top-0, right-anchored,
-              wrappable via max-w — no negative offsets, no clipping possible. */}
+              wrappable via max-w — no negative offsets, so it can't clip. */}
           <span
             aria-hidden="true"
             className="hero-role absolute top-0 right-2 md:right-0
@@ -96,8 +84,7 @@ export function Hero({ data }) {
         </motion.div>
       </div>
 
-      {/* ── Tagline: the ONE gold-highlighter moment on this page ──
-          mt reduced (was mt-12 md:mt-16) — part of closing the hero→About gap */}
+      {/* Tagline: the one gold-highlighter moment on this page */}
       <motion.p
         {...fadeUp(0.32)}
         className="type-tagline hero-tagline max-w-2xl mt-8 md:mt-10"

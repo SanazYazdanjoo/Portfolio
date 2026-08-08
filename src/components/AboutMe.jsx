@@ -1,14 +1,10 @@
-// src/components/AboutMe.jsx
-// ─────────────────────────────────────────────────────────────────────────────
-// The "What I Bring" skills wall (SKILL_COLUMNS / resolveSkillColumns) has
-// been removed — skills now live inside The Bridge (CareerArc, variant="full")
-// as chronologically-grouped chips. See src/data/career.js.
-// ─────────────────────────────────────────────────────────────────────────────
+// Skills live inside The Bridge (CareerArc, variant="full") as
+// chronologically-grouped chips; see src/data/career.js.
 
 import React from "react";
 import { motion } from "framer-motion";
 
-// ─── Bio — one calm reading column ───────────────────────────────────────────
+// Bio — one calm reading column
 export function AboutBio({ data }) {
   const bioParagraphs = data.bioParagraphs || [];
 
@@ -36,7 +32,7 @@ export function AboutBio({ data }) {
   );
 }
 
-// ─── Legacy alias — safe to delete once nothing imports <AboutMe> ─────────────
+// Legacy alias — safe to delete once nothing imports <AboutMe>
 export function AboutMe({ data }) {
   return <AboutBio data={data} />;
 }

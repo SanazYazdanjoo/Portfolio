@@ -1,10 +1,7 @@
-// src/pages/Contact.jsx
-// ─────────────────────────────────────────────────────────────────────────────
-// Action-first contact page. A recruiter's real questions — availability, work
-// authorisation, location, response time — answered above the fold, with the
-// email CTA/copy button as the only decision that matters. No decorative
-// panel, no duplicate of what's already in the Footer.
-// ─────────────────────────────────────────────────────────────────────────────
+// Answers a recruiter's real questions — availability, work authorisation,
+// location, response time — above the fold, with the email CTA/copy button
+// as the only decision that matters. Avoids duplicating what's already in
+// the Footer.
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
@@ -59,7 +56,7 @@ export default function Contact() {
     <div className="min-h-screen bg-bg py-16 md:py-20 relative flex items-center no-print">
       <div className="container relative z-10 mx-auto max-w-4xl px-6">
 
-        {/* ── Kicker + heading ── */}
+        {/* Kicker + heading */}
         <p className="text-2xs uppercase tracking-[0.18em] text-primary-600 font-bold mb-3">
           {t("contact.kicker")}
         </p>
@@ -70,7 +67,7 @@ export default function Contact() {
           <ScribbleUnderline className="absolute -bottom-2 left-0 w-full h-5 text-primary opacity-80" />
         </header>
 
-        {/* ── Availability ── */}
+        {/* Availability */}
         <div className="flex items-start gap-3 max-w-md mb-12 md:mb-16">
           <StatusDot label={t("footer.available")} />
           <p className="text-sm text-text/80 leading-relaxed font-medium">
@@ -78,7 +75,7 @@ export default function Contact() {
           </p>
         </div>
 
-        {/* ── Action-first split ── */}
+        {/* Action-first split */}
         <motion.div
           initial={reduce ? { opacity: 1 } : { opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}

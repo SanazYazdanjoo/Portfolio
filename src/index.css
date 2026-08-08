@@ -1,5 +1,4 @@
-/* src/index.css */
-@import './styles/theme.css';  
+@import './styles/theme.css';
 
 @tailwind base;
 @tailwind components;
@@ -55,9 +54,7 @@
 /* Helper Utilities */
 .display-none { display: none; }
 .visibility-hidden { visibility: hidden; }
-/* =========================================
-   CV & PRINT LOGIC
-   ========================================= */
+/* CV print styles */
 @media print {
   /* A4 page setup — generous margins to prevent clipping */
   @page {
@@ -79,10 +76,8 @@
   }
 
 
-  /* ── Kill UI chrome ──
-     Target nav specifically — NOT bare `header`.
-     The CV's .cv-header must survive print.
-  */
+  /* Hide UI chrome. Targets nav specifically, not bare `header`, so the
+     CV's .cv-header survives print. */
   nav,
   footer,
   .no-print,

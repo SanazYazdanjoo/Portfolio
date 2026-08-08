@@ -1,11 +1,5 @@
-// src/components/Nav.jsx
-// ─────────────────────────────────────────────────────────────────────────────
-// CHANGE: LanguageToggle moved from the left (next to the wordmark) to the
-// far right of the bar. Desktop order: links → toggle. Mobile order: toggle →
-// burger (burger stays at the screen edge for thumb reach).
-// Everything else unchanged: coral pen-tap dot, full-screen mobile overlay,
-// aria-expanded + translated labels, scroll-shrink wordmark.
-// ─────────────────────────────────────────────────────────────────────────────
+// Desktop order: links → language toggle. Mobile order: toggle → burger
+// (burger stays at the screen edge for thumb reach).
 
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
@@ -22,7 +16,7 @@ export const Nav = ({ isScrolled = false }) => {
     <nav data-no-sketch="true" className="w-full no-print">
       <div className="flex items-center justify-between w-full pb-4 border-b border-border">
 
-        {/* ── Wordmark: left, compact, one line ── */}
+        {/* Wordmark: left, compact, one line */}
         <NavLink to="/" aria-label={profileData.name} className="shrink-0">
           <p
             className="font-display text-text whitespace-nowrap transition-all duration-300"
@@ -37,7 +31,7 @@ export const Nav = ({ isScrolled = false }) => {
           </p>
         </NavLink>
 
-        {/* ── Right cluster: links → language toggle → (mobile) burger ── */}
+        {/* Right cluster: links → language toggle → (mobile) burger */}
         <div className="flex items-center gap-6 md:gap-9 lg:gap-12">
           <ul className="hidden md:flex items-center gap-9 lg:gap-12">
             {profileData.navLinks.map((link) => (
@@ -81,7 +75,7 @@ export const Nav = ({ isScrolled = false }) => {
   );
 };
 
-/* ── Full-screen mobile overlay (unchanged) ── */
+/* Full-screen mobile overlay */
 function MobileMenu({ links }) {
   const [open, setOpen] = useState(false);
   const { t } = useTranslation();
@@ -97,7 +91,7 @@ function MobileMenu({ links }) {
     <div className="md:hidden">
       <button
         onClick={() => setOpen(!open)}
-        className="relative z-[70] text-text p-3 -m-1"
+        className="relative z-[70] text-text p-3 -m-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
         aria-label={open ? t("nav.closeMenu") : t("nav.openMenu")}
         aria-expanded={open}
       >

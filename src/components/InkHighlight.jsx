@@ -1,5 +1,3 @@
-// src/components/InkHighlight.jsx
-// ─── The signature element of the redesign ───────────────────────────────────
 // A hand-drawn gold (or blush) highlighter swipe behind a key phrase — the way
 // a researcher marks a finding worth remembering. Draws itself on scroll-in.
 //
@@ -7,8 +5,8 @@
 //   <InkHighlight>increased task success by 32%</InkHighlight>
 //   <InkHighlight tone="rose" animate={false}>slightly feminine</InkHighlight>
 //
-// Rules of restraint: max 1–2 per viewport. It's a signature, not a wallpaper.
-// (You can also use the zero-JS CSS version: class="ink-highlight" in theme.css)
+// Limit to 1-2 per viewport; it's meant as a signature, not decoration.
+// A zero-JS CSS version is also available: class="ink-highlight" in theme.css.
 
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";

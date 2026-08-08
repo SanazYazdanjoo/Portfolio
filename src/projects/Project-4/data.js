@@ -1,7 +1,6 @@
-// src/projects/project-4/data.js
-// ─── Evidence-locked to the IBS Fahrtkostenerstattung project documents ───
-// Sources: 5W1H, Stakeholders, Overview UML, Detailed UML, Current Problems,
-// Persona, Information Architecture, Design System, README/DECISIONS/REQUIREMENTS.
+// Content is sourced from the IBS Fahrtkostenerstattung project documents:
+// 5W1H, Stakeholders, Overview UML, Detailed UML, Current Problems, Persona,
+// Information Architecture, Design System, README/DECISIONS/REQUIREMENTS.
 //
 // ⚠️ Phase 4 (evaluation) has not completed. Nothing in `metrics` or `results`
 // claims an outcome. Anything not yet evidenced is marked TODO and left null.
@@ -99,7 +98,7 @@ export const projectData = {
     de: 'Der Prototyp ist über alle fünf Rollen hinweg funktionsfähig und durch 158 Tests abgedeckt, mit einer Build-Time-Prüfung, die fehlschlägt, wenn eine im Code zitierte Anforderung kein nachvollziehbares Akzeptanzkriterium hat. Zwei Bildschirme bleiben explizit gekennzeichnete Platzhalter statt verborgene Lücken. Die Evaluation ist nicht abgeschlossen, es gibt also noch keine Ergebnismetriken, und diese Fallstudie wird keine behaupten, bevor es welche gibt. Was die Arbeit bereits hervorgebracht hat, ist ein Entscheidungsprotokoll: die verbindliche Lesart der Anwesenheitslegenden-Regel, der Grund, warum der digitale-Signatur-Pfad bis zu einer Entscheidung der Datenschutzbeauftragten blockiert bleibt, und der Umgang mit einem Datenschutzvorfall, bei dem ein früher Demo-Datensatz aus einem echten Export generiert wurde und echte Teilnehmendendaten enthielt — neu generiert aus zwei fiktiven Arbeitsmappen, mit einem automatisierten Test, der nun verlangt, dass jeder Name auf sie zurückverfolgbar ist.',
   },
 
-  // ── Process Gallery ──────────────────────────────────────────────────────
+  // Process gallery
   process: [
     {
       phase: 'discover',

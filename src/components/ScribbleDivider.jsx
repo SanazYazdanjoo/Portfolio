@@ -1,4 +1,3 @@
-// src/components/ScribbleDivider.jsx
 import { motion } from "framer-motion";
 
 const draw = {

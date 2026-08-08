@@ -1,15 +1,12 @@
-// src/components/ProjectListRow.jsx
-// ─────────────────────────────────────────────────────────────────────────────
-// Normal (non-expanding) list row for the Projects page's List view.
-// Same data + domain-spine language as StackedProjectCard, but a single
-// static row that routes straight to the case study — no hover-to-expand
-// panel. Everything you need to decide is visible at a glance; click to
-// read the rest.
-// ─────────────────────────────────────────────────────────────────────────────
+// Static (non-expanding) list row for the Projects page's List view. Same
+// data and domain-spine language as StackedProjectCard, but a single row
+// that routes straight to the case study instead of a hover-to-expand
+// panel.
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslation } from "../context/LanguageContext";
 
 const DOMAIN_SPINES = {
   attention:     "var(--primary)",
@@ -21,9 +18,11 @@ const DOMAIN_SPINES = {
 export function ProjectListRow({ project, index }) {
   const [imgError, setImgError] = useState(false);
   const reduce = useReducedMotion();
+  const { t } = useTranslation();
 
   if (!project || project.status === "coming-soon" || !project.id) return null;
 
+  const isInProgress = project.status === "in-progress";
   const spine = DOMAIN_SPINES[project.domain] || DOMAIN_SPINES._default;
   const hasImage = project.thumbnail && !imgError;
   const headline = project.metrics?.[0];
@@ -63,6 +62,14 @@ export function ProjectListRow({ project, index }) {
         )}
 
         <div className="flex-1 min-w-0">
+          {isInProgress && (
+            <span
+              className="inline-block mb-1.5 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.2em] text-primary-600"
+              style={{ border: "1px solid var(--primary-600)" }}
+            >
+              {t("projects.inProgress")}
+            </span>
+          )}
           <h2
             className="font-display font-extrabold text-lg md:text-xl uppercase leading-tight text-text
                        transition-colors duration-300 group-hover:text-primary-600 truncate"

@@ -1,9 +1,8 @@
-// src/data/projects.test.js
-// ─── Data-contract tests for the projects aggregator ──────────────────────
-// These are INVARIANT tests: they run against your real src/projects/*/data.js
-// files (import.meta.glob works natively in Vitest because it runs through
-// Vite's transform pipeline). They don't assert specific titles or counts —
-// so adding a new project never breaks them, but a malformed data.js will.
+// Data-contract tests for the projects aggregator. These run against the
+// actual src/projects/*/data.js files (import.meta.glob works natively in
+// Vitest since it runs through Vite's transform pipeline) and don't assert
+// specific titles or counts, so adding a new project won't break them, but a
+// malformed data.js will.
 
 import { describe, it, expect } from "vitest";
 import { projects, sortedProjects, getProject, getTagData } from "./projects";

@@ -1,25 +1,18 @@
-// src/components/CareerArc.jsx
-// ─────────────────────────────────────────────────────────────────────────────
-// THE BRIDGE — single source of truth for the career arc.
+// Renders the career arc ("The Bridge"). Phase data lives in src/data/career.js;
+// this component resolves translation keys and renders. Each phase carries its
+// own chronologically-grouped skill chips instead of a flat skills list.
 //
-// Phase data lives in src/data/career.js; this component only resolves
-// translation keys and renders. Skill chips now live here too (relocated
-// from the old "What I Bring" wall) — each phase carries its own
-// chronologically-grouped chips instead of a flat skills list.
-//
-//   • variant="full"    → About page section: numeral, label, years, summary,
-//                          then skill-group chips.
-//   • variant="compact" → homepage strip: numeral + label + years only.
-//     Skills are intentionally NOT rendered in compact — that's the wall this
-//     refactor removed, not something to re-introduce on the homepage.
-// ─────────────────────────────────────────────────────────────────────────────
+//   variant="full"    - About page section: numeral, label, years, summary,
+//                        then skill-group chips.
+//   variant="compact" - homepage strip: numeral + label + years only, no
+//                        skill chips.
 
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
 import { careerPhases } from "../data/career";
 
-// ─── Hand-drawn ink arrow — shared by both variants ──────────────────────────
+// Hand-drawn ink arrow — shared by both variants
 function InkArrow({ className = "" }) {
   return (
     <svg
@@ -35,7 +28,7 @@ function InkArrow({ className = "" }) {
   );
 }
 
-// ─── Data — resolved once, translation-driven ─────────────────────────────────
+// Data — resolved once, translation-driven
 export function useCareerArc() {
   const { t } = useTranslation();
   return careerPhases.map((p) => ({
@@ -60,9 +53,7 @@ const fadeUp = {
   }),
 };
 
-// ═══════════════════════════════════════════════════════════════════════════
 // FULL — About page
-// ═══════════════════════════════════════════════════════════════════════════
 function CareerArcFull({ steps }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border items-stretch">
@@ -143,13 +134,10 @@ function CareerArcFull({ steps }) {
   );
 }
 
-// ═══════════════════════════════════════════════════════════════════════════
 // COMPACT — homepage strip (numeral · label · years, arrows between)
 //
-// One label treatment for all three steps. Explicit `no-underline` +
-// `border-b-0` guards against any inherited link/underline styling leaking
-// in (this was the source of the "only QA Engineering is underlined" drift).
-// ═══════════════════════════════════════════════════════════════════════════
+// All three steps use the same label treatment. `no-underline` and
+// `border-b-0` guard against inherited link/underline styling.
 function CareerArcCompact({ steps }) {
   const prefersReducedMotion = useReducedMotion();
 
@@ -179,7 +167,7 @@ function CareerArcCompact({ steps }) {
               {step.phase}
             </span>
             <span className="md:block md:mt-2">
-              {/* Label — IDENTICAL treatment on all steps; accent color is
+              {/* Label — same treatment on all steps; accent color is
                   the only differentiator for the current phase. */}
               <span
                 className={`block font-display font-bold text-sm md:text-base leading-tight
@@ -212,7 +200,7 @@ function CareerArcCompact({ steps }) {
   );
 }
 
-// ─── Public API ───────────────────────────────────────────────────────────────
+// Public API
 export default function CareerArc({ variant = "full" }) {
   const steps = useCareerArc();
   return variant === "compact"

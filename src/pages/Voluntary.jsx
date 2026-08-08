@@ -1,4 +1,3 @@
-// src/pages/Voluntary.jsx
 import React from "react";
 import { VoluntaryList } from "../components/VoluntaryList";
 import { voluntaryItems } from "../data/voluntary";

@@ -1,4 +1,3 @@
-// src/components/Badge.jsx
 // Notebook-tag chips. Ink outlines + soft washes — no heavy solid fills.
 // Text always sits at AA contrast: ink or the -600 accent shades.
 export function Badge({ tone = "accent", children }) {

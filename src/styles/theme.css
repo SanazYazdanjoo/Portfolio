@@ -1,28 +1,21 @@
-/* src/styles/theme.css */
-/* ════════════════════════════════════════════════════════════════════════════
-   "INK & BLOOM" — Design tokens v2
-   ────────────────────────────────────────────────────────────────────────────
-   Concept: a researcher's field notebook. Warm paper, true black ink
-   (text + doodles), one loud coral accent, a rose whisper, and a gold
-   highlighter as the signature mark.
+/* "Ink & Bloom" design tokens: a researcher's field-notebook palette — warm
+   paper, true black ink for text and doodles, one coral accent, a rose
+   whisper, and a gold highlighter as the signature mark.
 
-   HOW TO RECOLOR THE ENTIRE SITE LATER:
-   Change ONLY the hex values in §2.1 (Primitives). Nothing else.
-   Components never touch primitives — they consume semantic tokens (§2.2),
-   which Tailwind maps to utility classes (tailwind.config.js).
+   To recolor the site, change only the hex values in 2.1 (Primitives);
+   components consume semantic tokens (2.2), which Tailwind maps to utility
+   classes in tailwind.config.js.
 
-   Contrast rules baked into this palette (WCAG AA):
-   - --primary / --secondary  → large text (≥24px), headings, UI shapes only
-   - --primary-600 / --secondary-600 → small text, links, body-size accents
-   - --blush / --highlight    → backgrounds & tints ONLY, never text
-   ════════════════════════════════════════════════════════════════════════════ */
+   WCAG AA contrast: primary/secondary are for large text (24px+), headings,
+   and UI shapes only; primary-600/secondary-600 are safe for small text and
+   links; blush/highlight are for backgrounds and tints only, never text. */
 
-/* --- 1. EXTERNAL ASSETS --- */
+/* 1. External assets */
 
 
-/* --- 2. DESIGN TOKENS --- */
+/* 2. Design tokens */
 
-/* ─── 2.1 Primitives ────────────────────────────────── */
+/* 2.1 Primitives */
 /* Raw, context-agnostic values. Never use directly in components. */
 @layer base {
   :root {
@@ -79,8 +72,8 @@
 --font-family-hand:    "Caveat", "Segoe Script", cursive;
 --font-family-mono:    ui-monospace, "SF Mono", "Cascadia Code", Menlo, monospace;
 
-/* Fluid type scale — clamps between ~380px and ~1280px viewports.
-   ONE system. Components stop using raw text-7xl for headings. */
+/* Fluid type scale, clamped between ~380px and ~1280px viewports — the
+   single scale components use instead of raw Tailwind text-7xl sizes. */
 --fs-2xs:     0.625rem;                               /* 10px — micro-label FLOOR */
 --fs-xs:      0.75rem;                                /* 12px */
 --fs-sm:      0.875rem;                               /* 14px */
@@ -124,7 +117,7 @@
 --cursor-pen-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 29 C4.5 26.5 6.5 23.5 8.5 20.5 C12.5 16.6 16.5 12.4 22 6.5 C23.5 7.2 25 8.7 26 10.5 C20.5 16.2 16.5 20.8 12.5 24.5 C9.5 26.4 6.2 27.9 3 29 Z' fill='%23fdfbf7' stroke='%23211d1c' stroke-width='1.8'/%3E%3Cpath d='M9.3 21.4 C10.6 21.9 11.8 23 12.9 24.2' fill='none' stroke='%23211d1c' stroke-width='1.5'/%3E%3Cpath d='M19.5 9.2 C16.8 12.1 14.6 14.4 12.8 16.4' fill='none' stroke='%23e43d12' stroke-width='1.4' opacity='0.5'/%3E%3Cpath d='M3 29 L5.1 25.9 L7.3 27.7 Z' fill='%23e43d12' stroke='%23e43d12' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E") 3 29, auto;  }
 }
 
-/* ─── 2.2 Semantic Tokens ────────────────────────────────── */
+/* 2.2 Semantic Tokens */
 /* Context for the primitives. Components + Tailwind consume ONLY these. */
 @layer base {
   :root {
@@ -203,7 +196,7 @@
   }
 }
 
-/* --- 3. BASE STYLES --- */
+/* 3. Base styles */
 @layer base {
   html, body, #root { height: 100%; }
 
@@ -223,7 +216,7 @@
     color: var(--color-ink-900);
   }
 
-  /* ── Minimal scrollbar ── */
+  /* Minimal scrollbar */
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb {
@@ -266,7 +259,7 @@
   }
 }
 
-/* --- 4. CORE COMPONENTS --- */
+/* 4. Core components */
 @layer components {
   .container {
     max-width: 80rem;
@@ -383,9 +376,9 @@
     padding: var(--space-4);
   }
 
-  /* ── Signature element: the gold highlighter swipe ──
-     Wrap any key phrase: <span class="ink-highlight">73% faster</span>
-     A slightly rotated, hand-height gold band behind the text. */
+  /* Signature element: the gold highlighter swipe. Wrap any key phrase:
+     <span class="ink-highlight">73% faster</span>. Renders a slightly
+     rotated, hand-height gold band behind the text. */
   .ink-highlight {
     position: relative;
     display: inline;
@@ -406,7 +399,7 @@
   }
   .ink-highlight--rose { background-image: linear-gradient(100deg, transparent 1%, var(--blush) 3%, var(--blush) 96%, transparent 99%); }
 
-  /* ── Photo frame: white mat + faint blush edge (was undefined — now real) ── */
+  /* Photo frame: white mat with a faint blush edge on hover */
   .photo-frame {
     background: var(--surface);
     padding: 8px;
@@ -417,7 +410,7 @@
   .photo-frame:hover { box-shadow: 0 0 0 1px var(--blush), var(--shadow-md); }
 }
 
-/* ── Button sketch-oval draw-on (was undefined — now animates) ── */
+/* Button sketch-oval draw-on animation */
 @keyframes sketch-oval-draw {
   from { stroke-dashoffset: 560; }
   to   { stroke-dashoffset: 0; }
@@ -428,7 +421,7 @@
   animation: sketch-oval-draw 0.55s var(--timing-smooth) forwards;
 }
 
-/* --- 5. TEXTURE UTILITIES --- */
+/* 5. Texture utilities */
 @layer utilities {
   .bg-paper-texture {
     background-image: theme('backgroundImage.paper');
@@ -438,7 +431,7 @@
     opacity: 0.35;
   }
 
-  /* Speckles are now INK, not orange — cohesive with the black doodles */
+  /* Ink-colored speckle texture, matching the black doodle illustrations */
   .bg-ink-speckles {
     background-image: url("data:image/svg+xml,%3Csvg width='600' height='600' viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23211d1c' fill-opacity='0.55'%3E%3Ccircle cx='50' cy='80' r='1.2'/%3E%3Ccircle cx='320' cy='50' r='0.8'/%3E%3Ccircle cx='550' cy='120' r='1.5'/%3E%3Ccircle cx='180' cy='290' r='1.8'/%3E%3Ccircle cx='450' cy='400' r='1'/%3E%3Ccircle cx='380' cy='550' r='1.2'/%3E%3Ccircle cx='40' cy='520' r='0.8'/%3E%3C/g%3E%3C/svg%3E");
     background-repeat: repeat;
@@ -446,7 +439,7 @@
   }
 }
 
-/* ─── HOME PAGE SPECIFIC ─── */
+/* Home page specific */
 @layer components {
   #Hero-Section .container { width: 100% !important; }
 
@@ -479,7 +472,7 @@
   .TextContent { padding: 15px; }
 }
 
-/* --- 6. PRINT SAFETY --- */
+/* 6. Print safety */
 @media print {
   *, *::before, *::after {
     cursor: default !important;
@@ -495,7 +488,7 @@
 
 #AboutAvatarImg { margin: auto !important; }
 
-/* ─── Stacked project card — image treatment ─── */
+/* Stacked project card image treatment */
 .project-image {
   filter: grayscale(100%) contrast(1.05);
   transition: filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);

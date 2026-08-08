@@ -1,5 +1,3 @@
-// src/components/ScrollArrow.jsx
-
 import React, { useState, useEffect } from "react";
 import { motion, useAnimationControls } from "framer-motion";
 
@@ -8,13 +6,13 @@ export function ScrollArrow({ targetId = "AboutMe-Section", scrollRef }) {
   const [drawn, setDrawn]     = useState(false);
   const arrowControls         = useAnimationControls();
 
-  // ── Draw the arrow path on mount ──────────────────────────────────────
+  // Draw the arrow path on mount
   useEffect(() => {
     const t = setTimeout(() => setDrawn(true), 600);
     return () => clearTimeout(t);
   }, []);
 
-  // ── Click: scroll to next section, let snap-center do the rest ────────
+  // Click: scroll to next section, let snap-center do the rest
   const handleClick = () => {
     const container = scrollRef?.current;
     const el = document.getElementById(targetId);
@@ -39,7 +37,7 @@ export function ScrollArrow({ targetId = "AboutMe-Section", scrollRef }) {
                  pointer-events-auto no-print"
       aria-label="Scroll to next section"
 
-      // Idle float — runs forever
+      // Idle float, runs forever
       animate={hovered ? "hover" : "idle"}
       variants={{
         idle: {
@@ -62,7 +60,7 @@ export function ScrollArrow({ targetId = "AboutMe-Section", scrollRef }) {
         },
       }}
     >
-      {/* ── Hand-written label ── */}
+      {/* Hand-written label */}
       <motion.span
         className="font-hand text-sm text-primary/60 tracking-wide leading-none"
         animate={{ opacity: hovered ? 1 : 0.5 }}
@@ -71,7 +69,7 @@ export function ScrollArrow({ targetId = "AboutMe-Section", scrollRef }) {
         Scroll
       </motion.span>
 
-      {/* ── The arrow itself ── */}
+      {/* The arrow itself */}
       <motion.div animate={arrowControls} className="relative w-10 h-16">
 
         {/* Wobbly shaft */}
@@ -142,7 +140,7 @@ export function ScrollArrow({ targetId = "AboutMe-Section", scrollRef }) {
           />
         </svg>
 
-        {/* Excited sparkles on hover */}
+        {/* Sparkles on hover */}
         {hovered && (
           <>
             {[

@@ -1,5 +1,3 @@
-// src/components/ScrollIndicator.jsx
-
 import { useEffect, useState, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 
@@ -46,7 +44,7 @@ export function ScrollIndicator({ scrollRef }) {
   const scrollTimer  = useRef(null);
   const animFrameRef = useRef(null);
 
-  // ── Measure header/footer heights ──────────────────────────────────────
+  // Measure header/footer heights
   useEffect(() => {
     const measure = () => {
       const header = document.querySelector("header");
@@ -61,7 +59,7 @@ export function ScrollIndicator({ scrollRef }) {
     return () => { clearTimeout(t); window.removeEventListener("resize", measure); };
   }, []);
 
-  // ── Measure path + compute dot positions ───────────────────────────────
+  // Measure path + compute dot positions
   useEffect(() => {
     const path = pathRef.current;
     if (!path) return;
@@ -71,7 +69,7 @@ export function ScrollIndicator({ scrollRef }) {
     setDotPoints(pts);
   }, []);
 
-  // ── IntersectionObserver — fires reliably at snap boundaries ───────────
+  // IntersectionObserver fires reliably at snap boundaries
   useEffect(() => {
     const container = scrollRef?.current;
     if (!container) return;
@@ -101,7 +99,7 @@ export function ScrollIndicator({ scrollRef }) {
     return () => observers.forEach(o => o.disconnect());
   }, [scrollRef]);
 
-  // ── Spin while scrolling ───────────────────────────────────────────────
+  // Spin while scrolling
   useEffect(() => {
     const container = scrollRef?.current;
     if (!container) return;
@@ -135,7 +133,7 @@ export function ScrollIndicator({ scrollRef }) {
     return () => cancelAnimationFrame(animFrameRef.current);
   }, [isScrolling]);
 
-  // ── Scroll to section — let snap-center handle vertical centering ──────
+  // Scroll to section — let snap-center handle vertical centering
   const scrollToSection = useCallback((sectionId, _index) => {
     const container = scrollRef?.current;
     if (!container) return;
@@ -153,7 +151,7 @@ export function ScrollIndicator({ scrollRef }) {
     container.scrollTo({ top: elTop, behavior: "smooth" });
   }, [scrollRef]);
 
-  // ── The flower snaps to the active dot position ────────────────────────
+  // The flower snaps to the active dot position
   const flowerPos = dotPoints[activeSection] ?? { left: "50%", top: "50%" };
 
   // How much of the path to draw — snaps to active dot progress
@@ -171,7 +169,7 @@ export function ScrollIndicator({ scrollRef }) {
         className="relative flex-1"
         style={{ width: 20, marginTop: margins.top, marginBottom: margins.bottom }}
       >
-        {/* ── SVG track ── */}
+        {/* SVG track */}
         <svg
           viewBox={`0 0 ${VB_W} ${VB_H}`}
           preserveAspectRatio="none"
@@ -212,7 +210,7 @@ export function ScrollIndicator({ scrollRef }) {
           />
         </svg>
 
-        {/* ── Section dots — exactly on path ── */}
+        {/* Section dots — exactly on path */}
         {SECTIONS.map((section, _index) => {
           const isActive = activeSection === _index;
           const pos = dotPoints[_index] ?? { left: "50%", top: `${DOT_PROGRESS[_index] * 100}%` };
@@ -256,7 +254,7 @@ export function ScrollIndicator({ scrollRef }) {
           );
         })}
 
-        {/* ── Flower — SNAPS to active dot position ── */}
+        {/* Flower — snaps to active dot position */}
         <motion.div
           className="absolute -translate-x-1/2 -translate-y-1/2
                      pointer-events-none flex items-center justify-center w-12 h-12"

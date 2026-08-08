@@ -1,7 +1,6 @@
-// src/test/renderWithProviders.jsx
-// ─── Test render helper ────────────────────────────────────────────────────
 // Wraps components in the same providers main.jsx uses, so anything calling
-// useTranslation() or router hooks (Link, useNavigate, useParams) just works.
+// useTranslation() or router hooks (Link, useNavigate, useParams) works as
+// expected.
 //
 // Usage:
 //   import { renderWithProviders, screen } from "../test/renderWithProviders";

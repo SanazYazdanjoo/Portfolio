@@ -1,10 +1,8 @@
-// src/translations/en.js
-// ─── English UI Strings ────────────────────────────────────────────────────────
 // Flat key-value map. Use dot-notation keys for logical grouping.
 // Content that lives in profile.js uses the bilingual { en, de } pattern instead.
 
 const en = {
-  // ── Navigation ──
+  // Navigation
   "nav.home": "Home",
   "nav.projects": "Projects",
   "nav.about": "About",
@@ -13,17 +11,18 @@ const en = {
   "nav.openMenu": "Open menu",
   "nav.closeMenu": "Close menu",
 
-  // ── Hero ──
+  // Hero
   "hero.portfolio": "PORTFOLIO",
   "hero.tagline": "I speak both 'user' and 'developer'.",
   "hero.ctaWork": "View my work",
   "hero.ctaCv": "View CV",
 
-  // ── Projects ──
+  // Projects
   "projects.heading": "Case Studies",
   "projects.title": "Projects",
   "projects.viewProject": "View Case Study",
   "projects.comingSoon": "Coming Soon",
+  "projects.inProgress": "In Progress",
   "projects.methods": "Methods",
   "projects.metrics": "Key Metrics",
   "projects.allProjects": "All Projects",
@@ -34,7 +33,7 @@ const en = {
   "projects.view.list": "List",
   "projects.view.grid": "Grid",
 
-  // ── About ──
+  // About
   "about.heading": "About Me",
 
   "about.howIGotHere": "How I Got Here",
@@ -49,20 +48,20 @@ const en = {
   "about.viewProjects": "View Projects",
   "about.viewCV": "View CV",
 
-  // ── Career arc ──
+  // Career arc
   "about.career.phase1.label": "Software Engineering",
   "about.career.phase1.years": "2015 – 2020",
   "about.career.phase1.summary": "Built 20+ products from the ground up. Learned that code is easy; knowing what to build is hard.",
   "about.career.phase2.label": "QA Engineering",
   "about.career.phase2.years": "2020 – 2023",
   "about.career.phase2.summary": "Shifted from building to breaking — and realised every bug was a user insight waiting to be heard.",
-  "about.career.phase3.label": "UX Engineering", // Updated
+  "about.career.phase3.label": "UX Engineering",
   "about.career.phase3.years": "2023 – Now",
-  "about.career.phase3.summary": "This is where research and engineering merge. I design methodologically sound studies and build the architecture (e.g., in TypeScript) to run them.", // Updated
+  "about.career.phase3.summary": "This is where research and engineering merge. I design methodologically sound studies and build the architecture (e.g., in TypeScript) to run them.",
   "about.career.group.research": "Research",
   "about.career.group.build": "Build",
 
-  // ── Research process ──
+  // Research process
   "about.process.discover.title": "Discover",
   "about.process.discover.desc": "Stakeholder interviews, contextual inquiry, and desk research to frame the right problem before any solution is considered.",
   "about.process.define.title": "Define",
@@ -72,7 +71,7 @@ const en = {
   "about.process.deliver.title": "Deliver",
   "about.process.deliver.desc": "Usability testing, iteration, and stakeholder alignment — with measurable outcomes documented at every stage.",
 
-  // ── CV ──
+  // CV
   "cv.heading": "Curriculum Vitae",
   "cv.experience": "Work Experience",
   "cv.education": "Education",
@@ -85,14 +84,14 @@ const en = {
   "cv.download": "Download PDF",
   "cv.saveAsPdf": "Save as PDF",
 
-  // ── Contact ──
+  // Contact
   "contact.heading": "Get in Touch",
   "contact.hi": "Hi",
   "contact.email": "Email",
   "contact.locationPhone": "Location & Phone",
   "contact.socials": "Socials",
   "contact.collaborate": "Let's collaborate in:",
-  "contact.location": "Currently based in Weimar, Germany, and open to interdisciplinary UX and Tech roles.", // Updated
+  "contact.location": "Currently based in Weimar, Germany, and open to interdisciplinary UX and Tech roles.",
   "contact.kicker": "Contact",
   "contact.headline": "Let's talk",
   "contact.emailCta": "Write me an email",
@@ -105,7 +104,7 @@ const en = {
   "contact.goodToSend": "Good things to send me",
   "contact.viewCv": "View CV",
 
-  // ── Footer ──
+  // Footer
   "footer.rights": "All rights reserved.",
   "footer.privacy": "Privacy Policy",
   "footer.impressum": "Legal Notice",
@@ -113,16 +112,16 @@ const en = {
   "footer.letsWork": "Let's work together.",
   "footer.openTo": "Open to {role} roles in Germany",
 
-  // ── Voluntary ──
+  // Voluntary
   "voluntary.heading": "Voluntary",
   "voluntary.description": "Community building, mentorship, and extracurricular initiatives.",
 
-  // ── Common ──
+  // Common
   "common.backToPortfolio": "← Back to Portfolio",
   "common.readMore": "Read More",
   "common.language": "Language",
 
-  // ── Hero meta strip ──
+  // Hero meta strip
   "hero.kicker": "UX Research × Engineering",
 
   "hero.meta.background": "Background",
@@ -130,13 +129,13 @@ const en = {
   "hero.meta.status": "Status",
   "hero.meta.location": "Location",
 
-  // These values now mirror the exact length and meaning of the German translation
+  // These values mirror the length and meaning of the German translation
   "hero.meta.backgroundValue": "M.Sc. HCI · B.E. Software Engineering · QA",
   "hero.meta.focusValue": "Frontend Development · UI Architecture · Mixed-methods",
   "hero.meta.statusValue": "Open to interdisciplinary UX & Tech roles",
   "hero.meta.locationValue": "Weimar, DE · Open to relocation",
   
-  // ── Footer ──
+  // Footer
   "footer.status": "Status",
   "footer.directContact": "Direct Contact",
   "footer.basedIn": "Currently based in {location}.",
@@ -148,12 +147,12 @@ const en = {
   "footer.githubLink": "My GitHub",
   "footer.legalAriaLabel": "Legal",
 
-  // ── Scroll indicator ──
+  // Scroll indicator
   "scroll.hero": "Hero",
   "scroll.about": "About Me",
   "scroll.projects": "Projects",
 
-  // ── Project detail — sidebar / mobile pill labels (short form) ──
+  // Project detail — sidebar / mobile pill labels (short form)
   "project.sidebar.allProjects": "All Projects",
   "project.sidebar.collapseAll": "Collapse all",
   "project.sidebar.expandAll": "Expand all",
@@ -167,7 +166,7 @@ const en = {
   "project.sidebar.status": "Status",
   "project.sidebar.conclusion": "Conclusion",
 
-  // ── Project detail — section kickers + headings (long form) ──
+  // Project detail — section kickers + headings (long form)
   "project.process.kicker": "Behind the Work",
   "project.process.heading": "Research Process",
   "project.process.swipe": "Swipe to explore →",
@@ -220,15 +219,16 @@ const en = {
 
   "project.footer.back": "Back to All Projects",
   "project.card.readCaseStudy": "Read case study",
+  "project.card.readInProgress": "Read work in progress",
 
-  // ── Project detail — figure viewer chrome ──
+  // Project detail — figure viewer chrome
   "project.media.close": "Close",
   "project.media.enlarge": "Enlarge figure",
   "project.media.enlargedDefault": "Enlarged figure",
   "project.media.clickToEnlarge": "click to enlarge",
   "project.media.whatItShows": "What it shows",
 
-  // ── Credentials ──
+  // Credentials
   "credentials.heading": "Credentials",
   "credentials.subheading": "Workshops, courses, and certifications — with the original documents on file.",
   "credentials.viewCredential": "View credential",

@@ -1,5 +1,4 @@
-// src/projects/project-2/data.js
-// ─── Evidence-locked to UCD4UX_FINAL_PRESENTATION.pdf (deskbird × Bauhaus-Universität Weimar) ───
+// Content is sourced from UCD4UX_FINAL_PRESENTATION.pdf (deskbird x Bauhaus-Universität Weimar).
 import thumbnailImg from './Ucd4ux.png';
 
 export const projectData = {
@@ -65,7 +64,7 @@ export const projectData = {
     de: "Die Forschung lieferte klare, umsetzbare Anforderungen: Sozialisierung findet in Pausen statt, nicht in Meetings; das Büro wird für echte Interaktionen und schnellere Kommunikation bevorzugt, während das Homeoffice bei der Fokussierung punktet; und fast drei Viertel der Umfrageteilnehmenden stimmten zu, dass persönliche Details über Kolleg:innen sie verbundener fühlen lassen. Interaktion über Senioritäts- und Abteilungsgrenzen hinweg erwies sich als die größte Hürde. Diese Erkenntnisse eliminierten zwei konkurrierende Konzepte (Chat2Meet, Flows & Breaks) und formten den finalen Interest-Based-Communities-Prototyp.",
   },
 
-  // ── Process Gallery ──────────────────────────────────────────────────────
+  // Process gallery
   process: [
     {
       phase: "discover",

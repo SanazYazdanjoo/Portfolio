@@ -2,9 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 
 /**
- * SketchTrail — a mouse-following "ink" trail.
- * v2: smoothed quadratic segments + speed-based ink weight.
- * Supports exclusion zones via [data-no-sketch="true"].
+ * Mouse-following "ink" trail: smoothed quadratic segments, speed-based
+ * ink weight. Elements marked [data-no-sketch="true"] break the stroke.
  */
 export const SketchTrail = () => {
   const [segments, setSegments] = useState([]);

@@ -1,4 +1,3 @@
-// src/pages/Sitemap.jsx
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -7,9 +6,8 @@ import { useLocalizedProfile } from '../hooks/useLocalizedProfile';
 import { projects } from "../data/projects";
 import { ScribbleUnderline } from "../components/DoodleLibrary";
 
-// ─── Static route tree ────────────────────────────────────────────────────────
-// Top-level routes are pulled from profileData.navLinks automatically.
-// Sub-routes and legal pages are defined here — update as you add new pages.
+// Static route tree. Top-level routes are pulled from profileData.navLinks
+// automatically; sub-routes and legal pages are defined here.
 const STATIC_SECTIONS = {
   "/": [
     { label: "Hero", description: "Name, role, year" },
@@ -58,7 +56,7 @@ const PROJECT_SECTIONS = [
   "Implications",
 ];
 
-// ─── Animation ────────────────────────────────────────────────────────────────
+// Animation
 const fadeUp = {
   hidden: { opacity: 0, y: 16 },
   show: (i) => ({
@@ -67,7 +65,7 @@ const fadeUp = {
   }),
 };
 
-// ─── Single route node ────────────────────────────────────────────────────────
+// Single route node
 function RouteNode({ path, label, description, children, index, isActive }) {
   const [open, setOpen] = useState(false);
   const hasChildren = children && children.length > 0;
@@ -101,7 +99,7 @@ function RouteNode({ path, label, description, children, index, isActive }) {
             <span className="font-semibold text-sm text-text/80">{label}</span>
             {/* Description */}
             {description && (
-              <span className="text-[11px] text-text/40">{description}</span>
+              <span className="text-[11px] text-dim">{description}</span>
             )}
           </div>
 
@@ -147,7 +145,7 @@ function RouteNode({ path, label, description, children, index, isActive }) {
   );
 }
 
-// ─── Page ─────────────────────────────────────────────────────────────────────
+// Page
 export default function Sitemap() {
   const profileData = useLocalizedProfile(rawProfile);
   const localizedProjects = useLocalizedProfile(projects);
@@ -215,7 +213,7 @@ export default function Sitemap() {
             ].map((stat) => (
               <div key={stat.label}>
                 <p className="font-black text-2xl text-primary leading-none">{stat.value}</p>
-                <p className="text-[9px] uppercase tracking-widest text-text/40 font-semibold mt-1">
+                <p className="text-[9px] uppercase tracking-widest text-dim font-semibold mt-1">
                   {stat.label}
                 </p>
               </div>
@@ -223,7 +221,7 @@ export default function Sitemap() {
           </div>
         </motion.header>
 
-        {/* ── Main navigation routes ── */}
+        {/* Main navigation routes */}
         <section className="mb-12">
           <p className="text-[9px] font-black uppercase tracking-[0.2em] text-primary/60 mb-6">
             Main Navigation
@@ -239,7 +237,7 @@ export default function Sitemap() {
           ))}
         </section>
 
-        {/* ── Credentials (standalone — not part of primary nav) ── */}
+        {/* Credentials — standalone, not part of primary nav */}
         <section className="mb-12">
           <p className="text-[9px] font-black uppercase tracking-[0.2em] text-primary/60 mb-6">
             Credential Gallery
@@ -252,7 +250,7 @@ export default function Sitemap() {
           />
         </section>
 
-        {/* ── Project detail routes (dynamic) ── */}
+        {/* Project detail routes (dynamic) */}
         <section className="mb-12">
           <p className="text-[9px] font-black uppercase tracking-[0.2em] text-primary/60 mb-6">
             Project Detail Pages — auto-generated from{" "}
@@ -272,7 +270,7 @@ export default function Sitemap() {
           ))}
         </section>
 
-        {/* ── Legal routes ── */}
+        {/* Legal routes */}
         <section>
           <p className="text-[9px] font-black uppercase tracking-[0.2em] text-primary/60 mb-6">
             Legal

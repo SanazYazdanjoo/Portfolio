@@ -1,9 +1,6 @@
-// src/components/ComingSoonRow.jsx
-// ─────────────────────────────────────────────────────────────────────────────
-// EXTRACTED from Home.jsx — now shared by Home AND Projects.
-// Same anatomy as StackedProjectCard (index · title · methods) so the list
-// reads as one system, but muted and inert. No spine, no hover, no route.
-// ─────────────────────────────────────────────────────────────────────────────
+// Shared by Home and Projects. Same anatomy as StackedProjectCard (index,
+// title, methods) so the list reads as one system, but muted and inert —
+// no spine, no hover, no route.
 
 import React from "react";
 import { useTranslation } from "../context/LanguageContext";

@@ -1,4 +1,3 @@
-// src/components/Footer.jsx
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "../context/LanguageContext";
@@ -15,13 +14,13 @@ export function Footer({ data }) {
     <footer className="relative border-t border-border/20 bg-bg no-print">
       <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 pt-12 pb-10">
 
-        {/* ── Minimalist HR Grid ── */}
+        {/* Minimalist HR grid */}
         {!isContactPage && (
         <div className="grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-x-10 mb-10">
 
-          {/* Column 1: Status (Matches AboutMe heading alignment) */}
+          {/* Column 1: Status */}
           <div className="md:col-span-5">
-            <h3 className="text-[10px] font-black uppercase tracking-widest text-text/40 mb-5">
+            <h3 className="text-[10px] font-black uppercase tracking-widest text-dim mb-5">
               {t("footer.status")}
             </h3>
             <div className="flex items-start gap-3">
@@ -35,7 +34,7 @@ export function Footer({ data }) {
 
           {/* Column 2: Direct Contact */}
           <div className="md:col-span-4">
-            <h3 className="text-[10px] font-black uppercase tracking-widest text-text/40 mb-5">
+            <h3 className="text-[10px] font-black uppercase tracking-widest text-dim mb-5">
               {t("footer.directContact")}
             </h3>
             <ul className="space-y-3 text-sm font-medium">
@@ -56,7 +55,7 @@ export function Footer({ data }) {
 
           {/* Column 3: Utility */}
           <div className="md:col-span-3">
-            <h3 className="text-[10px] font-black uppercase tracking-widest text-text/40 mb-5">
+            <h3 className="text-[10px] font-black uppercase tracking-widest text-dim mb-5">
               {t("footer.utility")}
             </h3>
             <ul className="space-y-3 text-sm font-medium">
@@ -85,10 +84,10 @@ export function Footer({ data }) {
         </div>
         )}
 
-        {/* ── Divider ── */}
+        {/* Divider */}
         <div className="h-px bg-border/10 mb-4" />
 
-        {/* ── Bottom bar: copyright + legal ── */}
+        {/* Bottom bar: copyright + legal */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <p className="text-[11px] text-text/30 font-medium">© {year} {name}</p>
 

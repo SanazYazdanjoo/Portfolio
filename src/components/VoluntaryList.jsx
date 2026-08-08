@@ -1,4 +1,3 @@
-// src/components/VoluntaryList.jsx
 import React from "react";
 
 export function VoluntaryList({ items = [] }) {

@@ -1,11 +1,8 @@
-// src/data/career.js
-// ─────────────────────────────────────────────────────────────────────────────
-// THE BRIDGE — single source of truth for the career arc.
-// label/years/summary are translation keys (resolved via useTranslation() in
-// CareerArc.jsx) so the copy stays in src/translations/{en,de}.js.
-// Skill chips are language-neutral proper nouns and stay as-is in both locales.
-// skillGroups is an array so a phase can carry more than one skill cluster.
-// ─────────────────────────────────────────────────────────────────────────────
+// Single source of truth for the career arc ("The Bridge"). label/years/summary
+// are translation keys (resolved via useTranslation() in CareerArc.jsx) so the
+// copy stays in src/translations/{en,de}.js. Skill chips are language-neutral
+// proper nouns and stay as-is in both locales. skillGroups is an array so a
+// phase can carry more than one skill cluster.
 
 export const careerPhases = [
   {

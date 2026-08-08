@@ -1,37 +1,31 @@
-// src/projects/SectionMedia.jsx
-// ─────────────────────────────────────────────────────────────────────────────
-// Figure grid for project detail pages — speaks the Quiet Edition language:
-//   • border-border frames, no chrome, no color noise
-//   • mono micro-type captions (same voice as MetaField / Tech Stack)
-//   • `span: 2` for hero figures (full-width charts)
-//   • type: "video" → autoplay/loop/muted MP4 demo (your MAGIC & Ninja GIFs,
-//     converted to MP4 — ~94% smaller). Falls back to the poster frame when
-//     the user prefers reduced motion, and in print.
-//   • images are click-to-zoom by default (`zoom: false` opts out). Research
-//     diagrams are 1600–1800px wide; inline they are previews, so without a
-//     zoom affordance the detail is decorative rather than readable.
-//   • optional framing per figure, for artefacts that need explaining rather
-//     than just labelling:
-//         label       → mono eyebrow above the title
-//         title       → short display heading
-//         description → what the diagram shows and how to read it
-//         takeaway    → the finding, set off by a primary rule so it can be
-//                       scanned without the setup
-//         takeawayLabel → overrides the default "What it shows"
-//     A figure that omits all of them renders exactly as it always did.
+// Figure grid for project detail pages. Frames use border-border with no
+// color chrome; captions are mono micro-type matching MetaField / Tech
+// Stack. `span: 2` makes a figure full-width for hero charts. `type:
+// "video"` plays an autoplay/loop/muted MP4 (converted from GIFs, roughly
+// 94% smaller) and falls back to the poster frame when the user prefers
+// reduced motion or in print. Images are click-to-zoom by default (`zoom:
+// false` opts out), since the source diagrams are 1600-1800px wide and the
+// detail is not readable at inline size without it.
 //
-// Fully additive: projects without a `figures` key render exactly as before.
-// ─────────────────────────────────────────────────────────────────────────────
+// Optional per-figure framing:
+//   label         — mono eyebrow above the title
+//   title         — short display heading
+//   description   — what the diagram shows and how to read it
+//   takeaway      — the finding, set off by a rule so it can be scanned
+//                   without the setup
+//   takeawayLabel — overrides the default "What it shows"
+// A figure that omits all of them renders as a plain image. Projects
+// without a `figures` key are unaffected.
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
 
-// ─── Zoom overlay ────────────────────────────────────────────────────────────
-// Rendered through a portal to document.body on purpose: figures sit inside a
-// framer-motion section, and a transformed ancestor would otherwise become the
-// containing block for `position: fixed` and break the overlay mid-animation.
+// Zoom overlay. Rendered through a portal to document.body: figures sit
+// inside a framer-motion section, and a transformed ancestor would
+// otherwise become the containing block for `position: fixed`, breaking
+// the overlay mid-animation.
 function ZoomOverlay({ figure, onClose }) {
   const { t } = useTranslation();
   const closeRef = useRef(null);
@@ -141,9 +135,8 @@ export default function SectionMedia({ items }) {
               key={i}
               className={`m-0 ${f.span === 2 ? "sm:col-span-2" : ""}`}
             >
-              {/* Optional framing above the image. Any figure that omits these
-                  renders exactly as it did before — project-1's charts are
-                  unaffected. */}
+              {/* Optional framing above the image; a figure that omits these
+                  renders as a plain image. */}
               {(f.label || f.title || f.description) && (
                 <div className="mb-4">
                   {f.label && (

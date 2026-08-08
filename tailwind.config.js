@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  // Keeps your theme switching support
+  // Enables class-based dark-mode switching
   darkMode: ["class", '[data-theme="dark"]'],
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {

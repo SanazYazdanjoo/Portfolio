@@ -1,29 +1,19 @@
-// ─────────────────────────────────────────────────────────────
-// DesignSystem.jsx — "Ink & Bloom v2" living style guide
-// Route: /design-system
-//
-// A self-documenting page: every specimen is rendered with the
-// real tokens (CSS variables) and the real components, so if a
-// token changes, this page updates itself. Single source of
-// truth, but for design.
-//
-// Conventions honored:
-// - .type-* role classes from theme.css (never raw sizes)
-// - Section pattern: hairline divider → sticky label rail (3/9)
-// - framer-motion fade-ups with the house easing
-// - Gold highlighter appears exactly ONCE on this page
-// ─────────────────────────────────────────────────────────────
+// Route: /design-system. Every specimen renders from the real CSS tokens
+// and real components, so a token change updates this page automatically.
+// Conventions: .type-* role classes from theme.css instead of raw sizes;
+// section pattern is a hairline divider plus a sticky label rail (3/9);
+// framer-motion fade-ups use the house easing; the gold highlighter appears
+// once on this page.
 import React from "react";
 import { motion } from "framer-motion";
 
-// If these live elsewhere in your tree, adjust the paths:
 import { Button, SolidButton } from "../components/Button";
 import { Badge } from "../components/Badge";
 import TagChip from "../components/TagChip";
 import { InkHighlight } from "../components/InkHighlight";
 import { ScribbleDivider } from "../components/ScribbleDivider";
 
-// ── Motion presets (house rules: 0.45–0.7s, y 16–24, stagger 0.1) ──
+// Motion presets (house rules: 0.45-0.7s, y 16-24px, stagger 0.1s)
 const EASE = [0.22, 0.61, 0.36, 1];
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -34,11 +24,9 @@ const stagger = {
   show: { transition: { staggerChildren: 0.1 } },
 };
 
-// ─────────────────────────────────────────────────────────────
-// Token data — mirrors tokens/colors.css. These are DESIGN data,
-// not profile data, so they live here rather than profile.js.
-// Swatches render via var(--…) so they always match the CSS.
-// ─────────────────────────────────────────────────────────────
+// Token data mirrors tokens/colors.css. This is design data, not profile
+// data, so it lives here rather than in profile.js. Swatches render via
+// var(--...) so they always match the CSS.
 const INK_PAPER = [
   { name: "Ink 900", varName: "--color-ink-900", hex: "#211D1C", note: "Body + display text, doodles", light: false },
   { name: "Ink 600", varName: "--color-ink-600", hex: "#6B6560", note: "Secondary text", light: false },
@@ -71,7 +59,7 @@ const MOTION_RULES = [
   { name: "Accessibility", value: "prefers-reduced-motion", note: "All animation collapses to ~0ms." },
 ];
 
-// ── Local building blocks ──
+// Local building blocks
 function SectionLabel({ children }) {
   return (
     <p
@@ -137,11 +125,10 @@ function RuleRow({ name, value, note }) {
   );
 }
 
-// ─────────────────────────────────────────────────────────────
 export default function DesignSystem() {
   return (
     <main className="max-w-[80rem] mx-auto px-6 md:px-10 pb-28">
-      {/* ── Header ── */}
+      {/* Header */}
       <motion.header variants={stagger} initial="hidden" animate="show" className="pt-16 md:pt-24">
         <motion.p
           variants={fadeUp}
@@ -161,7 +148,7 @@ export default function DesignSystem() {
         </motion.p>
       </motion.header>
 
-      {/* ── 01 · Colors ── */}
+      {/* 01 · Colors */}
       <DSSection label="01 · Colors">
         <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
           <h2 className="type-h3 mt-0 mb-4">Ink &amp; paper</h2>
@@ -190,7 +177,7 @@ export default function DesignSystem() {
         </motion.div>
       </DSSection>
 
-      {/* ── 02 · Typography ── */}
+      {/* 02 · Typography */}
       <DSSection label="02 · Typography">
         <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
           <motion.p variants={fadeUp} className="type-body mt-0 mb-8" style={{ color: "var(--text-dim)" }}>
@@ -234,7 +221,7 @@ export default function DesignSystem() {
         </motion.div>
       </DSSection>
 
-      {/* ── 03 · Ink elements ── */}
+      {/* 03 · Ink elements */}
       <DSSection label="03 · Ink">
         <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
           <motion.p variants={fadeUp} className="type-body mt-0 mb-6" style={{ color: "var(--text-dim)" }}>
@@ -260,7 +247,7 @@ export default function DesignSystem() {
         </motion.div>
       </DSSection>
 
-      {/* ── 04 · Components ── */}
+      {/* 04 · Components */}
       <DSSection label="04 · Components">
         <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
           <motion.div variants={fadeUp} className="mb-10">
@@ -319,14 +306,14 @@ export default function DesignSystem() {
         </motion.div>
       </DSSection>
 
-      {/* ── 05 · Motion ── */}
+      {/* 05 · Motion */}
       <DSSection label="05 · Motion">
         <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
           {MOTION_RULES.map((r) => <RuleRow key={r.name} {...r} />)}
         </motion.div>
       </DSSection>
 
-      {/* ── 06 · Iconography ── */}
+      {/* 06 · Iconography */}
       <DSSection label="06 · Icons">
         <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
           <motion.p variants={fadeUp} className="type-body mt-0 mb-4">

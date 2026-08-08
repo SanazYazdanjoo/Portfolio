@@ -1,12 +1,9 @@
-// src/pages/Credentials.jsx
-// ─────────────────────────────────────────────────────────────────────────────
 // Certificate gallery. Reads profile.certifications (never hardcoded here) and
 // renders one card per entry. A card's interactive affordance is scoped to its
 // thumbnail only (button → lightbox when `file` is set, external link when
-// only `verifyUrl` is set) so we never nest an <a> inside a <button> — the
+// only `verifyUrl` is set) so an <a> is never nested inside a <button> — the
 // same constraint ProjectTemplate's collapsible sections enforce elsewhere in
 // this codebase. Cards with neither stay fully static.
-// ─────────────────────────────────────────────────────────────────────────────
 
 import React, { useCallback, useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
@@ -29,8 +26,7 @@ function isPdf(path) {
   return typeof path === "string" && path.toLowerCase().endsWith(".pdf");
 }
 
-// ─── Typographic fallback tile (no <img>, so a missing thumb never renders
-// a broken image) ──────────────────────────────────────────────────────────
+// Typographic fallback tile: no <img>, so a missing thumb never renders a broken image
 function FallbackTile({ title }) {
   const initial = (title || "?").trim().charAt(0).toUpperCase() || "?";
   return (
@@ -38,14 +34,14 @@ function FallbackTile({ title }) {
       <span aria-hidden="true" className="font-display text-4xl font-extrabold text-primary-600">
         {initial}
       </span>
-      <span className="max-w-full truncate text-center text-2xs font-bold uppercase tracking-widest text-text/40">
+      <span className="max-w-full truncate text-center text-2xs font-bold uppercase tracking-widest text-dim">
         {title}
       </span>
     </div>
   );
 }
 
-// ─── Lightbox ──────────────────────────────────────────────────────────────
+// Lightbox
 function CertificateLightbox({ cert, onClose }) {
   const { t } = useTranslation();
   const titleId = useId();
@@ -151,7 +147,7 @@ function CertificateLightbox({ cert, onClose }) {
   );
 }
 
-// ─── Card ────────────────────────────────────────────────────────────────────
+// Card
 function CertificateCard({ cert, index, onOpenFile }) {
   const { t } = useTranslation();
   const prefersReducedMotion = useReducedMotion();
@@ -258,7 +254,7 @@ function CertificateCard({ cert, index, onOpenFile }) {
   );
 }
 
-// ─── Page ─────────────────────────────────────────────────────────────────────
+// Page
 export default function Credentials() {
   const profileData = useLocalizedProfile(rawProfile);
   const { t } = useTranslation();

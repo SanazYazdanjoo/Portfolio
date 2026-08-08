@@ -1,20 +1,8 @@
-// src/pages/About.jsx
-// ─────────────────────────────────────────────────────────────────────────────
-// Ink & Bloom edition. Data flow, translation keys, and section structure are
-// otherwise IDENTICAL to before — only the visual language changed:
-//
-//   • Headings set in Bricolage Grotesque (font-display); the rotated "About Me" is
-//     roman + −2° (Bricolage has no italic; rotation alone carries the gesture)
-//   • Big decorative numerals: blush pink, warming to rose on hover
-//   • Eyebrows / small accents: primary-600 & secondary-600 (AA-safe shades)
-//   • Hover fills: blush wash instead of coral tint
-//   • Current career phase stays the ONE loud coral moment on the page
-//   • The closing CTA line carries the gold highlighter signature
-//
-// The old "What I Bring" skills wall is gone — skills now live inside The
-// Bridge (CareerArc, variant="full") as chronologically-grouped chips, so
-// each skill carries its era instead of sitting in a flat list.
-// ─────────────────────────────────────────────────────────────────────────────
+// Headings use Bricolage Grotesque (font-display); the rotated "About Me" is
+// roman plus a -2 degree rotation, since Bricolage has no italic and the
+// rotation alone carries that gesture. Skills live inside The Bridge
+// (CareerArc, variant="full") as chronologically-grouped chips rather than a
+// flat list, so each skill carries its era.
 
 import React from "react";
 import { motion } from "framer-motion";
@@ -25,7 +13,7 @@ import { voluntaryItems as rawVoluntary } from "../data/voluntary";
 import { useTranslation } from "../context/LanguageContext";
 import CareerArc from "../components/CareerArc";
 
-// ─── Animation variants ───────────────────────────────────────────────────────
+// Animation variants
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
   show: (i = 0) => ({
@@ -69,13 +57,11 @@ export default function About() {
   return (
     <main className="bg-bg min-h-screen relative overflow-hidden">
 
-      {/* ══════════════════════════════════════════════
-          SECTION 1 — Bio & Photo
-      ══════════════════════════════════════════════ */}
+      {/* Bio & Photo */}
       <section className="relative w-full px-[6%] md:px-[8%] pb-24 md:pb-32 font-sans text-text">
         <div className="relative w-full max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-x-10 items-start">
 
-          {/* ── Left Column ── */}
+          {/* Left Column */}
           <motion.div
             className="md:col-span-7 flex flex-col pt-12 md:pt-24 z-10"
             initial={{ opacity: 0, y: 30 }}
@@ -84,13 +70,13 @@ export default function About() {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <div className="relative inline-block w-max mb-6 md:mb-10">
-              <h2
+              <h1
                 className="font-display font-extrabold text-text
                            text-display relative z-10"
                 style={{ fontVariationSettings: "'opsz' 96" }}
               >
                 {t("about.heading")}
-              </h2>
+              </h1>
             </div>
 
             <p className="text-lg text-text/90 font-normal max-w-xl">
@@ -98,7 +84,7 @@ export default function About() {
             </p>
           </motion.div>
 
-          {/* ── Right Column: Photo ── */}
+          {/* Right Column: Photo */}
           <motion.div
             id="AboutAvatarImg"
             className="md:col-span-5 relative -mt-10 md:-mt-20 lg:-mt-32 z-20 flex justify-end"
@@ -123,9 +109,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════
-          SECTION 2 — Career Arc (skills now live here, chip-grouped)
-      ══════════════════════════════════════════════ */}
+      {/* Career Arc — skills grouped as chips */}
       <section className="py-20 border-t border-border relative">
         <div className="container mx-auto px-4 md:px-8">
           <SectionHeader
@@ -138,11 +122,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════
-          SECTION 2.5 — Credentials (passive discovery, no thumbnails —
-          the full gallery lives at /credentials so this stays a compact
-          one-line list and never competes with the skills grid above)
-      ══════════════════════════════════════════════ */}
+      {/* Credentials: compact one-line list, no thumbnails — the full gallery lives at /credentials */}
       {profileData.certifications && profileData.certifications.length > 0 && (
         <section className="py-20 border-t border-border">
           <div className="container mx-auto px-4 md:px-8">
@@ -159,7 +139,7 @@ export default function About() {
                   <span className="font-bold text-text">{cert.title}</span>
                   <span className="text-text/30" aria-hidden="true">&mdash;</span>
                   <span>{cert.provider}</span>
-                  {cert.year && <span className="text-text/40">({cert.year})</span>}
+                  {cert.year && <span className="text-dim">({cert.year})</span>}
                 </li>
               ))}
             </ul>
@@ -173,9 +153,7 @@ export default function About() {
         </section>
       )}
 
-      {/* ══════════════════════════════════════════════
-          SECTION 3 — Research Process
-      ══════════════════════════════════════════════ */}
+      {/* Research Process */}
       <section className="py-20 border-t border-border">
         <div className="container mx-auto px-4 md:px-8">
           <SectionHeader
@@ -213,10 +191,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════
-          SECTION 4 — Voluntary Work (compressed: eyebrow only, no h2,
-          dense 2-column list — this section shouldn't compete with The Bridge)
-      ══════════════════════════════════════════════ */}
+      {/* Voluntary Work — eyebrow only, no h2, dense two-column list so it doesn't compete with The Bridge */}
       {voluntaryItems.length > 0 && (
         <section className="py-20 border-t border-border">
           <div className="container mx-auto px-4 md:px-8">
@@ -244,7 +219,7 @@ export default function About() {
                       {item.year}
                     </span>
                   </div>
-                  <p className="text-[9px] font-bold uppercase tracking-widest text-text/40 mb-1.5">
+                  <p className="text-[9px] font-bold uppercase tracking-widest text-dim mb-1.5">
                     {item.org}
                   </p>
                   <p className="text-xs leading-relaxed text-text/65">{item.desc}</p>
@@ -255,9 +230,7 @@ export default function About() {
         </section>
       )}
 
-      {/* ══════════════════════════════════════════════
-          SECTION 5 — CTA
-      ══════════════════════════════════════════════ */}
+      {/* CTA */}
       <section className="py-20 border-t border-border">
         <div className="container mx-auto px-4 md:px-8">
           <motion.div
