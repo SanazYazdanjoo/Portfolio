@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
-import { fitMethods, clampText } from "../utils/fitMethods";
+import { SkillTagRow } from "./SkillTagRow";
 
 const EASE = [0.22, 0.61, 0.36, 1];
 
@@ -29,8 +29,7 @@ export function ProjectTile({ project, index }) {
   const isInProgress = project.status === "in-progress";
   const spine = DOMAIN_SPINES[project.domain] || DOMAIN_SPINES._default;
   const hasImage = project.thumbnail && !imgError;
-  const methods = fitMethods(project.methods || project.tags || [], { max: 3, maxChars: 58 });
-  const blurb = clampText(project.tagline || project.subtitle || project.challenge, 68);
+  const tags = project.tags || [];
 
   const inner = (
     <div
@@ -95,22 +94,7 @@ export function ProjectTile({ project, index }) {
           {project.title}
         </h3>
 
-        {blurb && (
-          <p className={`text-sm leading-relaxed line-clamp-2 ${isComingSoon ? "text-text/35" : "text-text/70"}`}>
-            {blurb}
-          </p>
-        )}
-
-        {methods.length > 0 && (
-          <p className="text-xs tracking-wide line-clamp-2">
-            {methods.slice(0, 3).map((m, i, arr) => (
-              <span key={m} className="whitespace-nowrap">
-                <span className={`font-medium ${isComingSoon ? "text-text/30" : "text-text/60"}`}>{m}</span>
-                {i < arr.length - 1 && <span className="mx-2 text-text/25">·</span>}
-              </span>
-            ))}
-          </p>
-        )}
+        <SkillTagRow tags={tags} className={isComingSoon ? "opacity-50" : ""} />
       </div>
     </div>
   );
