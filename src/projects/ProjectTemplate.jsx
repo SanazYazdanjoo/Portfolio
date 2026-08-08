@@ -754,12 +754,13 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
         style={{ scaleX: scrollProgress }}
       />
 
-      {/* Hero — capped height, title + eyebrow overlaid on a scrim so the
-          reader gets the title immediately instead of scrolling past a
-          full-size illustration first. */}
+      {/* Hero — tall enough that the image isn't cropped down to a sliver,
+          title + eyebrow sit on a frosted "liquid glass" card rather than a
+          dark scrim, so the photo itself stays untouched and legible. */}
       {hasHeroImage && (
         <motion.div
-          className="relative w-full h-[55vh] overflow-hidden bg-muted mb-12 md:mb-16"
+          className="relative w-full h-[64vh] min-h-[440px] md:h-[74vh] md:min-h-[560px] max-h-[860px]
+                     overflow-hidden bg-muted mb-12 md:mb-16"
           initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, ease: EASE }}
@@ -769,20 +770,30 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
             alt=""
             className="w-full h-full object-cover"
           />
-          <div
-            aria-hidden="true"
-            className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black/85 via-black/35 to-transparent"
-          />
-          <div className="absolute inset-x-0 bottom-0 px-4 md:px-8 pb-8 md:pb-10">
-            {tags.length > 0 && (
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/90 mb-3">
-                {tags.slice(0, 4).join("  ·  ")}
-              </p>
-            )}
-            <h1 className="font-display text-4xl md:text-6xl font-extrabold text-white
-                           tracking-tighter leading-tight max-w-4xl">
-              {meta.title}
-            </h1>
+          <div className="absolute inset-x-4 bottom-4 md:inset-x-8 md:bottom-8">
+            <div
+              className="relative max-w-3xl overflow-hidden rounded-2xl border border-white/30
+                         bg-surface/30 backdrop-blur-2xl backdrop-saturate-150
+                         px-6 py-6 md:px-10 md:py-8
+                         shadow-[0_8px_40px_rgba(20,10,5,0.25)]"
+            >
+              {/* Specular highlight — the refraction cue that reads as "glass" */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/35 via-white/5 to-transparent"
+              />
+              <div className="relative">
+                {tags.length > 0 && (
+                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-text/70 mb-3">
+                    {tags.slice(0, 4).join("  ·  ")}
+                  </p>
+                )}
+                <h1 className="font-display text-4xl md:text-6xl font-extrabold text-primary
+                               tracking-tighter leading-tight">
+                  {meta.title}
+                </h1>
+              </div>
+            </div>
           </div>
         </motion.div>
       )}
