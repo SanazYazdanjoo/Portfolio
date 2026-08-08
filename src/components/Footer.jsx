@@ -3,6 +3,10 @@ import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "../context/LanguageContext";
 import { StatusDot } from "./StatusDot";
 
+// This site's own source, for the colophon — distinct from contact.github
+// (the profile link), which points at the author's GitHub root instead.
+const REPO_URL = "https://github.com/SanazYazdanjoo/Portfolio";
+
 export function Footer({ data }) {
   const { name, contact } = data;
   const { t } = useTranslation();
@@ -86,6 +90,19 @@ export function Footer({ data }) {
 
         {/* Divider */}
         <div className="h-px bg-border/10 mb-4" />
+
+        {/* Colophon: this site is the case study */}
+        <p className="text-[11px] text-text/30 font-medium mb-3">
+          {t("footer.colophon")}{" "}
+          <a
+            href={REPO_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-text/50 hover:text-primary transition-colors duration-300 underline underline-offset-2"
+          >
+            {t("footer.viewSource")} <span className="text-[10px] opacity-50">↗</span>
+          </a>
+        </p>
 
         {/* Bottom bar: copyright + legal */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
