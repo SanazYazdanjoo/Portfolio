@@ -35,6 +35,9 @@ export default {
         },
         "print-primary": "var(--print-primary)",
         accent: "var(--accent)",
+        spine: "var(--accent-spine)",
+        "text-meta": "var(--text-meta)",
+        "surface-warm": "var(--surface-warm)",
         peach: "var(--peach)",            // legacy alias → blush wash
         gold: "var(--gold)",              // legacy alias → highlight
         danger: "var(--danger)",
