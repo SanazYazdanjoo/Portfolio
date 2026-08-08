@@ -37,10 +37,10 @@ const INK_PAPER = [
 ];
 
 const ACCENTS = [
-  { name: "Coral — primary", varName: "--color-coral-500", hex: "#E43D12", rule: "Large text (≥24px), headings, shapes. Small text → 600 #B93110.", light: false },
-  { name: "Rose — secondary", varName: "--color-rose-500", hex: "#D6536D", rule: "Hover whisper on links. Small text → 600 #B03A53.", light: false },
-  { name: "Blush — tint", varName: "--color-blush-300", hex: "#FFA2B6", rule: "Backgrounds & washes ONLY. Never text.", light: true },
-  { name: "Gold — highlighter", varName: "--color-gold-500", hex: "#EFB11D", rule: "Highlighter marks only. Once per page.", light: true },
+  { name: "Coral — primary", varName: "--color-coral-500", hex: "#892107", rule: "Large text (≥24px), headings, shapes. Small text → 600 #5E1605.", light: false },
+  { name: "Rose — secondary", varName: "--color-rose-500", hex: "#BF5858", rule: "Hover whisper on links. Small text → 600 #904849.", light: false },
+  { name: "Blush — tint", varName: "--color-blush-300", hex: "#E1A19A", rule: "Backgrounds & washes ONLY. Never text.", light: true },
+  { name: "Gold — highlighter", varName: "--color-gold-500", hex: "#D3A22E", rule: "Highlighter marks only. Once per page.", light: true },
 ];
 
 const TYPE_SPECIMENS = [

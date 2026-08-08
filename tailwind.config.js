@@ -18,19 +18,19 @@ export default {
         line: "var(--line)",
         ink: 'var(--text)',
         primary: {
-          DEFAULT: "var(--primary)",      // #E43D12 — large text / UI only
+          DEFAULT: "var(--primary)",      // #892107 — large text / UI only
           600: "var(--primary-600)",      // small-text-safe coral
         },
         secondary: {
-          DEFAULT: "var(--secondary)",    // #D6536D rose — large text / UI only
+          DEFAULT: "var(--secondary)",    // #BF5858 rose — large text / UI only
           600: "var(--secondary-600)",    // small-text-safe rose
         },
         blush: {
-          DEFAULT: "var(--blush)",        // #FFA2B6 — tints only, never text
+          DEFAULT: "var(--blush)",        // #E1A19A — tints only, never text
           weak: "var(--blush-weak)",      // pale wash for chips / bands
         },
         highlight: {
-          DEFAULT: "var(--highlight)",    // #EFB11D gold — highlighter only
+          DEFAULT: "var(--highlight)",    // #D3A22E gold — highlighter only
           weak: "var(--highlight-weak)",
         },
         "print-primary": "var(--print-primary)",

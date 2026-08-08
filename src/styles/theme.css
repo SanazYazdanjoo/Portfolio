@@ -32,11 +32,11 @@
     --color-paper-100: #ebe9e1; /* page background */
     --color-paper-200: #e0ddd2; /* subtle fills, hairlines */
 
-    /* Coral — the loud one (#E43D12) */
-    --color-coral-500: #e43d12;
-    --color-coral-600: #b93110; /* AA-safe for small text on paper/white */
-    --color-coral-400: #ff6a45; /* dark-mode accent */
-    --color-coral-700: #d9481f; /* deep coral — case-study spine accent */
+    /* Coral — the loud one (#892107, Brandy) */
+    --color-coral-500: #892107;
+    --color-coral-600: #5e1605; /* AA-safe for small text on paper/white */
+    --color-coral-400: #de2b00; /* dark-mode accent */
+    --color-coral-700: #83280f; /* deep coral — case-study spine accent */
 
     /* Ink — meta/method text, AA on white (~5.7:1) without going full ink-900 */
     --color-ink-700: #57534a;
@@ -45,21 +45,21 @@
     --color-paper-50: #faf8f4;
     --color-dark-surface-warm: #1c1917;
 
-    /* Rose — the feminine whisper (#D6536D) */
-    --color-rose-500: #d6536d;
-    --color-rose-600: #b03a53;  /* AA-safe for small text */
-    --color-rose-400: #e87a90;  /* dark-mode accent */
+    /* Rose — the feminine whisper (#BF5858, Blushed Brick) */
+    --color-rose-500: #bf5858;
+    --color-rose-600: #904849;  /* AA-safe for small text */
+    --color-rose-400: #d7797a;  /* dark-mode accent */
 
-    /* Blush — tint only, never text (#FFA2B6) */
-    --color-blush-300: #ffa2b6;
-    --color-blush-100: #ffe4ea; /* pale wash for chips / section bands */
+    /* Blush — tint only, never text (#E1A19A, Powder Blush) */
+    --color-blush-300: #e1a19a;
+    --color-blush-100: #f0d0cd; /* pale wash for chips / section bands */
 
-    /* Gold — the highlighter (#EFB11D) */
-    --color-gold-500: #efb11d;
-    --color-gold-100: #fbe9bc;  /* pale wash */
-    --color-gold-400: #f4c348;  /* dark-mode */
+    /* Gold — the highlighter (#D3A22E, Goldenrod) */
+    --color-gold-500: #d3a22e;
+    --color-gold-100: #f2e2ba;  /* pale wash */
+    --color-gold-400: #ddb654;  /* dark-mode */
 
-    --color-print-primary: #a82b0b; /* deep coral for crisp A4 ink */
+    --color-print-primary: #4a1103; /* deep coral for crisp A4 ink */
 
     --color-red-500: #ef4444;
     --color-green-500: #16a34a;
@@ -123,7 +123,7 @@
     /* The watercolor wash — save the optimized image to /public/assets/watercolor.jpg.
        Swappable like any token: change this one line to repaint all three uses. */
     --watercolor-url: url('/assets/watercolor.jpg');
---cursor-pen-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 29 C4.5 26.5 6.5 23.5 8.5 20.5 C12.5 16.6 16.5 12.4 22 6.5 C23.5 7.2 25 8.7 26 10.5 C20.5 16.2 16.5 20.8 12.5 24.5 C9.5 26.4 6.2 27.9 3 29 Z' fill='%23fdfbf7' stroke='%23211d1c' stroke-width='1.8'/%3E%3Cpath d='M9.3 21.4 C10.6 21.9 11.8 23 12.9 24.2' fill='none' stroke='%23211d1c' stroke-width='1.5'/%3E%3Cpath d='M19.5 9.2 C16.8 12.1 14.6 14.4 12.8 16.4' fill='none' stroke='%23e43d12' stroke-width='1.4' opacity='0.5'/%3E%3Cpath d='M3 29 L5.1 25.9 L7.3 27.7 Z' fill='%23e43d12' stroke='%23e43d12' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E") 3 29, auto;  }
+--cursor-pen-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 29 C4.5 26.5 6.5 23.5 8.5 20.5 C12.5 16.6 16.5 12.4 22 6.5 C23.5 7.2 25 8.7 26 10.5 C20.5 16.2 16.5 20.8 12.5 24.5 C9.5 26.4 6.2 27.9 3 29 Z' fill='%23fdfbf7' stroke='%23211d1c' stroke-width='1.8'/%3E%3Cpath d='M9.3 21.4 C10.6 21.9 11.8 23 12.9 24.2' fill='none' stroke='%23211d1c' stroke-width='1.5'/%3E%3Cpath d='M19.5 9.2 C16.8 12.1 14.6 14.4 12.8 16.4' fill='none' stroke='%23892107' stroke-width='1.4' opacity='0.5'/%3E%3Cpath d='M3 29 L5.1 25.9 L7.3 27.7 Z' fill='%23892107' stroke='%23892107' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E") 3 29, auto;  }
 }
 
 /* 2.2 Semantic Tokens */
