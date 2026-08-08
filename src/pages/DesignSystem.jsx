@@ -48,6 +48,7 @@ const TYPE_SPECIMENS = [
   { cls: "type-display", label: ".type-display", spec: "Bricolage 800 · clamp(3rem → 6rem)", sample: "Field Notes" },
   { cls: "type-h1", label: ".type-h1", spec: "Bricolage 800 · H1 zone", sample: "Evidence over adjectives" },
   { cls: "type-h2", label: ".type-h2", spec: "Bricolage 800 · H2 zone", sample: "Mixed-methods research" },
+  { cls: "type-section", label: ".type-section", spec: "Bricolage 800 · clamp(28px → 36px) · pairs with an eyebrow above it", sample: "About Me" },
   { cls: "type-h3", label: ".type-h3", spec: "Bricolage 700 · H3 zone", sample: "Contextual inquiry, N=30" },
 ];
 
@@ -215,14 +216,14 @@ export default function DesignSystem() {
 
   return (
     <main className="bg-white min-h-screen w-full pb-28">
-      <div className="flex gap-10 lg:gap-14 items-start">
-        <aside className="hidden md:block w-[180px] lg:w-[220px] shrink-0 no-print sticky top-36 self-start">
+      <div className="flex items-start">
+        <aside className="hidden md:block w-[180px] lg:w-[220px] shrink-0 no-print sticky top-36 self-start pr-6 lg:pr-8">
           <div className="border-l border-gray-200 pl-3 py-2">
             <DSNav sections={DS_SECTIONS} activeId={activeId} />
           </div>
         </aside>
 
-        <div className="w-full px-6 py-12 md:px-16 lg:px-24 xl:px-32">
+        <div className="w-full border-l border-gray-200 px-6 py-12 md:px-16 lg:px-24 xl:px-32">
           <div className="max-w-5xl">
             <MobilePillBar sections={DS_SECTIONS} activeId={activeId} />
 

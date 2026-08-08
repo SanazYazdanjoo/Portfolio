@@ -16,6 +16,7 @@ const de = {
 
   // Projects
   "projects.heading": "Fallstudien",
+  "home.projects.kicker": "02 — Ausgewählte Arbeiten",
   "projects.title": "Projekte",
   "projects.viewProject": "Fallstudie ansehen",
   "projects.comingSoon": "Demnächst",
@@ -32,6 +33,7 @@ const de = {
 
   // About
   "about.heading": "Über mich",
+  "home.about.kicker": "01 — Wer ich bin",
 
   "about.howIGotHere": "Wie ich hierher gelangt bin",
   "about.theBridge": "Die Brücke",
@@ -153,6 +155,7 @@ const de = {
   "project.sidebar.allProjects": "Alle Projekte",
   "project.sidebar.collapseAll": "Alles einklappen",
   "project.sidebar.expandAll": "Alles ausklappen",
+  "project.sidebar.about": "Übersicht",
   "project.sidebar.process": "Prozess",
   "project.sidebar.challenge": "Herausforderung",
   "project.sidebar.solution": "Lösung",
@@ -164,6 +167,9 @@ const de = {
   "project.sidebar.conclusion": "Fazit",
 
   // Project detail — section kickers + headings (long form)
+  "project.about.kicker": "Projektübersicht",
+  "project.about.heading": "Über das Projekt",
+
   "project.process.kicker": "Hinter der Arbeit",
   "project.process.heading": "Forschungsprozess",
   "project.process.swipe": "Zum Entdecken wischen →",
@@ -208,6 +214,7 @@ const de = {
   "project.meta.methods": "Forschungsmethoden",
   "project.meta.context": "Kontext",
   "project.meta.furtherImpact": "Weitere Wirkung",
+  "project.meta.impactAtGlance": "Wirkung auf einen Blick",
 
   "project.status.complete": "Abgeschlossen",
   "project.status.inProgress": "In Bearbeitung",
@@ -215,6 +222,9 @@ const de = {
   "project.status.blocked": "Blockiert",
 
   "project.footer.back": "Zurück zu allen Projekten",
+  "project.nav.label": "Projektnavigation",
+  "project.nav.previous": "Vorheriges Projekt",
+  "project.nav.next": "Nächstes Projekt",
   "project.card.readCaseStudy": "Fallstudie lesen",
   "project.card.readInProgress": "Laufende Arbeit lesen",
 
