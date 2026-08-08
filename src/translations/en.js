@@ -215,6 +215,7 @@ const en = {
   "project.meta.role": "Role",
   "project.meta.timeline": "Timeline",
   "project.meta.methods": "Research Methods",
+  "project.meta.skills": "Skills",
   "project.meta.context": "Context",
   "project.meta.furtherImpact": "Further impact",
   "project.meta.impactAtGlance": "Impact at a glance",
@@ -254,6 +255,18 @@ const en = {
   "credentials.type.degree": "Degree",
   "credentials.type.recognition": "Recognition",
   "credentials.type.language": "Language",
+
+  // Tags
+  "tags.directory.title": "Skills & Tags",
+  "tags.directory.subheading": "Every tool, method, and domain used across my case studies — click a tag to see where it was applied.",
+  "tags.directory.searchPlaceholder": "Search tags...",
+  "tags.directory.sortByName": "Sort by Name",
+  "tags.directory.sortByCount": "Sort by Count",
+  "tags.directory.empty": "No tags match your search.",
+  "tags.single.backToAll": "Back to all tags",
+  "tags.single.heading": "Tagged",
+  "tags.single.subheading": "Projects that used this skill or method.",
+  "tags.single.empty": "No projects are tagged with this yet.",
 };
 
 export default en;

@@ -27,6 +27,7 @@ import {
   animate as animateValue,
 } from "framer-motion";
 import SectionMedia from "./SectionMedia";
+import { Badge } from "../components/Badge";
 import { useTranslation } from "../context/LanguageContext";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { projects as allProjects } from "../data/projects";
@@ -840,8 +841,8 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                 </p>
               )}
 
-              {/* Meta block — Role, Timeline, Methods as a definition list */}
-              {(meta.role || meta.timeline || methods.length > 0) && (
+              {/* Meta block — Role, Timeline, Methods, Skills as a definition list */}
+              {(meta.role || meta.timeline || methods.length > 0 || tags.length > 0) && (
                 <dl className="border-t border-border">
                   {meta.role && (
                     <div className="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr] gap-4 py-4 border-b border-border">
@@ -860,7 +861,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                     </div>
                   )}
                   {methods.length > 0 && (
-                    <div className="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr] gap-4 py-4">
+                    <div className={`grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr] gap-4 py-4 ${tags.length > 0 ? "border-b border-border" : ""}`}>
                       <dt className="text-[11px] font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
                         {t("project.meta.methods")}
                       </dt>
@@ -870,6 +871,25 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                             <span className="font-medium text-text/70">{m}</span>
                             {i < arr.length - 1 && <span className="mx-2 text-text/25">·</span>}
                           </span>
+                        ))}
+                      </dd>
+                    </div>
+                  )}
+                  {tags.length > 0 && (
+                    <div className="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr] gap-4 py-4">
+                      <dt className="text-[11px] font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
+                        {t("project.meta.skills")}
+                      </dt>
+                      <dd className="flex flex-wrap gap-2">
+                        {tags.map((tag) => (
+                          <Link key={tag} to={`/tags/${encodeURIComponent(tag)}`}>
+                            <Badge
+                              tone="accent"
+                              className="hover:bg-primary/15 hover:border-primary/40 transition-colors cursor-pointer"
+                            >
+                              {tag}
+                            </Badge>
+                          </Link>
                         ))}
                       </dd>
                     </div>

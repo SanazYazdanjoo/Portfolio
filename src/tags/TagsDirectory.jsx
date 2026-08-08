@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import { getTagData } from '../data/projects';
 import TagChip from '../components/TagChip';
+import { useTranslation } from '../context/LanguageContext';
 
 const TagsDirectory = () => {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('name'); // 'name' or 'count'
-  
+
   const rawTags = getTagData();
 
   // 1. Filter based on search
-  const filteredTags = rawTags.filter(tag => 
+  const filteredTags = rawTags.filter(tag =>
     tag.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -20,33 +22,50 @@ const TagsDirectory = () => {
   });
 
   return (
-    <div className="max-w-4xl mx-auto p-8">
-      {/* Top Controls */}
-      <div className="flex gap-4 mb-6">
-        <input 
-          type="text" 
-          placeholder="Search tags..." 
-          className="border border-gray-300 p-2 rounded w-64"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <select 
-          className="border border-gray-300 p-2 rounded"
-          value={sortBy}
-          onChange={(e) => setSortBy(e.target.value)}
-        >
-          <option value="name">Sort by Name</option>
-          <option value="count">Sort by Count</option>
-        </select>
-      </div>
+    <main className="min-h-screen bg-bg pt-20 md:pt-24 pb-16">
+      <div className="w-full px-4 md:px-8 max-w-4xl mx-auto">
+        <header className="mb-10">
+          <h1 className="font-display text-4xl md:text-6xl font-extrabold text-text tracking-tighter leading-tight mb-4">
+            {t("tags.directory.title")}
+          </h1>
+          <p className="text-base text-text/60 max-w-xl leading-relaxed">
+            {t("tags.directory.subheading")}
+          </p>
+        </header>
 
-      {/* Tag Grid */}
-      <div className="flex flex-wrap gap-2 mt-8">
-        {sortedTags.map(tag => (
-          <TagChip key={tag.name} name={tag.name} count={tag.count} />
-        ))}
+        {/* Top Controls */}
+        <div className="flex flex-wrap gap-3 mb-8 border-t border-border pt-6">
+          <input
+            type="text"
+            placeholder={t("tags.directory.searchPlaceholder")}
+            className="border border-border bg-bg px-3 py-2 text-sm text-text w-64 max-w-full
+                       focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <select
+            className="border border-border bg-bg px-3 py-2 text-sm text-text
+                       focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+          >
+            <option value="name">{t("tags.directory.sortByName")}</option>
+            <option value="count">{t("tags.directory.sortByCount")}</option>
+          </select>
+        </div>
+
+        {/* Tag Grid */}
+        {sortedTags.length > 0 ? (
+          <div className="flex flex-wrap gap-2">
+            {sortedTags.map(tag => (
+              <TagChip key={tag.name} name={tag.name} count={tag.count} />
+            ))}
+          </div>
+        ) : (
+          <p className="text-sm text-text/50">{t("tags.directory.empty")}</p>
+        )}
       </div>
-    </div>
+    </main>
   );
 };
 

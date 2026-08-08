@@ -212,6 +212,7 @@ const de = {
   "project.meta.role": "Rolle",
   "project.meta.timeline": "Zeitrahmen",
   "project.meta.methods": "Forschungsmethoden",
+  "project.meta.skills": "Fähigkeiten",
   "project.meta.context": "Kontext",
   "project.meta.furtherImpact": "Weitere Wirkung",
   "project.meta.impactAtGlance": "Wirkung auf einen Blick",
@@ -251,6 +252,18 @@ const de = {
   "credentials.type.degree": "Abschluss",
   "credentials.type.recognition": "Anerkennung",
   "credentials.type.language": "Sprachnachweis",
+
+  // Tags
+  "tags.directory.title": "Fähigkeiten & Tags",
+  "tags.directory.subheading": "Jedes Werkzeug, jede Methode und jeder Bereich aus meinen Fallstudien — auf einen Tag klicken, um zu sehen, wo er eingesetzt wurde.",
+  "tags.directory.searchPlaceholder": "Tags durchsuchen...",
+  "tags.directory.sortByName": "Nach Name sortieren",
+  "tags.directory.sortByCount": "Nach Anzahl sortieren",
+  "tags.directory.empty": "Keine Tags gefunden.",
+  "tags.single.backToAll": "Zurück zu allen Tags",
+  "tags.single.heading": "Markiert mit",
+  "tags.single.subheading": "Projekte, die diese Fähigkeit oder Methode genutzt haben.",
+  "tags.single.empty": "Diesem Tag sind noch keine Projekte zugeordnet.",
 };
 
 export default de;
