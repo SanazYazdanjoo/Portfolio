@@ -209,6 +209,40 @@
       --text-meta: var(--color-dark-text-muted);
       --surface-warm: var(--color-dark-surface-warm);
     }
+
+    /* /designsystem is a fixed white "living style guide" page (like the
+       CV's paper look) — but unlike the CV, its specimens render live off
+       these semantic tokens on purpose, so a token edit stays in sync. Pin
+       them back to their light-mode values here rather than hardcoding
+       colors in the page, or dark-mode text/borders go pale-on-white and
+       become unreadable. */
+    .design-system-page {
+      --primary: var(--color-coral-500);
+      --primary-600: var(--color-coral-600);
+      --accent: var(--primary);
+      --secondary: var(--color-rose-500);
+      --secondary-600: var(--color-rose-600);
+      --blush-weak: var(--color-blush-100);
+      --highlight: var(--color-gold-500);
+      --highlight-weak: var(--color-gold-100);
+      --peach: var(--color-blush-100);
+
+      --bg: var(--color-white);
+      --surface: var(--color-white);
+      --muted: var(--color-paper-100);
+      --muted-surface: var(--color-paper-100);
+      --line: var(--color-paper-200);
+      --border: rgba(33, 29, 28, 0.12);
+
+      --text: var(--color-ink-900);
+      --text-display: var(--color-ink-900);
+      --text-muted: var(--color-ink-600);
+      --text-dim: var(--color-ink-600);
+
+      --accent-spine: var(--color-coral-700);
+      --text-meta: var(--color-ink-700);
+      --surface-warm: var(--color-paper-50);
+    }
   }
 }
 
