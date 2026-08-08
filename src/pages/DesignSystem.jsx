@@ -215,7 +215,7 @@ export default function DesignSystem() {
   }, []);
 
   return (
-    <main className="bg-white min-h-screen w-full pb-28">
+    <main className="design-system-page text-text bg-white min-h-screen w-full pb-28">
       <div className="flex items-start">
         <aside className="hidden md:block w-[180px] lg:w-[220px] shrink-0 no-print sticky top-36 self-start pr-6 lg:pr-8">
           <div className="border-l border-gray-200 pl-3 py-2">
