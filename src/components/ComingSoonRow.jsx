@@ -4,12 +4,11 @@
 
 import React from "react";
 import { useTranslation } from "../context/LanguageContext";
-import { fitMethods } from "../utils/fitMethods";
+import { SkillTagRow } from "./SkillTagRow";
 
 export function ComingSoonRow({ project, index }) {
   const { t } = useTranslation();
-  const methodsNarrow = fitMethods(project.methods || project.tags || [], { max: 3, maxChars: 34 });
-  const methodsWide = fitMethods(project.methods || project.tags || [], { max: 3, maxChars: 64 });
+  const tags = project.tags || [];
 
   return (
     <div
@@ -27,26 +26,7 @@ export function ComingSoonRow({ project, index }) {
                        uppercase leading-tight text-text/45">
           {project.title}
         </h2>
-        {methodsNarrow.length > 0 && (
-          <p className="sm:hidden mt-1.5 text-xs tracking-wide text-text/35 line-clamp-1">
-            {methodsNarrow.map((m, i, arr) => (
-              <span key={m} className="whitespace-nowrap">
-                {m}
-                {i < arr.length - 1 && <span className="mx-2">·</span>}
-              </span>
-            ))}
-          </p>
-        )}
-        {methodsWide.length > 0 && (
-          <p className="hidden sm:block mt-1.5 text-sm tracking-wide text-text/35 line-clamp-1">
-            {methodsWide.map((m, i, arr) => (
-              <span key={m} className="whitespace-nowrap">
-                {m}
-                {i < arr.length - 1 && <span className="mx-2">·</span>}
-              </span>
-            ))}
-          </p>
-        )}
+        <SkillTagRow tags={tags} className="mt-2 opacity-60" />
       </div>
 
       <span className="hidden sm:inline-block shrink-0 text-[9px] font-black uppercase tracking-[0.2em]
