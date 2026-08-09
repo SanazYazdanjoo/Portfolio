@@ -7,26 +7,32 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { MotionConfig } from 'framer-motion';
 import App from './App';
+import { lazyWithRetry } from './utils/lazyWithRetry';
 import './index.css';
 import { LanguageProvider } from './context/LanguageContext';
 
 // Route-level code splitting: each page ships as its own chunk, loaded on
-// navigation instead of all bundled into the initial download.
-const Home = lazy(() => import('./pages/Home'));
-const About = lazy(() => import('./pages/About'));
-const Privacy = lazy(() => import('./pages/Privacy'));
-const Impressum = lazy(() => import('./pages/Impressum'));
-const Contact = lazy(() => import('./pages/Contact'));
-const Projects = lazy(() => import('./pages/Projects'));
-const Voluntary = lazy(() => import('./pages/Voluntary'));
-const CurriculumVitae = lazy(() => import('./pages/CurriculumVitae'));
-const Credentials = lazy(() => import('./pages/Credentials'));
-const Sitemap = lazy(() => import('./pages/Sitemap'));
-const DesignSystem = lazy(() => import('./pages/DesignSystem'));
-const TagsDirectory = lazy(() => import('./tags/TagsDirectory'));
-const SingleTagPage = lazy(() => import('./tags/SingleTagPage'));
+// navigation instead of all bundled into the initial download. Wrapped in
+// lazyWithRetry so a stale chunk hash from a previous deploy gets one
+// automatic reload instead of a hard crash (see lazyWithRetry.js).
+const Home = lazyWithRetry(() => import('./pages/Home'));
+const About = lazyWithRetry(() => import('./pages/About'));
+const Privacy = lazyWithRetry(() => import('./pages/Privacy'));
+const Impressum = lazyWithRetry(() => import('./pages/Impressum'));
+const Contact = lazyWithRetry(() => import('./pages/Contact'));
+const Projects = lazyWithRetry(() => import('./pages/Projects'));
+const Voluntary = lazyWithRetry(() => import('./pages/Voluntary'));
+const CurriculumVitae = lazyWithRetry(() => import('./pages/CurriculumVitae'));
+const Credentials = lazyWithRetry(() => import('./pages/Credentials'));
+const Sitemap = lazyWithRetry(() => import('./pages/Sitemap'));
+const DesignSystem = lazyWithRetry(() => import('./pages/DesignSystem'));
+const TagsDirectory = lazyWithRetry(() => import('./tags/TagsDirectory'));
+const SingleTagPage = lazyWithRetry(() => import('./tags/SingleTagPage'));
 
-// Dev-only: lazy so the Admin dashboard never ships in the production bundle
+// Dev-only: lazy so the Admin dashboard never ships in the production
+// bundle. Predates Sprint 2 and never runs in production, so it's not
+// wrapped in lazyWithRetry — a dev hitting a real local import error wants
+// to see it, not have the page silently reload.
 const Admin = lazy(() => import('./pages/Admin'));
 
 // Auto-discovers a route for every 'index.jsx' under 'src/projects/'.
@@ -40,7 +46,7 @@ const projectFiles = import.meta.glob('./projects/*/index.jsx', { eager: false }
 
 const dynamicProjectRoutes = Object.entries(projectFiles).map(([filePath, loadModule]) => {
   const folderName = filePath.split('/')[2];
-  const ProjectComponent = lazy(loadModule);
+  const ProjectComponent = lazyWithRetry(loadModule);
   return {
     path: `/projects/${folderName}`,
     element: <ProjectComponent />,
