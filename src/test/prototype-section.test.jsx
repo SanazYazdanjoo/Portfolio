@@ -79,6 +79,40 @@ describe("Prototype CTA link", () => {
   });
 });
 
+describe("Prototype CTA link — internal vs. external routing", () => {
+  it("renders an internal path as a router Link (no target, no new tab)", () => {
+    renderWithProviders(
+      <ProjectTemplate meta={metaWithout({ prototypeUrl: "/designsystem" })} />
+    );
+
+    const link = screen.getByRole("link", { name: /open the prototype/i });
+    expect(link).toHaveAttribute("href", "/designsystem");
+    expect(link).not.toHaveAttribute("target");
+    expect(link).not.toHaveAttribute("rel");
+  });
+
+  it("renders an external https URL with target=_blank and rel=noopener", () => {
+    renderWithProviders(
+      <ProjectTemplate meta={metaWithout({ prototypeUrl: "https://example.com/demo" })} />
+    );
+
+    const link = screen.getByRole("link", { name: /open the prototype/i });
+    expect(link).toHaveAttribute("target", "_blank");
+    expect(link).toHaveAttribute("rel", expect.stringContaining("noopener"));
+  });
+
+  it("treats a protocol-relative URL as external, not internal", () => {
+    renderWithProviders(
+      <ProjectTemplate meta={metaWithout({ prototypeUrl: "//evil.com/demo" })} />
+    );
+
+    const link = screen.getByRole("link", { name: /open the prototype/i });
+    expect(link).toHaveAttribute("href", "//evil.com/demo");
+    expect(link).toHaveAttribute("target", "_blank");
+    expect(link).toHaveAttribute("rel", expect.stringContaining("noopener"));
+  });
+});
+
 describe("Prototype section respects the open-by-default accordion", () => {
   it("starts open like every other section", () => {
     renderWithProviders(
