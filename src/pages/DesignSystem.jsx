@@ -12,6 +12,10 @@ import { Badge } from "../components/Badge";
 import TagChip from "../components/TagChip";
 import { InkHighlight } from "../components/InkHighlight";
 import { ScribbleDivider } from "../components/ScribbleDivider";
+import { useDocumentMeta } from "../hooks/useDocumentMeta";
+import { profileData as rawProfile } from "../data/profile";
+import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
+import { useTranslation } from "../context/LanguageContext";
 
 // Motion presets (house rules: 0.45-0.7s, y 16-24px, stagger 0.1s)
 const EASE = [0.22, 0.61, 0.36, 1];
@@ -188,6 +192,13 @@ function RuleRow({ name, value, note }) {
 
 export default function DesignSystem() {
   const [activeId, setActiveId] = useState(DS_SECTIONS[0]?.id ?? null);
+  const { t } = useTranslation();
+  const profileData = useLocalizedProfile(rawProfile);
+
+  useDocumentMeta({
+    title: `${t("nav.designSystem")} — ${profileData.name}`,
+    description: profileData.tagline,
+  });
 
   useEffect(() => {
     if (DS_SECTIONS.length === 0) return undefined;

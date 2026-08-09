@@ -1,5 +1,6 @@
 // Content is sourced from Group_Report__EmbraceMe__.docx and FBHCI_Individual_Final_Report.pdf.
 import thumbnailImg from './Project-3.png';
+import thumbnailWebp from './Project-3.webp';
 
 export const projectData = {
   id: "project-3",
@@ -24,6 +25,7 @@ export const projectData = {
   timeline: "SoSe 2023",
   tags: ["Soft Robotics", "Human-Robot Interaction", "Arduino", "Physical Prototyping", "Sensor Integration", "Material Testing", "Data Physicalization", "Shape-Changing Interfaces", "Public Exhibition Research"],
   thumbnail: thumbnailImg,
+  thumbnailWebp,
   heroImage: thumbnailImg,
 
   methods: [

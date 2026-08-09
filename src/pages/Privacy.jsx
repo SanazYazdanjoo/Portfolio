@@ -4,10 +4,17 @@ import { FlowerDoodle } from '../components/DoodleLibrary';
 import { profileData as rawProfile } from '../data/profile';
 import { useLocalizedProfile } from '../hooks/useLocalizedProfile';
 import { useTranslation } from '../context/LanguageContext';
+import { useDocumentMeta } from '../hooks/useDocumentMeta';
 
 export default function Privacy() {
   const profileData = useLocalizedProfile(rawProfile);
   const { t } = useTranslation();
+
+  useDocumentMeta({
+    title: `${t("privacy.title")} — ${profileData.name}`,
+    description: t("privacy.intro"),
+  });
+
   return (
     <main className="min-h-screen pt-20 md:pt-24 pb-20 relative overflow-hidden">
       {/* Background Decorative Element */}

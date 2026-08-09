@@ -12,6 +12,7 @@ import { profileData as rawProfile } from "../data/profile";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { useTranslation } from "../context/LanguageContext";
 import { Badge } from "../components/Badge";
+import { useDocumentMeta } from "../hooks/useDocumentMeta";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -259,6 +260,11 @@ export default function Credentials() {
   const profileData = useLocalizedProfile(rawProfile);
   const { t } = useTranslation();
   const certifications = profileData.certifications || [];
+
+  useDocumentMeta({
+    title: `${t("credentials.heading")} — ${profileData.name}`,
+    description: t("credentials.subheading"),
+  });
 
   const [openCert, setOpenCert] = useState(null);
   const triggerRef = useRef(null);

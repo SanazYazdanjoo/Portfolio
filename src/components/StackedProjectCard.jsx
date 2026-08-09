@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { motion, useReducedMotion, useInView, animate as animateValue } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
 import { SkillTagRow } from "./SkillTagRow";
+import { ProjectPicture } from "./ProjectPicture";
 
 function Field({ label, children }) {
   return (
@@ -88,7 +89,7 @@ export function StackedProjectCard({ project, index }) {
               positioned so it costs the title zero layout width. */}
           <motion.svg
             aria-hidden="true"
-            className="absolute right-8 md:right-16 top-8 w-4 h-4 text-text/30
+            className="absolute right-8 md:right-16 top-8 w-4 h-4 text-text-meta
                        transition-colors duration-200 group-hover:text-primary-600"
             viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
             animate={{ rotate: open ? 180 : 0 }}
@@ -191,8 +192,9 @@ export function StackedProjectCard({ project, index }) {
             <div className="md:col-start-9 md:col-span-4 flex flex-col gap-4">
               {hasImage && (
                 <div className="photo-frame aspect-video overflow-hidden bg-primary/[0.03]">
-                  <img
+                  <ProjectPicture
                     src={project.thumbnail}
+                    webpSrc={project.thumbnailWebp}
                     alt={project.title}
                     onError={() => setImgError(true)}
                     className="w-full h-full object-cover

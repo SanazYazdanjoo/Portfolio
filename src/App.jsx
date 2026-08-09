@@ -3,17 +3,20 @@
 // need a manual scrollIntoView, and route changes need an explicit reset to
 // top or the previous page's scroll position leaks into the next one.
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, Suspense } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { Nav } from "./components/Nav";
 import { Footer } from "./components/Footer";
 import { SketchTrail } from "./components/SketchTrail";
+import { RouteSkeleton } from "./components/RouteSkeleton";
 import { profileData as rawProfile } from "./data/profile";
 import { useLocalizedProfile } from "./hooks/useLocalizedProfile";
+import { useTranslation } from "./context/LanguageContext";
 import { Analytics } from "@vercel/analytics/react"
 
 export default function App() {
   const profileData = useLocalizedProfile(rawProfile);
+  const { t } = useTranslation();
   const scrollRef = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
@@ -53,6 +56,14 @@ export default function App() {
 
   return (
     <div className="h-screen flex flex-col bg-bg relative">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200]
+                   focus:bg-bg focus:text-text focus:px-4 focus:py-2 focus:border focus:border-primary-600
+                   focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
+      >
+        {t("common.skipToContent")}
+      </a>
       {/* No border, no fixed height, just padding */}
       <header className="w-full z-50 shrink-0 px-8 md:px-12 lg:px-16 pt-6 md:pt-8 bg-bg no-print">
         <Nav isScrolled={isScrolled} />
@@ -63,8 +74,10 @@ export default function App() {
         className="flex-1 overflow-y-auto overflow-x-hidden relative z-10 px-8 md:px-12 lg:px-16"
         style={{ scrollBehavior: "smooth" }}
       >
-        <main>
-          <Outlet />
+        <main id="main-content" tabIndex={-1}>
+          <Suspense fallback={<RouteSkeleton />}>
+            <Outlet />
+          </Suspense>
         </main>
 
         <div className="w-full flex flex-col justify-center shrink-0 relative z-10">

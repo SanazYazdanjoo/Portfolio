@@ -77,7 +77,7 @@ function ZoomOverlay({ figure, onClose }) {
         />
         {figure.caption && (
           <p className="mx-auto mt-4 max-w-3xl text-center font-mono text-2xs
-                        uppercase tracking-wider leading-relaxed text-text/45">
+                        uppercase tracking-wider leading-relaxed text-text-meta">
             {figure.caption}
           </p>
         )}
@@ -185,11 +185,11 @@ export default function SectionMedia({ items }) {
               {f.caption && (
                 <figcaption
                   className="mt-2.5 font-mono text-2xs uppercase tracking-wider
-                             text-text/45 leading-relaxed"
+                             text-text-meta leading-relaxed"
                 >
                   {f.caption}
                   {canZoom && (
-                    <span className="ml-2 normal-case tracking-normal text-text/30 print:hidden">
+                    <span className="ml-2 normal-case tracking-normal text-text-meta print:hidden">
                       &mdash; {t("project.media.clickToEnlarge")}
                     </span>
                   )}

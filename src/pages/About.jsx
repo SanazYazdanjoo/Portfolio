@@ -12,6 +12,7 @@ import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { voluntaryItems as rawVoluntary } from "../data/voluntary";
 import { useTranslation } from "../context/LanguageContext";
 import CareerArc from "../components/CareerArc";
+import { useDocumentMeta } from "../hooks/useDocumentMeta";
 
 // Animation variants
 const fadeUp = {
@@ -46,6 +47,11 @@ export default function About() {
   const profileData = useLocalizedProfile(rawProfile);
   const voluntaryItems = useLocalizedProfile(rawVoluntary);
   const { t } = useTranslation();
+
+  useDocumentMeta({
+    title: `${t("about.heading")} — ${profileData.name}`,
+    description: profileData.bio,
+  });
 
   const processSteps = [
     { number: "01", title: t("about.process.discover.title"), desc: t("about.process.discover.desc") },
@@ -137,7 +143,7 @@ export default function About() {
                   className="flex flex-wrap items-baseline gap-x-2 text-sm text-text/75"
                 >
                   <span className="font-bold text-text">{cert.title}</span>
-                  <span className="text-text/30" aria-hidden="true">&mdash;</span>
+                  <span className="text-text-meta" aria-hidden="true">&mdash;</span>
                   <span>{cert.provider}</span>
                   {cert.year && <span className="text-dim">({cert.year})</span>}
                 </li>

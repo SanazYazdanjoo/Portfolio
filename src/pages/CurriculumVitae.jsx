@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { profileData as rawProfile } from "../data/profile";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { useTranslation } from "../context/LanguageContext";
+import { useDocumentMeta } from "../hooks/useDocumentMeta";
 
 export default function CV() {
   const profileData = useLocalizedProfile(rawProfile);
@@ -21,6 +22,11 @@ export default function CV() {
     certifications,
     volunteerWork,
   } = profileData;
+
+  useDocumentMeta({
+    title: `${role} — ${name}`,
+    description: bio || profileSummary,
+  });
 
   const cvSections = useMemo(
     () => [

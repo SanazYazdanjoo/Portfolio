@@ -28,8 +28,11 @@ import {
 } from "framer-motion";
 import SectionMedia from "./SectionMedia";
 import { Badge } from "../components/Badge";
+import { ProjectPicture } from "../components/ProjectPicture";
 import { useTranslation } from "../context/LanguageContext";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
+import { useDocumentMeta } from "../hooks/useDocumentMeta";
+import { profileData as rawProfile } from "../data/profile";
 import { projects as allProjects } from "../data/projects";
 
 const EASE = [0.22, 0.61, 0.36, 1];
@@ -89,7 +92,7 @@ function CollapsibleSectionHead({ id, number, kicker, heading, isOpen, onToggle 
                      focus-visible:ring-primary-600"
         >
           <span>{heading}</span>
-          <span className="mt-0.5 shrink-0 text-text/30 transition-colors duration-200 group-hover:text-primary-600 no-print">
+          <span className="mt-0.5 shrink-0 text-text-meta transition-colors duration-200 group-hover:text-primary-600 no-print">
             <Chevron isOpen={isOpen} />
           </span>
         </button>
@@ -233,7 +236,7 @@ function ProcessStep({ item, index, total }) {
           </div>
         )}
         <div className="flex-1 min-w-0">
-          <p className="font-mono text-2xs uppercase tracking-wider text-text/45 mb-2">
+          <p className="font-mono text-2xs uppercase tracking-wider text-text-meta mb-2">
             {phase.number} {t(phase.labelKey)}
             <span className="mx-1.5 text-text/25">·</span>
             {item.type}
@@ -260,7 +263,7 @@ function ProcessStep({ item, index, total }) {
                 <motion.span
                   animate={{ rotate: expanded ? 180 : 0 }}
                   transition={{ duration: 0.2 }}
-                  className="text-text/30 group-hover/btn:text-text/60 transition-colors"
+                  className="text-text-meta group-hover/btn:text-text/60 transition-colors"
                 >
                   <svg className="w-3 h-3" fill="none" stroke="currentColor"
                     strokeWidth="2.5" viewBox="0 0 24 24">
@@ -580,11 +583,16 @@ function ProjectNavCard({ project, direction }) {
     >
       {project.thumbnail && (
         <div className="w-20 aspect-[16/10] shrink-0 overflow-hidden border border-border bg-muted">
-          <img src={project.thumbnail} alt="" className="w-full h-full object-cover" />
+          <ProjectPicture
+            src={project.thumbnail}
+            webpSrc={project.thumbnailWebp}
+            alt=""
+            className="w-full h-full object-cover"
+          />
         </div>
       )}
       <div className={`min-w-0 flex-1 flex flex-col ${isNext ? "sm:items-end" : ""}`}>
-        <p className={`flex items-center gap-1.5 text-2xs font-black uppercase tracking-[0.2em] text-text/45 mb-1 ${isNext ? "sm:flex-row-reverse" : ""}`}>
+        <p className={`flex items-center gap-1.5 text-2xs font-black uppercase tracking-[0.2em] text-text-meta mb-1 ${isNext ? "sm:flex-row-reverse" : ""}`}>
           <svg aria-hidden="true" className={`w-3 h-3 transition-transform duration-200 ${isNext ? "group-hover:translate-x-1" : "group-hover:-translate-x-1"}`}
             fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d={isNext ? "M14 5l7 7m0 0l-7 7m7-7H3" : "M10 19l-7-7m0 0l7-7m-7 7h18"} />
@@ -611,6 +619,12 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
   // recursively, once, here — so every caller (real pages and tests alike)
   // can just pass the raw src/projects/*/data.js export straight through.
   const meta = useLocalizedProfile(rawMeta);
+  const profileData = useLocalizedProfile(rawProfile);
+
+  useDocumentMeta({
+    title: `${meta.title} — ${profileData.name}`,
+    description: meta.tagline || meta.challenge,
+  });
 
   // Only include sidebar items for sections that have data.
   // Arrays are length-checked so an empty `process`/`phases` can't create a
@@ -768,8 +782,9 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
           transition={{ duration: 0.5, ease: EASE }}
         >
           <div className="photo-frame w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden bg-muted">
-            <img
+            <ProjectPicture
               src={meta.thumbnail}
+              webpSrc={meta.thumbnailWebp}
               alt=""
               className="w-full h-full object-cover"
             />
@@ -981,7 +996,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   <SectionMedia items={meta.figures?.methodology} />
                   {meta.techStack && meta.techStack.length > 0 && (
                     <div className="mt-6 border-l-2 border-border pl-5">
-                      <span className="block font-mono text-2xs uppercase tracking-wider text-text/45 mb-2">
+                      <span className="block font-mono text-2xs uppercase tracking-wider text-text-meta mb-2">
                         {t("project.methodology.techStack")}
                       </span>
                       <div className="flex flex-wrap gap-x-5 gap-y-1.5">
@@ -1059,7 +1074,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
               <Link
                 to="/projects"
                 className="inline-flex items-center gap-2 text-2xs font-black uppercase
-                           tracking-[0.2em] text-text/45 hover:text-primary-600
+                           tracking-[0.2em] text-text-meta hover:text-primary-600
                            transition-colors duration-200 group"
               >
                 <svg className="w-3.5 h-3.5 transform group-hover:-translate-x-0.5 transition-transform"

@@ -3,9 +3,18 @@ import { VoluntaryList } from "../components/VoluntaryList";
 import { voluntaryItems } from "../data/voluntary";
 import { ScribbleUnderline, FlowerDoodle } from "../components/DoodleLibrary";
 import { useTranslation } from "../context/LanguageContext";
+import { useDocumentMeta } from "../hooks/useDocumentMeta";
+import { profileData as rawProfile } from "../data/profile";
+import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 
 export default function Voluntary() {
   const { t } = useTranslation();
+  const profileData = useLocalizedProfile(rawProfile);
+
+  useDocumentMeta({
+    title: `${t("voluntary.heading")} — ${profileData.name}`,
+    description: t("voluntary.description"),
+  });
   return (
     <main className="min-h-screen pt-20 md:pt-24 pb-24 relative overflow-hidden bg-transparent">
       

@@ -3,11 +3,19 @@ import { projects } from '../data/projects';
 import { useLocalizedProfile } from '../hooks/useLocalizedProfile';
 import { useTranslation } from '../context/LanguageContext';
 import { ProjectTile } from '../components/ProjectTile';
+import { useDocumentMeta } from '../hooks/useDocumentMeta';
+import { profileData as rawProfile } from '../data/profile';
 
 const SingleTagPage = () => {
   const { tagName } = useParams();
   const { t } = useTranslation();
   const localizedProjects = useLocalizedProfile(projects);
+  const profileData = useLocalizedProfile(rawProfile);
+
+  useDocumentMeta({
+    title: `${tagName} — ${t("tags.single.heading")} — ${profileData.name}`,
+    description: t("tags.single.subheading"),
+  });
 
   // Safely find all items that include this specific tag
   const relatedItems = localizedProjects.filter(item =>
