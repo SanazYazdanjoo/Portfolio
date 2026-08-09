@@ -259,7 +259,7 @@ export default function CV() {
                           href={cert.file || cert.verifyUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="no-print ml-2 text-primary hover:underline"
+                          className="no-print ml-2 text-primary underline underline-offset-2"
                         >
                           {t("credentials.viewCredential")} &#8599;
                         </a>
@@ -270,7 +270,7 @@ export default function CV() {
               </div>
               <Link
                 to="/credentials"
-                className="no-print mt-5 inline-block text-sm font-bold text-primary hover:underline"
+                className="no-print mt-5 inline-block text-sm font-bold text-primary underline underline-offset-2"
               >
                 {t("credentials.viewAll")} &rarr;
               </Link>
