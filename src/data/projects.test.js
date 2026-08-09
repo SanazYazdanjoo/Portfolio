@@ -53,6 +53,21 @@ describe("projects aggregator — data contract", () => {
     const sorted = [...orders].sort((a, b) => a - b);
     expect(orders).toEqual(sorted);
   });
+
+  // main.jsx derives routes from the folder name under src/projects/, this
+  // file derives `href` from `slug`, and Sitemap.jsx links via `p.id` — three
+  // independent derivations that only agree if id === slug === folder name.
+  // A mismatch here is a live sitemap 404, not a hypothetical one.
+  it("id, slug, and folder name are identical", () => {
+    for (const p of projects) expect(p.id).toBe(p.slug);
+  });
+
+  // Sitemap.jsx links via p.id — a capitalized slug still passes the id/slug
+  // equality check above as long as id matches, but a capitalized folder
+  // name is itself the kind of casing drift that caused the Project-4 bug.
+  it("slugs are lowercase", () => {
+    for (const p of projects) expect(p.slug).toBe(p.slug.toLowerCase());
+  });
 });
 
 describe("sortedProjects — homepage ordering", () => {
