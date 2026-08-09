@@ -387,8 +387,8 @@ export default function DesignSystem() {
               <motion.div variants={fadeUp} className="mb-10">
                 <h2 className="type-h3 mt-0 mb-1">Badges &amp; tags</h2>
                 <p className="type-body mt-0 mb-5" style={{ fontSize: "var(--fs-sm)", color: "var(--text-dim)" }}>
-                  Notebook-tag chips: ink outlines and soft washes, no heavy solid fills. Text is
-                  always AA — ink or the -600 accent shades.
+                  Notebook-tag chips: ink outlines at rest, filling solid on hover. Text is
+                  always AA — ink or the -600 accent shades at rest, white once filled.
                 </p>
                 <div className="flex flex-wrap items-center gap-2 mb-4">
                   <Badge tone="accent">Eye-Tracking</Badge>

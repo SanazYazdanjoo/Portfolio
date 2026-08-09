@@ -110,9 +110,10 @@ function CareerArcFull({ steps }) {
                   <li key={item}>
                     <span
                       className={`inline-block text-[9px] font-bold uppercase tracking-wide px-2 py-1 rounded-full border
+                        transition-colors duration-200 ease-smooth
                         ${step.highlight
-                          ? "border-white/40 text-white"
-                          : "border-border text-text/65"
+                          ? "border-white/40 text-white hover:bg-white hover:border-white hover:text-primary"
+                          : "border-border text-text/65 hover:bg-primary-600 hover:border-primary-600 hover:text-white"
                         }`}
                     >
                       {item}

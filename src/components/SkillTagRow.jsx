@@ -3,9 +3,9 @@
 // border + text/65, since that CSS var already bakes in its own alpha
 // (rgba(...)), unlike Tailwind's color/NN opacity modifier which can't be
 // generated for a custom color that isn't split into channel components.
-// Deliberately quieter than Badge/TagChip (no fill, no color) since a card
-// can carry many tags at once — the row is meant to read as metadata, not
-// as another set of colorful UI accents competing with the title.
+// Deliberately quieter than Badge/TagChip at rest (grey, no color) since a
+// card can carry many tags at once — but still fills on hover like every
+// other tag chip site-wide, since these sit inside the card's own link.
 import React from "react";
 
 export function SkillTagRow({ tags, className = "" }) {
@@ -16,7 +16,8 @@ export function SkillTagRow({ tags, className = "" }) {
       {tags.map((tag) => (
         <span
           key={tag}
-          className="inline-block rounded-full border border-border px-2 py-1 text-[9px] font-bold uppercase tracking-wide text-text/65"
+          className="inline-block rounded-full border border-border px-2 py-1 text-[9px] font-bold uppercase tracking-wide text-text/65
+                     transition-colors duration-200 ease-smooth hover:border-primary-600 hover:bg-primary-600 hover:text-white"
         >
           {tag}
         </span>
