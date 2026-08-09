@@ -1,7 +1,7 @@
 // Desktop order: links → language toggle. Mobile order: toggle → burger
 // (burger stays at the screen edge for thumb reach).
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { profileData as rawProfile } from "../data/profile";
@@ -66,7 +66,7 @@ export const Nav = ({ isScrolled = false }) => {
                     `group relative text-[13px] md:text-[14px] transition-colors duration-200
                      ${isActive
                        ? "text-text font-semibold"
-                       : "text-text/45 hover:text-secondary-600"
+                       : "text-text-meta hover:text-secondary-600"
                      }`
                   }
                 >
@@ -113,6 +113,8 @@ function MobileMenu({ links }) {
   const [open, setOpen] = useState(false);
   const { t } = useTranslation();
   const prefersReducedMotion = useReducedMotion();
+  const triggerRef = useRef(null);
+  const panelRef = useRef(null);
 
   // Lock body scroll while open
   useEffect(() => {
@@ -120,9 +122,50 @@ function MobileMenu({ links }) {
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
+  // Focus trap + Escape-to-close + focus-return, mirroring Credentials.jsx's
+  // CertificateLightbox (same keydown/Tab-cycling logic). The one structural
+  // difference: that lightbox only mounts while open, so its parent's
+  // callback returns focus to whichever card triggered it; this menu is
+  // always mounted with a single fixed trigger (the burger button), so
+  // autofocus + trap + focus-return all live in one effect here instead.
+  useEffect(() => {
+    if (!open) return undefined;
+
+    const focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    panelRef.current?.querySelector(focusableSelector)?.focus();
+
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        return;
+      }
+      if (e.key !== "Tab" || !panelRef.current) return;
+
+      const focusable = panelRef.current.querySelectorAll(focusableSelector);
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      triggerRef.current?.focus();
+    };
+  }, [open]);
+
   return (
     <div className="md:hidden">
       <button
+        ref={triggerRef}
         onClick={() => setOpen(!open)}
         className="relative z-[70] text-text p-3 -m-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
         aria-label={open ? t("nav.closeMenu") : t("nav.openMenu")}
@@ -139,6 +182,7 @@ function MobileMenu({ links }) {
       <AnimatePresence>
         {open && (
           <motion.div
+            ref={panelRef}
             initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

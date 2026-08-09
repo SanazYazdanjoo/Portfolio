@@ -1,5 +1,6 @@
 // Content is sourced from UCD4UX_FINAL_PRESENTATION.pdf (deskbird x Bauhaus-Universität Weimar).
 import thumbnailImg from './Project-2.png';
+import thumbnailWebp from './Project-2.webp';
 
 export const projectData = {
   id: "project-2",
@@ -24,6 +25,7 @@ export const projectData = {
   timeline: "10/2023 – 03/2024",
   tags: ["User-Centered Design", "HCI Research", "Stakeholder Interviews", "Contextual Inquiry", "Survey Design", "Requirements Engineering", "Interaction Design", "Rapid Prototyping", "Figma", "B2B SaaS"],
   thumbnail: thumbnailImg,
+  thumbnailWebp,
   heroImage: thumbnailImg,
 
   methods: [

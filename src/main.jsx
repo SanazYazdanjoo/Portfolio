@@ -5,32 +5,42 @@
 import React, { Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { MotionConfig } from 'framer-motion';
 import App from './App';
-import Home from './pages/Home';
-import About from './pages/About';
-import Privacy from './pages/Privacy';
-import Impressum from './pages/Impressum';
-import Contact from './pages/Contact';
-import Projects from './pages/Projects';
-import Voluntary from './pages/Voluntary';
-import CurriculumVitae from './pages/CurriculumVitae';
-import Credentials from './pages/Credentials';
-import Sitemap from './pages/Sitemap';
-import DesignSystem from './pages/DesignSystem';
-import TagsDirectory from './tags/TagsDirectory';
-import SingleTagPage from './tags/SingleTagPage';
 import './index.css';
 import { LanguageProvider } from './context/LanguageContext';
+
+// Route-level code splitting: each page ships as its own chunk, loaded on
+// navigation instead of all bundled into the initial download.
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
+const Privacy = lazy(() => import('./pages/Privacy'));
+const Impressum = lazy(() => import('./pages/Impressum'));
+const Contact = lazy(() => import('./pages/Contact'));
+const Projects = lazy(() => import('./pages/Projects'));
+const Voluntary = lazy(() => import('./pages/Voluntary'));
+const CurriculumVitae = lazy(() => import('./pages/CurriculumVitae'));
+const Credentials = lazy(() => import('./pages/Credentials'));
+const Sitemap = lazy(() => import('./pages/Sitemap'));
+const DesignSystem = lazy(() => import('./pages/DesignSystem'));
+const TagsDirectory = lazy(() => import('./tags/TagsDirectory'));
+const SingleTagPage = lazy(() => import('./tags/SingleTagPage'));
 
 // Dev-only: lazy so the Admin dashboard never ships in the production bundle
 const Admin = lazy(() => import('./pages/Admin'));
 
-// Auto-discovers a route for every 'index.jsx' under 'src/projects/'
-const projectFiles = import.meta.glob('./projects/*/index.jsx', { eager: true });
+// Auto-discovers a route for every 'index.jsx' under 'src/projects/'.
+// eager: false — each case study is its own chunk, loaded on navigation.
+// This only affects the *page wrapper* import; each wrapper's own
+// `import { projectData } from './data'` (e.g. project-1/index.jsx:3)
+// still resolves normally once its chunk loads. Test files that import
+// data.js directly (src/test/*.test.jsx) never go through this glob at
+// all, so they're unaffected.
+const projectFiles = import.meta.glob('./projects/*/index.jsx', { eager: false });
 
-const dynamicProjectRoutes = Object.keys(projectFiles).map((filePath) => {
+const dynamicProjectRoutes = Object.entries(projectFiles).map(([filePath, loadModule]) => {
   const folderName = filePath.split('/')[2];
-  const ProjectComponent = projectFiles[filePath].default;
+  const ProjectComponent = lazy(loadModule);
   return {
     path: `/projects/${folderName}`,
     element: <ProjectComponent />,
@@ -81,8 +91,10 @@ console.log(
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <LanguageProvider>
-      <RouterProvider router={router} />
-    </LanguageProvider>
+    <MotionConfig reducedMotion="user">
+      <LanguageProvider>
+        <RouterProvider router={router} />
+      </LanguageProvider>
+    </MotionConfig>
   </React.StrictMode>
 );

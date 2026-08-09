@@ -11,6 +11,7 @@ import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { useTranslation } from "../context/LanguageContext";
 import { ScribbleUnderline } from "../components/DoodleLibrary";
 import { StatusDot } from "../components/StatusDot";
+import { useDocumentMeta } from "../hooks/useDocumentMeta";
 
 const focusRing =
   "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600";
@@ -41,6 +42,11 @@ export default function Contact() {
   const [copied, setCopied] = useState(false);
 
   const { contact, languages } = profileData;
+
+  useDocumentMeta({
+    title: `${t("contact.headline")} — ${profileData.name}`,
+    description: contact.availability,
+  });
 
   async function handleCopyEmail() {
     try {

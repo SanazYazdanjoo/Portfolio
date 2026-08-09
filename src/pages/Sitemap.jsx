@@ -6,6 +6,7 @@ import { useLocalizedProfile } from '../hooks/useLocalizedProfile';
 import { projects } from "../data/projects";
 import { ScribbleUnderline } from "../components/DoodleLibrary";
 import { useTranslation } from "../context/LanguageContext";
+import { useDocumentMeta } from "../hooks/useDocumentMeta";
 
 // Static route tree. Top-level routes are pulled from profileData.navLinks
 // automatically; sub-routes and legal pages are defined here. Labels/
@@ -166,6 +167,11 @@ export default function Sitemap() {
   const localizedProjects = useLocalizedProfile(projects);
   const projectSectionLabels = PROJECT_SECTION_KEYS.map((k) => t(k));
 
+  useDocumentMeta({
+    title: `${t("sitemap.title")} — ${profileData.name}`,
+    description: t("sitemap.subtitle"),
+  });
+
   // Build the main nav routes from profileData — stays in sync automatically
   const mainRoutes = profileData.navLinks.map((link) => {
     const path = link.path;
@@ -229,7 +235,7 @@ export default function Sitemap() {
             </h1>
             <ScribbleUnderline className="absolute -bottom-2 left-0 w-full h-4 text-primary opacity-60" />
           </div>
-          <p className="text-sm text-text/45 mt-6">
+          <p className="text-sm text-text-meta mt-6">
             {t("sitemap.subtitle")}
           </p>
 

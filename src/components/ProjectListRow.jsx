@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
 import { SkillTagRow } from "./SkillTagRow";
+import { ProjectPicture } from "./ProjectPicture";
 
 const EASE = [0.22, 0.61, 0.36, 1];
 
@@ -66,8 +67,9 @@ export function ProjectListRow({ project, index }) {
 
         {hasImage && (
           <div className="hidden sm:block w-[220px] md:w-[280px] aspect-[16/10] shrink-0 overflow-hidden border border-border">
-            <img
+            <ProjectPicture
               src={project.thumbnail}
+              webpSrc={project.thumbnailWebp}
               alt={project.title}
               onError={() => setImgError(true)}
               className="w-full h-full object-cover transition-transform duration-200 ease-smooth group-hover:scale-[1.04]"

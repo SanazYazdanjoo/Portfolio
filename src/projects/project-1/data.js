@@ -1,4 +1,5 @@
 import thumbnailImg from './Project-1.png';
+import thumbnailWebp from './Project-1.webp';
 import challenge from './media/challenge.png';
 import magicDemo from './media/magic-demo.mp4';
 import ninjaDemo from './media/ninja-demo.mp4';
@@ -35,6 +36,7 @@ export const projectData = {
 
   timeline: "10/2025 – 04/2026",
   thumbnail: thumbnailImg,
+  thumbnailWebp,
   heroImage: thumbnailImg,
 
   methods: [
