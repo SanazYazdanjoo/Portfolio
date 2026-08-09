@@ -17,6 +17,8 @@ import { ProjectTile } from "../components/ProjectTile";
 import { ComingSoonRow } from "../components/ComingSoonRow";
 import { useTranslation } from "../context/LanguageContext";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
+import { useDocumentMeta } from "../hooks/useDocumentMeta";
+import { profileData as rawProfile } from "../data/profile";
 
 const EASE = [0.22, 0.61, 0.36, 1];
 const VIEW_STORAGE_KEY = "projects.view";
@@ -59,6 +61,12 @@ export default function Projects() {
   const { t } = useTranslation();
   const localizedProjects = useLocalizedProfile(projects);
   const [view, setView] = useState(readStoredView);
+  const profileData = useLocalizedProfile(rawProfile);
+
+  useDocumentMeta({
+    title: `${t("projects.title")} — ${profileData.name}`,
+    description: profileData.tagline,
+  });
 
   useEffect(() => {
     try {
@@ -189,7 +197,7 @@ export default function Projects() {
               <path strokeLinecap="round" strokeLinejoin="round"
                 d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
             </svg>
-            <p className="text-[13px] font-semibold text-text/30 uppercase tracking-widest mb-2">
+            <p className="text-[13px] font-semibold text-text-meta uppercase tracking-widest mb-2">
               {t("projects.wip")}
             </p>
             <p className="text-[13px] text-dim max-w-xs mx-auto leading-relaxed font-light">

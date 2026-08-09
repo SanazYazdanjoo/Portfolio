@@ -5,6 +5,7 @@
 // ⚠️ Phase 4 (evaluation) has not completed. Nothing in `metrics` or `results`
 // claims an outcome. Anything not yet evidenced is marked TODO and left null.
 import thumbnailImg from './Project-4.png';
+import thumbnailWebp from './Project-4.webp';
 
 export const projectData = {
   id: 'project-4',
@@ -42,6 +43,7 @@ export const projectData = {
     'Automated Testing (Vitest)',
   ],
   thumbnail: thumbnailImg,
+  thumbnailWebp,
   heroImage: '/projects/project-4/hero-overview-uml.png', // TODO: export from Overview UML
 
   methods: [

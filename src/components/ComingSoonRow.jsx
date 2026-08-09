@@ -17,13 +17,13 @@ export function ComingSoonRow({ project, index }) {
     >
       <span aria-hidden="true" className="absolute left-0 top-0 bottom-0 w-1 bg-border" />
 
-      <span className="font-mono text-xs font-bold text-text/30 tabular-nums shrink-0 self-start mt-1">
+      <span className="font-mono text-xs font-bold text-text-meta tabular-nums shrink-0 self-start mt-1">
         {String(index + 1).padStart(2, "0")}
       </span>
 
       <div className="flex-1 min-w-0">
         <h2 className="font-display font-extrabold text-[24px] line-clamp-2 tracking-[-0.01em]
-                       uppercase leading-tight text-text/45">
+                       uppercase leading-tight text-text-meta">
           {project.title}
         </h2>
         <SkillTagRow tags={tags} className="mt-2 opacity-60" />

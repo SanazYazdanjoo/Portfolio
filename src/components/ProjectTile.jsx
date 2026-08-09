@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
 import { SkillTagRow } from "./SkillTagRow";
+import { ProjectPicture } from "./ProjectPicture";
 
 const EASE = [0.22, 0.61, 0.36, 1];
 
@@ -47,8 +48,9 @@ export function ProjectTile({ project, index }) {
 
       <div className="aspect-[16/10] w-full overflow-hidden bg-muted border-b border-border">
         {hasImage ? (
-          <img
+          <ProjectPicture
             src={project.thumbnail}
+            webpSrc={project.thumbnailWebp}
             alt={project.title}
             onError={() => setImgError(true)}
             className={`h-full w-full object-cover transition-transform duration-[250ms] ease-smooth group-hover:scale-[1.04] ${
@@ -89,7 +91,7 @@ export function ProjectTile({ project, index }) {
 
         <h3
           className={`font-display text-xl font-extrabold uppercase leading-tight tracking-[-0.01em] line-clamp-3 transition-colors duration-200
-                     ${isComingSoon ? "text-text/45" : "text-text group-hover:text-primary-600"}`}
+                     ${isComingSoon ? "text-text-meta" : "text-text group-hover:text-primary-600"}`}
         >
           {project.title}
         </h3>
