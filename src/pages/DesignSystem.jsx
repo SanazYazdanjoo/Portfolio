@@ -163,15 +163,31 @@ function Swatch({ name, varName, hex, note, rule, light }) {
       className="flex flex-col justify-end p-3 h-28"
       style={{
         background: `var(${varName})`,
-        color: light ? "var(--color-ink-900)" : "#fff",
         borderRadius: "var(--radius)",
         border: "1px solid var(--border)",
       }}
     >
-      <p className="type-label m-0" style={{ fontSize: 11, letterSpacing: ".1em" }}>{name}</p>
-      <p className="m-0" style={{ fontFamily: "var(--font-mono)", fontSize: 10, lineHeight: 1.5 }}>
-        {hex} · {note || rule}
-      </p>
+      {/* Text sits on a solid ink-900 chip rather than directly on the
+          swatch fill: some accent -500 tones (e.g. rose) don't clear 4.5:1
+          for either light or dark text at this size — the chip keeps the
+          swatch itself showing the true token color while guaranteeing safe
+          contrast regardless of which color it is. No-op for light
+          swatches, which already pass with ink text directly on the fill. */}
+      <div
+        style={{
+          background: light ? "transparent" : "var(--color-ink-900)",
+          color: light ? "var(--color-ink-900)" : "#fff",
+          display: "inline-block",
+          width: "fit-content",
+          padding: light ? 0 : "3px 6px",
+          borderRadius: light ? 0 : 4,
+        }}
+      >
+        <p className="type-label m-0" style={{ fontSize: 11, letterSpacing: ".1em" }}>{name}</p>
+        <p className="m-0" style={{ fontFamily: "var(--font-mono)", fontSize: 10, lineHeight: 1.5 }}>
+          {hex} · {note || rule}
+        </p>
+      </div>
     </motion.div>
   );
 }
