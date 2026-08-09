@@ -8,29 +8,33 @@ export default {
       colors: {
         bg: "var(--bg)",
         surface: "var(--surface)",
-        muted: "var(--muted)",
+        // rgb(var(--x-rgb) / <alpha-value>) lets Tailwind's color/NN opacity
+        // modifier (e.g. text-text/60) actually work. A bare var(--x) can't
+        // be split into channels, so Tailwind silently drops the modifier
+        // and renders full-opacity instead — see git history on this file.
+        muted: "rgb(var(--muted-rgb) / <alpha-value>)",
         "muted-surface": "var(--muted-surface)",
-        text: "var(--text)",
+        text: "rgb(var(--text-rgb) / <alpha-value>)",
         "text-display": "var(--text-display)",
-        dim: "var(--text-dim)",
-        "text-muted": "var(--text-muted)",
+        dim: "rgb(var(--text-dim-rgb) / <alpha-value>)",
+        "text-muted": "rgb(var(--text-muted-rgb) / <alpha-value>)",
         border: "var(--border)",
         line: "var(--line)",
-        ink: 'var(--text)',
+        ink: "rgb(var(--text-rgb) / <alpha-value>)",
         primary: {
-          DEFAULT: "var(--primary)",      // #892107 — large text / UI only
-          600: "var(--primary-600)",      // small-text-safe coral
+          DEFAULT: "rgb(var(--primary-rgb) / <alpha-value>)",     // #892107 — large text / UI only
+          600: "rgb(var(--primary-600-rgb) / <alpha-value>)",     // small-text-safe coral
         },
         secondary: {
-          DEFAULT: "var(--secondary)",    // #BF5858 rose — large text / UI only
-          600: "var(--secondary-600)",    // small-text-safe rose
+          DEFAULT: "rgb(var(--secondary-rgb) / <alpha-value>)",   // #BF5858 rose — large text / UI only
+          600: "rgb(var(--secondary-600-rgb) / <alpha-value>)",   // small-text-safe rose
         },
         blush: {
           DEFAULT: "var(--blush)",        // #E1A19A — tints only, never text
           weak: "var(--blush-weak)",      // pale wash for chips / bands
         },
         highlight: {
-          DEFAULT: "var(--highlight)",    // #D3A22E gold — highlighter only
+          DEFAULT: "rgb(var(--highlight-rgb) / <alpha-value>)",   // #D3A22E gold — highlighter only
           weak: "var(--highlight-weak)",
         },
         "print-primary": "var(--print-primary)",
@@ -40,9 +44,9 @@ export default {
         "surface-warm": "var(--surface-warm)",
         peach: "var(--peach)",            // legacy alias → blush wash
         gold: "var(--gold)",              // legacy alias → highlight
-        danger: "var(--danger)",
-        success: "var(--success)",
-        tn: "var(--tn)", 
+        danger: "rgb(var(--danger-rgb) / <alpha-value>)",
+        success: "rgb(var(--success-rgb) / <alpha-value>)",
+        tn: "var(--tn)",
 
       
       },
