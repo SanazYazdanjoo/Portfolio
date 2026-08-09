@@ -923,12 +923,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                       <dd className="flex flex-wrap gap-2">
                         {tags.map((tag) => (
                           <Link key={tag} to={`/tags/${encodeURIComponent(tag)}`}>
-                            <Badge
-                              tone="accent"
-                              className="hover:bg-primary/15 hover:border-primary/40 transition-colors cursor-pointer"
-                            >
-                              {tag}
-                            </Badge>
+                            <Badge tone="accent">{tag}</Badge>
                           </Link>
                         ))}
                       </dd>
