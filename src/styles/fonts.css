@@ -1,0 +1,71 @@
+/* Self-hosted fonts (Commit 1 — performance only, no visual change).
+ *
+ * These are NOT Fontsource's own @font-face declarations — each rule below
+ * is hand-written to replicate, field for field, what fonts.googleapis.com
+ * actually serves for this site's exact font request (verified by fetching
+ * https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800
+ * etc. with a modern Chrome UA and diffing the response). Importing
+ * Fontsource's own CSS was deliberately avoided: their split wght/opsz
+ * stylesheets describe DIFFERENT weight ranges than what's requested here,
+ * and importing the wrong one would silently narrow what Google serves
+ * today.
+ *
+ * Files:
+ *   - bricolage-grotesque-latin-variable.woff2 and dm-sans-latin-variable.woff2
+ *     are byte-identical (MD5-verified) to what Google serves live — sourced
+ *     from node_modules/@fontsource-variable/*, not re-downloaded, since the
+ *     bytes are already proven the same.
+ *   - caveat-latin.woff2 was downloaded directly from Google's live CDN
+ *     instead: Fontsource's own Caveat build is NOT byte-identical to what's
+ *     currently served (different hash, different size) so it was not used.
+ *
+ * Only the `latin` subset is included (U+0000-00FF, U+2000-206F, U+20AC,
+ * etc.) — verified this covers German's ä/ö/ü/ß (all inside U+0000-00FF)
+ * and the typographic punctuation (em dash, curly quotes) this site's copy
+ * uses, so latin-ext/vietnamese/cyrillic are genuinely unused here.
+ */
+
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  font-style: normal;
+  font-weight: 500 800;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url('/fonts/bricolage-grotesque-latin-variable.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/dm-sans-latin-variable.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Caveat: font-display: optional, deliberately different from swap above.
+ * Every real usage (checked against the whole codebase) is either
+ * absolutely positioned (Home hero role badge — can't propagate a reflow
+ * to surrounding layout even if it swaps late), below the fold, hidden
+ * below a breakpoint, or dead code. Worst case on a slow connection: it
+ * never swaps in for that page view and stays on the fallback
+ * ("Segoe Script", cursive) the whole time — a cosmetic difference only,
+ * and it structurally cannot contribute to CLS the way `swap` can. */
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 500;
+  font-display: optional;
+  src: url('/fonts/caveat-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 700;
+  font-display: optional;
+  src: url('/fonts/caveat-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}

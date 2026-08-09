@@ -89,12 +89,12 @@ export function ProjectTile({ project, index }) {
           )}
         </div>
 
-        <h3
+        <h2
           className={`font-display text-xl font-extrabold uppercase leading-tight tracking-[-0.01em] line-clamp-3 transition-colors duration-200
                      ${isComingSoon ? "text-text-meta" : "text-text group-hover:text-primary-600"}`}
         >
           {project.title}
-        </h3>
+        </h2>
 
         <SkillTagRow tags={tags} className={isComingSoon ? "opacity-50" : ""} />
       </div>
