@@ -570,6 +570,43 @@ function ResearchPhases({ phases, intro, number, isOpen, onToggle, staggerDelayM
   );
 }
 
+// Internal-path test for the prototype "open" link. Deliberately not
+// `startsWith("/")` — a protocol-relative URL ("//evil.com") also starts
+// with "/" but resolves to an external origin, so the second character
+// must not be another slash.
+const isInternalPath = (url) => /^\/(?!\/)/.test(url);
+
+// Prototype "open" link — an internal path (e.g. /designsystem) gets real
+// SPA navigation via <Link>, so it doesn't cost a full page reload or a
+// stray new tab; anything else (external URLs, protocol-relative URLs)
+// opens in a new tab, since we can't assume it stays in the app.
+function PrototypeLink({ href, label }) {
+  const className = "mt-6 inline-flex items-center gap-2 border border-border px-4 py-2.5 " +
+    "text-2xs font-black uppercase tracking-[0.2em] text-text " +
+    "hover:border-primary-600 hover:text-primary-600 transition-colors duration-200";
+  const icon = (
+    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H8M17 7V16" />
+    </svg>
+  );
+
+  if (isInternalPath(href)) {
+    return (
+      <Link to={href} className={className}>
+        {label}
+        {icon}
+      </Link>
+    );
+  }
+
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+      {label}
+      {icon}
+    </a>
+  );
+}
+
 // Prev/next project navigation cards — so a reader moves laterally to the
 // next case study instead of hitting a dead end at "Back to all projects".
 function ProjectNavCard({ project, direction }) {
@@ -968,19 +1005,10 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                 )}
 
                 {meta.prototypeUrl && (
-                  <a
+                  <PrototypeLink
                     href={meta.prototypeUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-6 inline-flex items-center gap-2 border border-border px-4 py-2.5
-                               text-2xs font-black uppercase tracking-[0.2em] text-text
-                               hover:border-primary-600 hover:text-primary-600 transition-colors duration-200"
-                  >
-                    {meta.prototypeUrlLabel || t("project.prototype.openLink")}
-                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H8M17 7V16" />
-                    </svg>
-                  </a>
+                    label={meta.prototypeUrlLabel || t("project.prototype.openLink")}
+                  />
                 )}
 
                 <SectionMedia items={meta.figures?.prototype} />
