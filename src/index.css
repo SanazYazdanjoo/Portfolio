@@ -65,10 +65,10 @@
   html { font-size: 13px; } /* compresses the rem-based fluid scale for A4 */
   .type-hero, .type-display, .type-h1 { font-variation-settings: "opsz" 48; }
 
-  /* Project detail pages collapse every section by default (closed-first
-     accordion, see ProjectTemplate.jsx). A printed page has no click
-     interaction, so force every body open and drop the chevrons — nobody
-     printing a case study wants six section headers and no content. */
+  /* Sections render open by default (see collapsible-sections.test.jsx:
+     "every section body starts open"). This rule is a GUARD, not a fix:
+     it keeps print correct if that default ever changes, since a printed
+     page has no click affordance. Do not delete. */
   [data-collapsible-body] {
     display: block !important;
   }
