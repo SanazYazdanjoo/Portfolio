@@ -2,11 +2,20 @@ import { useState } from 'react';
 import { getTagData } from '../data/projects';
 import TagChip from '../components/TagChip';
 import { useTranslation } from '../context/LanguageContext';
+import { useDocumentMeta } from '../hooks/useDocumentMeta';
+import { profileData as rawProfile } from '../data/profile';
+import { useLocalizedProfile } from '../hooks/useLocalizedProfile';
 
 const TagsDirectory = () => {
   const { t } = useTranslation();
+  const profileData = useLocalizedProfile(rawProfile);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('name'); // 'name' or 'count'
+
+  useDocumentMeta({
+    title: `${t("tags.directory.title")} — ${profileData.name}`,
+    description: t("tags.directory.subheading"),
+  });
 
   const rawTags = getTagData();
 

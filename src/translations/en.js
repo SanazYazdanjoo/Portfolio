@@ -122,6 +122,7 @@ const en = {
   "common.backToPortfolio": "← Back to Portfolio",
   "common.readMore": "Read More",
   "common.language": "Language",
+  "common.skipToContent": "Skip to main content",
 
   // Hero meta strip
   "hero.kicker": "UX Research × Engineering",

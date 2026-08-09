@@ -20,6 +20,7 @@ import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
 import CareerArc from "../components/CareerArc";
+import { useDocumentMeta } from "../hooks/useDocumentMeta";
 
 const EASE = [0.22, 0.61, 0.36, 1];
 
@@ -102,6 +103,11 @@ export default function Home() {
   const profileData = useLocalizedProfile(rawProfile);
   const localizedProjects = useLocalizedProfile(projects);
   const { t } = useTranslation();
+
+  useDocumentMeta({
+    title: `${profileData.name} — ${profileData.role}`,
+    description: profileData.profileSummary,
+  });
 
   // Same split as /projects — one rule, two pages
   const published  = localizedProjects.filter((p) => p.status === "published");

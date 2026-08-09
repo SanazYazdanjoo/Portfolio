@@ -92,7 +92,7 @@ export function Footer({ data }) {
         <div className="h-px bg-border/10 mb-4" />
 
         {/* Colophon: this site is the case study */}
-        <p className="text-[11px] text-text/30 font-medium mb-3">
+        <p className="text-[11px] text-text-meta font-medium mb-3">
           {t("footer.colophon")}{" "}
           <a
             href={REPO_URL}
@@ -106,26 +106,26 @@ export function Footer({ data }) {
 
         {/* Bottom bar: copyright + legal */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <p className="text-[11px] text-text/30 font-medium">© {year} {name}</p>
+          <p className="text-[11px] text-text-meta font-medium">© {year} {name}</p>
 
           <nav className="flex items-center gap-5" aria-label={t("footer.legalAriaLabel")}>
             <Link
               to="/impressum"
-              className="text-[10px] font-bold uppercase tracking-widest text-text/30
+              className="text-[10px] font-bold uppercase tracking-widest text-text-meta
                          hover:text-primary transition-colors duration-300"
             >
               {t("footer.impressum")}
             </Link>
             <Link
               to="/privacy"
-              className="text-[10px] font-bold uppercase tracking-widest text-text/30
+              className="text-[10px] font-bold uppercase tracking-widest text-text-meta
                          hover:text-primary transition-colors duration-300"
             >
               {t("footer.privacy")}
             </Link>
             <Link
               to="/sitemap"
-              className="text-[10px] font-bold uppercase tracking-widest text-text/30
+              className="text-[10px] font-bold uppercase tracking-widest text-text-meta
                          hover:text-primary transition-colors duration-300"
             >
               {t("footer.sitemap")}
