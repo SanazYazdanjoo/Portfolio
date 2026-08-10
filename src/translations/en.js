@@ -171,6 +171,7 @@ const en = {
   "project.sidebar.implications": "Implications",
   "project.sidebar.status": "Status",
   "project.sidebar.conclusion": "Conclusion",
+  "project.sidebar.outcome": "Outcome",
 
   // Project detail — section kickers + headings (long form)
   "project.about.kicker": "Project Overview",
@@ -206,6 +207,15 @@ const en = {
   "project.results.heading": "Key Findings",
   "project.results.glance": "Study at a Glance",
 
+  "project.outcome.kicker": "What Changed",
+  "project.outcome.heading": "Outcome & Impact",
+  "project.outcome.decisions": "Decisions this research drove",
+  "project.outcome.adoption.shipped": "Shipped",
+  "project.outcome.adoption.roadmapped": "Roadmapped",
+  "project.outcome.adoption.notAdopted": "Not Adopted",
+  "project.outcome.adoption.unknown": "Outcome Unknown",
+  "project.outcome.adoption.academic": "Academic Project",
+
   "project.implications.kicker": "So What",
   "project.implications.heading": "Design Implications",
 
@@ -222,6 +232,15 @@ const en = {
   "project.meta.context": "Context",
   "project.meta.furtherImpact": "Further impact",
   "project.meta.impactAtGlance": "Impact at a glance",
+  "project.meta.contribution": "My Contribution",
+
+  "project.contribution.owned": "Owned",
+  "project.contribution.shared": "Shared",
+  "project.contribution.notMine": "Not Mine",
+
+  "project.results.verbatim": "Participant quote",
+  "project.results.pending": "Measurement pending",
+  "project.results.pendingNotice": "The protocol is defined; these numbers are deliberately absent until the sessions run.",
 
   "project.status.complete": "Complete",
   "project.status.inProgress": "In progress",
