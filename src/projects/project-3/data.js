@@ -1,6 +1,7 @@
 // Content is sourced from Group_Report__EmbraceMe__.docx and FBHCI_Individual_Final_Report.pdf.
 import thumbnailImg from './Project-3.png';
 import thumbnailWebp from './Project-3.webp';
+import { NEEDS_INPUT } from '../../data/needsInput';
 
 export const projectData = {
   id: "project-3",
@@ -166,6 +167,64 @@ export const projectData = {
       },
       imagePath: null,
     },
+  ],
+
+  // Role is "HCI Researcher & Prototyping Engineer (team of 3)" —
+  // myContribution is required. `owned` is grounded directly in the results
+  // and process-gallery text (the "Individual Report" is a separately
+  // authored deliverable, distinct from the group submission). `notMine`
+  // has no textual basis to derive from — flagged as NEEDS_INPUT rather
+  // than guessed.
+  myContribution: {
+    owned: [
+      {
+        en: "The individual critical-reflection report — applying Offenhuber's data physicalization framework to critique the prototype and propose an emotion-driven redesign — was authored solely by me as a separate deliverable from the group submission.",
+        de: "Der individuelle kritische Reflexionsbericht — der Offenhubers Data-Physicalization-Framework anwendet, um den Prototyp zu kritisieren und ein emotionsgesteuertes Redesign vorzuschlagen — wurde von mir allein als eigenständiges Deliverable, getrennt von der Gruppenabgabe, verfasst.",
+      },
+    ],
+    shared: [
+      {
+        en: "Physical prototyping, material testing, and the touch-sensing/LED feedback system were built collaboratively across the three-person team.",
+        de: "Physisches Prototyping, Materialtests und das Berührungssensor-/LED-Feedback-System wurden gemeinsam im dreiköpfigen Team gebaut.",
+      },
+    ],
+    notMine: [NEEDS_INPUT],
+  },
+
+  // Real exhibition-visitor language already exists in `results` and the
+  // "Public Exhibition & Observation" process-gallery entry (the bot
+  // "waking up" to hug back) but promoting a fragment to a standalone
+  // pull-quote is an editorial call for the owner. See CONTENT_GAPS.md.
+  verbatims: [NEEDS_INPUT],
+
+  outcome: {
+    body: {
+      en: "EmbraceMe was not iterated into a second physical prototype after the exhibition — the group deliverable ended at the evaluated build. The follow-on work is a documented redesign proposal (individual report), not a shipped or roadmapped system, and no organisation has committed to building it.",
+      de: "EmbraceMe wurde nach der Ausstellung nicht zu einem zweiten physischen Prototyp weiterentwickelt — das Gruppendeliverable endete beim evaluierten Build. Die Weiterarbeit ist ein dokumentierter Redesign-Vorschlag (Individualbericht), kein ausgeliefertes oder auf einer Roadmap stehendes System, und keine Organisation hat sich zu dessen Umsetzung verpflichtet.",
+    },
+    decisions: [
+      {
+        en: "The visible design failures (uncanny arm aesthetics, no signifiers for initiating a hug) were not patched within the group project — they were carried into an individual critical-reflection report instead.",
+        de: "Die sichtbaren Designfehler (unheimliche Armästhetik, fehlende Signifikanten zum Einleiten einer Umarmung) wurden nicht innerhalb des Gruppenprojekts nachgebessert — sie wurden stattdessen in einen individuellen kritischen Reflexionsbericht überführt.",
+      },
+      {
+        en: "The redesign proposal rejected the binary-trigger mechanism outright, replacing it with emotion-recognition data driving arm extension and hug intensity, with user autonomy, explicit consent, and privacy-first handling defined as guardrails before any such system would be built.",
+        de: "Der Redesign-Vorschlag lehnte den binären Auslösemechanismus ausdrücklich ab und ersetzte ihn durch Emotionserkennungsdaten, die Armausdehnung und Umarmungsintensität steuern — mit Nutzerautonomie, ausdrücklicher Einwilligung und datenschutzorientiertem Umgang als vorab definierten Leitplanken für ein solches System.",
+      },
+    ],
+    adoption: "academic",
+  },
+
+  tagEvidence: [
+    { tag: "Soft Robotics", evidence: "solution: PneuNet bending-actuator arms with heat-sealed TPU air chambers", status: "evidenced" },
+    { tag: "Human-Robot Interaction", evidence: "results: public exhibition with live user–bot hugging interaction", status: "evidenced" },
+    { tag: "Arduino", evidence: "solution: \"Festo 5/3 solenoid valve and timed Arduino logic (3s inflate, 9s deflate)\"", status: "evidenced" },
+    { tag: "Physical Prototyping", evidence: "process:Balloons → Transparent TPU → Yellow TPU", status: "evidenced" },
+    { tag: "Sensor Integration", evidence: "process:Touch-Triggered Hugging with an LED Feedback Cycle — 5-pad capacitive touch sensor", status: "evidenced" },
+    { tag: "Material Testing", evidence: "process:Iterative Material Testing", status: "evidenced" },
+    { tag: "Data Physicalization", evidence: "process:Critical Reflection & Redesign Proposal — Offenhuber's data physicalization framework", status: "evidenced" },
+    { tag: "Shape-Changing Interfaces", evidence: "solution: PneuNet bending arms that change shape via inflation", status: "evidenced" },
+    { tag: "Public Exhibition Research", evidence: "process:Real Users, Real (Uncomfortable) Findings", status: "evidenced" },
   ],
 };
 

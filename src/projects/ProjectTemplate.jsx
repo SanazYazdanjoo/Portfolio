@@ -29,11 +29,13 @@ import {
 import SectionMedia from "./SectionMedia";
 import { Badge } from "../components/Badge";
 import { ProjectPicture } from "../components/ProjectPicture";
+import { NeedsInputMarker } from "../components/NeedsInputMarker";
 import { useTranslation } from "../context/LanguageContext";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { profileData as rawProfile } from "../data/profile";
 import { projects as allProjects } from "../data/projects";
+import { isNeedsInput } from "../data/needsInput";
 
 const EASE = [0.22, 0.61, 0.36, 1];
 
@@ -54,6 +56,7 @@ const SECTIONS = [
   { id: "prototype",    labelKey: "project.sidebar.prototype",    dataKey: "prototype"    },
   { id: "methodology",  labelKey: "project.sidebar.methodology",  dataKey: "methodology"  },
   { id: "results",      labelKey: "project.sidebar.results",      dataKey: "results"      },
+  { id: "outcome",      labelKey: "project.sidebar.outcome",      dataKey: "outcome"      },
   { id: "implications", labelKey: "project.sidebar.implications", dataKey: "implications" },
   { id: "phases",       labelKey: "project.sidebar.status",       dataKey: "phases"       },
   { id: "conclusion",   labelKey: "project.sidebar.conclusion",   dataKey: "conclusion"   },
@@ -479,6 +482,22 @@ function MetricsStrip({ metrics }) {
       </p>
       <div className="grid grid-cols-2 sm:grid-cols-4 border border-border divide-x divide-y divide-border">
         {metrics.map((m, i) => {
+          if (m.pending) {
+            // Muted, not failed: a protocol that's defined but hasn't run
+            // yet is a different claim than "0" or "TODO://", both of which
+            // read as broken. text-dim/text-text-meta, not an opacity
+            // trick, for the same AA-contrast reason as the label below.
+            return (
+              <div key={i} className="p-5 min-w-0">
+                <p className="font-display font-extrabold leading-none text-dim text-[15px] md:text-[17px] uppercase tracking-wide">
+                  {t("project.results.pending")}
+                </p>
+                <p className="text-[11px] uppercase tracking-wider text-text-meta font-semibold mt-3 leading-snug">
+                  {m.label}
+                </p>
+              </div>
+            );
+          }
           const isLong = String(m.value).length > 5;
           return (
             <div key={i} className="p-5 min-w-0">
@@ -528,6 +547,182 @@ const PHASE_STATUS = {
     text: "text-danger",
   },
 };
+
+// Renders a possibly-NEEDS_INPUT bilingual leaf: real text once resolved by
+// useLocalizedProfile, or the dev-only marker if the field was left unfilled.
+function MaybeText({ value, path, as: As = "span", className }) {
+  if (isNeedsInput(value)) return <NeedsInputMarker path={path} />;
+  if (!value) return null;
+  return <As className={className}>{value}</As>;
+}
+
+// Adoption status pill for the outcome section. Same pattern as
+// PHASE_STATUS above: the label is always text, never color alone (WCAG
+// 1.4.1). Tones reuse the existing Badge component — no new colour tokens.
+const ADOPTION_META = {
+  shipped:      { labelKey: "project.outcome.adoption.shipped",    tone: "success" },
+  roadmapped:   { labelKey: "project.outcome.adoption.roadmapped", tone: "accent"  },
+  "not-adopted":{ labelKey: "project.outcome.adoption.notAdopted", tone: "muted"   },
+  unknown:      { labelKey: "project.outcome.adoption.unknown",    tone: "muted"   },
+  academic:     { labelKey: "project.outcome.adoption.academic",   tone: "highlight" },
+};
+
+function AdoptionPill({ adoption }) {
+  const { t } = useTranslation();
+  const meta = ADOPTION_META[adoption];
+  if (!meta) return null;
+  return (
+    <Badge tone={meta.tone} className="mt-1">
+      {t(meta.labelKey)}
+    </Badge>
+  );
+}
+
+// Outcome section — "what happened after the research." Decisions render as
+// a plain divided list (border-t rows, like ResearchPhases below), visibly
+// distinct from MetricsStrip's numeral grid: these are consequences, not
+// counts, and reusing the "Study at a Glance" treatment would blur that
+// distinction.
+function OutcomeSection({ outcome, number, isOpen, onToggle, staggerDelayMs }) {
+  const { t } = useTranslation();
+  const decisions = outcome.decisions || [];
+
+  return (
+    <ContentSection
+      id="outcome"
+      number={number}
+      kicker={t("project.outcome.kicker")}
+      heading={t("project.outcome.heading")}
+      isOpen={isOpen}
+      onToggle={onToggle}
+      staggerDelayMs={staggerDelayMs}
+    >
+      <MaybeText
+        value={outcome.body}
+        path="outcome.body"
+        as="p"
+        className="max-w-[68ch] text-[17px] leading-[1.7] text-text/90"
+      />
+
+      {outcome.adoption && (
+        <div className="mt-5">
+          <AdoptionPill adoption={outcome.adoption} />
+        </div>
+      )}
+
+      {decisions.length > 0 && (
+        <div className="mt-8 max-w-[68ch]">
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-dim mb-3">
+            {t("project.outcome.decisions")}
+          </p>
+          <ul className="border-t border-border">
+            {decisions.map((decision, i) => (
+              <li key={i} className="border-b border-border py-3">
+                <MaybeText
+                  value={decision}
+                  path={`outcome.decisions[${i}]`}
+                  as="p"
+                  className="text-sm text-text/80 leading-relaxed"
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </ContentSection>
+  );
+}
+
+// "My Contribution" — renders inside the header meta <dl>, directly beneath
+// Role. `notMine` sits in a muted weight: present and scannable, not shouted
+// — it's there to make `owned` credible, not to apologise for it.
+function ContributionRow({ contribution }) {
+  const { t } = useTranslation();
+  const groups = [
+    { key: "owned", items: contribution.owned, labelKey: "project.contribution.owned", muted: false },
+    { key: "shared", items: contribution.shared, labelKey: "project.contribution.shared", muted: false },
+    { key: "notMine", items: contribution.notMine, labelKey: "project.contribution.notMine", muted: true },
+  ].filter((g) => g.items && g.items.length > 0);
+
+  if (groups.length === 0) return null;
+
+  return (
+    <div className="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr] gap-4 py-4 border-b border-border"
+         style={{ breakInside: "avoid" }}>
+      <dt className="text-[11px] font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
+        {t("project.meta.contribution")}
+      </dt>
+      <dd className="space-y-3">
+        {groups.map((g) => (
+          <div key={g.key}>
+            <p className={`text-[10px] font-black uppercase tracking-[0.15em] mb-1 ${g.muted ? "text-dim" : "text-text-meta"}`}>
+              {t(g.labelKey)}
+            </p>
+            <ul className={`text-sm leading-relaxed space-y-0.5 ${g.muted ? "text-dim" : "text-text font-medium"}`}>
+              {g.items.map((item, i) => (
+                <li key={i}>
+                  <MaybeText value={item} path={`myContribution.${g.key}[${i}]`} as="span" />
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </dd>
+    </div>
+  );
+}
+
+// Participant verbatim(s) for the results section. Below xl the right rail
+// doesn't render at all (see Prose above), so a verbatim shown only in the
+// rail would silently vanish on mobile — that's the contract violation the
+// task calls out explicitly. Resolved by rendering the same list in exactly
+// one of two places per breakpoint: inline in the prose column below xl,
+// in the rail at xl+. Never both at once.
+function VerbatimBlock({ item, index }) {
+  const { t } = useTranslation();
+  // A bare NEEDS_INPUT symbol (whole verbatim unknown) vs. an object whose
+  // .quote/.attribution sub-fields carry the sentinel individually.
+  if (isNeedsInput(item)) return <NeedsInputMarker path={`verbatims[${index}]`} />;
+  if (isNeedsInput(item.quote)) return <NeedsInputMarker path={`verbatims[${index}].quote`} />;
+  if (!item.quote) return null;
+  return (
+    <blockquote
+      className="border-l-2 border-primary-600 pl-5 pt-1"
+      aria-label={t("project.results.verbatim")}
+      style={{ breakInside: "avoid" }}
+    >
+      <p className="font-hand text-[28px] leading-snug text-text/80">“{item.quote}”</p>
+      {item.attribution && !isNeedsInput(item.attribution) && (
+        <cite className="block not-italic text-2xs font-bold uppercase tracking-wider text-text-meta mt-2">
+          — {item.attribution}
+        </cite>
+      )}
+      {isNeedsInput(item.attribution) && <NeedsInputMarker path={`verbatims[${index}].attribution`} />}
+    </blockquote>
+  );
+}
+
+function VerbatimRail({ verbatims }) {
+  if (!verbatims || verbatims.length === 0) return null;
+  return (
+    <div className="hidden xl:flex xl:flex-col xl:gap-8">
+      {verbatims.map((item, i) => (
+        <VerbatimBlock key={i} item={item} index={i} />
+      ))}
+    </div>
+  );
+}
+
+function VerbatimInline({ verbatims }) {
+  if (!verbatims || verbatims.length === 0) return null;
+  return (
+    <div className="xl:hidden mt-8 flex flex-col gap-6 max-w-[68ch]">
+      {verbatims.map((item, i) => (
+        <VerbatimBlock key={i} item={item} index={i} />
+      ))}
+    </div>
+  );
+}
 
 function ResearchPhases({ phases, intro, number, isOpen, onToggle, staggerDelayMs }) {
   const prefersReducedMotion = useReducedMotion();
@@ -696,6 +891,13 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
         // as active on those alone.
         if (s.id === "prototype") {
           return hasValue || !!meta.prototypeUrl || (meta.figures?.prototype?.length > 0);
+        }
+        // outcome is an object ({ body, decisions?, adoption? }) — the generic
+        // truthy check above already passes for any non-null object, so an
+        // `outcome: {}` with no body would otherwise render an empty section.
+        // Require `body` specifically, same as prototype requires a link or figure.
+        if (s.id === "outcome") {
+          return !!meta.outcome?.body;
         }
         return hasValue;
       }),
@@ -910,6 +1112,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                       <dd className="text-sm text-text font-medium">{meta.role}</dd>
                     </div>
                   )}
+                  {meta.myContribution && <ContributionRow contribution={meta.myContribution} />}
                   {meta.timeline && (
                     <div className="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr] gap-4 py-4 border-b border-border">
                       <dt className="text-[11px] font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
@@ -1056,13 +1259,35 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                 isOpen={openSections.has("results")} onToggle={() => toggleSection("results")}
                 staggerDelayMs={staggerDelayFor("results")}
                 kicker={t("project.results.kicker")} heading={t("project.results.heading")}>
-                <p className="max-w-[68ch] text-[17px] leading-[1.7] text-text/90">
-                  {meta.results}
-                </p>
-                <SectionMedia items={meta.figures?.results} />
+                <div className={meta.verbatims?.length > 0 ? "xl:grid xl:grid-cols-[1fr_240px] xl:gap-10 items-start" : ""}>
+                  <div className="max-w-[68ch]">
+                    {meta.metrics?.some((m) => m.pending) && (
+                      <p className="mb-6 border-l-2 border-border pl-4 text-sm text-text-meta leading-relaxed">
+                        {t("project.results.pendingNotice")}
+                      </p>
+                    )}
+                    <p className="text-[17px] leading-[1.7] text-text/90">
+                      {meta.results}
+                    </p>
+                    <SectionMedia items={meta.figures?.results} />
 
-                <MetricsStrip metrics={meta.metrics} />
+                    <MetricsStrip metrics={meta.metrics} />
+
+                    <VerbatimInline verbatims={meta.verbatims} />
+                  </div>
+                  <VerbatimRail verbatims={meta.verbatims} />
+                </div>
               </ContentSection>
+            )}
+
+            {meta.outcome?.body && (
+              <OutcomeSection
+                outcome={meta.outcome}
+                number={sectionNumber("outcome")}
+                isOpen={openSections.has("outcome")}
+                onToggle={() => toggleSection("outcome")}
+                staggerDelayMs={staggerDelayFor("outcome")}
+              />
             )}
 
             {meta.implications && (

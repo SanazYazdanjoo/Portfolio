@@ -8,8 +8,9 @@
     "preview": "vite preview",
     "test": "vitest",
     "test:run": "vitest run",
-    "build": "eslint src && node scripts/generate-sitemap.mjs && vite build",
-    "generate:sitemap": "node scripts/generate-sitemap.mjs"
+    "build": "eslint src && node scripts/generate-sitemap.mjs && node scripts/check-needs-input.mjs && vite build",
+    "generate:sitemap": "node scripts/generate-sitemap.mjs",
+    "check:needs-input": "node scripts/check-needs-input.mjs"
   },
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "^5.3.0",
