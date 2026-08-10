@@ -1,11 +1,12 @@
 // Content is sourced from UCD4UX_FINAL_PRESENTATION.pdf (deskbird x Bauhaus-Universität Weimar).
 import thumbnailImg from './Project-2.png';
 import thumbnailWebp from './Project-2.webp';
+import { NEEDS_INPUT } from '../../data/needsInput';
 
 export const projectData = {
   id: "project-2",
   status: "Published",
-  order: 3,
+  order: 2,
   title: {
     en: "UCD4UX: Encouraging Social Interactions in Hybrid Work",
     de: "UCD4UX: Soziale Interaktion im Hybrid Work fördern",
@@ -23,7 +24,7 @@ export const projectData = {
     de: "UX Researcherin (6-köpfiges Team)",
   },
   timeline: "10/2023 – 03/2024",
-  tags: ["User-Centered Design", "HCI Research", "Stakeholder Interviews", "Contextual Inquiry", "Survey Design", "Requirements Engineering", "Interaction Design", "Rapid Prototyping", "Figma", "B2B SaaS"],
+  tags: ["User-Centered Design", "Stakeholder Interviews", "Contextual Inquiry", "Survey Design", "Requirements Engineering", "Interaction Design", "Rapid Prototyping", "Figma", "B2B SaaS"],
   thumbnail: thumbnailImg,
   thumbnailWebp,
   heroImage: thumbnailImg,
@@ -152,6 +153,38 @@ export const projectData = {
       },
       imagePath: null,
     },
+  ],
+
+  // Role is "UX Researcher (team of 6)" — myContribution is required. The
+  // case study text uses "we" throughout with no individual attribution, so
+  // `owned` and `notMine` are genuinely unknown rather than derivable —
+  // flagged for the owner in CONTENT_GAPS.md instead of guessed at.
+  myContribution: {
+    owned: [NEEDS_INPUT],
+    notMine: [NEEDS_INPUT],
+  },
+
+  // The two candidate "decisions" drafted earlier (concept eliminations,
+  // scoping to remote+office) were findings from during the research —
+  // already stated in `results` above — not post-handover consequences.
+  // Removed rather than left as duplication. The genuinely unanswered
+  // question is what deskbird did with the deliverable after handover;
+  // only the project owner can answer that.
+  outcome: {
+    body: NEEDS_INPUT,
+    adoption: "unknown",
+  },
+
+  tagEvidence: [
+    { tag: "User-Centered Design", evidence: "methodology: \"We followed the full UCD process in an industry setting.\"", status: "evidenced" },
+    { tag: "Stakeholder Interviews", evidence: "process:Aligning on Scope with deskbird", status: "evidenced" },
+    { tag: "Contextual Inquiry", evidence: "process:Observing the Hybrid Workday In-Context (N=6)", status: "evidenced" },
+    { tag: "Survey Design", evidence: "process:Quantifying Hybrid Social Life (N=57)", status: "evidenced" },
+    { tag: "Requirements Engineering", evidence: "process:From Findings to Four Requirement Categories", status: "evidenced" },
+    { tag: "Interaction Design", evidence: "process:Interest-Based Communities Prototype — add/see interests, create/get invited to events", status: "evidenced" },
+    { tag: "Rapid Prototyping", evidence: "process:Interest-Based Communities Prototype describes one prototyping pass, not iterative rapid cycles", status: "thin" },
+    { tag: "Figma", evidence: "techStack: [\"Figma\", \"FigJam\", \"Online Survey Tools\"] — rendered as Tech Stack chips under Methodology", status: "evidenced" },
+    { tag: "B2B SaaS", evidence: "challenge: \"deskbird — a B2B SaaS platform for desk booking and hybrid week planning\"", status: "evidenced" },
   ],
 };
 

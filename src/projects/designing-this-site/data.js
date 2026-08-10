@@ -40,7 +40,6 @@ export const projectData = {
     "Tailwind CSS",
     "Framer Motion",
     "React Router",
-    "Information Architecture",
     "Design Systems",
     "Accessibility (WCAG 2.1 AA)",
     "Internationalization (i18n)",
@@ -58,15 +57,20 @@ export const projectData = {
     { en: "Invariant / Contract Testing (Vitest)", de: "Invarianten-/Contract-Testing (Vitest)" },
   ],
 
+  // Pending, not failed: the protocol for each of these is already defined
+  // (see methodology/results below) — the numbers are absent because the
+  // sessions that would produce them haven't run, not because measurement
+  // was skipped. `pending: true` renders a muted "Measurement pending"
+  // state instead of a value; no number is written until one is real.
   metrics: [
-    { value: "TODO://", label: { en: "Lighthouse — Performance", de: "Lighthouse — Performance" } },
-    { value: "TODO://", label: { en: "Lighthouse — Accessibility", de: "Lighthouse — Accessibility" } },
-    { value: "TODO://", label: { en: "Lighthouse — Best Practices", de: "Lighthouse — Best Practices" } },
-    { value: "TODO://", label: { en: "Lighthouse — SEO", de: "Lighthouse — SEO" } },
-    { value: "TODO://", label: { en: "WCAG 2.1 AA contrast, all token pairs", de: "WCAG 2.1 AA Kontrast, alle Token-Paare" } },
-    { value: "TODO://", label: { en: "Keyboard-only + first-click task success", de: "Tastatur- & First-Click-Erfolg" } },
-    { value: "TODO://", label: { en: "CV print length (target: 1 A4 page)", de: "Lebenslauf-Drucklänge (Ziel: 1 A4-Seite)" } },
-    { value: "TODO://", label: { en: "5-second test — time to answer ‘what does she do?’", de: "5-Sekunden-Test — Zeit bis zur Antwort" } },
+    { pending: true, label: { en: "Lighthouse — Performance", de: "Lighthouse — Performance" } },
+    { pending: true, label: { en: "Lighthouse — Accessibility", de: "Lighthouse — Accessibility" } },
+    { pending: true, label: { en: "Lighthouse — Best Practices", de: "Lighthouse — Best Practices" } },
+    { pending: true, label: { en: "Lighthouse — SEO", de: "Lighthouse — SEO" } },
+    { pending: true, label: { en: "WCAG 2.1 AA contrast, all token pairs", de: "WCAG 2.1 AA Kontrast, alle Token-Paare" } },
+    { pending: true, label: { en: "Keyboard-only + first-click task success", de: "Tastatur- & First-Click-Erfolg" } },
+    { pending: true, label: { en: "CV print length (target: 1 A4 page)", de: "Lebenslauf-Drucklänge (Ziel: 1 A4-Seite)" } },
+    { pending: true, label: { en: "5-second test — time to answer ‘what does she do?’", de: "5-Sekunden-Test — Zeit bis zur Antwort" } },
   ],
 
   techStack: ["React", "Vite", "Tailwind CSS", "Framer Motion", "React Router", "Vitest", "Testing Library", "ESLint"],
@@ -144,19 +148,44 @@ export const projectData = {
   },
 
   methodology: {
-    en: "TODO:// Three methods are planned to test this page against real readers, not just against my own judgment: five moderated sessions with a 90-second task ('decide whether you'd interview me'), a 5-second test on the hero to check what a viewer retains before they've consciously read anything, and a first-click test on the navigation to check whether the information architecture matches what a visitor actually goes looking for first. This section will report, for each method, the sample size and the specific question it was chosen to answer — once those sessions have run. No participant count, quote, or finding is stated here until it exists.",
-    de: "TODO:// Drei Methoden sind geplant, um diese Seite an echten Leserinnen zu prüfen, nicht nur an meinem eigenen Urteil: fünf moderierte Sessions mit einer 90-Sekunden-Aufgabe ('entscheide, ob du mich zum Interview einladen würdest'), ein 5-Sekunden-Test auf dem Hero, um zu prüfen, was eine Betrachterin behält, bevor sie bewusst irgendetwas gelesen hat, und ein First-Click-Test auf der Navigation, um zu prüfen, ob die Informationsarchitektur dem entspricht, wonach eine Besucherin tatsächlich zuerst sucht. Dieser Abschnitt wird für jede Methode Stichprobengröße und die konkrete Frage berichten, die sie beantworten sollte — sobald diese Sessions gelaufen sind. Keine Teilnehmerzahl, kein Zitat und kein Befund wird hier behauptet, bevor es existiert.",
+    en: "Three methods are planned to test this page against real readers, not just against my own judgment: five moderated sessions with a 90-second task ('decide whether you'd interview me'), a 5-second test on the hero to check what a viewer retains before they've consciously read anything, and a first-click test on the navigation to check whether the information architecture matches what a visitor actually goes looking for first. This section will report, for each method, the sample size and the specific question it was chosen to answer — once those sessions have run. No participant count, quote, or finding is stated here until it exists.",
+    de: "Drei Methoden sind geplant, um diese Seite an echten Leserinnen zu prüfen, nicht nur an meinem eigenen Urteil: fünf moderierte Sessions mit einer 90-Sekunden-Aufgabe ('entscheide, ob du mich zum Interview einladen würdest'), ein 5-Sekunden-Test auf dem Hero, um zu prüfen, was eine Betrachterin behält, bevor sie bewusst irgendetwas gelesen hat, und ein First-Click-Test auf der Navigation, um zu prüfen, ob die Informationsarchitektur dem entspricht, wonach eine Besucherin tatsächlich zuerst sucht. Dieser Abschnitt wird für jede Methode Stichprobengröße und die konkrete Frage berichten, die sie beantworten sollte — sobald diese Sessions gelaufen sind. Keine Teilnehmerzahl, kein Zitat und kein Befund wird hier behauptet, bevor es existiert.",
   },
 
   results: {
-    en: "TODO:// Pending measurement: Lighthouse Performance / Accessibility / Best Practices / SEO, a manual WCAG 2.1 AA contrast pass across every token pair (not just the ones used on this page), a keyboard-only completion check of the primary path, confirmation the CV prints to exactly one A4 page with no orphaned headings, time-to-answer 'what does she do?' from the 5-second test, and the first-click success rate on the navigation. None of these numbers are stated below until they're measured — a metric this page can't yet back with a number is absent, not estimated.",
-    de: "TODO:// Ausstehende Messungen: Lighthouse Performance / Accessibility / Best Practices / SEO, eine manuelle WCAG-2.1-AA-Kontrastprüfung über jedes Token-Paar (nicht nur die auf dieser Seite verwendeten), eine Prüfung der reinen Tastaturbedienbarkeit des Hauptpfads, die Bestätigung, dass der Lebenslauf exakt auf eine A4-Seite ohne verwaiste Überschriften druckt, die Zeit bis zur Antwort auf 'Was macht sie eigentlich?' aus dem 5-Sekunden-Test, sowie die First-Click-Erfolgsrate der Navigation. Keine dieser Zahlen wird unten genannt, bevor sie gemessen wurde — eine Kennzahl, die diese Seite noch nicht mit einer Zahl belegen kann, fehlt, statt geschätzt zu werden.",
+    en: "Pending measurement: Lighthouse Performance / Accessibility / Best Practices / SEO, a manual WCAG 2.1 AA contrast pass across every token pair (not just the ones used on this page), a keyboard-only completion check of the primary path, confirmation the CV prints to exactly one A4 page with no orphaned headings, time-to-answer 'what does she do?' from the 5-second test, and the first-click success rate on the navigation. None of these numbers are stated below until they're measured — a metric this page can't yet back with a number is absent, not estimated.",
+    de: "Ausstehende Messungen: Lighthouse Performance / Accessibility / Best Practices / SEO, eine manuelle WCAG-2.1-AA-Kontrastprüfung über jedes Token-Paar (nicht nur die auf dieser Seite verwendeten), eine Prüfung der reinen Tastaturbedienbarkeit des Hauptpfads, die Bestätigung, dass der Lebenslauf exakt auf eine A4-Seite ohne verwaiste Überschriften druckt, die Zeit bis zur Antwort auf 'Was macht sie eigentlich?' aus dem 5-Sekunden-Test, sowie die First-Click-Erfolgsrate der Navigation. Keine dieser Zahlen wird unten genannt, bevor sie gemessen wurde — eine Kennzahl, die diese Seite noch nicht mit einer Zahl belegen kann, fehlt, statt geschätzt zu werden.",
   },
 
   implications: {
     en: "Two things went wrong while building this case study, and both are worth naming precisely because neither was caught by reading. First: a build-time route derivation. The real route for a case study comes from the literal folder name under src/projects/ (main.jsx), the homepage/tag-card link comes from projects.js deriving a slug from that same folder name, and the sitemap page links via a separate id field — three independent derivations that only agree if all three strings match exactly. They didn't: one project's folder was capitalized while its id field was lowercase, so the in-app sitemap linked to a route that 404s. I wrote an invariant test asserting id, slug, and folder name are identical while building this section, ran it against the real project data, and it failed within minutes — not against a hypothetical, against the actual site. The fix was a two-step git mv (git doesn't record a case-only rename on a case-insensitive filesystem) and a second test asserting slugs stay lowercase, so the next instance of this fails the build instead of shipping to production. Second, and more uncomfortable: the first draft of the solution section above claimed the accordions on this very page render closed by default. They don't — a passing test says the opposite, and always has. The false claim came from a stale comment in the print stylesheet describing behavior the code had already moved away from; I read the comment, trusted it, and wrote it into the spec for this case study before anyone checked it against a test. Both failures are the same failure mode: documentation — a field name, a code comment, a brief — drifting away from what the code actually does, invisible to a prose read and caught only by something that executes. The architecture's stated goal is a single source of truth. Shipping three unreconciled ones, and nearly writing a fourth, is the honest measure of how hard that goal is to actually hit.",
     de: "Beim Bau dieser Fallstudie sind zwei Dinge schiefgelaufen, und beide sind es wert, genau benannt zu werden, weil keines davon durch Lesen entdeckt wurde. Erstens: eine Routen-Ableitung zur Buildzeit. Die tatsächliche Route einer Fallstudie ergibt sich aus dem wörtlichen Ordnernamen unter src/projects/ (main.jsx), der Link auf Startseite/Tag-Karte ergibt sich aus projects.js, das aus demselben Ordnernamen einen Slug ableitet, und die Sitemap-Seite verlinkt über ein separates id-Feld — drei unabhängige Ableitungen, die nur übereinstimmen, wenn alle drei Zeichenketten exakt gleich sind. Taten sie nicht: Der Ordner eines Projekts war großgeschrieben, während dessen id-Feld kleingeschrieben war, sodass die interne Sitemap auf eine Route verlinkte, die 404 zurückgibt. Ich schrieb einen Invarianten-Test, der prüft, dass id, slug und Ordnername identisch sind, während ich an diesem Abschnitt arbeitete, ließ ihn gegen die echten Projektdaten laufen, und er schlug innerhalb von Minuten fehl — nicht gegen ein Gedankenexperiment, sondern gegen die tatsächliche Website. Die Behebung war ein zweistufiges git mv (Git zeichnet eine reine Groß-/Kleinschreibungs-Umbenennung auf einem nicht case-sensitiven Dateisystem nicht auf) und ein zweiter Test, der sicherstellt, dass Slugs kleingeschrieben bleiben, sodass der nächste derartige Fall den Build bricht, statt in Produktion zu gehen. Zweitens, und unangenehmer: Der erste Entwurf des obigen Solution-Abschnitts behauptete, die Akkordeons auf genau dieser Seite würden standardmäßig eingeklappt rendern. Das tun sie nicht — ein bestehender, grüner Test sagt das Gegenteil, und das schon immer. Die falsche Behauptung stammte aus einem veralteten Kommentar im Druck-Stylesheet, der ein Verhalten beschrieb, von dem sich der Code längst entfernt hatte; ich las den Kommentar, vertraute ihm, und schrieb ihn in die Spezifikation dieser Fallstudie, bevor ihn jemand gegen einen Test prüfte. Beide Fehler sind derselbe Fehlermodus: Dokumentation — ein Feldname, ein Codekommentar, ein Briefing — driftet von dem ab, was der Code tatsächlich tut, unsichtbar für eine Lektüre in Fließtext und nur durch etwas Ausführbares entdeckt. Das erklärte Ziel der Architektur ist eine einzige Quelle der Wahrheit. Drei nicht abgeglichene Quellen auszuliefern, und beinahe eine vierte zu schreiben, ist das ehrliche Maß dafür, wie schwer dieses Ziel tatsächlich zu erreichen ist.",
   },
+
+  // The research that would produce an outcome (moderated sessions, 5-second
+  // test, first-click test) hasn't run yet — see methodology/results above.
+  // Stated plainly rather than invented, matching this case study's own
+  // stated principle.
+  outcome: {
+    body: {
+      en: "This section doesn't have an outcome to report yet, and won't invent one: the moderated sessions, 5-second test, and first-click test that would produce one haven't run (see Methodology). Once they do, this section reports what changed as a result — a shipped fix, a reprioritised backlog item, or a finding that changed nothing — not before.",
+      de: "Dieser Abschnitt hat noch kein Ergebnis zu berichten und wird keines erfinden: Die moderierten Sessions, der 5-Sekunden-Test und der First-Click-Test, die eines liefern würden, haben noch nicht stattgefunden (siehe Methodik). Sobald sie es tun, berichtet dieser Abschnitt, was sich dadurch geändert hat — eine ausgelieferte Korrektur, ein neu priorisierter Backlog-Punkt oder ein Befund ohne Konsequenz — vorher nicht.",
+    },
+    adoption: "unknown",
+  },
+
+  tagEvidence: [
+    { tag: "React", evidence: "process:One Template, a Fixed Section List, an Escape Hatch — ProjectTemplate({ meta, children })", status: "evidenced" },
+    { tag: "Vite", evidence: "techStack: [\"React\", \"Vite\", \"Tailwind CSS\", \"Framer Motion\", \"React Router\", \"Vitest\", \"Testing Library\", \"ESLint\"] — rendered as Tech Stack chips; also prototype: \"import.meta.glob discovers at build time\" (Vite-only construct)", status: "evidenced" },
+    { tag: "Tailwind CSS", evidence: "techStack: [\"React\", \"Vite\", \"Tailwind CSS\", \"Framer Motion\", \"React Router\", \"Vitest\", \"Testing Library\", \"ESLint\"] — rendered as Tech Stack chips under Methodology", status: "evidenced" },
+    { tag: "Framer Motion", evidence: "solution: \"Framer Motion pathLength draw-ins\"", status: "evidenced" },
+    { tag: "React Router", evidence: "techStack: [\"React\", \"Vite\", \"Tailwind CSS\", \"Framer Motion\", \"React Router\", \"Vitest\", \"Testing Library\", \"ESLint\"] — rendered as Tech Stack chips under Methodology", status: "evidenced" },
+    { tag: "Design Systems", evidence: "process:Ink & Bloom — Contrast Rules Baked Into the Names; prototypeUrl links the living style guide", status: "evidenced" },
+    { tag: "Accessibility (WCAG 2.1 AA)", evidence: "process:Ink & Bloom names a real contrast-aware token convention (design intent), but results explicitly states the WCAG 2.1 AA contrast pass itself has not run — the tag claims a standard, and the standard hasn't been audited yet", status: "thin" },
+    { tag: "Internationalization (i18n)", evidence: "prototype: \"useLocalizedProfile recursively resolves any { en, de } field\"", status: "evidenced" },
+    { tag: "Print CSS", evidence: "prototype: \"@media print and an @page A4 rule, with accordions forced open via a CSS guard on [data-collapsible-body]\"", status: "evidenced" },
+    { tag: "Automated Testing (Vitest)", evidence: "implications: \"an automated invariant test — not a manual review — that now makes that class of bug fail the build\"", status: "evidenced" },
+  ],
 };
 
 export default projectData;

@@ -9,12 +9,12 @@ import experimentalDesign from './media/experimental_design.png';
 import threeInputMethods from './media/three_input_methods.png';
 import conclusion from './media/conclusion.png';
 
-
+import { NEEDS_INPUT } from '../../data/needsInput';
 
 export const projectData = {
   id: "project-1",
   status: "Published",
-  order: 2,
+  order: 3,
   title: {
     en: "Gaze-Assisted Input in Dual-Display Environments",
     de: "Blickgestützte Eingabe in Dual-Display-Umgebungen",
@@ -234,7 +234,32 @@ export const projectData = {
       }
   ],
 
+  outcome: {
+    body: {
+      en: "This is a Master's thesis, not a commercially deployed system — adoption in the product sense doesn't apply the way it would for a shipped feature. The three design directions named in the Implications section are the concrete output of the work to date.",
+      de: "Dies ist eine Masterarbeit, kein kommerziell ausgeliefertes System — Adoption im produktbezogenen Sinne ist hier nicht in derselben Weise anwendbar wie bei einem ausgelieferten Feature. Die drei im Implikationen-Abschnitt genannten Gestaltungsrichtungen sind der konkrete Ertrag der Arbeit bis heute.",
+    },
+    adoption: "academic",
+  },
 
+  // Real participant language already exists in the process-gallery insights
+  // above ("shaking" the mouse; "best of both worlds") but promoting a
+  // fragment to a standalone pull-quote is an editorial call for the owner,
+  // not something to extract/reword unsupervised. See CONTENT_GAPS.md.
+  verbatims: [NEEDS_INPUT, NEEDS_INPUT],
+
+  tagEvidence: [
+    { tag: "TypeScript", evidence: "process:TypeScript Architecture & Real-Time Gaze Pipeline", status: "evidenced" },
+    { tag: "React", evidence: "techStack: [\"TypeScript\", \"Pupil Labs Neon\", \"Real-Time API\", \"AprilTag Marker Mapping\", \"Python\", \"React\"] — rendered as Tech Stack chips under Methodology", status: "evidenced" },
+    { tag: "Python", evidence: "techStack: [\"TypeScript\", \"Pupil Labs Neon\", \"Real-Time API\", \"AprilTag Marker Mapping\", \"Python\", \"React\"] — rendered as Tech Stack chips under Methodology", status: "evidenced" },
+    { tag: "Eye-Tracking", evidence: "solution: Pupil Labs Neon head-mounted tracker, AprilTag surface mapping", status: "evidenced" },
+    { tag: "Real-Time API Integration", evidence: "process:TypeScript Architecture & Real-Time Gaze Pipeline — Pupil Labs real-time streaming API", status: "evidenced" },
+    { tag: "Quantitative UX Research", evidence: "process:RM-ANOVA: A Distance-Dependent Crossover — N=30 within-subjects experiment", status: "evidenced" },
+    { tag: "Experimental Design", evidence: "process:A 3×2×6 Within-Subjects Protocol", status: "evidenced" },
+    { tag: "Statistical Analysis (ANOVA)", evidence: "process:RM-ANOVA: A Distance-Dependent Crossover — repeated-measures ANOVA, η²ₚ=.690", status: "evidenced" },
+    { tag: "SUS Evaluation", evidence: "process:Trust Beats Speed — SUS after each block (n=30)", status: "evidenced" },
+    { tag: "Mixed-Methods Research", evidence: "methodology: \"A two-phase mixed-methods design. Phase I:... Phase II:...\"", status: "evidenced" },
+  ],
 };
 
 export default projectData;

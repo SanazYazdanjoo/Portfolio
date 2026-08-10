@@ -168,6 +168,7 @@ const de = {
   "project.sidebar.implications": "Implikationen",
   "project.sidebar.status": "Status",
   "project.sidebar.conclusion": "Fazit",
+  "project.sidebar.outcome": "Ergebnis",
 
   // Project detail — section kickers + headings (long form)
   "project.about.kicker": "Projektübersicht",
@@ -203,6 +204,15 @@ const de = {
   "project.results.heading": "Zentrale Ergebnisse",
   "project.results.glance": "Studie auf einen Blick",
 
+  "project.outcome.kicker": "Was sich geändert hat",
+  "project.outcome.heading": "Ergebnis & Wirkung",
+  "project.outcome.decisions": "Entscheidungen, die diese Forschung angestoßen hat",
+  "project.outcome.adoption.shipped": "Ausgeliefert",
+  "project.outcome.adoption.roadmapped": "Auf der Roadmap",
+  "project.outcome.adoption.notAdopted": "Nicht übernommen",
+  "project.outcome.adoption.unknown": "Ergebnis offen",
+  "project.outcome.adoption.academic": "Akademisches Projekt",
+
   "project.implications.kicker": "Was das bedeutet",
   "project.implications.heading": "Gestaltungsimplikationen",
 
@@ -219,6 +229,15 @@ const de = {
   "project.meta.context": "Kontext",
   "project.meta.furtherImpact": "Weitere Wirkung",
   "project.meta.impactAtGlance": "Wirkung auf einen Blick",
+  "project.meta.contribution": "Mein Beitrag",
+
+  "project.contribution.owned": "Verantwortet",
+  "project.contribution.shared": "Gemeinsam getragen",
+  "project.contribution.notMine": "Nicht von mir",
+
+  "project.results.verbatim": "Teilnehmendenzitat",
+  "project.results.pending": "Messung ausstehend",
+  "project.results.pendingNotice": "Das Protokoll ist festgelegt; die Zahlen fehlen bewusst, bis die Sessions stattgefunden haben.",
 
   "project.status.complete": "Abgeschlossen",
   "project.status.inProgress": "In Bearbeitung",

@@ -6,6 +6,7 @@
 
 import { describe, it, expect } from "vitest";
 import { projects, sortedProjects, getProject, getTagData } from "./projects";
+import { isNeedsInput } from "./needsInput";
 
 describe("projects aggregator — data contract", () => {
   it("discovers at least one project folder", () => {
@@ -126,5 +127,113 @@ describe("getTagData — tag cloud counts", () => {
       expect(name.length).toBeGreaterThan(0);
       expect(count).toBeGreaterThanOrEqual(1);
     }
+  });
+});
+
+// Walks a project's raw (pre-localization) data tree looking for bilingual
+// { en, de } leaf pairs — recognized the same way useLocalizedProfile.js's
+// isBilingualField does (an object carrying an `en` and/or `de` own key),
+// extended to also recognize the sentinel: a field explicitly flagged
+// NEEDS_INPUT on either side is a deliberate, visible "not yet known" — not
+// the silent one-language gap this test exists to catch — so it's exempted
+// rather than failed. Bare NEEDS_INPUT array items (e.g. myContribution's
+// `owned: [NEEDS_INPUT]`) aren't a { en, de } shape at all and are skipped
+// by the same object-with-en/de-key check.
+function findBilingualParityGaps(value, path, out) {
+  if (value === null || value === undefined) return;
+  if (Array.isArray(value)) {
+    value.forEach((item, i) => findBilingualParityGaps(item, `${path}[${i}]`, out));
+    return;
+  }
+  if (typeof value !== "object") return;
+
+  const hasEn = Object.prototype.hasOwnProperty.call(value, "en");
+  const hasDe = Object.prototype.hasOwnProperty.call(value, "de");
+  if (hasEn || hasDe) {
+    const { en, de } = value;
+    if (isNeedsInput(en) || isNeedsInput(de)) return; // explicitly flagged, not a silent gap
+    const enPresent = typeof en === "string" && en.length > 0;
+    const dePresent = typeof de === "string" && de.length > 0;
+    if (enPresent !== dePresent) {
+      out.push(`${path}: en=${JSON.stringify(en)} de=${JSON.stringify(de)}`);
+    }
+    return; // a resolved bilingual leaf — don't recurse into its own en/de strings
+  }
+
+  for (const key of Object.keys(value)) {
+    findBilingualParityGaps(value[key], path ? `${path}.${key}` : key, out);
+  }
+}
+
+describe("bilingual parity — every { en, de } field has both languages or neither", () => {
+  it("no project has an en value without a matching de value (or vice versa)", () => {
+    for (const p of projects) {
+      const gaps = [];
+      findBilingualParityGaps(p, "", gaps);
+      expect(gaps, `${p.slug} has one-sided bilingual fields:\n${gaps.join("\n")}`).toEqual([]);
+    }
+  });
+});
+
+// The tag-evidence invariant. A tag can never again be added to a case
+// study without a pointer to the thing that proves it — the same class of
+// contract as "id === slug === folder name" above: a claim that could
+// silently go stale is instead something the suite catches.
+const ALLOWED_EVIDENCE_STATUSES = ["evidenced", "thin", "unevidenced"];
+
+describe("tagEvidence — every skill tag is backed by a pointer into the case study", () => {
+  it("every project defines tagEvidence when it defines tags", () => {
+    for (const p of projects) {
+      if (p.tags.length > 0) {
+        expect(Array.isArray(p.tagEvidence), `${p.slug} has tags but no tagEvidence`).toBe(true);
+      }
+    }
+  });
+
+  it("every tag has a matching tagEvidence entry, and no entry references an unknown tag", () => {
+    for (const p of projects) {
+      if (!p.tagEvidence) continue;
+      const tagSet = new Set(p.tags);
+      const evidenceTagSet = new Set(p.tagEvidence.map((e) => e.tag));
+
+      for (const tag of p.tags) {
+        expect(evidenceTagSet.has(tag), `${p.slug}: tag "${tag}" has no tagEvidence entry`).toBe(true);
+      }
+      for (const entry of p.tagEvidence) {
+        expect(tagSet.has(entry.tag), `${p.slug}: tagEvidence references unknown tag "${entry.tag}"`).toBe(true);
+      }
+    }
+  });
+
+  it("every tagEvidence entry has an allowed status and a non-empty evidence pointer", () => {
+    for (const p of projects) {
+      if (!p.tagEvidence) continue;
+      for (const entry of p.tagEvidence) {
+        expect(
+          ALLOWED_EVIDENCE_STATUSES,
+          `${p.slug}: tag "${entry.tag}" has unknown status "${entry.status}"`
+        ).toContain(entry.status);
+        expect(
+          typeof entry.evidence === "string" && entry.evidence.length > 0,
+          `${p.slug}: tag "${entry.tag}" has no evidence pointer`
+        ).toBe(true);
+      }
+    }
+  });
+
+  it("thin evidence warns but passes; unevidenced evidence fails the build", () => {
+    const unevidenced = [];
+    for (const p of projects) {
+      if (!p.tagEvidence) continue;
+      for (const entry of p.tagEvidence) {
+        if (entry.status === "thin") {
+          console.warn(`[tagEvidence] ${p.slug}: "${entry.tag}" is thinly evidenced — ${entry.evidence}`);
+        }
+        if (entry.status === "unevidenced") {
+          unevidenced.push(`${p.slug}: "${entry.tag}" — ${entry.evidence}`);
+        }
+      }
+    }
+    expect(unevidenced, `Unevidenced tags must be fixed or dropped before this passes:\n${unevidenced.join("\n")}`).toEqual([]);
   });
 });

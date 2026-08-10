@@ -260,6 +260,34 @@ export const projectData = {
       imagePath: null,
     },
   ],
+
+  // The three "decisions" drafted earlier (attendance-legend rule,
+  // signature-path block, demo-data incident) paraphrased sentences already
+  // stated verbatim in `results` immediately above this section — visible
+  // duplication on the rendered page, not a distinct set of post-build
+  // consequences. Cross-referenced instead of repeated; omitted `decisions`
+  // rather than restate them under a different heading.
+  outcome: {
+    body: {
+      en: "Evaluation (Phase 4) has not concluded, so no adoption or performance outcome exists yet — this section will not claim one until it does. The concrete decisions the work has already produced (the attendance-legend rule, the blocked signature path, the demo-data incident) are documented in Key Findings above, not repeated here.",
+      de: "Die Evaluation (Phase 4) ist nicht abgeschlossen, es existiert also noch kein Adoptions- oder Leistungsergebnis — dieser Abschnitt wird keines behaupten, bevor es eines gibt. Die konkreten Entscheidungen, die die Arbeit bereits hervorgebracht hat (die Anwesenheitslegenden-Regel, der blockierte Signaturpfad, der Demo-Daten-Vorfall), sind oben unter Zentrale Ergebnisse dokumentiert und werden hier nicht wiederholt.",
+    },
+    adoption: "unknown",
+  },
+
+  tagEvidence: [
+    { tag: "UX Research", evidence: "methods: \"Insider process observation (AS-IS)\", \"Expert validation interview\"", status: "evidenced" },
+    { tag: "Service Design", evidence: "process:Nine actors, one integration point (stakeholder map) + AS-IS swimlane activity diagrams — no rendered service blueprint exists; the solution's role-based views/state machine is a UI redesign, not itself service-design evidence", status: "thin" },
+    { tag: "Information Architecture", evidence: "process:From Excel rows to a real application", status: "evidenced" },
+    { tag: "Design System", evidence: "process:Ink Bloom — one palette from diagram to production UI", status: "evidenced" },
+    { tag: "React / TypeScript", evidence: "process:Five role interfaces, one tested calculation engine", status: "evidenced" },
+    { tag: "Public Sector", evidence: "challenge: \"participants in a state-funded qualification programme\" — direct citation of state/public funding as the programme context", status: "evidenced" },
+    { tag: "Accessibility", evidence: "solution: \"optional guided step-by-step mode for the lowest-fluency users\" — inclusive-design evidence, not a WCAG/a11y audit", status: "thin" },
+    { tag: "GDPR / DSGVO", evidence: "results: digital-signature path blocked pending Data Protection Officer ruling; demo-data incident regenerated from fictional workbooks", status: "evidenced" },
+    { tag: "Requirements Traceability", evidence: "process:From an observed problem to a line of code, and back", status: "evidenced" },
+    { tag: "Persona Development", evidence: "process:Seven personas — with their confidence printed on them", status: "evidenced" },
+    { tag: "Automated Testing (Vitest)", evidence: "results: \"158 tests\" across 25 files; build-time requirement-traceability check", status: "evidenced" },
+  ],
 };
 
 export default projectData;
