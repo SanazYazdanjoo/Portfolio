@@ -77,12 +77,17 @@
   }
 
 
-  /* Hide UI chrome. Targets nav specifically, not bare `header`, so the
-     CV's .cv-header survives print. */
-  nav,
+  /* Hide UI chrome. Deliberately not a bare `nav` selector: every nav that
+     should be hidden (the site header's Nav, the CV/Design System/project
+     sidebar TOCs) already sits inside an ancestor carrying `.no-print`, and
+     a bare `nav` selector instead caught ProjectTemplate's prev/next
+     content navigation — a `<nav>` reused for genuinely printable
+     lateral-navigation content, not decorative chrome — hiding it and
+     leaving a stray trailing blank page in its place. Also not bare
+     `header`, so the CV's .cv-header survives print. */
   footer,
   .no-print,
-  .scroll-container > *:not(main),
+  .overflow-y-auto > *:not(main),
   .bg-paper-texture,
   .bg-ink-speckles,
   [class*="SketchTrail"],
@@ -112,12 +117,36 @@
     background: white !important;
   }
 
+  /* Framer Motion's whileInView entrances (ContentSection, ProcessStep,
+     ResearchPhases items, InkHighlight's draw-in, etc.) depend on an
+     IntersectionObserver firing as the user scrolls. Printing never
+     scrolls the page, so anything not already revealed in the live
+     session stays frozen at its `initial` state — typically opacity: 0,
+     translated a few px off its resting position — and print faithfully
+     captures that as invisible content still reserving its layout space
+     (a blank page, not a missing one). The design system itself never
+     sets opacity/transform via inline `style` — only Tailwind classes —
+     so any element carrying an inline style attribute here is Framer
+     Motion's, and forcing it to its resolved, visible state is safe. */
+  [style] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
   body::before,
   body::after {
     display: none !important;
   }
 
-  .scroll-container {
+  /* This targets the actual scroll root App.jsx renders (a plain
+     `overflow-y-auto` Tailwind class — see ProjectTemplate.jsx's own
+     `.closest(".overflow-y-auto")` scroll-progress lookup for the same
+     selector used as the app's canonical "the scroll container" hook).
+     The class this rule used to target, `.scroll-container`, does not
+     exist anywhere in the rendered DOM — a stale selector that silently
+     no-opped this entire override, clipping every printed page to one
+     viewport's worth of content. */
+  .overflow-y-auto {
     overflow: visible !important;
     height: auto !important;
     scroll-snap-type: none !important;
@@ -132,9 +161,16 @@
     padding: 0.2cm !important;
   }
 
-  /* Prevent orphaned headings or split sections */
-  h2, h3 { break-after: avoid; }
-  section, article { break-inside: avoid; }
+  /* Prevent orphaned headings or split sections. Scoped to the CV
+     specifically (this rule sits right after the CV document resets and
+     was clearly written for its single-page-ish document, not for
+     ProjectTemplate's multi-page <article>/<section> tree) — applied
+     site-wide it forced every project-page section, some of them far
+     longer than a full A4 page, to avoid ever splitting, which the
+     browser resolves by shoving whole sections onto fresh pages and
+     produced the near-empty trailing pages this task flagged. */
+  #curriculum-vitae h2, #curriculum-vitae h3 { break-after: avoid; }
+  #curriculum-vitae section, #curriculum-vitae article { break-inside: avoid; }
 
   /* Ensure all text is black for ink */
   #curriculum-vitae * {

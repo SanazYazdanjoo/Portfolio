@@ -424,6 +424,18 @@ function MobilePillBar({ sections, activeId, onNavigate }) {
 // Counts a metric's numeric part up from 0 once it scrolls into view.
 // Values like "4+ wks" animate only the leading integer and keep the rest
 // static; pure words ("TypeScript", "Public") render immediately.
+//
+// Print never scrolls the page, so the useInView below (a separate
+// mechanism from ContentSection's whileInView, and not something the
+// print stylesheet's opacity/transform override can fix, since this
+// drives literal text content, not visibility) never fires — a JS check
+// for print media doesn't help either, because React's effects run
+// during the initial screen-media render pass, before Chrome ever
+// switches to print for the final capture. Fixed the same way the CV
+// already handles screen-vs-print differences elsewhere (see the
+// `print:` variants in CurriculumVitae.jsx): render both the live
+// counter and the resolved final value, and let @media print — which
+// re-evaluates independently of when the JS ran — pick the right one.
 function AnimatedMetricValue({ value }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-10%" });
@@ -445,7 +457,13 @@ function AnimatedMetricValue({ value }) {
 
   if (!match) return <span ref={ref}>{value}</span>;
   const shown = reduce ? match[1] : inView ? display : 0;
-  return <span ref={ref}>{shown}{match[2]}</span>;
+  return (
+    <span ref={ref}>
+      <span className="print:hidden">{shown}</span>
+      <span className="hidden print:inline">{match[1]}</span>
+      {match[2]}
+    </span>
+  );
 }
 
 // Metrics strip — 44px display numerals over a hairline grid, matching the
