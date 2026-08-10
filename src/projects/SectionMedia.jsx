@@ -125,7 +125,6 @@ export default function SectionMedia({ items }) {
             <img
               src={isVideo ? f.poster : f.src}
               alt={f.alt}
-              loading="lazy"
               className={`w-full h-auto block ${f.className || ""}`}
             />
           );
