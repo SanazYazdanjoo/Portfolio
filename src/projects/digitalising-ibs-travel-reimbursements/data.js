@@ -114,6 +114,8 @@ export const projectData = {
   // Process gallery streamlined into the 4-phase Double Diamond structure
   process: [
     {
+      imagePath: '/projects/digitalising-ibs-travel-reimbursements/my-double-diamond-approach.png', 
+      
       phase: 'discover',
       type: { en: 'Context & Observation', de: 'Kontext & Beobachtung' },
       title: { en: 'DISCOVER: Mapping the AS-IS state', de: 'DISCOVER: Kartierung des IST-Zustands' },
@@ -125,7 +127,7 @@ export const projectData = {
         en: 'The WHERE lens did the most work: claims arrive through cloud, e-mail, and paper, but only cloud uploads leave a traceable record. The channel — not the paperwork — was the barrier.',
         de: 'Die WO-Perspektive leistete die meiste Arbeit: Anträge kommen über Cloud, E-Mail und Papier an, aber nur Cloud-Uploads hinterlassen eine nachvollziehbare Spur. Der Kanal — nicht der Papierkram — war die Barriere.',
       },
-      imagePath: '/projects/digitalising-ibs-travel-reimbursements/01-discover.png',
+  
       interactiveDiagram: {
         previewPath: '/projects/digitalising-ibs-travel-reimbursements/uml-preview-crop.png',
         livePath: '/projects/digitalising-ibs-travel-reimbursements/detailed-uml.html',
@@ -143,8 +145,7 @@ export const projectData = {
       insight: {
         en: 'This meant no requirement could quietly drift out of the codebase, and any reviewer can walk backwards from a function to the participant whose problem justified it.',
         de: 'Das bedeutete, dass keine Anforderung unbemerkt aus der Codebasis driften konnte, und jede prüfende Person von einer Funktion zurück zur Teilnehmerin gehen kann, deren Problem sie rechtfertigte.',
-      },
-      imagePath: '/projects/digitalising-ibs-travel-reimbursements/02-define.png', 
+      }
     },
     {
       phase: 'develop',
@@ -158,7 +159,6 @@ export const projectData = {
         en: 'Making status a first-class object, not a column someone updates, is what turns "I wait until the money arrives" into a screen that answers the question directly.',
         de: 'Status als eigenständiges Objekt zu behandeln, statt als Spalte, die jemand aktualisiert, verwandelt "ich warte, bis das Geld da ist" in einen Screen, der die Frage direkt beantwortet.',
       },
-      imagePath: '/projects/digitalising-ibs-travel-reimbursements/03-develop.png',
     },
     {
       phase: 'deliver',
@@ -171,8 +171,7 @@ export const projectData = {
       insight: {
         en: 'The post-build survey revealed that the structural gap affects everyone, not just low-fluency users. Four of five submit independently from a smartphone; the true cost is the invisible backend state.',
         de: 'Die Umfrage nach dem Build zeigte, dass die strukturelle Lücke alle betrifft, nicht nur Nutzende mit geringer Vertrautheit. Vier von fünf reichen eigenständig per Smartphone ein; die wahren Kosten sind der unsichtbare Backend-Status.',
-      },
-      imagePath: '/projects/digitalising-ibs-travel-reimbursements/04-deliver.png',
+      }
     },
   ],
 
