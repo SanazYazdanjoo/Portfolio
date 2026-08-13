@@ -9,10 +9,9 @@ import experimentalDesign from './media/experimental_design.png';
 import threeInputMethods from './media/three_input_methods.png';
 import conclusion from './media/conclusion.png';
 
-import { NEEDS_INPUT } from '../../data/needsInput';
 
 export const projectData = {
-  id: "project-1",
+  id: "gaze-assisted-input",
   status: "Published",
   order: 3,
   title: {
@@ -242,11 +241,31 @@ export const projectData = {
     adoption: "academic",
   },
 
-  // Real participant language already exists in the process-gallery insights
-  // above ("shaking" the mouse; "best of both worlds") but promoting a
-  // fragment to a standalone pull-quote is an editorial call for the owner,
-  // not something to extract/reword unsupervised. See CONTENT_GAPS.md.
-  verbatims: [NEEDS_INPUT, NEEDS_INPUT],
+  // Both quotes are participant language already published verbatim in the
+  // process-gallery insights above (Phase I "Characterising Real Multi-Display
+  // Work"; Phase II "Trust Beats Speed") — promoted here, not reworded.
+  verbatims: [
+    {
+      quote: {
+        en: "shaking the mouse to find the pointer",
+        de: "die Maus schütteln, um den Zeiger zu finden",
+      },
+      attribution: {
+        en: "Phase I pre-study participant (n=20), reflexive thematic analysis",
+        de: "Teilnehmende:r der Vorstudie Phase I (n=20), reflexive thematische Analyse",
+      },
+    },
+    {
+      quote: {
+        en: "best of both worlds",
+        de: "das Beste aus beiden Welten",
+      },
+      attribution: {
+        en: "Phase II participant on Ninja Cursors (N=30) — 60% preferred it despite the mouse scoring higher on SUS",
+        de: "Teilnehmende:r der Phase II zu Ninja Cursors (N=30) — 60 % bevorzugten es trotz des höheren SUS-Werts der Maus",
+      },
+    },
+  ],
 
   tagEvidence: [
     { tag: "TypeScript", evidence: "process:TypeScript Architecture & Real-Time Gaze Pipeline", status: "evidenced" },

@@ -53,9 +53,9 @@ const en = {
   // Career arc
   "about.career.phase1.label": "Software Engineering",
   "about.career.phase1.years": "2015 – 2020",
-  "about.career.phase1.summary": "Built 20+ products from the ground up. Learned that code is easy; knowing what to build is hard.",
+  "about.career.phase1.summary": "Built 10+ production sites from the ground up. Learned that code is easy; knowing what to build is hard.",
   "about.career.phase2.label": "QA Engineering",
-  "about.career.phase2.years": "2020 – 2023",
+  "about.career.phase2.years": "2020 – 2022",
   "about.career.phase2.summary": "Shifted from building to breaking — and realised every bug was a user insight waiting to be heard.",
   "about.career.phase3.label": "UX Engineering",
   "about.career.phase3.years": "2023 – Now",
