@@ -107,7 +107,7 @@ const en = {
   "contact.copied": "Copied",
   "contact.details": "Details",
   "contact.basedIn": "Based in",
-  "contact.replyTime": "Reply time",
+ 
   "contact.phone": "Phone",
   "contact.goodToSend": "Good things to send me",
   "contact.viewCv": "View CV",

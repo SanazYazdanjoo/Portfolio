@@ -177,10 +177,7 @@ export default function Contact() {
                   {contact.location} · {contact.timezone}
                 </dd>
               </div>
-              <div>
-                <dt className="text-text-dim">{t("contact.replyTime")}</dt>
-                <dd className="font-medium text-text">{contact.responseTime}</dd>
-              </div>
+
               <div>
                 <dt className="text-text-dim">{t("contact.phone")}</dt>
                 <dd>

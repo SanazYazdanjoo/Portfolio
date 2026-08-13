@@ -104,7 +104,7 @@ const de = {
   "contact.copied": "Kopiert",
   "contact.details": "Details",
   "contact.basedIn": "Standort",
-  "contact.replyTime": "Antwortzeit",
+
   "contact.phone": "Telefon",
   "contact.goodToSend": "Worüber ich gerne spreche",
   "contact.viewCv": "Lebenslauf ansehen",
