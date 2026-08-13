@@ -16,6 +16,13 @@
 //   takeawayLabel — overrides the default "What it shows"
 // A figure that omits all of them renders as a plain image. Projects
 // without a `figures` key are unaffected.
+//
+// `href` turns the figure into a preview that opens a standalone page in a
+// new tab (the detailed UML and the persona set are full documents that
+// need a whole viewport, not a zoom overlay). It replaces zoom rather than
+// stacking with it — one click target, one outcome. The page itself lives
+// in public/, since files under src/ are bundled, not served. `linkLabel`
+// overrides the corner badge text.
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
@@ -107,7 +114,9 @@ export default function SectionMedia({ items }) {
       <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-12">
         {items.map((f, i) => {
           const isVideo = f.type === "video";
-          const canZoom = !isVideo && f.zoom !== false && !!f.src;
+          const isLink = !!f.href;
+          const canZoom = !isLink && !isVideo && f.zoom !== false && !!f.src;
+          const linkLabel = f.linkLabel || t("project.media.openFullPage");
 
           const media = isVideo && !prefersReducedMotion ? (
             <video
@@ -156,8 +165,35 @@ export default function SectionMedia({ items }) {
                 </div>
               )}
 
-              <div className="border border-border bg-muted/30 overflow-hidden">
-                {canZoom ? (
+              <div
+                className={`border border-border bg-muted/30 overflow-hidden
+                            ${isLink ? "transition-colors duration-200 hover:border-primary-600" : ""}`}
+              >
+                {isLink ? (
+                  <a
+                    href={f.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${linkLabel}: ${f.alt}`}
+                    className="group relative block focus:outline-none
+                               focus-visible:ring-2 focus-visible:ring-primary-600"
+                  >
+                    {media}
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute right-3 top-3 inline-flex items-center gap-1.5
+                                 border border-border bg-bg/90 px-2.5 py-1.5 font-mono text-2xs font-bold
+                                 uppercase tracking-[0.15em] text-text backdrop-blur-sm no-print
+                                 transition-colors duration-200
+                                 group-hover:border-primary-600 group-hover:text-primary-600"
+                    >
+                      {linkLabel}
+                      <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H8M17 7V16" />
+                      </svg>
+                    </span>
+                  </a>
+                ) : canZoom ? (
                   <button
                     type="button"
                     onClick={(e) => { triggerRef.current = e.currentTarget; setZoomed(f); }}
@@ -181,7 +217,7 @@ export default function SectionMedia({ items }) {
                 )}
               </div>
 
-              {f.caption && (
+              {(f.caption || isLink) && (
                 <figcaption
                   className="mt-2.5 font-mono text-2xs uppercase tracking-wider
                              text-text-meta leading-relaxed"
@@ -190,6 +226,12 @@ export default function SectionMedia({ items }) {
                   {canZoom && (
                     <span className="ml-2 normal-case tracking-normal text-text-meta print:hidden">
                       &mdash; {t("project.media.clickToEnlarge")}
+                    </span>
+                  )}
+                  {isLink && (
+                    <span className="ml-2 normal-case tracking-normal text-text-meta print:hidden">
+                      {f.caption && <>&mdash; </>}
+                      {t("project.media.opensNewTab")}
                     </span>
                   )}
                 </figcaption>

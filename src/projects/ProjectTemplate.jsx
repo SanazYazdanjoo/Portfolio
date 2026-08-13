@@ -16,15 +16,15 @@
 // Default export is ProjectTemplate({ meta, children }). All data comes
 // from src/projects/*/data.js.
 
-import React, { useState, useEffect, useMemo, useRef } from "react";
+import React, { useState, useEffect, useLayoutEffect, useMemo, useRef, useId } from "react";
 import { Link } from "react-router-dom";
 import {
   motion,
-  AnimatePresence,
   useReducedMotion,
   useMotionValue,
   useInView,
   animate as animateValue,
+  useTransform, 
 } from "framer-motion";
 import SectionMedia from "./SectionMedia";
 import { Badge } from "../components/Badge";
@@ -38,14 +38,6 @@ import { projects as allProjects } from "../data/projects";
 import { isNeedsInput } from "../data/needsInput";
 
 const EASE = [0.22, 0.61, 0.36, 1];
-
-// Phase config. Labels are resolved via t() at render time; only keys live here.
-const PHASE_META = {
-  discover: { labelKey: "project.phase.discover", number: "01" },
-  define:   { labelKey: "project.phase.define",   number: "02" },
-  design:   { labelKey: "project.phase.design",   number: "03" },
-  deliver:  { labelKey: "project.phase.deliver",  number: "04" },
-};
 
 // Content section definitions. `labelKey` drives the sidebar/mobile-pill text (short form).
 const SECTIONS = [
@@ -105,7 +97,7 @@ function CollapsibleSectionHead({ id, number, kicker, heading, isOpen, onToggle 
 }
 
 // Chevron — rotates open/closed; no separate open/closed icon needed.
-function Chevron({ isOpen }) {
+function Chevron({ isOpen, className = "w-4 h-4 md:w-5 md:h-5" }) {
   return (
     <svg
       aria-hidden="true"
@@ -113,12 +105,164 @@ function Chevron({ isOpen }) {
       fill="none"
       stroke="currentColor"
       strokeWidth="2.5"
-      className={`w-4 h-4 md:w-5 md:h-5 shrink-0 transition-transform duration-300 ${
+      className={`${className} shrink-0 transition-transform duration-300 ${
         isOpen ? "rotate-180" : ""
       }`}
     >
       <path strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6" />
     </svg>
+  );
+}
+
+// Body copy opens clamped to 2.5 lines, with Read more / Read less to
+// toggle the rest. The half line is the point: a whole-line cut can read as
+// a paragraph that simply ended, where a sliced line says "there is more" on
+// sight. So the clamp is a max-height of 2.5 × the paragraph's own computed
+// line-height — CSS line-clamp only counts whole lines — with a mask fading
+// that half line out.
+//
+// Whether a given paragraph overflows depends on the column width, so it is
+// measured rather than guessed from character count: the clip lives on the
+// outer div while the inner div keeps its natural height, and it's the inner
+// one the ResizeObserver watches. Watching the clipped element instead would
+// go stale the moment it stopped changing size — which is exactly when it is
+// clamped, i.e. always.
+const CLAMP_LINES = 2.5;
+const CLAMP_FADE = "linear-gradient(to bottom, #000 78%, transparent 100%)";
+const CLAMP_TRANSITION = `max-height 320ms cubic-bezier(${EASE.join(", ")})`;
+
+function ClampedText({ children, className = "" }) {
+  const { t } = useTranslation();
+  const prefersReducedMotion = useReducedMotion();
+  const innerRef = useRef(null);
+  const bodyId = useId();
+  const [expanded, setExpanded] = useState(false);
+  const [clampPx, setClampPx] = useState(0);
+  const [fullPx, setFullPx] = useState(0);
+
+  useEffect(() => {
+    const inner = innerRef.current;
+    if (!inner) return;
+
+    const measure = () => {
+      // The paragraph carries the type scale, not this wrapper, so read the
+      // line-height off the child that actually has it.
+      const typed = inner.firstElementChild ?? inner;
+      const style = window.getComputedStyle(typed);
+      const lineHeight = parseFloat(style.lineHeight);
+      const fontSize = parseFloat(style.fontSize) || 17;
+      const line = Number.isFinite(lineHeight) ? lineHeight : fontSize * 1.5;
+      setClampPx(line * CLAMP_LINES);
+      setFullPx(inner.getBoundingClientRect().height);
+    };
+
+    measure();
+    if (typeof ResizeObserver === "undefined") return;
+    const observer = new ResizeObserver(measure);
+    observer.observe(inner);
+    return () => observer.disconnect();
+  }, []);
+
+  const overflows = clampPx > 0 && fullPx > clampPx + 1;
+  const collapsed = overflows && !expanded;
+
+  return (
+    <div className={className}>
+      <div
+        id={bodyId}
+        data-clamped-text
+        style={{
+          overflow: "hidden",
+          maxHeight: collapsed ? `${clampPx}px` : overflows ? `${fullPx}px` : undefined,
+          transition: prefersReducedMotion ? "none" : CLAMP_TRANSITION,
+          WebkitMaskImage: collapsed ? CLAMP_FADE : undefined,
+          maskImage: collapsed ? CLAMP_FADE : undefined,
+        }}
+      >
+        <div ref={innerRef}>{children}</div>
+      </div>
+
+      {/* A blush wash rather than another bare coral caps line: the page already
+          spends that exact style on section kickers, meta labels and the back
+          link, so the toggle needs a surface of its own to read as the one
+          clickable thing under a paragraph. Blush is a background-only token by
+          design-system rule; hover flips to the solid coral fill the chips use,
+          which holds contrast in both themes. */}
+      {overflows && (
+        <button
+          type="button"
+          onClick={() => setExpanded((prev) => !prev)}
+          aria-expanded={expanded}
+          aria-controls={bodyId}
+          className="no-print mt-3 inline-flex items-center gap-1.5 border-0 bg-blush-weak
+                     px-2.5 py-1.5 text-2xs font-black uppercase tracking-[0.2em] text-primary-600
+                     hover:bg-primary-600 hover:text-white transition-colors duration-200
+                     focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
+        >
+          {expanded ? t("common.readLess") : t("common.readMore")}
+          <Chevron isOpen={expanded} className="w-3 h-3" />
+        </button>
+      )}
+    </div>
+  );
+}
+
+// The project title always sits on one line: it never wraps, and the type
+// size is fitted to the column instead. Sizing has to happen in JS — the
+// right size depends on how long this particular title is, which CSS's
+// clamp() cannot see. The measure→shrink pass repeats a couple of times
+// because glyph advance isn't perfectly linear in font-size, and re-runs
+// once webfonts land, since the first measurement is of fallback metrics.
+const TITLE_MIN_PX = 14;
+
+function FitTitle({ children, className }) {
+  const wrapRef = useRef(null);
+  const textRef = useRef(null);
+
+  useLayoutEffect(() => {
+    const wrap = wrapRef.current;
+    const text = textRef.current;
+    if (!wrap || !text) return;
+    let cancelled = false;
+
+    const fit = () => {
+      if (cancelled) return;
+      text.style.fontSize = ""; // back to the class-driven size before measuring
+      const base = parseFloat(window.getComputedStyle(text).fontSize);
+      const available = wrap.clientWidth;
+      if (!base || !available || !text.scrollWidth) return;
+
+      let size = base;
+      for (let pass = 0; pass < 3 && text.scrollWidth > available && size > TITLE_MIN_PX; pass++) {
+        size = Math.max(TITLE_MIN_PX, size * (available / text.scrollWidth) * 0.995);
+        text.style.fontSize = `${size}px`;
+      }
+    };
+
+    fit();
+    document.fonts?.ready?.then(fit).catch(() => {});
+
+    // The wrapper's width is independent of the title's font size, so
+    // resizing the title can never re-trigger this observer.
+    if (typeof ResizeObserver === "undefined") return () => { cancelled = true; };
+    const observer = new ResizeObserver(fit);
+    observer.observe(wrap);
+    return () => {
+      cancelled = true;
+      observer.disconnect();
+    };
+  }, [children]);
+
+  // `overflow-x: clip` rather than `hidden`: hidden on one axis forces the
+  // other to `auto`, which would both clip tall glyphs and risk a stray
+  // scrollbar. This is only a guard for a title so long it hits the size
+  // floor on a narrow phone — normally nothing reaches the edge to clip.
+  return (
+    <div ref={wrapRef} className="min-w-0" style={{ overflowX: "clip" }}>
+      <h1 ref={textRef} className={className} style={{ whiteSpace: "nowrap" }}>
+        {children}
+      </h1>
+    </div>
   );
 }
 
@@ -140,7 +284,9 @@ function Prose({ text, rail, children }) {
   return (
     <div className={rail ? "xl:grid xl:grid-cols-[1fr_240px] xl:gap-10 items-start" : ""}>
       <div className="max-w-[68ch]">
-        <p className="text-[17px] leading-[1.7] text-text/90">{text}</p>
+        <ClampedText>
+          <p className="text-[17px] leading-[1.7] text-text/90">{text}</p>
+        </ClampedText>
         {children}
       </div>
       {rail && <PullQuote text={leadSentence(text)} />}
@@ -156,11 +302,6 @@ function Prose({ text, rail, children }) {
 // brief window right after "Collapse/Expand all" fires, so every panel
 // settles in sequence instead of snapping together; a single section's own
 // toggle always stays instant.
-//
-// Content stays mounted at all times rather than conditionally rendered, so
-// in-page find, screen-reader access via the section id, and print output
-// stay correct regardless of open/closed state. `[data-collapsible-body]`
-// is force-opened in print CSS (src/index.css) for the same reason.
 function ContentSection({ id, number, kicker, heading, isOpen, onToggle, staggerDelayMs = 0, children }) {
   const prefersReducedMotion = useReducedMotion();
 
@@ -194,143 +335,6 @@ function ContentSection({ id, number, kicker, heading, isOpen, onToggle, stagger
         </div>
       </div>
     </motion.section>
-  );
-}
-
-// Process step — vertical numbered stepper. Suits a research process more
-// naturally than a horizontal scroll rail, and fits the narrower content
-// column without needing scroll affordances (edge fades, arrows, a
-// progress dial) to tell the reader there's more.
-function ProcessStep({ item, index, total }) {
-  const { t } = useTranslation();
-  const [expanded, setExpanded] = useState(false);
-  const [imgError, setImgError] = useState(false);
-  const reduce = useReducedMotion();
-  const phase = PHASE_META[item.phase] || PHASE_META.discover;
-
-  return (
-    <motion.li
-      className="relative pl-11 md:pl-12 pb-10 last:pb-0"
-      initial={{ opacity: 0, y: reduce ? 0 : 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px 0px -60px 0px" }}
-      transition={{ delay: Math.min(index, 6) * 0.06, duration: 0.4, ease: EASE }}
-    >
-      {index < total - 1 && (
-        <span aria-hidden="true" className="absolute left-[15px] md:left-[17px] top-9 bottom-0 w-px bg-border" />
-      )}
-      <span
-        aria-hidden="true"
-        className="absolute left-0 top-0 flex items-center justify-center w-8 h-8 md:w-9 md:h-9
-                   rounded-full border-2 border-primary-600 bg-bg font-mono text-xs font-bold text-primary-600"
-      >
-        {index + 1}
-      </span>
-
-      <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-        {item.imagePath && !imgError && (
-          <div className="w-full sm:w-[150px] aspect-[4/3] shrink-0 overflow-hidden border border-border bg-muted/40">
-            <img
-              src={item.imagePath}
-              alt={item.title}
-              onError={() => setImgError(true)}
-              className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
-            />
-          </div>
-        )}
-        <div className="flex-1 min-w-0">
-          <p className="font-mono text-2xs uppercase tracking-wider text-text-meta mb-2">
-            {phase.number} {t(phase.labelKey)}
-            <span className="mx-1.5 text-text/25">·</span>
-            {item.type}
-          </p>
-
-          <h3 className="font-display font-bold text-base text-text leading-snug mb-2">
-            {item.title}
-          </h3>
-
-          <p className="text-sm text-text/70 leading-relaxed">
-            {item.annotation}
-          </p>
-
-          {item.insight && (
-            <div className="mt-3">
-              <button
-                onClick={() => setExpanded((p) => !p)}
-                aria-expanded={expanded}
-                className="flex items-center gap-2 group/btn"
-              >
-                <span className="text-2xs font-extrabold uppercase tracking-[0.18em] text-primary-600">
-                  {expanded ? t("project.process.hideInsight") : t("project.process.keyInsight")}
-                </span>
-                <motion.span
-                  animate={{ rotate: expanded ? 180 : 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="text-text-meta group-hover/btn:text-text/60 transition-colors"
-                >
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor"
-                    strokeWidth="2.5" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </motion.span>
-              </button>
-              <AnimatePresence>
-                {expanded && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.22 }}
-                    className="overflow-hidden"
-                  >
-                    <p className="text-[13px] leading-relaxed text-text/70
-                                  border-l-2 border-primary/40 pl-3 mt-3">
-                      {item.insight}
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          )}
-        </div>
-      </div>
-    </motion.li>
-  );
-}
-
-// Process gallery — vertical stepper
-function ProcessGallerySection({ items, number, isOpen, onToggle, staggerDelayMs = 0 }) {
-  const { t } = useTranslation();
-  const prefersReducedMotion = useReducedMotion();
-  if (!items || items.length === 0) return null;
-
-  return (
-    <section id="process" className="pt-10 mb-14 md:pt-16 md:mb-20 border-t border-border scroll-mt-32">
-      <CollapsibleSectionHead
-        id="process" number={number} kicker={t("project.process.kicker")} heading={t("project.process.heading")}
-        isOpen={isOpen} onToggle={onToggle}
-      />
-
-      <div
-        id="process-body"
-        data-collapsible-body
-        aria-hidden={!isOpen}
-        {...(!isOpen ? { inert: "" } : {})}
-        style={{
-          display: "grid",
-          gridTemplateRows: isOpen ? "1fr" : "0fr",
-          transition: prefersReducedMotion ? "none" : `grid-template-rows 350ms ease ${staggerDelayMs}ms`,
-        }}
-      >
-        <div style={{ overflow: "hidden", minHeight: 0 }}>
-          <ol className="list-none p-0 m-0 max-w-[68ch]" role="list" aria-label={t("project.process.ariaLabel")}>
-            {items.map((item, i) => (
-              <ProcessStep key={`${item.phase}-${i}`} item={item} index={i} total={items.length} />
-            ))}
-          </ol>
-        </div>
-      </div>
-    </section>
   );
 }
 
@@ -425,20 +429,6 @@ function MobilePillBar({ sections, activeId, onNavigate }) {
 }
 
 // Counts a metric's numeric part up from 0 once it scrolls into view.
-// Values like "4+ wks" animate only the leading integer and keep the rest
-// static; pure words ("TypeScript", "Public") render immediately.
-//
-// Print never scrolls the page, so the useInView below (a separate
-// mechanism from ContentSection's whileInView, and not something the
-// print stylesheet's opacity/transform override can fix, since this
-// drives literal text content, not visibility) never fires — a JS check
-// for print media doesn't help either, because React's effects run
-// during the initial screen-media render pass, before Chrome ever
-// switches to print for the final capture. Fixed the same way the CV
-// already handles screen-vs-print differences elsewhere (see the
-// `print:` variants in CurriculumVitae.jsx): render both the live
-// counter and the resolved final value, and let @media print — which
-// re-evaluates independently of when the JS ran — pick the right one.
 function AnimatedMetricValue({ value }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-10%" });
@@ -469,9 +459,7 @@ function AnimatedMetricValue({ value }) {
   );
 }
 
-// Metrics strip — 44px display numerals over a hairline grid, matching the
-// "study at a glance" treatment. AA-safe label color (text-meta), not an
-// opacity trick.
+// Metrics strip
 function MetricsStrip({ metrics }) {
   const { t } = useTranslation();
   if (!metrics || metrics.length === 0) return null;
@@ -483,10 +471,6 @@ function MetricsStrip({ metrics }) {
       <div className="grid grid-cols-2 sm:grid-cols-4 border border-border divide-x divide-y divide-border">
         {metrics.map((m, i) => {
           if (m.pending) {
-            // Muted, not failed: a protocol that's defined but hasn't run
-            // yet is a different claim than "0" or "TODO://", both of which
-            // read as broken. text-dim/text-text-meta, not an opacity
-            // trick, for the same AA-contrast reason as the label below.
             return (
               <div key={i} className="p-5 min-w-0">
                 <p className="font-display font-extrabold leading-none text-dim text-[15px] md:text-[17px] uppercase tracking-wide">
@@ -518,47 +502,19 @@ function MetricsStrip({ metrics }) {
   );
 }
 
-// Research phase status. Shows unfinished phases as unfinished rather than
-// omitting them, since a method that's only visible once it has produced a
-// polished result isn't a method. Status is always carried by a text
-// label, never by color alone (WCAG 1.4.1): completed work sits in quiet
-// ink, live work in the signature primary, so the eye lands on what's
-// moving. `highlight` (gold) is intentionally unused here — per the token
-// comments it is a highlighter wash, not a small-text color.
 const PHASE_STATUS = {
-  complete: {
-    labelKey: "project.status.complete",
-    dot: "bg-text",
-    text: "text-text",
-  },
-  "in-progress": {
-    labelKey: "project.status.inProgress",
-    dot: "bg-primary-600",
-    text: "text-primary-600",
-  },
-  planned: {
-    labelKey: "project.status.planned",
-    dot: "bg-transparent border border-dim",
-    text: "text-dim",
-  },
-  blocked: {
-    labelKey: "project.status.blocked",
-    dot: "bg-danger",
-    text: "text-danger",
-  },
+  complete: { labelKey: "project.status.complete", dot: "bg-text", text: "text-text" },
+  "in-progress": { labelKey: "project.status.inProgress", dot: "bg-primary-600", text: "text-primary-600" },
+  planned: { labelKey: "project.status.planned", dot: "bg-transparent border border-dim", text: "text-dim" },
+  blocked: { labelKey: "project.status.blocked", dot: "bg-danger", text: "text-danger" },
 };
 
-// Renders a possibly-NEEDS_INPUT bilingual leaf: real text once resolved by
-// useLocalizedProfile, or the dev-only marker if the field was left unfilled.
 function MaybeText({ value, path, as: As = "span", className }) {
   if (isNeedsInput(value)) return <NeedsInputMarker path={path} />;
   if (!value) return null;
   return <As className={className}>{value}</As>;
 }
 
-// Adoption status pill for the outcome section. Same pattern as
-// PHASE_STATUS above: the label is always text, never color alone (WCAG
-// 1.4.1). Tones reuse the existing Badge component — no new colour tokens.
 const ADOPTION_META = {
   shipped:      { labelKey: "project.outcome.adoption.shipped",    tone: "success" },
   roadmapped:   { labelKey: "project.outcome.adoption.roadmapped", tone: "accent"  },
@@ -578,11 +534,6 @@ function AdoptionPill({ adoption }) {
   );
 }
 
-// Outcome section — "what happened after the research." Decisions render as
-// a plain divided list (border-t rows, like ResearchPhases below), visibly
-// distinct from MetricsStrip's numeral grid: these are consequences, not
-// counts, and reusing the "Study at a Glance" treatment would blur that
-// distinction.
 function OutcomeSection({ outcome, number, isOpen, onToggle, staggerDelayMs }) {
   const { t } = useTranslation();
   const decisions = outcome.decisions || [];
@@ -597,12 +548,14 @@ function OutcomeSection({ outcome, number, isOpen, onToggle, staggerDelayMs }) {
       onToggle={onToggle}
       staggerDelayMs={staggerDelayMs}
     >
-      <MaybeText
-        value={outcome.body}
-        path="outcome.body"
-        as="p"
-        className="max-w-[68ch] text-[17px] leading-[1.7] text-text/90"
-      />
+      <ClampedText className="max-w-[68ch]">
+        <MaybeText
+          value={outcome.body}
+          path="outcome.body"
+          as="p"
+          className="text-[17px] leading-[1.7] text-text/90"
+        />
+      </ClampedText>
 
       {outcome.adoption && (
         <div className="mt-5">
@@ -633,9 +586,6 @@ function OutcomeSection({ outcome, number, isOpen, onToggle, staggerDelayMs }) {
   );
 }
 
-// "My Contribution" — renders inside the header meta <dl>, directly beneath
-// Role. `notMine` sits in a muted weight: present and scannable, not shouted
-// — it's there to make `owned` credible, not to apologise for it.
 function ContributionRow({ contribution }) {
   const { t } = useTranslation();
   const groups = [
@@ -652,7 +602,7 @@ function ContributionRow({ contribution }) {
       <dt className="text-[11px] font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
         {t("project.meta.contribution")}
       </dt>
-      <dd className="space-y-3">
+      <dd className="space-y-3 max-w-[68ch]">
         {groups.map((g) => (
           <div key={g.key}>
             <p className={`text-[10px] font-black uppercase tracking-[0.15em] mb-1 ${g.muted ? "text-dim" : "text-text-meta"}`}>
@@ -672,16 +622,8 @@ function ContributionRow({ contribution }) {
   );
 }
 
-// Participant verbatim(s) for the results section. Below xl the right rail
-// doesn't render at all (see Prose above), so a verbatim shown only in the
-// rail would silently vanish on mobile — that's the contract violation the
-// task calls out explicitly. Resolved by rendering the same list in exactly
-// one of two places per breakpoint: inline in the prose column below xl,
-// in the rail at xl+. Never both at once.
 function VerbatimBlock({ item, index }) {
   const { t } = useTranslation();
-  // A bare NEEDS_INPUT symbol (whole verbatim unknown) vs. an object whose
-  // .quote/.attribution sub-fields carry the sentinel individually.
   if (isNeedsInput(item)) return <NeedsInputMarker path={`verbatims[${index}]`} />;
   if (isNeedsInput(item.quote)) return <NeedsInputMarker path={`verbatims[${index}].quote`} />;
   if (!item.quote) return null;
@@ -739,9 +681,11 @@ function ResearchPhases({ phases, intro, number, isOpen, onToggle, staggerDelayM
       staggerDelayMs={staggerDelayMs}
     >
       {intro && (
-        <p className="max-w-[68ch] text-[17px] leading-[1.7] text-text/90 mb-8">
-          {intro}
-        </p>
+        <ClampedText className="max-w-[68ch] mb-8">
+          <p className="text-[17px] leading-[1.7] text-text/90">
+            {intro}
+          </p>
+        </ClampedText>
       )}
 
       <ol className="list-none p-0 m-0 max-w-[68ch]">
@@ -783,20 +727,22 @@ function ResearchPhases({ phases, intro, number, isOpen, onToggle, staggerDelayM
   );
 }
 
-// Internal-path test for the prototype "open" link. Deliberately not
-// `startsWith("/")` — a protocol-relative URL ("//evil.com") also starts
-// with "/" but resolves to an external origin, so the second character
-// must not be another slash.
 const isInternalPath = (url) => /^\/(?!\/)/.test(url);
 
-// Prototype "open" link — an internal path (e.g. /designsystem) gets real
-// SPA navigation via <Link>, so it doesn't cost a full page reload or a
-// stray new tab; anything else (external URLs, protocol-relative URLs)
-// opens in a new tab, since we can't assume it stays in the app.
+// The one gold mark on a case-study page. Nothing else here uses the
+// highlighter, so a live, clickable build is the single thing wearing it —
+// that is the point of the "once per page" rule, not an exception to it.
+// Gold is a background token, never a text colour, so the label is ink in
+// both themes (same reasoning as .ink-highlight in theme.css). Print drops
+// the fill back to an outline rather than laying down a solid gold block.
 function PrototypeLink({ href, label }) {
-  const className = "mt-6 inline-flex items-center gap-2 border border-border px-4 py-2.5 " +
-    "text-2xs font-black uppercase tracking-[0.2em] text-text " +
-    "hover:border-primary-600 hover:text-primary-600 transition-colors duration-200";
+  const className = "mt-6 inline-flex items-center gap-2 border-2 border-highlight bg-highlight px-5 py-3 " +
+    "text-2xs font-black uppercase tracking-[0.2em] text-[color:var(--color-ink-900)] " +
+    "shadow-sm transition duration-200 " +
+    "hover:bg-highlight/85 hover:-translate-y-0.5 hover:shadow-md " +
+    "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 " +
+    "focus-visible:ring-highlight focus-visible:ring-offset-bg " +
+    "print:bg-transparent print:border-border print:text-text print:shadow-none";
   const icon = (
     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H8M17 7V16" />
@@ -820,8 +766,6 @@ function PrototypeLink({ href, label }) {
   );
 }
 
-// Prev/next project navigation cards — so a reader moves laterally to the
-// next case study instead of hitting a dead end at "Back to all projects".
 function ProjectNavCard({ project, direction }) {
   const { t } = useTranslation();
   const isNext = direction === "next";
@@ -864,38 +808,26 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
   const mainRef = useRef(null);
   const toggleAllTimeoutRef = useRef(null);
 
-  // Resolve any { en, de } bilingual fields in the project data (title,
-  // challenge/solution/methodology/…, process[], figures{}, metrics[]…)
-  // recursively, once, here — so every caller (real pages and tests alike)
-  // can just pass the raw src/projects/*/data.js export straight through.
   const meta = useLocalizedProfile(rawMeta);
   const profileData = useLocalizedProfile(rawProfile);
+
+  // Opt-out, not opt-in: every existing project keeps its metrics strip and
+  // participant quotes without touching its data.js.
+  const showResultsDetail = meta.resultsDetail !== false;
 
   useDocumentMeta({
     title: `${meta.title} — ${profileData.name}`,
     description: meta.tagline || meta.challenge,
   });
 
-  // Only include sidebar items for sections that have data.
-  // Arrays are length-checked so an empty `process`/`phases` can't create a
-  // sidebar link pointing at a section that never renders.
-  // Memoized so the IntersectionObserver effect and the openSections helpers
-  // below aren't recomputing/re-diffing a fresh array identity every render.
   const activeSections = useMemo(
     () =>
       SECTIONS.filter((s) => {
         const value = meta[s.dataKey];
         const hasValue = Array.isArray(value) ? value.length > 0 : !!value;
-        // Prototype is the one section that might be nothing but a link or a
-        // couple of screenshots — no paragraph required — so it also counts
-        // as active on those alone.
         if (s.id === "prototype") {
           return hasValue || !!meta.prototypeUrl || (meta.figures?.prototype?.length > 0);
         }
-        // outcome is an object ({ body, decisions?, adoption? }) — the generic
-        // truthy check above already passes for any non-null object, so an
-        // `outcome: {}` with no body would otherwise render an empty section.
-        // Require `body` specifically, same as prototype requires a link or figure.
         if (s.id === "outcome") {
           return !!meta.outcome?.body;
         }
@@ -906,16 +838,10 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
 
   const [activeId, setActiveId] = useState(() => activeSections[0]?.id ?? null);
 
-  // Every section starts open — the evidence a recruiter needs shouldn't be
-  // gated behind a click. A Set rather than one id, since more than one
-  // section can be closed independently (this is an accordion of
-  // independent panels, not a single-select tab strip).
   const [openSections, setOpenSections] = useState(
     () => new Set(activeSections.map((s) => s.id))
   );
 
-  // Non-zero only for the brief window right after "Collapse/Expand all" —
-  // see ContentSection's staggerDelayMs.
   const [staggerAll, setStaggerAll] = useState(false);
 
   const toggleSection = (id) => {
@@ -927,11 +853,6 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
     });
   };
 
-  // Sidebar / mobile-pill navigation: opening a closed section and scrolling
-  // to it in one action. Scrolling first would target the same position
-  // either way — a section's own height doesn't depend on whether ITS body
-  // is open, only on sections above it — but opening first keeps the two
-  // conceptually in the right order (reveal, then move to it).
   const navigateToSection = (id) => {
     setOpenSections((prev) => (prev.has(id) ? prev : new Set(prev).add(id)));
     const el = document.getElementById(id);
@@ -955,7 +876,6 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
 
   useEffect(() => () => window.clearTimeout(toggleAllTimeoutRef.current), []);
 
-  // Section numbers must match the sidebar — compute once
   const sectionIndex = (id) => activeSections.findIndex((s) => s.id === id);
   const sectionNumber = (id) => String(sectionIndex(id) + 1).padStart(2, "0");
   const staggerDelayFor = (id) => (staggerAll ? sectionIndex(id) * 40 : 0);
@@ -977,16 +897,16 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
     return () => observers.forEach((o) => o.disconnect());
   }, [activeSections]);
 
-  // Scroll-progress bar. The app scrolls inside a custom container (see
-  // App.jsx's scrollRef), not the window, so a plain useScroll() against
-  // the viewport would stay at 0 — walk up to that container instead.
   const scrollProgress = useMotionValue(0);
+  const scrollY = useMotionValue(0); // Track exact pixel scroll for parallax
+
   useEffect(() => {
     const root = mainRef.current?.closest(".overflow-y-auto");
     if (!root) return;
     const update = () => {
       const max = root.scrollHeight - root.clientHeight;
       scrollProgress.set(max > 0 ? Math.min(1, Math.max(0, root.scrollTop / max)) : 0);
+      scrollY.set(root.scrollTop); // Update tracking
     };
     update();
     root.addEventListener("scroll", update, { passive: true });
@@ -995,10 +915,13 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
       root.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
     };
-  }, [scrollProgress]);
+  }, [scrollProgress, scrollY]);
 
-  // Prev / next project — same publish rule as the index pages (coming-soon
-  // has nothing to route to), ordered exactly like the Projects list.
+  // Parallax overlay transformations
+  const bannerOpacity = useTransform(scrollY, [0, 600], [1, 0.15]);
+  const bannerBlur = useTransform(scrollY, [0, 600], ["blur(0px)", "blur(12px)"]);
+  const bannerScale = useTransform(scrollY, [0, 600], [1, 0.96]);
+
   const orderedProjects = useMemo(
     () => allProjects.filter((p) => p.status !== "coming-soon"),
     []
@@ -1016,342 +939,371 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
   const hasHeroImage = !!meta.thumbnail;
 
   return (
-    <main ref={mainRef} className="min-h-screen bg-bg pt-20 md:pt-24 pb-16">
-      {/* Scroll-progress bar — reflects the custom scroll container above,
-          not window scroll. */}
+    <main ref={mainRef} className="min-h-screen bg-bg pt-20 md:pt-24">
+      {/* Scroll-progress bar */}
       <motion.div
         aria-hidden="true"
         className="no-print fixed top-0 left-0 right-0 h-[2px] bg-primary origin-left z-[70]"
         style={{ scaleX: scrollProgress }}
       />
 
-      {/* Hero photo — the same white-mat "photo-frame" treatment used for
-          every other picture on the site (About, Hero, the process
-          gallery). No overlay, no scrim: title lives below it in the
-          standard heading pattern instead of fighting the image for
-          contrast. Aspect-ratio boxed (not vh-capped) so the full image
-          shows regardless of viewport height. */}
+      {/* Hero photo — Sticky Parallax Implementation */}
       {hasHeroImage && (
-        <motion.div
-          className="w-full px-4 md:px-8 max-w-[1500px] mx-auto mb-10 md:mb-14"
-          initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, ease: EASE }}
-        >
-          <div className="photo-frame w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden bg-muted">
-            <ProjectPicture
-              src={meta.thumbnail}
-              webpSrc={meta.thumbnailWebp}
-              alt=""
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </motion.div>
+        <div className="sticky top-[80px] md:top-[100px] z-0 w-full px-4 md:px-8 max-w-[1500px] mx-auto mb-10 md:mb-20">
+          <motion.div
+            initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, ease: EASE }}
+            style={{
+              opacity: prefersReducedMotion ? 1 : bannerOpacity,
+              filter: prefersReducedMotion ? "none" : bannerBlur,
+              scale: prefersReducedMotion ? 1 : bannerScale,
+            }}
+          >
+            <div className="photo-frame w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden bg-muted shadow-sm">
+              <ProjectPicture
+                src={meta.thumbnail}
+                webpSrc={meta.thumbnailWebp}
+                alt=""
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <p className="mt-3 text-right text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-text-meta">
+              Image generated by Nanobanana.
+            </p>
+          </motion.div>
+        </div>
       )}
 
-      <div className="w-full px-4 md:px-8 max-w-[1500px] mx-auto">
+      {/* Main Content Wrapper — Added solid bg and z-10 so it slides OVER the sticky banner */}
+      <div className="relative z-10 w-full bg-bg pb-16 pt-8 md:pt-12">
+        <div className="w-full px-4 md:px-8 max-w-[1500px] mx-auto">
+          <div className="flex items-start">
+            <aside className="hidden md:block w-[180px] lg:w-[220px] shrink-0 no-print sticky top-36 self-start pr-8 lg:pr-10">
+              <SidebarNav sections={activeSections} activeId={activeId}
+                onNavigate={navigateToSection} allOpen={allOpen} onToggleAll={toggleAllSections} />
+            </aside>
 
-        <div className="flex items-start">
-          <aside className="hidden md:block w-[180px] lg:w-[220px] shrink-0 no-print sticky top-36 self-start pr-8 lg:pr-10">
-            <SidebarNav sections={activeSections} activeId={activeId}
-              onNavigate={navigateToSection} allOpen={allOpen} onToggleAll={toggleAllSections} />
-          </aside>
-
-          <div className="flex-1 min-w-0 max-w-[1060px] md:border-l md:border-border md:pl-8 lg:pl-10">
-            {/* Header */}
-            <motion.header
-              className="mb-12 max-w-[720px]"
-              initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: EASE }}
-            >
-              {/* Live-stage chip — optional. Signals an in-flight case study
-                  above the fold, so a recruiter isn't reading a partial page
-                  wondering why sections are missing. */}
-              {meta.stage && (
-                <div className="mb-4">
-                  <span className="inline-flex items-center gap-2 border border-border px-2.5 py-1">
-                    <span
-                      aria-hidden="true"
-                      className="w-1.5 h-1.5 rounded-full bg-primary-600"
-                    />
-                    <span className="text-2xs font-black uppercase tracking-[0.2em] text-primary-600">
-                      {meta.stage}
-                    </span>
-                  </span>
-                </div>
-              )}
-
-              {/* Tags + title — the one heading pattern used everywhere else
-                  on the page: coral kicker, ink font-display heading. */}
-              {tags.length > 0 && (
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary-600 mb-4">
-                  {tags.slice(0, 4).join("  ·  ")}
-                </p>
-              )}
-
-              <h1 className="font-display text-4xl md:text-6xl font-extrabold text-text
-                             tracking-tighter leading-tight mb-5">
-                {meta.title}
-              </h1>
-
-              {meta.tagline && (
-                <p className="text-lg md:text-xl text-text/60 font-medium leading-relaxed mb-8">
-                  {meta.tagline}
-                </p>
-              )}
-
-              {/* Meta block — Role, Timeline, Methods, Skills as a definition list */}
-              {(meta.role || meta.timeline || methods.length > 0 || tags.length > 0) && (
-                <dl className="border-t border-border">
-                  {meta.role && (
-                    <div className="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr] gap-4 py-4 border-b border-border">
-                      <dt className="text-[11px] font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
-                        {t("project.meta.role")}
-                      </dt>
-                      <dd className="text-sm text-text font-medium">{meta.role}</dd>
-                    </div>
-                  )}
-                  {meta.myContribution && <ContributionRow contribution={meta.myContribution} />}
-                  {meta.timeline && (
-                    <div className="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr] gap-4 py-4 border-b border-border">
-                      <dt className="text-[11px] font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
-                        {t("project.meta.timeline")}
-                      </dt>
-                      <dd className="font-mono text-sm text-text">{meta.timeline}</dd>
-                    </div>
-                  )}
-                  {methods.length > 0 && (
-                    <div className={`grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr] gap-4 py-4 ${tags.length > 0 ? "border-b border-border" : ""}`}>
-                      <dt className="text-[11px] font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
-                        {t("project.meta.methods")}
-                      </dt>
-                      <dd className="text-sm text-text tracking-wide leading-relaxed">
-                        {methods.map((m, i, arr) => (
-                          <span key={m}>
-                            <span className="font-medium text-text/70">{m}</span>
-                            {i < arr.length - 1 && <span className="mx-2 text-text/25">·</span>}
-                          </span>
-                        ))}
-                      </dd>
-                    </div>
-                  )}
-                  {tags.length > 0 && (
-                    <div className="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr] gap-4 py-4">
-                      <dt className="text-[11px] font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
-                        {t("project.meta.skills")}
-                      </dt>
-                      <dd className="flex flex-wrap gap-2">
-                        {tags.map((tag) => (
-                          <Link key={tag} to={`/tags/${encodeURIComponent(tag)}`}>
-                            <Badge tone="accent">{tag}</Badge>
-                          </Link>
-                        ))}
-                      </dd>
-                    </div>
-                  )}
-                </dl>
-              )}
-            </motion.header>
-
-            {/* Mobile pill bar */}
-            <MobilePillBar sections={activeSections} activeId={activeId} onNavigate={navigateToSection} />
-
-            <article className="min-w-0">
-
-            {meta.about && (
-              <ContentSection id="about" number={sectionNumber("about")}
-                isOpen={openSections.has("about")} onToggle={() => toggleSection("about")}
-                staggerDelayMs={staggerDelayFor("about")}
-                kicker={t("project.about.kicker")} heading={t("project.about.heading")}>
-                <p className="max-w-[68ch] text-[17px] leading-relaxed about-project text-text/90">
-                  {meta.about}
-                </p>
-              </ContentSection>
-            )}
-
-            {/* Process gallery — replaces hero image when present */}
-            {meta.process && meta.process.length > 0 ? (
-              <ProcessGallerySection items={meta.process} number={sectionNumber("process")}
-                isOpen={openSections.has("process")} onToggle={() => toggleSection("process")}
-                staggerDelayMs={staggerDelayFor("process")} />
-            ) : meta.heroImage && !hasHeroImage && (
-              <motion.div
-                className="photo-frame text-text w-full aspect-video bg-muted mb-16"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2, duration: 0.6 }}
+            <div className="flex-1 min-w-0 max-w-[1060px] md:border-l md:border-border md:pl-8 lg:pl-10">
+              {/* Header */}
+              {/* The header caps its reading measure at 720px, but the title
+                  is deliberately let out to the full content column: it has to
+                  hold one line whatever its length, and every extra pixel of
+                  width buys it type size. */}
+              <motion.header
+                className="mb-12"
+                initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: EASE }}
               >
-                <img src={meta.heroImage} alt={meta.title}
-                  className="w-full h-full object-cover contrast-110" />
-              </motion.div>
-            )}
+                {/* Live-stage chip */}
+                {meta.stage && (
+                  <div className="mb-4">
+                    <span className="inline-flex items-center gap-2 border border-border px-2.5 py-1">
+                      <span
+                        aria-hidden="true"
+                        className="w-1.5 h-1.5 rounded-full bg-primary-600"
+                      />
+                      <span className="text-2xs font-black uppercase tracking-[0.2em] text-primary-600">
+                        {meta.stage}
+                      </span>
+                    </span>
+                  </div>
+                )}
 
-            {meta.challenge && (
-              <ContentSection id="challenge" number={sectionNumber("challenge")}
-                isOpen={openSections.has("challenge")} onToggle={() => toggleSection("challenge")}
-                staggerDelayMs={staggerDelayFor("challenge")}
-                kicker={t("project.challenge.kicker")} heading={t("project.challenge.heading")}>
-                <Prose text={meta.challenge} rail>
-                  <SectionMedia items={meta.figures?.challenge} />
-                </Prose>
-              </ContentSection>
-            )}
+                <FitTitle className="font-display text-4xl md:text-6xl font-extrabold text-text
+                                     tracking-tighter leading-tight mb-5">
+                  {meta.title}
+                </FitTitle>
 
-            {meta.solution && (
-              <ContentSection id="solution" number={sectionNumber("solution")}
-                isOpen={openSections.has("solution")} onToggle={() => toggleSection("solution")}
-                staggerDelayMs={staggerDelayFor("solution")}
-                kicker={t("project.solution.kicker")} heading={t("project.solution.heading")}>
-                <Prose text={meta.solution} rail>
-                  <SectionMedia items={meta.figures?.solution} />
-                </Prose>
-              </ContentSection>
-            )}
-
-            {(meta.prototype || meta.prototypeUrl || (meta.figures?.prototype?.length > 0)) && (
-              <ContentSection id="prototype" number={sectionNumber("prototype")}
-                isOpen={openSections.has("prototype")} onToggle={() => toggleSection("prototype")}
-                staggerDelayMs={staggerDelayFor("prototype")}
-                kicker={t("project.prototype.kicker")} heading={t("project.prototype.heading")}>
-                {meta.prototype && (
-                  <p className="max-w-[68ch] text-[17px] leading-[1.7] text-text/90">
-                    {meta.prototype}
+                {meta.tagline && (
+                  <p className="max-w-[720px] text-lg md:text-xl text-text/60 font-medium leading-relaxed mb-8">
+                    {meta.tagline}
                   </p>
                 )}
 
-                {meta.prototypeUrl && (
-                  <PrototypeLink
-                    href={meta.prototypeUrl}
-                    label={meta.prototypeUrlLabel || t("project.prototype.openLink")}
-                  />
-                )}
-
-                <SectionMedia items={meta.figures?.prototype} />
-              </ContentSection>
-            )}
-
-            {meta.methodology && (
-              <ContentSection id="methodology" number={sectionNumber("methodology")}
-                isOpen={openSections.has("methodology")} onToggle={() => toggleSection("methodology")}
-                staggerDelayMs={staggerDelayFor("methodology")}
-                kicker={t("project.methodology.kicker")} heading={t("project.methodology.heading")}>
-                <Prose text={meta.methodology} rail>
-                  <SectionMedia items={meta.figures?.methodology} />
-                  {meta.techStack && meta.techStack.length > 0 && (
-                    <div className="mt-6 border-l-2 border-border pl-5">
-                      <span className="block font-mono text-2xs uppercase tracking-wider text-text-meta mb-2">
-                        {t("project.methodology.techStack")}
-                      </span>
-                      <div className="flex flex-wrap gap-x-5 gap-y-1.5">
-                        {meta.techStack.map((tech) => (
-                          <span key={tech} className="text-xs font-semibold text-text/60">{tech}</span>
-                        ))}
+                {/* Meta block — Role, Timeline, Skills. Runs the full content
+                    column rather than the 720px reading measure: its values are
+                    short labels and chips, and giving the skill tags the whole
+                    width lets them wrap into far fewer rows. The one long-form
+                    value in here, the contribution lists, keeps its own measure. */}
+                {(meta.role || meta.timeline || tags.length > 0) && (
+                  <dl className="border-t border-border">
+                    {meta.role && (
+                      <div className="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr] gap-4 py-4 border-b border-border">
+                        <dt className="text-[11px] font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
+                          {t("project.meta.role")}
+                        </dt>
+                        <dd className="text-sm text-text font-medium">{meta.role}</dd>
                       </div>
-                    </div>
-                  )}
-                </Prose>
-              </ContentSection>
-            )}
-
-            {meta.results && (
-              <ContentSection id="results" number={sectionNumber("results")}
-                isOpen={openSections.has("results")} onToggle={() => toggleSection("results")}
-                staggerDelayMs={staggerDelayFor("results")}
-                kicker={t("project.results.kicker")} heading={t("project.results.heading")}>
-                <div className={meta.verbatims?.length > 0 ? "xl:grid xl:grid-cols-[1fr_240px] xl:gap-10 items-start" : ""}>
-                  <div className="max-w-[68ch]">
-                    {meta.metrics?.some((m) => m.pending) && (
-                      <p className="mb-6 border-l-2 border-border pl-4 text-sm text-text-meta leading-relaxed">
-                        {t("project.results.pendingNotice")}
-                      </p>
                     )}
-                    <p className="text-[17px] leading-[1.7] text-text/90">
-                      {meta.results}
+                    {meta.myContribution && <ContributionRow contribution={meta.myContribution} />}
+                    {meta.timeline && (
+                      <div className={`grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr] gap-4 py-4 ${tags.length > 0 ? "border-b border-border" : ""}`}>
+                        <dt className="text-[11px] font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
+                          {t("project.meta.timeline")}
+                        </dt>
+                        <dd className="font-mono text-sm text-text">{meta.timeline}</dd>
+                      </div>
+                    )}
+                    {tags.length > 0 && (
+                      <div className="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr] gap-4 py-4">
+                        <dt className="text-[11px] font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
+                          {t("project.meta.skills")}
+                        </dt>
+                        <dd className="flex flex-wrap gap-2">
+                          {tags.map((tag) => (
+                            <Link key={tag} to={`/tags/${encodeURIComponent(tag)}`}>
+                              <Badge tone="accent">{tag}</Badge>
+                            </Link>
+                          ))}
+                        </dd>
+                      </div>
+                    )}
+                  </dl>
+                )}
+              </motion.header>
+
+              {/* Mobile pill bar */}
+              <MobilePillBar sections={activeSections} activeId={activeId} onNavigate={navigateToSection} />
+
+              <article className="min-w-0">
+
+              {meta.about && (
+                <ContentSection id="about" number={sectionNumber("about")}
+                  isOpen={openSections.has("about")} onToggle={() => toggleSection("about")}
+                  staggerDelayMs={staggerDelayFor("about")}
+                  kicker={t("project.about.kicker")} heading={t("project.about.heading")}>
+                  <ClampedText className="max-w-[68ch]">
+                    <p className="text-[17px] leading-relaxed about-project text-text/90">
+                      {meta.about}
                     </p>
-                    <SectionMedia items={meta.figures?.results} />
+                  </ClampedText>
+                </ContentSection>
+              )}
 
-                    <MetricsStrip metrics={meta.metrics} />
+              {!(meta.process && meta.process.length > 0) && meta.heroImage && !hasHeroImage && (
+                <motion.div
+                  className="photo-frame text-text w-full aspect-video bg-muted mb-16"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.2, duration: 0.6 }}
+                >
+                  <img src={meta.heroImage} alt={meta.title}
+                    className="w-full h-full object-cover contrast-110" />
+                </motion.div>
+              )}
 
-                    <VerbatimInline verbatims={meta.verbatims} />
+              {meta.challenge && (
+                <ContentSection id="challenge" number={sectionNumber("challenge")}
+                  isOpen={openSections.has("challenge")} onToggle={() => toggleSection("challenge")}
+                  staggerDelayMs={staggerDelayFor("challenge")}
+                  kicker={t("project.challenge.kicker")} heading={t("project.challenge.heading")}>
+                  <Prose text={meta.challenge} rail>
+                    <SectionMedia items={meta.figures?.challenge} />
+                  </Prose>
+                </ContentSection>
+              )}
+
+              {meta.solution && (
+                <ContentSection id="solution" number={sectionNumber("solution")}
+                  isOpen={openSections.has("solution")} onToggle={() => toggleSection("solution")}
+                  staggerDelayMs={staggerDelayFor("solution")}
+                  kicker={t("project.solution.kicker")} heading={t("project.solution.heading")}>
+                  <Prose text={meta.solution} rail>
+                    <SectionMedia items={meta.figures?.solution} />
+                  </Prose>
+                </ContentSection>
+              )}
+
+              {(meta.prototype || meta.prototypeUrl || (meta.figures?.prototype?.length > 0)) && (
+                <ContentSection id="prototype" number={sectionNumber("prototype")}
+                  isOpen={openSections.has("prototype")} onToggle={() => toggleSection("prototype")}
+                  staggerDelayMs={staggerDelayFor("prototype")}
+                  kicker={t("project.prototype.kicker")} heading={t("project.prototype.heading")}>
+                  {meta.prototype && (
+                    <ClampedText className="max-w-[68ch]">
+                      <p className="text-[17px] leading-[1.7] text-text/90">
+                        {meta.prototype}
+                      </p>
+                    </ClampedText>
+                  )}
+
+                  {meta.prototypeUrl && (
+                    <PrototypeLink
+                      href={meta.prototypeUrl}
+                      label={meta.prototypeUrlLabel || t("project.prototype.openLink")}
+                    />
+                  )}
+
+                  <SectionMedia items={meta.figures?.prototype} />
+                </ContentSection>
+              )}
+
+              {meta.methodology && (
+                <ContentSection id="methodology" number={sectionNumber("methodology")}
+                  isOpen={openSections.has("methodology")} onToggle={() => toggleSection("methodology")}
+                  staggerDelayMs={staggerDelayFor("methodology")}
+                  kicker={t("project.methodology.kicker")} heading={t("project.methodology.heading")}>
+                  <Prose text={meta.methodology} rail>
+                    <SectionMedia items={meta.figures?.methodology} />
+                    
+                    {/* Research Methods and Tech Stack relocated here side by side */}
+                    {((methods && methods.length > 0) || (meta.techStack && meta.techStack.length > 0)) && (
+                      <div className="mt-8 flex flex-col gap-6 border-l-2 border-border pl-5">
+                        
+                        {/* Research Methods */}
+                        {methods && methods.length > 0 && (
+                          <div>
+                            <span className="block font-mono text-2xs uppercase tracking-wider text-text-meta mb-2">
+                              {t("project.meta.methods")}
+                            </span>
+                            <div className="text-sm text-text/80 tracking-wide leading-relaxed">
+                              {methods.map((m, i, arr) => (
+                                <span key={m}>
+                                  <span className="font-medium text-text/70">{m}</span>
+                                  {i < arr.length - 1 && <span className="mx-2 text-text/25">·</span>}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        
+                        {/* Tech Stack */}
+                        {meta.techStack && meta.techStack.length > 0 && (
+                          <div>
+                            <span className="block font-mono text-2xs uppercase tracking-wider text-text-meta mb-2">
+                              {t("project.methodology.techStack")}
+                            </span>
+                            <div className="text-sm text-text/80 tracking-wide leading-relaxed">
+                              {meta.techStack.map((tech, i, arr) => (
+                                <span key={tech}>
+                                  <span className="font-medium text-text/70">{tech}</span>
+                                  {i < arr.length - 1 && <span className="mx-2 text-text/25">·</span>}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        
+                      </div>
+                    )}
+
+                  </Prose>
+                </ContentSection>
+              )}
+
+              {meta.results && (
+                <ContentSection id="results" number={sectionNumber("results")}
+                  isOpen={openSections.has("results")} onToggle={() => toggleSection("results")}
+                  staggerDelayMs={staggerDelayFor("results")}
+                  kicker={t("project.results.kicker")} heading={t("project.results.heading")}>
+                  {/* A project still in flight can set `resultsDetail: false` to
+                      state that plainly without the metrics strip and participant
+                      quotes contradicting it. `metrics` stays in the data either
+                      way — the project card reads it for "Impact at a glance". */}
+                  <div className={showResultsDetail && meta.verbatims?.length > 0 ? "xl:grid xl:grid-cols-[1fr_240px] xl:gap-10 items-start" : ""}>
+                    <div className="max-w-[68ch]">
+                      {showResultsDetail && meta.metrics?.some((m) => m.pending) && (
+                        <p className="mb-6 border-l-2 border-border pl-4 text-sm text-text-meta leading-relaxed">
+                          {t("project.results.pendingNotice")}
+                        </p>
+                      )}
+                      <ClampedText>
+                        <p className="text-[17px] leading-[1.7] text-text/90">
+                          {meta.results}
+                        </p>
+                      </ClampedText>
+                      <SectionMedia items={meta.figures?.results} />
+
+                      {showResultsDetail && (
+                        <>
+                          <MetricsStrip metrics={meta.metrics} />
+
+                          <VerbatimInline verbatims={meta.verbatims} />
+                        </>
+                      )}
+                    </div>
+                    {showResultsDetail && <VerbatimRail verbatims={meta.verbatims} />}
                   </div>
-                  <VerbatimRail verbatims={meta.verbatims} />
-                </div>
-              </ContentSection>
-            )}
+                </ContentSection>
+              )}
 
-            {meta.outcome?.body && (
-              <OutcomeSection
-                outcome={meta.outcome}
-                number={sectionNumber("outcome")}
-                isOpen={openSections.has("outcome")}
-                onToggle={() => toggleSection("outcome")}
-                staggerDelayMs={staggerDelayFor("outcome")}
-              />
-            )}
+              {meta.outcome?.body && (
+                <OutcomeSection
+                  outcome={meta.outcome}
+                  number={sectionNumber("outcome")}
+                  isOpen={openSections.has("outcome")}
+                  onToggle={() => toggleSection("outcome")}
+                  staggerDelayMs={staggerDelayFor("outcome")}
+                />
+              )}
 
-            {meta.implications && (
-              <ContentSection id="implications" number={sectionNumber("implications")}
-                isOpen={openSections.has("implications")} onToggle={() => toggleSection("implications")}
-                staggerDelayMs={staggerDelayFor("implications")}
-                kicker={t("project.implications.kicker")} heading={t("project.implications.heading")}>
-                <p className="max-w-[68ch] text-[17px] leading-[1.7] text-text/90">
-                  {meta.implications}
-                </p>
-              </ContentSection>
-            )}
+              {meta.implications && (
+                <ContentSection id="implications" number={sectionNumber("implications")}
+                  isOpen={openSections.has("implications")} onToggle={() => toggleSection("implications")}
+                  staggerDelayMs={staggerDelayFor("implications")}
+                  kicker={t("project.implications.kicker")} heading={t("project.implications.heading")}>
+                  <ClampedText className="max-w-[68ch]">
+                    <p className="text-[17px] leading-[1.7] text-text/90">
+                      {meta.implications}
+                    </p>
+                  </ClampedText>
+                </ContentSection>
+              )}
 
-            {meta.phases && meta.phases.length > 0 && (
-              <ResearchPhases
-                phases={meta.phases}
-                intro={meta.phasesIntro}
-                number={sectionNumber("phases")}
-                isOpen={openSections.has("phases")}
-                onToggle={() => toggleSection("phases")}
-                staggerDelayMs={staggerDelayFor("phases")}
-              />
-            )}
+              {meta.phases && meta.phases.length > 0 && (
+                <ResearchPhases
+                  phases={meta.phases}
+                  intro={meta.phasesIntro}
+                  number={sectionNumber("phases")}
+                  isOpen={openSections.has("phases")}
+                  onToggle={() => toggleSection("phases")}
+                  staggerDelayMs={staggerDelayFor("phases")}
+                />
+              )}
 
-            {meta.conclusion && (
-              <ContentSection id="conclusion" number={sectionNumber("conclusion")}
-                isOpen={openSections.has("conclusion")} onToggle={() => toggleSection("conclusion")}
-                staggerDelayMs={staggerDelayFor("conclusion")}
-                kicker={t("project.conclusion.kicker")} heading={t("project.conclusion.heading")}>
-                <SectionMedia items={meta.conclusion} />
-              </ContentSection>
-            )}
+              {meta.conclusion && (
+                <ContentSection id="conclusion" number={sectionNumber("conclusion")}
+                  isOpen={openSections.has("conclusion")} onToggle={() => toggleSection("conclusion")}
+                  staggerDelayMs={staggerDelayFor("conclusion")}
+                  kicker={t("project.conclusion.kicker")} heading={t("project.conclusion.heading")}>
+                  <SectionMedia items={meta.conclusion} />
+                </ContentSection>
+              )}
 
-            {/* Escape hatch for per-project custom content */}
-            {children}
+              {/* Escape hatch for per-project custom content */}
+              {children}
 
-            {/* Prev / next — lateral navigation instead of a dead end */}
-            {(prevProject || nextProject) && (
-              <nav
-                aria-label={t("project.nav.label")}
-                className="pt-10 mt-10 border-t border-border grid grid-cols-1 sm:grid-cols-2 gap-4"
-              >
-                {prevProject ? <ProjectNavCard project={prevProject} direction="prev" /> : <div aria-hidden="true" />}
-                {nextProject && <ProjectNavCard project={nextProject} direction="next" />}
-              </nav>
-            )}
+              {/* Prev / next — lateral navigation instead of a dead end */}
+              {(prevProject || nextProject) && (
+                <nav
+                  aria-label={t("project.nav.label")}
+                  className="pt-10 mt-10 border-t border-border grid grid-cols-1 sm:grid-cols-2 gap-4"
+                >
+                  {prevProject ? <ProjectNavCard project={prevProject} direction="prev" /> : <div aria-hidden="true" />}
+                  {nextProject && <ProjectNavCard project={nextProject} direction="next" />}
+                </nav>
+              )}
 
-            {/* Footer back link */}
-            <div className="pt-10 border-t border-border">
-              <Link
-                to="/projects"
-                className="inline-flex items-center gap-2 text-2xs font-black uppercase
-                           tracking-[0.2em] text-text-meta hover:text-primary-600
-                           transition-colors duration-200 group"
-              >
-                <svg className="w-3.5 h-3.5 transform group-hover:-translate-x-0.5 transition-transform"
-                  fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                {t("project.footer.back")}
-              </Link>
+              {/* Footer back link */}
+              <div className="pt-10 border-t border-border">
+                <Link
+                  to="/projects"
+                  className="inline-flex items-center gap-2 text-2xs font-black uppercase
+                             tracking-[0.2em] text-text-meta hover:text-primary-600
+                             transition-colors duration-200 group"
+                >
+                  <svg className="w-3.5 h-3.5 transform group-hover:-translate-x-0.5 transition-transform"
+                    fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                  </svg>
+                  {t("project.footer.back")}
+                </Link>
+              </div>
+
+              </article>
             </div>
-
-            </article>
           </div>
         </div>
       </div>
