@@ -1,4 +1,5 @@
 {
+  "cleanUrls": true,
   "redirects": [
     { "source": "/projects/project-1", "destination": "/projects/gaze-assisted-input", "permanent": true },
     { "source": "/projects/project-2", "destination": "/projects/deskbird-hybrid-work", "permanent": true },

@@ -61,6 +61,12 @@ const de = {
   "about.career.group.build": "Umsetzung",
 
   // Research process
+  // Double Diamond — der Rahmen, in dem die vier Prozessschritte unten stehen
+  "about.doubleDiamond.intro": "Als UX Engineer ist das Double Diamond meine liebste Arbeitsweise: divergieren, um zu verstehen, konvergieren, um zu entscheiden — und das zweimal. Der erste Diamant hält mich lange genug im Problemraum, um das richtige Problem zu formulieren; der zweite macht daraus etwas Gebautes, Getestetes und Messbares.",
+  "about.doubleDiamond.intro2": "Was ich daran schätze, ist die Disziplin, die er erzwingt — nie zu früh konvergieren und nie für ein Problem gestalten, das niemand validiert hat. Zwischen Forschung und Entwicklung darf ich beide Diamanten selbst durchlaufen: die Studien, die entscheiden, was gebaut wird, und den Code, der zeigt, dass es trägt.",
+  "about.doubleDiamond.caption": "Das Double Diamond, geprägt vom British Design Council. Die verschlungene Linie ist der ehrliche Teil — Discovery verläuft nie geradlinig.",
+  "about.doubleDiamond.alt": "Handgezeichnetes Double-Diamond-Diagramm: zwei Rauten mit den Beschriftungen Discover, Define, Develop und Deliver; eine Linie schlängelt sich durch die erste Raute und wird auf dem Weg zur Auslieferung gerade.",
+
   "about.process.discover.title": "Entdecken",
   "about.process.discover.desc": "Stakeholder-Interviews, Kontextbefragungen und Desk Research, um das richtige Problem zu formulieren, bevor eine Lösung in Betracht gezogen wird.",
   "about.process.define.title": "Definieren",
@@ -118,6 +124,7 @@ const de = {
   // Common
   "common.backToPortfolio": "← Zurück zum Portfolio",
   "common.readMore": "Weiterlesen",
+  "common.readLess": "Weniger anzeigen",
   "common.language": "Sprache",
   "common.skipToContent": "Zum Hauptinhalt springen",
 
@@ -257,6 +264,8 @@ const de = {
   "project.media.enlargedDefault": "Vergrößerte Abbildung",
   "project.media.clickToEnlarge": "zum Vergrößern klicken",
   "project.media.whatItShows": "Was das zeigt",
+  "project.media.openFullPage": "Ganze Seite öffnen",
+  "project.media.opensNewTab": "öffnet das vollständige Dokument in einem neuen Tab",
 
   // Zeugnisse & Zertifikate
   "credentials.heading": "Zeugnisse & Zertifikate",

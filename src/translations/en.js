@@ -63,6 +63,12 @@ const en = {
   "about.career.group.research": "Research",
   "about.career.group.build": "Build",
 
+  // Double Diamond — the frame the four process steps below sit inside
+  "about.doubleDiamond.intro": "As a UX Engineer, the Double Diamond is my favourite way to work: diverge to understand, converge to decide — twice over. The first diamond keeps me in the problem long enough to frame the right one; the second turns that frame into something built, tested, and measured.",
+  "about.doubleDiamond.intro2": "What I value is the discipline it enforces — never converging too early, and never designing for a problem nobody validated. Working across research and engineering, I get to walk both diamonds: the studies that decide what to build, and the code that proves it holds up.",
+  "about.doubleDiamond.caption": "The Double Diamond, as framed by the British Design Council. The tangled line is the honest part — discovery is never a straight path.",
+  "about.doubleDiamond.alt": "Hand-drawn Double Diamond diagram: two diamonds labelled Discover, Define, Develop and Deliver, with a line that loops and wanders through the first diamond, then straightens out on its way to delivery.",
+
   // Research process
   "about.process.discover.title": "Discover",
   "about.process.discover.desc": "Stakeholder interviews, contextual inquiry, and desk research to frame the right problem before any solution is considered.",
@@ -121,6 +127,7 @@ const en = {
   // Common
   "common.backToPortfolio": "← Back to Portfolio",
   "common.readMore": "Read More",
+  "common.readLess": "Read Less",
   "common.language": "Language",
   "common.skipToContent": "Skip to main content",
 
@@ -260,6 +267,8 @@ const en = {
   "project.media.enlargedDefault": "Enlarged figure",
   "project.media.clickToEnlarge": "click to enlarge",
   "project.media.whatItShows": "What it shows",
+  "project.media.openFullPage": "Open full page",
+  "project.media.opensNewTab": "opens the full document in a new tab",
 
   // Credentials
   "credentials.heading": "Credentials",
