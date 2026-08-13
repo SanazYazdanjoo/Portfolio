@@ -108,7 +108,7 @@ export function StackedProjectCard({ project, index }) {
                   without one out of baseline alignment with rows that have it. */}
               <div className="flex items-start gap-3 flex-wrap">
                 <h2
-                  className="font-display font-extrabold text-2xl md:text-3xl
+                  className="font-display font-extrabold text-lg md:text-xl
                              tracking-[-0.01em] uppercase leading-tight text-text
                              line-clamp-2 transition-colors duration-300 group-hover:text-primary-600"
                 >

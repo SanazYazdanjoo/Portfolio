@@ -94,10 +94,13 @@ export function Hero({ data }) {
 
       {/* Tagline: the one gold-highlighter moment on this page. The sweep
           fires once, timed to start just after the tagline itself settles
-          (delay 0.32 + entrance duration 0.4 ≈ 0.72s). */}
+          (delay 0.32 + entrance duration 0.4 ≈ 0.72s). Type deliberately
+          mirrors the role badge above (font-hand, 2xl/3xl) so the two
+          handwritten notes read as the same voice. */}
       <motion.p
         {...fadeUp(0.32)}
-        className="type-tagline hero-tagline max-w-2xl mt-4 md:mt-5"
+        className="hero-tagline max-w-2xl mt-4 md:mt-5
+                   font-hand font-bold text-2xl md:text-3xl leading-[1.15]"
       >
         <InkHighlight triggerOnLoad delay={0.75} duration={0.4}>
           {data.tagline || "I speak both ‘user’ and ‘developer’."}

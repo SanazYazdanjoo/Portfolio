@@ -11,7 +11,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { projects } from "../data/projects";
+import { sortedProjects } from "../data/projects";
 import { ProjectListRow } from "../components/ProjectListRow";
 import { ProjectTile } from "../components/ProjectTile";
 import { ComingSoonRow } from "../components/ComingSoonRow";
@@ -59,7 +59,7 @@ function ViewToggleButton({ active, onClick, icon, label }) {
 
 export default function Projects() {
   const { t } = useTranslation();
-  const localizedProjects = useLocalizedProfile(projects);
+  const localizedProjects = useLocalizedProfile(sortedProjects);
   const [view, setView] = useState(readStoredView);
   const profileData = useLocalizedProfile(rawProfile);
 
@@ -76,12 +76,15 @@ export default function Projects() {
     }
   }, [view]);
 
-  // Same split as Home — one rule, two pages
-  const published  = localizedProjects.filter((p) => p.status === "published");
-  const inProgress = localizedProjects.filter((p) => p.status === "in-progress");
+  // Same split as Home — one rule, two pages. Order comes from
+  // sortedProjects (each project's `order` field), NOT from re-grouping by
+  // status here: a live in-progress case study with order:1 must be able to
+  // lead the list. Only coming-soon is split out, because it renders a
+  // different row component.
+  const live       = localizedProjects.filter((p) => p.status !== "coming-soon");
   const comingSoon = localizedProjects.filter((p) => p.status === "coming-soon");
-  const hasAnyProjects = published.length > 0 || inProgress.length > 0 || comingSoon.length > 0;
-  const allForGrid = [...published, ...inProgress, ...comingSoon];
+  const hasAnyProjects = live.length > 0 || comingSoon.length > 0;
+  const allForGrid = localizedProjects; // already ordered, coming-soon last
 
   return (
     <main className="min-h-screen pt-20 md:pt-24 pb-8 relative overflow-hidden bg-transparent">
@@ -143,25 +146,18 @@ export default function Projects() {
                 transition={{ duration: 0.25, ease: EASE }}
                 className="relative flex flex-col -mx-4 md:-mx-8 border-b border-border"
               >
-                {published.map((project, index) => (
+                {live.map((project, index) => (
                   <ProjectListRow
                     key={project.id || index}
                     project={project}
                     index={index}
                   />
                 ))}
-                {inProgress.map((project, i) => (
-                  <ProjectListRow
-                    key={project.id || `wip-${i}`}
-                    project={project}
-                    index={published.length + i}
-                  />
-                ))}
                 {comingSoon.map((project, i) => (
                   <ComingSoonRow
                     key={project.id || `soon-${i}`}
                     project={project}
-                    index={published.length + inProgress.length + i}
+                    index={live.length + i}
                   />
                 ))}
               </motion.div>

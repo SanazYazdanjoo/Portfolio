@@ -68,10 +68,14 @@ export const projects = Object.entries(modules)
   .filter(Boolean)
   .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
 
-/** Homepage order: published first (by `order`), then in-progress, coming-soon sinks. */
+/**
+ * Homepage order: everything with a real detail page (published *and*
+ * in-progress) shares one `order`-sorted group, so a live in-progress case
+ * study can lead the grid. Only "coming-soon" — which has nothing to link
+ * to — sinks to the end.
+ */
 export const sortedProjects = [
-  ...projects.filter((p) => p.status === "published"),
-  ...projects.filter((p) => p.status === "in-progress"),
+  ...projects.filter((p) => p.status === "published" || p.status === "in-progress"),
   ...projects.filter((p) => p.status === "coming-soon"),
 ];
 

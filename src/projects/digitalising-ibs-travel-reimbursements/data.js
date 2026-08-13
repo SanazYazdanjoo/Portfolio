@@ -2,14 +2,27 @@
 // 5W1H, Stakeholders, Overview UML, Detailed UML, Current Problems, Persona,
 // Information Architecture, Design System, README/DECISIONS/REQUIREMENTS.
 //
-// ⚠️ Phase 4 (evaluation) has not completed. Nothing in `metrics` or `results`
-// claims an outcome. Anything not yet evidenced is marked TODO and left null.
+// ⚠️ The prototype is still in development. Neither `results` nor `outcome`
+// claims anything — both read "Work in Progress" until there is evidence to
+// replace them with. Anything not yet evidenced is marked TODO and left null.
 //
 // Process screenshots: staff names in the source decks were replaced with
 // demo names before export (2026-08-13). Personas are composites, not
 // portraits of individuals.
 import thumbnailImg from './Project-4.png';
 import thumbnailWebp from './Project-4.webp';
+import umlPreview from './UML-preview.png';
+import personaPreview from './Persona-preview.png';
+import designSystemSheet from './IBS-Design-System.png';
+
+// The two research artefacts are full standalone documents — a nine-lane
+// activity diagram and a seven-card persona set — too detailed to read at
+// figure size. Each renders here as a preview that opens the real page in a
+// new tab. The pages themselves live in public/ (files under src/ are
+// bundled, not served) and keep the folder names they were authored under:
+//   public/projects/digitalising-ibs-travel-reimbursements/UML/Detailed-UML.html
+//   public/projects/digitalising-ibs-travel-reimbursements/Personas/Persona.html
+const DOCS = '/projects/digitalising-ibs-travel-reimbursements';
 
 export const projectData = {
   id: 'digitalising-ibs-travel-reimbursements',
@@ -23,10 +36,6 @@ export const projectData = {
   subtitle: {
     en: 'Digitalizing a nine-actor, paper-heavy reimbursement workflow',
     de: 'Digitalisierung eines papierlastigen Erstattungsprozesses mit neun Akteuren',
-  },
-  tagline: {
-    en: 'Nineteen documented failures, seven personas each carrying its own confidence rating, and a requirement trail that a build-time test refuses to let me break. Then I built the thing.',
-    de: 'Neunzehn dokumentierte Schwachstellen, sieben Personas mit jeweils eigener Konfidenzangabe, und eine Anforderungsspur, die ein Build-Time-Test nicht brechen lässt. Dann habe ich es gebaut.',
   },
   role: {
     en: 'Solo — UX Research, UI Design, and Frontend Development',
@@ -106,73 +115,104 @@ export const projectData = {
     de: 'Phase 1 begann mit Insider-Praxis statt einem Reißbrett-Briefing: Ich kannte den Ablauf bereits von innen, die erste Aufgabe war also, dieses Wissen falsifizierbar zu machen. Ich rekonstruierte den IST-Prozess als Swimlane-Aktivitätsdiagramme, rahmte den Problemraum mit 5W1H, kartierte neun Stakeholder und clusterte neunzehn beobachtete Probleme zu fünf strukturellen Themen. Ein Validierungsinterview mit einer unabhängigen Fachperson bestätigte die vollständige Fehlermenge. Phase 2 verwandelte die geclusterten Probleme in nummerierte Anforderungen, eine rollenbasierte Sitemap, eine Antrags-Zustandsmaschine und das "IBS-DesignSystem": eine neunfarbige Rollenpalette, konsistent von den Forschungsdiagrammen bis zur ausgelieferten UI getragen, sodass eine Spurfarbe im Aktivitätsdiagramm dasselbe bedeutet wie eine Badge-Farbe in der App. Phase 3 baute es, mit den Berechnungsregeln als reinem, unit-getestetem TypeScript statt in Komponenten vergrabener Logik. Phase 4 — eine aufgabenbasierte Evaluation mit echten Prüfenden in jeder der fünf Rollen — läuft jetzt.',
   },
 
+  // The prototype is still being built, so there are no findings to report yet.
+  // Both this section and `outcome` below stand at "Work in Progress" until
+  // there is something evidenced to put in them. `resultsDetail: false` keeps
+  // the Study-at-a-Glance strip and the participant quotes out of the section
+  // while it says that — `metrics` and `verbatims` stay in the file because the
+  // project card's "Impact at a glance" reads them.
   results: {
-    en: 'The prototype is functional across all five roles and covered by 158 tests, with a build-time check that fails if any requirement cited in code has no traceable acceptance criterion. Two screens remain explicit, labelled placeholders rather than hidden gaps. Evaluation has not concluded, so there are no outcome metrics yet, and this case study will not claim any until there are. What the work has already produced is a decision record: the settled reading of the attendance-legend rule, and the reason the digital-signature path stays blocked pending a Data Protection Officer ruling.',
-    de: 'Der Prototyp ist über alle fünf Rollen hinweg funktionsfähig und durch 158 Tests abgedeckt, mit einer Build-Time-Prüfung, die fehlschlägt, wenn eine im Code zitierte Anforderung kein nachvollziehbares Akzeptanzkriterium hat. Zwei Bildschirme bleiben explizit gekennzeichnete Platzhalter statt verborgene Lücken. Die Evaluation ist nicht abgeschlossen, es gibt also noch keine Ergebnismetriken, und diese Fallstudie wird keine behaupten, bevor es welche gibt. Was die Arbeit bereits hervorgebracht hat, ist ein Entscheidungsprotokoll: die verbindliche Lesart der Anwesenheitslegenden-Regel und der Grund, warum der digitale-Signatur-Pfad bis zu einer Entscheidung der Datenschutzbeauftragten blockiert bleibt.',
+    en: 'Work in Progress',
+    de: 'In Arbeit',
+  },
+  resultsDetail: false,
+
+  figures: {
+    challenge: [
+      {
+        type: 'image',
+        src: umlPreview,
+        href: `${DOCS}/UML/Detailed-UML.html`,
+        span: 2,
+        className: 'w-full h-auto block',
+        label: { en: 'Activity diagram · AS-IS', de: 'Aktivitätsdiagramm · IST-Zustand' },
+        title: {
+          en: 'The thirteen-step claim, mapped across nine lanes',
+          de: 'Der dreizehnstufige Antrag, über neun Spuren kartiert',
+        },
+        description: {
+          en: 'One monthly cycle, end to end. The left half is the collection and calculation work the Admin carries alone; the right half is the approval chain that only starts once the paper packet has been scanned. Grey arrows are hand-offs, red arrows are return loops.',
+          de: 'Ein Monatszyklus, durchgängig. Die linke Hälfte ist die Sammel- und Berechnungsarbeit, die die Verwaltung allein trägt; die rechte Hälfte ist die Genehmigungskette, die erst beginnt, wenn das Papierpaket gescannt ist. Graue Pfeile sind Übergaben, rote Pfeile Rückschleifen.',
+        },
+        alt: {
+          en: 'Swimlane activity diagram of the AS-IS reimbursement process across nine actor lanes, with hand-off and return arrows',
+          de: 'Swimlane-Aktivitätsdiagramm des IST-Erstattungsprozesses über neun Akteursspuren, mit Übergabe- und Rückschleifenpfeilen',
+        },
+        caption: {
+          en: 'AS-IS swimlane activity diagram — preview',
+          de: 'IST-Swimlane-Aktivitätsdiagramm — Vorschau',
+        },
+        linkLabel: { en: 'Open the diagram', de: 'Diagramm öffnen' },
+      },
+    ],
+    methodology: [
+      {
+        type: 'image',
+        src: personaPreview,
+        href: `${DOCS}/Personas/Persona.html`,
+        span: 2,
+        className: 'w-full h-auto block',
+        label: { en: 'Personas · provenance-labelled', de: 'Personas · mit Herkunftskennzeichnung' },
+        title: {
+          en: 'Seven personas, each carrying its own evidence',
+          de: 'Sieben Personas, jede mit eigener Evidenz',
+        },
+        description: {
+          en: 'One composite per role across the nine mapped actors — administration, participants, lecturer, approvers, finance. Each card pairs the role with a verbatim from the research and states where that reading came from, so a composite is never mistaken for a portrait of an individual.',
+          de: 'Eine Komposit-Persona je Rolle über die neun kartierten Akteure — Verwaltung, Teilnehmende, Dozent, Genehmigende, Finanzen. Jede Karte verbindet die Rolle mit einem Originalzitat aus der Forschung und benennt die Herkunft dieser Lesart, damit ein Komposit nie für das Porträt einer einzelnen Person gehalten wird.',
+        },
+        alt: {
+          en: 'Persona set: seven cards, each with a role, an icon and a verbatim quote',
+          de: 'Persona-Set: sieben Karten, jeweils mit Rolle, Icon und Originalzitat',
+        },
+        caption: { en: 'Persona set — preview', de: 'Persona-Set — Vorschau' },
+        linkLabel: { en: 'Open the personas', de: 'Personas öffnen' },
+      },
+      // The Phase 2 artefact the methodology text names. It sits here rather
+      // than under `solution` because the point is not how the app looks — it
+      // is that the nine lane colours from the AS-IS activity diagram became
+      // the app's role palette unchanged, so the research and the build read
+      // as one system.
+      {
+        type: 'image',
+        src: designSystemSheet,
+        span: 2,
+        className: 'w-full h-auto block',
+        label: { en: 'Design system · Phase 2', de: 'Designsystem · Phase 2' },
+        title: {
+          en: 'One palette, from swimlane to shipped screen',
+          de: 'Eine Palette, von der Swimlane bis zum ausgelieferten Screen',
+        },
+        description: {
+          en: 'The IBS-DesignSystem sheet: brand colours, the nine-lane role palette, note states, the type scale, buttons and status chips, the activity-box connector, and form-field states. The nine role colours are the same nine lane colours used in the AS-IS activity diagram — so a lane in the research reads as the same actor as a badge in the app, and nothing has to be re-learned between the two.',
+          de: 'Das IBS-DesignSystem-Blatt: Markenfarben, die neunfarbige Rollenpalette, Notizzustände, die Typo-Skala, Buttons und Status-Chips, der Aktivitätsbox-Konnektor und Formularfeld-Zustände. Die neun Rollenfarben sind dieselben neun Spurfarben des IST-Aktivitätsdiagramms — eine Spur in der Forschung steht damit für denselben Akteur wie ein Badge in der App, und zwischen beiden muss nichts neu gelernt werden.',
+        },
+        alt: {
+          en: 'IBS design system sheet: brand colour swatches, a nine-colour role palette labelled by actor, note-state boxes, type scale, buttons and status chips, an activity box with connector, and form-field states',
+          de: 'IBS-Designsystem-Blatt: Markenfarbfelder, eine neunfarbige, nach Akteur beschriftete Rollenpalette, Notizzustands-Boxen, Typo-Skala, Buttons und Status-Chips, eine Aktivitätsbox mit Konnektor sowie Formularfeld-Zustände',
+        },
+        caption: {
+          en: 'IBS-DesignSystem — tokens, role palette, and components',
+          de: 'IBS-DesignSystem — Tokens, Rollenpalette und Komponenten',
+        },
+      },
+    ],
   },
 
-  // Process gallery streamlined into the 4-phase Double Diamond structure
-  process: [
+
+  About: [
     {
-      imagePath: '/projects/digitalising-ibs-travel-reimbursements/my-double-diamond-approach.png', 
-      
-      phase: 'discover',
-      type: { en: 'Context & Observation', de: 'Kontext & Beobachtung' },
-      title: { en: 'DISCOVER: Mapping the AS-IS state', de: 'DISCOVER: Kartierung des IST-Zustands' },
-      annotation: {
-        en: 'Mapped the AS-IS state through 5W1H bounding, stakeholder interviews, and detailed swimlane activity diagrams to expose the bottlenecks in the existing thirteen-step manual reimbursement loop.',
-        de: 'Kartierung des IST-Zustands durch 5W1H-Eingrenzung, Stakeholder-Interviews und detaillierte Swimlane-Aktivitätsdiagramme, um die Engpässe in der bestehenden dreizehnstufigen manuellen Erstattungsschleife aufzudecken.',
-      },
-      insight: {
-        en: 'The WHERE lens did the most work: claims arrive through cloud, e-mail, and paper, but only cloud uploads leave a traceable record. The channel — not the paperwork — was the barrier.',
-        de: 'Die WO-Perspektive leistete die meiste Arbeit: Anträge kommen über Cloud, E-Mail und Papier an, aber nur Cloud-Uploads hinterlassen eine nachvollziehbare Spur. Der Kanal — nicht der Papierkram — war die Barriere.',
-      },
-  
-      interactiveDiagram: {
-        previewPath: '/projects/digitalising-ibs-travel-reimbursements/uml-preview-crop.png',
-        livePath: '/projects/digitalising-ibs-travel-reimbursements/detailed-uml.html',
-        label: { en: 'Open Interactive UML ↗', de: 'Interaktives UML öffnen ↗' }
-      }
-    },
-    {
-      phase: 'define',
-      type: { en: 'Synthesis & Traceability', de: 'Synthese & Traceability' },
-      title: { en: 'DEFINE: Translating failures into requirements', de: 'DEFINE: Übersetzung von Fehlern in Anforderungen' },
-      annotation: {
-        en: 'Clustered nineteen observed failures into five core themes using reflexive thematic analysis. Developed confidence-rated personas and translated every observed problem into a strict, numbered technical requirement.',
-        de: 'Neunzehn beobachtete Fehler wurden mittels reflexiver thematischer Analyse in fünf Kernthemen geclustert. Entwicklung konfidenzbewerteter Personas und Übersetzung jedes beobachteten Problems in eine strikte, nummerierte technische Anforderung.',
-      },
-      insight: {
-        en: 'This meant no requirement could quietly drift out of the codebase, and any reviewer can walk backwards from a function to the participant whose problem justified it.',
-        de: 'Das bedeutete, dass keine Anforderung unbemerkt aus der Codebasis driften konnte, und jede prüfende Person von einer Funktion zurück zur Teilnehmerin gehen kann, deren Problem sie rechtfertigte.',
-      }
-    },
-    {
-      phase: 'develop',
-      type: { en: 'Architecture & Systems', de: 'Architektur & Systeme' },
-      title: { en: 'DEVELOP: Building the state machine & IBS-DesignSystem', de: 'DEVELOP: Aufbau der Zustandsmaschine & IBS-DesignSystem' },
-      annotation: {
-        en: 'Transitioned from Excel constraints to a role-based explicit state machine. Mapped UI touchpoints for five distinct roles and established the IBS-DesignSystem to bridge research artifacts with the final interface.',
-        de: 'Übergang von Excel-Einschränkungen zu einer rollenbasierten expliziten Zustandsmaschine. Kartierung von UI-Touchpoints für fünf verschiedene Rollen und Etablierung des IBS-DesignSystems, um Forschungsartefakte mit der finalen Oberfläche zu verbinden.',
-      },
-      insight: {
-        en: 'Making status a first-class object, not a column someone updates, is what turns "I wait until the money arrives" into a screen that answers the question directly.',
-        de: 'Status als eigenständiges Objekt zu behandeln, statt als Spalte, die jemand aktualisiert, verwandelt "ich warte, bis das Geld da ist" in einen Screen, der die Frage direkt beantwortet.',
-      },
-    },
-    {
-      phase: 'deliver',
-      type: { en: 'Build & Validate', de: 'Build & Validierung' },
-      title: { en: 'DELIVER: 158 automated tests and a live engine', de: 'DELIVER: 158 automatisierte Tests und eine Live-Engine' },
-      annotation: {
-        en: 'Developed the frontend application powered by a 158-test calculation engine. Conducted task-based review builds with seeded exceptions to ensure control is enforced at the adapter level, not just in the UI.',
-        de: 'Entwicklung der Frontend-Anwendung, angetrieben von einer 158-Test-Berechnungs-Engine. Durchführung aufgabenbasierter Review-Builds mit gezielt gesetzten Ausnahmen, um sicherzustellen, dass Kontrolle auf Adapterebene erzwungen wird, nicht nur in der UI.',
-      },
-      insight: {
-        en: 'The post-build survey revealed that the structural gap affects everyone, not just low-fluency users. Four of five submit independently from a smartphone; the true cost is the invisible backend state.',
-        de: 'Die Umfrage nach dem Build zeigte, dass die strukturelle Lücke alle betrifft, nicht nur Nutzende mit geringer Vertrautheit. Vier von fünf reichen eigenständig per Smartphone ein; die wahren Kosten sind der unsichtbare Backend-Status.',
-      }
-    },
+    }
   ],
 
   // A live build is the strongest evidence an in-progress project can offer:
@@ -215,18 +255,15 @@ export const projectData = {
     de: "Live-Prototyp öffnen",
   },
 
-  // The "decisions" drafted earlier (attendance-legend rule, signature-path
-  // block) paraphrased sentences already stated verbatim in `results`
-  // immediately above this section — visible duplication on the rendered
-  // page, not a distinct set of post-build consequences. Cross-referenced
-  // instead of repeated; omitted `decisions` rather than restate them under
-  // a different heading.
+  // No adoption or performance outcome exists while the prototype is still in
+  // development, so `adoption` is left off entirely rather than set to
+  // "unknown" — an "Outcome Unknown" pill reads as a verdict on the project
+  // instead of a statement that the work is still running.
   outcome: {
     body: {
-      en: "Evaluation (Phase 4) has not concluded, so no adoption or performance outcome exists yet — this section will not claim one until it does. What does exist is a working build you can open and use: the prototype link above runs all five role interfaces end to end. The concrete decisions the work has already produced (the attendance-legend rule, the blocked signature path) are documented in Key Findings above, not repeated here.",
-      de: "Die Evaluation (Phase 4) ist nicht abgeschlossen, es existiert also noch kein Adoptions- oder Leistungsergebnis — dieser Abschnitt wird keines behaupten, bevor es eines gibt. Was es gibt, ist ein funktionierender Build zum Ausprobieren: Der Prototyp-Link oben führt alle fünf Rollenoberflächen durchgängig aus. Die konkreten Entscheidungen, die die Arbeit bereits hervorgebracht hat (die Anwesenheitslegenden-Regel, der blockierte Signaturpfad), sind oben unter Zentrale Ergebnisse dokumentiert und werden hier nicht wiederholt.",
+      en: "Work in Progress",
+      de: "In Arbeit",
     },
-    adoption: "unknown",
   },
 
   tagEvidence: [

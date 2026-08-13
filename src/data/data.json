@@ -90,8 +90,8 @@
       "website": "https://yazdanjoo.de",
       "websiteHandle": "yazdanjoo.de",
       "availability": {
-        "en": "Open to UX Research and UX Engineering roles from March 2026. Weimar-based, EU work authorisation, open to relocation.",
-        "de": "Offen für UX-Research- und UX-Engineering-Rollen ab März 2026. Ansässig in Weimar, EU-Arbeitserlaubnis, umzugsbereit."
+        "en": "Open to UX Research and UX Engineering roles. Weimar-based, EU work authorisation, open to relocation.",
+        "de": "Offen für UX-Research- und UX-Engineering-Rollen. Ansässig in Weimar, EU-Arbeitserlaubnis, umzugsbereit."
       },
       "timezone": "CET (UTC+1)",
       "responseTime": {
@@ -175,7 +175,7 @@
         },
         "date": "10/2023 – 03/2024",
         "impactMetrics": [
-          { "en": "Adopted into frontend roadmap",         "de": "In die Frontend-Roadmap übernommen" },
+          { "en": "My concept won the client vote",        "de": "Mein Konzept gewann die Kundenabstimmung" },
           { "en": "3 concepts → 1, evidence-decided",      "de": "3 Konzepte → 1, evidenzbasiert" },
           { "en": "n=57 survey · n=6 contextual inquiry",  "de": "n=57 Umfrage · n=6 Contextual Inquiry" }
         ],
@@ -185,8 +185,8 @@
             "de": "Mitverantwortliche Leitung der End-to-End-Nutzerforschung für ein SaaS-Produkt im Bereich Hybrid Work (Umfragen, Contextual Inquiries, Stakeholder-Interviews)."
           },
           {
-            "en": "Synthesized findings into high-fidelity prototypes and presented strategic recommendations to company stakeholders, which were adopted directly into the product's frontend development roadmap.",
-            "de": "Synthese von Forschungsdaten in High-Fidelity-Prototypen und Präsentation strategischer UI/UX-Empfehlungen an die Stakeholder, die direkt in die Frontend-Entwicklungsplanung übernommen wurden."
+            "en": "Synthesized findings into three competing concepts and presented them to company stakeholders, who selected mine by vote; delivered it as a high-fidelity prototype with development recommendations for their upcoming sprints.",
+            "de": "Synthese der Forschungsdaten zu drei konkurrierenden Konzepten und Präsentation bei den Stakeholdern, die sich per Abstimmung für meines entschieden; Übergabe als High-Fidelity-Prototyp mit Entwicklungsempfehlungen für die kommenden Sprints."
           }
         ]
       },
@@ -469,8 +469,8 @@
     "year": "2025",
     "type": "workshop",
     "skills": ["Figma", "Auto Layout", "Design Systems", "Prototyping"],
-    "file": "/assets/certificates/figma-101-workshop.pdf",
-    "thumb": "/assets/certificates/figma-101-workshop.webp",
+    "file": "",
+    "thumb": "",
     "verifyUrl": "",
     "detail": {
       "en": "Auto Layout, wireframe libraries, design systems and prototyping — three assignments, concluding in a mini portfolio.",
@@ -483,8 +483,8 @@
     "year": "2022",
     "type": "recognition",
     "skills": ["Session Chairing", "Conference Operations"],
-    "file": "/assets/certificates/muc-2022-student-volunteer.pdf",
-    "thumb": "/assets/certificates/muc-2022-student-volunteer.webp",
+    "file": "",
+    "thumb": "",
     "verifyUrl": "",
     "detail": {
       "en": "Session and workshop support at Europe's largest HCI conference series (~600 participants), hosted by TU Darmstadt.",
@@ -510,15 +510,7 @@
       "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction and eight years across frontend development, QA, and user research. I like working on both ends of a product: running solid mixed-methods studies to understand what people actually need, and then building it — responsive, accessible interfaces in React and TypeScript. That mix is the point. I turn findings into recommendations, and recommendations into shipped code. Below is how the two halves came together.",
       "de": "Ich bin UX Engineer mit einem M.Sc. in Human-Computer Interaction und acht Jahren Erfahrung in Frontend-Entwicklung, QA und User Research. Ich arbeite gern an beiden Enden eines Produkts: Ich führe fundierte Mixed-Methods-Studien durch, um zu verstehen, was Menschen wirklich brauchen — und baue es dann: responsive, barrierefreie Interfaces in React und TypeScript. Genau diese Mischung ist der Punkt. Ich mache aus Erkenntnissen Empfehlungen — und aus Empfehlungen fertigen Code. Wie beide Seiten zusammenkommen, zeigt sich weiter unten."
     },
-    "heroImage": "/assets/hero-portfolio.png",
-    "aboutImage": "/assets/me.jpg",
-    "doodles": {
-      "logo": "/assets/logo.png",
-      "flower": "/assets/flower-doodle.svg",
-      "aboutMe": "/assets/about-me-doodle.png",
-      "caseStudies": "/assets/case-studies-doodle.png",
-      "contact": "/assets/contact-doodle.png"
-    }
+    "aboutImage": "/assets/me.jpg"
   },
   "voluntary": [
     {

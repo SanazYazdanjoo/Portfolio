@@ -159,8 +159,19 @@ function CertificateCard({ cert, index, onOpenFile }) {
   const altText = `${cert.title} certificate from ${cert.provider}`;
   const typeLabel = cert.type ? t(`credentials.type.${cert.type}`, cert.type) : null;
 
-  const thumbContent = cert.thumb ? (
-    <img src={cert.thumb} alt={altText} loading="lazy" className="h-full w-full object-cover" />
+  // A `thumb` path is truthy even when the file behind it is missing, and the
+  // SPA rewrite answers a missing asset with index.html rather than a 404 —
+  // so the <img> fails to decode and renders as a broken image. onError falls
+  // back to the typographic tile the missing-thumb path already uses.
+  const [thumbFailed, setThumbFailed] = useState(false);
+  const thumbContent = cert.thumb && !thumbFailed ? (
+    <img
+      src={cert.thumb}
+      alt={altText}
+      loading="lazy"
+      onError={() => setThumbFailed(true)}
+      className="h-full w-full object-cover"
+    />
   ) : (
     <FallbackTile title={cert.title} />
   );

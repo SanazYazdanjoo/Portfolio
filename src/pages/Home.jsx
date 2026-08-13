@@ -13,7 +13,7 @@ import React from "react";
 import { Hero } from "../components/Hero";
 import { AboutBio } from "../components/AboutMe";
 import { StackedProjectCard } from "../components/StackedProjectCard";
-import { projects } from "../data/projects";
+import { sortedProjects } from "../data/projects";
 import { profileData as rawProfile } from "../data/profile";
 import { ComingSoonRow } from "../components/ComingSoonRow";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
@@ -101,7 +101,7 @@ function HomeSection({ id, eyebrow, heading, children, tight = false }) {
 
 export default function Home() {
   const profileData = useLocalizedProfile(rawProfile);
-  const localizedProjects = useLocalizedProfile(projects);
+  const localizedProjects = useLocalizedProfile(sortedProjects);
   const { t } = useTranslation();
 
   useDocumentMeta({
@@ -109,11 +109,14 @@ export default function Home() {
     description: profileData.profileSummary,
   });
 
-  // Same split as /projects — one rule, two pages
-  const published  = localizedProjects.filter((p) => p.status === "published");
-  const inProgress = localizedProjects.filter((p) => p.status === "in-progress");
+  // Same split as /projects — one rule, two pages. Order comes from
+  // sortedProjects (each project's `order` field), NOT from re-grouping by
+  // status here: a live in-progress case study with order:1 must be able to
+  // lead the page. Only coming-soon is split out, because it renders a
+  // different row component.
+  const live       = localizedProjects.filter((p) => p.status !== "coming-soon");
   const comingSoon = localizedProjects.filter((p) => p.status === "coming-soon");
-  const hasAnyProjects = published.length > 0 || inProgress.length > 0 || comingSoon.length > 0;
+  const hasAnyProjects = live.length > 0 || comingSoon.length > 0;
 
   return (
     // Footer owns the space above itself; this wrapper only needs a small pad
@@ -151,21 +154,14 @@ export default function Home() {
         <HomeSection id="projects" eyebrow={t("home.projects.kicker")} heading={t("projects.heading")}>
           {hasAnyProjects ? (
             <div>
-              {published.map((project, i) => (
+              {live.map((project, i) => (
                 <StackedProjectCard key={project.slug} project={project} index={i} />
-              ))}
-              {inProgress.map((project, i) => (
-                <StackedProjectCard
-                  key={project.slug}
-                  project={project}
-                  index={published.length + i}
-                />
               ))}
               {comingSoon.map((project, i) => (
                 <ComingSoonRow
                   key={project.slug}
                   project={project}
-                  index={published.length + inProgress.length + i}
+                  index={live.length + i}
                 />
               ))}
               {/* Closing hairline under the last row */}

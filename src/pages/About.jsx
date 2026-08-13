@@ -167,6 +167,43 @@ export default function About() {
             title={t("about.howIWork")}
           />
 
+          {/* Double Diamond: the frame the four steps below sit inside.
+              Reading column for the copy, full width for the diagram. */}
+          <motion.div
+            className="max-w-2xl space-y-5 mb-12"
+            variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}
+          >
+            <p className="text-[15px] md:text-base leading-[1.85] text-text">
+              {t("about.doubleDiamond.intro")}
+            </p>
+            <p className="text-sm leading-[1.9] text-text/75">
+              {t("about.doubleDiamond.intro2")}
+            </p>
+          </motion.div>
+
+          <motion.figure
+            className="mb-16"
+            variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}
+          >
+            <div className="photo-frame">
+              <picture>
+                <source srcSet="/assets/double-diamond.webp" type="image/webp" />
+                <img
+                  src="/assets/double-diamond.png"
+                  alt={t("about.doubleDiamond.alt")}
+                  width="1800"
+                  height="1120"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-auto"
+                />
+              </picture>
+            </div>
+            <figcaption className="mt-4 text-xs leading-relaxed text-text/60 max-w-xl">
+              {t("about.doubleDiamond.caption")}
+            </figcaption>
+          </motion.figure>
+
           <div className="grid grid-cols-1 md:grid-cols-4 gap-px bg-border">
             {processSteps.map((step, i) => (
               <motion.div
