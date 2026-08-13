@@ -1,10 +1,9 @@
 // Content is sourced from UCD4UX_FINAL_PRESENTATION.pdf (deskbird x Bauhaus-Universität Weimar).
 import thumbnailImg from './Project-2.png';
 import thumbnailWebp from './Project-2.webp';
-import { NEEDS_INPUT } from '../../data/needsInput';
 
 export const projectData = {
-  id: "project-2",
+  id: "deskbird-hybrid-work",
   status: "Published",
   order: 2,
   title: {
@@ -155,23 +154,43 @@ export const projectData = {
     },
   ],
 
-  // Role is "UX Researcher (team of 6)" — myContribution is required. The
-  // case study text uses "we" throughout with no individual attribution, so
-  // `owned` and `notMine` are genuinely unknown rather than derivable —
-  // flagged for the owner in CONTENT_GAPS.md instead of guessed at.
+  // Role is "UX Researcher (team of 6)". The team ran every phase collectively
+  // by working agreement, so `shared` carries most of the work — but the
+  // concept selection was a discrete, attributable event: three research-derived
+  // concepts were illustrated and presented, deskbird's stakeholders voted, and
+  // the winning concept was mine. That is what `owned` records.
   myContribution: {
-    owned: [NEEDS_INPUT],
-    notMine: [NEEDS_INPUT],
+    owned: [
+      {
+        en: "Interest-Based Communities — the concept deskbird selected — was mine. Three research-derived concepts were developed, illustrated, and presented to deskbird's stakeholders, who chose one by vote; mine won and became the delivered high-fidelity prototype. I also produced the illustrations used to communicate all three concepts in that session.",
+        de: "Interest-Based Communities — das von deskbird ausgewählte Konzept — stammt von mir. Drei aus der Forschung abgeleitete Konzepte wurden entwickelt, illustriert und den deskbird-Stakeholdern vorgestellt, die per Abstimmung eines auswählten; meines gewann und wurde zum ausgelieferten High-Fidelity-Prototyp. Die Illustrationen zur Vermittlung aller drei Konzepte in dieser Session stammen ebenfalls von mir.",
+      },
+    ],
+    shared: [
+      {
+        en: "Every research phase was run collectively by the six-person team, by explicit working agreement — competitor research, stakeholder interviews, survey design and analysis, contextual inquiries, affinity diagramming and synthesis, high-fidelity prototyping, and the final client presentation. The team's rule was that each phase was completed together rather than split into individual workstreams.",
+        de: "Jede Forschungsphase wurde nach ausdrücklicher Absprache gemeinsam vom sechsköpfigen Team durchgeführt — Wettbewerbsanalyse, Stakeholder-Interviews, Konzeption und Auswertung der Umfrage, Contextual Inquiries, Affinity Diagramming und Synthese, High-Fidelity-Prototyping sowie die Abschlusspräsentation beim Kunden. Die Teamregel lautete, jede Phase gemeinsam abzuschließen statt sie in individuelle Arbeitspakete aufzuteilen.",
+      },
+    ],
+    notMine: [
+      {
+        en: "No phase was owned exclusively by another team member — the collective working agreement above applied throughout.",
+        de: "Keine Phase lag ausschließlich in der Verantwortung eines anderen Teammitglieds — die oben beschriebene gemeinsame Arbeitsweise galt durchgehend.",
+      },
+    ],
   },
 
   // The two candidate "decisions" drafted earlier (concept eliminations,
   // scoping to remote+office) were findings from during the research —
   // already stated in `results` above — not post-handover consequences.
-  // Removed rather than left as duplication. The genuinely unanswered
-  // question is what deskbird did with the deliverable after handover;
-  // only the project owner can answer that.
+  // Removed rather than left as duplication. `adoption` stays "unknown"
+  // deliberately: deskbird stated an intention at handover, which is not
+  // the same as confirmed delivery, and nothing since has verified it.
   outcome: {
-    body: NEEDS_INPUT,
+    body: {
+      en: "At the final presentation, deskbird's stakeholders said they liked the concept and intended to build it in upcoming sprints. That is a stated intention recorded at handover — not confirmed delivery. The research team had no visibility into deskbird's backlog after the project ended, and I have not since verified whether the feature shipped. It is listed here as unconfirmed rather than claimed as adoption.",
+      de: "In der Abschlusspräsentation erklärten die deskbird-Stakeholder, dass ihnen das Konzept gefalle und sie es in kommenden Sprints umsetzen wollten. Das ist eine bei der Übergabe geäußerte Absicht — keine bestätigte Umsetzung. Das Forschungsteam hatte nach Projektende keinen Einblick in deskbirds Backlog, und ich habe seither nicht verifiziert, ob das Feature ausgeliefert wurde. Es steht hier als unbestätigt und wird nicht als Adoption behauptet.",
+    },
     adoption: "unknown",
   },
 

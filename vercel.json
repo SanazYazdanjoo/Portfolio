@@ -1,4 +1,10 @@
 {
+  "redirects": [
+    { "source": "/projects/project-1", "destination": "/projects/gaze-assisted-input", "permanent": true },
+    { "source": "/projects/project-2", "destination": "/projects/deskbird-hybrid-work", "permanent": true },
+    { "source": "/projects/project-3", "destination": "/projects/embraceme-soft-robotics", "permanent": true },
+    { "source": "/projects/project-4", "destination": "/projects/travel-reimbursement-workflow", "permanent": true }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",

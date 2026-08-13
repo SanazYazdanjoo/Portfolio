@@ -38,7 +38,7 @@ const Admin = lazy(() => import('./pages/Admin'));
 // Auto-discovers a route for every 'index.jsx' under 'src/projects/'.
 // eager: false — each case study is its own chunk, loaded on navigation.
 // This only affects the *page wrapper* import; each wrapper's own
-// `import { projectData } from './data'` (e.g. project-1/index.jsx:3)
+// `import { projectData } from './data'` (e.g. gaze-assisted-input/index.jsx:3)
 // still resolves normally once its chunk loads. Test files that import
 // data.js directly (src/test/*.test.jsx) never go through this glob at
 // all, so they're unaffected.

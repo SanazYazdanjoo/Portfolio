@@ -7,7 +7,7 @@
 import React from "react";
 import { useTranslation } from "../context/LanguageContext";
 import { motion, useReducedMotion } from "framer-motion";
-import { SolidButton } from "./Button";
+import { Button, SolidButton } from "./Button";
 import { InkHighlight } from "./InkHighlight";
 
 // Shared entrance timing — 400ms max per the motion spec, single easing
@@ -104,13 +104,26 @@ export function Hero({ data }) {
         </InkHighlight>
       </motion.p>
 
-      <motion.div {...fadeUp(0.38)} className="mt-4 md:mt-5">
+      {/* CTA row. The work is the primary action — a recruiter's first
+          question is "what has she built?", not "who is she?". About/CV
+          stay reachable as plain text links so there's one visual primary,
+          not three competing SolidButtons. */}
+      <motion.div
+        {...fadeUp(0.38)}
+        className="mt-4 md:mt-5 flex flex-wrap items-center gap-x-6 gap-y-3"
+      >
         <SolidButton
-          to="/about"
+          to="/projects"
           className="text-sm md:text-base uppercase tracking-[0.18em]"
         >
-          {t("nav.about")}
+          {t("hero.ctaWork")}
         </SolidButton>
+        <Button to="/cv" className="text-sm uppercase tracking-[0.14em]">
+          {t("hero.ctaCv")}
+        </Button>
+        <Button to="/about" className="text-sm uppercase tracking-[0.14em]">
+          {t("nav.about")}
+        </Button>
       </motion.div>
     </div>
   );

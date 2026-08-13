@@ -52,10 +52,10 @@
         }
       },
       {
-        "value": "5+ yrs",
+        "value": "8+ yrs",
         "label": {
-          "en": "Engineering & QA background",
-          "de": "Engineering- & QA-Hintergrund"
+          "en": "Frontend, QA & research experience",
+          "de": "Frontend-, QA- & Research-Erfahrung"
         }
       }
     ],
@@ -114,8 +114,8 @@
       ]
     },
     "profileSummary": {
-      "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction and five years in frontend development, user research, and QA. I like working on both ends of a product: running solid mixed-methods studies to understand what people actually need, and then building it — responsive, accessible interfaces in React and TypeScript. That mix is the point. Research tells me what's worth building, and my engineering background means I can take it all the way to working code. The case studies below show how that plays out in real projects.",
-      "de": "Ich bin UX Engineer mit einem M.Sc. in Human-Computer Interaction und fünf Jahren Erfahrung in Frontend-Entwicklung, User Research und QA. Ich arbeite gern an beiden Enden eines Produkts: Ich führe fundierte Mixed-Methods-Studien durch, um zu verstehen, was Menschen wirklich brauchen — und baue es dann: responsive, barrierefreie Interfaces in React und TypeScript. Genau diese Mischung ist der Punkt. Research zeigt mir, was es wert ist, gebaut zu werden — und mein Engineering-Hintergrund bedeutet, dass ich es bis zum funktionierenden Code bringen kann. Die Case Studies unten zeigen, wie das in echten Projekten aussieht."
+      "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction and eight years across frontend development, QA, and user research. I like working on both ends of a product: running solid mixed-methods studies to understand what people actually need, and then building it — responsive, accessible interfaces in React and TypeScript. That mix is the point. Research tells me what's worth building, and my engineering background means I can take it all the way to working code. The case studies below show how that plays out in real projects.",
+      "de": "Ich bin UX Engineer mit einem M.Sc. in Human-Computer Interaction und acht Jahren Erfahrung in Frontend-Entwicklung, QA und User Research. Ich arbeite gern an beiden Enden eines Produkts: Ich führe fundierte Mixed-Methods-Studien durch, um zu verstehen, was Menschen wirklich brauchen — und baue es dann: responsive, barrierefreie Interfaces in React und TypeScript. Genau diese Mischung ist der Punkt. Research zeigt mir, was es wert ist, gebaut zu werden — und mein Engineering-Hintergrund bedeutet, dass ich es bis zum funktionierenden Code bringen kann. Die Case Studies unten zeigen, wie das in echten Projekten aussieht."
     },
     "experience": [
       {
@@ -292,7 +292,7 @@
     ],
     "portfolioHighlights": [
       {
-        "id": "project-1",
+        "id": "gaze-assisted-input",
         "title": "Gaze-Assisted Input in Dual-Display Environments",
         "type": "TypeScript Custom App · Quantitative UX · Eye-Tracking",
         "metrics": [
@@ -315,7 +315,7 @@
         }
       },
       {
-        "id": "project-2",
+        "id": "deskbird-hybrid-work",
         "title": "Hybrid Workplace UX Research — deskbird",
         "type": "User-Centered Design · Mixed Methods · Figma",
         "metrics": [
@@ -338,7 +338,7 @@
         }
       },
       {
-        "id": "project-3",
+        "id": "embraceme-soft-robotics",
         "title": "EmbraceMe – Inflatable Human-Robot for Emotional Care",
         "type": "Arduino · Capacitive Sensors · C++ · Soft Robotics",
         "metrics": [
@@ -380,7 +380,7 @@
       }
     ],
     "bioParagraphs": [
-      "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction and five years in frontend development, user research, and QA. I like working on both ends of a product: running solid mixed-methods studies to understand what people actually need, and then building it — responsive, accessible interfaces in React and TypeScript.",
+      "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction and eight years across frontend development, QA, and user research. I like working on both ends of a product: running solid mixed-methods studies to understand what people actually need, and then building it — responsive, accessible interfaces in React and TypeScript.",
       "That mix is the point. Research tells me what's worth building, and my engineering background means I can take it all the way to working code. The case studies below show how that plays out in real projects."
     ],
     "skills": {
