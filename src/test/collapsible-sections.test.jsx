@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { screen, fireEvent, within } from "@testing-library/react";
 import { renderWithProviders } from "./renderWithProviders";
 import ProjectTemplate from "../projects/ProjectTemplate";
-import { projectData as project1 } from "../projects/project-1/data";
+import { projectData as project1 } from "../projects/gaze-assisted-input/data";
 
 // Sections whose body is closed with height:0 still have that height applied
 // via inline style (the CSS grid 0fr/1fr trick), not by unmounting — so we

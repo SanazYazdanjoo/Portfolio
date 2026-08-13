@@ -30,7 +30,8 @@ export const projects = Object.entries(modules)
       return null;
     }
 
-    // Slug = folder name ("../projects/project-1/data.js" → "project-1").
+    // Slug = folder name ("../projects/gaze-assisted-input/data.js" →
+    // "gaze-assisted-input").
     // Same source main.jsx builds routes from — link and route can't drift.
     const folderSlug = path.split("/")[2];
     const slug = p.slug ?? folderSlug;
