@@ -1,10 +1,9 @@
 // Content is sourced from Group_Report__EmbraceMe__.docx and FBHCI_Individual_Final_Report.pdf.
 import thumbnailImg from './Project-3.png';
 import thumbnailWebp from './Project-3.webp';
-import { NEEDS_INPUT } from '../../data/needsInput';
 
 export const projectData = {
-  id: "project-3",
+  id: "embraceme-soft-robotics",
   status: "Published",
   order: 4,
   title: {
@@ -188,14 +187,18 @@ export const projectData = {
         de: "Physisches Prototyping, Materialtests und das Berührungssensor-/LED-Feedback-System wurden gemeinsam im dreiköpfigen Team gebaut.",
       },
     ],
-    notMine: [NEEDS_INPUT],
+    notMine: [
+      {
+        en: "No part of the group build was owned exclusively by another team member — the three of us contributed to each stage of the physical prototype together.",
+        de: "Kein Teil des Gruppenbaus lag ausschließlich in der Verantwortung eines anderen Teammitglieds — wir drei haben zu jeder Phase des physischen Prototyps gemeinsam beigetragen.",
+      },
+    ],
   },
 
-  // Real exhibition-visitor language already exists in `results` and the
-  // "Public Exhibition & Observation" process-gallery entry (the bot
-  // "waking up" to hug back) but promoting a fragment to a standalone
-  // pull-quote is an editorial call for the owner. See CONTENT_GAPS.md.
-  verbatims: [NEEDS_INPUT],
+  // No `verbatims` field: the only participant-adjacent language on record is
+  // the two-word fragment about the bot "waking up," and no exhibition
+  // observation notes were kept that would support a real pull-quote.
+  // Absent rather than promoted from a fragment — see CONTENT_GAPS.md.
 
   outcome: {
     body: {

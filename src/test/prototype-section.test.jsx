@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { screen, within } from "@testing-library/react";
 import { renderWithProviders } from "./renderWithProviders";
 import ProjectTemplate from "../projects/ProjectTemplate";
-import { projectData as baseProject } from "../projects/project-1/data";
+import { projectData as baseProject } from "../projects/gaze-assisted-input/data";
 
 function metaWithout(extra = {}) {
   // project-1 has no prototype fields at all — a clean base to add just the
