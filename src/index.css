@@ -76,6 +76,17 @@
     overflow: visible !important;
   }
 
+  /* Same reasoning for the 2.5-line "Read more" clamp on body copy: it is a
+     screen affordance, and a printed page has nothing to click, so paper
+     always gets the whole paragraph — unclamped and unfaded. The toggle
+     itself carries `.no-print`. */
+  [data-clamped-text] {
+    max-height: none !important;
+    overflow: visible !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+  }
+
 
   /* Hide UI chrome. Deliberately not a bare `nav` selector: every nav that
      should be hidden (the site header's Nav, the CV/Design System/project
