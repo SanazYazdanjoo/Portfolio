@@ -175,7 +175,6 @@ const de = {
   "project.sidebar.implications": "Implikationen",
   "project.sidebar.status": "Status",
   "project.sidebar.conclusion": "Fazit",
-  "project.sidebar.outcome": "Ergebnis",
 
   // Project detail — section kickers + headings (long form)
   "project.about.kicker": "Projektübersicht",
@@ -208,11 +207,10 @@ const de = {
   "project.methodology.techStack": "Tech-Stack",
 
   "project.results.kicker": "Was die Daten zeigten",
-  "project.results.heading": "Zentrale Ergebnisse",
+  "project.results.heading": "Zentrale Ergebnisse & Wirkung",
   "project.results.glance": "Studie auf einen Blick",
 
   "project.outcome.kicker": "Was sich geändert hat",
-  "project.outcome.heading": "Ergebnis & Wirkung",
   "project.outcome.decisions": "Entscheidungen, die diese Forschung angestoßen hat",
   "project.outcome.adoption.shipped": "Ausgeliefert",
   "project.outcome.adoption.roadmapped": "Auf der Roadmap",
