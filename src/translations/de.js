@@ -93,9 +93,9 @@ const de = {
   // Skill-group headings on the CV. "UX Research & Design" and "QA & Testing"
   // stay English — they are the established terms in German job ads, and
   // translating them would read as less professional, not more.
-  "cv.skillCategory.frontendEngineering": "Frontend-Entwicklung",
+  "cv.skillCategory.frontendEngineering": "Frontend-Entwicklung & Design",
   "cv.skillCategory.aiAssistedDevelopment": "KI-gestützte Entwicklung",
-  "cv.skillCategory.uxResearchDesign": "UX Research & Design",
+  "cv.skillCategory.uxResearchDesign": "UX Research & Testing",
   "cv.skillCategory.qaTesting": "QA & Testing",
   "cv.skillCategory.analysisTools": "Analyse & Tools",
 
@@ -359,17 +359,29 @@ const de = {
   "privacy.section2.serverLogs.item4": "Hostname des zugreifenden Rechners",
   "privacy.section2.serverLogs.item5": "Uhrzeit der Serveranfrage",
   "privacy.section2.serverLogs.item6": "IP-Adresse",
-  "privacy.section2.serverLogs.legal": "Diese Daten werden nicht mit anderen Datenquellen zusammengeführt. Grundlage für die Datenverarbeitung ist Art. 6 Abs. 1 lit. f DSGVO, der die Verarbeitung von Daten zur Erfüllung eines Vertrags oder vorvertraglicher Maßnahmen sowie aufgrund des berechtigten Interesses an der technisch fehlerfreien Darstellung und Optimierung der Website des Betreibers gestattet.",
+  "privacy.section2.serverLogs.legal": "Diese Daten werden nicht mit anderen Datenquellen zusammengeführt. Grundlage für die Datenverarbeitung ist Art. 6 Abs. 1 lit. f DSGVO — das berechtigte Interesse an der technisch fehlerfreien Darstellung und Optimierung dieser Website.",
   "privacy.section2.email.heading": "Kontaktaufnahme per E-Mail",
   "privacy.section2.email.body": "Wenn Sie mir per E-Mail schreiben, werden Ihre Angaben, einschließlich der von Ihnen angegebenen Kontaktdaten, von mir zum Zweck der Bearbeitung Ihrer Anfrage und für den Fall von Anschlussfragen gespeichert. Diese Daten gebe ich nicht ohne Ihre Einwilligung weiter.",
-  "privacy.section3.heading": "3. Ihre Rechte",
+  // Analytics & Einwilligung — die Tools, die diese Website tatsächlich lädt
+  // (Cookiebot, Google Analytics nach Einwilligung, Vercel-Hosting + cookiefreie Analyse).
+  "privacy.sectionAnalytics.heading": "3. Cookies, Einwilligung & Analyse",
+  "privacy.sectionAnalytics.cookiebot.heading": "Consent-Management (Cookiebot)",
+  "privacy.sectionAnalytics.cookiebot.body": "Diese Website nutzt Cookiebot (Usercentrics A/S, Havnegade 39, 1058 Kopenhagen, Dänemark) als Consent-Management-Plattform. Beim ersten Besuch werden Sie gefragt, ob Sie in Statistik-Cookies einwilligen; Analyse-Skripte werden erst nach Ihrer Einwilligung geladen. Ihre Entscheidung wird in einem Consent-Cookie gespeichert, damit sie bei späteren Besuchen erhalten bleibt. Die Speicherung dieser Auswahl ist technisch notwendig und erfolgt auf Grundlage von Art. 6 Abs. 1 lit. c DSGVO und § 25 Abs. 2 TDDDG.",
+  "privacy.sectionAnalytics.ga.heading": "Google Analytics",
+  "privacy.sectionAnalytics.ga.body": "Nur wenn Sie einwilligen, nutzt diese Website Google Analytics 4, einen Webanalysedienst der Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Google Analytics verwendet Cookies und ähnliche Technologien, um die Nutzung der Website auszuwerten; IP-Adressen werden gekürzt (anonymisiert) verarbeitet. Daten können an Server der Google LLC in den USA übertragen werden; Google ist unter dem EU-US Data Privacy Framework zertifiziert. Rechtsgrundlage ist Ihre Einwilligung (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG). Sie können Ihre Einwilligung jederzeit mit Wirkung für die Zukunft über die Cookie-Einstellungen widerrufen.",
+  "privacy.sectionAnalytics.vercel.heading": "Hosting & Vercel Web Analytics",
+  "privacy.sectionAnalytics.vercel.body": "Diese Website wird bei Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, USA gehostet. Vercel verarbeitet die oben beschriebenen Server-Log-Daten, um die Website sicher und zuverlässig auszuliefern. Zusätzlich nutzt die Website Vercel Web Analytics, ein cookiefreies Analysetool, das aggregierte Nutzungsdaten (z. B. Seitenaufrufe, Land, Browser und Gerätetyp) erfasst — ohne Kennungen auf Ihrem Gerät zu speichern und ohne Sie über Websites hinweg zu verfolgen. Rechtsgrundlage ist jeweils mein berechtigtes Interesse am sicheren Betrieb und an der Verbesserung dieser Website (Art. 6 Abs. 1 lit. f DSGVO).",
+  "privacy.sectionAnalytics.manageHint": "Sie können Ihre Cookie-Einwilligung jederzeit ändern oder widerrufen:",
+  "privacy.sectionAnalytics.manage": "Cookie-Einstellungen öffnen",
+
+  "privacy.section3.heading": "4. Ihre Rechte",
   "privacy.section3.body": "Sie haben jederzeit das Recht, unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten. Sie haben außerdem ein Recht, die Berichtigung oder Löschung dieser Daten zu verlangen. Wenn Sie eine Einwilligung zur Datenverarbeitung erteilt haben, können Sie diese Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen. Außerdem haben Sie unter bestimmten Umständen das Recht, die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen. Hierzu können Sie sich jederzeit unter der oben angegebenen E-Mail-Adresse an mich wenden.",
 
   // Impressum
   "impressum.title": "Impressum",
-  "impressum.subtitle": "Rechtliche Hinweise gemäß § 5 TMG.",
-  "impressum.section1.heading": "Angaben gemäß § 5 TMG",
-  "impressum.address.street": "---",
+  "impressum.subtitle": "Rechtliche Hinweise gemäß § 5 DDG.",
+  "impressum.section1.heading": "Angaben gemäß § 5 DDG",
+  "impressum.address.street": "Jakobsplan 1",
   "impressum.address.zip": "99423 Weimar",
   "impressum.address.country": "Deutschland",
   "impressum.contact.heading": "Kontakt",
@@ -377,7 +389,7 @@ const de = {
   "impressum.contact.phonePlaceholder": "+491639742175",
   "impressum.contact.emailLabel": "E-Mail",
   "impressum.liabilityContent.heading": "Haftung für Inhalte",
-  "impressum.liabilityContent.body": "Als Diensteanbieter bin ich gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG bin ich als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.",
+  "impressum.liabilityContent.body": "Als Diensteanbieterin bin ich für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Ich bin jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.",
   "impressum.liabilityLinks.heading": "Haftung für Links",
   "impressum.liabilityLinks.body": "Meine Website enthält Links zu externen Websites Dritter, auf deren Inhalte ich keinen Einfluss habe. Deshalb kann ich für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.",
   "impressum.copyright.heading": "Urheberrecht",

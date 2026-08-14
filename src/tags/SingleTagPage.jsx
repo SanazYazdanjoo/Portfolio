@@ -17,7 +17,6 @@ const SingleTagPage = () => {
     description: t("tags.single.subheading"),
   });
 
-  // Safely find all items that include this specific tag
   const relatedItems = localizedProjects.filter(item =>
     item.tags && item.tags.includes(tagName)
   );

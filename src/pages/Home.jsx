@@ -138,7 +138,7 @@ export default function Home() {
             <HomeSection id="AboutMe-Section" eyebrow={t("home.about.kicker")} heading={t("about.heading")} tight>
               <AboutBio data={profileData} />
 
-              {/* The Bridge — visual proof of the bio's "eight years across..." claim */}
+              {/* The Bridge — visual proof of the bio's "5+ years across..." claim */}
               <div className="mt-12">
                 <CareerArc variant="compact" />
               </div>

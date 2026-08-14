@@ -15,7 +15,7 @@ function PullQuote({ text }) {
 // sections that get one — sets a lead-sentence pull-quote beside it in the
 // right rail once the viewport is wide enough to hold three tracks.
 export function Prose({ text, quote, rail, children }) {
-  // Use explicit quote if provided, otherwise fallback to legacy regex for older projects
+  // Older data files set no explicit `quote` — lift the lead sentence instead.
   let resolvedQuote = quote;
   if (!resolvedQuote && typeof text === "string" && rail) {
     const match = text.match(/^.*?[.!?](?=\s|$)/);
