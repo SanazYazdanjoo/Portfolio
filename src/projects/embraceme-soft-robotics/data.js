@@ -46,6 +46,11 @@ export const projectData = {
 
   techStack: ["Arduino", "Festo 5/3 Solenoid Valve", "5-Pad Capacitive Touch Sensor", "TPU (heat-sealed)", "Foam Fabrication", "LED Feedback"],
 
+  about: {
+    en: "A soft-robotics project exploring whether a machine can deliver the calming effect of a hug. In a team of three I designed and built EmbraceMe, a standalone hugging robot with inflatable PneuNet foam arms driven by an Arduino and a capacitive touch sensor. We exhibited it publicly and observed real visitors using it — documenting both what delighted them and where the design fell short.",
+    de: "Ein Soft-Robotics-Projekt zu der Frage, ob eine Maschine die beruhigende Wirkung einer Umarmung vermitteln kann. In einem dreiköpfigen Team habe ich EmbraceMe entworfen und gebaut — einen eigenständigen Umarmungsroboter mit aufblasbaren PneuNet-Schaumstoffarmen, gesteuert von einem Arduino und einem kapazitiven Berührungssensor. Wir haben ihn öffentlich ausgestellt und echte Besucher:innen dabei beobachtet — und dokumentiert, was sie begeisterte und wo das Design scheiterte.",
+  },
+
   challenge: {
     en: "Physical touch like hugging releases oxytocin and measurably reduces stress — but not everyone has access to it: loved ones may be distant, or contact may be unsafe. We set out to build an inflatable soft-robotic interface delivering Deep Pressure Stimulation through a standalone hugging experience, gentle enough for direct human contact where rigid robots fail.",
     de: "Körperliche Berührung wie Umarmen setzt Oxytocin frei und reduziert nachweislich Stress — doch nicht jeder hat Zugang dazu: Nahestehende können weit entfernt sein, oder Kontakt kann unsicher sein. Wir wollten ein aufblasbares Soft-Robotik-Interface bauen, das Deep Pressure Stimulation über eine eigenständige Umarmungserfahrung liefert — sanft genug für direkten menschlichen Kontakt, wo starre Roboter versagen.",

@@ -63,6 +63,7 @@ const NAV_LABEL_KEYS = {
 };
 
 const PROJECT_SECTION_KEYS = [
+  "project.sidebar.about",
   "project.sidebar.challenge",
   "project.sidebar.solution",
   "project.sidebar.methodology",

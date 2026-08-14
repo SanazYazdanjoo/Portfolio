@@ -46,6 +46,11 @@ export const projectData = {
 
   techStack: ["Figma", "FigJam", "Online Survey Tools"],
 
+  about: {
+    en: "An industry UX research project with deskbird and Bauhaus-Universität Weimar on why hybrid teams lose their everyday social connection. In a team of six I ran the full user-centred design process — stakeholder interviews, a 57-person survey, and six contextual inquiries — to establish how a social feature should work before it reached the roadmap. The outcome is 'Interest-Based Communities', delivered as a research-backed high-fidelity prototype.",
+    de: "Ein Industrie-UX-Research-Projekt mit deskbird und der Bauhaus-Universität Weimar zu der Frage, warum hybride Teams ihre alltägliche soziale Verbindung verlieren. In einem sechsköpfigen Team habe ich den vollständigen User-Centered-Design-Prozess durchlaufen — Stakeholder-Interviews, eine Umfrage mit 57 Teilnehmenden und sechs Contextual Inquiries —, um vor der Roadmap-Aufnahme zu klären, wie ein Social Feature funktionieren sollte. Das Ergebnis sind 'Interest-Based Communities', übergeben als forschungsbasierter High-Fidelity-Prototyp.",
+  },
+
   challenge: {
     en: "Hybrid work reduced spontaneous social interactions: employees felt less integrated and new joiners struggled to connect. deskbird — a B2B SaaS platform for desk booking and hybrid week planning — wanted evidence, not assumptions, on how a social feature should work before committing it to the product roadmap.",
     de: "Hybrides Arbeiten reduzierte spontane soziale Interaktionen: Mitarbeitende fühlten sich weniger integriert, und neue Kolleg:innen taten sich schwer, Anschluss zu finden. deskbird — eine B2B-SaaS-Plattform für Deskbuchung und hybride Wochenplanung — wollte Evidenz statt Annahmen darüber, wie ein Social Feature funktionieren sollte, bevor es in die Produkt-Roadmap aufgenommen wird.",
