@@ -299,6 +299,21 @@ const de = {
   // {title} / {provider} werden beim Rendern ersetzt (Credentials.jsx)
   "credentials.imageAlt": "Zertifikat: {title} — {provider}",
 
+  // Zeugnisse & Zertifikate — Themenfilter
+  "credentials.filter.label": "Nachweise nach Thema filtern",
+  "credentials.filter.all": "Alle",
+  // {count} / {total} werden beim Rendern ersetzt (Credentials.jsx)
+  "credentials.showing": "{count} von {total} werden angezeigt",
+  "credentials.noMatch": "Keine Nachweise passen zu diesem Filter.",
+  "credentials.reset": "Alle anzeigen",
+  "credentials.topic.research": "Research & Testing",
+  "credentials.topic.strategy": "Prozess & Strategie",
+  "credentials.topic.design": "Design & Prototyping",
+  "credentials.topic.accessibility": "Barrierefreiheit",
+  "credentials.topic.ai": "KI",
+  "credentials.topic.engineering": "Entwicklung",
+  "credentials.topic.academic": "Studium & Ehrenamt",
+
   // Tags
   "tags.directory.title": "Fähigkeiten & Tags",
   "tags.directory.subheading": "Jedes Werkzeug, jede Methode und jeder Bereich aus meinen Fallstudien — auf einen Tag klicken, um zu sehen, wo er eingesetzt wurde.",

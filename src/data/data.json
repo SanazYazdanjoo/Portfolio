@@ -502,72 +502,375 @@
       }
     ],
     "certifications": [
-  {
-    "title": "M.Sc. Human-Computer Interaction",
-    "provider": {
-      "en": "Bauhaus-Universität Weimar, Faculty of Media",
-      "de": "Bauhaus-Universität Weimar, Fakultät Medien"
-    },
-    "year": "2026",
-    "type": "degree",
-    "skills": ["HCI Research", "Visual Interfaces", "Design Theory"],
-    "file": "",
-    "thumb": "",
-    "verifyUrl": "",
-    "detail": {
-      "en": "Final grade 1.7 (gut), 120 ECTS. Thesis: Gaze-Assisted Input in Dual-Display Environments — a comparative evaluation of MAGIC Pointing, Ninja Cursors, and a mouse baseline (1.5).",
-      "de": "Gesamtprädikat 1,7 (gut), 120 ECTS. Masterarbeit: Gaze-Assisted Input in Dual-Display Environments — vergleichende Evaluation von MAGIC Pointing, Ninja Cursors und einer Maus-Baseline (1,5)."
-    }
-  },
-  {
-    "title": "Figma 101 Workshop",
-    "provider": "Human-Computer Interaction Group, Bauhaus-Universität Weimar",
-    "year": "2025",
-    "type": "workshop",
-    "skills": ["Figma", "Auto Layout", "Design Systems", "Prototyping"],
-    "file": "",
-    "thumb": "",
-    "verifyUrl": "",
-    "detail": {
-      "en": "Auto Layout, wireframe libraries, design systems and prototyping — three assignments, concluding in a mini portfolio.",
-      "de": "Auto Layout, Wireframe-Bibliotheken, Designsysteme und Prototyping — drei Aufgaben, abgeschlossen mit einem Mini-Portfolio."
-    }
-  },
-  {
-    "title": {
-      "en": "Student Volunteer — Mensch und Computer 2022",
-      "de": "Studentische Freiwillige — Mensch und Computer 2022"
-    },
-    "provider": "Gesellschaft für Informatik (GI e.V.) · ACM In-Cooperation",
-    "year": "2022",
-    "type": "recognition",
-    "skills": ["Session Chairing", "Conference Operations"],
-    "file": "",
-    "thumb": "",
-    "verifyUrl": "",
-    "detail": {
-      "en": "Session and workshop support at Europe's largest HCI conference series (~600 participants), hosted by TU Darmstadt.",
-      "de": "Betreuung von Sessions und Workshops bei Europas größter HCI-Konferenzreihe (~600 Teilnehmende), ausgerichtet von der TU Darmstadt."
-    }
-  },
-  {
-    "title": {
-      "en": "DSH-2 (German Language Proficiency for University Admission)",
-      "de": "DSH-2 (Deutsche Sprachprüfung für den Hochschulzugang)"
-    },
-    "provider": "Sprachenzentrum, Bauhaus-Universität Weimar",
-    "year": "2026",
-    "type": "language",
-    "skills": ["German C1"],
-    "file": "",
-    "thumb": "",
-    "verifyUrl": "",
-    "detail": {
-      "en": "Unrestricted admission to all German degree programmes.",
-      "de": "Uneingeschränkte Zulassung zu allen Studiengängen an deutschen Hochschulen."
-    }
-  }
-],
+      {
+        "title": "M.Sc. Human-Computer Interaction",
+        "provider": {
+          "en": "Bauhaus-Universität Weimar, Faculty of Media",
+          "de": "Bauhaus-Universität Weimar, Fakultät Medien"
+        },
+        "year": "2026",
+        "type": "degree",
+        "topic": "academic",
+        "featured": true,
+        "skills": ["HCI Research", "Visual Interfaces", "Design Theory"],
+        "file": "",
+        "thumb": "",
+        "verifyUrl": "",
+        "detail": {
+          "en": "Final grade 1.7 (gut), 120 ECTS. Thesis: Gaze-Assisted Input in Dual-Display Environments — a comparative evaluation of MAGIC Pointing, Ninja Cursors, and a mouse baseline (1.5).",
+          "de": "Gesamtprädikat 1,7 (gut), 120 ECTS. Masterarbeit: Gaze-Assisted Input in Dual-Display Environments — vergleichende Evaluation von MAGIC Pointing, Ninja Cursors und einer Maus-Baseline (1,5)."
+        }
+      },
+      {
+        "title": {
+          "en": "DSH-2 (German Language Proficiency for University Admission)",
+          "de": "DSH-2 (Deutsche Sprachprüfung für den Hochschulzugang)"
+        },
+        "provider": "Sprachenzentrum, Bauhaus-Universität Weimar",
+        "year": "2026",
+        "type": "language",
+        "topic": "academic",
+        "featured": true,
+        "skills": ["German C1"],
+        "file": "",
+        "thumb": "",
+        "verifyUrl": "",
+        "detail": {
+          "en": "Unrestricted admission to all German degree programmes.",
+          "de": "Uneingeschränkte Zulassung zu allen Studiengängen an deutschen Hochschulen."
+        }
+      },
+      {
+        "title": "Figma 101 Workshop",
+        "provider": "Human-Computer Interaction Group, Bauhaus-Universität Weimar",
+        "year": "2025",
+        "type": "workshop",
+        "topic": "design",
+        "featured": true,
+        "skills": ["Figma", "Auto Layout", "Design Systems", "Prototyping"],
+        "file": "",
+        "thumb": "",
+        "verifyUrl": "",
+        "detail": {
+          "en": "Auto Layout, wireframe libraries, design systems and prototyping — three assignments, concluding in a mini portfolio.",
+          "de": "Auto Layout, Wireframe-Bibliotheken, Designsysteme und Prototyping — drei Aufgaben, abgeschlossen mit einem Mini-Portfolio."
+        }
+      },
+      {
+        "title": "Designing Accessible Components in Figma",
+        "provider": "LinkedIn Learning",
+        "year": "2024",
+        "date": "2024-09-20",
+        "duration": "1 h 11 min",
+        "type": "course",
+        "topic": "accessibility",
+        "featured": true,
+        "skills": ["Computer Accessibility", "Figma"],
+        "file": "/assets/certificates/designing-accessible-components-in-figma.pdf",
+        "thumb": "/assets/certificates/designing-accessible-components-in-figma.webp",
+        "verifyUrl": "",
+        "detail": {
+          "en": "Building components that stay usable with assistive technology — contrast, focus order, and annotation conventions inside Figma.",
+          "de": "Komponenten bauen, die mit assistiven Technologien nutzbar bleiben — Kontrast, Fokusreihenfolge und Annotationskonventionen in Figma."
+        }
+      },
+      {
+        "title": "20 Rules for Visual Communication",
+        "provider": "LinkedIn Learning",
+        "year": "2024",
+        "date": "2024-09-03",
+        "duration": "2 h 2 min",
+        "type": "course",
+        "topic": "design",
+        "skills": ["Visual Communication"],
+        "file": "/assets/certificates/20-rules-for-visual-communication.pdf",
+        "thumb": "/assets/certificates/20-rules-for-visual-communication.webp",
+        "verifyUrl": "",
+        "detail": {
+          "en": "Composition, hierarchy, type and colour rules for making a message legible at a glance.",
+          "de": "Komposition, Hierarchie, Typografie und Farbregeln, damit eine Botschaft auf einen Blick lesbar wird."
+        }
+      },
+      {
+        "title": "Design Thinking: Understanding the Process",
+        "provider": "LinkedIn Learning",
+        "year": "2024",
+        "date": "2024-09-03",
+        "type": "course",
+        "topic": "strategy",
+        "skills": ["Design Thinking", "Product Development"],
+        "file": "/assets/certificates/design-thinking-understanding-the-process.pdf",
+        "thumb": "/assets/certificates/design-thinking-understanding-the-process.webp",
+        "verifyUrl": "",
+        "detail": {
+          "en": "The full double-diamond loop — empathise, define, ideate, prototype, test — and where each phase pays off in product work.",
+          "de": "Der komplette Double-Diamond-Ablauf — verstehen, definieren, ideieren, prototypen, testen — und wo sich jede Phase in der Produktarbeit auszahlt."
+        }
+      },
+      {
+        "title": "Figma Essential Training: The Basics",
+        "provider": "LinkedIn Learning",
+        "year": "2024",
+        "date": "2024-09-03",
+        "duration": "1 h 37 min",
+        "type": "course",
+        "topic": "design",
+        "skills": ["Figma"],
+        "file": "/assets/certificates/figma-essential-training-the-basics.pdf",
+        "thumb": "/assets/certificates/figma-essential-training-the-basics.webp",
+        "verifyUrl": "",
+        "detail": {
+          "en": "Frames, components, styles and shared libraries — the working vocabulary behind every file I hand to developers.",
+          "de": "Frames, Komponenten, Styles und geteilte Bibliotheken — das Arbeitsvokabular hinter jeder Datei, die ich an die Entwicklung übergebe."
+        }
+      },
+      {
+        "title": "UX Deep Dive: Usability Testing",
+        "provider": "LinkedIn Learning",
+        "year": "2024",
+        "date": "2024-06-02",
+        "duration": "26 min",
+        "type": "course",
+        "topic": "research",
+        "featured": true,
+        "skills": ["Usability Testing"],
+        "file": "/assets/certificates/ux-deep-dive-usability-testing.pdf",
+        "thumb": "/assets/certificates/ux-deep-dive-usability-testing.webp",
+        "verifyUrl": "",
+        "detail": {
+          "en": "Planning a test, writing non-leading tasks, moderating, and turning observations into prioritised findings.",
+          "de": "Test planen, nicht-suggestive Aufgaben formulieren, moderieren und Beobachtungen in priorisierte Erkenntnisse überführen."
+        }
+      },
+      {
+        "title": "UX Design 7: Implementation Planning",
+        "provider": "LinkedIn Learning",
+        "year": "2024",
+        "date": "2024-06-02",
+        "duration": "18 min",
+        "type": "course",
+        "topic": "strategy",
+        "skills": ["User Experience Design"],
+        "file": "/assets/certificates/ux-design-7-implementation-planning.pdf",
+        "thumb": "/assets/certificates/ux-design-7-implementation-planning.webp",
+        "verifyUrl": "",
+        "detail": {
+          "en": "Handing a design over: scoping, sequencing and documenting what engineering actually needs to build it.",
+          "de": "Die Übergabe eines Designs: Scoping, Reihenfolge und Dokumentation dessen, was die Entwicklung zur Umsetzung wirklich braucht."
+        }
+      },
+      {
+        "title": "UX for Web Forms",
+        "provider": "LinkedIn Learning",
+        "year": "2024",
+        "date": "2024-05-26",
+        "duration": "2 h 18 min",
+        "type": "course",
+        "topic": "engineering",
+        "skills": ["Forms Development", "User Experience"],
+        "file": "/assets/certificates/ux-for-web-forms.pdf",
+        "thumb": "/assets/certificates/ux-for-web-forms.webp",
+        "verifyUrl": "",
+        "detail": {
+          "en": "Field design, inline validation, error recovery and accessible labelling for the forms that carry most conversions.",
+          "de": "Feldgestaltung, Inline-Validierung, Fehlerbehebung und barrierefreie Beschriftung für die Formulare, die den Großteil der Conversions tragen."
+        }
+      },
+      {
+        "title": "UX Design 1: Overview",
+        "provider": "LinkedIn Learning",
+        "year": "2024",
+        "date": "2024-05-25",
+        "duration": "13 min",
+        "type": "course",
+        "topic": "strategy",
+        "skills": ["User Experience Design"],
+        "file": "/assets/certificates/ux-design-1-overview.pdf",
+        "thumb": "/assets/certificates/ux-design-1-overview.webp",
+        "verifyUrl": "",
+        "detail": {
+          "en": "How the phases of a UX process fit together, and which deliverable belongs to which phase.",
+          "de": "Wie die Phasen eines UX-Prozesses zusammenspielen und welches Ergebnis in welche Phase gehört."
+        }
+      },
+      {
+        "title": "UX Design 2: Analyzing User Data",
+        "provider": "LinkedIn Learning",
+        "year": "2024",
+        "date": "2024-05-25",
+        "duration": "30 min",
+        "type": "course",
+        "topic": "research",
+        "skills": ["User Analysis"],
+        "file": "/assets/certificates/ux-design-2-analyzing-user-data.pdf",
+        "thumb": "/assets/certificates/ux-design-2-analyzing-user-data.webp",
+        "verifyUrl": "",
+        "detail": {
+          "en": "Turning raw research data into patterns — affinity mapping, segmentation, and reading quantitative signals honestly.",
+          "de": "Rohdaten aus der Forschung in Muster überführen — Affinity Mapping, Segmentierung und das ehrliche Lesen quantitativer Signale."
+        }
+      },
+      {
+        "title": "XML Essential Training",
+        "provider": "LinkedIn Learning",
+        "year": "2024",
+        "date": "2024-05-21",
+        "duration": "3 h 52 min",
+        "type": "course",
+        "topic": "engineering",
+        "skills": ["XML", "Schemas", "XSLT"],
+        "file": "/assets/certificates/xml-essential-training.pdf",
+        "thumb": "/assets/certificates/xml-essential-training.webp",
+        "verifyUrl": "",
+        "detail": {
+          "en": "Document structure, DTDs and schemas, namespaces, XPath and XSLT transformations.",
+          "de": "Dokumentstruktur, DTDs und Schemata, Namespaces, XPath und XSLT-Transformationen."
+        }
+      },
+      {
+        "title": "Using AI in the UX Design Process",
+        "provider": "LinkedIn Learning",
+        "year": "2024",
+        "date": "2024-05-20",
+        "duration": "1 h 7 min",
+        "type": "course",
+        "topic": "ai",
+        "featured": true,
+        "skills": ["Artificial Intelligence for Design", "User Experience Design"],
+        "file": "/assets/certificates/using-ai-in-the-ux-design-process.pdf",
+        "thumb": "/assets/certificates/using-ai-in-the-ux-design-process.webp",
+        "verifyUrl": "",
+        "detail": {
+          "en": "Where generative AI genuinely speeds up research synthesis, ideation and content drafting — and where it quietly misleads.",
+          "de": "Wo generative KI die Synthese von Forschungsdaten, Ideenfindung und Textentwürfe wirklich beschleunigt — und wo sie unbemerkt in die Irre führt."
+        }
+      },
+      {
+        "title": "A Design Thinking Approach to Putting the Customer First",
+        "provider": "LinkedIn Learning",
+        "year": "2024",
+        "date": "2024-04-28",
+        "duration": "27 min",
+        "type": "course",
+        "topic": "strategy",
+        "skills": ["Customer-Focused Design"],
+        "file": "/assets/certificates/design-thinking-approach-to-putting-the-customer-first.pdf",
+        "thumb": "/assets/certificates/design-thinking-approach-to-putting-the-customer-first.webp",
+        "verifyUrl": "",
+        "detail": {
+          "en": "Keeping the customer's problem — not the team's assumptions — at the centre of a design decision.",
+          "de": "Das Problem der Kundschaft — nicht die Annahmen des Teams — im Zentrum einer Designentscheidung halten."
+        }
+      },
+      {
+        "title": "UX Design 3: Creating Personas",
+        "provider": "LinkedIn Learning",
+        "year": "2024",
+        "date": "2024-04-17",
+        "duration": "25 min",
+        "type": "course",
+        "topic": "research",
+        "skills": ["User Personas"],
+        "file": "/assets/certificates/ux-design-3-creating-personas.pdf",
+        "thumb": "/assets/certificates/ux-design-3-creating-personas.webp",
+        "verifyUrl": "",
+        "detail": {
+          "en": "Building personas from evidence rather than invention, and keeping them usable once the project moves on.",
+          "de": "Personas aus Belegen statt aus Erfindungen bauen — und sie auch im weiteren Projektverlauf brauchbar halten."
+        }
+      },
+      {
+        "title": "UX Design 5: Creating Scenarios and Storyboards",
+        "provider": "LinkedIn Learning",
+        "year": "2024",
+        "date": "2024-04-17",
+        "duration": "20 min",
+        "type": "course",
+        "topic": "research",
+        "skills": ["User Experience Design", "Storyboarding"],
+        "file": "/assets/certificates/ux-design-5-creating-scenarios-and-storyboards.pdf",
+        "thumb": "/assets/certificates/ux-design-5-creating-scenarios-and-storyboards.webp",
+        "verifyUrl": "",
+        "detail": {
+          "en": "Narrating a user's context as a scenario, then drawing it out as a storyboard the whole team can argue with.",
+          "de": "Den Kontext von Nutzenden als Szenario erzählen und ihn als Storyboard zeichnen, über das das ganze Team diskutieren kann."
+        }
+      },
+      {
+        "title": "Agile User Experience Design and Research",
+        "provider": "LinkedIn Learning",
+        "year": "2024",
+        "date": "2024-04-12",
+        "duration": "59 min",
+        "type": "course",
+        "topic": "strategy",
+        "featured": true,
+        "skills": ["Agile Methodologies", "UX Research"],
+        "file": "/assets/certificates/agile-user-experience-design-and-research.pdf",
+        "thumb": "/assets/certificates/agile-user-experience-design-and-research.webp",
+        "verifyUrl": "",
+        "detail": {
+          "en": "Fitting research and design into sprint cadence — continuous discovery, lean deliverables, and testing one sprint ahead.",
+          "de": "Research und Design in den Sprint-Rhythmus einpassen — kontinuierliche Discovery, schlanke Deliverables und Testen einen Sprint voraus."
+        }
+      },
+      {
+        "title": "Using Style Guides to Bridge Design and Development",
+        "provider": "LinkedIn Learning",
+        "year": "2024",
+        "date": "2024-04-07",
+        "duration": "50 min",
+        "type": "course",
+        "topic": "design",
+        "skills": ["User Interface Design", "Style Guides", "User Experience Design"],
+        "file": "/assets/certificates/using-style-guides-to-bridge-design-and-development.pdf",
+        "thumb": "/assets/certificates/using-style-guides-to-bridge-design-and-development.webp",
+        "verifyUrl": "",
+        "detail": {
+          "en": "Style guides and design systems as the shared contract between a design file and the components that ship.",
+          "de": "Styleguides und Designsysteme als gemeinsamer Vertrag zwischen Designdatei und den Komponenten, die live gehen."
+        }
+      },
+      {
+        "title": {
+          "en": "Student Volunteer — Mensch und Computer 2022",
+          "de": "Studentische Freiwillige — Mensch und Computer 2022"
+        },
+        "provider": "Gesellschaft für Informatik (GI e.V.) · ACM In-Cooperation",
+        "year": "2022",
+        "type": "recognition",
+        "topic": "academic",
+        "featured": true,
+        "skills": ["Session Chairing", "Conference Operations"],
+        "file": "/assets/certificates/student-volunteer-mensch-und-computer-2022.png",
+        "thumb": "/assets/certificates/student-volunteer-mensch-und-computer-2022.webp",
+        "verifyUrl": "",
+        "detail": {
+          "en": "Session and workshop support at Europe's largest HCI conference series (~600 participants), hosted by TU Darmstadt.",
+          "de": "Betreuung von Sessions und Workshops bei Europas größter HCI-Konferenzreihe (~600 Teilnehmende), ausgerichtet von der TU Darmstadt."
+        }
+      },
+      {
+        "title": {
+          "en": "Student Volunteer — Joint Conference on Serious Games 2022",
+          "de": "Studentische Freiwillige — Joint Conference on Serious Games 2022"
+        },
+        "provider": "JCSG 2022, Bauhaus-Universität Weimar",
+        "year": "2022",
+        "date": "2022-09-23",
+        "type": "recognition",
+        "topic": "academic",
+        "featured": true,
+        "skills": ["Conference Operations", "Speaker Support"],
+        "file": "/assets/certificates/student-volunteer-jcsg-2022.png",
+        "thumb": "/assets/certificates/student-volunteer-jcsg-2022.webp",
+        "verifyUrl": "",
+        "detail": {
+          "en": "Venue setup, guest welcome and speaker support across the two conference days, 22–23 September 2022 in Weimar.",
+          "de": "Aufbau des Veranstaltungsorts, Gästeempfang und Betreuung der Vortragenden an beiden Konferenztagen, 22.–23. September 2022 in Weimar."
+        }
+      }
+    ],
     "bio": {
       "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction and eight years across frontend development, QA, and user research. I like working on both ends of a product: running solid mixed-methods studies to understand what people actually need, and then building it — responsive, accessible interfaces in React and TypeScript. That mix is the point. I turn findings into recommendations, and recommendations into shipped code. Below is how the two halves came together.",
       "de": "Ich bin UX Engineer mit einem M.Sc. in Human-Computer Interaction und acht Jahren Erfahrung in Frontend-Entwicklung, QA und User Research. Ich arbeite gern an beiden Enden eines Produkts: Ich führe fundierte Mixed-Methods-Studien durch, um zu verstehen, was Menschen wirklich brauchen — und baue es dann: responsive, barrierefreie Interfaces in React und TypeScript. Genau diese Mischung ist der Punkt. Ich mache aus Erkenntnissen Empfehlungen — und aus Empfehlungen fertigen Code. Wie beide Seiten zusammenkommen, zeigt sich weiter unten."

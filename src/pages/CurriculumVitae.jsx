@@ -40,6 +40,16 @@ export default function CV() {
     description: bio || profileSummary,
   });
 
+  // The CV lists the credentials flagged `featured` in data.json, not all of
+  // them — the full set (every LinkedIn Learning course included) would run
+  // longer than the experience section and pushes the print layout onto an
+  // extra page. "View all" below the list goes to the /credentials gallery.
+  // No entry flagged → show everything, so the section never renders empty.
+  const cvCertifications = useMemo(() => {
+    const featured = (certifications || []).filter((cert) => cert.featured);
+    return featured.length > 0 ? featured : certifications || [];
+  }, [certifications]);
+
   const cvSections = useMemo(
     () => [
       { id: "about", label: t("nav.about") },
@@ -263,7 +273,7 @@ export default function CV() {
             <section id="certificates" className="scroll-mt-32">
               <SectionHeading sidebar>{t("cv.certificates")}</SectionHeading>
               <div className="space-y-4 print:space-y-3">
-                {certifications.map((cert, i) => (
+                {cvCertifications.map((cert, i) => (
                   <div key={i} className="text-base leading-snug print:text-sm break-inside-avoid">
                     <p className="font-bold text-gray-900">{cert.title}</p>
                     <p className="text-gray-500 text-sm mt-1 print:text-xs">

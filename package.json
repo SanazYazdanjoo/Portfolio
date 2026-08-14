@@ -1,5 +1,5 @@
 {
-  "name": "clean-portfolio-min-layout-responsive",
+  "name": "yazdanjoo-portfolio",
   "private": true,
   "version": "0.0.1",
   "type": "module",
@@ -17,8 +17,6 @@
     "@fontsource-variable/dm-sans": "^5.3.0",
     "@fontsource/caveat": "^5.3.0",
     "@vercel/analytics": "^2.0.1",
-    "cors": "^2.8.6",
-    "express": "^5.2.1",
     "framer-motion": "^12.34.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -26,6 +24,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@vitejs/plugin-react": "^6.0.3",
