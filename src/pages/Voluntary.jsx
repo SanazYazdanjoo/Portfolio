@@ -33,7 +33,6 @@ export default function Voluntary() {
           </p>
         </header>
 
-        {/* The List Component */}
         <VoluntaryList items={voluntaryItems} />
 
       </div>

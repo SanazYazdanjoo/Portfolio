@@ -12,7 +12,7 @@
 // portraits of individuals.
 import thumbnailImg from './Project-4.png';
 import thumbnailWebp from './Project-4.webp';
-import prototypeScreenshot from './Fahrtkostenerstattung-—-Prototyp-08-14-2026.jpg'; // 
+import prototypeScreenshot from './Fahrtkostenerstattung-—-Prototyp-08-14-2026.jpg';
 import umlPreview from './UML-preview.png';
 import fiveW1HFrame from './5W1H.png';
 import stakeholderMap from './Stakeholders.png';
