@@ -33,12 +33,19 @@ export const projects = Object.entries(modules)
     // Slug = folder name ("../projects/gaze-assisted-input/data.js" →
     // "gaze-assisted-input").
     // Same source main.jsx builds routes from — link and route can't drift.
-    const folderSlug = path.split("/")[2];
-    const slug = p.slug ?? folderSlug;
+    // A `slug` field in data.js is deliberately ignored: main.jsx would still
+    // register the route under the folder name, so a custom slug could only
+    // produce links that 404. To change a URL, rename the folder.
+    const slug = path.split("/")[2];
 
     const status = normalizeStatus(p.status);
 
     if (import.meta.env.DEV) {
+      if (p.slug && p.slug !== slug) {
+        console.warn(
+          `[projects] ${path} sets slug "${p.slug}" — ignored; the folder name is the slug. Rename the folder to change the URL.`
+        );
+      }
       for (const field of ["status", "title", "methods"]) {
         if (!p?.[field]) {
           console.warn(`[projects] ${path} is missing required field "${field}"`);

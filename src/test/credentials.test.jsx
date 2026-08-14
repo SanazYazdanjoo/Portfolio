@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { screen, fireEvent, within } from "@testing-library/react";
+import { screen, fireEvent, within, waitForElementToBeRemoved } from "@testing-library/react";
 import { renderWithProviders } from "./renderWithProviders";
 import Credentials from "../pages/Credentials";
 
@@ -12,6 +12,7 @@ const { mockProfile } = vi.hoisted(() => ({
         provider: "HCI Group, Bauhaus-Universität Weimar",
         year: "2025",
         type: "workshop",
+        topic: "design",
         skills: ["Figma", "Design Systems"],
         thumb: "/assets/certificates/figma-101.webp",
         file: "/assets/certificates/figma-101.pdf",
@@ -22,6 +23,7 @@ const { mockProfile } = vi.hoisted(() => ({
         provider: "TVTO",
         year: "2019",
         type: "course",
+        topic: "engineering",
         skills: ["Python"],
         thumb: "",
         file: "",
@@ -84,6 +86,71 @@ describe("Credentials page", () => {
     fireEvent.keyDown(document, { key: "Escape" });
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     expect(trigger).toHaveFocus();
+  });
+});
+
+describe("Credentials page — topic filter", () => {
+  const chip = (name) => screen.getByRole("button", { name: new RegExp(`^${name}`, "i") });
+
+  it("renders one chip per topic in the data, plus All, with counts", () => {
+    renderWithProviders(<Credentials />);
+    expect(chip("all")).toHaveTextContent("2");
+    expect(chip("design & prototyping")).toHaveTextContent("1");
+    expect(chip("engineering")).toHaveTextContent("1");
+    // No cert carries these topics, so they get no chip
+    expect(screen.queryByRole("button", { name: /^accessibility/i })).not.toBeInTheDocument();
+  });
+
+  it("filters the grid to the selected topic without unmounting the page", async () => {
+    renderWithProviders(<Credentials />);
+    fireEvent.click(chip("engineering"));
+
+    expect(screen.getByRole("heading", { name: "Python Programming" })).toBeInTheDocument();
+    expect(screen.getByText("Showing 1 of 2")).toBeInTheDocument();
+    // AnimatePresence keeps a filtered-out card mounted until its exit
+    // animation finishes, so the removal is asserted asynchronously.
+    await waitForElementToBeRemoved(() =>
+      screen.queryByRole("heading", { name: "Figma 101 Workshop" })
+    );
+  });
+
+  it("treats two selected topics as OR, not AND", () => {
+    renderWithProviders(<Credentials />);
+    fireEvent.click(chip("engineering"));
+    fireEvent.click(chip("design & prototyping"));
+
+    expect(screen.getByRole("heading", { name: "Python Programming" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Figma 101 Workshop" })).toBeInTheDocument();
+  });
+
+  it("deselects a chip on a second click and marks selection with aria-pressed", () => {
+    renderWithProviders(<Credentials />);
+    fireEvent.click(chip("engineering"));
+    expect(chip("engineering")).toHaveAttribute("aria-pressed", "true");
+    expect(chip("all")).toHaveAttribute("aria-pressed", "false");
+
+    fireEvent.click(chip("engineering"));
+    expect(chip("engineering")).toHaveAttribute("aria-pressed", "false");
+    expect(chip("all")).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByRole("heading", { name: "Figma 101 Workshop" })).toBeInTheDocument();
+  });
+
+  it("applies ?topic= from the URL on first render", () => {
+    renderWithProviders(<Credentials />, { route: "/credentials?topic=design" });
+    expect(screen.getByRole("heading", { name: "Figma 101 Workshop" })).toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: "Python Programming" })).not.toBeInTheDocument();
+  });
+
+  it("ignores an unknown topic in the URL rather than emptying the grid", () => {
+    renderWithProviders(<Credentials />, { route: "/credentials?topic=nonsense" });
+    expect(screen.getByRole("heading", { name: "Figma 101 Workshop" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Python Programming" })).toBeInTheDocument();
+  });
+
+  it("resets to every credential from the All chip", () => {
+    renderWithProviders(<Credentials />, { route: "/credentials?topic=design" });
+    fireEvent.click(chip("all"));
+    expect(screen.getByText("Showing 2 of 2")).toBeInTheDocument();
   });
 });
 

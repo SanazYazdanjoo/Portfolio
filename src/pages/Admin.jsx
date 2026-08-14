@@ -559,6 +559,19 @@ const CERT_TYPES = [
   "language",
 ];
 
+// Drives the /credentials filter chips. Keep in sync with TOPIC_ORDER in
+// Credentials.jsx and the credentials.topic.* keys in both translation files —
+// a topic with no translation falls back to its raw id on the chip.
+const CERT_TOPICS = [
+  "research",
+  "strategy",
+  "design",
+  "accessibility",
+  "ai",
+  "engineering",
+  "academic",
+];
+
 function CertificationsTab({ data, setData }) {
   const items = data.certifications || [];
 
@@ -578,7 +591,11 @@ function CertificationsTab({ data, setData }) {
           title: "",
           provider: "",
           year: "",
+          date: "",
+          duration: "",
           type: "",
+          topic: "",
+          featured: false,
           skills: [],
           file: "",
           thumb: "",
@@ -601,12 +618,42 @@ function CertificationsTab({ data, setData }) {
           <Field label="Title" value={cert.title} onChange={(v) => setCert(i, "title", v)} />
           <Field label="Provider" value={cert.provider} onChange={(v) => setCert(i, "provider", v)} />
           <Field label="Year" value={cert.year} onChange={(v) => setCert(i, "year", v)} placeholder="e.g. 2025" />
+          <Field
+            label="Date (optional, sorts the gallery)"
+            value={cert.date}
+            onChange={(v) => setCert(i, "date", v)}
+            mono
+            placeholder="YYYY-MM-DD — falls back to the year"
+          />
+          <Field
+            label="Duration (optional)"
+            value={cert.duration}
+            onChange={(v) => setCert(i, "duration", v)}
+            placeholder="e.g. 1 h 11 min"
+          />
           <SelectField
             label="Type"
             value={cert.type}
             onChange={(v) => setCert(i, "type", v)}
             options={CERT_TYPES}
           />
+          <SelectField
+            label="Topic (filter chip on /credentials)"
+            value={cert.topic}
+            onChange={(v) => setCert(i, "topic", v)}
+            options={CERT_TOPICS}
+          />
+          <label className="mb-4 flex items-center gap-2">
+            <input
+              type="checkbox"
+              checked={Boolean(cert.featured)}
+              onChange={(e) => setCert(i, "featured", e.target.checked)}
+              className="h-4 w-4 accent-[#96150f]"
+            />
+            <span className="text-xs font-bold uppercase tracking-widest text-gray-400">
+              Featured — also list on the CV page
+            </span>
+          </label>
           <ArrayField
             label="Skills"
             items={cert.skills || []}

@@ -23,7 +23,9 @@ rather than letting them drift.
 | What | Where |
 |---|---|
 | Profile, CV, skills, certifications | `src/data/data.json` → `src/data/profile.js` |
+| Voluntary work | `src/data/data.json` → `src/data/voluntary.js` |
 | One case study | `src/projects/<slug>/data.js` |
+| Career arc ("The Bridge") | `src/data/career.js` (structure) + `src/translations/` (copy) |
 | UI strings (EN/DE) | `src/translations/{en,de}.js` |
 | Design tokens | `src/styles/theme.css`, surfaced at `/designsystem` |
 
@@ -36,10 +38,28 @@ pick it up with no manual registration. The folder name *is* the URL slug.
 `useLocalizedProfile` resolves them recursively, so a page never handles
 language itself. A field with only one language present fails the test suite.
 
+**Which language mechanism to use where** — there are two, plus one hybrid,
+and the split is by who owns the text:
+
+- **UI strings** (nav labels, buttons, section kickers — anything that belongs
+  to the *interface*): flat dot-notation keys in `src/translations/{en,de}.js`,
+  resolved with `t("nav.home")` from `useTranslation()`.
+- **Content fields** (anything that belongs to the *data* — profile values,
+  case-study prose): inline `{ en, de }` objects where the data lives,
+  resolved by `useLocalizedProfile`. Language-neutral proper nouns (tool
+  names, tech stacks) stay plain strings.
+- **The hybrid** (`src/data/career.js`): structure lives in the data file,
+  but its fields are translation *keys* (`labelKey`, `summaryKey`) resolved
+  at render time — used when a data structure's copy should live with the
+  other UI strings.
+
+When adding new text, pick by ownership: interface → translation key,
+data → `{ en, de }` object. Don't invent a fourth pattern.
+
 ## Build-time guarantees
 
-`npm run build` runs these before Vite, and any of them failing stops the
-build:
+`npm run build` chains these around Vite (lint and the guards before the
+build, `generate-meta` after it), and any of them failing stops the build:
 
 - **`scripts/check-needs-input.mjs`** — a `NEEDS_INPUT` sentinel marks a fact
   that hasn't been supplied yet. It renders as a visible marker in dev and
