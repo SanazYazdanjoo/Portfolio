@@ -148,8 +148,8 @@ export const projectData = {
       type: { en: "Experimental Design", de: "Experimentaldesign" },
       title: { en: "A 3×2×6 Within-Subjects Protocol", de: "Ein 3×2×6-Within-Subjects-Protokoll" },
       annotation: {
-        en: "Three input methods (Mouse, MAGIC Pointing, gaze-augmented Ninja Cursors) × two target sizes × six distances (875–3226 px), counterbalanced with a balanced Latin square. Measures: movement time, repeat rate, and SUS per method block.",
-        de: "Drei Eingabemethoden (Maus, MAGIC Pointing, blickunterstützte Ninja Cursors) × zwei Zielgrößen × sechs Distanzen (875–3226 px), balanciert mit einem ausgeglichenen lateinischen Quadrat. Messgrößen: Bewegungszeit, Wiederholungsrate und SUS pro Methodenblock.",
+        en: "Three input methods (Mouse, MAGIC Pointing, gaze-augmented Ninja Cursors) × two target sizes × six distances (875–3226 px); input-method and target-size order counterbalanced with a balanced Latin square. Measures: movement time, repeat rate, and SUS per method block.",
+        de: "Drei Eingabemethoden (Maus, MAGIC Pointing, blickunterstützte Ninja Cursors) × zwei Zielgrößen × sechs Distanzen (875–3226 px); die Reihenfolge von Eingabemethode und Zielgröße balanciert mit einem ausgeglichenen lateinischen Quadrat. Messgrößen: Bewegungszeit, Wiederholungsrate und SUS pro Methodenblock.",
       },
       insight: {
         en: "Treating distance as a categorical factor was deliberate — the six levels mix within-screen and cross-screen movements, which is exactly where the techniques were expected to diverge.",
@@ -190,8 +190,8 @@ export const projectData = {
       type: { en: "SUS + Thematic Analysis", de: "SUS + thematische Analyse" },
       title: { en: "Trust Beats Speed", de: "Vertrauen schlägt Tempo" },
       annotation: {
-        en: "SUS after each block (n=30): Mouse 85.2, Ninja 72.6, MAGIC 55.9 (Friedman p < .001). Reflexive thematic analysis of open feedback surfaced seven themes, from the 'transport advantage' (23/30) to the 'landing penalty' (22/30).",
-        de: "SUS nach jedem Block (n=30): Maus 85,2, Ninja 72,6, MAGIC 55,9 (Friedman p < .001). Die reflexive thematische Analyse des offenen Feedbacks ergab sieben Themen, vom 'Transportvorteil' (23/30) bis zur 'Landestrafe' (22/30).",
+        en: "SUS after each block (n=30): Mouse 85.2, Ninja 72.6, MAGIC 55.9 (Friedman p < .001) — MAGIC the only technique below the 68-point acceptability threshold. Reflexive thematic analysis of open feedback surfaced seven primary themes, from the 'transport advantage' (23/30) to the 'landing penalty' (22/30).",
+        de: "SUS nach jedem Block (n=30): Maus 85,2, Ninja 72,6, MAGIC 55,9 (Friedman p < .001) — MAGIC als einzige Technik unter der Akzeptanzschwelle von 68 Punkten. Die reflexive thematische Analyse des offenen Feedbacks ergab sieben Hauptthemen, vom 'Transportvorteil' (23/30) bis zur 'Landestrafe' (22/30).",
       },
       insight: {
         en: "60% preferred Ninja despite the mouse's higher SUS — participants framed it as 'best of both worlds.' Predictability and trust, not raw speed, determined acceptance.",
@@ -219,8 +219,8 @@ export const projectData = {
     de: "Ein zweiphasiges Mixed-Methods-Design. Phase I: eine formative Vorstudie (n=20) mit semi-strukturierten Interviews und einer Figma-basierten Arbeitsplatz-Visualisierungsaufgabe, ausgewertet mit reflexiver thematischer Analyse, die die Laborkonfiguration in realer Dual-Display-Praxis verankerte. Phase II: ein kontrolliertes Within-Subjects-Experiment (N=30) mit einem 3×2×6-faktoriellen Design — Eingabemethode × Zielgröße × Distanz (875–3226 px) — mit Messung von Bewegungszeit, Wiederholungsrate und SUS, ausgewertet mit ANOVA mit Messwiederholung (Greenhouse-Geisser-korrigiert, Tukey-Post-hoc).",
   },
   results: {
-    en: "A significant technique × distance interaction (η²ₚ = .690) revealed a crossover: the mouse was fastest for short distances, but Ninja Cursors significantly outperformed it at the two intermediate cross-screen distances (1684 and 2243 px) and converged at the longest (3226 px). MAGIC was consistently slowest — its warp coupled gaze noise directly to landing accuracy, producing the highest repeat rate on small targets (4.69%). SUS ranked Mouse (85.2) > Ninja (72.6) > MAGIC (55.9), yet 60% of participants named Ninja their most preferred method.",
-    de: "Eine signifikante Interaktion Technik × Distanz (η²ₚ = .690) zeigte einen Crossover: Die Maus war bei kurzen Distanzen am schnellsten, doch Ninja Cursors übertrafen sie signifikant bei den beiden mittleren bildschirmübergreifenden Distanzen (1684 und 2243 px) und glichen sich bei der längsten (3226 px) an. MAGIC war durchgängig am langsamsten — der Warp koppelte Blickrauschen direkt an die Landegenauigkeit und erzeugte die höchste Wiederholungsrate bei kleinen Zielen (4,69 %). Der SUS-Score rangierte Maus (85,2) > Ninja (72,6) > MAGIC (55,9), dennoch nannten 60 % der Teilnehmenden Ninja als bevorzugte Methode.",
+    en: "A significant technique × distance interaction (η²ₚ = .690) revealed a crossover: the mouse was fastest for short distances, but Ninja Cursors significantly outperformed it at the two intermediate cross-screen distances (1684 and 2243 px) and converged at the longest (3226 px). MAGIC was consistently slowest — its warp coupled gaze noise directly to landing accuracy, producing the highest repeat rate on small targets (4.69%), while Ninja's small-target repeat rate matched the mouse baseline (3.30%). SUS ranked Mouse (85.2) > Ninja (72.6) > MAGIC (55.9), with MAGIC alone falling below the 68-point acceptability threshold — yet 60% of participants named Ninja their most preferred method, and 63% named MAGIC their least preferred.",
+    de: "Eine signifikante Interaktion Technik × Distanz (η²ₚ = .690) zeigte einen Crossover: Die Maus war bei kurzen Distanzen am schnellsten, doch Ninja Cursors übertrafen sie signifikant bei den beiden mittleren bildschirmübergreifenden Distanzen (1684 und 2243 px) und glichen sich bei der längsten (3226 px) an. MAGIC war durchgängig am langsamsten — der Warp koppelte Blickrauschen direkt an die Landegenauigkeit und erzeugte die höchste Wiederholungsrate bei kleinen Zielen (4,69 %), während Ninjas Wiederholungsrate bei kleinen Zielen der Maus-Baseline entsprach (3,30 %). Der SUS-Score rangierte Maus (85,2) > Ninja (72,6) > MAGIC (55,9), wobei allein MAGIC unter die Akzeptanzschwelle von 68 Punkten fiel — dennoch nannten 60 % der Teilnehmenden Ninja als bevorzugte Methode und 63 % MAGIC als am wenigsten bevorzugte.",
   },
   implications: {
     en: "Gaze assistance should be a context-aware accelerator, not an always-on replacement. Three design directions follow from the data: adaptive activation using the screen boundary itself as the trigger, semantic snapping toward UI elements to fix MAGIC's landing penalty, and stronger visual differentiation of the active cursor in multi-cursor designs. The broader lesson for UI engineers: predictability and system trust — not raw speed alone — determine whether users adopt a novel interaction pattern.",
@@ -246,28 +246,27 @@ export const projectData = {
     adoption: "academic",
   },
 
-  // Both quotes are participant language already published verbatim in the
-  // process-gallery insights above (Phase I "Characterising Real Multi-Display
-  // Work"; Phase II "Trust Beats Speed") — promoted here, not reworded.
+  // Both quotes are verbatim participant quotes published in the thesis
+  // (Phase I pre-study, Theme T3, §3.1; Phase II main study, Theme 6, §4.6.1).
   verbatims: [
     {
       quote: {
-        en: "shaking the mouse to find the pointer",
-        de: "die Maus schütteln, um den Zeiger zu finden",
+        en: "Sometimes when I'm very much focused on the task, I just don't get [where the cursor] is, and then I have to shake it.",
+        de: "Manchmal, wenn ich sehr auf die Aufgabe konzentriert bin, weiß ich einfach nicht, [wo der Cursor] ist, und dann muss ich ihn schütteln.",
       },
       attribution: {
-        en: "Phase I pre-study participant (n=20), reflexive thematic analysis",
-        de: "Teilnehmende:r der Vorstudie Phase I (n=20), reflexive thematische Analyse",
+        en: "P03 (engineer), Phase I pre-study (n=20) — on losing the cursor in everyday multi-display work",
+        de: "P03 (Ingenieur:in), Vorstudie Phase I (n=20) — zum Cursor-Verlust in der alltäglichen Multi-Display-Arbeit",
       },
     },
     {
       quote: {
-        en: "best of both worlds",
-        de: "das Beste aus beiden Welten",
+        en: "It's a mix of Mouse and MAGIC — you get the best out of both. It makes switching monitors faster while putting less strain on the eyes.",
+        de: "Es ist eine Mischung aus Maus und MAGIC — man bekommt das Beste aus beidem. Der Monitorwechsel wird schneller, und die Augen werden weniger belastet.",
       },
       attribution: {
-        en: "Phase II participant on Ninja Cursors (N=30) — 60% preferred it despite the mouse scoring higher on SUS",
-        de: "Teilnehmende:r der Phase II zu Ninja Cursors (N=30) — 60 % bevorzugten es trotz des höheren SUS-Werts der Maus",
+        en: "P21 on Ninja Cursors, Phase II study (N=30) — 60% preferred it despite the mouse scoring higher on SUS",
+        de: "P21 zu Ninja Cursors, Phase-II-Studie (N=30) — 60 % bevorzugten es trotz des höheren SUS-Werts der Maus",
       },
     },
   ],
