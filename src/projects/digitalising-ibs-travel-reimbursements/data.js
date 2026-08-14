@@ -135,6 +135,7 @@ export const projectData = {
     en: 'Because I already knew the workflow from the inside, the first UX research task was strictly about making my own assumptions falsifiable.',
     de: 'Da ich den Ablauf bereits von innen kannte, bestand die erste UX-Research-Aufgabe strikt darin, meine eigenen Annahmen falsifizierbar zu machen.',
   },
+
   methodology: {
     en: 'I reconstructed the AS-IS process as swimlane activity diagrams, framed the problem space with 5W1H, and mapped nine stakeholders. An expert validation interview with an independent administrator confirmed the full failure set. Phase 2 turned nineteen clustered problems into numbered requirements, a role-based sitemap, and the "IBS-DesignSystem"—where lane colours in the research map directly to UI badges in the app. Finally, Phase 3 engineered the calculation rules as pure, unit-tested TypeScript.',
     de: 'Ich rekonstruierte den IST-Prozess als Swimlane-Aktivitätsdiagramme, rahmte den Problemraum mit 5W1H und kartierte neun Stakeholder. Ein Validierungsinterview mit einer unabhängigen Fachperson bestätigte die vollständige Fehlermenge. Phase 2 verwandelte neunzehn geclusterte Probleme in nummerierte Anforderungen, eine rollenbasierte Sitemap und das "IBS-DesignSystem" — wo Spurfarben der Forschung direkt UI-Badges in der App entsprechen. Schließlich entwickelte Phase 3 die Berechnungsregeln als reines, unit-getestetes TypeScript.',
