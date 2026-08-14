@@ -4,10 +4,12 @@
 // i18n, print pipeline, invariant tests) is verified against the actual
 // source at the time of writing, not recalled from memory.
 //
-// methodology, results, and the discover-phase process entries are
-// deliberately withheld — see the TODO:// stubs — pending real research
-// data (5 moderated sessions, a 5-second test on the hero, a first-click
-// test on the nav). Zero invented findings, participant counts, or quotes.
+// The research-driven parts of methodology/results and the discover-phase
+// process entries are deliberately withheld pending real research data
+// (5 moderated sessions, a 5-second test on the hero, a first-click test
+// on the nav). Zero invented findings, participant counts, or quotes.
+// Exception: the four Lighthouse scores in `metrics`/`results` are real,
+// measured 2026-08-14 against production (see comment above `metrics`).
 //
 // No thumbnail/heroImage/figures yet — see assets/README.md.
 
@@ -65,11 +67,16 @@ export const projectData = {
   // sessions that would produce them haven't run, not because measurement
   // was skipped. `pending: true` renders a muted "Measurement pending"
   // state instead of a value; no number is written until one is real.
+  //
+  // The four Lighthouse rows are real: Lighthouse 13.4.0 against the
+  // production site (https://yazdanjoo.de, emulated desktop, 2026-08-14).
+  // Performance is 66 and is reported as 66 — see `results` for what
+  // drags it down. Re-run and update all four together, not selectively.
   metrics: [
-    { pending: true, label: { en: "Lighthouse — Performance", de: "Lighthouse — Performance" } },
-    { pending: true, label: { en: "Lighthouse — Accessibility", de: "Lighthouse — Accessibility" } },
-    { pending: true, label: { en: "Lighthouse — Best Practices", de: "Lighthouse — Best Practices" } },
-    { pending: true, label: { en: "Lighthouse — SEO", de: "Lighthouse — SEO" } },
+    { value: "66", label: { en: "Lighthouse — Performance", de: "Lighthouse — Performance" } },
+    { value: "96", label: { en: "Lighthouse — Accessibility", de: "Lighthouse — Accessibility" } },
+    { value: "96", label: { en: "Lighthouse — Best Practices", de: "Lighthouse — Best Practices" } },
+    { value: "100", label: { en: "Lighthouse — SEO", de: "Lighthouse — SEO" } },
     { pending: true, label: { en: "WCAG 2.1 AA contrast, all token pairs", de: "WCAG 2.1 AA Kontrast, alle Token-Paare" } },
     { pending: true, label: { en: "Keyboard-only + first-click task success", de: "Tastatur- & First-Click-Erfolg" } },
     { pending: true, label: { en: "CV print length (target: 1 A4 page)", de: "Lebenslauf-Drucklänge (Ziel: 1 A4-Seite)" } },
@@ -161,8 +168,8 @@ export const projectData = {
   },
 
   results: {
-    en: "Pending measurement: Lighthouse Performance / Accessibility / Best Practices / SEO, a manual WCAG 2.1 AA contrast pass across every token pair (not just the ones used on this page), a keyboard-only completion check of the primary path, confirmation the CV prints to exactly one A4 page with no orphaned headings, time-to-answer 'what does she do?' from the 5-second test, and the first-click success rate on the navigation. None of these numbers are stated below until they're measured — a metric this page can't yet back with a number is absent, not estimated.",
-    de: "Ausstehende Messungen: Lighthouse Performance / Accessibility / Best Practices / SEO, eine manuelle WCAG-2.1-AA-Kontrastprüfung über jedes Token-Paar (nicht nur die auf dieser Seite verwendeten), eine Prüfung der reinen Tastaturbedienbarkeit des Hauptpfads, die Bestätigung, dass der Lebenslauf exakt auf eine A4-Seite ohne verwaiste Überschriften druckt, die Zeit bis zur Antwort auf 'Was macht sie eigentlich?' aus dem 5-Sekunden-Test, sowie die First-Click-Erfolgsrate der Navigation. Keine dieser Zahlen wird unten genannt, bevor sie gemessen wurde — eine Kennzahl, die diese Seite noch nicht mit einer Zahl belegen kann, fehlt, statt geschätzt zu werden.",
+    en: "The first measured numbers, reported as measured: a Lighthouse 13.4.0 run against the production site (emulated desktop, August 14, 2026) scores Accessibility 96, Best Practices 96, SEO 100 — and Performance 66. The 66 is stated, not softened. First paint is fast (First Contentful Paint 0.5 s, Largest Contentful Paint 1.3 s); what holds the score down is a cumulative layout shift of 0.261 and 340 ms of total blocking time, which the audit traces to JavaScript the page ships but doesn't use (est. 733 KiB) and images it could deliver 461 KiB lighter. The same run also flags at least one background/foreground pair below the contrast threshold — exactly the class of finding the still-pending manual WCAG 2.1 AA pass across every token pair is designed to catch, and a caution against reading the 96 as a conformance claim. Still pending: that contrast pass, the keyboard-only completion check of the primary path, confirmation the CV prints to exactly one A4 page with no orphaned headings, time-to-answer 'what does she do?' from the 5-second test, and the first-click success rate on the navigation. A metric this page can't yet back with a number remains absent, not estimated.",
+    de: "Die ersten gemessenen Zahlen, berichtet wie gemessen: Ein Lighthouse-13.4.0-Lauf gegen die Produktionsseite (emulierter Desktop, 14. August 2026) ergibt Accessibility 96, Best Practices 96, SEO 100 — und Performance 66. Die 66 wird genannt, nicht beschönigt. Der erste Bildaufbau ist schnell (First Contentful Paint 0,5 s, Largest Contentful Paint 1,3 s); was den Wert drückt, sind eine kumulative Layoutverschiebung von 0,261 und 340 ms Total Blocking Time, die der Audit auf JavaScript zurückführt, das die Seite ausliefert, aber nicht nutzt (geschätzt 733 KiB), sowie auf Bilder, die 461 KiB leichter ausgeliefert werden könnten. Derselbe Lauf markiert außerdem mindestens ein Vordergrund-/Hintergrund-Paar unterhalb der Kontrastschwelle — genau die Klasse von Befund, für die die noch ausstehende manuelle WCAG-2.1-AA-Prüfung über jedes Token-Paar gedacht ist, und eine Warnung davor, die 96 als Konformitätsaussage zu lesen. Weiterhin ausstehend: diese Kontrastprüfung, die Prüfung der reinen Tastaturbedienbarkeit des Hauptpfads, die Bestätigung, dass der Lebenslauf exakt auf eine A4-Seite ohne verwaiste Überschriften druckt, die Zeit bis zur Antwort auf 'Was macht sie eigentlich?' aus dem 5-Sekunden-Test, sowie die First-Click-Erfolgsrate der Navigation. Eine Kennzahl, die diese Seite noch nicht mit einer Zahl belegen kann, fehlt weiterhin, statt geschätzt zu werden.",
   },
 
   implications: {

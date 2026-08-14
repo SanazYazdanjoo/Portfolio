@@ -1,0 +1,30 @@
+PERSONA SET
+The people in the process
+Seven personas for the monthly travel-cost reimbursement cycle in the LAT project “Qualifizierung Sprint”. Participants split into two structural cohorts:
+PK (Präsenzkurs)
+attend on-site daily,
+BL (Blendedkurs)
+live outside Erfurt within Thuringia, study remotely and drive in occasionally for exams or Dolmetschtraining. The three participant boards correspond to the three proof branches.
+Provenance is stated on every board, and differs by persona — that matters more than the persona content itself. Most persona sets present every profile as equally solid; this one doesn’t.
+{{ h }}
+{{ p.num }}
+{{ p.name }} — {{ p.role }}
+{{ p.position }}
+{{ p.provenance }}
+Provenance distinction: P3 and P4 come from participants actually processed in practice; P2 was constructed from the governing documents and general observation. Both are short of systematic evidence, but they are not the same kind of claim.
+{{ p.num }} · {{ p.name }}
+{{ p.role }}
+Position:
+{{ p.position }}
+Source:
+{{ p.provenance }}
+BIO
+{{ p.bio }}
+“{{ p.quote }}”
+{{ p.quotePlaceholder }}
+{{ cat.title }}
+{{ note.text }}
+{{ p.noteLabel }}
+{{ p.note }}
+A note on the visual treatment —
+avatars are initial monograms rather than stock photographs. A stock face on an unvalidated persona implies a specificity the research does not yet support; the monogram keeps the board honest about what it is. The ring colour marks the persona's role (matching the role palette); its line style tracks confidence: solid for validated, dashed for unvalidated or to confirm, faint dotted for hypothesis-only.

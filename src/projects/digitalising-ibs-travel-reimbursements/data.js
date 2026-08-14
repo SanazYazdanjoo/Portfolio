@@ -69,7 +69,7 @@ export const projectData = {
 
   methods: [
     { en: 'Insider process observation (AS-IS)',              de: 'Insider-Prozessbeobachtung (IST-Zustand)' },
-    { en: 'Expert validation interview',                      de: 'Experten-Validierungsinterview' },
+    { en: 'Expert validation interviews (n=2: administration, accounting)', de: 'Experten-Validierungsinterviews (n=2: Verwaltung, Buchhaltung)' },
     { en: 'Participant survey (n=5, anonymous, BL cohort)',   de: 'Teilnehmenden-Umfrage (n=5, anonym, BL-Kohorte)' },
     { en: 'Document & artefact analysis',                     de: 'Dokumenten- & Artefaktanalyse' },
     { en: 'Thematic analysis / affinity clustering',          de: 'Thematische Analyse / Affinity Clustering' },
@@ -87,8 +87,8 @@ export const projectData = {
     { value: 'n=5', label: { en: 'participant survey, every finding evidence-labelled', de: 'Teilnehmenden-Umfrage, jeder Befund mit Evidenzlabel' } },
     { value: '7', label: { en: 'personas, each with its provenance stated', de: 'Personas, jede mit angegebener Herkunft' } },
     { value: '9', label: { en: 'actors mapped across 13 steps and 4 return loops', de: 'Akteure über 13 Schritte und 4 Rückschleifen kartiert' } },
-    { value: '4+ wks', label: { en: 'AS-IS submission-to-payout, as measured', de: 'IST-Zustand Einreichung bis Auszahlung, gemessen' } },
-    { value: '~90%', label: { en: 'of PKW claims initially missed — no trigger existed', de: 'der PKW-Anträge zunächst übersehen — kein Auslöser vorhanden' } },
+    { value: '~4 wks', label: { en: 'AS-IS submission-to-payout (insider estimate, not instrumented)', de: 'IST-Zustand Einreichung bis Auszahlung (Insider-Schätzung, nicht instrumentiert)' } },
+    { value: { en: 'NO TRIGGER', de: 'KEIN AUSLÖSER' }, label: { en: 'Private-vehicle claims were never prompted for', de: 'PKW-Anträge wurden nie abgefragt' } },
     { value: '100%', label: { en: 'of requirements cited in code traced to a source problem', de: 'der im Code zitierten Anforderungen auf ein Quellproblem rückverfolgt' } },
     { value: '5', label: { en: 'role-based interfaces built and wired', de: 'rollenbasierte Oberflächen gebaut und verdrahtet' } },
     { value: '158', label: { en: 'automated tests across 25 files', de: 'automatisierte Tests über 25 Dateien' } },
@@ -137,8 +137,8 @@ export const projectData = {
   },
 
   methodology: {
-    en: 'I reconstructed the AS-IS process as swimlane activity diagrams, framed the problem space with 5W1H, and mapped nine stakeholders. An expert validation interview with an independent administrator confirmed the full failure set. Phase 2 turned nineteen clustered problems into numbered requirements, a role-based sitemap, and the "IBS-DesignSystem"—where lane colours in the research map directly to UI badges in the app. Finally, Phase 3 engineered the calculation rules as pure, unit-tested TypeScript.',
-    de: 'Ich rekonstruierte den IST-Prozess als Swimlane-Aktivitätsdiagramme, rahmte den Problemraum mit 5W1H und kartierte neun Stakeholder. Ein Validierungsinterview mit einer unabhängigen Fachperson bestätigte die vollständige Fehlermenge. Phase 2 verwandelte neunzehn geclusterte Probleme in nummerierte Anforderungen, eine rollenbasierte Sitemap und das "IBS-DesignSystem" — wo Spurfarben der Forschung direkt UI-Badges in der App entsprechen. Schließlich entwickelte Phase 3 die Berechnungsregeln als reines, unit-getestetes TypeScript.',
+    en: 'I reconstructed the AS-IS process as swimlane activity diagrams, framed the problem space with 5W1H, and mapped nine stakeholders. Two expert validation interviews — one with an independent administrator, one with a member of the accounting team — confirmed the failure set from both the administrative and the financial side of the process. Phase 2 turned nineteen clustered problems into numbered requirements, a role-based sitemap, and the "IBS-DesignSystem"—where lane colours in the research map directly to UI badges in the app. Finally, Phase 3 engineered the calculation rules as pure, unit-tested TypeScript.',
+    de: 'Ich rekonstruierte den IST-Prozess als Swimlane-Aktivitätsdiagramme, rahmte den Problemraum mit 5W1H und kartierte neun Stakeholder. Zwei Experten-Validierungsinterviews — eines mit einer unabhängigen Verwaltungskraft, eines mit einem Mitglied des Buchhaltungsteams — bestätigten die Fehlermenge sowohl von der administrativen als auch von der finanziellen Seite des Prozesses. Phase 2 verwandelte neunzehn geclusterte Probleme in nummerierte Anforderungen, eine rollenbasierte Sitemap und das "IBS-DesignSystem" — wo Spurfarben der Forschung direkt UI-Badges in der App entsprechen. Schließlich entwickelte Phase 3 die Berechnungsregeln als reines, unit-getestetes TypeScript.',
   },
 
   // Phase 4 evaluation is running. This section tracks early qualitative signals,
@@ -146,8 +146,8 @@ export const projectData = {
   // `resultsDetail: true` triggers the rendering of the Study-at-a-Glance strip 
   // and participant quotes.
   results: {
-    en: 'Phase 4 (task-based evaluation) is currently underway with reviewers across all five roles. Early qualitative feedback indicates that the explicit state machine directly addresses the participants\' primary friction point: the anxiety of a black-box process. By making the calculation trace visible, participants no longer have to blindly "take the amount as it comes," and the Admin is freed from manual status updates. Current iterations focus on refining the mobile receipt-upload flow to reduce error rates. The final target is to drastically reduce the measured 4+ week submission-to-payout cycle by eliminating the four structural return loops entirely.',
-    de: 'Phase 4 (aufgabenbasierte Evaluation) läuft derzeit mit Prüfenden aus allen fünf Rollen. Erstes qualitatives Feedback zeigt, dass die explizite Zustandsmaschine den Hauptreibungspunkt der Teilnehmenden direkt adressiert: die Unsicherheit eines Black-Box-Prozesses. Durch die sichtbare Berechnungs-Nachvollziehbarkeit müssen Teilnehmende den Betrag nicht mehr blind „nehmen, wie er kommt“, und die Verwaltung wird von manuellen Status-Updates befreit. Aktuelle Iterationen konzentrieren sich auf die Verfeinerung des mobilen Beleg-Uploads, um Fehlerquoten zu senken. Das finale Ziel ist es, den gemessenen Zyklus von über 4 Wochen von der Einreichung bis zur Auszahlung drastisch zu reduzieren, indem die vier strukturellen Rückschleifen vollständig eliminiert werden.',
+    en: 'Phase 4 (task-based evaluation) is currently underway with reviewers across all five roles. Early qualitative feedback indicates that the explicit state machine directly addresses the participants\' primary friction point: the anxiety of a black-box process. By making the calculation trace visible, participants no longer have to blindly "take the amount as it comes," and the Admin is freed from manual status updates. Current iterations focus on refining the mobile receipt-upload flow to reduce error rates. The final target is to drastically reduce the submission-to-payout cycle — estimated at four weeks or more from insider observation — by eliminating the four structural return loops entirely.',
+    de: 'Phase 4 (aufgabenbasierte Evaluation) läuft derzeit mit Prüfenden aus allen fünf Rollen. Erstes qualitatives Feedback zeigt, dass die explizite Zustandsmaschine den Hauptreibungspunkt der Teilnehmenden direkt adressiert: die Unsicherheit eines Black-Box-Prozesses. Durch die sichtbare Berechnungs-Nachvollziehbarkeit müssen Teilnehmende den Betrag nicht mehr blind „nehmen, wie er kommt“, und die Verwaltung wird von manuellen Status-Updates befreit. Aktuelle Iterationen konzentrieren sich auf die Verfeinerung des mobilen Beleg-Uploads, um Fehlerquoten zu senken. Das finale Ziel ist es, den Zyklus von der Einreichung bis zur Auszahlung — nach Insider-Beobachtung auf vier Wochen oder mehr geschätzt — drastisch zu reduzieren, indem die vier strukturellen Rückschleifen vollständig eliminiert werden.',
   },
   resultsDetail: true,
 
