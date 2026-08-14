@@ -201,6 +201,11 @@ export const projectData = {
     },
   ],
 
+  about: {
+    en: "A Master's thesis asking whether eye gaze can make pointing across two screens faster without costing users their trust in the cursor. I built the entire experiment software in TypeScript, connected it to a head-mounted eye tracker, and compared two gaze-assisted techniques — MAGIC Pointing and Ninja Cursors — against a plain mouse with 30 participants.",
+    de: "Eine Masterarbeit zu der Frage, ob Blicksteuerung das Zeigen über zwei Bildschirme hinweg beschleunigen kann, ohne das Vertrauen der Nutzer:innen in den Cursor zu kosten. Ich habe die komplette Experimentalsoftware in TypeScript entwickelt, sie an einen kopfgetragenen Eyetracker angebunden und zwei blickgestützte Techniken — MAGIC Pointing und Ninja Cursors — mit 30 Teilnehmenden gegen eine gewöhnliche Maus verglichen.",
+  },
+
   challenge: {
     en: "Multi-display workstations are everywhere, yet the mouse alone makes cross-display pointing costly: long pointer transits, cursor re-acquisition after bezel crossings, and attentional switches between screens. Prior work proposed gaze-assisted hybrids, but few controlled studies had compared MAGIC Pointing and Ninja Cursors against a mouse baseline in a dual-display setting — a comparison explicitly called for as future work by Räihä & Špakov (2009).",
     de: "Multi-Display-Arbeitsplätze sind überall verbreitet, doch allein die Maus macht bildschirmübergreifendes Zeigen teuer: lange Zeigerwege, erneutes Auffinden des Cursors nach Rahmenübergängen und Aufmerksamkeitswechsel zwischen Bildschirmen. Frühere Arbeiten schlugen blickunterstützte Hybride vor, doch nur wenige kontrollierte Studien hatten MAGIC Pointing und Ninja Cursors gegen eine Maus-Baseline in einer Dual-Display-Umgebung verglichen — ein Vergleich, der von Räihä & Špakov (2009) explizit als zukünftige Arbeit gefordert wurde.",
