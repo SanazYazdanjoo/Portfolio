@@ -36,6 +36,10 @@ export default {
         highlight: {
           DEFAULT: "rgb(var(--highlight-rgb) / <alpha-value>)",   // #D3A22E gold — highlighter only
           weak: "var(--highlight-weak)",
+          // Text sitting ON a gold fill is always ink, in both themes — the
+          // same pairing .ink-highlight makes. Gold is a background token;
+          // this is the only text color allowed to meet it.
+          on: "var(--color-ink-900)",
         },
         "print-primary": "var(--print-primary)",
         accent: "var(--accent)",

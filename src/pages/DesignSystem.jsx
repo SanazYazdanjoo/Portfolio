@@ -90,14 +90,15 @@ function DSSection({ id, children }) {
 }
 
 function DSNav({ sections, activeId }) {
+  const { t } = useTranslation();
   const scrollToSection = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
-    <nav aria-label="Design System sections" className="pt-1">
+    <nav aria-label={t("designSystem.sectionsAriaLabel")} className="pt-1">
       <p className="text-[10px] font-black uppercase tracking-[0.28em] text-gray-500 mb-5 pl-3">
-        On this page
+        {t("cv.onThisPage")}
       </p>
       <ul className="space-y-0.5">
         {sections.map((section) => {
