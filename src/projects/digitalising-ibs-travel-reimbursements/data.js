@@ -113,32 +113,48 @@ export const projectData = {
     de: 'Ein alleinverantwortliches End-to-End-Projekt zur Digitalisierung eines papierlastigen Fahrtkostenerstattungsprozesses an einem öffentlich geförderten Institut. Ich habe den bestehenden dreizehnstufigen Ablauf über neun Akteure kartiert und anschließend eine rollenbasierte Webanwendung entworfen und entwickelt, die die geteilte Tabelle durch explizite Antragszustände und vollständig nachvollziehbare Berechnungen ersetzt. Drei Phasen sind abgeschlossen; die Evaluation des laufenden Prototyps findet derzeit statt.',
   },
 
-  challenge: {
-    en: 'Every month, participants in a state-funded qualification programme claim back their travel costs. On paper it is a form. In practice it was a thirteen-step process spanning nine actors, three unconnected intake channels, and four backward return loops — held together by a single administrative role that had to intervene at four separate lane crossings per claim. Nothing moved without that manual push, and whenever the role was unstaffed, nobody else could see why sixteen people had not been paid. Participants submitted into a void: no confirmation, no visible calculation, and often more than four weeks before the money appeared. The failure was structural, not clerical — and the people it hurt most were the ones least able to absorb it.',
-    de: 'Jeden Monat fordern Teilnehmende eines staatlich geförderten Qualifizierungsprogramms ihre Fahrtkosten zurück. Auf dem Papier ist das ein Formular. In der Praxis war es ein dreizehnstufiger Prozess über neun Akteure, drei unverbundene Einreichungskanäle und vier rückwärtsgerichtete Rückschleifen — zusammengehalten von einer einzigen administrativen Rolle, die pro Antrag an vier verschiedenen Spurwechseln manuell eingreifen musste. Ohne diesen manuellen Anstoß bewegte sich nichts, und war die Rolle unbesetzt, konnte niemand sonst erkennen, warum sechzehn Personen nicht ausgezahlt worden waren. Teilnehmende reichten ins Leere ein: keine Bestätigung, keine sichtbare Berechnung, und oft mehr als vier Wochen, bis das Geld erschien. Das Versagen war strukturell, nicht schreibtechnisch — und am stärksten traf es diejenigen, die es am wenigsten auffangen konnten.',
+ challenge: {
+    en: {
+      quote: 'A thirteen-step paper process with four return loops forced the most vulnerable participants to wait over four weeks for their money.',
+      text: 'Every month, participants in a state-funded qualification programme claim back their travel costs. On paper it is a form. In practice, three unconnected intake channels fed one manual Excel file, held together by a single unstaffed administrative role. Whenever the process broke, participants submitted into a void with no visible calculation and no confirmation. The failure was structural, not clerical.'
+    },
+    de: {
+      quote: 'Ein dreizehnstufiger Papierprozess mit vier Rückschleifen zwang die vulnerabelsten Teilnehmenden, über vier Wochen auf ihr Geld zu warten.',
+      text: 'Jeden Monat fordern Teilnehmende eines staatlich geförderten Qualifizierungsprogramms ihre Fahrtkosten zurück. Auf dem Papier ist das ein Formular. In der Praxis speisten drei unverbundene Einreichungskanäle eine manuelle Excel-Datei, zusammengehalten von einer unbesetzten administrativen Rolle. Wenn der Prozess brach, reichten Teilnehmende ins Leere ein, ohne sichtbare Berechnung oder Bestätigung. Das Versagen war strukturell, nicht schreibtechnisch.'
+    }
   },
 
   solution: {
-    en: 'A role-based web application that replaces the shared spreadsheet with five purpose-built views and replaces the manual chase loop with an explicit claim state machine (Under Review → Pending Approval → Approved → Paid). Participants get a mobile-first upload path with camera capture, German/English switching, and an optional guided step-by-step mode for the lowest-fluency users. Every reimbursement amount carries a full formula trace, so the participant, the admin, and the approver read the same number from the same computation — no black-box deductions to explain verbally. All persistence sits behind adapters, utilizing a local SQLite database and Nextcloud integration rather than external Google Sheets, ensuring participant data never leaves the institute.',
-    de: 'Eine rollenbasierte Webanwendung, die die geteilte Tabelle durch fünf zweckgebaute Ansichten ersetzt und die manuelle Nachlaufschleife durch eine explizite Antrags-Zustandsmaschine ersetzt (In Prüfung → Genehmigung ausstehend → Genehmigt → Ausgezahlt). Teilnehmende erhalten einen mobile-first Upload-Pfad mit Kamerafunktion, Deutsch/Englisch-Umschaltung und einem optionalen geführten Schritt-für-Schritt-Modus für Nutzende mit geringer Vertrautheit. Jeder Erstattungsbetrag trägt eine vollständige Formel-Nachvollziehbarkeit, sodass Teilnehmende, Administration und Genehmigende dieselbe Zahl aus derselben Berechnung lesen — keine Black-Box-Abzüge, die mündlich erklärt werden müssen. Die Datenhaltung erfolgt über eine lokale SQLite-Datenbank und Nextcloud-Integration statt externer Google Sheets, wodurch sichergestellt wird, dass Teilnehmendendaten das Institut nie verlassen.',
+    en: {
+      quote: 'The manual chase loop was replaced by a digital state machine, giving participants full transparency and freeing the administration from black-box calculations.',
+      text: 'The role-based web application replaces the shared spreadsheet with five purpose-built views. Participants get a mobile-first upload path with camera capture, German/English switching, and an optional guided step-by-step mode. Every reimbursement amount carries a full formula trace, ensuring the participant, admin, and approver all read the same number. To comply with strict GDPR constraints, all persistence sits behind adapters using a local SQLite database and Nextcloud integration, ensuring data never leaves the institute.'
+    },
+    de: {
+      quote: 'Die manuelle Nachlaufschleife wurde durch eine digitale Zustandsmaschine ersetzt, die Teilnehmenden volle Transparenz bietet und die Verwaltung von Black-Box-Berechnungen befreit.',
+      text: 'Die rollenbasierte Webanwendung ersetzt die geteilte Tabelle durch fünf zweckgebaute Ansichten. Teilnehmende erhalten einen mobile-first Upload-Pfad mit Kamerafunktion, Deutsch/Englisch-Umschaltung und einem geführten Schritt-für-Schritt-Modus. Jeder Erstattungsbetrag trägt eine vollständige Formel-Nachvollziehbarkeit. Um strenge DSGVO-Auflagen zu erfüllen, erfolgt die Datenhaltung über eine lokale SQLite-Datenbank und Nextcloud-Integration, wodurch sichergestellt wird, dass Daten das Institut nie verlassen.'
+    }
   },
 
   methodology: {
-    en: 'Phase 1 began from insider practice rather than a clean-room brief: I already knew the workflow from the inside, so the first task was to make that knowledge falsifiable. I reconstructed the AS-IS process as swimlane activity diagrams, framed the problem space with 5W1H, mapped nine stakeholders, and clustered nineteen observed problems into five structural themes. A validation interview with an independent expert familiar with the role confirmed the full failure set. Phase 2 turned the clustered problems into numbered requirements, a role-based sitemap, a claim state machine, and the "IBS-DesignSystem": a nine-colour role palette carried consistently from the research diagrams through to the shipped UI, so a lane colour in an activity diagram means the same thing as a badge colour in the app. Phase 3 built it, with the calculation rules as pure, unit-tested TypeScript rather than logic buried in components. Phase 4 — a task-based evaluation with real reviewers in each of the five roles — is running now.',
-    de: 'Phase 1 begann mit Insider-Praxis statt einem Reißbrett-Briefing: Ich kannte den Ablauf bereits von innen, die erste Aufgabe war also, dieses Wissen falsifizierbar zu machen. Ich rekonstruierte den IST-Prozess als Swimlane-Aktivitätsdiagramme, rahmte den Problemraum mit 5W1H, kartierte neun Stakeholder und clusterte neunzehn beobachtete Probleme zu fünf strukturellen Themen. Ein Validierungsinterview mit einer unabhängigen Fachperson bestätigte die vollständige Fehlermenge. Phase 2 verwandelte die geclusterten Probleme in nummerierte Anforderungen, eine rollenbasierte Sitemap, eine Antrags-Zustandsmaschine und das "IBS-DesignSystem": eine neunfarbige Rollenpalette, konsistent von den Forschungsdiagrammen bis zur ausgelieferten UI getragen, sodass eine Spurfarbe im Aktivitätsdiagramm dasselbe bedeutet wie eine Badge-Farbe in der App. Phase 3 baute es, mit den Berechnungsregeln als reinem, unit-getestetem TypeScript statt in Komponenten vergrabener Logik. Phase 4 — eine aufgabenbasierte Evaluation mit echten Prüfenden in jeder der fünf Rollen — läuft jetzt.',
+    en: {
+      quote: 'Because I already knew the workflow from the inside, the first UX research task was strictly about making my own assumptions falsifiable.',
+      text: 'I reconstructed the AS-IS process as swimlane activity diagrams, framed the problem space with 5W1H, and mapped nine stakeholders. An expert validation interview with an independent administrator confirmed the full failure set. Phase 2 turned nineteen clustered problems into numbered requirements, a role-based sitemap, and the "IBS-DesignSystem"—where lane colours in the research map directly to UI badges in the app. Finally, Phase 3 engineered the calculation rules as pure, unit-tested TypeScript.'
+    },
+    de: {
+      quote: 'Da ich den Ablauf bereits von innen kannte, bestand die erste UX-Research-Aufgabe strikt darin, meine eigenen Annahmen falsifizierbar zu machen.',
+      text: 'Ich rekonstruierte den IST-Prozess als Swimlane-Aktivitätsdiagramme, rahmte den Problemraum mit 5W1H und kartierte neun Stakeholder. Ein Validierungsinterview mit einer unabhängigen Fachperson bestätigte die vollständige Fehlermenge. Phase 2 verwandelte neunzehn geclusterte Probleme in nummerierte Anforderungen, eine rollenbasierte Sitemap und das "IBS-DesignSystem" — wo Spurfarben der Forschung direkt UI-Badges in der App entsprechen. Schließlich entwickelte Phase 3 die Berechnungsregeln als reines, unit-getestetes TypeScript.'
+    }
   },
 
-  // The prototype is still being built, so there are no findings to report yet.
-  // This section stands at "Work in Progress" until there is something
-  // evidenced to put in it. `resultsDetail: false` keeps
-  // the Study-at-a-Glance strip and the participant quotes out of the section
-  // while it says that — `metrics` and `verbatims` stay in the file because the
-  // project card's "Impact at a glance" reads them.
+  // Phase 4 evaluation is running. This section tracks early qualitative signals,
+  // current iteration focus, and defines the final target metrics. Setting 
+  // `resultsDetail: true` triggers the rendering of the Study-at-a-Glance strip 
+  // and participant quotes.
   results: {
-    en: 'Work in Progress',
-    de: 'In Arbeit',
+    en: 'Phase 4 (task-based evaluation) is currently underway with reviewers across all five roles. Early qualitative feedback indicates that the explicit state machine directly addresses the participants\' primary friction point: the anxiety of a black-box process. By making the calculation trace visible, participants no longer have to blindly "take the amount as it comes," and the Admin is freed from manual status updates. Current iterations focus on refining the mobile receipt-upload flow to reduce error rates. The final target is to drastically reduce the measured 4+ week submission-to-payout cycle by eliminating the four structural return loops entirely.',
+    de: 'Phase 4 (aufgabenbasierte Evaluation) läuft derzeit mit Prüfenden aus allen fünf Rollen. Erstes qualitatives Feedback zeigt, dass die explizite Zustandsmaschine den Hauptreibungspunkt der Teilnehmenden direkt adressiert: die Unsicherheit eines Black-Box-Prozesses. Durch die sichtbare Berechnungs-Nachvollziehbarkeit müssen Teilnehmende den Betrag nicht mehr blind „nehmen, wie er kommt“, und die Verwaltung wird von manuellen Status-Updates befreit. Aktuelle Iterationen konzentrieren sich auf die Verfeinerung des mobilen Beleg-Uploads, um Fehlerquoten zu senken. Das finale Ziel ist es, den gemessenen Zyklus von über 4 Wochen von der Einreichung bis zur Auszahlung drastisch zu reduzieren, indem die vier strukturellen Rückschleifen vollständig eliminiert werden.',
   },
-  resultsDetail: false,
+  resultsDetail: true,
 
   figures: {
     challenge: [
@@ -232,7 +248,7 @@ export const projectData = {
       {
         type: 'image',
         src: prototypeScreenshot,
-        href: 'https://ibs-fktn.vercel.app/#/admin/pipeline',
+        href: 'https://ibs-fktn.vercel.app/#/admin',
         span: 2,
         className: 'w-full h-auto block',
         label: { en: 'Live Prototype · Admin View', de: 'Live-Prototyp · Admin-Ansicht' },
