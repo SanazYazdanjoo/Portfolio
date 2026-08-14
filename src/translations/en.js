@@ -302,6 +302,21 @@ const en = {
   // {title} / {provider} are substituted at render time (Credentials.jsx)
   "credentials.imageAlt": "Certificate: {title} — {provider}",
 
+  // Credentials — topic filter
+  "credentials.filter.label": "Filter credentials by topic",
+  "credentials.filter.all": "All",
+  // {count} / {total} are substituted at render time (Credentials.jsx)
+  "credentials.showing": "Showing {count} of {total}",
+  "credentials.noMatch": "No credentials match this filter.",
+  "credentials.reset": "Show all",
+  "credentials.topic.research": "Research & Testing",
+  "credentials.topic.strategy": "Process & Strategy",
+  "credentials.topic.design": "Design & Prototyping",
+  "credentials.topic.accessibility": "Accessibility",
+  "credentials.topic.ai": "AI",
+  "credentials.topic.engineering": "Engineering",
+  "credentials.topic.academic": "Academic & Service",
+
   // Tags
   "tags.directory.title": "Skills & Tags",
   "tags.directory.subheading": "Every tool, method, and domain used across my case studies — click a tag to see where it was applied.",

@@ -4,27 +4,55 @@
 // only `verifyUrl` is set) so an <a> is never nested inside a <button> — the
 // same constraint ProjectTemplate's collapsible sections enforce elsewhere in
 // this codebase. Cards with neither stay fully static.
+//
+// The topic filter above the grid is client-side only: nothing is re-fetched
+// and the page never reloads, the already-loaded list is just re-rendered.
+// Selection lives in the URL (?topic=research,design) rather than in local
+// state alone, so a filtered view is shareable and the back button undoes it.
+// Chips are multi-select with OR semantics; no chip selected means "all".
 
-import React, { useCallback, useEffect, useId, useRef, useState } from "react";
+import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useSearchParams } from "react-router-dom";
 import { profileData as rawProfile } from "../data/profile";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { useTranslation } from "../context/LanguageContext";
 import { Badge } from "../components/Badge";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
-  show: (i = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.1, duration: 0.5, ease: "easeOut" },
-  }),
-};
+const TOPIC_PARAM = "topic";
+
+// Display order of the filter chips. Topics found in the data but missing here
+// (e.g. one added later in /admin) are appended after these, so a new topic
+// still gets a chip instead of silently dropping out of the filter bar.
+const TOPIC_ORDER = [
+  "research",
+  "strategy",
+  "design",
+  "accessibility",
+  "ai",
+  "engineering",
+  "academic",
+];
 
 function isPdf(path) {
   return typeof path === "string" && path.toLowerCase().endsWith(".pdf");
+}
+
+// Newest first. `date` (ISO) is authoritative when present; a year-only entry
+// sorts as if it were December, which keeps degrees above the courses that
+// share their year without inventing a precise date for them.
+function sortKey(cert) {
+  if (cert.date) return cert.date;
+  return cert.year ? `${cert.year}-12-31` : "0000-00-00";
+}
+
+// Stable across filtering — deliberately NOT index-based, so a card that
+// survives a filter change is re-positioned by the layout animation instead of
+// being torn down and rebuilt.
+function certKey(cert) {
+  return `${cert.file || ""}|${cert.title}|${cert.year || ""}`;
 }
 
 // Alt text for the certificate image/thumbnail. Built from a translated
@@ -48,6 +76,28 @@ function FallbackTile({ title }) {
         {title}
       </span>
     </div>
+  );
+}
+
+// Filter chip. Multi-select, so no shared layoutId pill (two chips can be
+// active at once) — the active state is a solid fill instead.
+function FilterChip({ active, label, count, onClick }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className={`inline-flex items-center gap-2 border px-4 py-2 text-2xs font-black uppercase tracking-wider
+                  transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600
+                  ${
+                    active
+                      ? "border-primary-600 bg-primary-600 text-white"
+                      : "border-border bg-bg text-text/70 hover:border-primary-600 hover:text-primary-600"
+                  }`}
+    >
+      {label}
+      <span className={active ? "text-white/70" : "text-text/35"}>{count}</span>
+    </button>
   );
 }
 
@@ -167,6 +217,7 @@ function CertificateCard({ cert, index, onOpenFile }) {
   const hasSkills = Array.isArray(cert.skills) && cert.skills.length > 0;
   const altText = certAltText(t, cert);
   const typeLabel = cert.type ? t(`credentials.type.${cert.type}`, cert.type) : null;
+  const detail = typeof cert.detail === "string" ? cert.detail : "";
 
   // A `thumb` path is truthy even when the file behind it is missing, and the
   // SPA rewrite answers a missing asset with index.html rather than a 404 —
@@ -174,12 +225,14 @@ function CertificateCard({ cert, index, onOpenFile }) {
   // back to the typographic tile the missing-thumb path already uses.
   const [thumbFailed, setThumbFailed] = useState(false);
   const thumbContent = cert.thumb && !thumbFailed ? (
+    // object-contain, not -cover: these scans are portrait and landscape in the
+    // same grid, and cropping a certificate cuts its heading off.
     <img
       src={cert.thumb}
       alt={altText}
       loading="lazy"
       onError={() => setThumbFailed(true)}
-      className="h-full w-full object-cover"
+      className="h-full w-full object-contain"
     />
   ) : (
     <FallbackTile title={cert.title} />
@@ -223,11 +276,17 @@ function CertificateCard({ cert, index, onOpenFile }) {
 
   return (
     <motion.div
-      custom={index}
-      variants={fadeUp}
-      initial={prefersReducedMotion ? "show" : "hidden"}
-      whileInView="show"
-      viewport={{ once: true }}
+      layout={!prefersReducedMotion}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.97 }}
+      transition={{
+        duration: 0.3,
+        ease: "easeOut",
+        // Stagger only the first screenful; a filter that reveals 15 cards
+        // shouldn't take two seconds to finish drawing.
+        delay: prefersReducedMotion ? 0 : Math.min(index, 8) * 0.04,
+      }}
       className="flex h-full flex-col border border-border bg-bg"
     >
       {thumbEl}
@@ -247,10 +306,13 @@ function CertificateCard({ cert, index, onOpenFile }) {
         <p className="text-sm text-text/65">
           {cert.provider}
           {cert.year && <span className="text-text/35"> &middot; {cert.year}</span>}
+          {cert.duration && <span className="text-text/35"> &middot; {cert.duration}</span>}
         </p>
 
+        {detail && <p className="text-sm leading-relaxed text-text/55">{detail}</p>}
+
         {hasSkills && (
-          <div className="mt-1 flex flex-wrap gap-1.5">
+          <div className="mt-auto flex flex-wrap gap-1.5 pt-2">
             {cert.skills.map((skill) => (
               <Badge key={skill} tone="muted">
                 {skill}
@@ -279,7 +341,7 @@ function CertificateCard({ cert, index, onOpenFile }) {
 export default function Credentials() {
   const profileData = useLocalizedProfile(rawProfile);
   const { t } = useTranslation();
-  const certifications = profileData.certifications || [];
+  const { certifications } = profileData;
 
   useDocumentMeta({
     title: `${t("credentials.heading")} — ${profileData.name}`,
@@ -288,6 +350,61 @@ export default function Credentials() {
 
   const [openCert, setOpenCert] = useState(null);
   const triggerRef = useRef(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Newest first, independent of the order entries happen to sit in data.json.
+  const sorted = useMemo(
+    () => [...(certifications || [])].sort((a, b) => sortKey(b).localeCompare(sortKey(a))),
+    [certifications]
+  );
+
+  // One chip per topic actually present in the data, with its count.
+  const topics = useMemo(() => {
+    const counts = new Map();
+    for (const cert of sorted) {
+      if (!cert.topic) continue;
+      counts.set(cert.topic, (counts.get(cert.topic) || 0) + 1);
+    }
+    const known = TOPIC_ORDER.filter((id) => counts.has(id));
+    const extra = [...counts.keys()].filter((id) => !TOPIC_ORDER.includes(id)).sort();
+    return [...known, ...extra].map((id) => ({ id, count: counts.get(id) }));
+  }, [sorted]);
+
+  // The URL is the single source of truth for the selection: no local state to
+  // fall out of sync with it, and ?topic=… survives a reload or a shared link.
+  const selected = useMemo(() => {
+    const raw = searchParams.get(TOPIC_PARAM);
+    if (!raw) return [];
+    const valid = new Set(topics.map((topic) => topic.id));
+    return raw.split(",").filter((id) => valid.has(id));
+  }, [searchParams, topics]);
+
+  const setSelected = useCallback(
+    (next) => {
+      const params = new URLSearchParams(searchParams);
+      if (next.length === 0) params.delete(TOPIC_PARAM);
+      else params.set(TOPIC_PARAM, next.join(","));
+      // replace, not push: a filter chip isn't a navigation step, so Back
+      // should leave the page rather than walk through every chip toggle.
+      setSearchParams(params, { replace: true });
+    },
+    [searchParams, setSearchParams]
+  );
+
+  const toggleTopic = useCallback(
+    (id) =>
+      setSelected(
+        selected.includes(id) ? selected.filter((s) => s !== id) : [...selected, id]
+      ),
+    [selected, setSelected]
+  );
+
+  // OR semantics: picking two topics widens the result rather than narrowing it
+  // to certificates that are somehow both.
+  const visible = useMemo(
+    () => (selected.length === 0 ? sorted : sorted.filter((c) => selected.includes(c.topic))),
+    [sorted, selected]
+  );
 
   const openFile = useCallback((cert, triggerEl) => {
     triggerRef.current = triggerEl || null;
@@ -304,7 +421,7 @@ export default function Credentials() {
     <main className="min-h-screen bg-bg pt-20 md:pt-24 pb-24">
       <div className="container mx-auto max-w-6xl px-4 md:px-8">
         <motion.header
-          className="mb-14 max-w-2xl"
+          className="mb-10 max-w-2xl"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -315,19 +432,70 @@ export default function Credentials() {
           <p className="mt-4 text-sm text-text/60">{t("credentials.subheading")}</p>
         </motion.header>
 
-        {certifications.length === 0 ? (
+        {sorted.length === 0 ? (
           <p className="text-sm text-text/50">{t("credentials.empty")}</p>
         ) : (
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {certifications.map((cert, i) => (
-              <CertificateCard
-                key={`${cert.title}-${i}`}
-                cert={cert}
-                index={i}
-                onOpenFile={openFile}
-              />
-            ))}
-          </div>
+          <>
+            {/* Filter bar — centred above the grid */}
+            {topics.length > 1 && (
+              <div className="mb-10 flex flex-col items-center gap-4">
+                <div
+                  role="group"
+                  aria-label={t("credentials.filter.label")}
+                  className="flex flex-wrap items-center justify-center gap-2"
+                >
+                  <FilterChip
+                    active={selected.length === 0}
+                    label={t("credentials.filter.all")}
+                    count={sorted.length}
+                    onClick={() => setSelected([])}
+                  />
+                  {topics.map((topic) => (
+                    <FilterChip
+                      key={topic.id}
+                      active={selected.includes(topic.id)}
+                      label={t(`credentials.topic.${topic.id}`, topic.id)}
+                      count={topic.count}
+                      onClick={() => toggleTopic(topic.id)}
+                    />
+                  ))}
+                </div>
+
+                <p aria-live="polite" className="text-2xs uppercase tracking-widest text-dim">
+                  {t("credentials.showing")
+                    .replace("{count}", visible.length)
+                    .replace("{total}", sorted.length)}
+                </p>
+              </div>
+            )}
+
+            {visible.length === 0 ? (
+              <div className="border border-border/60 px-8 py-16 text-center">
+                <p className="text-sm text-text/60">{t("credentials.noMatch")}</p>
+                <button
+                  type="button"
+                  onClick={() => setSelected([])}
+                  className="mt-4 border border-primary/40 px-4 py-2 text-2xs font-black uppercase tracking-wider
+                             text-primary-600 hover:bg-blush-weak focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
+                >
+                  {t("credentials.reset")}
+                </button>
+              </div>
+            ) : (
+              <motion.div layout className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <AnimatePresence mode="popLayout" initial={false}>
+                  {visible.map((cert, i) => (
+                    <CertificateCard
+                      key={certKey(cert)}
+                      cert={cert}
+                      index={i}
+                      onOpenFile={openFile}
+                    />
+                  ))}
+                </AnimatePresence>
+              </motion.div>
+            )}
+          </>
         )}
       </div>
 
