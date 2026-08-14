@@ -5,6 +5,18 @@ import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { useTranslation } from "../context/LanguageContext";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
 
+// The skill groups are object keys in data.json, so they can't carry an
+// { en, de } pair like every other field. Same shape as credentials.type.*:
+// a known category resolves through the translation table, an unknown one
+// (added later via /admin) falls back to the raw English key.
+const SKILL_CATEGORY_KEYS = {
+  "Frontend Engineering": "cv.skillCategory.frontendEngineering",
+  "AI-Assisted Development": "cv.skillCategory.aiAssistedDevelopment",
+  "UX Research & Design": "cv.skillCategory.uxResearchDesign",
+  "QA & Testing": "cv.skillCategory.qaTesting",
+  "Analysis & Tools": "cv.skillCategory.analysisTools",
+};
+
 export default function CV() {
   const profileData = useLocalizedProfile(rawProfile);
   const { t } = useTranslation();
@@ -236,7 +248,9 @@ export default function CV() {
                 {Object.entries(skills).map(([category, items]) => (
                   <div key={category} className="break-inside-avoid">
                     <h3 className="text-sm font-black uppercase text-gray-500 tracking-widest mb-1.5 print:text-xs">
-                      {category}
+                      {SKILL_CATEGORY_KEYS[category]
+                        ? t(SKILL_CATEGORY_KEYS[category], category)
+                        : category}
                     </h3>
                     <p className="text-base leading-relaxed text-gray-700 print:text-sm">
                       {Array.isArray(items) ? items.join(", ") : items}
@@ -314,7 +328,7 @@ function CVSidebarNav({ sections, activeId }) {
   };
 
   return (
-    <nav aria-label="CV sections" className="pt-1">
+    <nav aria-label={t("cv.sectionsAriaLabel")} className="pt-1">
       <p className="text-[10px] font-black uppercase tracking-[0.28em] text-gray-500 mb-5 pl-3">
         {t("cv.onThisPage")}
       </p>

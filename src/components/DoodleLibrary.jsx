@@ -77,7 +77,9 @@ export const CircleDoodle = ({
 export const FlowerDoodle = ({ className = "", ...props }) => (
   <img
     src="/assets/flower-doodle.png"
-    alt="Hand-drawn flower decoration"
+    // Purely decorative — an empty alt keeps it out of the accessibility tree
+    // entirely, which is both correct here and one less string to translate.
+    alt=""
     className={`object-contain ${className}`}
     {...props}
   />

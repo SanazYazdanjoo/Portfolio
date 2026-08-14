@@ -27,6 +27,15 @@ function isPdf(path) {
   return typeof path === "string" && path.toLowerCase().endsWith(".pdf");
 }
 
+// Alt text for the certificate image/thumbnail. Built from a translated
+// template rather than concatenated in English, so a German reader on a
+// screen reader hears German around the (untranslated) proper nouns.
+function certAltText(t, cert) {
+  return t("credentials.imageAlt")
+    .replace("{title}", cert.title)
+    .replace("{provider}", cert.provider);
+}
+
 // Typographic fallback tile: no <img>, so a missing thumb never renders a broken image
 function FallbackTile({ title }) {
   const initial = (title || "?").trim().charAt(0).toUpperCase() || "?";
@@ -126,7 +135,7 @@ function CertificateLightbox({ cert, onClose }) {
           ) : (
             <img
               src={cert.file}
-              alt={`${cert.title} certificate from ${cert.provider}`}
+              alt={certAltText(t, cert)}
               className="mx-auto block h-auto max-h-[70vh] w-auto"
             />
           )}
@@ -156,7 +165,7 @@ function CertificateCard({ cert, index, onOpenFile }) {
   const hasFile = Boolean(cert.file);
   const hasVerify = Boolean(cert.verifyUrl);
   const hasSkills = Array.isArray(cert.skills) && cert.skills.length > 0;
-  const altText = `${cert.title} certificate from ${cert.provider}`;
+  const altText = certAltText(t, cert);
   const typeLabel = cert.type ? t(`credentials.type.${cert.type}`, cert.type) : null;
 
   // A `thumb` path is truthy even when the file behind it is missing, and the
