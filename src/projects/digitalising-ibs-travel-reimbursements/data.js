@@ -2,9 +2,10 @@
 // 5W1H, Stakeholders, Overview UML, Detailed UML, Current Problems, Persona,
 // Information Architecture, Design System, README/DECISIONS/REQUIREMENTS.
 //
-// ⚠️ The prototype is still in development. Neither `results` nor `outcome`
-// claims anything — both read "Work in Progress" until there is evidence to
-// replace them with. Anything not yet evidenced is marked TODO and left null.
+// ⚠️ The prototype is still in development. `results` claims nothing — it
+// reads "Work in Progress" until there is evidence to replace it with, and
+// there is no `outcome` block yet. Anything not yet evidenced is marked TODO
+// and left null.
 //
 // Process screenshots: staff names in the source decks were replaced with
 // demo names before export (2026-08-13). Personas are composites, not
@@ -116,8 +117,8 @@ export const projectData = {
   },
 
   // The prototype is still being built, so there are no findings to report yet.
-  // Both this section and `outcome` below stand at "Work in Progress" until
-  // there is something evidenced to put in them. `resultsDetail: false` keeps
+  // This section stands at "Work in Progress" until there is something
+  // evidenced to put in it. `resultsDetail: false` keeps
   // the Study-at-a-Glance strip and the participant quotes out of the section
   // while it says that — `metrics` and `verbatims` stay in the file because the
   // project card's "Impact at a glance" reads them.
@@ -255,16 +256,11 @@ export const projectData = {
     de: "Live-Prototyp öffnen",
   },
 
-  // No adoption or performance outcome exists while the prototype is still in
-  // development, so `adoption` is left off entirely rather than set to
-  // "unknown" — an "Outcome Unknown" pill reads as a verdict on the project
-  // instead of a statement that the work is still running.
-  outcome: {
-    body: {
-      en: "Work in Progress",
-      de: "In Arbeit",
-    },
-  },
+  // No `outcome` block: it renders inside the Results section, and the only
+  // thing there is to say right now is the "Work in Progress" that `results`
+  // above already states — a second identical line, not new information.
+  // `adoption` stays off too, deliberately: an "Outcome Unknown" pill reads as
+  // a verdict on the project instead of a statement that the work is running.
 
   tagEvidence: [
     { tag: "UX Research", evidence: "process:Back to discovery after the build — participant survey (n=5, Aug 2026) with per-finding evidence labels; also methods: \"Insider process observation (AS-IS)\", \"Expert validation interview\"", status: "evidenced" },

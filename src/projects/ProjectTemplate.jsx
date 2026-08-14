@@ -48,7 +48,6 @@ const SECTIONS = [
   { id: "prototype",    labelKey: "project.sidebar.prototype",    dataKey: "prototype"    },
   { id: "methodology",  labelKey: "project.sidebar.methodology",  dataKey: "methodology"  },
   { id: "results",      labelKey: "project.sidebar.results",      dataKey: "results"      },
-  { id: "outcome",      labelKey: "project.sidebar.outcome",      dataKey: "outcome"      },
   { id: "implications", labelKey: "project.sidebar.implications", dataKey: "implications" },
   { id: "phases",       labelKey: "project.sidebar.status",       dataKey: "phases"       },
   { id: "conclusion",   labelKey: "project.sidebar.conclusion",   dataKey: "conclusion"   },
@@ -534,21 +533,23 @@ function AdoptionPill({ adoption }) {
   );
 }
 
-function OutcomeSection({ outcome, number, isOpen, onToggle, staggerDelayMs }) {
+// Outcome — what happened after the findings. It used to be a section of its
+// own, directly under Results, which read as two headings for one story: the
+// findings and what they changed. It's now the closing block of the Results
+// section, marked by the same quiet dim label the metrics strip uses rather
+// than a second coral kicker, so the section keeps one heading.
+function OutcomeBlock({ outcome }) {
   const { t } = useTranslation();
+  if (!outcome?.body) return null;
   const decisions = outcome.decisions || [];
 
   return (
-    <ContentSection
-      id="outcome"
-      number={number}
-      kicker={t("project.outcome.kicker")}
-      heading={t("project.outcome.heading")}
-      isOpen={isOpen}
-      onToggle={onToggle}
-      staggerDelayMs={staggerDelayMs}
-    >
-      <ClampedText className="max-w-[68ch]">
+    <div className="mt-12 border-t border-border pt-8 max-w-[68ch]">
+      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-dim mb-5">
+        {t("project.outcome.kicker")}
+      </p>
+
+      <ClampedText>
         <MaybeText
           value={outcome.body}
           path="outcome.body"
@@ -564,7 +565,7 @@ function OutcomeSection({ outcome, number, isOpen, onToggle, staggerDelayMs }) {
       )}
 
       {decisions.length > 0 && (
-        <div className="mt-8 max-w-[68ch]">
+        <div className="mt-8">
           <p className="text-[10px] font-black uppercase tracking-[0.2em] text-dim mb-3">
             {t("project.outcome.decisions")}
           </p>
@@ -582,7 +583,7 @@ function OutcomeSection({ outcome, number, isOpen, onToggle, staggerDelayMs }) {
           </ul>
         </div>
       )}
-    </ContentSection>
+    </div>
   );
 }
 
@@ -828,8 +829,9 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
         if (s.id === "prototype") {
           return hasValue || !!meta.prototypeUrl || (meta.figures?.prototype?.length > 0);
         }
-        if (s.id === "outcome") {
-          return !!meta.outcome?.body;
+        // Results carries the outcome block, so it stands on either one.
+        if (s.id === "results") {
+          return hasValue || !!meta.outcome?.body;
         }
         return hasValue;
       }),
@@ -1193,7 +1195,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                 </ContentSection>
               )}
 
-              {meta.results && (
+              {(meta.results || meta.outcome?.body) && (
                 <ContentSection id="results" number={sectionNumber("results")}
                   isOpen={openSections.has("results")} onToggle={() => toggleSection("results")}
                   staggerDelayMs={staggerDelayFor("results")}
@@ -1209,11 +1211,13 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                           {t("project.results.pendingNotice")}
                         </p>
                       )}
-                      <ClampedText>
-                        <p className="text-[17px] leading-[1.7] text-text/90">
-                          {meta.results}
-                        </p>
-                      </ClampedText>
+                      {meta.results && (
+                        <ClampedText>
+                          <p className="text-[17px] leading-[1.7] text-text/90">
+                            {meta.results}
+                          </p>
+                        </ClampedText>
+                      )}
                       <SectionMedia items={meta.figures?.results} />
 
                       {showResultsDetail && (
@@ -1226,17 +1230,9 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                     </div>
                     {showResultsDetail && <VerbatimRail verbatims={meta.verbatims} />}
                   </div>
-                </ContentSection>
-              )}
 
-              {meta.outcome?.body && (
-                <OutcomeSection
-                  outcome={meta.outcome}
-                  number={sectionNumber("outcome")}
-                  isOpen={openSections.has("outcome")}
-                  onToggle={() => toggleSection("outcome")}
-                  staggerDelayMs={staggerDelayFor("outcome")}
-                />
+                  <OutcomeBlock outcome={meta.outcome} />
+                </ContentSection>
               )}
 
               {meta.implications && (

@@ -163,13 +163,13 @@ export const projectData = {
   },
 
   // The research that would produce an outcome (moderated sessions, 5-second
-  // test, first-click test) hasn't run yet — see methodology/results above.
-  // Stated plainly rather than invented, matching this case study's own
-  // stated principle.
+  // test, first-click test) hasn't run yet — see methodology above. This body
+  // renders directly under `results`, which already lists what is pending, so
+  // it states only what it adds: what gets recorded here once it does run.
   outcome: {
     body: {
-      en: "This section doesn't have an outcome to report yet, and won't invent one: the moderated sessions, 5-second test, and first-click test that would produce one haven't run (see Methodology). Once they do, this section reports what changed as a result — a shipped fix, a reprioritised backlog item, or a finding that changed nothing — not before.",
-      de: "Dieser Abschnitt hat noch kein Ergebnis zu berichten und wird keines erfinden: Die moderierten Sessions, der 5-Sekunden-Test und der First-Click-Test, die eines liefern würden, haben noch nicht stattgefunden (siehe Methodik). Sobald sie es tun, berichtet dieser Abschnitt, was sich dadurch geändert hat — eine ausgelieferte Korrektur, ein neu priorisierter Backlog-Punkt oder ein Befund ohne Konsequenz — vorher nicht.",
+      en: "No outcome yet, and none will be invented: once those sessions run, this is where what actually changed gets recorded — a shipped fix, a reprioritised backlog item, or a finding that changed nothing.",
+      de: "Noch kein Ergebnis, und es wird keines erfunden: Sobald diese Sessions gelaufen sind, wird hier festgehalten, was sich tatsächlich geändert hat — eine ausgelieferte Korrektur, ein neu priorisierter Backlog-Punkt oder ein Befund ohne Konsequenz.",
     },
     adoption: "unknown",
   },
