@@ -88,6 +88,16 @@ const de = {
   "cv.volunteerWork": "Ehrenamtliche Arbeit",
   "cv.download": "PDF herunterladen",
   "cv.saveAsPdf": "Als PDF speichern",
+  "cv.sectionsAriaLabel": "Lebenslauf-Abschnitte",
+
+  // Skill-group headings on the CV. "UX Research & Design" and "QA & Testing"
+  // stay English — they are the established terms in German job ads, and
+  // translating them would read as less professional, not more.
+  "cv.skillCategory.frontendEngineering": "Frontend-Entwicklung",
+  "cv.skillCategory.aiAssistedDevelopment": "KI-gestützte Entwicklung",
+  "cv.skillCategory.uxResearchDesign": "UX Research & Design",
+  "cv.skillCategory.qaTesting": "QA & Testing",
+  "cv.skillCategory.analysisTools": "Analyse & Tools",
 
   // Contact
   "contact.heading": "Kontakt aufnehmen",
@@ -127,6 +137,10 @@ const de = {
   "common.readLess": "Weniger anzeigen",
   "common.language": "Sprache",
   "common.skipToContent": "Zum Hauptinhalt springen",
+  "common.loading": "Lädt…",
+  // Language switcher: labelled in the language it switches *to*, so a reader
+  // who can't read the current one still understands the control.
+  "common.switchToOther": "Switch to English",
 
   // Hero meta strip
   "hero.kicker": "UX Research × Engineering",
@@ -264,6 +278,7 @@ const de = {
   "project.media.whatItShows": "Was das zeigt",
   "project.media.openFullPage": "Ganze Seite öffnen",
   "project.media.opensNewTab": "öffnet das vollständige Dokument in einem neuen Tab",
+  "project.media.heroCredit": "Bild generiert mit Nanobanana.",
 
   // Zeugnisse & Zertifikate
   "credentials.heading": "Zeugnisse & Zertifikate",
@@ -281,6 +296,8 @@ const de = {
   "credentials.type.degree": "Abschluss",
   "credentials.type.recognition": "Anerkennung",
   "credentials.type.language": "Sprachnachweis",
+  // {title} / {provider} werden beim Rendern ersetzt (Credentials.jsx)
+  "credentials.imageAlt": "Zertifikat: {title} — {provider}",
 
   // Tags
   "tags.directory.title": "Fähigkeiten & Tags",
@@ -296,6 +313,10 @@ const de = {
 
   // Nav — extra link not covered by the short nav.* set above
   "nav.designSystem": "Designsystem",
+
+  // Design System — der Seiteninhalt bleibt bewusst englisch (er dokumentiert
+  // CSS-Tokens, Klassennamen und Code); lokalisiert ist nur die Navigation.
+  "designSystem.sectionsAriaLabel": "Designsystem-Abschnitte",
 
   // CV sidebar
   "cv.onThisPage": "Auf dieser Seite",
@@ -333,12 +354,12 @@ const de = {
   "impressum.title": "Impressum",
   "impressum.subtitle": "Rechtliche Hinweise gemäß § 5 TMG.",
   "impressum.section1.heading": "Angaben gemäß § 5 TMG",
-  "impressum.address.street": "[Ihre Straße und Hausnummer]",
-  "impressum.address.zip": "[Ihre Postleitzahl] Weimar",
+  "impressum.address.street": "---",
+  "impressum.address.zip": "99423 Weimar",
   "impressum.address.country": "Deutschland",
   "impressum.contact.heading": "Kontakt",
   "impressum.contact.phoneLabel": "Telefon",
-  "impressum.contact.phonePlaceholder": "[Ihre Telefonnummer]",
+  "impressum.contact.phonePlaceholder": "+491639742175",
   "impressum.contact.emailLabel": "E-Mail",
   "impressum.liabilityContent.heading": "Haftung für Inhalte",
   "impressum.liabilityContent.body": "Als Diensteanbieter bin ich gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG bin ich als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.",

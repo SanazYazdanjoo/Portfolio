@@ -80,7 +80,10 @@
     },
     "year": "2026",
     "contact": {
-      "location": "Weimar, Germany",
+      "location": {
+        "en": "Weimar, Germany",
+        "de": "Weimar, Deutschland"
+      },
       "phone": "+49 163 974 2175",
       "email": "sanaz.yazdanjoo@gmail.com",
       "linkedin": "https://www.linkedin.com/in/sanaz-yazdanjoo/",
@@ -91,7 +94,7 @@
       "websiteHandle": "yazdanjoo.de",
       "availability": {
         "en": "Currently based in Weimar, Germany. Open to interdisciplinary UX & Tech roles. EU work permit, open to relocate.",
-        "de": "Derzeit in Weimar, Deutschland. Offen für interdisziplinäre UX- & Tech-Rollen"
+        "de": "Derzeit in Weimar, Deutschland. Offen für interdisziplinäre UX- & Tech-Rollen. EU-Arbeitserlaubnis, umzugsbereit."
       },
       "timezone": "CET (UTC+1)",
       "collaborateOn": [
@@ -289,20 +292,35 @@
     "portfolioHighlights": [
       {
         "id": "gaze-assisted-input",
-        "title": "Gaze-Assisted Input in Dual-Display Environments",
-        "type": "TypeScript Custom App · Quantitative UX · Eye-Tracking",
+        "title": {
+          "en": "Gaze-Assisted Input in Dual-Display Environments",
+          "de": "Blickgestützte Eingabe in Dual-Display-Umgebungen"
+        },
+        "type": {
+          "en": "TypeScript Custom App · Quantitative UX · Eye-Tracking",
+          "de": "Eigene TypeScript-Anwendung · Quantitative UX · Eye-Tracking"
+        },
         "metrics": [
           {
             "value": "N=30",
-            "label": "within-subjects experiment"
+            "label": {
+              "en": "within-subjects experiment",
+              "de": "Within-Subjects-Experiment"
+            }
           },
           {
             "value": "React",
-            "label": "UI architecture"
+            "label": {
+              "en": "UI architecture",
+              "de": "UI-Architektur"
+            }
           },
           {
             "value": "SUS 85.2",
-            "label": "Mouse baseline"
+            "label": {
+              "en": "Mouse baseline",
+              "de": "Maus-Baseline"
+            }
           }
         ],
         "summary": {
@@ -312,20 +330,35 @@
       },
       {
         "id": "deskbird-hybrid-work",
-        "title": "Hybrid Workplace UX Research — deskbird",
-        "type": "User-Centered Design · Mixed Methods · Figma",
+        "title": {
+          "en": "Hybrid Workplace UX Research — deskbird",
+          "de": "UX-Research für hybride Arbeitswelten — deskbird"
+        },
+        "type": {
+          "en": "User-Centered Design · Mixed Methods · Figma",
+          "de": "User-Centered Design · Mixed Methods · Figma"
+        },
         "metrics": [
           {
             "value": "57",
-            "label": "survey respondents"
+            "label": {
+              "en": "survey respondents",
+              "de": "Umfrageteilnehmende"
+            }
           },
           {
             "value": "6",
-            "label": "contextual inquiries"
+            "label": {
+              "en": "contextual inquiries",
+              "de": "Contextual Inquiries"
+            }
           },
           {
             "value": "4",
-            "label": "stakeholder interviews"
+            "label": {
+              "en": "stakeholder interviews",
+              "de": "Stakeholder-Interviews"
+            }
           }
         ],
         "summary": {
@@ -335,16 +368,28 @@
       },
       {
         "id": "embraceme-soft-robotics",
-        "title": "EmbraceMe – Inflatable Human-Robot for Emotional Care",
-        "type": "Arduino · Capacitive Sensors · C++ · Soft Robotics",
+        "title": {
+          "en": "EmbraceMe – Inflatable Human-Robot for Emotional Care",
+          "de": "EmbraceMe – aufblasbarer Mensch-Roboter für emotionale Zuwendung"
+        },
+        "type": {
+          "en": "Arduino · Capacitive Sensors · C++ · Soft Robotics",
+          "de": "Arduino · Kapazitive Sensoren · C++ · Soft Robotics"
+        },
         "metrics": [
           {
             "value": "Public",
-            "label": "exhibition debut"
+            "label": {
+              "en": "exhibition debut",
+              "de": "Ausstellungspremiere"
+            }
           },
           {
             "value": "Repeatable",
-            "label": "pneumatic actuation"
+            "label": {
+              "en": "pneumatic actuation",
+              "de": "Pneumatische Aktuierung"
+            }
           }
         ],
         "summary": {
@@ -361,9 +406,15 @@
           "de": "M.Sc. Human-Computer-Interaction"
         },
         "year": "10/2021 - 05/2026",
-        "grade": "Final grade: 1.7",
+        "grade": {
+          "en": "Final grade: 1.7",
+          "de": "Abschlussnote: 1,7"
+        },
         "awards": [
-          "Thesis: Gaze-Assisted Input in Dual-Display Environments"
+          {
+            "en": "Thesis: Gaze-Assisted Input in Dual-Display Environments",
+            "de": "Masterarbeit: Gaze-Assisted Input in Dual-Display Environments"
+          }
         ]
       },
       {
@@ -376,8 +427,14 @@
       }
     ],
     "bioParagraphs": [
-      "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction and eight years across frontend development, QA, and user research. I like working on both ends of a product: running solid mixed-methods studies to understand what people actually need, and then building it — responsive, accessible interfaces in React and TypeScript.",
-      "That mix is the point. Research tells me what's worth building, and my engineering background means I can take it all the way to working code. The case studies below show how that plays out in real projects."
+      {
+        "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction and eight years across frontend development, QA, and user research. I like working on both ends of a product: running solid mixed-methods studies to understand what people actually need, and then building it — responsive, accessible interfaces in React and TypeScript.",
+        "de": "Ich bin UX Engineer mit einem M.Sc. in Human-Computer Interaction und acht Jahren Erfahrung in Frontend-Entwicklung, QA und User Research. Ich arbeite gern an beiden Enden eines Produkts: Ich führe fundierte Mixed-Methods-Studien durch, um zu verstehen, was Menschen wirklich brauchen — und baue es dann: responsive, barrierefreie Interfaces in React und TypeScript."
+      },
+      {
+        "en": "That mix is the point. Research tells me what's worth building, and my engineering background means I can take it all the way to working code. The case studies below show how that plays out in real projects.",
+        "de": "Genau diese Mischung ist der Punkt. Research zeigt mir, was es wert ist, gebaut zu werden — und mein Engineering-Hintergrund bedeutet, dass ich es bis zum funktionierenden Code bringen kann. Die Case Studies unten zeigen, wie das in echten Projekten aussieht."
+      }
     ],
     "skills": {
       "Frontend Engineering": [
@@ -432,22 +489,25 @@
     },
     "languages": [
       {
-        "name": "English",
-        "level": "C1 (Fluent)"
+        "name": { "en": "English", "de": "Englisch" },
+        "level": { "en": "C1 (Fluent)", "de": "C1 (fließend)" }
       },
       {
-        "name": "German",
-        "level": "C1 (DSH-2)"
+        "name": { "en": "German", "de": "Deutsch" },
+        "level": { "en": "C1 (DSH-2)", "de": "C1 (DSH-2)" }
       },
       {
-        "name": "Persian",
-        "level": "Native"
+        "name": { "en": "Persian", "de": "Persisch" },
+        "level": { "en": "Native", "de": "Muttersprache" }
       }
     ],
     "certifications": [
   {
     "title": "M.Sc. Human-Computer Interaction",
-    "provider": "Bauhaus-Universität Weimar, Faculty of Media",
+    "provider": {
+      "en": "Bauhaus-Universität Weimar, Faculty of Media",
+      "de": "Bauhaus-Universität Weimar, Fakultät Medien"
+    },
     "year": "2026",
     "type": "degree",
     "skills": ["HCI Research", "Visual Interfaces", "Design Theory"],
@@ -474,7 +534,10 @@
     }
   },
   {
-    "title": "Student Volunteer — Mensch und Computer 2022",
+    "title": {
+      "en": "Student Volunteer — Mensch und Computer 2022",
+      "de": "Studentische Freiwillige — Mensch und Computer 2022"
+    },
     "provider": "Gesellschaft für Informatik (GI e.V.) · ACM In-Cooperation",
     "year": "2022",
     "type": "recognition",
@@ -488,7 +551,10 @@
     }
   },
   {
-    "title": "DSH-2 (German Language Proficiency for University Admission)",
+    "title": {
+      "en": "DSH-2 (German Language Proficiency for University Admission)",
+      "de": "DSH-2 (Deutsche Sprachprüfung für den Hochschulzugang)"
+    },
     "provider": "Sprachenzentrum, Bauhaus-Universität Weimar",
     "year": "2026",
     "type": "language",
