@@ -62,27 +62,6 @@ const SECTIONS = [
   { id: "conclusion",   labelKey: "project.sidebar.conclusion",   dataKey: "conclusion"   },
 ];
 
-// Helpers to extract text and pull-quotes, supporting both the new
-// { quote, text } object format and the legacy plain string format.
-function getPullQuote(content) {
-  if (!content) return "";
-  if (typeof content === "object" && content.quote) return content.quote;
-  if (typeof content === "string") {
-    const match = content.match(/^.*?[.!?](?=\s|$)/);
-    const sentence = (match ? match[0] : content).trim();
-    if (sentence.length > content.length * 0.85) return "";
-    return sentence;
-  }
-  return "";
-}
-
-function getBodyText(content) {
-  if (!content) return "";
-  if (typeof content === "object" && content.text) return content.text;
-  if (typeof content === "string") return content;
-  return "";
-}
-
 // Section head — the one heading pattern, used by every section. The
 // <button> nests inside the <h2> rather than the reverse: <h2> is not
 // permitted content inside <button>, and this matches the ARIA Authoring
@@ -298,19 +277,24 @@ function PullQuote({ text }) {
 // Long-form prose wrapper: caps the reading measure, and — for the three
 // sections that get one — sets a lead-sentence pull-quote beside it in the
 // right rail once the viewport is wide enough to hold three tracks.
-function Prose({ text, rail, children }) {
-  const bodyText = getBodyText(text);
-  const pullQuote = getPullQuote(text);
+function Prose({ text, quote, rail, children }) {
+  // Use explicit quote if provided, otherwise fallback to legacy regex for older projects
+  let resolvedQuote = quote;
+  if (!resolvedQuote && typeof text === "string" && rail) {
+    const match = text.match(/^.*?[.!?](?=\s|$)/);
+    const sentence = (match ? match[0] : text).trim();
+    resolvedQuote = sentence.length > text.length * 0.85 ? "" : sentence;
+  }
 
   return (
     <div className={rail ? "xl:grid xl:grid-cols-[1fr_240px] xl:gap-10 items-start" : ""}>
       <div className="max-w-[68ch]">
         <ClampedText>
-          <p className="text-[17px] leading-[1.7] text-text/90">{bodyText}</p>
+          <p className="text-[17px] leading-[1.7] text-text/90">{text}</p>
         </ClampedText>
         {children}
       </div>
-      {rail && <PullQuote text={pullQuote} />}
+      {rail && <PullQuote text={resolvedQuote} />}
     </div>
   );
 }
@@ -1093,7 +1077,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
   );
   const currentIndex = orderedProjects.findIndex((p) => p.id === meta.id);
   const rawPrev = currentIndex > 0 ? orderedProjects[currentIndex - 1] : null;
- const rawNext =
+  const rawNext =
     currentIndex >= 0 && currentIndex < orderedProjects.length - 1
       ? orderedProjects[currentIndex + 1]
       : null;
@@ -1241,7 +1225,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   kicker={t("project.about.kicker")} heading={t("project.about.heading")}>
                   <ClampedText className="max-w-[68ch]">
                     <p className="text-[17px] leading-relaxed about-project text-text/90">
-                      {getBodyText(meta.about)}
+                      {meta.about}
                     </p>
                   </ClampedText>
                 </ContentSection>
@@ -1272,7 +1256,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   isOpen={openSections.has("challenge")} onToggle={() => toggleSection("challenge")}
                   staggerDelayMs={staggerDelayFor("challenge")}
                   kicker={t("project.challenge.kicker")} heading={t("project.challenge.heading")}>
-                  <Prose text={meta.challenge} rail>
+                  <Prose text={meta.challenge} quote={meta.challengeQuote} rail>
                     <SectionMedia items={meta.figures?.challenge} />
                   </Prose>
                 </ContentSection>
@@ -1283,7 +1267,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   isOpen={openSections.has("solution")} onToggle={() => toggleSection("solution")}
                   staggerDelayMs={staggerDelayFor("solution")}
                   kicker={t("project.solution.kicker")} heading={t("project.solution.heading")}>
-                  <Prose text={meta.solution} rail>
+                  <Prose text={meta.solution} quote={meta.solutionQuote} rail>
                     <SectionMedia items={meta.figures?.solution} />
                   </Prose>
                 </ContentSection>
@@ -1297,7 +1281,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   {meta.prototype && (
                     <ClampedText className="max-w-[68ch]">
                       <p className="text-[17px] leading-[1.7] text-text/90">
-                        {getBodyText(meta.prototype)}
+                        {meta.prototype}
                       </p>
                     </ClampedText>
                   )}
@@ -1318,7 +1302,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   isOpen={openSections.has("methodology")} onToggle={() => toggleSection("methodology")}
                   staggerDelayMs={staggerDelayFor("methodology")}
                   kicker={t("project.methodology.kicker")} heading={t("project.methodology.heading")}>
-                  <Prose text={meta.methodology} rail>
+                  <Prose text={meta.methodology} quote={meta.methodologyQuote} rail>
                     <SectionMedia items={meta.figures?.methodology} />
                     
                     {/* Research Methods and Tech Stack relocated here side by side */}
@@ -1385,7 +1369,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                       {meta.results && (
                         <ClampedText>
                           <p className="text-[17px] leading-[1.7] text-text/90">
-                            {getBodyText(meta.results)}
+                            {meta.results}
                           </p>
                         </ClampedText>
                       )}
@@ -1413,7 +1397,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   kicker={t("project.implications.kicker")} heading={t("project.implications.heading")}>
                   <ClampedText className="max-w-[68ch]">
                     <p className="text-[17px] leading-[1.7] text-text/90">
-                      {getBodyText(meta.implications)}
+                      {meta.implications}
                     </p>
                   </ClampedText>
                 </ContentSection>
@@ -1422,7 +1406,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
               {meta.phases && meta.phases.length > 0 && (
                 <ResearchPhases
                   phases={meta.phases}
-                  intro={getBodyText(meta.phasesIntro)}
+                  intro={meta.phasesIntro}
                   number={sectionNumber("phases")}
                   isOpen={openSections.has("phases")}
                   onToggle={() => toggleSection("phases")}
