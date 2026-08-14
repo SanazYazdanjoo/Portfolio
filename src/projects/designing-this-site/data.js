@@ -41,7 +41,10 @@ export const projectData = {
     "Framer Motion",
     "React Router",
     "Design Systems",
-    "Accessibility (WCAG 2.1 AA)",
+    "Component Architecture",
+    "Information Architecture",
+    "Responsive Design",
+    "Accessibility",
     "Internationalization (i18n)",
     "Print CSS",
     "Automated Testing (Vitest)",
@@ -181,7 +184,14 @@ export const projectData = {
     { tag: "Framer Motion", evidence: "solution: \"Framer Motion pathLength draw-ins\"", status: "evidenced" },
     { tag: "React Router", evidence: "techStack: [\"React\", \"Vite\", \"Tailwind CSS\", \"Framer Motion\", \"React Router\", \"Vitest\", \"Testing Library\", \"ESLint\"] — rendered as Tech Stack chips under Methodology", status: "evidenced" },
     { tag: "Design Systems", evidence: "process:Ink & Bloom — Contrast Rules Baked Into the Names; prototypeUrl links the living style guide", status: "evidenced" },
-    { tag: "Accessibility (WCAG 2.1 AA)", evidence: "process:Ink & Bloom names a real contrast-aware token convention (design intent), but results explicitly states the WCAG 2.1 AA contrast pass itself has not run — the tag claims a standard, and the standard hasn't been audited yet", status: "thin" },
+    { tag: "Component Architecture", evidence: "process:One Template, a Fixed Section List, an Escape Hatch — every case study renders through one ProjectTemplate({ meta, children }) contract, with a fixed SECTIONS array deciding what can appear at all; methods: \"Component Architecture & Design Systems Engineering\"", status: "evidenced" },
+    { tag: "Information Architecture", evidence: "process:Three Tracks, Collapsing to One — a sticky numbered section rail, a capped-width prose column, and a pull-quote rail; the section order itself is fixed by the SECTIONS array every case study is bound to", status: "evidenced" },
+    { tag: "Responsive Design", evidence: "process:Three Tracks, Collapsing to One — three columns above the xl breakpoint, a single column with a horizontal pill bar below it, with the right rail dropped rather than duplicated because the sentence it repeats already sits in the adjacent paragraph", status: "evidenced" },
+    // Renamed from "Accessibility (WCAG 2.1 AA)": the old tag named a standard
+    // the results section says out loud has not been audited yet. The work
+    // (contrast-aware token split, reduced-motion, keyboard path) is real;
+    // the conformance claim was not, so the standard came out of the name.
+    { tag: "Accessibility", evidence: "process:Ink & Bloom — the -500/-600 token split puts the contrast rule in the token name a component reaches for; prototype: \"Motion respects prefers-reduced-motion globally, wired once at the router root\". Results still lists the WCAG 2.1 AA contrast pass and the keyboard-only check as pending, so this is design intent, not an audited result", status: "thin" },
     { tag: "Internationalization (i18n)", evidence: "prototype: \"useLocalizedProfile recursively resolves any { en, de } field\"", status: "evidenced" },
     { tag: "Print CSS", evidence: "prototype: \"@media print and an @page A4 rule, with accordions forced open via a CSS guard on [data-collapsible-body]\"", status: "evidenced" },
     { tag: "Automated Testing (Vitest)", evidence: "implications: \"an automated invariant test — not a manual review — that now makes that class of bug fail the build\"", status: "evidenced" },

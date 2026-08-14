@@ -13,6 +13,8 @@
 import thumbnailImg from './Project-4.png';
 import thumbnailWebp from './Project-4.webp';
 import umlPreview from './UML-preview.png';
+import fiveW1HFrame from './5W1H.png';
+import stakeholderMap from './Stakeholders.png';
 import personaPreview from './Persona-preview.png';
 import designSystemSheet from './IBS-Design-System.png';
 
@@ -46,15 +48,19 @@ export const projectData = {
   tags: [
     'UX Research',
     'Service Design',
+    'Survey Design',
+    'Thematic Analysis',
+    'Persona Development',
+    'Requirements Engineering',
+    'Requirements Traceability',
     'Information Architecture',
-    'Design System',
-    'React / TypeScript',
-    'Public Sector',
+    'Design Systems',
+    'React',
+    'TypeScript',
+    'Automated Testing (Vitest)',
     'Accessibility',
     'GDPR / DSGVO',
-    'Requirements Traceability',
-    'Persona Development',
-    'Automated Testing (Vitest)',
+    'Public Sector',
   ],
   thumbnail: thumbnailImg,
   thumbnailWebp,
@@ -130,6 +136,65 @@ export const projectData = {
 
   figures: {
     challenge: [
+      // The Phase 1 problem frame sits ahead of the activity diagram on
+      // purpose: it states the failure in plain language in six columns, so a
+      // reader arrives at the nine-lane swimlane already knowing what to look
+      // for in it. Five of its six columns are diagnosis; the sixth is the
+      // brief the solution section then answers.
+      {
+        type: 'image',
+        src: fiveW1HFrame,
+        span: 2,
+        className: 'w-full h-auto block',
+        label: { en: 'Problem frame · 5W1H', de: 'Problemrahmung · 5W1H' },
+        title: {
+          en: 'The problem, asked six ways',
+          de: 'Das Problem, in sechs Fragen gestellt',
+        },
+        description: {
+          en: 'One column per question. The first five are diagnosis — a hybrid paper-heavy monthly cycle, a deadline on the 15th against a payout four weeks later, three intake channels feeding one Excel file with zero integration, nine roles meeting at a single Admin, and the four places the process predictably breaks. The sixth turns that into the brief: mobile-first upload, visible claim status, enforced calculation rules, digital approvals.',
+          de: 'Eine Spalte je Frage. Die ersten fünf sind Diagnose — ein hybrider, papierlastiger Monatszyklus, eine Frist zum 15. gegen eine Auszahlung vier Wochen später, drei Einreichungskanäle in einer Excel-Datei ohne jede Integration, neun Rollen, die bei einer einzigen Verwaltungskraft zusammenlaufen, und die vier Stellen, an denen der Prozess vorhersehbar bricht. Die sechste macht daraus das Briefing: mobile-first Upload, sichtbarer Antragsstatus, erzwungene Berechnungsregeln, digitale Genehmigungen.',
+        },
+        alt: {
+          en: 'Six-column 5W1H problem-framing board — What, When, Where, Who, Why, How — each column with a headline and three or four bullet findings about the AS-IS reimbursement process',
+          de: 'Sechsspaltige 5W1H-Problemrahmung — Was, Wann, Wo, Wer, Warum, Wie — jede Spalte mit einer Überschrift und drei bis vier Stichpunkt-Befunden zum IST-Erstattungsprozess',
+        },
+        caption: {
+          en: '5W1H problem frame — Phase 1',
+          de: '5W1H-Problemrahmung — Phase 1',
+        },
+      },
+      // Between the problem frame and the swimlane on purpose. The 5W1H says
+      // what breaks; this says who is in the room and which of them the whole
+      // process runs through — so the reader meets the nine actors by name
+      // before the activity diagram shows the same nine in motion, and the
+      // "single administrative role" the challenge text names is visible as a
+      // structural fact rather than a claim. Like the 5W1H, its second half
+      // turns diagnosis into brief: the four quadrant strategies are the
+      // engagement decisions the solution section then answers.
+      {
+        type: 'image',
+        src: stakeholderMap,
+        span: 2,
+        className: 'w-full h-auto block',
+        label: { en: 'Stakeholder map · Phase 1', de: 'Stakeholder-Map · Phase 1' },
+        title: {
+          en: 'Nine actors, one integration point',
+          de: 'Neun Akteure, ein Integrationspunkt',
+        },
+        description: {
+          en: 'Left, proximity to the process: the Admin and the participants sit in the core as the single integration point — every other party reaches a claim through them. Around that core, three direct stakeholders (lecturer, approver/finance officer, cost centre KST 0098) and four indirect ones (AWO Finanzen, EKN, eDoc, internship coordination). Right, the same nine placed by influence against interest. The participants land low-influence, high-interest: the people the process exists for have the least power to move it, which is why their quadrant strategy is radical transparency rather than another approval step.',
+          de: 'Links die Nähe zum Prozess: Verwaltung und Teilnehmende bilden den Kern als einzigen Integrationspunkt — alle anderen Beteiligten erreichen einen Antrag nur über sie. Um diesen Kern herum drei direkte Stakeholder (Dozent, Genehmiger/Finanzer, Kostenstelle KST 0098) und vier indirekte (AWO Finanzen, EKN, eDoc, Praktikumskoordination). Rechts dieselben neun, eingeordnet nach Einfluss gegen Interesse. Die Teilnehmenden landen bei geringem Einfluss und hohem Interesse: Diejenigen, für die der Prozess existiert, können ihn am wenigsten bewegen — deshalb lautet ihre Quadrantenstrategie radikale Transparenz statt eines weiteren Genehmigungsschritts.',
+        },
+        alt: {
+          en: 'Two-panel stakeholder map. Left: concentric proximity rings with the Admin and participants at the core marked as the single integration point, three direct stakeholders in the inner ring and four indirect ones in the outer ring. Right: an influence-against-interest matrix placing the same nine actors across the Manage Closely, Keep Satisfied, Keep Informed and Monitor quadrants, each quadrant labelled with an engagement strategy.',
+          de: 'Zweiteilige Stakeholder-Map. Links: konzentrische Näheringe mit Verwaltung und Teilnehmenden im Kern, markiert als einziger Integrationspunkt, drei direkten Stakeholdern im inneren Ring und vier indirekten im äußeren Ring. Rechts: eine Einfluss-Interesse-Matrix, die dieselben neun Akteure auf die Quadranten Manage Closely, Keep Satisfied, Keep Informed und Monitor verteilt, jeder Quadrant mit einer Engagement-Strategie beschriftet.',
+        },
+        caption: {
+          en: 'Stakeholder map — proximity and influence × interest, Phase 1',
+          de: 'Stakeholder-Map — Nähe und Einfluss × Interesse, Phase 1',
+        },
+      },
       {
         type: 'image',
         src: umlPreview,
@@ -262,18 +327,29 @@ export const projectData = {
   // `adoption` stays off too, deliberately: an "Outcome Unknown" pill reads as
   // a verdict on the project instead of a statement that the work is running.
 
+  // Every pointer below resolves to a field that exists in THIS file. The
+  // previous set pointed at `process:` entries — this case study has no
+  // `process` array (it documents its artefacts through `figures` instead),
+  // so those pointers named nothing, and `results:` was cited for a
+  // digital-signature ruling and a test count that section does not contain.
+  // Same drift the portfolio case study reports about itself: documentation
+  // describing a shape the data had already moved away from.
   tagEvidence: [
-    { tag: "UX Research", evidence: "process:Back to discovery after the build — participant survey (n=5, Aug 2026) with per-finding evidence labels; also methods: \"Insider process observation (AS-IS)\", \"Expert validation interview\"", status: "evidenced" },
-    { tag: "Service Design", evidence: "process:Nine actors, one integration point (stakeholder map) + AS-IS swimlane activity diagrams — no rendered service blueprint exists; the solution's role-based views/state machine is a UI redesign, not itself service-design evidence", status: "thin" },
-    { tag: "Information Architecture", evidence: "process:From Excel rows to a real application", status: "evidenced" },
-    { tag: "Design System", evidence: "process:IBS-DesignSystem — one palette from diagram to production UI", status: "evidenced" },
-    { tag: "React / TypeScript", evidence: "process:Five role interfaces, one tested calculation engine", status: "evidenced" },
+    { tag: "UX Research", evidence: "methods: \"Insider process observation (AS-IS)\", \"Expert validation interview\", \"Participant survey (n=5, anonymous, BL cohort)\"; verbatims quotes two of those respondents, and metrics records six of the 25 documented problems as survey-contributed", status: "evidenced" },
+    { tag: "Service Design", evidence: "methods: \"Stakeholder mapping\" + \"UML activity diagrams (swimlane)\"; figures.challenge maps one monthly cycle end to end across nine actor lanes, 13 steps, and four return loops. No rendered service blueprint exists, and the TO-BE is delivered as role-based views and a claim state machine — a UI redesign of the service, not a blueprint of it", status: "thin" },
+    { tag: "Survey Design", evidence: "methods: \"Participant survey (n=5, anonymous, BL cohort)\"; metrics: \"25 problems documented — six added by the participant survey\" and \"n=5, every finding evidence-labelled\"; verbatims carries two responses quoted as given", status: "evidenced" },
+    { tag: "Thematic Analysis", evidence: "methods: \"Thematic analysis / affinity clustering\"; methodology: \"clustered nineteen observed problems into five structural themes\"", status: "evidenced" },
+    { tag: "Persona Development", evidence: "figures.methodology: \"Seven personas, each carrying its own evidence\" — one composite per role, each stating where its reading came from; metrics: \"7 personas, each with its provenance stated\"; methods: \"Persona development with provenance labelling\"", status: "evidenced" },
+    { tag: "Requirements Engineering", evidence: "methodology: \"Phase 2 turned the clustered problems into numbered requirements, a role-based sitemap, a claim state machine\"; methods: \"Requirements traceability (FR / NFR / P-IDs)\"", status: "evidenced" },
+    { tag: "Requirements Traceability", evidence: "metrics: \"100% of requirements cited in code traced to a source problem\"; methods: \"Requirements traceability (FR / NFR / P-IDs)\"", status: "evidenced" },
+    { tag: "Information Architecture", evidence: "methods: \"Information architecture & state modelling\"; solution: five purpose-built role views replacing one shared spreadsheet, plus the explicit claim state machine (Under Review → Pending Approval → Approved → Paid)", status: "evidenced" },
+    { tag: "Design Systems", evidence: "figures.methodology: \"One palette, from swimlane to shipped screen\" — the IBS-DesignSystem sheet (brand colours, nine-lane role palette, type scale, buttons, status chips, form-field states), with the research diagram's lane colours carried unchanged into the shipped UI", status: "evidenced" },
+    { tag: "React", evidence: "techStack: [\"React\", \"TypeScript\", \"Vite\", \"Tailwind CSS\", \"Vitest\", ...] — rendered as Tech Stack chips under Methodology; metrics: \"5 role-based interfaces built and wired\"; prototype: the deployed build runs all five of them", status: "evidenced" },
+    { tag: "TypeScript", evidence: "methodology: \"Phase 3 built it, with the calculation rules as pure, unit-tested TypeScript rather than logic buried in components\"", status: "evidenced" },
+    { tag: "Automated Testing (Vitest)", evidence: "metrics: \"158 automated tests across 25 files\"; techStack includes Vitest; methodology names the calculation rules as unit-tested", status: "evidenced" },
+    { tag: "Accessibility", evidence: "solution: \"an optional guided step-by-step mode for the lowest-fluency users\", German/English switching, and a mobile-first upload path with camera capture — inclusive-design evidence, not a WCAG/a11y audit", status: "thin" },
+    { tag: "GDPR / DSGVO", evidence: "solution: \"All persistence sits behind adapters, utilizing a local SQLite database and Nextcloud integration rather than external Google Sheets, ensuring participant data never leaves the institute\"; the published prototype runs on the demo adapter with fictional workbooks, and the survey verbatims are anonymous and non-identifying", status: "evidenced" },
     { tag: "Public Sector", evidence: "challenge: \"participants in a state-funded qualification programme\" — direct citation of state/public funding as the programme context", status: "evidenced" },
-    { tag: "Accessibility", evidence: "solution: \"optional guided step-by-step mode for the lowest-fluency users\" — inclusive-design evidence, not a WCAG/a11y audit", status: "thin" },
-    { tag: "GDPR / DSGVO", evidence: "results: digital-signature path blocked pending a Data Protection Officer ruling — a live data-protection constraint shaping what the build is allowed to do", status: "evidenced" },
-    { tag: "Requirements Traceability", evidence: "process:From an observed problem to a line of code, and back", status: "evidenced" },
-    { tag: "Persona Development", evidence: "process:Seven personas — with their confidence printed on them", status: "evidenced" },
-    { tag: "Automated Testing (Vitest)", evidence: "results: \"158 tests\" across 25 files; build-time requirement-traceability check", status: "evidenced" },
   ],
 };
 
