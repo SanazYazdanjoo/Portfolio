@@ -858,7 +858,6 @@ export default function Admin() {
   // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { void loadData(); }, [loadData]);
 
-  // Save
   const save = useCallback(async () => {
     setSaving(true);
     try {
@@ -896,8 +895,6 @@ export default function Admin() {
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [profileData, save, saving]);
-
-  // Render
 
   if (loading) {
     return (

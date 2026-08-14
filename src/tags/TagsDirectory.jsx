@@ -19,15 +19,13 @@ const TagsDirectory = () => {
 
   const rawTags = getTagData();
 
-  // 1. Filter based on search
   const filteredTags = rawTags.filter(tag =>
     tag.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // 2. Sort based on selection
   const sortedTags = [...filteredTags].sort((a, b) => {
-    if (sortBy === 'count') return b.count - a.count; // Highest count first
-    return a.name.localeCompare(b.name); // Alphabetical
+    if (sortBy === 'count') return b.count - a.count;
+    return a.name.localeCompare(b.name);
   });
 
   return (

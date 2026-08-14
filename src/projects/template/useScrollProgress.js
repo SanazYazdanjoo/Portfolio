@@ -9,7 +9,7 @@ import { useMotionValue } from "framer-motion";
 
 export function useScrollProgress(mainRef) {
   const scrollProgress = useMotionValue(0);
-  const scrollY = useMotionValue(0); // Track exact pixel scroll for parallax
+  const scrollY = useMotionValue(0);
 
   useEffect(() => {
     const root = mainRef.current?.closest(".overflow-y-auto");
@@ -17,7 +17,7 @@ export function useScrollProgress(mainRef) {
     const update = () => {
       const max = root.scrollHeight - root.clientHeight;
       scrollProgress.set(max > 0 ? Math.min(1, Math.max(0, root.scrollTop / max)) : 0);
-      scrollY.set(root.scrollTop); // Update tracking
+      scrollY.set(root.scrollTop);
     };
     update();
     root.addEventListener("scroll", update, { passive: true });

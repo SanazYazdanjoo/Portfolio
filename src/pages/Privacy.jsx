@@ -88,6 +88,34 @@ export default function Privacy() {
           <div className="h-px w-full bg-border/50 my-8"></div>
 
           <section>
+            <h2 className="text-xs font-bold uppercase tracking-widest text-primary mb-4">{t("privacy.sectionAnalytics.heading")}</h2>
+            <h3 className="font-bold text-text mb-2 mt-6">{t("privacy.sectionAnalytics.cookiebot.heading")}</h3>
+            <p className="mb-4 text-base text-dim">
+              {t("privacy.sectionAnalytics.cookiebot.body")}
+            </p>
+            <h3 className="font-bold text-text mb-2 mt-6">{t("privacy.sectionAnalytics.ga.heading")}</h3>
+            <p className="mb-4 text-base text-dim">
+              {t("privacy.sectionAnalytics.ga.body")}
+            </p>
+            <h3 className="font-bold text-text mb-2 mt-6">{t("privacy.sectionAnalytics.vercel.heading")}</h3>
+            <p className="mb-4 text-base text-dim">
+              {t("privacy.sectionAnalytics.vercel.body")}
+            </p>
+            <p className="text-base text-dim">
+              {t("privacy.sectionAnalytics.manageHint")}{" "}
+              <button
+                type="button"
+                onClick={() => window.Cookiebot?.renew?.()}
+                className="underline underline-offset-2 font-bold text-primary hover:text-text transition-colors"
+              >
+                {t("privacy.sectionAnalytics.manage")}
+              </button>
+            </p>
+          </section>
+
+          <div className="h-px w-full bg-border/50 my-8"></div>
+
+          <section>
             <h2 className="text-xs font-bold uppercase tracking-widest text-primary mb-4">{t("privacy.section3.heading")}</h2>
             <p className="text-base text-dim">
               {t("privacy.section3.body")}

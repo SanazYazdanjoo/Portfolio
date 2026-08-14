@@ -32,12 +32,15 @@
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
     <link rel="icon" type="image/png" href="/assets/favicon.png" />
     
-    <!-- 1. Cookiebot Script (Placed FIRST to block trackers until consent) -->
+    <!-- Cookiebot — must load before any tracker so consent gates them -->
     <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="cb504ac2-0680-40c4-9de7-659565f4c602" type="text/javascript" async></script>
 
-    <!-- 2. Google Analytics Script (Placed SECOND) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-20Q8K2V97V"></script>
-    <script>
+    <!-- Google Analytics — consent-gated: type="text/plain" keeps both
+         scripts inert until Cookiebot flips them to text/javascript after
+         the visitor consents to the "statistics" category. Do not remove
+         the data-cookieconsent attribute, or GA runs before consent. -->
+    <script type="text/plain" data-cookieconsent="statistics" async src="https://www.googletagmanager.com/gtag/js?id=G-20Q8K2V97V"></script>
+    <script type="text/plain" data-cookieconsent="statistics">
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());

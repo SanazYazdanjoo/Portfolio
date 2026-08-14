@@ -18,8 +18,6 @@ const readData = () => {
   return JSON.parse(rawData);
 };
 
-// GET routes (loading data)
-
 app.get('/api/profile', (req, res) => {
   res.json(readData().profile || {});
 });
@@ -27,8 +25,6 @@ app.get('/api/profile', (req, res) => {
 app.get('/api/voluntary', (req, res) => {
   res.json(readData().voluntary || []);
 });
-
-// PUT routes (saving data)
 
 app.put('/api/profile', (req, res) => {
   const data = readData();
@@ -44,7 +40,6 @@ app.put('/api/voluntary', (req, res) => {
   res.json({ message: "Voluntary data saved successfully!" });
 });
 
-// Start the server
 app.listen(PORT, () => {
   console.log(`✅ Backend server running on http://localhost:${PORT}`);
 });

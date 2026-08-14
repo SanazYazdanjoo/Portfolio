@@ -10,9 +10,9 @@ import { useDocumentMeta } from "../hooks/useDocumentMeta";
 // a known category resolves through the translation table, an unknown one
 // (added later via /admin) falls back to the raw English key.
 const SKILL_CATEGORY_KEYS = {
-  "Frontend Engineering": "cv.skillCategory.frontendEngineering",
+  "Frontend Engineering & Design": "cv.skillCategory.frontendEngineering",
   "AI-Assisted Development": "cv.skillCategory.aiAssistedDevelopment",
-  "UX Research & Design": "cv.skillCategory.uxResearchDesign",
+  "UX Research & Testing": "cv.skillCategory.uxResearchDesign",
   "QA & Testing": "cv.skillCategory.qaTesting",
   "Analysis & Tools": "cv.skillCategory.analysisTools",
 };

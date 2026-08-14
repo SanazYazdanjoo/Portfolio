@@ -64,7 +64,6 @@ export default function App() {
       >
         {t("common.skipToContent")}
       </a>
-      {/* No border, no fixed height, just padding */}
       <header className="w-full z-50 shrink-0 px-8 md:px-12 lg:px-16 pt-6 md:pt-8 bg-bg no-print">
         <Nav isScrolled={isScrolled} />
       </header>
