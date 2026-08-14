@@ -50,7 +50,7 @@ const PHASE_META = {
 
 // Content section definitions. `labelKey` drives the sidebar/mobile-pill text (short form).
 const SECTIONS = [
-  { id: "about",         labelKey: "project.sidebar.about",       dataKey: "about"        },
+  { id: "about",        labelKey: "project.sidebar.about",        dataKey: "about"        },
   { id: "process",      labelKey: "project.sidebar.process",      dataKey: "process"      },
   { id: "challenge",    labelKey: "project.sidebar.challenge",    dataKey: "challenge"    },
   { id: "solution",     labelKey: "project.sidebar.solution",     dataKey: "solution"     },
@@ -62,15 +62,25 @@ const SECTIONS = [
   { id: "conclusion",   labelKey: "project.sidebar.conclusion",   dataKey: "conclusion"   },
 ];
 
-// Picks a lead sentence out of a paragraph for the right-rail pull-quote.
-// Skips single-sentence paragraphs — pulling the whole thing out just
-// duplicates it rather than surfacing a highlight.
-function leadSentence(text) {
-  if (!text) return "";
-  const match = text.match(/^.*?[.!?](?=\s|$)/);
-  const sentence = (match ? match[0] : text).trim();
-  if (sentence.length > text.length * 0.85) return "";
-  return sentence;
+// Helpers to extract text and pull-quotes, supporting both the new
+// { quote, text } object format and the legacy plain string format.
+function getPullQuote(content) {
+  if (!content) return "";
+  if (typeof content === "object" && content.quote) return content.quote;
+  if (typeof content === "string") {
+    const match = content.match(/^.*?[.!?](?=\s|$)/);
+    const sentence = (match ? match[0] : content).trim();
+    if (sentence.length > content.length * 0.85) return "";
+    return sentence;
+  }
+  return "";
+}
+
+function getBodyText(content) {
+  if (!content) return "";
+  if (typeof content === "object" && content.text) return content.text;
+  if (typeof content === "string") return content;
+  return "";
 }
 
 // Section head — the one heading pattern, used by every section. The
@@ -289,15 +299,18 @@ function PullQuote({ text }) {
 // sections that get one — sets a lead-sentence pull-quote beside it in the
 // right rail once the viewport is wide enough to hold three tracks.
 function Prose({ text, rail, children }) {
+  const bodyText = getBodyText(text);
+  const pullQuote = getPullQuote(text);
+
   return (
     <div className={rail ? "xl:grid xl:grid-cols-[1fr_240px] xl:gap-10 items-start" : ""}>
       <div className="max-w-[68ch]">
         <ClampedText>
-          <p className="text-[17px] leading-[1.7] text-text/90">{text}</p>
+          <p className="text-[17px] leading-[1.7] text-text/90">{bodyText}</p>
         </ClampedText>
         {children}
       </div>
-      {rail && <PullQuote text={leadSentence(text)} />}
+      {rail && <PullQuote text={pullQuote} />}
     </div>
   );
 }
@@ -553,7 +566,7 @@ function MobilePillBar({ sections, activeId, onNavigate }) {
   const { t } = useTranslation();
   return (
     <div className="sticky top-[80px] z-40 bg-bg/90 backdrop-blur-md border-b border-border
-                    -mx-4 px-4 py-2 md:hidden no-print">
+                     -mx-4 px-4 py-2 md:hidden no-print">
       <div className="flex gap-1 overflow-x-auto">
         {sections.map((section) => {
           const isActive = activeId === section.id;
@@ -1080,7 +1093,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
   );
   const currentIndex = orderedProjects.findIndex((p) => p.id === meta.id);
   const rawPrev = currentIndex > 0 ? orderedProjects[currentIndex - 1] : null;
-  const rawNext =
+ const rawNext =
     currentIndex >= 0 && currentIndex < orderedProjects.length - 1
       ? orderedProjects[currentIndex + 1]
       : null;
@@ -1228,7 +1241,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   kicker={t("project.about.kicker")} heading={t("project.about.heading")}>
                   <ClampedText className="max-w-[68ch]">
                     <p className="text-[17px] leading-relaxed about-project text-text/90">
-                      {meta.about}
+                      {getBodyText(meta.about)}
                     </p>
                   </ClampedText>
                 </ContentSection>
@@ -1284,7 +1297,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   {meta.prototype && (
                     <ClampedText className="max-w-[68ch]">
                       <p className="text-[17px] leading-[1.7] text-text/90">
-                        {meta.prototype}
+                        {getBodyText(meta.prototype)}
                       </p>
                     </ClampedText>
                   )}
@@ -1320,8 +1333,8 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                             </span>
                             <div className="text-sm text-text/80 tracking-wide leading-relaxed">
                               {methods.map((m, i, arr) => (
-                                <span key={m}>
-                                  <span className="font-medium text-text/70">{m}</span>
+                                <span key={m.en || m}>
+                                  <span className="font-medium text-text/70">{m.en || m}</span>
                                   {i < arr.length - 1 && <span className="mx-2 text-text/25">·</span>}
                                 </span>
                               ))}
@@ -1372,7 +1385,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                       {meta.results && (
                         <ClampedText>
                           <p className="text-[17px] leading-[1.7] text-text/90">
-                            {meta.results}
+                            {getBodyText(meta.results)}
                           </p>
                         </ClampedText>
                       )}
@@ -1400,7 +1413,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   kicker={t("project.implications.kicker")} heading={t("project.implications.heading")}>
                   <ClampedText className="max-w-[68ch]">
                     <p className="text-[17px] leading-[1.7] text-text/90">
-                      {meta.implications}
+                      {getBodyText(meta.implications)}
                     </p>
                   </ClampedText>
                 </ContentSection>
@@ -1409,7 +1422,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
               {meta.phases && meta.phases.length > 0 && (
                 <ResearchPhases
                   phases={meta.phases}
-                  intro={meta.phasesIntro}
+                  intro={getBodyText(meta.phasesIntro)}
                   number={sectionNumber("phases")}
                   isOpen={openSections.has("phases")}
                   onToggle={() => toggleSection("phases")}

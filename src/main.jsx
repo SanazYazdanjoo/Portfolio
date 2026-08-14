@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { MotionConfig } from 'framer-motion';
 import App from './App';
+import ErrorPage from './components/ErrorPage';
 import { lazyWithRetry } from './utils/lazyWithRetry';
 import './index.css';
 import { LanguageProvider } from './context/LanguageContext';
@@ -57,6 +58,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />, // App must contain an <Outlet />
+    errorElement: <ErrorPage />, 
     children: [
       { index: true, element: <Home /> },
       { path: "about", element: <About /> },
