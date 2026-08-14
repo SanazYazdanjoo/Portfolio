@@ -96,9 +96,9 @@ const en = {
   // Skill-group headings on the CV. Keyed off the English category name in
   // data.json (see SKILL_CATEGORY_KEYS in CurriculumVitae.jsx); a category
   // added later without a key here simply falls back to its raw name.
-  "cv.skillCategory.frontendEngineering": "Frontend Engineering",
+  "cv.skillCategory.frontendEngineering": "Frontend Engineering & Design",
   "cv.skillCategory.aiAssistedDevelopment": "AI-Assisted Development",
-  "cv.skillCategory.uxResearchDesign": "UX Research & Design",
+  "cv.skillCategory.uxResearchDesign": "UX Research & Testing",
   "cv.skillCategory.qaTesting": "QA & Testing",
   "cv.skillCategory.analysisTools": "Analysis & Tools",
 
@@ -362,17 +362,29 @@ const en = {
   "privacy.section2.serverLogs.item4": "Hostname of the accessing computer",
   "privacy.section2.serverLogs.item5": "Time of the server request",
   "privacy.section2.serverLogs.item6": "IP address",
-  "privacy.section2.serverLogs.legal": "This data is not merged with other data sources. The basis for data processing is Art. 6 (1) (f) GDPR, which allows the processing of data to fulfill a contract or for measures preliminary to a contract, as well as for the legitimate interest of the technically error-free presentation and optimization of the operator's website.",
+  "privacy.section2.serverLogs.legal": "This data is not merged with other data sources. The basis for data processing is Art. 6 (1) (f) GDPR — the legitimate interest in the technically error-free presentation and optimization of this website.",
   "privacy.section2.email.heading": "Contact via Email",
   "privacy.section2.email.body": "If you send me an email, your details, including the contact details you provided, will be stored by me for the purpose of processing the inquiry and in case of follow-up questions. I do not share this data without your consent.",
-  "privacy.section3.heading": "3. Your Rights",
+  // Analytics & consent — the tools this site actually loads (Cookiebot,
+  // Google Analytics after consent, Vercel hosting + cookie-free analytics).
+  "privacy.sectionAnalytics.heading": "3. Cookies, Consent & Analytics",
+  "privacy.sectionAnalytics.cookiebot.heading": "Consent Management (Cookiebot)",
+  "privacy.sectionAnalytics.cookiebot.body": "This website uses Cookiebot (Usercentrics A/S, Havnegade 39, 1058 Copenhagen, Denmark) as its consent management platform. On your first visit you are asked whether you consent to statistics cookies; analytics scripts are loaded only after you have given that consent. Your decision is stored in a consent cookie so it can be remembered on later visits. Storing this choice is technically necessary and based on Art. 6 (1) (c) GDPR and § 25 (2) TDDDG.",
+  "privacy.sectionAnalytics.ga.heading": "Google Analytics",
+  "privacy.sectionAnalytics.ga.body": "Only if you consent, this website uses Google Analytics 4, a web analytics service provided by Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland. Google Analytics uses cookies and similar technologies to analyse how visitors use the site; IP addresses are processed in truncated (anonymised) form. Data may be transferred to servers of Google LLC in the USA; Google is certified under the EU-U.S. Data Privacy Framework. The legal basis is your consent (Art. 6 (1) (a) GDPR, § 25 (1) TDDDG). You can withdraw your consent at any time with effect for the future via the cookie settings.",
+  "privacy.sectionAnalytics.vercel.heading": "Hosting & Vercel Web Analytics",
+  "privacy.sectionAnalytics.vercel.body": "This website is hosted by Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, USA. Vercel processes the server log data described above to deliver the site securely and reliably. In addition, the site uses Vercel Web Analytics, a cookie-free measurement tool that collects aggregated usage data (such as page views, country, browser, and device type) without storing identifiers on your device and without tracking you across websites. The legal basis for both is my legitimate interest in the secure operation and improvement of this website (Art. 6 (1) (f) GDPR).",
+  "privacy.sectionAnalytics.manageHint": "You can change or withdraw your cookie consent at any time:",
+  "privacy.sectionAnalytics.manage": "Open cookie settings",
+
+  "privacy.section3.heading": "4. Your Rights",
   "privacy.section3.body": "You have the right to receive information about the origin, recipient, and purpose of your stored personal data free of charge at any time. You also have a right to request the correction or deletion of this data. If you have given your consent to data processing, you can revoke this consent at any time for the future. Furthermore, under certain circumstances, you have the right to request the restriction of the processing of your personal data. You can contact me at any time at the email address provided above for this purpose.",
 
   // Impressum
   "impressum.title": "Impressum",
-  "impressum.subtitle": "Legal notice and disclosure according to § 5 TMG.",
-  "impressum.section1.heading": "Information according to § 5 TMG",
-  "impressum.address.street": "---",
+  "impressum.subtitle": "Legal notice and disclosure according to § 5 DDG.",
+  "impressum.section1.heading": "Information according to § 5 DDG",
+  "impressum.address.street": "Jakobsplan 1",
   "impressum.address.zip": "99423 Weimar",
   "impressum.address.country": "Germany",
   "impressum.contact.heading": "Contact",
@@ -380,7 +392,7 @@ const en = {
   "impressum.contact.phonePlaceholder": "+491639742175",
   "impressum.contact.emailLabel": "Email",
   "impressum.liabilityContent.heading": "Liability for Content",
-  "impressum.liabilityContent.body": "As a service provider, I am responsible for my own content on these pages in accordance with general laws pursuant to § 7 para.1 TMG. According to §§ 8 to 10 TMG, however, I am not obligated to monitor transmitted or stored third-party information or to investigate circumstances that indicate illegal activity.",
+  "impressum.liabilityContent.body": "As a service provider, I am responsible for my own content on these pages in accordance with general laws. However, I am not obligated to monitor transmitted or stored third-party information or to investigate circumstances that indicate illegal activity.",
   "impressum.liabilityLinks.heading": "Liability for Links",
   "impressum.liabilityLinks.body": "My website contains links to external websites of third parties, on whose contents I have no influence. Therefore, I cannot assume any liability for these external contents. The respective provider or operator of the pages is always responsible for the contents of the linked pages.",
   "impressum.copyright.heading": "Copyright",

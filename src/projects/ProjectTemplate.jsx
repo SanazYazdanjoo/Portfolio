@@ -116,10 +116,10 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
         style={{ scaleX: scrollProgress }}
       />
 
-      {/* Hero photo — Sticky Parallax Implementation */}
+      {/* Hero photo — sticky parallax banner (see template/ProjectHero.jsx) */}
       {hasHeroImage && <ProjectHero meta={meta} scrollY={scrollY} />}
 
-      {/* Main Content Wrapper — Added solid bg and z-10 so it slides OVER the sticky banner */}
+      {/* Content wrapper — solid bg + z-10 so it slides over the sticky banner */}
       <div className="relative z-10 w-full bg-bg pb-16 pt-8 md:pt-12">
         <div className="w-full px-4 md:px-8 max-w-[1500px] mx-auto">
           <div className="flex items-start">
@@ -223,7 +223,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   <Prose text={meta.methodology} quote={meta.methodologyQuote} rail>
                     <SectionMedia items={meta.figures?.methodology} />
 
-                    {/* Research Methods and Tech Stack relocated here side by side */}
+                    {/* Research Methods + Tech Stack */}
                     {((methods && methods.length > 0) || (meta.techStack && meta.techStack.length > 0)) && (
                       <div className="mt-8 flex flex-col gap-6 border-l-2 border-border pl-5">
 
