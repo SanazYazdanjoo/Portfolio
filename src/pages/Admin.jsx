@@ -218,7 +218,7 @@ function PersonalTab({ data, setData }) {
       </Section>
       <Section title="Contact">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
-          <Field label="Location" value={data.contact?.location} onChange={(v) => setContact("location", v)} />
+          <BilingualField label="Location" value={data.contact?.location} onChange={(v) => setContact("location", v)} />
           <Field label="Phone" value={data.contact?.phone} onChange={(v) => setContact("phone", v)} />
           <Field label="Email" value={data.contact?.email} onChange={(v) => setContact("email", v)} />
           <Field label="LinkedIn URL" value={data.contact?.linkedin} onChange={(v) => setContact("linkedin", v)} />

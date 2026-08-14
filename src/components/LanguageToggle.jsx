@@ -6,7 +6,13 @@ import { motion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
 
 export function LanguageToggle({ className = "" }) {
-  const { lang, toggleLang } = useTranslation();
+  const { lang, toggleLang, t } = useTranslation();
+
+  // Both the accessible name and the tooltip are written in the language the
+  // button switches *to* — a German visitor is offered "Switch to English",
+  // an English one "Auf Deutsch wechseln". `common.switchToOther` already
+  // holds the opposite language's string in each table, so one key covers it.
+  const switchLabel = t("common.switchToOther");
 
   return (
     <button
@@ -17,8 +23,8 @@ export function LanguageToggle({ className = "" }) {
         focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600
         ${className}
       `}
-      aria-label={`Switch to ${lang === "en" ? "German" : "English"}`}
-      title={lang === "en" ? "Auf Deutsch wechseln" : "Switch to English"}
+      aria-label={switchLabel}
+      title={switchLabel}
     >
       <span className="relative flex items-center gap-1 text-[10px] font-black uppercase tracking-[0.2em]">
         <span className={lang === "en" ? "text-primary" : "text-text/35"}>EN</span>
