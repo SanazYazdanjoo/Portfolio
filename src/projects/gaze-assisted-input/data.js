@@ -18,7 +18,7 @@ export const projectData = {
     en: "Gaze-Assisted Input in Dual-Display Environments",
     de: "Blickgestützte Eingabe in Dual-Display-Umgebungen",
   },
-  tags: ["TypeScript", "React", "Python", "Eye-Tracking", "Real-Time API Integration", "Quantitative UX Research", "Experimental Design", "Statistical Analysis (ANOVA)", "SUS Evaluation", "Mixed-Methods Research"],
+  tags: ["TypeScript", "React", "Python", "Eye-Tracking", "Real-Time API Integration", "Mixed-Methods Research", "Experimental Design", "Semi-Structured Interviews", "Thematic Analysis", "Quantitative UX Research", "Statistical Analysis (ANOVA)", "SUS Evaluation", "Figma"],
 
   subtitle: {
     en: "A Comparative Evaluation of MAGIC Pointing, Ninja Cursors, and a Mouse Baseline",
@@ -273,11 +273,14 @@ export const projectData = {
     { tag: "Python", evidence: "techStack: [\"TypeScript\", \"Pupil Labs Neon\", \"Real-Time API\", \"AprilTag Marker Mapping\", \"Python\", \"React\"] — rendered as Tech Stack chips under Methodology", status: "evidenced" },
     { tag: "Eye-Tracking", evidence: "solution: Pupil Labs Neon head-mounted tracker, AprilTag surface mapping", status: "evidenced" },
     { tag: "Real-Time API Integration", evidence: "process:TypeScript Architecture & Real-Time Gaze Pipeline — Pupil Labs real-time streaming API", status: "evidenced" },
-    { tag: "Quantitative UX Research", evidence: "process:RM-ANOVA: A Distance-Dependent Crossover — N=30 within-subjects experiment", status: "evidenced" },
+    { tag: "Mixed-Methods Research", evidence: "methodology: \"A two-phase mixed-methods design. Phase I:... Phase II:...\"", status: "evidenced" },
     { tag: "Experimental Design", evidence: "process:A 3×2×6 Within-Subjects Protocol", status: "evidenced" },
+    { tag: "Semi-Structured Interviews", evidence: "process:Characterising Real Multi-Display Work — 20 participants in ~30-minute semi-structured sessions on screen roles, input preferences, and cross-display pain points", status: "evidenced" },
+    { tag: "Thematic Analysis", evidence: "process:Trust Beats Speed — seven themes coded from open feedback (n=30), from the \"transport advantage\" (23/30) to the \"landing penalty\" (22/30); methods: \"Reflexive Thematic Analysis\"", status: "evidenced" },
+    { tag: "Quantitative UX Research", evidence: "process:RM-ANOVA: A Distance-Dependent Crossover — N=30 within-subjects experiment", status: "evidenced" },
     { tag: "Statistical Analysis (ANOVA)", evidence: "process:RM-ANOVA: A Distance-Dependent Crossover — repeated-measures ANOVA, η²ₚ=.690", status: "evidenced" },
     { tag: "SUS Evaluation", evidence: "process:Trust Beats Speed — SUS after each block (n=30)", status: "evidenced" },
-    { tag: "Mixed-Methods Research", evidence: "methodology: \"A two-phase mixed-methods design. Phase I:... Phase II:...\"", status: "evidenced" },
+    { tag: "Figma", evidence: "process:Characterising Real Multi-Display Work — participants recreated their workstation on a shared Figma canvas; methodology: \"a Figma-based workspace visualisation task\"", status: "evidenced" },
   ],
 };
 
