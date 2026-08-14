@@ -12,6 +12,7 @@
 // portraits of individuals.
 import thumbnailImg from './Project-4.png';
 import thumbnailWebp from './Project-4.webp';
+import prototypeScreenshot from './Fahrtkostenerstattung-—-Prototyp-08-14-2026.jpg'; // 
 import umlPreview from './UML-preview.png';
 import fiveW1HFrame from './5W1H.png';
 import stakeholderMap from './Stakeholders.png';
@@ -226,6 +227,38 @@ export const projectData = {
         linkLabel: { en: 'Open the diagram', de: 'Diagramm öffnen' },
       },
     ],
+
+    solution: [
+      {
+        type: 'image',
+        src: prototypeScreenshot,
+        href: 'https://ibs-fktn.vercel.app/#/admin/pipeline',
+        span: 2,
+        className: 'w-full h-auto block',
+        label: { en: 'Live Prototype · Admin View', de: 'Live-Prototyp · Admin-Ansicht' },
+        title: {
+          en: 'High-density data overview with explicit states',
+          de: 'Hohe Informationsdichte mit expliziten Zuständen',
+        },
+        description: {
+          en: 'The table view provides the Admin with complete information density at a glance. It exposes missing receipts, attendance fractions, and exact calculated amounts side-by-side with the explicit claim status, effectively eliminating the manual chase loop.',
+          de: 'Die Tabellenansicht bietet der Administration die volle Informationsdichte auf einen Blick. Sie zeigt fehlende Belege, Anwesenheitsquoten und exakt berechnete Beträge direkt neben dem expliziten Antragsstatus und eliminiert so die manuelle Nachlaufschleife.',
+        },
+        alt: {
+          en: 'Admin dashboard prototype showing a dense table of participants, transport methods, missing receipts, calculated amounts, and current claim statuses like Paid or Nothing submitted',
+          de: 'Admin-Dashboard-Prototyp, der eine dichte Tabelle mit Teilnehmenden, deren Verkehrsmitteln, fehlenden Belegen, berechneten Beträgen und aktuellen Antragsstatus wie Ausgezahlt oder Noch nichts eingereicht zeigt',
+        },
+        caption: {
+          en: 'Admin view — Table overview',
+          de: 'Admin-Ansicht — Tabellenübersicht',
+        },
+        linkLabel: { 
+          en: 'Open the table view', 
+          de: 'Tabellenansicht öffnen' 
+        },
+      },
+    ],
+
     methodology: [
       {
         type: 'image',
