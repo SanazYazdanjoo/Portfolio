@@ -204,7 +204,7 @@ function MobileMenu({ links }) {
                     className={({ isActive }) =>
                       `block py-3 font-display font-black text-4xl leading-tight
                        transition-colors duration-200
-                       ${isActive ? "text-text" : "text-text/35 hover:text-secondary-600"}`
+                       ${isActive ? "text-text" : "text-text/50 hover:text-secondary-600"}`
                     }
                   >
                     {({ isActive }) => (

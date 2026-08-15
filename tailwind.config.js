@@ -84,7 +84,9 @@ fontSize: {
         smooth: "cubic-bezier(.22,.61,.36,1)",
       },
       backgroundImage: {
-        paper: "url('/assets/bg-paper.png')",
+        // .webp generated from the bg-paper.png master by
+        // scripts/generate-webp.mjs — edit the .png, re-run that script.
+        paper: "url('/assets/bg-paper.webp')",
       },
       container: {
         center: true,
