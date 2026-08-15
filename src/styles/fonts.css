@@ -69,3 +69,34 @@
   src: url('/fonts/caveat-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+
+/* Metric-matched fallbacks — CLS insurance for the `swap` faces above.
+ * While a webfont is still in flight, text renders in local Arial scaled
+ * so that line lengths and line-box heights match the webfont's, making
+ * the swap (nearly) shift-free. Numbers are derived, not eyeballed:
+ *   - size-adjust: webfont xWidthAvg/upm ÷ Arial xWidthAvg/upm, using
+ *     @capsizecss/metrics' English-frequency-weighted average widths
+ *     (OS/2 xAvgCharWidth is useless here — its glyph basis differs
+ *     per font, and hmtx averages disagree with it wildly).
+ *   - ascent/descent/line-gap-override: webfont hhea metrics ÷ upm ÷
+ *     size-adjust (the ÷ convention next/font and fontaine use), verified
+ *     against the shipped woff2 files via scripts/extract-font-metrics.mjs.
+ * Caveat gets no fallback on purpose: font-display: optional never swaps
+ * late, so it can't shift anything. Re-derive if a font file changes. */
+@font-face {
+  font-family: 'Bricolage Grotesque Fallback';
+  src: local('Arial');
+  size-adjust: 105.43%;
+  ascent-override: 88.21%;
+  descent-override: 25.61%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'DM Sans Fallback';
+  src: local('Arial');
+  size-adjust: 104.53%;
+  ascent-override: 94.90%;
+  descent-override: 29.66%;
+  line-gap-override: 0%;
+}

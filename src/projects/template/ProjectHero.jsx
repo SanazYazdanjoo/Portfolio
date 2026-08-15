@@ -35,6 +35,7 @@ export function ProjectHero({ meta, scrollY }) {
             src={meta.thumbnail}
             webpSrc={meta.thumbnailWebp}
             alt=""
+            eager
             className="w-full h-full object-cover"
           />
         </div>

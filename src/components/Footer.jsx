@@ -80,7 +80,9 @@ export function Footer({ data }) {
                   </a>
                 </li>
               )}
-              <li className="text-text/50 pt-1 text-[11px] uppercase tracking-wide font-bold">
+              {/* /70 — the AA floor for 11px text is ~/65; /70 matches the
+                  "/70 ink on white" convention used for small meta text. */}
+              <li className="text-text/70 pt-1 text-[11px] uppercase tracking-wide font-bold">
                 {t("footer.timezone")}
               </li>
             </ul>
@@ -98,7 +100,7 @@ export function Footer({ data }) {
             href={REPO_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-text/50 hover:text-primary transition-colors duration-300 underline underline-offset-2"
+            className="text-text/70 hover:text-primary transition-colors duration-300 underline underline-offset-2"
           >
             {t("footer.viewSource")} <span className="text-[10px] opacity-50">↗</span>
           </a>
