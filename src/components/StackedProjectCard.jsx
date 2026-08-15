@@ -50,6 +50,13 @@ function MetricValue({ value, className = "" }) {
 
 export function StackedProjectCard({ project, index }) {
   const [open, setOpen] = useState(false);
+  // Latches true on first hover and never resets: the expand panel's
+  // content (thumbnail included) doesn't mount until then. loading="lazy"
+  // alone doesn't help here — Chrome prefetches lazy images that sit
+  // within its distance threshold even inside a height-0 panel, which put
+  // ~700KB of hover thumbnails into every homepage load. Once opened, the
+  // content stays mounted so repeat hovers animate over a warm panel.
+  const [everOpened, setEverOpened] = useState(false);
   const [imgError, setImgError] = useState(false);
   const reduce = useReducedMotion();
   const { t } = useTranslation();
@@ -63,7 +70,7 @@ export function StackedProjectCard({ project, index }) {
 
   return (
     <motion.div
-      onHoverStart={() => setOpen(true)}
+      onHoverStart={() => { setOpen(true); setEverOpened(true); }}
       onHoverEnd={() => setOpen(false)}
       initial={{ opacity: 0, y: reduce ? 0 : 24 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -151,6 +158,7 @@ export function StackedProjectCard({ project, index }) {
           }}
           className="overflow-hidden bg-muted/40"
         >
+          {everOpened && (
           <div className="px-6 md:px-8 py-8 grid grid-cols-1 md:grid-cols-12 gap-8 border-b border-border">
             <div className="md:col-span-3 flex flex-col gap-5">
               {project.role && (
@@ -212,6 +220,7 @@ export function StackedProjectCard({ project, index }) {
               </span>
             </div>
           </div>
+          )}
         </motion.div>
       </Link>
     </motion.div>

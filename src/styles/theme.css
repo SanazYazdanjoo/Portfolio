@@ -91,8 +91,11 @@
 
  
  /* 2.1.2: Typography — primitives */
---font-family-sans:    "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
---font-family-display: "Bricolage Grotesque", "DM Sans", system-ui, sans-serif;
+/* The "* Fallback" faces are metric-matched local Arial (see fonts.css):
+   they hold the webfont's line lengths and line-box heights while the real
+   file loads, so the font-display:swap flip doesn't shift layout. */
+--font-family-sans:    "DM Sans", "DM Sans Fallback", system-ui, -apple-system, "Segoe UI", sans-serif;
+--font-family-display: "Bricolage Grotesque", "Bricolage Grotesque Fallback", "DM Sans", system-ui, sans-serif;
 --font-family-hand:    "Caveat", "Segoe Script", cursive;
 --font-family-mono:    ui-monospace, "SF Mono", "Cascadia Code", Menlo, monospace;
 
