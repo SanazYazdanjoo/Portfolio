@@ -35,20 +35,37 @@ function AnimatedMetricValue({ value }) {
 
 // Metrics strip.
 //
-// `title` is optional and comes from the project's data when the default
-// heading would misdescribe what is being shown: "Study at a Glance" is the
-// right label for a project whose numbers came out of a study, and the wrong
-// one for a project measuring its own instrumentation before any study has
-// run. Passing a per-project title keeps that judgement in the data module
-// instead of hardcoding a second translation key for every exception.
-export function MetricsStrip({ metrics, title }) {
+// Three ways to frame the numbers, in falling order of precedence:
+//
+//   `intro` (data: `metricsIntro`) — a prose block explaining how to read
+//   them. It REPLACES the eyebrow rather than joining it: a project that has
+//   to explain its numbers is exactly the project for which "Study at a
+//   Glance" is a false label, and stacking a caption under a wrong heading
+//   does not make the heading right. Set quieter than body copy — it is the
+//   instructions for the grid, and must not out-shout what it introduces.
+//
+//   `title` (data: `resultsAtAGlance.title`) — a per-project replacement
+//   eyebrow, for numbers that are real findings but not from a study.
+//
+//   neither — the default "Study at a Glance".
+//
+// Keeping all three in the data module keeps the judgement with the copy,
+// instead of hardcoding a translation key per exception.
+export function MetricsStrip({ metrics, title, intro }) {
   const { t } = useTranslation();
   if (!metrics || metrics.length === 0) return null;
   return (
     <div className="mt-8">
-      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-dim mb-5">
-        {title || t("project.results.glance")}
-      </p>
+      {intro ? (
+        <p className="mb-5 max-w-[68ch] text-sm leading-relaxed text-text-meta"
+           style={{ breakInside: "avoid" }}>
+          {intro}
+        </p>
+      ) : (
+        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-dim mb-5">
+          {title || t("project.results.glance")}
+        </p>
+      )}
       <div className="grid grid-cols-2 sm:grid-cols-4 border border-border divide-x divide-y divide-border">
         {metrics.map((m, i) => {
           if (m.pending) {
