@@ -23,6 +23,9 @@ import stakeholderMap from './Stakeholders.png';
 import personaPreview from './Persona-preview.png';
 import designSystemSheet from './IBS-Design-System.png';
 import architectureDiagram from './App-Architecture-Simplified.png';
+import architectureGuarantees from './architecture-guarantees.png';
+import beforeAfterArtefacts from './before-after.jpg';
+import processStrip from './process-sketch-wireframe-shipped.svg';
 
 // The two research artefacts are full standalone documents — a nine-lane
 // activity diagram and a seven-card persona set — too detailed to read at
@@ -46,35 +49,11 @@ export const projectData = {
     en: 'Digitalizing a nine-actor, paper-heavy reimbursement workflow',
     de: 'Digitalisierung eines papierlastigen Erstattungsprozesses mit neun Akteuren',
   },
-
-  // This project was the only one of the five without a `tagline`, so the
-  // header's lead line and the project card's "Context" field both rendered
-  // empty for it while every sibling filled them. Claims nothing about the
-  // app's reception: it names the finding (the process reports its own status
-  // only by paying out) and the provenance of the work, not an outcome.
-  tagline: {
-    en: 'A reimbursement process whose only status update is the money arriving — researched from the inside, rebuilt from the evidence.',
-    de: 'Ein Erstattungsprozess, dessen einzige Statusmeldung das eintreffende Geld ist — von innen erforscht, aus der Evidenz neu gebaut.',
-  },
   role: {
     en: 'Solo — UX Research, UI Design, and Frontend Development',
     de: 'Alleinverantwortlich — UX Research, UI-Design und Frontend-Entwicklung',
   },
   timeline: '2026 · four phases · ongoing',
-
-  // ⚠️ DRAFT — PLACEHOLDER COPY, NOT FOR PUBLICATION.
-  // Sanaz rewrites this in her own words before it ships. It is here so the
-  // mechanism (schema + rendering + print) is finished and reviewable; the
-  // wording is not hers yet. Renders as the last row of the header metadata
-  // block, labelled "AI Assistance" / "KI-Unterstützung".
-  //
-  // The field is optional across the project data shape: every other data.js
-  // omits it and renders no row at all. Do not add it to a project unless
-  // that project's disclosure has actually been written.
-  aiAssistance: {
-    en: 'Built with AI coding agents under my direction. The research, the requirements, the architecture decisions, the refusals recorded in the decision log — and every claim on this page — are mine and are traceable to their sources.',
-    de: 'Entwickelt mit KI-Coding-Agenten unter meiner Leitung. Die Forschung, die Anforderungen, die Architekturentscheidungen, die im Entscheidungslog festgehaltenen Ablehnungen — und jede Aussage auf dieser Seite — sind meine und auf ihre Quellen rückführbar.',
-  },
   tags: [
     'UX Research',
     'Service Design',
@@ -184,52 +163,7 @@ export const projectData = {
     en: 'The institute saw the working demo on 18 August 2026 and responded with a change request — improvements to existing features and new ones to build, which is the strongest signal an unreleased tool gets. Task-based evaluation has deliberately not run yet: the guided tasks, the event log, and the end-of-session questionnaire are built into the app, but scripting an evaluation on a prototype nobody uses daily would measure compliance, not use, so it waits for the deployment. Meanwhile the measurement has started where it can: one claim traced end to end through the current paper process — uploaded 5 July, noticed 8 days later, processed in a single day, and still unpaid after four checks, at least 43 days and counting, with the entire delay sitting in the segments no one in the process can see. The app\u2019s own instrumentation has already earned its place: run against my development traffic, it caught three of its own measurement bugs — sessions that never closed, a timer anchored to the wrong event, 690 logged records that were really 45 sittings — before any reviewer ever touched it.',
     de: 'Das Institut sah die laufende Demo am 18. August 2026 und antwortete mit einem Änderungsauftrag — Verbesserungen an bestehenden Funktionen und neue Features. Ein stärkeres Signal bekommt ein unveröffentlichtes Werkzeug nicht. Die aufgabenbasierte Evaluation lief bewusst noch nicht: Geführte Aufgaben, Ereignisprotokoll und Abschlussfragebogen sind in die App eingebaut, aber eine skriptgeführte Evaluation an einem Prototyp, den niemand täglich nutzt, würde Folgsamkeit messen statt Nutzung — sie wartet auf das Deployment. Gemessen wird unterdessen dort, wo es geht: ein Antrag durchgängig im aktuellen Papierprozess verfolgt — hochgeladen am 5. Juli, bemerkt 8 Tage später, an einem Tag bearbeitet, nach vier Kontrollen weiter unbezahlt, mindestens 43 Tage und zählend, wobei die gesamte Verzögerung in den Abschnitten liegt, die niemand im Prozess einsehen kann. Und die eingebaute Instrumentierung hat sich bereits bewährt: Auf meinen eigenen Entwicklungsdaten fand sie drei ihrer eigenen Messfehler — nie endende Sitzungen, einen falsch verankerten Timer, 690 protokollierte Datensätze, die in Wahrheit 45 Arbeitssitzungen waren — bevor je ein Reviewer sie berührte.',
   },
-  // Replaces `resultsDetail: true`, which was a no-op: the renderer read the
-  // flag as `!== false`, so setting it true did exactly what omitting it did,
-  // and the strip it was meant to govern rendered under a hardcoded "Study at
-  // a Glance" heading — a study label over a set of artefact counts, for a
-  // project whose evaluation has not run. The strip now renders from whatever
-  // field is present, and this one supplies both its heading and its items.
-  //
-  // Every value here is measured and none is an outcome of the app: two are
-  // measurements of the *paper* process and of the instrumentation itself,
-  // one is a count of bugs the event log found in its own data, one is a
-  // dated event. No projected reductions, no targets, nothing phrased as a
-  // result of the tool — it has no usage results yet. `metrics` stays
-  // untouched above: the project card reads it for its own row.
-  resultsAtAGlance: {
-    title: { en: 'Measured so far', de: 'Bisher gemessen' },
-    items: [
-      {
-        value: '43+',
-        label: {
-          en: 'days, one claim traced end to end through the paper process — still unpaid, right-censored',
-          de: 'Tage, ein Antrag durchgängig im Papierprozess verfolgt — weiter unbezahlt, rechtszensiert',
-        },
-      },
-      {
-        value: '690 → 45',
-        label: {
-          en: 'logged records collapsed to real sittings after the instrumentation caught its own session bug',
-          de: 'protokollierte Datensätze, zu echten Sitzungen zusammengeführt, nachdem die Instrumentierung ihren eigenen Sitzungsfehler fand',
-        },
-      },
-      {
-        value: '3',
-        label: {
-          en: 'measurement bugs the event log found in itself before any reviewer used it',
-          de: 'Messfehler, die das Ereignisprotokoll an sich selbst fand, bevor je ein Reviewer es nutzte',
-        },
-      },
-      {
-        value: '1',
-        label: {
-          en: 'stakeholder demo → one change request (18 Aug 2026)',
-          de: 'Stakeholder-Demo → ein Änderungsauftrag (18. Aug 2026)',
-        },
-      },
-    ],
-  },
+  resultsDetail: true,
 
   // What is deliberately not built or not switched on. This section is what
   // makes every other claim on the page believable.
@@ -405,12 +339,70 @@ export const projectData = {
           de: 'Die Pfeile paarweise lesen: abwärts fließt, was eingetippt wurde, aufwärts kommen dieselben Felder unverändert zurück. Der Betrag existiert nur in der oberen Hälfte — im Browser von einem gemeinsamen Regelmodul berechnet, nie gespeichert. Die Datenbank hat keine Betrags- und keine Trace-Spalte; deshalb sehen alle Rollen dieselbe Zahl, und keine gespeicherte Zahl kann von der Regel abweichen, die sie erzeugt hat. Unter der Linie verweigert ein Guard unterhalb jeder Server-Route standardmäßig den Zugriff auf fremde Datensätze, und jeder gespeicherte Nachweis wird in die institutseigene Nextcloud gespiegelt — in die die App schreiben, aus der sie aber nie löschen darf. Der eine benannte Drittanbieter-Aufruf ist die Routenabfrage: Mitarbeitende tippen zwei Adressen, nichts wird aus einem Datensatz vorbefüllt. Die untere Hälfte beschreibt das selbst gehostete Zielsystem, implementiert und getestet; die öffentliche Demo betreibt allein die obere Hälfte, im Browser, auf fiktiven Daten.',
         },
         alt: {
-          en: 'Architecture diagram in two dashed regions. “The browser” holds Screens, Rules and Storage connected by a round trip of arrows: typed fields flow down, stored fields flow back up, and the amount with its full trace exists only between Rules and Screens. “Inside the institute” holds a Fastify server with a default-deny repo guard, a SQLite database with no amount column, and a Nextcloud mirror for proof files. A red side panel marks the single external call: a Google Maps route lookup typed by staff.',
-          de: 'Architekturdiagramm in zwei gestrichelten Bereichen. „Der Browser“ enthält Screens, Regeln und Storage, verbunden durch eine Rundreise von Pfeilen: Eingetippte Felder fließen abwärts, gespeicherte Felder kommen zurück, und der Betrag mit seiner Nachvollziehbarkeit existiert nur zwischen Regeln und Screens. „Im Institut“ liegen ein Fastify-Server mit Default-Deny-Guard, eine SQLite-Datenbank ohne Betragsspalte und eine Nextcloud-Spiegelung für Nachweise. Ein rotes Seitenpanel markiert den einzigen externen Aufruf: eine von Mitarbeitenden getippte Google-Maps-Routenabfrage.',
+          en: 'Architecture diagram in two dashed regions. The browser holds Screens, Rules and Storage connected by a round trip of arrows: typed fields flow down, stored fields flow back up, and the amount with its full trace exists only between Rules and Screens. Inside the institute a Fastify server with a default-deny repo guard, a SQLite database with no amount column, and a Nextcloud mirror for proof files. A red side panel marks the single external call: a Google Maps route lookup typed by staff.',
+          de: 'Architekturdiagramm in zwei gestrichelten Bereichen. Der Browser enthält Screens, Regeln und Storage, verbunden durch eine Rundreise von Pfeilen: Eingetippte Felder fließen abwärts, gespeicherte Felder kommen zurück, und der Betrag mit seiner Nachvollziehbarkeit existiert nur zwischen Regeln und Screens. Im Institut liegen ein Fastify-Server mit Default-Deny-Guard, eine SQLite-Datenbank ohne Betragsspalte und eine Nextcloud-Spiegelung für Nachweise. Ein rotes Seitenpanel markiert den einzigen externen Aufruf: eine von Mitarbeitenden getippte Google-Maps-Routenabfrage.',
         },
         caption: {
-          en: 'Application architecture — round trip',
-          de: 'Anwendungsarchitektur — Rundreise',
+          en: 'Application architecture — round trip, verified at commit 47b0301',
+          de: 'Anwendungsarchitektur — Rundreise, verifiziert bei Commit 47b0301',
+        },
+      },
+      // ── Before/after artefact pairs — the three-row comparison figure,
+      // exported from Claude Design as a single image (before-after.jpg,
+      // 3067x2870) and imported like every other figure in this folder.
+      //
+      // No `href`: there is no standalone annotated page for this one, and the
+      // figure is dense enough that the zoom overlay is the better reading
+      // surface anyway — one click, no tab switch, and it caps at 1800px wide,
+      // which is where this artefact stops gaining detail.
+      {
+        type: 'image',
+        src: beforeAfterArtefacts,
+        span: 2,
+        className: 'w-full h-auto block',
+        label: { en: 'Before / after · real artefacts', de: 'Vorher / Nachher · echte Artefakte' },
+        title: {
+          en: 'The artefact that was replaced',
+          de: 'Das Artefakt, das ersetzt wurde',
+        },
+        description: {
+          en: 'Three pairs of real artefacts, sensitive fields blurred. The hand-kept master Excel tracker against the admin board that keeps its own state. The printed Abrechnung completed by pen against the form the system generates from stored data — the pen still signs, by decision: digital signature is built but off, pending the data-protection ruling. And the unconfirmed cloud intake against the participant flow with its visible status chain. Every green win is paired to a numbered problem, and the two things the app does not yet resolve — no screen produces the PAID status, and the participant is still not notified after leaving the app — are marked on the figure itself rather than omitted.',
+          de: 'Drei Paare echter Artefakte, sensible Felder unkenntlich gemacht. Der handgeführte Master-Excel-Tracker gegen das Admin-Board, das seinen Zustand selbst führt. Die per Stift ausgefüllte gedruckte Abrechnung gegen das Formular, das das System aus gespeicherten Daten erzeugt — der Stift unterschreibt weiterhin, per Entscheidung: Die digitale Unterschrift ist gebaut, aber deaktiviert, bis der Datenschutz entschieden hat. Und der unbestätigte Cloud-Eingang gegen den Teilnehmenden-Flow mit sichtbarer Statuskette. Jeder grüne Gewinn ist einem nummerierten Problem zugeordnet, und die zwei Dinge, die die App noch nicht löst — kein Screen erzeugt den Status AUSGEZAHLT, und Teilnehmende werden nach Verlassen der App weiterhin nicht benachrichtigt — stehen auf der Abbildung selbst statt zu fehlen.',
+        },
+        alt: {
+          en: 'Three-row comparison figure. Row one pairs a blurred master Excel tracker with the admin dashboard. Row two pairs a blurred printed reimbursement form completed by pen with the generated form view and its checks panel. Row three pairs the cloud upload intake with the participant month view and its status chain. Red callouts mark numbered problems on the left, green callouts mark the paired resolutions on the right, and two dashed callouts mark what is not yet resolved.',
+          de: 'Dreizeilige Vergleichsabbildung. Zeile eins paart einen unkenntlich gemachten Master-Excel-Tracker mit dem Admin-Dashboard. Zeile zwei paart eine per Stift ausgefüllte, unkenntlich gemachte gedruckte Abrechnung mit der generierten Formularansicht und ihrem Prüfungen-Panel. Zeile drei paart den Cloud-Upload-Eingang mit der Teilnehmenden-Monatsansicht und ihrer Statuskette. Rote Anmerkungen markieren nummerierte Probleme links, grüne die zugeordneten Lösungen rechts, und zwei gestrichelte markieren, was noch nicht gelöst ist.',
+        },
+        caption: {
+          en: 'Before/after artefact pairs — problems referenced: P3 · P5 · P6 · P12 · P15 · P18 · P20 · P21, register v13.08.2026',
+          de: 'Vorher/Nachher-Artefaktpaare — referenzierte Probleme: P3 · P5 · P6 · P12 · P15 · P18 · P20 · P21, Register v13.08.2026',
+        },
+      },
+      // ── The enforcement table. Companion to the round-trip diagram: that
+      // one tells a non-coder how it works, this tells an engineer what is
+      // guaranteed — and by which build-failing test.
+      // PLACEHOLDER: export as architecture-guarantees.png
+      {
+        type: 'image',
+        src: architectureGuarantees,
+        span: 2,
+        className: 'w-full h-auto block',
+        label: { en: 'Architecture · what is guaranteed', de: 'Architektur · was garantiert ist' },
+        title: {
+          en: 'Which boundaries are enforced, and which are only convention',
+          de: 'Welche Grenzen erzwungen sind — und welche nur Konvention',
+        },
+        description: {
+          en: 'A boundary counts as enforced only if a build-time test fails when it is crossed; everything else is discipline. Four boundaries pass that bar — the pure rules package, access control in all four storage adapters, the server’s default-deny guard, and the shared access-control definition both sides import — each with its test named in the table. One does not: nothing separates screens from adapters, and the table says so, counter-example included. Stating which claims rest on a mechanism and which rest on discipline is the same evidence-grading the research applies to its findings, applied to the codebase.',
+          de: 'Eine Grenze gilt nur dann als erzwungen, wenn ein Build-Test scheitert, sobald sie überschritten wird; alles andere ist Disziplin. Vier Grenzen bestehen diese Prüfung — das reine Regelpaket, die Zugriffskontrolle in allen vier Speicher-Adaptern, der Default-Deny-Guard des Servers und die geteilte Zugriffsdefinition, die beide Seiten importieren — jede mit benanntem Test in der Tabelle. Eine besteht sie nicht: Nichts trennt Screens von Adaptern, und die Tabelle sagt das, Gegenbeispiel inklusive. Zu benennen, welche Aussagen auf einem Mechanismus und welche auf Disziplin beruhen, ist dieselbe Evidenz-Einstufung, die die Forschung auf ihre Befunde anwendet — angewandt auf den Code.',
+        },
+        alt: {
+          en: 'Table with five rows — Screens, Rules, Storage, Server, shared — and columns for the guarantee, the enforcing test, and what does not hold. Four rows carry an ENFORCED badge with a lock icon and a named test file; the Screens row carries a dashed CONVENTION badge and names 36 direct imports as the counter-example.',
+          de: 'Tabelle mit fünf Zeilen — Screens, Regeln, Speicher, Server, shared — und Spalten für die Garantie, den erzwingenden Test und das, was nicht gilt. Vier Zeilen tragen ein ENFORCED-Badge mit Schloss und benannter Testdatei; die Screens-Zeile trägt ein gestricheltes CONVENTION-Badge und nennt 36 direkte Importe als Gegenbeispiel.',
+        },
+        caption: {
+          en: 'Enforcement table — every path exists at commit 47b0301',
+          de: 'Enforcement-Tabelle — jeder Pfad existiert bei Commit 47b0301',
         },
       },
     ],
@@ -464,6 +456,43 @@ export const projectData = {
         caption: {
           en: 'IBS-DesignSystem — tokens, role palette, and components',
           de: 'IBS-DesignSystem — Tokens, Rollenpalette und Komponenten',
+        },
+      },
+      // ── Process strip: the same screen three times, getting more real.
+      // Deliberately glanceable — under forty words on the figure itself;
+      // the artefacts are the evidence, so nothing in it is redrawn.
+      //
+      // The Claude Design export arrived as a self-contained HTML bundle
+      // ("Sketch to wireframe to prototype.html", still in this folder), which
+      // the figure grid cannot render — it takes an image `src`. Re-containered
+      // as process-sketch-wireframe-shipped.svg: the three panel images are the
+      // export's own bytes (re-encoded WebP to PNG/JPEG, since an SVG loaded
+      // through <img> would fail silently on a format gap) and both typefaces
+      // are its own woff2 payloads, embedded as data URIs so the file needs no
+      // external fetch. The only change is the crop: the export's artboard is a
+      // fixed 1600x700 with the strip centred, leaving ~110px of dead canvas top
+      // and bottom, trimmed back to its own 60px padding.
+      {
+        type: 'image',
+        src: processStrip,
+        span: 2,
+        className: 'w-full h-auto block',
+        label: { en: 'Process · sketch to shipped', de: 'Prozess · Skizze bis Auslieferung' },
+        title: {
+          en: 'The same screen, three times, getting more real',
+          de: 'Derselbe Screen, dreimal, zunehmend real',
+        },
+        description: {
+          en: 'One strip, three panels: the paper sketch from the AS-IS observation, the Phase 2 wireframe drawn against the numbered requirements, and the participant flow as deployed. All three show the same screen, and none of them is redrawn — the sketch is a photograph, the wireframe is the original export, the third is a screenshot of the running build.',
+          de: 'Ein Streifen, drei Felder: die Papierskizze aus der IST-Beobachtung, das Phase-2-Wireframe entlang der nummerierten Anforderungen und der Teilnehmenden-Flow im ausgelieferten Zustand. Alle drei zeigen denselben Screen, und keines ist nachgezeichnet — die Skizze ist ein Foto, das Wireframe der Originalexport, das dritte ein Screenshot des laufenden Builds.',
+        },
+        alt: {
+          en: 'Three-panel strip labelled Sketch, Wireframe, Shipped, showing the same participant screen as a paper sketch photograph, a wireframe export, and a screenshot of the deployed build, connected by two arrows.',
+          de: 'Dreiteiliger Streifen mit den Feldern Skizze, Wireframe, Ausgeliefert: derselbe Teilnehmenden-Screen als fotografierte Papierskizze, als Wireframe-Export und als Screenshot des ausgelieferten Builds, verbunden durch zwei Pfeile.',
+        },
+        caption: {
+          en: 'From sketch to wireframe to shipped — same screen, increasing fidelity',
+          de: 'Von der Skizze über das Wireframe zur Auslieferung — derselbe Screen, steigende Genauigkeit',
         },
       },
     ],
