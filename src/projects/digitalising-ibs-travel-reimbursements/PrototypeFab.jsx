@@ -15,53 +15,82 @@
 // the prototype section is on screen. Only one gold mark is ever visible at
 // a time, and when the real one is in view the badge gets out of its way.
 //
-// Gold stays a background token: everything sitting on the fill is ink
-// (text-highlight-on), the hover tooltip is surface + border rather than a
-// second gold shape, and the handwritten nudge outside the badge is coral.
+// Nothing here is outlined or ringed: the shape is a gold blob whose corner
+// radii morph continuously, backed by two softer blobs breathing out of
+// phase with it. That is the whole attention mechanism — an organic wobble
+// rather than pulsing rings, which read as a notification badge.
+//
+// Gold stays a background token: the eye sitting on the fill is ink
+// (text-highlight-on), the hover tooltip is plain surface + shadow rather
+// than a second gold shape, and the handwritten nudge outside the badge is
+// coral.
 
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 import { useTranslation } from "../../context/LanguageContext";
 
-// Same wobbly-oval vocabulary as CircleDoodle in components/DoodleLibrary.jsx
-// — a perfect circle orbiting a perfect circle would read as a loading
-// spinner, which is the one thing this must not look like.
-const WOBBLY_RING =
-  "M52,4 C80,2 98,23 97,52 C96,80 76,98 48,97 C20,96 2,76 3,48 C4,21 24,3 52,4";
-
-// Hover sparks, placed around the badge. Popped in on hover with a staggered
-// overshoot rather than run on a loop: an idle page already has the bob, the
-// wiggle and the pings — permanent glitter would make the corner noisy
-// instead of inviting.
-const SPARKS = [
-  { pos: { top: "-12%", left: "-6%" }, size: 14, delay: 0 },
-  { pos: { top: "4%", right: "-16%" }, size: 10, delay: 60 },
-  { pos: { bottom: "-10%", left: "14%" }, size: 11, delay: 120 },
+// Four corner-radius sets the badge melts between. Every keyframe keeps the
+// same 8-value `x / y` structure — framer interpolates the numbers inside a
+// complex string only while the structure matches, and a shorthand slipped
+// in here would snap instead of morph. BLOB[0] doubles as the static shape
+// under prefers-reduced-motion, so the badge is never a plain circle.
+const BLOB = [
+  "58% 42% 61% 39% / 47% 55% 45% 53%",
+  "41% 59% 38% 62% / 59% 42% 58% 41%",
+  "64% 36% 47% 53% / 39% 63% 37% 61%",
+  "58% 42% 61% 39% / 47% 55% 45% 53%",
 ];
+
+// The backing blobs run their own phase order so the three silhouettes never
+// line up — that offset is what makes the edge look like it is breathing
+// rather than scaling.
+const BLOB_ALT = [BLOB[2], BLOB[0], BLOB[1], BLOB[2]];
 
 const DEFAULT_NOTE = { en: "psst — it's live!", de: "psst — es ist live!" };
 const NEW_TAB_HINT = { en: "opens in a new tab", de: "öffnet in einem neuen Tab" };
 
-// Cursor + twinkle. A pointer says "this is a thing you press"; the ↗ glyph
-// the inline link uses says "this is a link" — at 84px the pointer is the
-// friendlier read, and the hover tooltip still carries the ↗.
-function CursorMark({ reduce }) {
+// One eye, drawn as outline strokes with a deliberately uneven almond and a
+// brow that sits slightly off-parallel — a compass-perfect eye reads as a
+// stock icon, and this page's whole visual language is hand-drawn.
+//
+// It blinks on a long cycle and its pupil tracks the pointer, so the badge
+// registers as something alive in the corner instead of a static sticker.
+// That is the "look at this" signal, doing the job the removed pings did,
+// without a single border.
+function EyeMark({ reduce, pupilX, pupilY, svgRef }) {
   return (
-    <svg viewBox="0 0 24 24" className="w-8 h-8 md:w-10 md:h-10" fill="none" aria-hidden="true">
-      <path
-        d="M5.5 3.2 L5.5 18.4 L9.3 14.9 L11.6 20.2 L14.2 19.1 L11.9 13.9 L17 13.6 Z"
-        fill="currentColor"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinejoin="round"
-      />
-      <motion.path
-        d="M18.4 2.2 c.45 2.1 1 2.65 3.1 3.1 -2.1 .45 -2.65 1 -3.1 3.1 -.45 -2.1 -1 -2.65 -3.1 -3.1 2.1 -.45 2.65 -1 3.1 -3.1 z"
-        fill="currentColor"
-        style={{ transformOrigin: "18.4px 5.3px" }}
-        animate={reduce ? {} : { scale: [1, 0.5, 1], opacity: [1, 0.4, 1], rotate: [0, 25, 0] }}
-        transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut", repeatDelay: 1.2 }}
-      />
+    <svg
+      ref={svgRef}
+      viewBox="0 0 24 24"
+      className="w-9 h-9 md:w-11 md:h-11 overflow-visible"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {/* Brow — outside the blink group: a blink closes the lid, it does not
+          squash the brow with it. */}
+      <path d="M4.3 5.6 C8.3 2.8, 15.6 2.5, 19.7 5.1" strokeWidth="1.6" />
+
+      <motion.g
+        style={{ transformBox: "fill-box", transformOrigin: "center" }}
+        animate={reduce ? {} : { scaleY: [1, 0.06, 1] }}
+        transition={{ duration: 0.42, repeat: Infinity, repeatDelay: 3.6, ease: "easeInOut" }}
+      >
+        {/* Almond: top and bottom arcs are intentionally not mirrors. */}
+        <path d="M1.9 12.4 C5.8 6.3, 18.4 6, 22.1 12.1 C18.3 18, 5.8 18.3, 1.9 12.4 Z" />
+
+        <motion.g style={reduce ? undefined : { x: pupilX, y: pupilY }}>
+          <circle cx="12" cy="12.2" r="3.5" />
+          <circle cx="12" cy="12.2" r="1.5" fill="currentColor" stroke="none" />
+          {/* Glint, punched back out in the badge's own gold rather than
+              painted white — the fill has to follow the token into dark
+              mode, where --highlight is the lighter gold. */}
+          <circle cx="10.9" cy="11.1" r="0.75" fill="var(--highlight)" stroke="none" />
+        </motion.g>
+      </motion.g>
     </svg>
   );
 }
@@ -89,8 +118,17 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
   const { localize } = useTranslation();
   const reduce = useReducedMotion();
   const hostRef = useRef(null);
+  const eyeRef = useRef(null);
   const [scrolledIn, setScrolledIn] = useState(false);
   const [parked, setParked] = useState(false);
+
+  // Pupil offset, in SVG user units. Motion values rather than state on
+  // purpose: pointermove would otherwise re-render this subtree on every
+  // frame the pointer is anywhere on the page.
+  const pupilTargetX = useMotionValue(0);
+  const pupilTargetY = useMotionValue(0);
+  const pupilX = useSpring(pupilTargetX, { stiffness: 240, damping: 22, mass: 0.4 });
+  const pupilY = useSpring(pupilTargetY, { stiffness: 240, damping: 22, mass: 0.4 });
 
   // The app scrolls inside a container, not the window (see App.jsx), so both
   // effects below resolve that container the way useScrollProgress does. The
@@ -125,6 +163,33 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
     io.observe(section);
     return () => io.disconnect();
   }, []);
+
+  // Pupil tracking. Coalesced to one rAF per frame, and the offset saturates
+  // over the first ~280px so a pointer crossing the page still moves the eye
+  // visibly instead of only registering right next to the badge.
+  useEffect(() => {
+    if (reduce) return;
+    let frame = 0;
+    const onMove = (event) => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        const box = eyeRef.current?.getBoundingClientRect();
+        if (!box) return;
+        const dx = event.clientX - (box.left + box.width / 2);
+        const dy = event.clientY - (box.top + box.height / 2);
+        const distance = Math.hypot(dx, dy) || 1;
+        const reach = Math.min(1, distance / 280);
+        pupilTargetX.set((dx / distance) * 2.7 * reach);
+        pupilTargetY.set((dy / distance) * 2.1 * reach);
+      });
+    };
+    window.addEventListener("pointermove", onMove, { passive: true });
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, [reduce, pupilTargetX, pupilTargetY]);
 
   if (!href) return null;
 
@@ -202,8 +267,8 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
                   <span className="overflow-hidden">
                     <span
                       className="mr-3 flex items-center gap-2 whitespace-nowrap rounded-full
-                                 border border-border bg-surface px-4 py-2 text-2xs font-black
-                                 uppercase tracking-[0.18em] text-text shadow-sm opacity-0
+                                 bg-surface px-4 py-2 text-2xs font-black uppercase
+                                 tracking-[0.18em] text-text shadow-md opacity-0
                                  transition-opacity duration-200 group-hover:opacity-100
                                  group-focus-visible:opacity-100"
                     >
@@ -222,74 +287,55 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
                   </span>
                 </span>
 
-                {/* Attention wiggle every few seconds — the one loop allowed
-                    to be a little rude, because a reader deep in a case study
-                    is not looking at the corner of their screen. */}
-                <motion.span
-                  className="relative grid h-[68px] w-[68px] md:h-[84px] md:w-[84px] place-items-center
-                             rounded-full bg-highlight text-highlight-on shadow-md ring-offset-bg
-                             group-focus-visible:ring-2 group-focus-visible:ring-primary-600
-                             group-focus-visible:ring-offset-2"
-                  animate={reduce ? {} : { rotate: [0, -9, 7, -4, 0] }}
-                  transition={{ duration: 0.9, repeat: Infinity, repeatDelay: 6, ease: "easeInOut" }}
-                >
-                  {/* Halo pings — two gold rings breathing outwards. */}
-                  {!reduce &&
-                    [0, 1].map((i) => (
-                      <motion.span
-                        key={i}
-                        aria-hidden="true"
-                        className="absolute inset-0 rounded-full border-2 border-highlight"
-                        initial={{ scale: 1, opacity: 0.5 }}
-                        animate={{ scale: 1.8, opacity: 0 }}
-                        transition={{ duration: 2.6, repeat: Infinity, delay: i * 1.3, ease: "easeOut" }}
-                      />
-                    ))}
-
-                  {/* Wobbly orbit, drawn in ink on the page background. */}
+                <span className="relative grid h-[68px] w-[68px] md:h-[84px] md:w-[84px] place-items-center">
+                  {/* Two soft blobs behind the badge, morphing and drifting
+                      out of phase with it and with each other. No stroke, no
+                      pulse ring: the movement is the attention-getter. */}
                   {!reduce && (
-                    <motion.svg
-                      viewBox="0 0 100 100"
-                      fill="none"
-                      aria-hidden="true"
-                      className="absolute -inset-[14px] text-text opacity-20"
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
-                    >
-                      <path
-                        d={WOBBLY_RING}
-                        stroke="currentColor"
-                        strokeWidth="2.4"
-                        strokeLinecap="round"
-                        strokeDasharray="6 12"
+                    <>
+                      <motion.span
+                        aria-hidden="true"
+                        className="absolute -inset-2 bg-highlight opacity-25"
+                        style={{ borderRadius: BLOB_ALT[0] }}
+                        animate={{ borderRadius: BLOB_ALT, rotate: -360, scale: [1, 1.07, 1] }}
+                        transition={{
+                          borderRadius: { duration: 9, repeat: Infinity, ease: "easeInOut" },
+                          rotate: { duration: 26, repeat: Infinity, ease: "linear" },
+                          scale: { duration: 3.8, repeat: Infinity, ease: "easeInOut" },
+                        }}
                       />
-                    </motion.svg>
+                      <motion.span
+                        aria-hidden="true"
+                        className="absolute -inset-4 bg-highlight opacity-[0.12]"
+                        style={{ borderRadius: BLOB[1] }}
+                        animate={{ borderRadius: [BLOB[1], BLOB[2], BLOB[0], BLOB[1]], rotate: 360 }}
+                        transition={{
+                          borderRadius: { duration: 12, repeat: Infinity, ease: "easeInOut" },
+                          rotate: { duration: 34, repeat: Infinity, ease: "linear" },
+                        }}
+                      />
+                    </>
                   )}
 
-                  {/* Hover sparks. CSS rather than framer so they inherit the
-                      reduced-motion transition kill for free. */}
-                  {SPARKS.map((spark, i) => (
-                    <span
-                      key={i}
-                      aria-hidden="true"
-                      className="absolute scale-50 opacity-0 text-primary-600 transition duration-300
-                                 group-hover:scale-100 group-hover:opacity-100
-                                 group-focus-visible:scale-100 group-focus-visible:opacity-100"
-                      style={{
-                        ...spark.pos,
-                        width: spark.size,
-                        height: spark.size,
-                        transitionDelay: `${spark.delay}ms`,
-                      }}
-                    >
-                      <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">
-                        <path d="M12 0 c1.6 8 2.4 8.8 12 10.4 -9.6 1.6 -10.4 2.4 -12 12 -1.6 -9.6 -2.4 -10.4 -12 -12 9.6 -1.6 10.4 -2.4 12 -10.4 z" />
-                      </svg>
-                    </span>
-                  ))}
-
-                  <CursorMark reduce={reduce} />
-                </motion.span>
+                  {/* The badge itself: gold blob, ink eye. The wiggle every
+                      few seconds is the one loop allowed to be a little
+                      rude, because a reader deep in a case study is not
+                      looking at the corner of their screen. */}
+                  <motion.span
+                    className="relative grid h-full w-full place-items-center bg-highlight
+                               text-highlight-on shadow-md ring-offset-bg
+                               group-focus-visible:ring-2 group-focus-visible:ring-primary-600
+                               group-focus-visible:ring-offset-2"
+                    style={{ borderRadius: BLOB[0] }}
+                    animate={reduce ? {} : { borderRadius: BLOB, rotate: [0, -9, 7, -4, 0] }}
+                    transition={{
+                      borderRadius: { duration: 8, repeat: Infinity, ease: "easeInOut" },
+                      rotate: { duration: 0.9, repeat: Infinity, repeatDelay: 6, ease: "easeInOut" },
+                    }}
+                  >
+                    <EyeMark reduce={reduce} pupilX={pupilX} pupilY={pupilY} svgRef={eyeRef} />
+                  </motion.span>
+                </span>
               </motion.a>
             </motion.div>
           </motion.div>
