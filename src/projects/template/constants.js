@@ -22,3 +22,41 @@ export const SECTIONS = [
   { id: "phases",       labelKey: "project.sidebar.status",       dataKey: "phases"       },
   { id: "conclusion",   labelKey: "project.sidebar.conclusion",   dataKey: "conclusion"   },
 ];
+
+// ---------------------------------------------------------------------------
+// The data/renderer contract.
+//
+// This portfolio has already shipped one documentation-drift defect: the
+// `tagEvidence` pointers named fields that did not exist. The same class of
+// bug runs in the other direction too — a field sitting in a data.js that no
+// renderer reads is content the author believes is published and isn't.
+//
+// These two lists are the registry `projects.test.js` checks every data.js
+// against. Adding a field to a data.js without adding it here fails the
+// suite, which is the point: the failure asks "does anything render this?"
+// at the moment the field is written, not months later.
+//
+// RENDERED_FIELDS — read by ProjectTemplate, its template/ components,
+// SectionMedia, or the project cards. Every entry here is genuinely reachable
+// on a page. All of them are optional: a project omitting one renders nothing
+// for it, never an empty shell.
+export const RENDERED_FIELDS = [
+  // Header / card metadata
+  "title", "subtitle", "tagline", "stage", "status", "role", "myContribution",
+  "timeline", "tags", "thumbnail", "thumbnailWebp", "heroImage", "aiAssistance",
+  // Body sections (see SECTIONS above for the ones with their own heading)
+  "about", "process", "challenge", "challengeQuote", "solution", "solutionQuote",
+  "prototype", "prototypeUrl", "prototypeUrlLabel", "methodology",
+  "methodologyQuote", "methods", "techStack", "results", "resultsAtAGlance",
+  "metrics", "verbatims", "outcome", "notBuilt", "implications", "phases",
+  "phasesIntro", "conclusion", "figures",
+];
+
+// DATA_ONLY_FIELDS — deliberately never rendered. Each needs a reason, because
+// "it's fine, it's just data" is exactly what an orphaned field looks like.
+export const DATA_ONLY_FIELDS = [
+  "id",          // routing + aggregator identity (id === slug === folder name)
+  "order",       // sort key for the project grid
+  "slug",        // ignored by the aggregator; folder name wins
+  "tagEvidence", // consumed by projects.test.js, not by any page — by design
+];
