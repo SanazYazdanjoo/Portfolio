@@ -52,7 +52,7 @@ export function ProjectHeader({ meta, tags }) {
           short labels and chips, and giving the skill tags the whole
           width lets them wrap into far fewer rows. The one long-form
           value in here, the contribution lists, keeps its own measure. */}
-      {(meta.role || meta.timeline || tags.length > 0) && (
+      {(meta.role || meta.timeline || tags.length > 0 || meta.aiAssistance) && (
         <dl className="border-t border-border">
           {meta.role && (
             <div className="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr] gap-4 py-4 border-b border-border">
@@ -72,7 +72,7 @@ export function ProjectHeader({ meta, tags }) {
             </div>
           )}
           {tags.length > 0 && (
-            <div className="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr] gap-4 py-4">
+            <div className={`grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr] gap-4 py-4 ${meta.aiAssistance ? "border-b border-border" : ""}`}>
               <dt className="text-[11px] font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
                 {t("project.meta.skills")}
               </dt>
@@ -82,6 +82,27 @@ export function ProjectHeader({ meta, tags }) {
                     <Badge tone="accent">{tag}</Badge>
                   </Link>
                 ))}
+              </dd>
+            </div>
+          )}
+
+          {/* AI-assistance disclosure. Last row of the metadata block rather
+              than a footer note: a disclosure that has to be scrolled past the
+              prev/next cards to be found is not a disclosure. It is deliberately
+              styled as metadata — same <dt> as Role and Timeline, no warning
+              colour, no icon, no toggle — because it states how the work was
+              made, which is the same kind of fact as who made it and when. The
+              long-form value keeps its own reading measure, following the
+              ContributionRow precedent in this same list. Optional: projects
+              without the field render nothing and get no empty row. */}
+          {meta.aiAssistance && (
+            <div className="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr] gap-4 py-4"
+                 style={{ breakInside: "avoid" }}>
+              <dt className="text-[11px] font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
+                {t("project.meta.aiAssistance")}
+              </dt>
+              <dd className="max-w-[68ch] text-sm leading-relaxed text-text/70">
+                {meta.aiAssistance}
               </dd>
             </div>
           )}

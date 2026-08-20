@@ -33,14 +33,21 @@ function AnimatedMetricValue({ value }) {
   );
 }
 
-// Metrics strip
-export function MetricsStrip({ metrics }) {
+// Metrics strip.
+//
+// `title` is optional and comes from the project's data when the default
+// heading would misdescribe what is being shown: "Study at a Glance" is the
+// right label for a project whose numbers came out of a study, and the wrong
+// one for a project measuring its own instrumentation before any study has
+// run. Passing a per-project title keeps that judgement in the data module
+// instead of hardcoding a second translation key for every exception.
+export function MetricsStrip({ metrics, title }) {
   const { t } = useTranslation();
   if (!metrics || metrics.length === 0) return null;
   return (
     <div className="mt-8">
       <p className="text-[10px] font-black uppercase tracking-[0.2em] text-dim mb-5">
-        {t("project.results.glance")}
+        {title || t("project.results.glance")}
       </p>
       <div className="grid grid-cols-2 sm:grid-cols-4 border border-border divide-x divide-y divide-border">
         {metrics.map((m, i) => {

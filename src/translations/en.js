@@ -252,6 +252,7 @@ const en = {
   "project.meta.furtherImpact": "Further impact",
   "project.meta.impactAtGlance": "Impact at a glance",
   "project.meta.contribution": "My Contribution",
+  "project.meta.aiAssistance": "AI Assistance",
 
   "project.contribution.owned": "Owned",
   "project.contribution.shared": "Shared",

@@ -7,6 +7,7 @@
 import { describe, it, expect } from "vitest";
 import { projects, sortedProjects, getProject, getTagData } from "./projects";
 import { isNeedsInput } from "./needsInput";
+import { RENDERED_FIELDS, DATA_ONLY_FIELDS } from "../projects/template/constants";
 
 describe("projects aggregator — data contract", () => {
   it("discovers at least one project folder", () => {
@@ -235,5 +236,137 @@ describe("tagEvidence — every skill tag is backed by a pointer into the case s
       }
     }
     expect(unevidenced, `Unevidenced tags must be fixed or dropped before this passes:\n${unevidenced.join("\n")}`).toEqual([]);
+  });
+});
+
+// The data/renderer contract, in both directions. The tagEvidence suite above
+// exists because pointers once named fields that did not exist; this one
+// exists because the inverse is just as silent — `notBuilt` sat in a data.js
+// fully written, fully bilingual, and rendered by nothing, so the author
+// believed a section was published that no reader could reach.
+//
+// The registry lives in src/projects/template/constants.js, next to SECTIONS,
+// so the list of fields a page can render sits beside the list of sections it
+// renders them into.
+describe("data/renderer contract — no field drifts in either direction", () => {
+  const KNOWN = new Set([...RENDERED_FIELDS, ...DATA_ONLY_FIELDS]);
+
+  it("every field in every data.js is either rendered or explicitly data-only", () => {
+    for (const p of projects) {
+      // `href` is synthesized by the aggregator, not authored in data.js.
+      const unknown = Object.keys(p).filter((k) => k !== "href" && !KNOWN.has(k));
+      expect(
+        unknown,
+        `${p.slug}: field(s) ${unknown.join(", ")} appear in data.js but are in ` +
+          `neither RENDERED_FIELDS nor DATA_ONLY_FIELDS. Either wire a renderer ` +
+          `to them or list them as deliberately data-only, with a reason.`
+      ).toEqual([]);
+    }
+  });
+
+  it("the two registry lists never overlap (a field is rendered or it is not)", () => {
+    const both = RENDERED_FIELDS.filter((f) => DATA_ONLY_FIELDS.includes(f));
+    expect(both, `listed as both rendered and data-only: ${both.join(", ")}`).toEqual([]);
+  });
+
+  // The strip in the Results section renders from whichever of these is
+  // present — never from a boolean. `resultsDetail` was one: read as
+  // `!== false`, it could not turn the strip off for the project that set it,
+  // and its heading called a set of artefact counts a study.
+  it("no project reintroduces the resultsDetail boolean", () => {
+    for (const p of projects) {
+      expect(
+        "resultsDetail" in p,
+        `${p.slug}: resultsDetail is gone — the strip renders from ` +
+          `resultsAtAGlance or metrics, whichever is present.`
+      ).toBe(false);
+    }
+  });
+
+  it("resultsAtAGlance, where present, carries a title and renderable items", () => {
+    for (const p of projects) {
+      const glance = p.resultsAtAGlance;
+      if (!glance) continue;
+      expect(glance.title, `${p.slug}: resultsAtAGlance has no title`).toBeTruthy();
+      expect(
+        Array.isArray(glance.items) && glance.items.length > 0,
+        `${p.slug}: resultsAtAGlance has no items — omit the field rather than ` +
+          `render an empty strip`
+      ).toBe(true);
+    }
+  });
+
+  // Applies to both strip sources, since ProjectTemplate feeds whichever is
+  // present through the same MetricsStrip.
+  it("every strip item has a label and either a value or pending: true", () => {
+    for (const p of projects) {
+      const sources = [
+        ["metrics", p.metrics],
+        ["resultsAtAGlance.items", p.resultsAtAGlance?.items],
+      ];
+      for (const [path, items] of sources) {
+        if (!items) continue;
+        items.forEach((item, i) => {
+          expect(item.label, `${p.slug}: ${path}[${i}] has no label`).toBeTruthy();
+          expect(
+            item.value !== undefined || item.pending === true,
+            `${p.slug}: ${path}[${i}] has neither a value nor pending: true — it ` +
+              `would render as a blank cell`
+          ).toBe(true);
+        });
+      }
+    }
+  });
+
+  // The header's lead line and the project card's "Context" field both read
+  // `tagline`, and both render nothing at all when it is missing — no gap, no
+  // fallback, no warning. The IBS case study shipped that way: four of five
+  // projects filled the line and one silently didn't. Every project with a
+  // detail page owes the reader that sentence.
+  it("every project with a detail page has a tagline", () => {
+    for (const p of projects) {
+      if (p.status === "coming-soon") continue;
+      expect(
+        p.tagline,
+        `${p.slug}: no tagline — the header lead line and the card's Context ` +
+          `field will both render empty`
+      ).toBeTruthy();
+    }
+  });
+
+  // Same title+items shape as resultsAtAGlance, and the same rule: a block
+  // that would render as a bare heading over nothing should be omitted, not
+  // rendered empty.
+  it("notBuilt, where present, carries a title and at least one item", () => {
+    for (const p of projects) {
+      const nb = p.notBuilt;
+      if (!nb) continue;
+      expect(nb.title, `${p.slug}: notBuilt has no title`).toBeTruthy();
+      expect(
+        Array.isArray(nb.items) && nb.items.length > 0,
+        `${p.slug}: notBuilt has no items — omit the field rather than render ` +
+          `a heading over an empty list`
+      ).toBe(true);
+    }
+  });
+
+  // Optional by contract: the renderer must stay silent, not render an empty
+  // row, for every project that has not written its disclosure.
+  it("aiAssistance is optional, and a bilingual object wherever it is present", () => {
+    for (const p of projects) {
+      if (!("aiAssistance" in p)) continue;
+      const v = p.aiAssistance;
+      expect(
+        v !== null && typeof v === "object" && !Array.isArray(v),
+        `${p.slug}: aiAssistance must be an { en, de } object, not a bare string ` +
+          `— useLocalizedProfile resolves it per language`
+      ).toBe(true);
+      // Both languages non-empty; one-sided gaps are caught by the bilingual
+      // parity suite above, so this only guards the all-empty case.
+      expect(
+        (v.en || "").length > 0,
+        `${p.slug}: aiAssistance is present but empty — omit the field instead`
+      ).toBe(true);
+    }
   });
 });

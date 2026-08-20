@@ -249,6 +249,7 @@ const de = {
   "project.meta.furtherImpact": "Weitere Wirkung",
   "project.meta.impactAtGlance": "Wirkung auf einen Blick",
   "project.meta.contribution": "Mein Beitrag",
+  "project.meta.aiAssistance": "KI-Unterstützung",
 
   "project.contribution.owned": "Verantwortet",
   "project.contribution.shared": "Gemeinsam getragen",

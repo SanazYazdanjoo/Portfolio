@@ -37,6 +37,7 @@ import { SidebarNav, MobilePillBar } from "./template/SectionNav";
 import { MetricsStrip } from "./template/MetricsStrip";
 import { VerbatimRail, VerbatimInline } from "./template/Verbatims";
 import { OutcomeBlock } from "./template/OutcomeBlock";
+import { NotBuiltBlock } from "./template/NotBuiltBlock";
 import { ResearchPhases } from "./template/ResearchPhases";
 import { PrototypeLink } from "./template/PrototypeLink";
 import { ProjectNavCard } from "./template/ProjectNavCard";
@@ -52,9 +53,19 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
   const meta = useLocalizedProfile(rawMeta);
   const profileData = useLocalizedProfile(rawProfile);
 
-  // Opt-out, not opt-in: every existing project keeps its metrics strip and
-  // participant quotes without touching its data.js.
-  const showResultsDetail = meta.resultsDetail !== false;
+  // The at-a-glance strip renders from whichever field is actually present,
+  // rather than from a boolean. `resultsAtAGlance` is the per-project
+  // override — its own title and its own items — for a case study whose
+  // numbers are not study results; otherwise the strip falls back to
+  // `metrics` under the default "Study at a Glance" heading. Absent both, it
+  // renders nothing. This replaced a `resultsDetail` flag that was read as
+  // `!== false`, i.e. opt-out: setting it to `true` did exactly what omitting
+  // it did, so the flag could never actually turn the strip off for the one
+  // project that set it, and a study-shaped heading sat above a set of
+  // artefact counts. Presence of data is the gate now — there is no flag to
+  // set truthfully and have nothing happen.
+  const glance = meta.resultsAtAGlance;
+  const glanceItems = glance?.items ?? meta.metrics;
 
   useDocumentMeta({
     title: `${meta.title} — ${profileData.name}`,
@@ -69,9 +80,10 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
         if (s.id === "prototype") {
           return hasValue || !!meta.prototypeUrl || (meta.figures?.prototype?.length > 0);
         }
-        // Results carries the outcome block, so it stands on either one.
+        // Results carries the outcome and not-built blocks too, so it stands
+        // on any of the three. Keep this in sync with the render guard below.
         if (s.id === "results") {
-          return hasValue || !!meta.outcome?.body;
+          return hasValue || !!meta.outcome?.body || meta.notBuilt?.items?.length > 0;
         }
         return hasValue;
       }),
@@ -268,18 +280,22 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                 </ContentSection>
               )}
 
-              {(meta.results || meta.outcome?.body) && (
+              {(meta.results || meta.outcome?.body || meta.notBuilt?.items?.length > 0) && (
                 <ContentSection id="results" number={sectionNumber("results")}
                   isOpen={openSections.has("results")} onToggle={() => toggleSection("results")}
                   staggerDelayMs={staggerDelayFor("results")}
                   kicker={t("project.results.kicker")} heading={t("project.results.heading")}>
-                  {/* A project still in flight can set `resultsDetail: false` to
-                      state that plainly without the metrics strip and participant
-                      quotes contradicting it. `metrics` stays in the data either
-                      way — the project card reads it for "Impact at a glance". */}
-                  <div className={showResultsDetail && meta.verbatims?.length > 0 ? "xl:grid xl:grid-cols-[1fr_240px] xl:gap-10 items-start" : ""}>
+                  {/* `metrics` always stays in the data even when the strip here
+                      renders from `resultsAtAGlance` instead — the project card
+                      reads `metrics` for its own "Impact at a glance" row. The
+                      two surfaces are allowed to show different numbers: the
+                      card counts artefacts, this strip reports measurements. */}
+                  <div className={meta.verbatims?.length > 0 ? "xl:grid xl:grid-cols-[1fr_240px] xl:gap-10 items-start" : ""}>
                     <div className="max-w-[68ch]">
-                      {showResultsDetail && meta.metrics?.some((m) => m.pending) && (
+                      {/* Gated on the items the strip below actually renders,
+                          not on `metrics`, so the notice can never describe a
+                          strip the reader isn't looking at. */}
+                      {glanceItems?.some((m) => m.pending) && (
                         <p className="mb-6 border-l-2 border-border pl-4 text-sm text-text-meta leading-relaxed">
                           {t("project.results.pendingNotice")}
                         </p>
@@ -293,16 +309,18 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                       )}
                       <SectionMedia items={meta.figures?.results} />
 
-                      {showResultsDetail && (
-                        <>
-                          <MetricsStrip metrics={meta.metrics} />
+                      <MetricsStrip metrics={glanceItems} title={glance?.title} />
 
-                          <VerbatimInline verbatims={meta.verbatims} />
-                        </>
-                      )}
+                      <VerbatimInline verbatims={meta.verbatims} />
                     </div>
-                    {showResultsDetail && <VerbatimRail verbatims={meta.verbatims} />}
+                    <VerbatimRail verbatims={meta.verbatims} />
                   </div>
+
+                  {/* Limits first, then outcome: what was deliberately not
+                      built qualifies the results above it, and reads as a
+                      caveat rather than an afterthought when it precedes the
+                      closing outcome rather than trailing it. */}
+                  <NotBuiltBlock notBuilt={meta.notBuilt} />
 
                   <OutcomeBlock outcome={meta.outcome} />
                 </ContentSection>
