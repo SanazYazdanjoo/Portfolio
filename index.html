@@ -28,9 +28,29 @@
     <meta name="twitter:description" content="UX Engineer with an M.Sc. in Human-Computer Interaction." />
     <meta name="twitter:image" content="https://yazdanjoo.de/assets/me.jpg" />
 
-    <!-- ── Favicons ── -->
-    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
-    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <!-- ── Favicons ──
+         The SVG carries its own prefers-color-scheme rule, so the mark
+         switches ink with the BROWSER's chrome. That is deliberately not the
+         site's own theme toggle and must never be wired to it: a visitor
+         reading the site in light theme inside a dark-chrome browser needs
+         the light-chrome mark, and the two settings disagree all the time.
+
+         The raster fallbacks cannot switch, so they carry their own coral
+         ground instead of depending on whatever sits behind them — one
+         variant that survives both chromes. iOS composites its own
+         background behind apple-touch-icon, so that one in particular has
+         to be the opaque chip, never a transparent glyph.
+
+         Served from the site root, not /assets/: vercel.json marks /assets/*
+         immutable for a year, which is right for hashed build output and
+         wrong for a file whose entire purpose is to be corrected in place.
+
+         Regenerate all of it with: node scripts/generate-favicons.mjs -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
+    <link rel="alternate icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     
     <!-- Cookiebot — must load before any tracker so consent gates them -->
     <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="cb504ac2-0680-40c4-9de7-659565f4c602" type="text/javascript" async></script>
