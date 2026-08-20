@@ -17,15 +17,23 @@
 // A figure that omits all of them renders as a plain image. Projects
 // without a `figures` key are unaffected.
 //
-// A figure whose `src` is NEEDS_INPUT is one whose artwork has not been
-// exported yet. It keeps its framing — label, title, description, caption are
-// already written and are the reason the figure is planned — and shows the
-// sentinel marker where the image goes, instead of a broken-image icon. In
-// production it never renders at all: scripts/check-needs-input.mjs fails the
-// build first, naming the exact field. Dropping the figure entry from the data
-// would also "work", and is the thing this codebase keeps having to relearn
-// not to do — a planned figure that quietly stops existing is indistinguishable
-// from one nobody ever wrote.
+// `pending: true` marks a figure whose artwork has not been exported yet. It
+// keeps its framing — label, title and description are already written, and
+// are the reason the figure is planned — and says the image is coming, where
+// the image will go. Same vocabulary as a `pending` metric, and the same
+// reasoning: the honest rendering of something not yet made is a frame that
+// says so, not a broken image and not silence. Dropping the entry from the
+// data would also "work", and is the thing this codebase keeps having to
+// relearn not to do — a planned figure that quietly stops existing is
+// indistinguishable from one nobody ever wrote.
+//
+// Deliberately NOT the NEEDS_INPUT sentinel. That gate fails the production
+// build, and it exists so a fabricated *claim* cannot ship; an unexported
+// illustration is an absent asset, not a false statement. Using it here cost
+// a real deployment (Vercel EqywaKS2H, 20.08.2026) on a page whose prose and
+// other figures were entirely intact. isNeedsInput stays wired below purely
+// as a crash guard — a Symbol reaching an <img src> is a React error — so a
+// data file that does use the sentinel degrades to this same frame.
 //
 // `href` turns the figure into a preview that opens a standalone page in a
 // new tab (the detailed UML and the persona set are full documents that
@@ -176,13 +184,17 @@ export default function SectionMedia({ items }) {
         {items.map((f, i) => {
           const isVideo = f.type === "video";
           const isLink = !!f.href;
-          const needsArtwork = isNeedsInput(f.src) || isNeedsInput(f.poster);
+          const needsArtwork =
+            f.pending === true || isNeedsInput(f.src) || isNeedsInput(f.poster);
           const canZoom = !isLink && !isVideo && f.zoom !== false && !!f.src && !needsArtwork;
           const linkLabel = f.linkLabel || t("project.media.openFullPage");
 
           const media = needsArtwork ? (
-            <div className="flex min-h-[120px] items-center justify-center p-6">
-              <NeedsInputMarker path={`figures[${i}].src`} />
+            <div className="flex min-h-[160px] flex-col items-center justify-center gap-2 p-8 text-center">
+              <span className="font-mono text-2xs uppercase tracking-[0.2em] text-text-meta">
+                {t("project.media.pending")}
+              </span>
+              {isNeedsInput(f.src) && <NeedsInputMarker path={`figures[${i}].src`} />}
             </div>
           ) : isVideo && !prefersReducedMotion ? (
             <video

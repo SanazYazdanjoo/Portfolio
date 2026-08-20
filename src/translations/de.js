@@ -280,6 +280,7 @@ const de = {
   // Project detail — figure viewer chrome
   "project.media.close": "Schließen",
   "project.media.closeLabel": "Vergrößerte Abbildung schließen",
+  "project.media.pending": "Abbildung in Vorbereitung",
   "project.media.enlarge": "Abbildung vergrößern",
   "project.media.enlargedDefault": "Vergrößerte Abbildung",
   "project.media.clickToEnlarge": "zum Vergrößern klicken",

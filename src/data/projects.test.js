@@ -345,6 +345,28 @@ describe("data/renderer contract — no field drifts in either direction", () =>
     }
   });
 
+  // The blank-cell rule, applied to figures. An entry with no image, no link
+  // and no pending state renders a bordered empty box under its own caption —
+  // the visual equivalent of the empty strip cell the metrics guard above
+  // already forbids. `pending: true` is the supported way to keep a planned
+  // figure visible while its artwork is still being made; it renders a frame
+  // that says so and, unlike the NEEDS_INPUT sentinel, does not fail the
+  // build — an absent illustration is not a fabricated claim.
+  it("every figure has a src, an href, or pending: true", () => {
+    for (const p of projects) {
+      if (!p.figures) continue;
+      for (const [group, items] of Object.entries(p.figures)) {
+        items.forEach((f, i) => {
+          expect(
+            !!f.src || !!f.href || f.pending === true,
+            `${p.slug}: figures.${group}[${i}] has no src, no href and is not ` +
+              `marked pending — it would render as an empty frame`
+          ).toBe(true);
+        });
+      }
+    }
+  });
+
   // A design section with no figures is legitimate prose; figures with no
   // prose would render a numbered heading straight into an image grid.
   it("figures.design never appears without the design prose that heads it", () => {
