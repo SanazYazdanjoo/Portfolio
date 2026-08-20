@@ -283,6 +283,7 @@ const en = {
   // Project detail — figure viewer chrome
   "project.media.close": "Close",
   "project.media.closeLabel": "Close enlarged figure",
+  "project.media.pending": "Figure in preparation",
   "project.media.enlarge": "Enlarge figure",
   "project.media.enlargedDefault": "Enlarged figure",
   "project.media.clickToEnlarge": "click to enlarge",

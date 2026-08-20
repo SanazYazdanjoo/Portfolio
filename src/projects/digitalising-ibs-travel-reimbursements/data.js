@@ -26,7 +26,10 @@ import fiveW1HFrame from './5W1H.png';
 import stakeholderMap from './Stakeholders.png';
 import personaPreview from './Persona-preview.png';
 import designSystemSheet from './IBS-Design-System.png';
-import { NEEDS_INPUT } from '../../data/needsInput';
+import architectureDiagram from './App-Architecture-Simplified.png';
+import beforeAfterArtefacts from './before-after.jpg';
+import architectureGuarantees from './architecture-guarantees.png';
+import processStrip from './process-sketch-wireframe-shipped.svg';
 
 // The two research artefacts are full standalone documents — a nine-lane
 // activity diagram and a seven-card persona set — too detailed to read at
@@ -98,7 +101,10 @@ export const projectData = {
   ],
   thumbnail: thumbnailImg,
   thumbnailWebp,
-  heroImage: '/projects/digitalising-ibs-travel-reimbursements/hero-illustration.png',
+  // Only rendered as a fallback for a project with no thumbnail and no
+  // process gallery, which this one is not — but it pointed at a file that
+  // was never authored, so it now names the image that does exist.
+  heroImage: thumbnailImg,
 
   methods: [
     { en: 'Insider process observation (AS-IS)',              de: 'Insider-Prozessbeobachtung (IST-Zustand)' },
@@ -328,7 +334,7 @@ export const projectData = {
       // is verified against commit 47b0301.
       {
         type: 'image',
-        src: `${DOCS}/App-Architecture-Simplified.png`,
+        src: architectureDiagram,
         span: 2,
         className: 'w-full h-auto block',
         label: { en: 'Architecture · verified against the code', de: 'Architektur · am Code verifiziert' },
@@ -377,15 +383,25 @@ export const projectData = {
           de: 'Tabellenansicht öffnen',
         },
       },
-      // ── Before/after artefact pairs — the three-row comparison figure.
-      // PLACEHOLDER: export the finished Claude Design figure as a single
-      // image (before-after-artefacts.png) into the project public folder.
-      // The full annotated version also ships as a standalone HTML page,
-      // linked like the UML — image preview here, real page in a new tab.
+      // ── Before/after artefact pairs — three-row comparison figure.
+      //
+      // PENDING (20.08.2026): the description, alt and caption below describe
+      // the v1 export that ships as the preview — 8 problem IDs, no legend, no
+      // gate row, register v13.08.2026. A rewritten text set exists for figure
+      // v2 + the 20.08 fix pass (12 IDs including P25, consolidated register
+      // v20.08.2026, survey n=6) and is deliberately held back until that
+      // raster is exported: against v1 its counts would disagree with the
+      // image the reader is looking at. Export over before-after.jpg and the
+      // held text lands in the same pass.
+      //
+      // The linked standalone page is already ahead of the preview: it is the
+      // v2 figure (11 IDs, four-tone legend, amber gate row), though its own
+      // footer reads register v13.08.2026 · survey n=5 — so it is not the
+      // n=6 consolidated version either. All three converge at that export.
       {
         type: 'image',
-        src: `${DOCS}/before-after-artefacts.png`, // PLACEHOLDER — drop file in public/
-        href: `${DOCS}/Before-After/before-after-artefacts.html`, // PLACEHOLDER — optional full page
+        src: beforeAfterArtefacts,
+        href: `${DOCS}/Before-After/before-after-artefacts.html`,
         span: 2,
         className: 'w-full h-auto block',
         label: { en: 'Before / after · real artefacts', de: 'Vorher / Nachher · echte Artefakte' },
@@ -410,10 +426,9 @@ export const projectData = {
       // ── The enforcement table. Companion to the round-trip diagram: that
       // one tells a non-coder how it works, this tells an engineer what is
       // guaranteed — and by which build-failing test.
-      // PLACEHOLDER: export as architecture-guarantees.png
       {
         type: 'image',
-        src: `${DOCS}/architecture-guarantees.png`, // PLACEHOLDER — drop file in public/
+        src: architectureGuarantees,
         span: 2,
         className: 'w-full h-auto block',
         label: { en: 'Architecture · what is guaranteed', de: 'Architektur · was garantiert ist' },
@@ -495,18 +510,12 @@ export const projectData = {
       // Deliberately glanceable — under forty words on the figure itself;
       // the artefacts are the evidence, so nothing in it is redrawn.
       //
-      // The artwork is not exported yet, so `src` carries the NEEDS_INPUT
-      // sentinel rather than a path to a file that is not there: the figure
-      // shows a visible marker in dev and fails the production build by name,
-      // instead of shipping a broken image or quietly vanishing. To resolve,
-      // compose the three slots (sketch photo, Phase-2 wireframe, shipped TN
-      // screenshot — the same screen in all three) and export to
-      //   public/projects/digitalising-ibs-travel-reimbursements/process-sketch-wireframe-shipped.png
-      // then swap the sentinel for:
-      //   src: `${DOCS}/process-sketch-wireframe-shipped.png`,
+      // Artwork exported 20.08.2026 as SVG — the three slots are a photo, the
+      // wireframe export and a screenshot, embedded, so the strip stays sharp
+      // at full width. This entry carried the NEEDS_INPUT sentinel until then.
       {
         type: 'image',
-        src: NEEDS_INPUT,
+        src: processStrip,
         span: 2,
         className: 'w-full h-auto block',
         label: { en: 'Process · sketch to shipped', de: 'Prozess · Skizze bis Auslieferung' },
