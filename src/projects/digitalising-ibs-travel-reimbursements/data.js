@@ -14,6 +14,10 @@
 // Process screenshots: staff names in the source decks were replaced with
 // demo names before export (2026-08-13). Personas are composites, not
 // portraits of individuals.
+//
+// 20.08.2026: revised against 'for Case study IBS.docx' — multi-Excel before-
+// state, n=3 interviews, UCD/double-diamond framing, results deferred until
+// real use (resultsDetail off), design section added, metricsIntro added.
 import thumbnailImg from './Project-4.png';
 import thumbnailWebp from './Project-4.webp';
 import prototypeScreenshot from './Fahrtkostenerstattung-—-Prototyp-08-14-2026.jpg';
@@ -22,10 +26,6 @@ import fiveW1HFrame from './5W1H.png';
 import stakeholderMap from './Stakeholders.png';
 import personaPreview from './Persona-preview.png';
 import designSystemSheet from './IBS-Design-System.png';
-import architectureDiagram from './App-Architecture-Simplified.png';
-import architectureGuarantees from './architecture-guarantees.png';
-import beforeAfterArtefacts from './before-after.jpg';
-import processStrip from './process-sketch-wireframe-shipped.svg';
 
 // The two research artefacts are full standalone documents — a nine-lane
 // activity diagram and a seven-card persona set — too detailed to read at
@@ -46,8 +46,8 @@ export const projectData = {
     de: 'Digitalisierung der IBS Fahrtkostenerstattung',
   },
   subtitle: {
-    en: 'Digitalizing a nine-actor, paper-heavy reimbursement workflow',
-    de: 'Digitalisierung eines papierlastigen Erstattungsprozesses mit neun Akteuren',
+    en: 'From paper forms and a folder of Excel files to one traceable application',
+    de: 'Von Papierformularen und einem Ordner voller Excel-Dateien zu einer nachvollziehbaren Anwendung',
   },
   role: {
     en: 'Solo — UX Research, UI Design, and Frontend Development',
@@ -56,18 +56,31 @@ export const projectData = {
   timeline: '2026 · four phases · ongoing',
   tags: [
     'UX Research',
-    'Service Design',
+    'Stakeholder Interviews',
     'Survey Design',
     'Thematic Analysis',
     'Persona Development',
+    'Process Mapping (UML)',
+    'Service Design',
     'Requirements Engineering',
     'Requirements Traceability',
     'Information Architecture',
+    'State Machine Modelling',
+    'Wireframing',
+    'Interaction Design',
     'Design Systems',
+    'Prototyping',
+    'Usability Evaluation (instrumented)',
+    'Accessibility',
+    'Data Visualization',
     'React',
     'TypeScript',
+    'Node.js / Fastify',
+    'SQLite',
+    'Excel Automation (SheetJS)',
     'Automated Testing (Vitest)',
-    'Accessibility',
+    'Product Instrumentation',
+    'Privacy by Design',
     'GDPR / DSGVO',
     'Public Sector',
   ],
@@ -77,7 +90,7 @@ export const projectData = {
 
   methods: [
     { en: 'Insider process observation (AS-IS)',              de: 'Insider-Prozessbeobachtung (IST-Zustand)' },
-    { en: 'Expert validation interviews (n=2: administration, accounting)', de: 'Experten-Validierungsinterviews (n=2: Verwaltung, Buchhaltung)' },
+    { en: 'Expert interviews (n=3: project management, accounting, administration/IT)', de: 'Experteninterviews (n=3: Projektleitung, Buchhaltung, Verwaltung/IT)' },
     { en: 'Participant survey (n=6 and open, anonymous, BL cohort so far)', de: 'Teilnehmenden-Umfrage (n=6, laufend, anonym, bisher BL-Kohorte)' },
     { en: 'Document & artefact analysis',                     de: 'Dokumenten- & Artefaktanalyse' },
     { en: 'Thematic analysis / affinity clustering',          de: 'Thematische Analyse / Affinity Clustering' },
@@ -107,6 +120,11 @@ export const projectData = {
     { value: '1,234', label: { en: 'automated tests — including guards that fail the build on an untraced requirement citation or a design-token drift', de: 'automatisierte Tests — darunter Guards, die den Build bei unbelegten Anforderungszitaten oder Token-Abweichungen scheitern lassen' } },
   ],
 
+  metricsIntro: {
+    en: 'How to read these numbers: they are counts of artefacts that exist, or measurements whose method is named — never projections. Durations are medians or explicitly right-censored (“at least”); open cases are never averaged as zero; and survey findings are reported as counts, never percentages, because with n=6 a count can confirm or reframe a problem — it cannot size one.',
+    de: 'So sind diese Zahlen zu lesen: Sie sind Zählungen existierender Artefakte oder Messungen mit benannter Methode — nie Prognosen. Dauern sind Mediane oder ausdrücklich rechtszensiert („mindestens“); offene Fälle werden nie als Null gemittelt; und Umfragebefunde werden als Anzahlen berichtet, nie als Prozente — bei n=6 kann eine Zählung ein Problem bestätigen oder reframen, aber nicht beziffern.',
+  },
+
   techStack: [
     'React',
     'TypeScript',
@@ -122,8 +140,8 @@ export const projectData = {
   ],
 
   about: {
-    en: 'A solo end-to-end project digitalising a paper-heavy travel reimbursement process at a publicly funded institute: thirteen steps, nine actors, one shared Excel file — and participants who learn their claim arrived only when money appears, or doesn\u2019t. I researched the process as its administrator, built the replacement as its developer, and instrumented both, so every claim in this case study traces to a survey answer, a process map, or a line of code. Status: demo delivered to the institute, change request received, evaluation pending deployment.',
-    de: 'Ein alleinverantwortliches End-to-End-Projekt zur Digitalisierung eines papierlastigen Fahrtkostenerstattungsprozesses an einem öffentlich geförderten Institut: dreizehn Schritte, neun Akteure, eine geteilte Excel-Datei — und Teilnehmende, die erst am eintreffenden Geld erkennen, dass ihr Antrag angekommen ist. Ich habe den Prozess als seine Administratorin erforscht, den Ersatz als seine Entwicklerin gebaut und beides instrumentiert — jede Aussage dieser Fallstudie führt auf eine Umfrageantwort, eine Prozesskarte oder eine Codezeile zurück. Status: Demo an das Institut übergeben, Änderungswünsche erhalten, Evaluation steht nach dem Deployment an.',
+    en: 'I joined the institute as a project assistant and ran this reimbursement process myself for over a year — long enough to see that it was not just inefficient but a steady source of frustration and avoidable mistakes for everyone in it. With a Master’s in HCI I had the research methods to turn those observations into verified requirements, and as a frontend developer I could carry the same requirements into working code — so I proposed replacing the scattered spreadsheets with one integrated application, and built it. As of 20.08.2026 the prototype is in active development: the team works with the deployed demo and feeds back, the screens are being consolidated through that feedback and instrumented testing before release as the real product, and every claim on this page traces to a survey answer, a process map, or a line of code.',
+    de: 'Ich kam als Projektassistentin an das Institut und habe diesen Erstattungsprozess über ein Jahr selbst betrieben — lange genug, um zu sehen, dass er nicht nur ineffizient war, sondern für alle Beteiligten eine stete Quelle von Frustration und vermeidbaren Fehlern. Mit einem Master in HCI hatte ich die Forschungsmethoden, um diese Beobachtungen in belegte Anforderungen zu überführen, und als Frontend-Entwicklerin konnte ich dieselben Anforderungen in laufenden Code tragen — also schlug ich vor, die verstreuten Tabellen durch eine integrierte Anwendung zu ersetzen, und baute sie. Stand 20.08.2026 ist der Prototyp in aktiver Entwicklung: Das Team arbeitet mit der bereitgestellten Demo und gibt Feedback, die Screens werden vor der Veröffentlichung über dieses Feedback und instrumentierte Tests konsolidiert, und jede Aussage auf dieser Seite führt auf eine Umfrageantwort, eine Prozesskarte oder eine Codezeile zurück.',
   },
 
   challengeQuote: {
@@ -131,39 +149,38 @@ export const projectData = {
     de: 'Ein dreizehnstufiger Papierprozess mit vier Rückschleifen zwang die vulnerabelsten Teilnehmenden, wochenlang auf ihr Geld zu warten — ohne jede Möglichkeit zu wissen, wo es blieb.',
   },
   challenge: {
-    en: 'Every month, participants in a state-funded qualification programme claim back their travel costs. On paper it is a form. In practice, three unconnected intake channels fed one manual Excel file, held together by a single unstaffed administrative role. Whenever the process broke, participants submitted into a void with no visible calculation and no confirmation. Four of six survey respondents could not say how long reimbursement takes — that is not a data gap, it is the finding: nothing in the process tells them. The failure was structural, not clerical.',
-    de: 'Jeden Monat fordern Teilnehmende eines staatlich geförderten Qualifizierungsprogramms ihre Fahrtkosten zurück. Auf dem Papier ist das ein Formular. In der Praxis speisten drei unverbundene Einreichungskanäle eine manuelle Excel-Datei, zusammengehalten von einer unbesetzten administrativen Rolle. Wenn der Prozess brach, reichten Teilnehmende ins Leere ein, ohne sichtbare Berechnung oder Bestätigung. Vier von sechs Befragten konnten nicht sagen, wie lange die Erstattung dauert — das ist keine Datenlücke, das ist der Befund: Nichts im Prozess sagt es ihnen. Das Versagen war strukturell, nicht schreibtechnisch.',
+    en: 'Every month, participants in a state-funded qualification programme claim back their travel costs. On paper it is a form; in practice it was an ecosystem of disconnected spreadsheets held together by one administrative role. Attendance started as paper marks in the classroom, was retyped by lecturers into an attendance-only Excel shared over Teams — often late, often incomplete, always chased — and exported again by the admin. A hasty „A“ for a participant who left early could quietly become an unexcused „U“ if the follow-up excuse never arrived, unfairly costing attendance days and, with them, reimbursement money. Calculating each month’s totals followed rules so error-prone that I built myself a helper spreadsheet just to get them right. Around that sat a master overview file, one prefilled Abrechnung file per participant, and whatever month- or case-specific lists the situation required. Participants, meanwhile, submitted into a void: no visible calculation, no confirmation, no status — four of six survey respondents could not say how long reimbursement takes, and that is not a data gap, it is the finding. The failure was structural, not clerical.',
+    de: 'Jeden Monat fordern Teilnehmende eines staatlich geförderten Qualifizierungsprogramms ihre Fahrtkosten zurück. Auf dem Papier ist das ein Formular; in der Praxis war es ein Geflecht unverbundener Tabellen, zusammengehalten von einer einzigen administrativen Rolle. Die Anwesenheit begann als Papiereintrag im Kursraum, wurde von Dozierenden in eine reine Anwesenheits-Excel übertragen und über Teams geteilt — oft spät, oft unvollständig, immer angemahnt — und von der Verwaltung wieder exportiert. Aus einem hastigen „A“ für eine früher gehende Person konnte stillschweigend ein unentschuldigtes „U“ werden, wenn die Entschuldigung ausblieb — und mit den Anwesenheitstagen sank zu Unrecht auch die Erstattung. Die Monatsberechnung folgte Regeln, die so fehleranfällig waren, dass ich mir eine eigene Hilfs-Excel baute, um sie sicher zu beherrschen. Darum herum: eine Master-Übersichtsdatei, je Teilnehmer:in eine vorbefüllte Abrechnungsdatei und die monats- oder fallspezifischen Listen. Teilnehmende reichten derweil ins Leere ein: keine sichtbare Berechnung, keine Bestätigung, kein Status — vier von sechs Befragten konnten nicht sagen, wie lange die Erstattung dauert, und das ist keine Datenlücke, das ist der Befund. Das Versagen war strukturell, nicht schreibtechnisch.',
   },
 
   solutionQuote: {
-    en: 'Nothing calculated is ever stored: the database holds what a person typed, and every role rebuilds the amount from the same fields through the same computation — a stale figure is not unlikely, it is unrepresentable.',
-    de: 'Nichts Berechnetes wird je gespeichert: Die Datenbank hält, was eingetippt wurde, und jede Rolle baut den Betrag aus denselben Feldern durch dieselbe Berechnung neu auf — eine veraltete Zahl ist nicht unwahrscheinlich, sie ist nicht darstellbar.',
+    en: 'One web application, five role views, one visible claim status — replacing a folder of Excel files, a Teams upload, and a paper chase.',
+    de: 'Eine Webanwendung, fünf Rollenansichten, ein sichtbarer Antragsstatus — statt eines Ordners voller Excel-Dateien, eines Teams-Uploads und einer Papier-Nachlaufschleife.',
   },
   solution: {
-    en: 'The role-based web application replaces the shared spreadsheet with five purpose-built views. Participants get a mobile-first upload path with camera capture and an optional guided step-by-step mode for lower digital fluency. The claim moves through an explicit state machine, so "where is my money" has an on-screen answer for the first time. Amounts make the round trip instead of being stored: the database holds only the typed fields — ticket type, price, distance, attendance — and the amount is rebuilt in the browser from the same pure computation every time any role opens the record, with its full formula trace visible. Persistence sits behind adapters over a local SQLite database, with stored proofs mirrored to the institute\u2019s own Nextcloud; the one named external call is a route lookup to Google Maps when staff check a driving distance, stated in the data-protection documentation rather than hidden.',
-    de: 'Die rollenbasierte Webanwendung ersetzt die geteilte Tabelle durch fünf zweckgebaute Ansichten. Teilnehmende erhalten einen mobile-first Upload-Pfad mit Kamerafunktion und einem optionalen geführten Schritt-für-Schritt-Modus. Der Antrag durchläuft eine explizite Zustandsmaschine — „Wo ist mein Geld?" hat damit erstmals eine Antwort auf dem Bildschirm. Beträge machen die Rundreise, statt gespeichert zu werden: Die Datenbank hält nur die eingegebenen Felder — Ticketart, Preis, Entfernung, Anwesenheit — und der Betrag wird bei jedem Öffnen des Datensatzes von jeder Rolle aus derselben reinen Berechnung neu aufgebaut, mit sichtbarer Formel-Nachvollziehbarkeit. Die Datenhaltung liegt hinter Adaptern über einer lokalen SQLite-Datenbank, gespeicherte Nachweise werden zusätzlich in die institutseigene Nextcloud gespiegelt; der eine benannte externe Aufruf ist eine Routenabfrage an Google Maps bei der Entfernungsprüfung durch Mitarbeitende — in der Datenschutz-Dokumentation ausgewiesen statt versteckt.',
+    en: 'The app is one place where the whole monthly cycle happens: participants photograph and submit their proofs, lecturers keep attendance directly instead of retyping paper into a Teams spreadsheet, the admin sees every claim’s state and calculation, approvers release with one decision, and accounting reads the same numbers as everyone else. Five purpose-built role views replace the spreadsheet ecosystem. Participants get a mobile-first upload path with camera capture and an optional guided step-by-step mode for lower digital fluency, and the claim moves through an explicit state machine — “where is my money” has an on-screen answer for the first time. Amounts make the round trip instead of being stored: the database holds only the typed fields, and the amount is rebuilt from the same pure computation every time any role opens the record, with its full formula trace visible. Persistence sits behind adapters over a local SQLite database, with stored proofs mirrored to the institute’s own Nextcloud; the one named external call is a route lookup to Google Maps when staff check a driving distance, stated in the data-protection documentation rather than hidden.',
+    de: 'Die App ist der eine Ort, an dem der gesamte Monatszyklus stattfindet: Teilnehmende fotografieren und reichen ihre Nachweise ein, Dozierende führen die Anwesenheit direkt statt Papier in eine Teams-Tabelle zu übertragen, die Verwaltung sieht Zustand und Berechnung jedes Antrags, Genehmigende geben mit einer Entscheidung frei, und die Buchhaltung liest dieselben Zahlen wie alle anderen. Fünf zweckgebaute Rollenansichten ersetzen das Tabellen-Geflecht. Teilnehmende erhalten einen mobile-first Upload-Pfad mit Kamerafunktion und einem optionalen geführten Schritt-für-Schritt-Modus, und der Antrag durchläuft eine explizite Zustandsmaschine — „Wo ist mein Geld?“ hat damit erstmals eine Antwort auf dem Bildschirm. Beträge machen die Rundreise, statt gespeichert zu werden: Die Datenbank hält nur die eingegebenen Felder, und der Betrag wird bei jedem Öffnen des Datensatzes von jeder Rolle aus derselben reinen Berechnung neu aufgebaut, mit sichtbarer Formel-Nachvollziehbarkeit. Die Datenhaltung liegt hinter Adaptern über einer lokalen SQLite-Datenbank, gespeicherte Nachweise werden zusätzlich in die institutseigene Nextcloud gespiegelt; der eine benannte externe Aufruf ist eine Routenabfrage an Google Maps bei der Entfernungsprüfung durch Mitarbeitende — in der Datenschutz-Dokumentation ausgewiesen statt versteckt.',
   },
 
   methodologyQuote: {
-    en: 'Because I already knew the workflow from the inside, the first UX research task was strictly about making my own assumptions falsifiable.',
-    de: 'Da ich den Ablauf bereits von innen kannte, bestand die erste UX-Research-Aufgabe strikt darin, meine eigenen Annahmen falsifizierbar zu machen.',
+    en: 'The four phases follow a user-centred design cycle — a double diamond in which the build itself is instrumented, so the second diamond’s evaluation can actually be measured.',
+    de: 'Die vier Phasen folgen einem nutzerzentrierten Designzyklus — ein Double Diamond, dessen Build selbst instrumentiert ist, damit die Evaluation des zweiten Diamanten wirklich messbar wird.',
   },
 
   methodology: {
-    en: 'I reconstructed the AS-IS process as swimlane activity diagrams, framed the problem space with 5W1H, and mapped nine stakeholders. Two expert validation interviews — one with an independent administrator, one with a member of the accounting team — checked the failure set against the administrative and the financial view of the process; the participant survey (n=6 and open, one cohort so far) then reversed one of my priorities and added six problems I had not observed from the inside. Every problem carries an evidence grade — confirmed, indicative, hypothesis, untested — and counts confirm or reframe a problem, never size it. Phase 2 turned the clustered problems into numbered requirements, a role-based sitemap, and the IBS-DesignSystem, where the nine lane colours of the research map are the nine role colours of the app. Phase 3 engineered the calculation rules as pure, unit-tested TypeScript, with a build-failing test that keeps every requirement citation in code traced to its source problem — and states its own limit: it catches a citation without a source, not a problem without an implementation.',
-    de: 'Ich rekonstruierte den IST-Prozess als Swimlane-Aktivitätsdiagramme, rahmte den Problemraum mit 5W1H und kartierte neun Stakeholder. Zwei Experten-Validierungsinterviews — mit einer unabhängigen Verwaltungskraft und einem Mitglied der Buchhaltung — prüften die Fehlermenge aus administrativer und finanzieller Sicht; die Teilnehmenden-Umfrage (n=6, laufend, bisher eine Kohorte) kehrte anschließend eine meiner Prioritäten um und ergänzte sechs Probleme, die ich von innen nicht gesehen hatte. Jedes Problem trägt ein Evidenzlabel — bestätigt, indikativ, Hypothese, ungeprüft — und Zählungen bestätigen oder reframen ein Problem, sie beziffern es nie. Phase 2 verwandelte die geclusterten Probleme in nummerierte Anforderungen, eine rollenbasierte Sitemap und das IBS-DesignSystem, dessen neun Rollenfarben die neun Spurfarben der Forschungskarte sind. Phase 3 entwickelte die Berechnungsregeln als reines, unit-getestetes TypeScript — mit einem Build-brechenden Test, der jedes Anforderungszitat im Code auf sein Quellproblem zurückführt, und der seine eigene Grenze benennt: Er erkennt ein Zitat ohne Quelle, nicht ein Problem ohne Umsetzung.',
+    en: 'The project runs as a user-centred design process in the shape of the double diamond. Discover: insider observation from more than a year inside the process, three expert interviews — project management, accounting, administration/IT — and the participant survey (n=6 and open), which reversed one of my priorities and added six problems I had not seen from the inside; because I knew the workflow personally, the first research task was strictly about making my own assumptions falsifiable. Define: thematic clustering into a problem register where every entry carries an evidence grade — confirmed, indicative, hypothesis, untested — and counts confirm or reframe a problem, never size it; the clustered problems became numbered requirements, a role-based sitemap, and the IBS-DesignSystem, whose nine role colours are the nine lane colours of the research map. Develop: Phase 3 engineered the calculation rules as pure, unit-tested TypeScript, with a build-failing test that keeps every requirement citation in code traced to its source problem — and states its own limit: it catches a citation without a source, not a problem without an implementation. Deliver: the evaluation is built into the app itself — guided tasks, a pseudonymous local event log, an end-of-session questionnaire — and dogfooding it on my own development traffic already caught three of its own measurement bugs before any reviewer touched it.',
+    de: 'Das Projekt läuft als nutzerzentrierter Designprozess in der Form des Double Diamond. Discover: Insider-Beobachtung aus über einem Jahr im Prozess, drei Experteninterviews — Projektleitung, Buchhaltung, Verwaltung/IT — und die Teilnehmenden-Umfrage (n=6, laufend), die eine meiner Prioritäten umkehrte und sechs Probleme ergänzte, die ich von innen nicht gesehen hatte; weil ich den Ablauf persönlich kannte, bestand die erste Forschungsaufgabe strikt darin, meine eigenen Annahmen falsifizierbar zu machen. Define: thematisches Clustern in ein Problemregister, in dem jeder Eintrag ein Evidenzlabel trägt — bestätigt, indikativ, Hypothese, ungeprüft — und Zählungen ein Problem bestätigen oder reframen, nie beziffern; aus den geclusterten Problemen wurden nummerierte Anforderungen, eine rollenbasierte Sitemap und das IBS-DesignSystem, dessen neun Rollenfarben die neun Spurfarben der Forschungskarte sind. Develop: Phase 3 entwickelte die Berechnungsregeln als reines, unit-getestetes TypeScript — mit einem Build-brechenden Test, der jedes Anforderungszitat im Code auf sein Quellproblem zurückführt und seine eigene Grenze benennt: Er erkennt ein Zitat ohne Quelle, nicht ein Problem ohne Umsetzung. Deliver: Die Evaluation ist in die App eingebaut — geführte Aufgaben, ein pseudonymes lokales Ereignisprotokoll, ein Abschlussfragebogen — und beim Dogfooding auf meinen eigenen Entwicklungsdaten fand sie bereits drei ihrer eigenen Messfehler, bevor je ein Reviewer sie berührte.',
   },
 
-  // Honest status. The stakeholder demo happened and produced a change
-  // request; task-based evaluation has not run; and the strongest evidence so
-  // far comes from measuring the paper process and from the instrumentation
-  // finding its own bugs. No projected outcomes, no "early qualitative
-  // feedback indicates".
+  // Deferred by decision (20.08.2026): outcomes render only once the app is
+  // published and in real use. The measured material stays where it belongs —
+  // the 43+ day traced claim in metrics, the instrumentation story in
+  // methodology. resultsDetail is off so no study strip renders.
   results: {
-    en: 'The institute saw the working demo on 18 August 2026 and responded with a change request — improvements to existing features and new ones to build, which is the strongest signal an unreleased tool gets. Task-based evaluation has deliberately not run yet: the guided tasks, the event log, and the end-of-session questionnaire are built into the app, but scripting an evaluation on a prototype nobody uses daily would measure compliance, not use, so it waits for the deployment. Meanwhile the measurement has started where it can: one claim traced end to end through the current paper process — uploaded 5 July, noticed 8 days later, processed in a single day, and still unpaid after four checks, at least 43 days and counting, with the entire delay sitting in the segments no one in the process can see. The app\u2019s own instrumentation has already earned its place: run against my development traffic, it caught three of its own measurement bugs — sessions that never closed, a timer anchored to the wrong event, 690 logged records that were really 45 sittings — before any reviewer ever touched it.',
-    de: 'Das Institut sah die laufende Demo am 18. August 2026 und antwortete mit einem Änderungsauftrag — Verbesserungen an bestehenden Funktionen und neue Features. Ein stärkeres Signal bekommt ein unveröffentlichtes Werkzeug nicht. Die aufgabenbasierte Evaluation lief bewusst noch nicht: Geführte Aufgaben, Ereignisprotokoll und Abschlussfragebogen sind in die App eingebaut, aber eine skriptgeführte Evaluation an einem Prototyp, den niemand täglich nutzt, würde Folgsamkeit messen statt Nutzung — sie wartet auf das Deployment. Gemessen wird unterdessen dort, wo es geht: ein Antrag durchgängig im aktuellen Papierprozess verfolgt — hochgeladen am 5. Juli, bemerkt 8 Tage später, an einem Tag bearbeitet, nach vier Kontrollen weiter unbezahlt, mindestens 43 Tage und zählend, wobei die gesamte Verzögerung in den Abschnitten liegt, die niemand im Prozess einsehen kann. Und die eingebaute Instrumentierung hat sich bereits bewährt: Auf meinen eigenen Entwicklungsdaten fand sie drei ihrer eigenen Messfehler — nie endende Sitzungen, einen falsch verankerten Timer, 690 protokollierte Datensätze, die in Wahrheit 45 Arbeitssitzungen waren — bevor je ein Reviewer sie berührte.',
+    en: 'This section is intentionally short for now: it will be completed with measured outcomes once the application is published and in real use (status 20.08.2026). Until then, the measured material lives where it belongs — the paper-process baseline in the metrics above, and the evaluation instruments in the methodology.',
+    de: 'Dieser Abschnitt bleibt bewusst kurz: Er wird mit gemessenen Ergebnissen gefüllt, sobald die Anwendung veröffentlicht und im echten Einsatz ist (Stand 20.08.2026). Bis dahin steht das Gemessene dort, wo es hingehört — die Basiswerte des Papierprozesses in den Metriken oben, die Evaluationsinstrumente in der Methodik.',
   },
-  resultsDetail: true,
+  resultsDetail: false,
 
   // What is deliberately not built or not switched on. This section is what
   // makes every other claim on the page believable.
@@ -193,13 +210,46 @@ export const projectData = {
     ],
   },
 
+  // Rendered as its own section ("Design") between Solution and Methodology.
+  // NOTE for the renderer: `design` text + `figures.design` are new keys.
+  design: {
+    en: 'The design system was extracted before the high-fidelity screens, not after them: brand colours, a nine-colour role palette carried unchanged from the research diagram’s lanes, note states, a type scale, and form-field states — so a lane in the research reads as the same actor as a badge in the app. Screens moved from paper sketches through wireframes to the shipped React views, and the strip below shows the same participant screen at all three fidelities, none of them redrawn.',
+    de: 'Das Designsystem wurde vor den High-Fidelity-Screens extrahiert, nicht danach: Markenfarben, eine neunfarbige Rollenpalette, unverändert aus den Spuren des Forschungsdiagramms übernommen, Notizzustände, eine Typo-Skala und Formularfeld-Zustände — eine Spur in der Forschung steht damit für denselben Akteur wie ein Badge in der App. Die Screens gingen von Papierskizzen über Wireframes zu den ausgelieferten React-Ansichten, und der Streifen unten zeigt denselben Teilnehmenden-Screen in allen drei Genauigkeiten — keiner nachgezeichnet.',
+  },
+
   figures: {
     challenge: [
-      // The Phase 1 problem frame sits ahead of the activity diagram on
-      // purpose: it states the failure in plain language in six columns, so a
-      // reader arrives at the nine-lane swimlane already knowing what to look
-      // for in it. Five of its six columns are diagnosis; the sixth is the
-      // brief the solution section then answers.
+      // The AS-IS flow opens the section deliberately: the reader walks
+      // the terrain first, then the 5W1H names where it breaks, then the
+      // stakeholder map shows who is standing in it.
+      {
+        type: 'image',
+        src: umlPreview,
+        href: `${DOCS}/UML/Detailed-UML.html`,
+        span: 2,
+        className: 'w-full h-auto block',
+        label: { en: 'Activity diagram · AS-IS', de: 'Aktivitätsdiagramm · IST-Zustand' },
+        title: {
+          en: 'The thirteen-step claim, mapped across nine lanes',
+          de: 'Der dreizehnstufige Antrag, über neun Spuren kartiert',
+        },
+        description: {
+          en: 'One monthly cycle, end to end. The left half is the collection and calculation work the Admin carries alone; the right half is the approval chain that only starts once the paper packet has been scanned. Grey arrows are hand-offs, red arrows are return loops.',
+          de: 'Ein Monatszyklus, durchgängig. Die linke Hälfte ist die Sammel- und Berechnungsarbeit, die die Verwaltung allein trägt; die rechte Hälfte ist die Genehmigungskette, die erst beginnt, wenn das Papierpaket gescannt ist. Graue Pfeile sind Übergaben, rote Pfeile Rückschleifen.',
+        },
+        alt: {
+          en: 'Swimlane activity diagram of the AS-IS reimbursement process across nine actor lanes, with hand-off and return arrows',
+          de: 'Swimlane-Aktivitätsdiagramm des IST-Erstattungsprozesses über neun Akteursspuren, mit Übergabe- und Rückschleifenpfeilen',
+        },
+        caption: {
+          en: 'AS-IS swimlane activity diagram — preview',
+          de: 'IST-Swimlane-Aktivitätsdiagramm — Vorschau',
+        },
+        linkLabel: { en: 'Open the diagram', de: 'Diagramm öffnen' },
+      },
+      // After the flow: the 5W1H states the failure in plain language in
+      // six columns. Five are diagnosis; the sixth is the brief the
+      // solution section then answers.
       {
         type: 'image',
         src: fiveW1HFrame,
@@ -223,14 +273,10 @@ export const projectData = {
           de: '5W1H-Problemrahmung — Phase 1',
         },
       },
-      // Between the problem frame and the swimlane on purpose. The 5W1H says
-      // what breaks; this says who is in the room and which of them the whole
-      // process runs through — so the reader meets the nine actors by name
-      // before the activity diagram shows the same nine in motion, and the
-      // "single administrative role" the challenge text names is visible as a
-      // structural fact rather than a claim. Like the 5W1H, its second half
-      // turns diagnosis into brief: the four quadrant strategies are the
-      // engagement decisions the solution section then answers.
+      // Closing the section: who is in the room, and that the whole
+      // process runs through a single administrative role — visible as a
+      // structural fact rather than a claim. The four quadrant strategies
+      // are the engagement decisions the solution answers.
       //
       // NOTE: description uses the sanitised role labels (Kostenstelle,
       // Finanzsystem, DMS) — the artefact itself was regenerated 2026-08-19
@@ -259,34 +305,37 @@ export const projectData = {
           de: 'Stakeholder-Map — Nähe und Einfluss × Interesse, Phase 1',
         },
       },
-      {
-        type: 'image',
-        src: umlPreview,
-        href: `${DOCS}/UML/Detailed-UML.html`,
-        span: 2,
-        className: 'w-full h-auto block',
-        label: { en: 'Activity diagram · AS-IS', de: 'Aktivitätsdiagramm · IST-Zustand' },
-        title: {
-          en: 'The thirteen-step claim, mapped across nine lanes',
-          de: 'Der dreizehnstufige Antrag, über neun Spuren kartiert',
-        },
-        description: {
-          en: 'One monthly cycle, end to end. The left half is the collection and calculation work the Admin carries alone; the right half is the approval chain that only starts once the paper packet has been scanned. Grey arrows are hand-offs, red arrows are return loops.',
-          de: 'Ein Monatszyklus, durchgängig. Die linke Hälfte ist die Sammel- und Berechnungsarbeit, die die Verwaltung allein trägt; die rechte Hälfte ist die Genehmigungskette, die erst beginnt, wenn das Papierpaket gescannt ist. Graue Pfeile sind Übergaben, rote Pfeile Rückschleifen.',
-        },
-        alt: {
-          en: 'Swimlane activity diagram of the AS-IS reimbursement process across nine actor lanes, with hand-off and return arrows',
-          de: 'Swimlane-Aktivitätsdiagramm des IST-Erstattungsprozesses über neun Akteursspuren, mit Übergabe- und Rückschleifenpfeilen',
-        },
-        caption: {
-          en: 'AS-IS swimlane activity diagram — preview',
-          de: 'IST-Swimlane-Aktivitätsdiagramm — Vorschau',
-        },
-        linkLabel: { en: 'Open the diagram', de: 'Diagramm öffnen' },
-      },
     ],
 
     solution: [
+      // The corrected architecture diagram — the third version. The first
+      // drew a waterfall (amount falls into the database); reading the code
+      // proved the opposite, and the artefact that graded the first version
+      // WRONG/IMPRECISE line-by-line is part of the project record. This one
+      // is verified against commit 47b0301.
+      {
+        type: 'image',
+        src: `${DOCS}/App-Architecture-Simplified.png`,
+        span: 2,
+        className: 'w-full h-auto block',
+        label: { en: 'Architecture · verified against the code', de: 'Architektur · am Code verifiziert' },
+        title: {
+          en: 'The reimbursement round trip',
+          de: 'Die Rundreise der Erstattung',
+        },
+        description: {
+          en: 'Read the arrows in pairs: down carries what a person typed, up carries the same fields straight back. The amount exists only in the top half — computed in the browser by one shared rule module, never stored. The database holds no amount column and no trace column, which is why every role sees the identical figure and why no stored number can drift from the rule that produced it. Below the line, one guard underneath every server route refuses requests for someone else’s record by default, and every stored proof is mirrored to the institute’s own Nextcloud — which the app may write to but never delete from. The one named third-party call is the route lookup: staff type two addresses, nothing from a record is prefilled. The lower half describes the self-hosted target, implemented and tested; the public demo runs the top half alone, in the browser, on fictional data.',
+          de: 'Die Pfeile paarweise lesen: abwärts fließt, was eingetippt wurde, aufwärts kommen dieselben Felder unverändert zurück. Der Betrag existiert nur in der oberen Hälfte — im Browser von einem gemeinsamen Regelmodul berechnet, nie gespeichert. Die Datenbank hat keine Betrags- und keine Trace-Spalte; deshalb sehen alle Rollen dieselbe Zahl, und keine gespeicherte Zahl kann von der Regel abweichen, die sie erzeugt hat. Unter der Linie verweigert ein Guard unterhalb jeder Server-Route standardmäßig den Zugriff auf fremde Datensätze, und jeder gespeicherte Nachweis wird in die institutseigene Nextcloud gespiegelt — in die die App schreiben, aus der sie aber nie löschen darf. Der eine benannte Drittanbieter-Aufruf ist die Routenabfrage: Mitarbeitende tippen zwei Adressen, nichts wird aus einem Datensatz vorbefüllt. Die untere Hälfte beschreibt das selbst gehostete Zielsystem, implementiert und getestet; die öffentliche Demo betreibt allein die obere Hälfte, im Browser, auf fiktiven Daten.',
+        },
+        alt: {
+          en: 'Architecture diagram in two dashed regions. The browser holds Screens, Rules and Storage connected by a round trip of arrows: typed fields flow down, stored fields flow back up, and the amount with its full trace exists only between Rules and Screens. Inside the institute a Fastify server with a default-deny repo guard, a SQLite database with no amount column, and a Nextcloud mirror for proof files. A red side panel marks the single external call: a Google Maps route lookup typed by staff.',
+          de: 'Architekturdiagramm in zwei gestrichelten Bereichen. Der Browser enthält Screens, Regeln und Storage, verbunden durch eine Rundreise von Pfeilen: Eingetippte Felder fließen abwärts, gespeicherte Felder kommen zurück, und der Betrag mit seiner Nachvollziehbarkeit existiert nur zwischen Regeln und Screens. Im Institut liegen ein Fastify-Server mit Default-Deny-Guard, eine SQLite-Datenbank ohne Betragsspalte und eine Nextcloud-Spiegelung für Nachweise. Ein rotes Seitenpanel markiert den einzigen externen Aufruf: eine von Mitarbeitenden getippte Google-Maps-Routenabfrage.',
+        },
+        caption: {
+          en: 'Application architecture — round trip, verified at commit 47b0301',
+          de: 'Anwendungsarchitektur — Rundreise, verifiziert bei Commit 47b0301',
+        },
+      },
       {
         type: 'image',
         src: prototypeScreenshot,
@@ -315,49 +364,15 @@ export const projectData = {
           de: 'Tabellenansicht öffnen',
         },
       },
-      // The corrected architecture diagram — the third version. The first
-      // drew a waterfall (amount falls into the database); reading the code
-      // proved the opposite, and the artefact that graded the first version
-      // WRONG/IMPRECISE line-by-line is part of the project record. This one
-      // is verified against commit 47b0301.
-      //
-      // Imported rather than referenced through DOCS: the PNG sits in this
-      // folder under src/, so Vite bundles and fingerprints it. DOCS points
-      // into public/, which serves only the two standalone HTML documents.
+      // ── Before/after artefact pairs — the three-row comparison figure.
+      // PLACEHOLDER: export the finished Claude Design figure as a single
+      // image (before-after-artefacts.png) into the project public folder.
+      // The full annotated version also ships as a standalone HTML page,
+      // linked like the UML — image preview here, real page in a new tab.
       {
         type: 'image',
-        src: architectureDiagram,
-        span: 2,
-        className: 'w-full h-auto block',
-        label: { en: 'Architecture · verified against the code', de: 'Architektur · am Code verifiziert' },
-        title: {
-          en: 'The reimbursement round trip',
-          de: 'Die Rundreise der Erstattung',
-        },
-        description: {
-          en: 'Read the arrows in pairs: down carries what a person typed, up carries the same fields straight back. The amount exists only in the top half — computed in the browser by one shared rule module, never stored. The database holds no amount column and no trace column, which is why every role sees the identical figure and why no stored number can drift from the rule that produced it. Below the line, one guard underneath every server route refuses requests for someone else’s record by default, and every stored proof is mirrored to the institute’s own Nextcloud — which the app may write to but never delete from. The one named third-party call is the route lookup: staff type two addresses, nothing from a record is prefilled. The lower half describes the self-hosted target, implemented and tested; the public demo runs the top half alone, in the browser, on fictional data.',
-          de: 'Die Pfeile paarweise lesen: abwärts fließt, was eingetippt wurde, aufwärts kommen dieselben Felder unverändert zurück. Der Betrag existiert nur in der oberen Hälfte — im Browser von einem gemeinsamen Regelmodul berechnet, nie gespeichert. Die Datenbank hat keine Betrags- und keine Trace-Spalte; deshalb sehen alle Rollen dieselbe Zahl, und keine gespeicherte Zahl kann von der Regel abweichen, die sie erzeugt hat. Unter der Linie verweigert ein Guard unterhalb jeder Server-Route standardmäßig den Zugriff auf fremde Datensätze, und jeder gespeicherte Nachweis wird in die institutseigene Nextcloud gespiegelt — in die die App schreiben, aus der sie aber nie löschen darf. Der eine benannte Drittanbieter-Aufruf ist die Routenabfrage: Mitarbeitende tippen zwei Adressen, nichts wird aus einem Datensatz vorbefüllt. Die untere Hälfte beschreibt das selbst gehostete Zielsystem, implementiert und getestet; die öffentliche Demo betreibt allein die obere Hälfte, im Browser, auf fiktiven Daten.',
-        },
-        alt: {
-          en: 'Architecture diagram in two dashed regions. The browser holds Screens, Rules and Storage connected by a round trip of arrows: typed fields flow down, stored fields flow back up, and the amount with its full trace exists only between Rules and Screens. Inside the institute a Fastify server with a default-deny repo guard, a SQLite database with no amount column, and a Nextcloud mirror for proof files. A red side panel marks the single external call: a Google Maps route lookup typed by staff.',
-          de: 'Architekturdiagramm in zwei gestrichelten Bereichen. Der Browser enthält Screens, Regeln und Storage, verbunden durch eine Rundreise von Pfeilen: Eingetippte Felder fließen abwärts, gespeicherte Felder kommen zurück, und der Betrag mit seiner Nachvollziehbarkeit existiert nur zwischen Regeln und Screens. Im Institut liegen ein Fastify-Server mit Default-Deny-Guard, eine SQLite-Datenbank ohne Betragsspalte und eine Nextcloud-Spiegelung für Nachweise. Ein rotes Seitenpanel markiert den einzigen externen Aufruf: eine von Mitarbeitenden getippte Google-Maps-Routenabfrage.',
-        },
-        caption: {
-          en: 'Application architecture — round trip, verified at commit 47b0301',
-          de: 'Anwendungsarchitektur — Rundreise, verifiziert bei Commit 47b0301',
-        },
-      },
-      // ── Before/after artefact pairs — the three-row comparison figure,
-      // exported from Claude Design as a single image (before-after.jpg,
-      // 3067x2870) and imported like every other figure in this folder.
-      //
-      // No `href`: there is no standalone annotated page for this one, and the
-      // figure is dense enough that the zoom overlay is the better reading
-      // surface anyway — one click, no tab switch, and it caps at 1800px wide,
-      // which is where this artefact stops gaining detail.
-      {
-        type: 'image',
-        src: beforeAfterArtefacts,
+        src: `${DOCS}/before-after-artefacts.png`, // PLACEHOLDER — drop file in public/
+        href: `${DOCS}/Before-After/before-after-artefacts.html`, // PLACEHOLDER — optional full page
         span: 2,
         className: 'w-full h-auto block',
         label: { en: 'Before / after · real artefacts', de: 'Vorher / Nachher · echte Artefakte' },
@@ -366,8 +381,8 @@ export const projectData = {
           de: 'Das Artefakt, das ersetzt wurde',
         },
         description: {
-          en: 'Three pairs of real artefacts, sensitive fields blurred. The hand-kept master Excel tracker against the admin board that keeps its own state. The printed Abrechnung completed by pen against the form the system generates from stored data — the pen still signs, by decision: digital signature is built but off, pending the data-protection ruling. And the unconfirmed cloud intake against the participant flow with its visible status chain. Every green win is paired to a numbered problem, and the two things the app does not yet resolve — no screen produces the PAID status, and the participant is still not notified after leaving the app — are marked on the figure itself rather than omitted.',
-          de: 'Drei Paare echter Artefakte, sensible Felder unkenntlich gemacht. Der handgeführte Master-Excel-Tracker gegen das Admin-Board, das seinen Zustand selbst führt. Die per Stift ausgefüllte gedruckte Abrechnung gegen das Formular, das das System aus gespeicherten Daten erzeugt — der Stift unterschreibt weiterhin, per Entscheidung: Die digitale Unterschrift ist gebaut, aber deaktiviert, bis der Datenschutz entschieden hat. Und der unbestätigte Cloud-Eingang gegen den Teilnehmenden-Flow mit sichtbarer Statuskette. Jeder grüne Gewinn ist einem nummerierten Problem zugeordnet, und die zwei Dinge, die die App noch nicht löst — kein Screen erzeugt den Status AUSGEZAHLT, und Teilnehmende werden nach Verlassen der App weiterhin nicht benachrichtigt — stehen auf der Abbildung selbst statt zu fehlen.',
+          en: 'Three pairs of real artefacts, sensitive fields blurred. The hand-kept master tracker — one of at least four Excel artefacts each month required — against the admin board that keeps its own state. The printed Abrechnung completed by pen against the form the system generates from stored data — the pen still signs, by decision: digital signature is built but off, pending the data-protection ruling. And the unconfirmed cloud intake against the participant flow with its visible status chain. Every green win is paired to a numbered problem, and the two things the app does not yet resolve — no screen produces the PAID status, and the participant is still not notified after leaving the app — are marked on the figure itself rather than omitted.',
+          de: 'Drei Paare echter Artefakte, sensible Felder unkenntlich gemacht. Der handgeführte Master-Tracker — eines von mindestens vier Excel-Artefakten, die jeder Monat verlangte — gegen das Admin-Board, das seinen Zustand selbst führt. Die per Stift ausgefüllte gedruckte Abrechnung gegen das Formular, das das System aus gespeicherten Daten erzeugt — der Stift unterschreibt weiterhin, per Entscheidung: Die digitale Unterschrift ist gebaut, aber deaktiviert, bis der Datenschutz entschieden hat. Und der unbestätigte Cloud-Eingang gegen den Teilnehmenden-Flow mit sichtbarer Statuskette. Jeder grüne Gewinn ist einem nummerierten Problem zugeordnet, und die zwei Dinge, die die App noch nicht löst — kein Screen erzeugt den Status AUSGEZAHLT, und Teilnehmende werden nach Verlassen der App weiterhin nicht benachrichtigt — stehen auf der Abbildung selbst statt zu fehlen.',
         },
         alt: {
           en: 'Three-row comparison figure. Row one pairs a blurred master Excel tracker with the admin dashboard. Row two pairs a blurred printed reimbursement form completed by pen with the generated form view and its checks panel. Row three pairs the cloud upload intake with the participant month view and its status chain. Red callouts mark numbered problems on the left, green callouts mark the paired resolutions on the right, and two dashed callouts mark what is not yet resolved.',
@@ -377,6 +392,7 @@ export const projectData = {
           en: 'Before/after artefact pairs — problems referenced: P3 · P5 · P6 · P12 · P15 · P18 · P20 · P21, register v13.08.2026',
           de: 'Vorher/Nachher-Artefaktpaare — referenzierte Probleme: P3 · P5 · P6 · P12 · P15 · P18 · P20 · P21, Register v13.08.2026',
         },
+        linkLabel: { en: 'Open the full annotated figure', de: 'Vollständige annotierte Abbildung öffnen' },
       },
       // ── The enforcement table. Companion to the round-trip diagram: that
       // one tells a non-coder how it works, this tells an engineer what is
@@ -384,7 +400,7 @@ export const projectData = {
       // PLACEHOLDER: export as architecture-guarantees.png
       {
         type: 'image',
-        src: architectureGuarantees,
+        src: `${DOCS}/architecture-guarantees.png`, // PLACEHOLDER — drop file in public/
         span: 2,
         className: 'w-full h-auto block',
         label: { en: 'Architecture · what is guaranteed', de: 'Architektur · was garantiert ist' },
@@ -430,8 +446,12 @@ export const projectData = {
         caption: { en: 'Persona set — preview', de: 'Persona-Set — Vorschau' },
         linkLabel: { en: 'Open the personas', de: 'Personas öffnen' },
       },
-      // The Phase 2 artefact the methodology text names. It sits here rather
-      // than under `solution` because the point is not how the app looks — it
+
+    ],
+
+    design: [
+      // The Phase 2 artefact. It anchors the design section rather than
+      // `solution` because the point is not how the app looks — it
       // is that the nine lane colours from the AS-IS activity diagram became
       // the app's role palette unchanged, so the research and the build read
       // as one system.
@@ -461,20 +481,12 @@ export const projectData = {
       // ── Process strip: the same screen three times, getting more real.
       // Deliberately glanceable — under forty words on the figure itself;
       // the artefacts are the evidence, so nothing in it is redrawn.
-      //
-      // The Claude Design export arrived as a self-contained HTML bundle
-      // ("Sketch to wireframe to prototype.html", still in this folder), which
-      // the figure grid cannot render — it takes an image `src`. Re-containered
-      // as process-sketch-wireframe-shipped.svg: the three panel images are the
-      // export's own bytes (re-encoded WebP to PNG/JPEG, since an SVG loaded
-      // through <img> would fail silently on a format gap) and both typefaces
-      // are its own woff2 payloads, embedded as data URIs so the file needs no
-      // external fetch. The only change is the crop: the export's artboard is a
-      // fixed 1600x700 with the strip centred, leaving ~110px of dead canvas top
-      // and bottom, trimmed back to its own 60px padding.
+      // PLACEHOLDER: export as process-sketch-wireframe-shipped.png once the
+      // three slot images (sketch photo, Phase-2 wireframe, shipped TN
+      // screenshot — same screen in all three) are dropped in.
       {
         type: 'image',
-        src: processStrip,
+        src: `${DOCS}/process-sketch-wireframe-shipped.png`, // PLACEHOLDER — drop file in public/
         span: 2,
         className: 'w-full h-auto block',
         label: { en: 'Process · sketch to shipped', de: 'Prozess · Skizze bis Auslieferung' },
@@ -503,8 +515,8 @@ export const projectData = {
   // Runs on the demo adapter — fictional data pinned as fictional by a test,
   // external data sources disabled — so the link is safe to hand to a stranger.
   prototype: {
-    en: 'The deployed build runs all five role interfaces on demo data, entirely in the browser behind the demo adapter — a static build with no server, which is exactly what makes it safe to hand to a stranger. It exercises the claim state machine — In Prüfung → Bereit für Freigabe → Freigegeben → An Buchhaltung — and every reimbursement amount is rebuilt live from the stored fields with its formula trace visible, so the participant view, the administrator view, and the approver view resolve the same number from the same computation. One status, AUSGEZAHLT, is modelled but not yet producible: the payment leg of the real process is not digital, and the prototype says so instead of simulating it.',
-    de: 'Der ausgelieferte Build führt alle fünf Rollenoberflächen auf Demodaten aus, vollständig im Browser hinter dem Demo-Adapter — ein statischer Build ohne Server, und genau das macht ihn unbedenklich weiterzugeben. Er durchläuft die Antrags-Zustandsmaschine — In Prüfung → Bereit für Freigabe → Freigegeben → An Buchhaltung — und jeder Erstattungsbetrag wird live aus den gespeicherten Feldern neu aufgebaut, mit sichtbarer Formel-Nachvollziehbarkeit, sodass Teilnehmenden-, Verwaltungs- und Genehmigendenansicht dieselbe Zahl aus derselben Berechnung ableiten. Ein Status, AUSGEZAHLT, ist modelliert, aber noch nicht erzeugbar: Der Auszahlungsschritt des realen Prozesses ist nicht digital, und der Prototyp sagt das, statt es zu simulieren.',
+    en: 'A demo build is deployed on Vercel so the team can work with the app and give feedback ahead of the release — it runs entirely in the browser on fictional data, which is exactly what makes it safe to share. In parallel (status 20.08.2026) the usability evaluation is instrumented into the build itself: guided tasks per role, an event log, and an end-of-session questionnaire, being exercised now and ready for evaluation sessions once the app is deployed for daily use. One status, AUSGEZAHLT, is modelled but not yet producible: the payment leg of the real process is not digital, and the prototype says so instead of simulating it.',
+    de: 'Auf Vercel ist ein Demo-Build bereitgestellt, damit das Team vor der Veröffentlichung mit der App arbeiten und Feedback geben kann — er läuft vollständig im Browser auf fiktiven Daten, und genau das macht ihn unbedenklich teilbar. Parallel (Stand 20.08.2026) ist die Usability-Evaluation in den Build selbst instrumentiert: geführte Aufgaben je Rolle, ein Ereignisprotokoll und ein Abschlussfragebogen — jetzt schon im Einsatz und bereit für Evaluationssitzungen, sobald die App im Alltag läuft. Ein Status, AUSGEZAHLT, ist modelliert, aber noch nicht erzeugbar: Der Auszahlungsschritt des realen Prozesses ist nicht digital, und der Prototyp sagt das, statt es zu simulieren.',
   },
 
   // Participant language from the survey (open since August 2026, n=6 so
@@ -556,21 +568,34 @@ export const projectData = {
 
   // Every pointer below resolves to a field that exists in THIS file.
   tagEvidence: [
-    { tag: 'UX Research', evidence: 'methods: "Insider process observation (AS-IS)", "Expert validation interviews", "Participant survey (n=6 and open)"; verbatims quotes three of those respondents, and metrics records six of the 25 documented problems as survey-contributed', status: 'evidenced' },
-    { tag: 'Service Design', evidence: 'methods: "Stakeholder mapping" + "UML activity diagrams (swimlane)"; figures.challenge maps one monthly cycle end to end across nine actor lanes, 13 steps, and four return loops. No rendered service blueprint exists yet, and the TO-BE is delivered as role-based views and a claim state machine — a UI redesign of the service, not a blueprint of it', status: 'thin' },
-    { tag: 'Survey Design', evidence: 'methods: "Participant survey (n=6 and open, anonymous)"; metrics: "25 problems documented — six added by the participant survey"; verbatims carries three responses quoted as given; the unreached PK cohort is stated as a limit rather than hidden', status: 'evidenced' },
-    { tag: 'Thematic Analysis', evidence: 'methods: "Thematic analysis / affinity clustering"; methodology describes clustering the observed problems into structural themes with per-problem evidence grades', status: 'evidenced' },
-    { tag: 'Persona Development', evidence: 'figures.methodology: "Seven personas, each carrying its own evidence" — one composite per role, each stating where its reading came from; metrics: "7 personas, each with its provenance stated"', status: 'evidenced' },
-    { tag: 'Requirements Engineering', evidence: 'methodology: "Phase 2 turned the clustered problems into numbered requirements, a role-based sitemap"; methods: "Requirements traceability (FR / NFR / P-IDs)"', status: 'evidenced' },
-    { tag: 'Requirements Traceability', evidence: 'methodology: a build-failing test keeps every requirement citation in code traced to its source problem, and states its own limit — it catches a citation without a source, not a problem without an implementation', status: 'evidenced' },
-    { tag: 'Information Architecture', evidence: 'methods: "Information architecture & state modelling"; solution: five purpose-built role views replacing one shared spreadsheet, plus the explicit claim state machine; prototype names the one modelled-but-unreachable status honestly', status: 'evidenced' },
-    { tag: 'Design Systems', evidence: 'figures.methodology: "One palette, from swimlane to shipped screen" — the IBS-DesignSystem sheet, with the research diagram\u2019s lane colours carried unchanged into the shipped UI; a token guard test fails the build on drift between the sheet and the code', status: 'evidenced' },
-    { tag: 'React', evidence: 'techStack rendered as Tech Stack chips under Methodology; metrics: "5 role-based interfaces built and wired"; prototype: the deployed build runs all five of them', status: 'evidenced' },
-    { tag: 'TypeScript', evidence: 'methodology: "Phase 3 engineered the calculation rules as pure, unit-tested TypeScript"', status: 'evidenced' },
-    { tag: 'Automated Testing (Vitest)', evidence: 'metrics: "1,234 automated tests — including guards that fail the build on an untraced requirement citation or a design-token drift"; techStack includes Vitest', status: 'evidenced' },
-    { tag: 'Accessibility', evidence: 'solution: "an optional guided step-by-step mode", camera capture, and a mobile-first upload path — inclusive-design evidence, not a WCAG/a11y audit; notBuilt names the sub-768px shell gap openly', status: 'thin' },
-    { tag: 'GDPR / DSGVO', evidence: 'solution: adapters over a local SQLite database with proofs mirrored to the institute\u2019s own Nextcloud, and the one named external call (Google Maps route lookup) stated in the data-protection documentation; the published prototype runs on the demo adapter with fictional data pinned by a test', status: 'evidenced' },
-    { tag: 'Public Sector', evidence: 'challenge: "participants in a state-funded qualification programme" — direct citation of state/public funding as the programme context', status: 'evidenced' },
+    { tag: 'UX Research', evidence: "methods: insider observation (>1 year inside the process), three expert interviews, participant survey (n=6 and open); metrics records six of the 25 documented problems as survey-contributed; verbatims quotes three respondents", status: 'evidenced' },
+    { tag: 'Stakeholder Interviews', evidence: "methods: 'Expert interviews (n=3: project management, accounting, administration/IT)'; methodology names all three and what each side checked", status: 'evidenced' },
+    { tag: 'Survey Design', evidence: "methods: 'Participant survey (n=6 and open, anonymous)'; verbatims carries three responses quoted as given; the unreached PK cohort is stated as a limit rather than hidden", status: 'evidenced' },
+    { tag: 'Thematic Analysis', evidence: "methodology Define: thematic clustering into a problem register with a per-entry evidence grade (confirmed / indicative / hypothesis / untested)", status: 'evidenced' },
+    { tag: 'Persona Development', evidence: "figures.methodology: seven personas, one composite per role, each stating where its reading came from; methods: persona development with provenance labelling", status: 'evidenced' },
+    { tag: 'Process Mapping (UML)', evidence: "figures.challenge: the AS-IS swimlane activity diagram — nine lanes, 13 steps, four return loops — opens the Challenge section; methods: UML activity diagrams (swimlane)", status: 'evidenced' },
+    { tag: 'Service Design', evidence: "stakeholder mapping plus the end-to-end AS-IS cycle across nine actors; no rendered service blueprint exists yet — the TO-BE is delivered as role views and a claim state machine", status: 'thin' },
+    { tag: 'Requirements Engineering', evidence: "methodology Define: clustered problems became numbered requirements and a role-based sitemap; methods: requirements traceability (FR / NFR / P-IDs)", status: 'evidenced' },
+    { tag: 'Requirements Traceability', evidence: "methodology Develop: a build-failing test keeps every requirement citation in code traced to its source problem — and states its own limit: it catches a citation without a source, not a problem without an implementation", status: 'evidenced' },
+    { tag: 'Information Architecture', evidence: "methods: information architecture & state modelling; solution: five purpose-built role views replacing the spreadsheet ecosystem", status: 'evidenced' },
+    { tag: 'State Machine Modelling', evidence: "solution and prototype: the explicit claim state machine, including the modelled-but-unreachable AUSGEZAHLT status, stated honestly on the page", status: 'evidenced' },
+    { tag: 'Wireframing', evidence: "figures.design: the sketch → wireframe → shipped strip, same participant screen at three fidelities; techStack: Claude Design (wireframes)", status: 'evidenced' },
+    { tag: 'Interaction Design', evidence: "the guided Schritt-für-Schritt mode, camera capture, and the visible status chain are interaction decisions traceable to numbered problems; no standalone interaction spec is published", status: 'thin' },
+    { tag: 'Design Systems', evidence: "design section: the IBS-DesignSystem sheet with the research diagram's lane colours carried unchanged into the shipped UI; a token guard test fails the build on drift between sheet and code", status: 'evidenced' },
+    { tag: 'Prototyping', evidence: "prototype: a deployed demo on Vercel running all five role views entirely in the browser on fictional data, safe to hand to a stranger", status: 'evidenced' },
+    { tag: 'Usability Evaluation (instrumented)', evidence: "guided tasks per role, a pseudonymous event log and an end-of-session questionnaire are built into the app and dogfooded on my own traffic (three measurement bugs caught); sessions with users are pending deployment", status: 'thin' },
+    { tag: 'Accessibility', evidence: "guided step-by-step mode, camera capture, mobile-first upload path — inclusive-design evidence, not a WCAG audit; notBuilt names the sub-768px shell gap openly", status: 'thin' },
+    { tag: 'Data Visualization', evidence: "the admin Diagramme view (process donuts, monthly bars) and the hand-authored SVG research figures; no dedicated visualization study", status: 'thin' },
+    { tag: 'React', evidence: "techStack; metrics: five role-based interfaces built and wired; prototype: the deployed build runs all five", status: 'evidenced' },
+    { tag: 'TypeScript', evidence: "methodology Develop: the calculation rules engineered as pure, unit-tested TypeScript", status: 'evidenced' },
+    { tag: 'Node.js / Fastify', evidence: "techStack: Node.js Server (Fastify); the self-hosted target described in the architecture figure — implemented and tested, deployment pending", status: 'evidenced' },
+    { tag: 'SQLite', evidence: "techStack and the architecture figure: local SQLite database holding only typed fields — no amount column, no trace column", status: 'evidenced' },
+    { tag: 'Excel Automation (SheetJS)', evidence: "techStack: SheetJS / local Excel files — the adapter that reads the institute's existing workbooks so nothing has to be migrated by hand", status: 'evidenced' },
+    { tag: 'Automated Testing (Vitest)', evidence: "metrics: 1,234 automated tests, including guards that fail the build on an untraced requirement citation or a design-token drift", status: 'evidenced' },
+    { tag: 'Product Instrumentation', evidence: "methodology Deliver: pseudonymous local event log with sessionisation; dogfooding collapsed 690 logged records to 45 real sittings and caught three measurement bugs", status: 'evidenced' },
+    { tag: 'Privacy by Design', evidence: "pseudonymous salted logging, local-only storage, a no-real-names build test, proofs mirrored only inside the institute, and the single external call (route lookup) named rather than hidden", status: 'evidenced' },
+    { tag: 'GDPR / DSGVO', evidence: "solution: adapters over a local SQLite database with Nextcloud mirroring inside the institute; the published prototype runs on fictional data pinned by a test; survey verbatims are anonymous and non-identifying", status: 'evidenced' },
+    { tag: 'Public Sector', evidence: "challenge: participants in a state-funded qualification programme — direct citation of public funding as the programme context", status: 'evidenced' },
   ],
 };
 
