@@ -27,7 +27,7 @@ import stakeholderMap from './Stakeholders.png';
 import personaPreview from './Persona-preview.png';
 import designSystemSheet from './IBS-Design-System.png';
 import architectureDiagram from './App-Architecture-Simplified.png';
-import beforeAfterArtefacts from './before-after.jpg';
+import beforeAfterArtefacts from './before-after.webp';
 import architectureGuarantees from './architecture-guarantees.png';
 import processStrip from './process-sketch-wireframe-shipped.svg';
 
@@ -383,25 +383,31 @@ export const projectData = {
           de: 'Tabellenansicht öffnen',
         },
       },
-      // ── Before/after artefact pairs — three-row comparison figure.
+      // ── Before/after artefact pairs — four-row comparison figure
+      // (tracker · attendance list · form · submission), figure 20.08.2026.
+      // Supersedes both the three-row v1 raster and the three-row standalone
+      // HTML page that used to be linked here: neither carried the attendance
+      // row, and both predate the consolidated register.
       //
-      // PENDING (20.08.2026): the description, alt and caption below describe
-      // the v1 export that ships as the preview — 8 problem IDs, no legend, no
-      // gate row, register v13.08.2026. A rewritten text set exists for figure
-      // v2 + the 20.08 fix pass (12 IDs including P25, consolidated register
-      // v20.08.2026, survey n=6) and is deliberately held back until that
-      // raster is exported: against v1 its counts would disagree with the
-      // image the reader is looking at. Export over before-after.jpg and the
-      // held text lands in the same pass.
+      // The text below is written against THIS export — the 13 problem IDs,
+      // the register version and the survey n are read off the figure's own
+      // footer. They are one claim, not two: re-export and the caption gets
+      // re-checked in the same pass.
       //
-      // The linked standalone page is already ahead of the preview: it is the
-      // v2 figure (11 IDs, four-tone legend, amber gate row), though its own
-      // footer reads register v13.08.2026 · survey n=5 — so it is not the
-      // n=6 consolidated version either. All three converge at that export.
+      // The export arrived as a 1920×2795 screen capture, so the top 88px (the
+      // authoring app's status banner and toolbar) and the ~10px canvas card
+      // edge are cropped off, then re-encoded to WebP q90 — 2.4 MB → 449 KB at
+      // full resolution, no downscaling. Kept at 1900px wide because the column
+      // renders at 1060–1280 CSS px, so this is still under 2× for the slot.
+      //
+      // `href` is the same bundled asset as `src`, not a separate page: at
+      // column width the callouts are unreadable, so the click opens the
+      // full-resolution image in its own tab, where the browser's own zoom and
+      // pan do the job a zoom overlay would do worse.
       {
         type: 'image',
         src: beforeAfterArtefacts,
-        href: `${DOCS}/Before-After/before-after-artefacts.html`,
+        href: beforeAfterArtefacts,
         span: 2,
         className: 'w-full h-auto block',
         label: { en: 'Before / after · real artefacts', de: 'Vorher / Nachher · echte Artefakte' },
@@ -410,18 +416,18 @@ export const projectData = {
           de: 'Das Artefakt, das ersetzt wurde',
         },
         description: {
-          en: 'Three pairs of real artefacts, sensitive fields blurred. The hand-kept master tracker — one of at least four Excel artefacts each month required — against the admin board that keeps its own state. The printed Abrechnung completed by pen against the form the system generates from stored data — the pen still signs, by decision: digital signature is built but off, pending the data-protection ruling. And the unconfirmed cloud intake against the participant flow with its visible status chain. Every green win is paired to a numbered problem, and the two things the app does not yet resolve — no screen produces the PAID status, and the participant is still not notified after leaving the app — are marked on the figure itself rather than omitted.',
-          de: 'Drei Paare echter Artefakte, sensible Felder unkenntlich gemacht. Der handgeführte Master-Tracker — eines von mindestens vier Excel-Artefakten, die jeder Monat verlangte — gegen das Admin-Board, das seinen Zustand selbst führt. Die per Stift ausgefüllte gedruckte Abrechnung gegen das Formular, das das System aus gespeicherten Daten erzeugt — der Stift unterschreibt weiterhin, per Entscheidung: Die digitale Unterschrift ist gebaut, aber deaktiviert, bis der Datenschutz entschieden hat. Und der unbestätigte Cloud-Eingang gegen den Teilnehmenden-Flow mit sichtbarer Statuskette. Jeder grüne Gewinn ist einem nummerierten Problem zugeordnet, und die zwei Dinge, die die App noch nicht löst — kein Screen erzeugt den Status AUSGEZAHLT, und Teilnehmende werden nach Verlassen der App weiterhin nicht benachrichtigt — stehen auf der Abbildung selbst statt zu fehlen.',
+          en: 'Four of the artefacts that carry the manual cycle today, each paired with the screen that replaces it — and with what the replacement does not fix stated on the figure. The hand-kept master tracker — one of at least four spreadsheet artefacts a single month requires — against the admin board that keeps its own state. The paper Anwesenheitsliste, signed per session and handed in after the deadline, its codes overwritten and re-marked in three pen colours, against attendance recorded once in the session and read straight into the calculation, where the unfilled fields are counted openly. The printed Abrechnung completed by pen against the form the system generates from stored data, behind a gate of four completeness checks — the pen still signs, by decision: digital signature is built but off, pending the data-protection ruling. And the cloud intake nobody uses — five of six respondents submit by e-mail, one on paper, none through the only channel that leaves a trace — against the participant flow that pushes the claim’s status instead of waiting to be asked. Three limits are marked rather than omitted: no screen produces the PAID status yet, the medical certificate still arrives on paper after the fact, and the app still does not notify participants once they leave it.',
+          de: 'Vier der Artefakte, die den manuellen Zyklus heute tragen, jeweils gepaart mit dem Screen, der sie ersetzt — und mit dem, was der Ersatz nicht löst, direkt auf der Abbildung benannt. Der handgeführte Master-Tracker — eines von mindestens vier Tabellen-Artefakten, die ein einziger Monat verlangt — gegen das Admin-Board, das seinen Zustand selbst führt. Die gedruckte Anwesenheitsliste, pro Sitzung unterschrieben und erst nach der Frist eingereicht, ihre Codes überschrieben und in drei Stiftfarben nachgetragen, gegen die Anwesenheit, die einmal in der Sitzung erfasst und direkt in die Berechnung gelesen wird — die offenen Felder werden dabei offen ausgewiesen. Die per Stift ausgefüllte gedruckte Abrechnung gegen das Formular, das das System aus gespeicherten Daten erzeugt, hinter einem Gate aus vier Vollständigkeitsprüfungen — der Stift unterschreibt weiterhin, per Entscheidung: Die digitale Unterschrift ist gebaut, aber deaktiviert, bis der Datenschutz entschieden hat. Und der ungenutzte Cloud-Eingang — fünf von sechs Befragten reichen per E-Mail ein, eine Person auf Papier, niemand über den einzigen Kanal mit digitaler Spur — gegen den Teilnehmenden-Flow, der den Antragsstatus aktiv anzeigt, statt auf Nachfragen zu warten. Drei Grenzen stehen auf der Abbildung, statt zu fehlen: Noch erzeugt kein Screen den Status AUSGEZAHLT, die AU-Bescheinigung kommt weiterhin nachträglich auf Papier, und die App benachrichtigt Teilnehmende nach dem Verlassen weiterhin nicht.',
         },
         alt: {
-          en: 'Three-row comparison figure. Row one pairs a blurred master Excel tracker with the admin dashboard. Row two pairs a blurred printed reimbursement form completed by pen with the generated form view and its checks panel. Row three pairs the cloud upload intake with the participant month view and its status chain. Red callouts mark numbered problems on the left, green callouts mark the paired resolutions on the right, and two dashed callouts mark what is not yet resolved.',
-          de: 'Dreizeilige Vergleichsabbildung. Zeile eins paart einen unkenntlich gemachten Master-Excel-Tracker mit dem Admin-Dashboard. Zeile zwei paart eine per Stift ausgefüllte, unkenntlich gemachte gedruckte Abrechnung mit der generierten Formularansicht und ihrem Prüfungen-Panel. Zeile drei paart den Cloud-Upload-Eingang mit der Teilnehmenden-Monatsansicht und ihrer Statuskette. Rote Anmerkungen markieren nummerierte Probleme links, grüne die zugeordneten Lösungen rechts, und zwei gestrichelte markieren, was noch nicht gelöst ist.',
+          en: 'Four-row comparison figure with a four-tone callout legend: problems in red, paired wins in green, one amber gate check, and honest limits as dashed notes. Row one pairs a blurred master Excel tracker with the admin dashboard. Row two pairs a blurred paper attendance list, hand-marked in several pen colours, with the app’s monthly attendance grid. Row three pairs a blurred printed reimbursement form completed by pen with the generated form view and its four-check gate. Row four pairs the unused cloud upload folder with the participant month view and its visible status chain. Three dashed callouts mark what is not resolved: the unreachable PAID status, the medical certificate still arriving on paper, and the missing post-submission notification.',
+          de: 'Vierzeilige Vergleichsabbildung mit viertöniger Legende: Probleme in Rot, zugeordnete Lösungen in Grün, eine bernsteinfarbene Gate-Prüfung und ehrliche Grenzen als gestrichelte Notizen. Zeile eins paart einen unkenntlich gemachten Master-Excel-Tracker mit dem Admin-Dashboard. Zeile zwei paart eine unkenntlich gemachte Anwesenheitsliste auf Papier, handschriftlich in mehreren Stiftfarben markiert, mit dem Monatsraster der App. Zeile drei paart eine per Stift ausgefüllte, unkenntlich gemachte gedruckte Abrechnung mit der generierten Formularansicht und ihrem Gate aus vier Prüfungen. Zeile vier paart den ungenutzten Cloud-Upload-Ordner mit der Teilnehmenden-Monatsansicht und ihrer sichtbaren Statuskette. Drei gestrichelte Anmerkungen markieren, was nicht gelöst ist: der unerreichbare Status AUSGEZAHLT, die weiterhin auf Papier eintreffende AU-Bescheinigung und die fehlende Benachrichtigung nach der Einreichung.',
         },
         caption: {
-          en: 'Before/after artefact pairs — problems referenced: P3 · P5 · P6 · P12 · P15 · P18 · P20 · P21, register v13.08.2026',
-          de: 'Vorher/Nachher-Artefaktpaare — referenzierte Probleme: P3 · P5 · P6 · P12 · P15 · P18 · P20 · P21, Register v13.08.2026',
+          en: 'Before/after artefact pairs — problems referenced: P2 · P3 · P5 · P6 · P8 · P9 · P10 · P12 · P15 · P18 · P20 · P21 · P24 — consolidated register v20.08.2026 · survey n=6, all Blended-Kurs, self-selected, survey open',
+          de: 'Vorher/Nachher-Artefaktpaare — referenzierte Probleme: P2 · P3 · P5 · P6 · P8 · P9 · P10 · P12 · P15 · P18 · P20 · P21 · P24 — konsolidiertes Register v20.08.2026 · Umfrage n=6, alle Blended-Kurs, selbstselektiert, Umfrage offen',
         },
-        linkLabel: { en: 'Open the full annotated figure', de: 'Vollständige annotierte Abbildung öffnen' },
+        linkLabel: { en: 'Open the figure full size', de: 'Abbildung in voller Größe öffnen' },
       },
       // ── The enforcement table. Companion to the round-trip diagram: that
       // one tells a non-coder how it works, this tells an engineer what is
