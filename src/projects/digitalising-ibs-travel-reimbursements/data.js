@@ -17,7 +17,7 @@
 //
 // 20.08.2026: revised against 'for Case study IBS.docx' — multi-Excel before-
 // state, n=3 interviews, UCD/double-diamond framing, results deferred until
-// real use (resultsDetail off), design section added, metricsIntro added.
+// real use (no study eyebrow — see metricsIntro), design section added.
 import thumbnailImg from './Project-4.png';
 import thumbnailWebp from './Project-4.webp';
 import prototypeScreenshot from './Fahrtkostenerstattung-—-Prototyp-08-14-2026.jpg';
@@ -26,6 +26,7 @@ import fiveW1HFrame from './5W1H.png';
 import stakeholderMap from './Stakeholders.png';
 import personaPreview from './Persona-preview.png';
 import designSystemSheet from './IBS-Design-System.png';
+import { NEEDS_INPUT } from '../../data/needsInput';
 
 // The two research artefacts are full standalone documents — a nine-lane
 // activity diagram and a seven-card persona set — too detailed to read at
@@ -49,11 +50,22 @@ export const projectData = {
     en: 'From paper forms and a folder of Excel files to one traceable application',
     de: 'Von Papierformularen und einem Ordner voller Excel-Dateien zu einer nachvollziehbaren Anwendung',
   },
+  // Restored 20.08.2026 — the header lead line and the project card's
+  // "Context" field both read `tagline`, and both render nothing at all
+  // without it. `subtitle` is a separate field and does not stand in.
+  tagline: {
+    en: 'A reimbursement process whose only status update is the money arriving — researched from the inside, rebuilt from the evidence.',
+    de: 'Ein Erstattungsprozess, dessen einzige Statusmeldung das eintreffende Geld ist — von innen erforscht, aus der Evidenz neu gebaut.',
+  },
   role: {
     en: 'Solo — UX Research, UI Design, and Frontend Development',
     de: 'Alleinverantwortlich — UX Research, UI-Design und Frontend-Entwicklung',
   },
   timeline: '2026 · four phases · ongoing',
+  aiAssistance: {
+    en: 'Built with AI coding agents under my direction. The research, the requirements, the architecture decisions, the refusals recorded in the decision log — and every claim on this page — are mine and are traceable to their sources.',
+    de: 'Entwickelt mit KI-Coding-Agenten unter meiner Leitung. Die Forschung, die Anforderungen, die Architekturentscheidungen, die im Entscheidungslog festgehaltenen Ablehnungen — und jede Aussage auf dieser Seite — sind meine und auf ihre Quellen rückführbar.',
+  },
   tags: [
     'UX Research',
     'Stakeholder Interviews',
@@ -175,12 +187,13 @@ export const projectData = {
   // Deferred by decision (20.08.2026): outcomes render only once the app is
   // published and in real use. The measured material stays where it belongs —
   // the 43+ day traced claim in metrics, the instrumentation story in
-  // methodology. resultsDetail is off so no study strip renders.
+  // methodology. `metricsIntro` replaces the "Study at a Glance" eyebrow
+  // above the grid, so the numbers keep a frame without being called the
+  // results of a study that has not run.
   results: {
     en: 'This section is intentionally short for now: it will be completed with measured outcomes once the application is published and in real use (status 20.08.2026). Until then, the measured material lives where it belongs — the paper-process baseline in the metrics above, and the evaluation instruments in the methodology.',
     de: 'Dieser Abschnitt bleibt bewusst kurz: Er wird mit gemessenen Ergebnissen gefüllt, sobald die Anwendung veröffentlicht und im echten Einsatz ist (Stand 20.08.2026). Bis dahin steht das Gemessene dort, wo es hingehört — die Basiswerte des Papierprozesses in den Metriken oben, die Evaluationsinstrumente in der Methodik.',
   },
-  resultsDetail: false,
 
   // What is deliberately not built or not switched on. This section is what
   // makes every other claim on the page believable.
@@ -481,12 +494,19 @@ export const projectData = {
       // ── Process strip: the same screen three times, getting more real.
       // Deliberately glanceable — under forty words on the figure itself;
       // the artefacts are the evidence, so nothing in it is redrawn.
-      // PLACEHOLDER: export as process-sketch-wireframe-shipped.png once the
-      // three slot images (sketch photo, Phase-2 wireframe, shipped TN
-      // screenshot — same screen in all three) are dropped in.
+      //
+      // The artwork is not exported yet, so `src` carries the NEEDS_INPUT
+      // sentinel rather than a path to a file that is not there: the figure
+      // shows a visible marker in dev and fails the production build by name,
+      // instead of shipping a broken image or quietly vanishing. To resolve,
+      // compose the three slots (sketch photo, Phase-2 wireframe, shipped TN
+      // screenshot — the same screen in all three) and export to
+      //   public/projects/digitalising-ibs-travel-reimbursements/process-sketch-wireframe-shipped.png
+      // then swap the sentinel for:
+      //   src: `${DOCS}/process-sketch-wireframe-shipped.png`,
       {
         type: 'image',
-        src: `${DOCS}/process-sketch-wireframe-shipped.png`, // PLACEHOLDER — drop file in public/
+        src: NEEDS_INPUT,
         span: 2,
         className: 'w-full h-auto block',
         label: { en: 'Process · sketch to shipped', de: 'Prozess · Skizze bis Auslieferung' },
@@ -522,6 +542,12 @@ export const projectData = {
   // Participant language from the survey (open since August 2026, n=6 so
   // far). German originals with English translations — anonymous,
   // non-identifying, quoted as given.
+  //
+  // These are evidence about the problem, not findings from a study — no
+  // study has run — so they render inside the Challenge section rather than
+  // in Results. `verbatimsIn` is the per-project override; a project that
+  // omits it keeps the default Results placement.
+  verbatimsIn: 'challenge',
   verbatims: [
     {
       quote: {

@@ -7,7 +7,14 @@
 import { describe, it, expect } from "vitest";
 import { projects, sortedProjects, getProject, getTagData } from "./projects";
 import { isNeedsInput } from "./needsInput";
-import { RENDERED_FIELDS, DATA_ONLY_FIELDS } from "../projects/template/constants";
+import {
+  RENDERED_FIELDS,
+  DATA_ONLY_FIELDS,
+  FIGURE_KEYS,
+  PROSE_SECTIONS,
+  SECTIONS,
+  VERBATIM_SECTIONS,
+} from "../projects/template/constants";
 
 describe("projects aggregator — data contract", () => {
   it("discovers at least one project folder", () => {
@@ -272,14 +279,101 @@ describe("data/renderer contract — no field drifts in either direction", () =>
   // The strip in the Results section renders from whichever of these is
   // present — never from a boolean. `resultsDetail` was one: read as
   // `!== false`, it could not turn the strip off for the project that set it,
-  // and its heading called a set of artefact counts a study.
+  // and its heading called a set of artefact counts a study. It came back in
+  // a later wholesale data replacement, still doing nothing, which is why
+  // this guard is worth its line count.
   it("no project reintroduces the resultsDetail boolean", () => {
     for (const p of projects) {
       expect(
         "resultsDetail" in p,
         `${p.slug}: resultsDetail is gone — the strip renders from ` +
-          `resultsAtAGlance or metrics, whichever is present.`
+          `resultsAtAGlance or metrics, whichever is present, and ` +
+          `metricsIntro replaces its eyebrow.`
       ).toBe(false);
+    }
+  });
+
+  // One level below the registry check: `figures` is a rendered field, so a
+  // figure group filed under a key no section reads passes that check and
+  // still renders nothing. `figures.design` was exactly this — written in
+  // full, with alt text and captions, reachable by no one.
+  it("every figures.* group is a slot some section actually renders", () => {
+    for (const p of projects) {
+      if (!p.figures) continue;
+      const unknown = Object.keys(p.figures).filter((k) => !FIGURE_KEYS.includes(k));
+      expect(
+        unknown,
+        `${p.slug}: figures.${unknown.join(", figures.")} ` +
+          `${unknown.length === 1 ? "is a group" : "are groups"} no section reads. ` +
+          `Known slots: ${FIGURE_KEYS.join(", ")}.`
+      ).toEqual([]);
+    }
+  });
+
+  // A prose section needs three things to reach a reader: the text key in the
+  // data, an entry in SECTIONS (or the sidebar and the numbering skip it),
+  // and its two translation keys. Two out of three renders a heading with no
+  // label, or a section no one can navigate to.
+  it("every prose section has a matching SECTIONS entry", () => {
+    for (const section of PROSE_SECTIONS) {
+      expect(
+        SECTIONS.some((s) => s.id === section.id && s.dataKey === section.textKey),
+        `PROSE_SECTIONS "${section.id}" has no SECTIONS entry keyed to ` +
+          `"${section.textKey}" — the sidebar and section numbering would skip it`
+      ).toBe(true);
+    }
+  });
+
+  // Bilingual prose blocks that stand alone as a section body. Same rule as
+  // the strip and notBuilt: present-but-empty is worse than absent, because
+  // it renders a heading over nothing.
+  it("design and metricsIntro, where present, are non-empty bilingual blocks", () => {
+    for (const p of projects) {
+      for (const key of ["design", "metricsIntro"]) {
+        if (!(key in p)) continue;
+        const v = p[key];
+        expect(
+          v !== null && typeof v === "object" && !Array.isArray(v),
+          `${p.slug}: ${key} must be an { en, de } object — useLocalizedProfile ` +
+            `resolves it per language`
+        ).toBe(true);
+        expect(
+          (v.en || "").length > 0,
+          `${p.slug}: ${key} is present but empty — omit the field instead`
+        ).toBe(true);
+      }
+    }
+  });
+
+  // A design section with no figures is legitimate prose; figures with no
+  // prose would render a numbered heading straight into an image grid.
+  it("figures.design never appears without the design prose that heads it", () => {
+    for (const p of projects) {
+      if (!p.figures?.design) continue;
+      expect(
+        p.design,
+        `${p.slug}: figures.design exists but \`design\` does not — the section ` +
+          `is keyed to the prose, so the figures would render nowhere`
+      ).toBeTruthy();
+    }
+  });
+
+  // Placement, not visibility: `verbatims` renders on presence alone. This
+  // only checks that a project naming a section names one that exists —
+  // a typo would otherwise silently fall back and move quotes off the
+  // section their author put them in.
+  it("verbatimsIn, where present, names a section that renders verbatims", () => {
+    for (const p of projects) {
+      if (!("verbatimsIn" in p)) continue;
+      expect(
+        VERBATIM_SECTIONS,
+        `${p.slug}: verbatimsIn "${p.verbatimsIn}" is not a section that renders ` +
+          `verbatims`
+      ).toContain(p.verbatimsIn);
+      expect(
+        p.verbatims?.length > 0,
+        `${p.slug}: verbatimsIn is set but there are no verbatims to place`
+      ).toBe(true);
     }
   });
 

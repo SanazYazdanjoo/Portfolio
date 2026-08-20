@@ -13,6 +13,11 @@
 // content simply doesn't render — it's a wide-screen enhancement, not new
 // information (the same sentence already lives in the paragraph).
 //
+// The TOC collapses to an icon rail, and the content column's cap widens to
+// match when it does — the freed 180-220px goes to the figures, which is the
+// only reason to collapse a nav in the first place. The state is session-
+// scoped (see template/useSessionState.js).
+//
 // Default export is ProjectTemplate({ meta, children }). All data comes
 // from src/projects/*/data.js. This file is only the composition layer:
 // each building block lives in ./template/ (one concern per file — see
@@ -28,14 +33,19 @@ import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { profileData as rawProfile } from "../data/profile";
 import { projects as allProjects } from "../data/projects";
 
-import { SECTIONS } from "./template/constants";
+import {
+  SECTIONS,
+  PROSE_SECTIONS,
+  VERBATIM_SECTIONS,
+  DEFAULT_VERBATIM_SECTION,
+} from "./template/constants";
 import { ClampedText } from "./template/ClampedText";
 import { ContentSection } from "./template/CollapsibleSection";
 import { Prose } from "./template/Prose";
 import { ProcessGallerySection } from "./template/ProcessGallery";
 import { SidebarNav, MobilePillBar } from "./template/SectionNav";
 import { MetricsStrip } from "./template/MetricsStrip";
-import { VerbatimRail, VerbatimInline } from "./template/Verbatims";
+import { VerbatimRail, VerbatimInline, VerbatimList } from "./template/Verbatims";
 import { OutcomeBlock } from "./template/OutcomeBlock";
 import { NotBuiltBlock } from "./template/NotBuiltBlock";
 import { ResearchPhases } from "./template/ResearchPhases";
@@ -45,6 +55,7 @@ import { ProjectHeader } from "./template/ProjectHeader";
 import { ProjectHero } from "./template/ProjectHero";
 import { useSectionState } from "./template/useSectionState";
 import { useScrollProgress } from "./template/useScrollProgress";
+import { useSessionState } from "./template/useSessionState";
 
 export default function ProjectTemplate({ meta: rawMeta, children }) {
   const { t } = useTranslation();
@@ -66,6 +77,21 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
   // set truthfully and have nothing happen.
   const glance = meta.resultsAtAGlance;
   const glanceItems = glance?.items ?? meta.metrics;
+
+  // Where participant quotes render. They are evidence, and which section
+  // they are evidence *for* is a per-project judgement the data makes:
+  // survey answers describing a broken process argue the Challenge, quotes
+  // from a study that ran argue the Results. Unrecognised values fall back
+  // rather than rendering nowhere — a typo in a data file must not silently
+  // delete content, which is the whole failure mode this template keeps
+  // relearning. Gated on the presence of `verbatims`, never on a flag.
+  const hasVerbatims = meta.verbatims?.length > 0;
+  const verbatimSection = VERBATIM_SECTIONS.includes(meta.verbatimsIn)
+    ? meta.verbatimsIn
+    : DEFAULT_VERBATIM_SECTION;
+  const verbatimsIn = (id) => hasVerbatims && verbatimSection === id;
+
+  const [navCollapsed, , toggleNav] = useSessionState("project-toc-collapsed", false);
 
   useDocumentMeta({
     title: `${meta.title} — ${profileData.name}`,
@@ -135,12 +161,27 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
       <div className="relative z-10 w-full bg-bg pb-16 pt-8 md:pt-12">
         <div className="w-full px-4 md:px-8 max-w-[1500px] mx-auto">
           <div className="flex items-start">
-            <aside className="hidden md:block w-[180px] lg:w-[220px] shrink-0 no-print sticky top-36 self-start pr-8 lg:pr-10">
+            {/* Widths are the collapse: the aside drops to a 56px rail and
+                the content column's cap rises by roughly what the aside gave
+                up. Hiding the nav without moving this cap would leave the
+                reclaimed space empty, which is not reclaiming it. */}
+            <aside
+              className={`hidden md:block shrink-0 no-print sticky top-36 self-start
+                          transition-[width,padding] duration-300 ease-out
+                          ${navCollapsed
+                            ? "w-14 pr-4"
+                            : "w-[180px] lg:w-[220px] pr-8 lg:pr-10"}`}
+            >
               <SidebarNav sections={activeSections} activeId={activeId}
-                onNavigate={navigateToSection} allOpen={allOpen} onToggleAll={toggleAllSections} />
+                onNavigate={navigateToSection} allOpen={allOpen} onToggleAll={toggleAllSections}
+                collapsed={navCollapsed} onToggleCollapsed={toggleNav} />
             </aside>
 
-            <div className="flex-1 min-w-0 max-w-[1060px] md:border-l md:border-border md:pl-8 lg:pl-10">
+            <div
+              className={`flex-1 min-w-0 md:border-l md:border-border md:pl-8 lg:pl-10
+                          transition-[max-width] duration-300 ease-out
+                          ${navCollapsed ? "max-w-[1280px]" : "max-w-[1060px]"}`}
+            >
               <ProjectHeader meta={meta} tags={tags} />
 
               {/* Mobile pill bar */}
@@ -181,26 +222,26 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                 </motion.div>
               )}
 
-              {meta.challenge && (
-                <ContentSection id="challenge" number={sectionNumber("challenge")}
-                  isOpen={openSections.has("challenge")} onToggle={() => toggleSection("challenge")}
-                  staggerDelayMs={staggerDelayFor("challenge")}
-                  kicker={t("project.challenge.kicker")} heading={t("project.challenge.heading")}>
-                  <Prose text={meta.challenge} quote={meta.challengeQuote} rail>
-                    <SectionMedia items={meta.figures?.challenge} />
-                  </Prose>
-                </ContentSection>
-              )}
-
-              {meta.solution && (
-                <ContentSection id="solution" number={sectionNumber("solution")}
-                  isOpen={openSections.has("solution")} onToggle={() => toggleSection("solution")}
-                  staggerDelayMs={staggerDelayFor("solution")}
-                  kicker={t("project.solution.kicker")} heading={t("project.solution.heading")}>
-                  <Prose text={meta.solution} quote={meta.solutionQuote} rail>
-                    <SectionMedia items={meta.figures?.solution} />
-                  </Prose>
-                </ContentSection>
+              {/* Challenge, Solution and Design share one anatomy — heading,
+                  prose, optional pull-quote, optional figure grid — so they
+                  render from PROSE_SECTIONS rather than three near-identical
+                  blocks. Adding the next one is a line in constants.js plus
+                  two translation keys; it cannot be half-added, which is how
+                  `design` came to sit in a data file rendering nothing.
+                  Verbatims slot in after the prose and before the figures for
+                  whichever section the data assigns them to. */}
+              {PROSE_SECTIONS.map(({ id, textKey, quoteKey, rail }) =>
+                meta[textKey] ? (
+                  <ContentSection key={id} id={id} number={sectionNumber(id)}
+                    isOpen={openSections.has(id)} onToggle={() => toggleSection(id)}
+                    staggerDelayMs={staggerDelayFor(id)}
+                    kicker={t(`project.${id}.kicker`)} heading={t(`project.${id}.heading`)}>
+                    <Prose text={meta[textKey]} quote={meta[quoteKey]} rail={rail || !!meta[quoteKey]}>
+                      {verbatimsIn(id) && <VerbatimList verbatims={meta.verbatims} />}
+                      <SectionMedia items={meta.figures?.[id]} />
+                    </Prose>
+                  </ContentSection>
+                ) : null
               )}
 
               {(meta.prototype || meta.prototypeUrl || (meta.figures?.prototype?.length > 0)) && (
@@ -290,7 +331,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                       reads `metrics` for its own "Impact at a glance" row. The
                       two surfaces are allowed to show different numbers: the
                       card counts artefacts, this strip reports measurements. */}
-                  <div className={meta.verbatims?.length > 0 ? "xl:grid xl:grid-cols-[1fr_240px] xl:gap-10 items-start" : ""}>
+                  <div className={verbatimsIn("results") ? "xl:grid xl:grid-cols-[1fr_240px] xl:gap-10 items-start" : ""}>
                     <div className="max-w-[68ch]">
                       {/* Gated on the items the strip below actually renders,
                           not on `metrics`, so the notice can never describe a
@@ -309,11 +350,12 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                       )}
                       <SectionMedia items={meta.figures?.results} />
 
-                      <MetricsStrip metrics={glanceItems} title={glance?.title} />
+                      <MetricsStrip metrics={glanceItems} title={glance?.title}
+                        intro={meta.metricsIntro} />
 
-                      <VerbatimInline verbatims={meta.verbatims} />
+                      {verbatimsIn("results") && <VerbatimInline verbatims={meta.verbatims} />}
                     </div>
-                    <VerbatimRail verbatims={meta.verbatims} />
+                    {verbatimsIn("results") && <VerbatimRail verbatims={meta.verbatims} />}
                   </div>
 
                   {/* Limits first, then outcome: what was deliberately not
