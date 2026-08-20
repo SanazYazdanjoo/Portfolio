@@ -17,6 +17,16 @@
 // A figure that omits all of them renders as a plain image. Projects
 // without a `figures` key are unaffected.
 //
+// A figure whose `src` is NEEDS_INPUT is one whose artwork has not been
+// exported yet. It keeps its framing — label, title, description, caption are
+// already written and are the reason the figure is planned — and shows the
+// sentinel marker where the image goes, instead of a broken-image icon. In
+// production it never renders at all: scripts/check-needs-input.mjs fails the
+// build first, naming the exact field. Dropping the figure entry from the data
+// would also "work", and is the thing this codebase keeps having to relearn
+// not to do — a planned figure that quietly stops existing is indistinguishable
+// from one nobody ever wrote.
+//
 // `href` turns the figure into a preview that opens a standalone page in a
 // new tab (the detailed UML and the persona set are full documents that
 // need a whole viewport, not a zoom overlay). It replaces zoom rather than
@@ -28,24 +38,64 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
+import { NeedsInputMarker } from "../components/NeedsInputMarker";
+import { isNeedsInput } from "../data/needsInput";
 
 // Zoom overlay. Rendered through a portal to document.body: figures sit
 // inside a framer-motion section, and a transformed ancestor would
 // otherwise become the containing block for `position: fixed`, breaking
 // the overlay mid-animation.
+//
+// The backdrop is a dark scrim plus a blur, not the page background at 95%
+// opacity. The old `bg-bg/95` was the same surface the close button is drawn
+// on, so the button dissolved into whatever sat behind it — and on a wide
+// figure there is no "behind it" that stays constant while you scroll. A
+// scrim that is never the page colour gives every control on top of it one
+// predictable ground.
+//
+// Focus goes to the dialog itself on open — not to the close button, which
+// would read the control before the content it belongs to — and is trapped
+// inside it until close. SectionMedia returns focus to the triggering figure.
 function ZoomOverlay({ figure, onClose }) {
   const { t } = useTranslation();
-  const closeRef = useRef(null);
+  const dialogRef = useRef(null);
 
   useEffect(() => {
-    const onKey = (e) => { if (e.key === "Escape") onClose(); };
+    const dialog = dialogRef.current;
+
+    const onKey = (e) => {
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab" || !dialog) return;
+
+      // Focus trap. Everything focusable in here is a button or the image
+      // wrapper, so a static query is enough — no mutation observer.
+      const focusable = dialog.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement;
+
+      if (e.shiftKey && (active === first || active === dialog)) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
     document.addEventListener("keydown", onKey);
 
     // Freeze background scroll while the overlay owns the viewport.
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
-    closeRef.current?.focus();
+    dialog?.focus();
 
     return () => {
       document.removeEventListener("keydown", onKey);
@@ -55,26 +105,37 @@ function ZoomOverlay({ figure, onClose }) {
 
   return createPortal(
     <div
+      ref={dialogRef}
       role="dialog"
       aria-modal="true"
       aria-label={figure.alt || t("project.media.enlargedDefault")}
-      className="fixed inset-0 z-[100] overflow-auto bg-bg/95 print:hidden"
+      tabIndex={-1}
+      className="fixed inset-0 z-[100] overflow-auto bg-black/80 backdrop-blur-md
+                 focus:outline-none print:hidden"
       onClick={onClose}
     >
-      <div className="sticky top-0 flex justify-end p-4">
-        <button
-          ref={closeRef}
-          type="button"
-          onClick={onClose}
-          className="border border-border bg-bg px-3 py-1.5 font-mono text-2xs
-                     uppercase tracking-wider text-text hover:text-primary-600
-                     focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
-        >
-          {t("project.media.close")} &#10005;
-        </button>
-      </div>
+      {/* Fixed, not sticky: a sticky header scrolls with the overlay's own
+          scroll container and can be pushed off by a tall figure. The close
+          control has to be in the same place on the first screen and the
+          last. Its own surface + ring, so it reads on any image under it. */}
+      <button
+        type="button"
+        onClick={onClose}
+        aria-label={t("project.media.closeLabel")}
+        className="fixed right-4 top-4 z-10 inline-flex h-11 w-11 items-center justify-center
+                   rounded-full border border-white/25 bg-black/70 text-white shadow-lg
+                   backdrop-blur-sm transition-colors duration-200
+                   hover:border-white hover:bg-black
+                   focus:outline-none focus-visible:ring-2 focus-visible:ring-white
+                   focus-visible:ring-offset-2 focus-visible:ring-offset-black/60"
+      >
+        <svg aria-hidden="true" className="h-5 w-5" fill="none" stroke="currentColor"
+             strokeWidth="2.5" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
 
-      <div className="px-4 pb-16">
+      <div className="px-4 pb-16 pt-20">
         {/* Stop propagation so clicking the image itself does not dismiss. */}
         <img
           src={figure.src}
@@ -84,7 +145,7 @@ function ZoomOverlay({ figure, onClose }) {
         />
         {figure.caption && (
           <p className="mx-auto mt-4 max-w-3xl text-center font-mono text-2xs
-                        uppercase tracking-wider leading-relaxed text-text-meta">
+                        uppercase tracking-wider leading-relaxed text-white/70">
             {figure.caption}
           </p>
         )}
@@ -115,10 +176,15 @@ export default function SectionMedia({ items }) {
         {items.map((f, i) => {
           const isVideo = f.type === "video";
           const isLink = !!f.href;
-          const canZoom = !isLink && !isVideo && f.zoom !== false && !!f.src;
+          const needsArtwork = isNeedsInput(f.src) || isNeedsInput(f.poster);
+          const canZoom = !isLink && !isVideo && f.zoom !== false && !!f.src && !needsArtwork;
           const linkLabel = f.linkLabel || t("project.media.openFullPage");
 
-          const media = isVideo && !prefersReducedMotion ? (
+          const media = needsArtwork ? (
+            <div className="flex min-h-[120px] items-center justify-center p-6">
+              <NeedsInputMarker path={`figures[${i}].src`} />
+            </div>
+          ) : isVideo && !prefersReducedMotion ? (
             <video
               src={f.src}
               poster={f.poster}

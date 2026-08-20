@@ -15,6 +15,7 @@ export const SECTIONS = [
   { id: "process",      labelKey: "project.sidebar.process",      dataKey: "process"      },
   { id: "challenge",    labelKey: "project.sidebar.challenge",    dataKey: "challenge"    },
   { id: "solution",     labelKey: "project.sidebar.solution",     dataKey: "solution"     },
+  { id: "design",       labelKey: "project.sidebar.design",       dataKey: "design"       },
   { id: "prototype",    labelKey: "project.sidebar.prototype",    dataKey: "prototype"    },
   { id: "methodology",  labelKey: "project.sidebar.methodology",  dataKey: "methodology"  },
   { id: "results",      labelKey: "project.sidebar.results",      dataKey: "results"      },
@@ -46,10 +47,42 @@ export const RENDERED_FIELDS = [
   "timeline", "tags", "thumbnail", "thumbnailWebp", "heroImage", "aiAssistance",
   // Body sections (see SECTIONS above for the ones with their own heading)
   "about", "process", "challenge", "challengeQuote", "solution", "solutionQuote",
-  "prototype", "prototypeUrl", "prototypeUrlLabel", "methodology",
+  "design", "designQuote", "prototype", "prototypeUrl", "prototypeUrlLabel", "methodology",
   "methodologyQuote", "methods", "techStack", "results", "resultsAtAGlance",
-  "metrics", "verbatims", "outcome", "notBuilt", "implications", "phases",
-  "phasesIntro", "conclusion", "figures",
+  "metrics", "metricsIntro", "verbatims", "verbatimsIn", "outcome", "notBuilt",
+  "implications", "phases", "phasesIntro", "conclusion", "figures",
+];
+
+// Sections whose body is a prose block plus an optional figure grid, keyed by
+// the `figures` sub-key they read. ProjectTemplate renders each from this
+// list rather than from a hand-written block per section, so adding the next
+// one is a line here plus two translation keys — not a copy-pasted branch
+// that can be forgotten. Order is the render order.
+export const PROSE_SECTIONS = [
+  { id: "challenge", textKey: "challenge", quoteKey: "challengeQuote", rail: true  },
+  { id: "solution",  textKey: "solution",  quoteKey: "solutionQuote",  rail: true  },
+  { id: "design",    textKey: "design",    quoteKey: "designQuote",    rail: false },
+];
+
+// Where a project's `verbatims` render. Participant quotes are evidence, and
+// which section they are evidence *for* is a per-project judgement: survey
+// answers about a broken process argue the Challenge, quotes from a study
+// that ran argue the Results. Projects that omit `verbatimsIn` keep the
+// original Results placement, so no existing page moves.
+export const VERBATIM_SECTIONS = ["challenge", "results"];
+export const DEFAULT_VERBATIM_SECTION = "results";
+
+// Every `figures` sub-key ProjectTemplate passes to SectionMedia. A figure
+// group under any other key is a set of images, alt text and captions that
+// nothing renders — the same silent failure `notBuilt` had, one level down
+// and harder to spot, since `figures` as a whole IS rendered and the
+// registry check above therefore passes. projects.test.js checks each data
+// file's figure keys against this list.
+export const FIGURE_KEYS = [
+  ...PROSE_SECTIONS.map((s) => s.id),
+  "prototype",
+  "methodology",
+  "results",
 ];
 
 // DATA_ONLY_FIELDS — deliberately never rendered. Each needs a reason, because

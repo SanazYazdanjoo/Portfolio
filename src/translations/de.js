@@ -177,12 +177,15 @@ const de = {
 
   // Project detail — sidebar / mobile pill labels (short form)
   "project.sidebar.allProjects": "Alle Projekte",
+  "project.sidebar.hide": "Abschnittsliste ausblenden",
+  "project.sidebar.show": "Abschnittsliste einblenden",
   "project.sidebar.collapseAll": "Alles einklappen",
   "project.sidebar.expandAll": "Alles ausklappen",
   "project.sidebar.about": "Übersicht",
   "project.sidebar.process": "Prozess",
   "project.sidebar.challenge": "Herausforderung",
   "project.sidebar.solution": "Lösung",
+  "project.sidebar.design": "Design",
   "project.sidebar.prototype": "Prototyp",
   "project.sidebar.methodology": "Methodik",
   "project.sidebar.results": "Ergebnisse",
@@ -211,6 +214,9 @@ const de = {
 
   "project.solution.kicker": "Was ich gebaut habe",
   "project.solution.heading": "Die Lösung",
+
+  "project.design.kicker": "Wie es entstand",
+  "project.design.heading": "Design",
 
   "project.prototype.kicker": "In Aktion sehen",
   "project.prototype.heading": "Prototyp",
@@ -273,6 +279,7 @@ const de = {
 
   // Project detail — figure viewer chrome
   "project.media.close": "Schließen",
+  "project.media.closeLabel": "Vergrößerte Abbildung schließen",
   "project.media.enlarge": "Abbildung vergrößern",
   "project.media.enlargedDefault": "Vergrößerte Abbildung",
   "project.media.clickToEnlarge": "zum Vergrößern klicken",
