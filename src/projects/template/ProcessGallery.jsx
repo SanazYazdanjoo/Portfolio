@@ -142,7 +142,7 @@ export function ProcessGallerySection({ items, number, isOpen, onToggle, stagger
         }}
       >
         <div style={{ overflow: "hidden", minHeight: 0 }}>
-          <ol className="list-none p-0 m-0 max-w-[68ch]" role="list" aria-label={t("project.process.ariaLabel")}>
+          <ol className="list-none p-0 m-0 max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-out" role="list" aria-label={t("project.process.ariaLabel")}>
             {items.map((item, i) => (
               <ProcessStep key={`${item.phase}-${i}`} item={item} index={i} total={items.length} />
             ))}

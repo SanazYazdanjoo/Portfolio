@@ -75,7 +75,7 @@ export function MetricsStrip({ metrics, title, intro }) {
   return (
     <div className="mt-8">
       {intro ? (
-        <p className="mb-5 max-w-[68ch] text-sm leading-relaxed text-text-meta"
+        <p className="mb-5 max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-out text-sm leading-relaxed text-text-meta"
            style={{ breakInside: "avoid" }}>
           {intro}
         </p>
