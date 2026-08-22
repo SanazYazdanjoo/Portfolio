@@ -2,6 +2,7 @@
 // deliberately let out to the full content column: it has to hold one line
 // whatever its length, and every extra pixel of width buys it type size.
 
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { Badge } from "../../components/Badge";
@@ -10,9 +11,26 @@ import { FitTitle } from "./FitTitle";
 import { ContributionRow } from "./ContributionRow";
 import { EASE } from "./constants";
 
+// How many skill chips a phone shows before the "+N more" disclosure. The
+// cap is a small-screen affordance only — from `sm` up the full list renders
+// and the toggle is not there at all, because at that width the chips already
+// pack into a few rows.
+//
+// A cap and not a cull: every tag is pinned to a `tagEvidence` entry (enforced
+// both ways in data/projects.test.js), feeds the count on /tags, and is what
+// puts this project on its tag page. Eleven of this case study's tags are
+// shared with other projects — React, TypeScript, Thematic Analysis and
+// Stakeholder Interviews among them — so deleting the ones that look like
+// duplicates of `techStack` or `methods` would quietly drop the project out of
+// eight tag pages that genuinely aggregate more than one project. The list
+// being long is editorial; the header being 1,864px tall was the bug.
+const MOBILE_TAG_CAP = 8;
+
 export function ProjectHeader({ meta, tags }) {
   const prefersReducedMotion = useReducedMotion();
   const { t } = useTranslation();
+  const [allTagsShown, setAllTagsShown] = useState(false);
+  const hiddenTagCount = Math.max(0, tags.length - MOBILE_TAG_CAP);
 
   return (
     <motion.header
@@ -51,11 +69,21 @@ export function ProjectHeader({ meta, tags }) {
           column rather than the 720px reading measure: its values are
           short labels and chips, and giving the skill tags the whole
           width lets them wrap into far fewer rows. The one long-form
-          value in here, the contribution lists, keeps its own measure. */}
+          value in here, the contribution lists, keeps its own measure.
+
+          The label/value split is a two-column grid only from `sm` up. On a
+          phone the fixed label column left roughly 200px for the value, which
+          is narrower than most of the chips: 28 skill tags came out as 27
+          separate rows, 1,159px of near-identical pills in a 665px viewport,
+          and the header as a whole ran 1,864px before a reader reached any
+          prose. Below `sm` the label now sits above its value and the chips
+          get the full column. Note this is a layout fix only — how many tags
+          there are is an editorial question, and each one is pinned to a
+          `tagEvidence` entry (enforced in data/projects.test.js). */}
       {(meta.role || meta.timeline || tags.length > 0 || meta.aiAssistance) && (
         <dl className="border-t border-border">
           {meta.role && (
-            <div className="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr] gap-4 py-4 border-b border-border">
+            <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-[140px_1fr] sm:gap-4 py-4 border-b border-border">
               <dt className="text-[11px] font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
                 {t("project.meta.role")}
               </dt>
@@ -64,7 +92,7 @@ export function ProjectHeader({ meta, tags }) {
           )}
           {meta.myContribution && <ContributionRow contribution={meta.myContribution} />}
           {meta.timeline && (
-            <div className={`grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr] gap-4 py-4 ${tags.length > 0 ? "border-b border-border" : ""}`}>
+            <div className={`grid grid-cols-1 gap-1.5 sm:grid-cols-[140px_1fr] sm:gap-4 py-4 ${tags.length > 0 ? "border-b border-border" : ""}`}>
               <dt className="text-[11px] font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
                 {t("project.meta.timeline")}
               </dt>
@@ -72,16 +100,45 @@ export function ProjectHeader({ meta, tags }) {
             </div>
           )}
           {tags.length > 0 && (
-            <div className={`grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr] gap-4 py-4 ${meta.aiAssistance ? "border-b border-border" : ""}`}>
+            <div className={`grid grid-cols-1 gap-1.5 sm:grid-cols-[140px_1fr] sm:gap-4 py-4 ${meta.aiAssistance ? "border-b border-border" : ""}`}>
               <dt className="text-[11px] font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
                 {t("project.meta.skills")}
               </dt>
               <dd className="flex flex-wrap gap-2">
-                {tags.map((tag) => (
-                  <Link key={tag} to={`/tags/${encodeURIComponent(tag)}`}>
+                {tags.map((tag, i) => (
+                  <Link
+                    key={tag}
+                    to={`/tags/${encodeURIComponent(tag)}`}
+                    /* Hidden with `display: none` rather than clipped, so a
+                       screen reader on a phone reads the same list a sighted
+                       reader sees — the toggle is a real disclosure. */
+                    className={i >= MOBILE_TAG_CAP && !allTagsShown ? "hidden sm:block" : undefined}
+                  >
                     <Badge tone="accent">{tag}</Badge>
                   </Link>
                 ))}
+
+                {hiddenTagCount > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => setAllTagsShown((shown) => !shown)}
+                    aria-expanded={allTagsShown}
+                    aria-label={
+                      allTagsShown
+                        ? t("project.meta.fewerSkills")
+                        : t("project.meta.showAllSkills").replace("{n}", tags.length)
+                    }
+                    className="sm:hidden no-print inline-flex items-center rounded-full border-[1.5px]
+                               border-dashed border-text-meta bg-transparent px-3 py-1 text-xs
+                               font-semibold tracking-wide text-text-meta transition-colors
+                               duration-200 ease-smooth hover:border-primary-600 hover:text-primary-600
+                               focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
+                  >
+                    {allTagsShown
+                      ? t("project.meta.fewerSkills")
+                      : `+${hiddenTagCount} ${t("project.meta.moreSkills")}`}
+                  </button>
+                )}
               </dd>
             </div>
           )}
@@ -96,7 +153,7 @@ export function ProjectHeader({ meta, tags }) {
               ContributionRow precedent in this same list. Optional: projects
               without the field render nothing and get no empty row. */}
           {meta.aiAssistance && (
-            <div className="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr] gap-4 py-4"
+            <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-[140px_1fr] sm:gap-4 py-4"
                  style={{ breakInside: "avoid" }}>
               <dt className="text-[11px] font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
                 {t("project.meta.aiAssistance")}

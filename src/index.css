@@ -51,6 +51,26 @@
     overflow-y: auto;
     scrollbar-width: none; 
   }
+
+  /* App shell height (App.jsx). `dvh`, not `vh`: on a phone `100vh` is the
+     LARGE viewport — the height with the URL bar retracted — while only the
+     small viewport is actually visible. A 100vh shell therefore overflows
+     the screen by the height of the browser chrome (measured: 94px on a
+     390x750 device), and the DOCUMENT gains a second scrollbar on top of the
+     app's own .overflow-y-auto container. Dragging then scrolls the document
+     first, sliding the site header clean off the top, before handing over to
+     the real scroller — and reverses on the way back. That two-stage handoff
+     is the "shaking" a reader feels on mobile, and it is not perceptible on
+     a desktop because desktop chrome does not move.
+
+     `dvh` tracks the visible area as the URL bar comes and goes, so the
+     shell always fits and there is exactly one scroller. The `vh` line above
+     it stays as the fallback for browsers without `dvh` — do not remove it,
+     and do not "simplify" this back to Tailwind's h-screen. */
+  .app-shell {
+    height: 100vh;
+    height: 100dvh;
+  }
 }
 /* Helper Utilities */
 .display-none { display: none; }
@@ -101,6 +121,8 @@
   .overflow-y-auto > *:not(main),
   .bg-paper-texture,
   .bg-ink-speckles,
+  .bg-dots,
+  .bg-dots-paper,
   [class*="SketchTrail"],
   [class*="ScribbleDivider"],
   [class*="Doodle"],

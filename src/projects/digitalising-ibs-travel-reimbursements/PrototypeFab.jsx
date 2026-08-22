@@ -46,17 +46,55 @@ const BLOB = [
 // rather than scaling.
 const BLOB_ALT = [BLOB[2], BLOB[0], BLOB[1], BLOB[2]];
 
-// The lid outline, and the clip that keeps the tracking pupil behind it.
-// Top and bottom arcs are intentionally not mirrors.
-const ALMOND = "M1.9 12.4 C5.8 6.3, 18.4 6, 22.1 12.1 C18.3 18, 5.8 18.3, 1.9 12.4 Z";
+// The eye, drawn the way it would be drawn: the lid is two separate pen
+// strokes rather than one closed almond, and they don't tidy up at the
+// corners — the upper stroke runs past the lower one at the inner corner and
+// stops short of it at the outer one. The iris is a loop the pen lifted off
+// before closing, and the pupil is an uneven blob. A symmetrical almond with
+// a compass-perfect iris was the tell that this was drawn with a mouse.
+const LID_UPPER = "M1.6 13.2 C3.9 8.8, 8.9 6.2, 13.6 6.5 C17.5 6.75, 20.9 8.9, 22.6 12";
+const LID_LOWER = "M2.5 12.4 C4 15.6, 8 17.9, 12 18 C16.2 18.1, 19.9 15.8, 21.9 12.6";
+const IRIS =
+  "M10.8 9.2 C12.7 8.5, 15.1 9.9, 15.4 12 C15.7 14.1, 14 15.8, 11.9 15.7 " +
+  "C10 15.6, 8.5 14.1, 8.6 12.2 C8.68 10.7, 9.5 9.7, 10.5 9.25";
+const PUPIL =
+  "M12 10.95 C12.8 10.9, 13.45 11.6, 13.4 12.35 C13.35 13.15, 12.7 13.7, 11.95 13.65 " +
+  "C11.15 13.6, 10.6 12.95, 10.65 12.2 C10.7 11.5, 11.3 11, 12 10.95 Z";
+// Five lashes, no two the same length or lean. Spread across the lid rather
+// than bunched at the corner — checked by rendering the icon at size, where
+// a corner cluster fuses into the lid stroke and reads as a smudge.
+const LASHES = [
+  "M6.3 9.4 C6.05 8.7, 5.85 8.2, 5.6 7.5",
+  "M9.3 7.6 C9.1 6.5, 8.95 5.7, 8.75 4.7",
+  "M13.1 7.15 C13.35 6, 13.5 5.2, 13.75 4.3",
+  "M16.9 7.9 C17.45 6.9, 17.9 6.1, 18.4 5.2",
+  "M20.2 9.7 C21.1 9.1, 21.9 8.6, 22.8 8",
+];
+// A closed shape tucked just inside the two lid strokes, used only to keep
+// the tracking iris behind the lid.
+const LID_CLIP =
+  "M1.9 12.8 C4.1 8.8, 8.9 6.4, 13.6 6.7 C17.4 6.95, 20.7 9, 22.3 12.1 " +
+  "C20.2 15.7, 16.2 17.9, 12 17.8 C8 17.7, 4 15.5, 1.9 12.8 Z";
 const LID_CLIP_ID = "prototype-fab-lid";
+
+// Pen weight, matched to the handwriting rather than picked by eye. The note
+// beside the badge is Caveat 700 at --fs-2xl, which caps at 30px; rasterising
+// that face at that size and measuring its stroke runs puts the pen at ~2px,
+// with the downstrokes — the part that reads as "the pen" — a little heavier.
+// The icon draws its 24-unit viewBox at 44px (md:w-11), so one unit is 1.83px
+// and PEN lands the lid at ~2.5px. Change the icon's rendered size and this
+// number has to move with it, or the drawing stops matching the writing.
+const PEN = 1.36;
+const LASH_PEN = PEN * 0.83;
 
 const DEFAULT_NOTE = { en: "psst — it's live!", de: "psst — es ist live!" };
 const NEW_TAB_HINT = { en: "opens in a new tab", de: "öffnet in einem neuen Tab" };
 
-// One lashed eye, drawn as outline strokes with a deliberately uneven almond
-// and no two lashes alike — a compass-perfect eye reads as a stock icon, and
-// this page's whole visual language is hand-drawn.
+// One lashed eye, drawn as if by the same hand that writes the note under
+// it: open lid strokes that overshoot at one corner and leave the other
+// unclosed, an iris the pen lifted off before finishing, an uneven pupil,
+// five unlike lashes — and a stroke width measured off the Caveat face
+// rather than chosen (see PEN).
 //
 // It blinks on a long cycle and its pupil tracks the pointer, so the badge
 // registers as something alive in the corner instead of a static sticker.
@@ -67,10 +105,10 @@ function EyeMark({ reduce, pupilX, pupilY, svgRef }) {
     <svg
       ref={svgRef}
       viewBox="0 0 24 24"
-      className="w-9 h-9 md:w-11 md:h-11 overflow-visible"
+      className="w-7 h-7 md:w-11 md:h-11 overflow-visible"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.8"
+      strokeWidth={PEN}
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
@@ -80,45 +118,38 @@ function EyeMark({ reduce, pupilX, pupilY, svgRef }) {
         animate={reduce ? {} : { scaleY: [1, 0.06, 1] }}
         transition={{ duration: 0.42, repeat: Infinity, repeatDelay: 3.6, ease: "easeInOut" }}
       >
-        {/* Iris first, clipped to the lid and overdrawn by it: at full
-            stretch the pupil would otherwise cross the outline and read as
-            a ball sitting on top of the eye rather than behind it. Clip and
-            lid share one path, so they stay aligned through the blink. */}
+        {/* The eyeball goes down first and the lid strokes draw over it, so
+            a pupil at full stretch reads as sitting behind the lid rather
+            than on top of it. The clip is the belt to that braces. */}
         <defs>
           <clipPath id={LID_CLIP_ID}>
-            <path d={ALMOND} />
+            <path d={LID_CLIP} />
           </clipPath>
         </defs>
         <motion.g
           clipPath={`url(#${LID_CLIP_ID})`}
           style={reduce ? undefined : { x: pupilX, y: pupilY }}
         >
-          <circle cx="12" cy="12.2" r="3.5" />
-          <circle cx="12" cy="12.2" r="1.5" fill="currentColor" stroke="none" />
+          <path d={PUPIL} fill="currentColor" stroke="none" />
           {/* Glint, punched back out in the badge's own gold rather than
               painted white — the fill has to follow the token into dark
               mode, where --highlight is the lighter gold. */}
-          <circle cx="10.9" cy="11.1" r="0.75" fill="var(--highlight)" stroke="none" />
+          <circle cx="11.15" cy="11.6" r="0.5" fill="var(--highlight)" stroke="none" />
+          <path d={IRIS} />
         </motion.g>
 
-        <path d={ALMOND} />
+        <path d={LID_UPPER} />
+        <path d={LID_LOWER} />
 
-        {/* Four lashes, each rising off the top arc and leaning further
-            right as they go outward. Spread across the whole lid rather
-            than bunched at the corner: at 44px a corner cluster fuses into
-            the almond stroke and reads as a smudge — checked by rendering
-            the icon at size, not by eye in the editor. No two are the same
-            length or angle, which is the hand-drawn part.
-            They live inside the blink group on purpose — lashes belong to
-            the lid, so they come down with it. Their tips run past the
-            almond, which is why the <svg> is overflow-visible.
-            A brow used to sit above this: with lashes in, the two crowded
-            each other at icon size and the brow lost. */}
-        <g strokeWidth="1.5">
-          <path d="M9.2 7.9 C9.0 6.7, 8.8 5.8, 8.6 4.8" />
-          <path d="M13 7.55 C13.2 6.3, 13.4 5.3, 13.6 4.2" />
-          <path d="M16.9 8.15 C17.4 7.1, 17.9 6.2, 18.3 5.2" />
-          <path d="M20.3 9.9 C21.2 9.3, 22.1 8.7, 23 8.1" />
+        {/* Lashes sit inside the blink group on purpose — they belong to the
+            lid, so they come down with it. Their tips run past the lid,
+            which is why the <svg> is overflow-visible. A brow used to sit
+            above them: with lashes in, the two crowded each other at icon
+            size and the brow lost. */}
+        <g strokeWidth={LASH_PEN}>
+          {LASHES.map((d) => (
+            <path key={d} d={d} />
+          ))}
         </g>
       </motion.g>
     </svg>
@@ -218,8 +249,11 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
         const dy = event.clientY - (box.top + box.height / 2);
         const distance = Math.hypot(dx, dy) || 1;
         const reach = Math.min(1, distance / 280);
-        pupilTargetX.set((dx / distance) * 2.3 * reach);
-        pupilTargetY.set((dy / distance) * 1.7 * reach);
+        // Travel is deliberately short of what the clip allows: with a pen
+        // this thin, an iris clipped mid-curve by the lid is conspicuous, so
+        // the eye stops looking before it gets there.
+        pupilTargetX.set((dx / distance) * 1.8 * reach);
+        pupilTargetY.set((dy / distance) * 1.3 * reach);
       });
     };
     window.addEventListener("pointermove", onMove, { passive: true });
@@ -241,7 +275,7 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
       ref={hostRef}
       // pointer-events-none on the wrapper so the empty column above the
       // badge never eats clicks meant for the page underneath it.
-      className="no-print pointer-events-none fixed bottom-5 right-5 md:bottom-8 md:right-8
+      className="no-print pointer-events-none fixed bottom-4 right-4 md:bottom-8 md:right-8
                  z-50 flex flex-col items-end gap-1"
       style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
     >
@@ -325,7 +359,16 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
                   </span>
                 </span>
 
-                <span className="relative grid h-[68px] w-[68px] md:h-[84px] md:w-[84px] place-items-center">
+                {/* Sized against the reading column, not just the corner. At
+                    68px with -inset-4 blobs the painted mark measured 132px
+                    across and covered 57px of a 279px phone column — a fifth
+                    of the measure, over four or five lines of body copy, with
+                    the outer blob running 10px past the bottom of the screen.
+                    56px with tighter blobs lands at ~80px painted and ~20px of
+                    overlap, and still clears the 44px minimum tap target by a
+                    comfortable margin. Desktop, where the badge sits in the
+                    page margin and overlaps nothing, is unchanged. */}
+                <span className="relative grid h-14 w-14 md:h-[84px] md:w-[84px] place-items-center">
                   {/* Two soft blobs behind the badge, morphing and drifting
                       out of phase with it and with each other. No stroke, no
                       pulse ring: the movement is the attention-getter. */}
@@ -333,7 +376,7 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
                     <>
                       <motion.span
                         aria-hidden="true"
-                        className="absolute -inset-2 bg-highlight opacity-25"
+                        className="absolute -inset-1.5 md:-inset-2 bg-highlight opacity-25"
                         style={{ borderRadius: BLOB_ALT[0] }}
                         animate={{ borderRadius: BLOB_ALT, rotate: -360, scale: [1, 1.07, 1] }}
                         transition={{
@@ -344,7 +387,13 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
                       />
                       <motion.span
                         aria-hidden="true"
-                        className="absolute -inset-4 bg-highlight opacity-[0.12]"
+                        // The outer blob is the widest part of the mark and
+                        // carries no information, so a phone does without it:
+                        // one backing blob still breaks the silhouette, and
+                        // the ~16px it saves on each side is the difference
+                        // between clipping the ends of body-copy lines and
+                        // grazing the margin.
+                        className="hidden md:block absolute -inset-4 bg-highlight opacity-[0.12]"
                         style={{ borderRadius: BLOB[1] }}
                         animate={{ borderRadius: [BLOB[1], BLOB[2], BLOB[0], BLOB[1]], rotate: 360 }}
                         transition={{

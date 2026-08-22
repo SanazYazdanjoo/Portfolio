@@ -129,11 +129,18 @@ export function SidebarNav({
   );
 }
 
-// Mobile pill bar
+// Mobile pill bar.
+//
+// Opaque `bg-bg`, and no backdrop-blur. This bar pins at the same `top: 80px`
+// as the project hero banner, so its backdrop is a filtered, permanently
+// pinned compositing layer — the one pairing mobile browsers are worst at
+// invalidating, which leaves stale copies of already-scrolled content baked
+// into the bar. The frosting bought nothing anyway: everything behind this
+// bar is the content wrapper's opaque background.
 export function MobilePillBar({ sections, activeId, onNavigate }) {
   const { t } = useTranslation();
   return (
-    <div className="sticky top-[80px] z-40 bg-bg/90 backdrop-blur-md border-b border-border
+    <div className="sticky top-[80px] z-40 bg-bg border-b border-border
                      -mx-4 px-4 py-2 md:hidden no-print">
       <div className="flex gap-1 overflow-x-auto">
         {sections.map((section) => {

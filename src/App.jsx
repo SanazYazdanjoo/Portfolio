@@ -2,6 +2,12 @@
 // React Router's default hash/scroll handling doesn't reach it: hash links
 // need a manual scrollIntoView, and route changes need an explicit reset to
 // top or the previous page's scroll position leaks into the next one.
+//
+// Because that container is the only scroller, the shell around it has to
+// fit the visible viewport exactly — see `.app-shell` in index.css for why
+// it is a dvh-based class and not Tailwind's h-screen. `overscroll-y-contain`
+// on the container is the second half of the same rule: it keeps a flick at
+// either end from chaining out to the document.
 
 import React, { useRef, useState, useEffect, Suspense } from "react";
 import { Outlet, useLocation } from "react-router-dom";
@@ -55,7 +61,7 @@ export default function App() {
   }, [location.pathname, location.hash]);
 
   return (
-    <div className="h-screen flex flex-col bg-bg relative">
+    <div className="app-shell flex flex-col bg-bg relative">
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200]
@@ -70,7 +76,8 @@ export default function App() {
 
       <div
         ref={scrollRef}
-        className="flex-1 overflow-y-auto overflow-x-hidden relative z-10 px-8 md:px-12 lg:px-16"
+        className="flex-1 overflow-y-auto overflow-x-hidden overscroll-y-contain
+                   relative z-10 px-8 md:px-12 lg:px-16"
         style={{ scrollBehavior: "smooth" }}
       >
         <main id="main-content" tabIndex={-1}>

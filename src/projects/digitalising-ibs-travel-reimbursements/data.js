@@ -405,6 +405,30 @@ export const projectData = {
       // column width the callouts are unreadable, so the click opens the
       // full-resolution image in its own tab, where the browser's own zoom and
       // pan do the job a zoom overlay would do worse.
+      //
+      // Source of truth: the figure is authored in the Claude Design project
+      // ("The artefact that was replaced.html"); before-after.webp is its
+      // export. Re-checked against that source 22.08.2026 — the four rows, the
+      // four-tone legend, the three unresolved limits and the footer's thirteen
+      // problem IDs all still match what is written below, so only the reading
+      // key was missing and is added as `takeaway`.
+      //
+      // Two notes carried over from the source that this file did not record:
+      //   · PENDING (client-naming decision) — two regions are legible on
+      //     purpose today and may still need the blur treatment: the training
+      //     address block on the printed Abrechnung, and the internal
+      //     cost-centre line (Kostenstelle / Maßnahme) on the generated
+      //     Formular. If that decision lands, both get blurred the way the
+      //     cloud-intake capture already is, and before-after.webp is
+      //     re-exported — at which point the caption gets re-checked too.
+      //   · The attendance row uses the v2 redaction of the paper list. v1 is
+      //     still in the design project; do not export against it.
+      //
+      // One discrepancy is left standing rather than silently corrected: the
+      // participant-flow callout on the figure reads "Resolves P20 / P25", but
+      // P25 is absent from the figure's own footer list. The caption below
+      // reproduces the thirteen IDs the footer actually names — fix it in the
+      // consolidated register first, then here.
       {
         type: 'image',
         src: beforeAfterArtefacts,
@@ -427,6 +451,14 @@ export const projectData = {
         caption: {
           en: 'Before/after artefact pairs — problems referenced: P2 · P3 · P5 · P6 · P8 · P9 · P10 · P12 · P15 · P18 · P20 · P21 · P24 — consolidated register v20.08.2026 · survey n=6, all Blended-Kurs, self-selected, survey open',
           de: 'Vorher/Nachher-Artefaktpaare — referenzierte Probleme: P2 · P3 · P5 · P6 · P8 · P9 · P10 · P12 · P15 · P18 · P20 · P21 · P24 — konsolidiertes Register v20.08.2026 · Umfrage n=6, alle Blended-Kurs, selbstselektiert, Umfrage offen',
+        },
+        // The legend is the figure's reading key, and at column width it is
+        // the first thing that stops being legible — so it is restated here,
+        // where it renders as text rather than as four coloured rules.
+        takeawayLabel: { en: 'How to read it', de: 'Wie sie zu lesen ist' },
+        takeaway: {
+          en: 'Four callout tones carry the argument: red states a problem as the process stands today, green a win paired to that exact problem, amber a gate the app checks before it will go on, and a dashed red note an honest limit. Every red has either a green or a dashed note facing it — nothing on the figure is left implying a fix that does not exist.',
+          de: 'Vier Callout-Töne tragen die Argumentation: Rot benennt ein Problem im heutigen Prozess, Grün eine Lösung, die genau diesem Problem zugeordnet ist, Bernstein ein Gate, das die App prüft, bevor sie weitergeht, und eine gestrichelte rote Notiz eine ehrliche Grenze. Jedem Rot steht entweder ein Grün oder eine gestrichelte Notiz gegenüber — nichts auf der Abbildung suggeriert eine Lösung, die es nicht gibt.',
         },
         linkLabel: { en: 'Open the figure full size', de: 'Abbildung in voller Größe öffnen' },
       },
@@ -482,6 +514,78 @@ export const projectData = {
         linkLabel: { en: 'Open the personas', de: 'Personas öffnen' },
       },
 
+      // ── The traceability pair. The mechanism the methodology text
+      // describes, drawn twice: once closing end to end, once honestly
+      // failing to. Publish together, in this order — the open chain alone
+      // reads as a defect list; after the closed one it reads as rigour.
+      //
+      // Both carry `pending: true` and no `src`: neither export has been
+      // drawn yet, so they render the frame that says the artwork is coming
+      // rather than a broken image — the rule stated at the top of
+      // SectionMedia.jsx.
+      //
+      // They deliberately do NOT carry a `${DOCS}` path. A public URL that
+      // points at nothing still renders an <img>, and neither the build nor
+      // the figure guard in projects.test.js can tell that it 404s — the
+      // guard only asks for a src, an href or `pending`, never that the file
+      // resolves. Every other figure on this page is an `import` instead, and
+      // that is the difference worth keeping: a missing imported asset fails
+      // `vite build` outright with UNRESOLVED_IMPORT and names this module,
+      // so the artwork cannot go missing quietly a second time.
+      //
+      // To publish, drop the PNG next to this module and add its import at
+      // the top of the file, alongside the other figure assets:
+      //   import traceabilityChain from './traceability-chain.png';
+      //   import traceabilityChainOpen from './traceability-chain-open.png';
+      // then set `src: traceabilityChain` / `src: traceabilityChainOpen` and
+      // delete the `pending: true` line. Nothing else about the entries
+      // changes — the framing below is already final.
+      {
+        type: 'image',
+        pending: true,
+        span: 2,
+        className: 'w-full h-auto block',
+        label: { en: 'Traceability · the chain that closes', de: 'Traceability · die Kette, die schließt' },
+        title: {
+          en: 'From one participant sentence to an enforced constraint',
+          de: 'Von einem Teilnehmenden-Satz zu einer erzwungenen Regel',
+        },
+        description: {
+          en: 'One finding, followed end to end. Four of six survey respondents do not know how their reimbursement is calculated — two have stopped trying: „Nein, ich nehme den Betrag so, wie er kommt." That became problem P3/P15 in the register, the requirement that a participant-visible amount must never be a black box, the pure calculation module whose trace every role renders, and a build-failing test that keeps the citation chain intact. The figure also states the mechanism’s limit on its face: the guard fails on a citation without a source — never on a problem without an implementation.',
+          de: 'Ein Befund, durchgängig verfolgt. Vier von sechs Befragten wissen nicht, wie ihre Erstattung berechnet wird — zwei haben aufgehört, es zu versuchen: „Nein, ich nehme den Betrag so, wie er kommt." Daraus wurde Problem P3/P15 im Register, die Anforderung, dass ein teilnehmenden-sichtbarer Betrag nie eine Black Box sein darf, das reine Berechnungsmodul, dessen Nachvollziehbarkeit jede Rolle anzeigt, und ein Build-brechender Test, der die Zitationskette intakt hält. Die Abbildung benennt auch die Grenze des Mechanismus: Der Guard scheitert an einem Zitat ohne Quelle — nie an einem Problem ohne Umsetzung.',
+        },
+        alt: {
+          en: 'Five-stage chain from left to right: a survey verbatim, problem P3/P15 with a CONFIRMED chip, the requirements row, the calculation code files, and a guard test drawn as a lock closing back onto the chain with a return arrow labelled build fails. A handwritten annotation states the limit of the guard.',
+          de: 'Fünfstufige Kette von links nach rechts: ein Umfrage-Zitat, Problem P3/P15 mit CONFIRMED-Chip, die Anforderungszeile, die Berechnungs-Codedateien und ein Guard-Test, gezeichnet als Schloss, das sich mit einem Rückpfeil „build fails" auf die Kette schließt. Eine handschriftliche Anmerkung benennt die Grenze des Guards.',
+        },
+        caption: {
+          en: 'The chain that closes — survey n=6, open · consolidated register v20.08.2026',
+          de: 'Die Kette, die schließt — Umfrage n=6, offen · konsolidiertes Register v20.08.2026',
+        },
+      },
+      {
+        type: 'image',
+        pending: true,
+        span: 2,
+        className: 'w-full h-auto block',
+        label: { en: 'Traceability · where it does not close', de: 'Traceability · wo sie nicht schließt' },
+        title: {
+          en: 'And where the chain does not close',
+          de: 'Und wo die Kette nicht schließt',
+        },
+        description: {
+          en: 'The same five stages for problem P21, silent intake — and an honest break before the last one. Four of six respondents learn their documents arrived only when the money appears; a fifth does not check at all. The requirement row exists, the error case is implemented in plain German, and the positive case — telling a participant their documents did arrive — is not built. The requirements table says so, the link to the guard is drawn broken, and the lock stands open: blocked and recorded, not defective.',
+          de: 'Dieselben fünf Stufen für Problem P21, Silent Intake — mit einem ehrlichen Bruch vor der letzten. Vier von sechs Befragten erfahren nur am eintreffenden Geld, dass ihre Unterlagen angekommen sind; ein:e fünfte:r prüft gar nicht. Die Anforderungszeile existiert, der Fehlerfall ist auf verständlichem Deutsch umgesetzt, und der positive Fall — Teilnehmenden zu sagen, dass ihre Unterlagen angekommen sind — ist nicht gebaut. Die Anforderungstabelle sagt das, die Verbindung zum Guard ist gebrochen gezeichnet, und das Schloss steht offen: blockiert und dokumentiert, nicht defekt.',
+        },
+        alt: {
+          en: 'Compressed five-stage chain for problem P21 ending in a dashed, broken link before the guard test, whose lock is drawn open. A handwritten line beneath reads: the positive case — telling a TN their documents arrived — is not built; the table says so.',
+          de: 'Komprimierte fünfstufige Kette für Problem P21, die vor dem Guard-Test in einer gestrichelten, gebrochenen Verbindung endet; das Schloss ist offen gezeichnet. Eine handschriftliche Zeile darunter lautet: Der positive Fall — Teilnehmenden zu sagen, dass ihre Unterlagen angekommen sind — ist nicht gebaut; die Tabelle sagt das.',
+        },
+        caption: {
+          en: 'Where the chain does not close — survey n=6, open · consolidated register v20.08.2026',
+          de: 'Wo die Kette nicht schließt — Umfrage n=6, offen · konsolidiertes Register v20.08.2026',
+        },
+      },
     ],
 
     design: [
