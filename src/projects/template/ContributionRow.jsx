@@ -12,7 +12,7 @@ export function ContributionRow({ contribution }) {
   if (groups.length === 0) return null;
 
   return (
-    <div className="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr] gap-4 py-4 border-b border-border"
+    <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-[140px_1fr] sm:gap-4 py-4 border-b border-border"
          style={{ breakInside: "avoid" }}>
       <dt className="text-[11px] font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
         {t("project.meta.contribution")}
