@@ -17,7 +17,7 @@ export function ContributionRow({ contribution }) {
       <dt className="text-[11px] font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
         {t("project.meta.contribution")}
       </dt>
-      <dd className="space-y-3 max-w-[68ch]">
+      <dd className="space-y-3 max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-out">
         {groups.map((g) => (
           <div key={g.key}>
             <p className={`text-[10px] font-black uppercase tracking-[0.15em] mb-1 ${g.muted ? "text-dim" : "text-text-meta"}`}>

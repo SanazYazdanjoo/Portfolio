@@ -20,7 +20,7 @@ export function NotBuiltBlock({ notBuilt }) {
   if (!notBuilt?.title || items.length === 0) return null;
 
   return (
-    <div className="mt-12 border-t border-border pt-8 max-w-[68ch]">
+    <div className="mt-12 border-t border-border pt-8 max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-out">
       <p className="text-[10px] font-black uppercase tracking-[0.2em] text-dim mb-5">
         {notBuilt.title}
       </p>

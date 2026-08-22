@@ -50,7 +50,7 @@ export function VerbatimRail({ verbatims }) {
 export function VerbatimInline({ verbatims }) {
   if (!verbatims || verbatims.length === 0) return null;
   return (
-    <div className="xl:hidden mt-8 flex flex-col gap-6 max-w-[68ch]">
+    <div className="xl:hidden mt-8 flex flex-col gap-6 max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-out">
       {verbatims.map((item, i) => (
         <VerbatimBlock key={i} item={item} index={i} />
       ))}
@@ -61,7 +61,7 @@ export function VerbatimInline({ verbatims }) {
 export function VerbatimList({ verbatims }) {
   if (!verbatims || verbatims.length === 0) return null;
   return (
-    <div className="mt-8 flex flex-col gap-6 max-w-[68ch]">
+    <div className="mt-8 flex flex-col gap-6 max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-out">
       {verbatims.map((item, i) => (
         <VerbatimBlock key={i} item={item} index={i} />
       ))}
