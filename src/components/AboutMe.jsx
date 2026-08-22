@@ -3,6 +3,7 @@
 
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { EASE } from "../utils/motion";
 
 const container = {
   hidden: {},
@@ -11,7 +12,7 @@ const container = {
 
 const item = {
   hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.22, 0.61, 0.36, 1] } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE } },
 };
 
 const itemReduced = {

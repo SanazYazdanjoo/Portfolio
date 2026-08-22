@@ -15,7 +15,7 @@ export function ComingSoonRow({ project, index }) {
       aria-disabled="true"
       className="relative flex items-center gap-5 md:gap-8 px-8 md:px-16 py-6 bg-bg border-t rule-t opacity-60"
     >
-      <span aria-hidden="true" className="absolute left-0 top-0 bottom-0 w-1 bg-border rule-bar-v" />
+      <span aria-hidden="true" className="absolute left-0 top-0 bottom-0 w-[5px] bg-border rule-stroke-v" />
 
       <span className="font-mono text-xs font-bold text-text-meta tabular-nums shrink-0 self-start mt-1">
         {String(index + 1).padStart(2, "0")}
@@ -29,8 +29,8 @@ export function ComingSoonRow({ project, index }) {
         <SkillTagRow tags={tags} className="mt-2 opacity-60" />
       </div>
 
-      <span className="hidden sm:inline-block shrink-0 text-[9px] font-black uppercase tracking-[0.2em]
-                       text-text/35 border rule-frame rule-fine px-2.5 py-1">
+      <span className="hidden sm:inline-block shrink-0 text-2xs font-black uppercase tracking-[0.2em]
+                       text-text/35 border rule-frame px-2.5 py-1">
         {t("projects.comingSoon")}
       </span>
     </div>

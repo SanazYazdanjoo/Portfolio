@@ -12,7 +12,7 @@ export function ProjectNavCard({ project, direction }) {
                  hover:[--rule-line-color:var(--primary-600)] ${isNext ? "sm:flex-row-reverse sm:text-right" : ""}`}
     >
       {project.thumbnail && (
-        <div className="w-20 aspect-[16/10] shrink-0 overflow-hidden border rule-frame-in bg-muted">
+        <div className="w-20 aspect-[16/10] shrink-0 overflow-hidden border rule-frame-in [--rule-fill-color:var(--muted-surface)]">
           <ProjectPicture
             src={project.thumbnail}
             webpSrc={project.thumbnailWebp}

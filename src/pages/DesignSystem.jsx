@@ -16,9 +16,9 @@ import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { profileData as rawProfile } from "../data/profile";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { useTranslation } from "../context/LanguageContext";
+import { EASE } from "../utils/motion";
 
 // Motion presets (house rules: 0.45-0.7s, y 16-24px, stagger 0.1s)
-const EASE = [0.22, 0.61, 0.36, 1];
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
@@ -57,11 +57,12 @@ const TYPE_SPECIMENS = [
 ];
 
 const MOTION_RULES = [
-  { name: "Easing", value: "cubic-bezier(.22, .61, .36, 1)", note: "Everywhere. No exceptions, no bounces." },
+  { name: "Easing", value: "cubic-bezier(.22, .61, .36, 1)", note: "src/utils/motion.js — the only place it is written. Continuous loops stay linear." },
   { name: "Entrance", value: "fade-up · y 16–24px · 0.45–0.7s", note: "Staggered ~0.1s between siblings." },
   { name: "Draw-on", value: "SVG pathLength / stroke-dashoffset", note: "Scribbles, ovals, and highlighter swipes." },
+  { name: "Line weight", value: "~1.2px, breathing 0.7–1.6px", note: "One nib for every drawn mark. No bold tier." },
   { name: "Hover", value: "translateY(-1px) · darken to -600", note: "Photos de-grayscale in 0.5–0.7s." },
-  { name: "Accessibility", value: "prefers-reduced-motion", note: "All animation collapses to ~0ms." },
+  { name: "Accessibility", value: "prefers-reduced-motion", note: "MotionConfig at the app root + a CSS block. Transform and transition stop; opacity fades stay." },
 ];
 
 const DS_SECTIONS = [
@@ -97,7 +98,7 @@ function DSNav({ sections, activeId }) {
 
   return (
     <nav aria-label={t("designSystem.sectionsAriaLabel")} className="pt-1">
-      <p className="text-[10px] font-black uppercase tracking-[0.28em] text-gray-500 mb-5 pl-3">
+      <p className="text-2xs font-black uppercase tracking-[0.28em] text-gray-500 mb-5 pl-3">
         {t("cv.onThisPage")}
       </p>
       <ul className="space-y-0.5">
@@ -111,13 +112,13 @@ function DSNav({ sections, activeId }) {
                 onClick={() => scrollToSection(section.id)}
                 aria-current={isActive ? "true" : undefined}
                 className={`w-full text-left flex items-baseline gap-3 px-3 py-2 transition-colors duration-200 relative border-l-2
-                  rule-edge-l rule-thick ${
+                  rule-edge-l ${
                   isActive
                     ? "[--rule-line-color:var(--primary)] text-primary"
                     : "[--rule-line-color:transparent] text-gray-500 hover:text-gray-900 hover:[--rule-line-color:rgb(209_213_219)]"
                 }`}
               >
-                <span className={`text-[11px] font-bold uppercase tracking-[0.2em] leading-tight ${
+                <span className={`text-2xs font-bold uppercase tracking-[0.2em] leading-tight ${
                   isActive ? "text-primary" : "text-gray-600"
                 }`}>
                   {section.label}
@@ -144,7 +145,7 @@ function MobilePillBar({ sections, activeId }) {
             key={section.id}
             type="button"
             onClick={() => scrollToSection(section.id)}
-            className={`shrink-0 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.18em] border rule-frame rule-fine transition-colors duration-200 ${
+            className={`shrink-0 px-3 py-1.5 text-2xs font-black uppercase tracking-[0.18em] border rule-frame transition-colors duration-200 ${
               activeId === section.id
                 ? "text-white [--rule-line-color:var(--primary)] [--rule-fill-color:var(--primary)]"
                 : "text-gray-500 hover:text-primary"
@@ -162,8 +163,8 @@ function Swatch({ name, varName, hex, note, rule, light }) {
   return (
     <motion.div
       variants={fadeUp}
-      className="rule-swatch flex flex-col justify-end p-3 h-28"
-      style={{ backgroundColor: `var(${varName})` }}
+      className="border rule-frame-r shadow-sm flex flex-col justify-end p-3 h-28"
+      style={{ borderRadius: "var(--radius)", "--rule-fill-color": `var(${varName})` }}
     >
       {/* Text sits on a solid ink-900 chip rather than directly on the
           swatch fill: some accent -500 tones (e.g. rose) don't clear 4.5:1
@@ -369,8 +370,9 @@ export default function DesignSystem() {
               <motion.div variants={fadeUp} className="mt-10">
                 <p className="type-label m-0 mb-2" style={{ color: "var(--text-dim)" }}>Dot pattern — seamless hand-drawn tile</p>
                 <p className="type-body mt-0 mb-6" style={{ fontSize: "var(--fs-sm)", color: "var(--text-dim)" }}>
-                  A 626px tile carrying 24 stroked rings and 56 solid specks, in the same ink as
-                  the doodles and scattered by hand so the repeat never reads as a grid. Two
+                  A 626px tile carrying 24 large blobs and 56 small specks, in the same ink as
+                  the doodles and scattered by hand so no two marks match and the repeat never
+                  reads as a grid. Two
                   variants, and the ground decides which one you want. The sizes below are the
                   defaults — override either with{" "}
                   <code style={{ fontFamily: "var(--font-mono)" }}>--dots-size</code>, as the
@@ -408,19 +410,20 @@ export default function DesignSystem() {
                   as a background inside the element&rsquo;s (already transparent) 1px border, so
                   swapping <code style={{ fontFamily: "var(--font-mono)" }}>border-border</code> for{" "}
                   <code style={{ fontFamily: "var(--font-mono)" }}>rule-t</code> moves nothing.
-                  Dividers, frames, chips, buttons and the sidebar spines all get the hand.
-                  Only the loading spinner and the dashed &ldquo;+N more&rdquo; chip stay crisp,
-                  and print falls back to a straight hairline.
+                  Dividers, frames, chips, buttons, circles, the sidebar spines and the
+                  cursor&rsquo;s own ink trail are all the same ~1.2px nib — one pen drew the
+                  site, so there is no bold tier and no fine one. Only the dashed
+                  &ldquo;+N more&rdquo; chip stays crisp, and print falls back to a straight
+                  hairline. Tints vary; weight does not.
                 </p>
 
                 <div className="grid gap-10" style={{ gridTemplateColumns: "repeat(auto-fit,minmax(225px,1fr))" }}>
                   <div>
-                    <p className="type-label m-0 mb-4" style={{ color: "var(--text-dim)" }}>Tints &amp; weight</p>
+                    <p className="type-label m-0 mb-4" style={{ color: "var(--text-dim)" }}>Tints — one weight</p>
                     {[
                       [".rule-line", ""],
                       [".rule-soft", "rule-soft"],
                       [".rule-faint", "rule-faint"],
-                      [".rule-thick", "rule-thick"],
                     ].map(([label, mod]) => (
                       <div key={label} className="mb-5">
                         <code className="block mb-2" style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-2xs)", color: "var(--primary-600)" }}>{label}</code>
@@ -441,7 +444,7 @@ export default function DesignSystem() {
                     <code className="block mb-2" style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-2xs)", color: "var(--primary-600)" }}>.rule-line-v</code>
                     <div className="flex gap-5" style={{ height: "72px" }}>
                       <div className="rule-line-v" />
-                      <div className="rule-line-v rule-thick" />
+                      <div className="rule-line-v" />
                       <div className="rule-line-v rule-soft" />
                     </div>
                   </div>
@@ -474,10 +477,10 @@ export default function DesignSystem() {
                     </p>
                     <code className="block mb-2" style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-2xs)", color: "var(--primary-600)" }}>.rule-edge-l + --rule-line-color</code>
                     <div className="flex gap-6">
-                      <div className="border-l-2 rule-edge-l rule-thick pl-4" style={{ height: "64px" }} />
-                      <div className="border-l-2 rule-edge-l rule-thick [--rule-line-color:var(--primary-600)] pl-4" style={{ height: "64px" }} />
-                      <div className="border-l-2 rule-edge-l rule-thick [--rule-line-color:var(--secondary-600)] pl-4" style={{ height: "64px" }} />
-                      <div className="border-l-2 rule-edge-l rule-thick [--rule-line-color:var(--highlight)] pl-4" style={{ height: "64px" }} />
+                      <div className="border-l-2 rule-edge-l pl-4" style={{ height: "64px" }} />
+                      <div className="border-l-2 rule-edge-l [--rule-line-color:var(--primary-600)] pl-4" style={{ height: "64px" }} />
+                      <div className="border-l-2 rule-edge-l [--rule-line-color:var(--secondary-600)] pl-4" style={{ height: "64px" }} />
+                      <div className="border-l-2 rule-edge-l [--rule-line-color:var(--highlight)] pl-4" style={{ height: "64px" }} />
                     </div>
                   </div>
 
@@ -489,21 +492,22 @@ export default function DesignSystem() {
                         Four corner arcs, four stretched runs. <code style={{ fontFamily: "var(--font-mono)" }}>--rule-r</code> is the radius.
                       </p>
                     </div>
-                    <code className="block mb-2" style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-2xs)", color: "var(--primary-600)" }}>.rule-circle &middot; .rule-dot</code>
+                    <code className="block mb-2" style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-2xs)", color: "var(--primary-600)" }}>.rule-circle &middot; .rule-disc &middot; .rule-dot</code>
                     <div className="flex items-center gap-4 mb-5">
                       <div className="w-9 h-9 rule-circle [--rule-line-color:var(--primary-600)]" />
-                      <div className="w-8 h-8 rule-circle rule-fine" />
+                      <div className="w-8 h-8 rule-circle" />
+                      <div className="w-9 h-9 rounded-full rule-disc" style={{ background: "var(--color-ink-600)" }} />
                       <div className="w-2 h-2 rule-dot" style={{ background: "var(--color-ink-900)" }} />
                       <div className="w-2 h-2 rule-dot" style={{ background: "var(--primary-600)" }} />
                       <div className="w-1.5 h-1.5 rule-dot" style={{ background: "var(--primary)" }} />
                     </div>
-                    <code className="block mb-2" style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-2xs)", color: "var(--primary-600)" }}>.rule-bar-v &middot; .rule-bar &middot; .rule-stroke</code>
+                    <code className="block mb-2" style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-2xs)", color: "var(--primary-600)" }}>.rule-stroke &middot; .rule-stroke-v</code>
                     <div className="flex items-stretch gap-4" style={{ height: "56px" }}>
-                      <div className="w-1 rule-bar-v" style={{ background: "var(--accent-spine)" }} />
-                      <div className="w-2 rule-bar-v" style={{ background: "var(--border)" }} />
-                      <div className="flex-1 flex flex-col justify-center gap-3">
-                        <div className="h-[3px] w-full rule-bar" style={{ background: "var(--border)" }} />
-                        <div className="h-[5px] w-full rule-bar" style={{ background: "var(--accent-spine)" }} />
+                      <div className="w-[5px] rule-stroke-v" style={{ background: "var(--accent-spine)" }} />
+                      <div className="w-[5px] rule-stroke-v" style={{ background: "var(--border)" }} />
+                      <div className="flex-1 flex flex-col justify-center gap-4">
+                        <div className="h-[5px] w-full rule-stroke" style={{ background: "var(--border)" }} />
+                        <div className="h-[5px] w-full rule-stroke" style={{ background: "var(--accent-spine)" }} />
                         <div className="h-[5px] w-full rule-stroke" style={{ background: "var(--secondary-600)" }} />
                       </div>
                     </div>

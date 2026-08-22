@@ -52,7 +52,7 @@ export function ProjectHero({ meta, scrollY }) {
             edge to edge, so a pattern BEHIND it would never be seen — the
             mat is what gives the texture somewhere to show. Its width is
             the whole effect: a band narrower than a mark or two just clips
-            rings into crescents, which is why the padding steps up with the
+            dots into crescents, which is why the padding steps up with the
             breakpoint rather than staying fixed.
 
             .bg-dots is the design system's transparent variant — no
@@ -78,7 +78,7 @@ export function ProjectHero({ meta, scrollY }) {
             />
           </div>
         </div>
-        <p className="mt-3 text-right text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-text-meta">
+        <p className="mt-3 text-right text-2xs font-mono font-bold uppercase tracking-[0.2em] text-text-meta">
           {t("project.media.heroCredit")}
         </p>
       </motion.div>

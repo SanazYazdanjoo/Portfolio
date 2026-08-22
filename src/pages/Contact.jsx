@@ -12,6 +12,7 @@ import { useTranslation } from "../context/LanguageContext";
 import { ScribbleUnderline } from "../components/DoodleLibrary";
 import { StatusDot } from "../components/StatusDot";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
+import { EASE } from "../utils/motion";
 
 const focusRing =
   "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600";
@@ -85,7 +86,7 @@ export default function Contact() {
         <motion.div
           initial={reduce ? { opacity: 1 } : { opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.22, 0.61, 0.36, 1] }}
+          transition={{ duration: 0.6, ease: EASE }}
           className="paper-bg grid grid-cols-1 md:grid-cols-[1.9fr_1fr] gap-8 md:gap-10 p-8 md:p-12"
         >
           {/* LEFT — the decision */}

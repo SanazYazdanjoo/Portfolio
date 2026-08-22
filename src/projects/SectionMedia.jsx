@@ -131,7 +131,7 @@ function ZoomOverlay({ figure, onClose }) {
         onClick={onClose}
         aria-label={t("project.media.closeLabel")}
         className="fixed right-4 top-4 z-10 inline-flex h-11 w-11 items-center justify-center
-                   rounded-full rule-circle rule-fine [--rule-line-color:rgb(255_255_255/0.25)]
+                   rounded-full rule-circle rule-circle-lg [--rule-line-color:rgb(255_255_255/0.25)]
                    [--rule-fill-color:rgb(0_0_0/0.7)] text-white shadow-lg
                    backdrop-blur-sm transition-colors duration-200
                    hover:[--rule-line-color:rgb(255_255_255)] hover:[--rule-fill-color:rgb(0_0_0)]
@@ -245,7 +245,7 @@ export default function SectionMedia({ items }) {
               )}
 
               <div
-                className={`border rule-frame-in bg-muted/30 overflow-hidden
+                className={`border rule-frame-in [--rule-fill-color:rgb(var(--muted-rgb)/0.3)] overflow-hidden
                             ${isLink ? "transition-colors duration-200 hover:[--rule-line-color:var(--primary-600)]" : ""}`}
               >
                 {isLink ? (
@@ -261,7 +261,7 @@ export default function SectionMedia({ items }) {
                     <span
                       aria-hidden="true"
                       className="pointer-events-none absolute right-3 top-3 inline-flex items-center gap-1.5
-                                 border rule-frame rule-fine [--rule-fill-color:var(--bg)] px-2.5 py-1.5 font-mono text-2xs font-bold
+                                 border rule-frame [--rule-fill-color:var(--bg)] px-2.5 py-1.5 font-mono text-2xs font-bold
                                  uppercase tracking-[0.15em] text-text backdrop-blur-sm no-print
                                  transition-colors duration-200
                                  group-hover:[--rule-line-color:var(--primary-600)] group-hover:text-primary-600"
@@ -319,7 +319,7 @@ export default function SectionMedia({ items }) {
               {/* The "so what". Kept visually distinct from the description so
                   a scanning reader can take the finding without the setup. */}
               {f.takeaway && (
-                <div className="mt-4 border-l-2 rule-edge-l rule-thick [--rule-line-color:var(--primary-600)] pl-4">
+                <div className="mt-4 border-l-2 rule-edge-l [--rule-line-color:var(--primary-600)] pl-4">
                   <p className="m-0 mb-1 font-mono text-2xs uppercase tracking-[0.2em] text-primary-600">
                     {f.takeawayLabel || t("project.media.whatItShows")}
                   </p>

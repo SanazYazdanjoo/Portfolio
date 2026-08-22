@@ -8,6 +8,7 @@ import { profileData as rawProfile } from "../data/profile";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { useTranslation } from "../context/LanguageContext";
 import { LanguageToggle } from "./LanguageToggle";
+import { EASE } from "../utils/motion";
 
 // Maps each nav route to its translation key so labels follow the current
 // language instead of the raw (English-only) name stored in profile data.
@@ -35,7 +36,7 @@ export const Nav = ({ isScrolled = false }) => {
       className="w-full no-print"
       initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: prefersReducedMotion ? 0 : 0.4, ease: [0.22, 0.61, 0.36, 1] }}
+      transition={{ duration: prefersReducedMotion ? 0 : 0.4, ease: EASE }}
     >
       <div className="flex items-center justify-between w-full pb-4 border-b rule-b">
 
@@ -88,7 +89,7 @@ export const Nav = ({ isScrolled = false }) => {
                           aria-hidden="true"
                           className="absolute left-1/2 -translate-x-1/2 -bottom-2
                                      w-1.5 h-1.5 rule-dot bg-primary"
-                          transition={{ duration: prefersReducedMotion ? 0 : 0.3, ease: [0.22, 0.61, 0.36, 1] }}
+                          transition={{ duration: prefersReducedMotion ? 0 : 0.3, ease: EASE }}
                         />
                       )}
                     </>
@@ -195,7 +196,7 @@ function MobileMenu({ links }) {
                   key={link.path}
                   initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 14 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.06 * i, duration: 0.35, ease: [0.22, 0.61, 0.36, 1] }}
+                  transition={{ delay: 0.06 * i, duration: 0.35, ease: EASE }}
                 >
                   <NavLink
                     to={link.path}

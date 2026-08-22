@@ -150,7 +150,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
       {/* Scroll-progress bar */}
       <motion.div
         aria-hidden="true"
-        className="no-print fixed top-0 left-0 right-0 h-[2px] rule-bar bg-primary origin-left z-[70]"
+        className="no-print fixed top-0 left-0 right-0 h-[5px] rule-stroke bg-primary origin-left z-[70]"
         style={{ scaleX: scrollProgress }}
       />
 
@@ -167,7 +167,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                 reclaimed space empty, which is not reclaiming it. */}
             <aside
               className={`hidden md:block shrink-0 no-print sticky top-36 self-start
-                          transition-[width,padding] duration-300 ease-out
+                          transition-[width,padding] duration-300 ease-smooth
                           ${navCollapsed
                             ? "w-14 pr-4"
                             : "w-[180px] lg:w-[220px] pr-8 lg:pr-10"}`}
@@ -179,7 +179,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
 
             <div
               className={`flex-1 min-w-0 md:border-l md:rule-l md:pl-8 lg:pl-10
-                          transition-[max-width] duration-300 ease-out
+                          transition-[max-width] duration-300 ease-smooth
                           ${navCollapsed ? "max-w-[1280px]" : "max-w-[1060px]"}`}
               /* The reading measure travels with the collapse. Widening the
                  column while every prose block stayed pinned to 68ch only grew
@@ -200,7 +200,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   isOpen={openSections.has("about")} onToggle={() => toggleSection("about")}
                   staggerDelayMs={staggerDelayFor("about")}
                   kicker={t("project.about.kicker")} heading={t("project.about.heading")}>
-                  <ClampedText className="max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-out">
+                  <ClampedText className="max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-smooth">
                     <p className="text-[17px] leading-relaxed about-project text-text/90">
                       {meta.about}
                     </p>
@@ -256,7 +256,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   staggerDelayMs={staggerDelayFor("prototype")}
                   kicker={t("project.prototype.kicker")} heading={t("project.prototype.heading")}>
                   {meta.prototype && (
-                    <ClampedText className="max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-out">
+                    <ClampedText className="max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-smooth">
                       <p className="text-[17px] leading-[1.7] text-text/90">
                         {meta.prototype}
                       </p>
@@ -284,7 +284,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
 
                     {/* Research Methods + Tech Stack */}
                     {((methods && methods.length > 0) || (meta.techStack && meta.techStack.length > 0)) && (
-                      <div className="mt-8 flex flex-col gap-6 border-l-2 rule-l rule-thick pl-5">
+                      <div className="mt-8 flex flex-col gap-6 border-l-2 rule-l pl-5">
 
                         {/* Research Methods */}
                         {methods && methods.length > 0 && (
@@ -338,12 +338,12 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                       two surfaces are allowed to show different numbers: the
                       card counts artefacts, this strip reports measurements. */}
                   <div className={verbatimsIn("results") ? "xl:grid xl:grid-cols-[1fr_240px] xl:gap-10 items-start" : ""}>
-                    <div className="max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-out">
+                    <div className="max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-smooth">
                       {/* Gated on the items the strip below actually renders,
                           not on `metrics`, so the notice can never describe a
                           strip the reader isn't looking at. */}
                       {glanceItems?.some((m) => m.pending) && (
-                        <p className="mb-6 border-l-2 rule-l rule-thick pl-4 text-sm text-text-meta leading-relaxed">
+                        <p className="mb-6 border-l-2 rule-l pl-4 text-sm text-text-meta leading-relaxed">
                           {t("project.results.pendingNotice")}
                         </p>
                       )}
@@ -379,7 +379,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   isOpen={openSections.has("implications")} onToggle={() => toggleSection("implications")}
                   staggerDelayMs={staggerDelayFor("implications")}
                   kicker={t("project.implications.kicker")} heading={t("project.implications.heading")}>
-                  <ClampedText className="max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-out">
+                  <ClampedText className="max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-smooth">
                     <p className="text-[17px] leading-[1.7] text-text/90">
                       {meta.implications}
                     </p>

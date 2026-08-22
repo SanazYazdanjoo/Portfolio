@@ -30,14 +30,14 @@ export function LanguageToggle({ className = "" }) {
           anything lighter than ~65% of this ink drops below 4.5:1. The
           active/inactive distinction rides on the coral + underline, not
           on pushing the inactive label past legibility. */}
-      <span className="relative flex items-center gap-1 text-[10px] font-black uppercase tracking-[0.2em]">
+      <span className="relative flex items-center gap-1 text-2xs font-black uppercase tracking-[0.2em]">
         <span className={lang === "en" ? "text-primary" : "text-text/65"}>EN</span>
         <span className="text-text/20">/</span>
         <span className={lang === "de" ? "text-primary" : "text-text/65"}>DE</span>
 
         {/* Underline indicator slides to active language */}
         <motion.span
-          className="absolute -bottom-0.5 h-[1.5px] rule-bar bg-primary"
+          className="absolute -bottom-1 h-[5px] rule-stroke bg-primary"
           initial={false}
           animate={{
             left: lang === "en" ? "0%" : "55%",

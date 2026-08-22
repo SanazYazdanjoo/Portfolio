@@ -22,10 +22,12 @@ const MAX_POINTS = 72;    // centreline samples kept
 const MIN_STEP   = 3;     // px the nib must travel before sampling
 const LIFT_AFTER = 120;   // ms of stillness that lifts the pen
 const CHASE      = 0.34;  // how hard the nib chases the pointer, per 60fps frame
-const MAX_WIDTH  = 3.4;
-const MIN_WIDTH  = 1.2;
+// The nib is the site's nib: the drawn hairline breathes between 0.7px and
+// 1.6px along its length, and so does the trail it leaves.
+const MAX_WIDTH  = 1.6;
+const MIN_WIDTH  = 0.7;
 const TAPER      = 0.6;   // tail-to-head width curve; lower = quicker to full width
-const PEAK_ALPHA = 0.5;
+const PEAK_ALPHA = 0.62;   // a thinner stroke needs a little more ink to read
 
 const f = (n) => Math.round(n * 10) / 10;
 const clamp = (v, lo, hi) => (v < lo ? lo : v > hi ? hi : v);

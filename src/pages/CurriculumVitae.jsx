@@ -120,7 +120,7 @@ export default function CV() {
                 <img
                   src={aboutImage}
                   alt={name}
-                  className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover shrink-0 grayscale"
+                  className="w-16 h-16 md:w-20 md:h-20 rounded-full rule-disc object-cover shrink-0 grayscale"
                 />
               )}
               <div>
@@ -148,7 +148,7 @@ export default function CV() {
                   onClick={() => {
                     document.getElementById(section.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
                   }}
-                  className={`shrink-0 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.18em] border rule-frame rule-fine transition-colors duration-200 ${
+                  className={`shrink-0 px-3 py-1.5 text-2xs font-black uppercase tracking-[0.18em] border rule-frame transition-colors duration-200 ${
                     activeId === section.id
                       ? "text-white [--rule-line-color:var(--primary)] [--rule-fill-color:var(--primary)]"
                       : "text-gray-500 hover:text-primary"
@@ -202,10 +202,10 @@ export default function CV() {
                             key={mi}
                             className="
                               text-xs font-bold uppercase tracking-wider
-                              text-primary border rule-frame rule-fine [--rule-line-color:rgb(var(--primary-rgb)/0.2)]
+                              text-primary border rule-frame [--rule-line-color:rgb(var(--primary-rgb)/0.2)]
                               [--rule-fill-color:rgb(var(--primary-rgb)/0.1)]
                               px-2 py-1 rounded-sm
-                              print:text-[10px]
+                              print:text-2xs
                             "
                           >
                             {m}
@@ -340,7 +340,7 @@ function CVSidebarNav({ sections, activeId }) {
 
   return (
     <nav aria-label={t("cv.sectionsAriaLabel")} className="pt-1">
-      <p className="text-[10px] font-black uppercase tracking-[0.28em] text-gray-500 mb-5 pl-3">
+      <p className="text-2xs font-black uppercase tracking-[0.28em] text-gray-500 mb-5 pl-3">
         {t("cv.onThisPage")}
       </p>
       <ul className="space-y-0.5">
@@ -354,18 +354,18 @@ function CVSidebarNav({ sections, activeId }) {
                 onClick={() => scrollToSection(section.id)}
                 aria-current={isActive ? "true" : undefined}
                 className={`w-full text-left flex items-baseline gap-3 px-3 py-2 transition-colors duration-200 relative border-l-2
-                  rule-edge-l rule-thick ${
+                  rule-edge-l ${
                   isActive
                     ? "[--rule-line-color:var(--primary)] text-primary"
                     : "[--rule-line-color:transparent] text-gray-500 hover:text-gray-900 hover:[--rule-line-color:rgb(209_213_219)]"
                 }`}
               >
-                <span className={`font-mono text-[10px] font-bold uppercase tracking-[0.2em] tabular-nums shrink-0 ${
+                <span className={`font-mono text-2xs font-bold uppercase tracking-[0.2em] tabular-nums shrink-0 ${
                   isActive ? "text-primary" : "text-gray-500"
                 }`}>
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <span className={`text-[11px] font-bold uppercase tracking-[0.2em] leading-tight ${
+                <span className={`text-2xs font-bold uppercase tracking-[0.2em] leading-tight ${
                   isActive ? "text-primary" : "text-gray-600"
                 }`}>
                   {section.label}

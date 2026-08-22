@@ -32,7 +32,7 @@ const SingleTagPage = () => {
         </Link>
 
         <header className="mb-10 border-t rule-t pt-6">
-          <p className="text-[11px] font-black uppercase tracking-[0.2em] text-primary-600 mb-3">
+          <p className="text-2xs font-black uppercase tracking-[0.2em] text-primary-600 mb-3">
             {t("tags.single.heading")}
           </p>
           <h1 className="font-display text-4xl md:text-6xl font-extrabold text-text tracking-tighter leading-tight mb-4">

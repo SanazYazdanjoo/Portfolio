@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion, useReducedMotion } from "framer-motion";
+import { EASE } from "../utils/motion";
 
 // CircleDoodle draws a wobbly oval clockwise using Framer Motion pathLength (0 -> 1).
 //
@@ -63,7 +64,7 @@ export const CircleDoodle = ({
             : {
                 pathLength: {
                   duration: 0.55,
-                  ease: [0.22, 0.61, 0.36, 1],        // ease-out-cubic: fast start, gentle finish
+                  ease: EASE,        // ease-out-cubic: fast start, gentle finish
                 },
                 opacity: { duration: 0.01 },          // appear immediately, then draw
               }
@@ -206,7 +207,7 @@ export const SpeckleCluster = ({ className = "" }) => {
               pathLength: 1,
               opacity: 0.22,
               transition: {
-                pathLength: { delay, duration: 0.5, ease: "easeOut" },
+                pathLength: { delay, duration: 0.5, ease: EASE },
                 opacity:    { delay, duration: 0.01 },
               },
             }}

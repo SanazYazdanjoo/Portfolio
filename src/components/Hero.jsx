@@ -9,11 +9,11 @@ import { useTranslation } from "../context/LanguageContext";
 import { motion, useReducedMotion } from "framer-motion";
 import { Button, SolidButton } from "./Button";
 import { InkHighlight } from "./InkHighlight";
+import { EASE } from "../utils/motion";
 
 // Shared entrance timing — 400ms max per the motion spec, single easing
 // token, staggered per element (kicker 60ms, name lines 120/180ms, portrait
 // 240ms, tagline 320ms). Nav's own entrance (0ms) lives in Nav.jsx.
-const EASE = [0.22, 0.61, 0.36, 1];
 const ENTRANCE_DURATION = 0.4;
 
 export function Hero({ data }) {

@@ -45,7 +45,7 @@ const TagsDirectory = () => {
           {/* The drawn outline lives on a wrapper, not on the field itself:
               a replaced element (input, select, iframe, img) never renders a
               pseudo-element, so .rule-frame has nothing to draw into. */}
-          <span className="inline-block border rule-frame rule-fine">
+          <span className="inline-block border rule-frame">
             <input
               type="text"
               placeholder={t("tags.directory.searchPlaceholder")}
@@ -55,7 +55,7 @@ const TagsDirectory = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </span>
-          <span className="inline-block border rule-frame rule-fine">
+          <span className="inline-block border rule-frame">
             <select
               className="block bg-bg px-3 py-2 text-sm text-text
                          focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"

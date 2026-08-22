@@ -21,7 +21,7 @@ function VerbatimBlock({ item, index }) {
   if (!item.quote) return null;
   return (
     <blockquote
-      className="border-l-2 rule-edge-l rule-thick [--rule-line-color:var(--primary-600)] pl-5 pt-1"
+      className="border-l-2 rule-edge-l [--rule-line-color:var(--primary-600)] pl-5 pt-1"
       aria-label={t("project.results.verbatim")}
       style={{ breakInside: "avoid" }}
     >
@@ -50,7 +50,7 @@ export function VerbatimRail({ verbatims }) {
 export function VerbatimInline({ verbatims }) {
   if (!verbatims || verbatims.length === 0) return null;
   return (
-    <div className="xl:hidden mt-8 flex flex-col gap-6 max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-out">
+    <div className="xl:hidden mt-8 flex flex-col gap-6 max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-smooth">
       {verbatims.map((item, i) => (
         <VerbatimBlock key={i} item={item} index={i} />
       ))}
@@ -61,7 +61,7 @@ export function VerbatimInline({ verbatims }) {
 export function VerbatimList({ verbatims }) {
   if (!verbatims || verbatims.length === 0) return null;
   return (
-    <div className="mt-8 flex flex-col gap-6 max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-out">
+    <div className="mt-8 flex flex-col gap-6 max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-smooth">
       {verbatims.map((item, i) => (
         <VerbatimBlock key={i} item={item} index={i} />
       ))}
