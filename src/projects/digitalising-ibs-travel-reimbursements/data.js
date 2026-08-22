@@ -129,12 +129,13 @@ export const projectData = {
   metrics: [
     { value: '25', label: { en: 'problems documented — six added by the participant survey', de: 'dokumentierte Probleme — sechs durch die Teilnehmenden-Umfrage ergänzt' } },
     { value: 'n=6', label: { en: 'survey responses so far (survey open; PK cohort not yet reached — stated on every figure)', de: 'Umfrage-Antworten bisher (Umfrage offen; PK-Kohorte noch nicht erreicht — auf jeder Abbildung vermerkt)' } },
+    { value: 'n=3', label: { en: 'expert interviews — project management, accounting, administration/IT — checking the failure set from the administrative and the financial side', de: 'Experteninterviews — Projektleitung, Buchhaltung, Verwaltung/IT — Prüfung der Fehlermenge aus administrativer und finanzieller Sicht' } },
+    { value: '>1 yr', label: { en: 'running the process myself before redesigning it — insider observation as the first evidence source', de: 'den Prozess selbst betrieben, bevor ich ihn neu entwarf — Insider-Beobachtung als erste Evidenzquelle' } },
     { value: '7', label: { en: 'personas, each with its provenance stated', de: 'Personas, jede mit angegebener Herkunft' } },
     { value: '9', label: { en: 'actors mapped across 13 steps and 4 return loops', de: 'Akteure über 13 Schritte und 4 Rückschleifen kartiert' } },
     { value: '43+', label: { en: 'days and still unpaid — one claim traced end to end through the paper process: 8 days sitting unseen, 1 day of admin work, the rest downstream and invisible', de: 'Tage und weiter unbezahlt — ein Antrag durchgängig im Papierprozess verfolgt: 8 Tage unbemerkt liegend, 1 Tag Bearbeitung, der Rest nachgelagert und unsichtbar' } },
     { value: { en: 'NO TRIGGER', de: 'KEIN AUSLÖSER' }, label: { en: 'Private-vehicle claims were never prompted for — a PKW claim depends entirely on the participant remembering', de: 'PKW-Anträge wurden nie abgefragt — ein PKW-Antrag hängt allein am Erinnern der Teilnehmenden' } },
     { value: '4/6', label: { en: 'respondents do not know how their amount is calculated; two have stopped trying', de: 'Befragte wissen nicht, wie ihr Betrag berechnet wird; zwei haben aufgehört, es zu versuchen' } },
-    { value: '5', label: { en: 'role-based interfaces built and wired', de: 'rollenbasierte Oberflächen gebaut und verdrahtet' } },
     { value: '1,234', label: { en: 'automated tests — including guards that fail the build on an untraced requirement citation or a design-token drift', de: 'automatisierte Tests — darunter Guards, die den Build bei unbelegten Anforderungszitaten oder Token-Abweichungen scheitern lassen' } },
   ],
 
@@ -610,7 +611,7 @@ export const projectData = {
   // Every pointer below resolves to a field that exists in THIS file.
   tagEvidence: [
     { tag: 'UX Research', evidence: "methods: insider observation (>1 year inside the process), three expert interviews, participant survey (n=6 and open); metrics records six of the 25 documented problems as survey-contributed; verbatims quotes three respondents", status: 'evidenced' },
-    { tag: 'Stakeholder Interviews', evidence: "methods: 'Expert interviews (n=3: project management, accounting, administration/IT)'; methodology names all three and what each side checked", status: 'evidenced' },
+    { tag: 'Stakeholder Interviews', evidence: "metrics: 'n=3 expert interviews'; methods: 'Expert interviews (n=3: project management, accounting, administration/IT)'; methodology names all three and what each side checked", status: 'evidenced' },
     { tag: 'Survey Design', evidence: "methods: 'Participant survey (n=6 and open, anonymous)'; verbatims carries three responses quoted as given; the unreached PK cohort is stated as a limit rather than hidden", status: 'evidenced' },
     { tag: 'Thematic Analysis', evidence: "methodology Define: thematic clustering into a problem register with a per-entry evidence grade (confirmed / indicative / hypothesis / untested)", status: 'evidenced' },
     { tag: 'Persona Development', evidence: "figures.methodology: seven personas, one composite per role, each stating where its reading came from; methods: persona development with provenance labelling", status: 'evidenced' },
@@ -627,7 +628,7 @@ export const projectData = {
     { tag: 'Usability Evaluation (instrumented)', evidence: "guided tasks per role, a pseudonymous event log and an end-of-session questionnaire are built into the app and dogfooded on my own traffic (three measurement bugs caught); sessions with users are pending deployment", status: 'thin' },
     { tag: 'Accessibility', evidence: "guided step-by-step mode, camera capture, mobile-first upload path — inclusive-design evidence, not a WCAG audit; notBuilt names the sub-768px shell gap openly", status: 'thin' },
     { tag: 'Data Visualization', evidence: "the admin Diagramme view (process donuts, monthly bars) and the hand-authored SVG research figures; no dedicated visualization study", status: 'thin' },
-    { tag: 'React', evidence: "techStack; metrics: five role-based interfaces built and wired; prototype: the deployed build runs all five", status: 'evidenced' },
+    { tag: 'React', evidence: "techStack; prototype: the deployed build runs all five role views", status: 'evidenced' },
     { tag: 'TypeScript', evidence: "methodology Develop: the calculation rules engineered as pure, unit-tested TypeScript", status: 'evidenced' },
     { tag: 'Node.js / Fastify', evidence: "techStack: Node.js Server (Fastify); the self-hosted target described in the architecture figure — implemented and tested, deployment pending", status: 'evidenced' },
     { tag: 'SQLite', evidence: "techStack and the architecture figure: local SQLite database holding only typed fields — no amount column, no trace column", status: 'evidenced' },
