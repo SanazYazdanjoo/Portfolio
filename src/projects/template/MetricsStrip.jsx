@@ -2,17 +2,35 @@ import { useState, useEffect, useRef } from "react";
 import { useReducedMotion, useInView, animate as animateValue } from "framer-motion";
 import { useTranslation } from "../../context/LanguageContext";
 
+// The leading number a metric counts up to, with any thousands separators it
+// carries ("1,234"). Matching only the digits before the separator would count
+// 0 → 1 and leave ",234" pinned beside it, so the strip reads "0,234" for the
+// length of the animation. Separators are the grouping characters only —
+// a plain space is excluded so "3 → 1" still counts to 3 rather than 31.
+const LEADING_NUMBER = /^(\d[\d,.\u00A0\u202F]*\d|\d)(.*)$/;
+
+// Regroups a mid-animation value with the separator the metric was authored
+// with, so every frame groups the way the final number does.
+function group(n, separator) {
+  const digits = String(n);
+  if (!separator) return digits;
+  return digits.replace(/\B(?=(\d{3})+(?!\d))/g, separator);
+}
+
 // Counts a metric's numeric part up from 0 once it scrolls into view.
 function AnimatedMetricValue({ value }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-10%" });
   const reduce = useReducedMotion();
-  const match = String(value).match(/^(\d+)(.*)$/);
+  const match = String(value).match(LEADING_NUMBER);
   const [display, setDisplay] = useState(0);
+
+  const numeric = match ? match[1] : "";
+  const separator = numeric.replace(/\d/g, "")[0] || "";
+  const target = Number(numeric.replace(/\D/g, ""));
 
   useEffect(() => {
     if (!match || !inView || reduce) return;
-    const target = Number(match[1]);
     const controls = animateValue(0, target, {
       duration: 0.8,
       ease: "easeOut",
@@ -23,11 +41,11 @@ function AnimatedMetricValue({ value }) {
   }, [inView, reduce]);
 
   if (!match) return <span ref={ref}>{value}</span>;
-  const shown = reduce ? match[1] : inView ? display : 0;
+  const shown = reduce ? numeric : group(inView ? display : 0, separator);
   return (
     <span ref={ref}>
       <span className="print:hidden">{shown}</span>
-      <span className="hidden print:inline">{match[1]}</span>
+      <span className="hidden print:inline">{numeric}</span>
       {match[2]}
     </span>
   );
