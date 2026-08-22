@@ -542,6 +542,43 @@
     opacity: 0.35;
   }
 
+  /* Hand-drawn dot pattern — the Ink & Bloom "Dot pattern" card
+     (guidelines/dot-pattern.card.html in the design-system project).
+     Seamless 626px dot-and-ring tile: 24 stroked rings plus 56 solid
+     specks. IMPORTED, not authored here — change it in the design system
+     and re-import both files, don't hand-edit the SVGs.
+
+     Two variants, and the ground decides which one you want:
+
+       .bg-dots-paper  tile ships its own #FDFBF4 paper ground, drawn at
+                       313px (half the tile's 626 units). Use where the
+                       pattern IS the surface.
+       .bg-dots        no ground, drawn at 200px, so the same marks read
+                       finer. Use as an overlay over a surface the caller
+                       has already painted.
+
+     Both sizes are the card's own; override per use with --dots-size. */
+  .bg-dots-paper {
+    background: url("/assets/dots-pattern.svg") 0 0 / var(--dots-size, 313px) repeat;
+  }
+
+  .bg-dots {
+    background-image: url("/assets/dots-pattern-transparent.svg");
+    background-size: var(--dots-size, 200px);
+    background-repeat: repeat;
+  }
+
+  /* Not from the card — it is a light-mode specimen and is silent on this.
+     Both tiles bake #211D1C ink, which on the dark-mode surface is ink on
+     ink and vanishes. Inverting the LAYER (never the page) flips the marks
+     to a pale stroke and leaves the ground alone, since invert() does not
+     touch alpha. Only the transparent variant: .bg-dots-paper exists FOR
+     its baked ground, and a dark-mode use that wants paper should reach
+     for .bg-dots over --surface instead. */
+  @media (prefers-color-scheme: dark) {
+    .bg-dots { filter: invert(1); }
+  }
+
   /* Ink-colored speckle texture, matching the black doodle illustrations */
   .bg-ink-speckles {
     background-image: url("data:image/svg+xml,%3Csvg width='600' height='600' viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23211d1c' fill-opacity='0.55'%3E%3Ccircle cx='50' cy='80' r='1.2'/%3E%3Ccircle cx='320' cy='50' r='0.8'/%3E%3Ccircle cx='550' cy='120' r='1.5'/%3E%3Ccircle cx='180' cy='290' r='1.8'/%3E%3Ccircle cx='450' cy='400' r='1'/%3E%3Ccircle cx='380' cy='550' r='1.2'/%3E%3Ccircle cx='40' cy='520' r='0.8'/%3E%3C/g%3E%3C/svg%3E");
