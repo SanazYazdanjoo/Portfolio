@@ -26,14 +26,14 @@ export function ResearchPhases({ phases, intro, number, isOpen, onToggle, stagge
       staggerDelayMs={staggerDelayMs}
     >
       {intro && (
-        <ClampedText className="max-w-[68ch] mb-8">
+        <ClampedText className="max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-out mb-8">
           <p className="text-[17px] leading-[1.7] text-text/90">
             {intro}
           </p>
         </ClampedText>
       )}
 
-      <ol className="list-none p-0 m-0 max-w-[68ch]">
+      <ol className="list-none p-0 m-0 max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-out">
         {phases.map((p, i) => {
           const s = PHASE_STATUS[p.status] ?? PHASE_STATUS.planned;
           return (
