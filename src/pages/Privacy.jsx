@@ -40,7 +40,7 @@ export default function Privacy() {
         </header>
 
         {/* Privacy Content - Structured as an Editorial Document */}
-        <article className="space-y-12 text-lg text-text leading-relaxed font-medium bg-panel p-8 md:p-12 border border-border shadow-sm relative">
+        <article className="space-y-12 text-lg text-text leading-relaxed font-medium bg-panel p-8 md:p-12 border rule-box shadow-sm relative">
 
           {/* Subtle Doodle on the document */}
           <FlowerDoodle className="absolute -top-6 -right-6 w-24 h-24 text-accent opacity-30 rotate-45 pointer-events-none" />
@@ -59,7 +59,7 @@ export default function Privacy() {
             </p>
           </section>
 
-          <div className="h-px w-full bg-border/50 my-8"></div>
+          <div className="rule-line w-full my-8"></div>
 
           <section>
             <h2 className="text-xs font-bold uppercase tracking-widest text-primary mb-4">{t("privacy.section2.heading")}</h2>
@@ -85,7 +85,7 @@ export default function Privacy() {
             </p>
           </section>
 
-          <div className="h-px w-full bg-border/50 my-8"></div>
+          <div className="rule-line w-full my-8"></div>
 
           <section>
             <h2 className="text-xs font-bold uppercase tracking-widest text-primary mb-4">{t("privacy.sectionAnalytics.heading")}</h2>
@@ -113,7 +113,7 @@ export default function Privacy() {
             </p>
           </section>
 
-          <div className="h-px w-full bg-border/50 my-8"></div>
+          <div className="rule-line w-full my-8"></div>
 
           <section>
             <h2 className="text-xs font-bold uppercase tracking-widest text-primary mb-4">{t("privacy.section3.heading")}</h2>

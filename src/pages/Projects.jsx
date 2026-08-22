@@ -47,7 +47,7 @@ function ViewToggleButton({ active, onClick, icon, label }) {
       {active && (
         <motion.span
           layoutId="projects-view-pill"
-          className="absolute inset-0 bg-primary -z-10"
+          className="absolute inset-0 bg-primary rule-fill -z-10"
           transition={{ duration: 0.25, ease: EASE }}
         />
       )}
@@ -108,7 +108,7 @@ export default function Projects() {
             <div
               role="group"
               aria-label={t("projects.view.label")}
-              className="flex shrink-0 items-center gap-1 border border-border p-1 mb-1"
+              className="flex shrink-0 items-center gap-1 border rule-frame p-1 mb-1"
             >
               <ViewToggleButton
                 active={view === "list"}
@@ -144,7 +144,7 @@ export default function Projects() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.98 }}
                 transition={{ duration: 0.25, ease: EASE }}
-                className="relative flex flex-col -mx-4 md:-mx-8 border-b border-border"
+                className="relative flex flex-col -mx-4 md:-mx-8"
               >
                 {live.map((project, index) => (
                   <ProjectListRow
@@ -160,6 +160,11 @@ export default function Projects() {
                     index={live.length + i}
                   />
                 ))}
+                {/* Closing hairline under the last row — its own element, not
+                    a border-b on this wrapper: the rows paint an opaque bg-bg
+                    right up to the wrapper's content edge, which would sit on
+                    top of the hand-drawn rule's 5px band and hide it. */}
+                <div className="w-full rule-line" />
               </motion.div>
             ) : (
               <motion.div
@@ -186,7 +191,7 @@ export default function Projects() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="border border-border/30 px-12 py-20 text-center"
+            className="border rule-box px-12 py-20 text-center"
           >
             <svg className="w-12 h-12 text-primary/25 mx-auto mb-6" fill="none"
               stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">

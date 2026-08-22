@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 
 const TagChip = ({ name, count, onRemove }) => {
   return (
-    <div className="group inline-flex items-center rounded-full border-[1.5px] border-primary-600 bg-transparent text-xs font-semibold tracking-wide text-primary-600 m-1
-                    transition-colors duration-200 ease-smooth hover:bg-primary-600 hover:border-primary-600 hover:text-white">
+    <div className="group inline-flex items-center rounded-full border-[1.5px] rule-pill [--rule-line-color:var(--primary-600)] bg-transparent text-xs font-semibold tracking-wide text-primary-600 m-1
+                    transition-colors duration-200 ease-smooth hover:[--rule-fill-color:var(--primary-600)] hover:text-white">
       <Link to={`/tags/${encodeURIComponent(name)}`} className="px-3 py-1">
         {name}
       </Link>

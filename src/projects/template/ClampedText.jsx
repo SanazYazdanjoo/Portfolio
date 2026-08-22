@@ -85,7 +85,7 @@ export function ClampedText({ children, className = "" }) {
           onClick={() => setExpanded((prev) => !prev)}
           aria-expanded={expanded}
           aria-controls={bodyId}
-          className="no-print mt-3 inline-flex items-center gap-1.5 border-0 bg-blush-weak
+          className="no-print mt-3 inline-flex items-center gap-1.5 border-0 bg-blush-weak rule-fill
                      px-2.5 py-1.5 text-2xs font-black uppercase tracking-[0.2em] text-primary-600
                      hover:bg-primary-600 hover:text-white transition-colors duration-200
                      focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"

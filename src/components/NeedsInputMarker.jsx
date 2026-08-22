@@ -6,7 +6,7 @@ export function NeedsInputMarker({ path }) {
   if (!import.meta.env.DEV) return null;
   return (
     <span
-      className="inline-flex items-center gap-1.5 bg-danger px-2 py-0.5 font-mono text-2xs
+      className="inline-flex items-center gap-1.5 bg-danger rule-fill px-2 py-0.5 font-mono text-2xs
                  font-black uppercase tracking-wider text-white"
       role="note"
     >
