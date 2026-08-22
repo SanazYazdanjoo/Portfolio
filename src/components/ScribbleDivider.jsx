@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
+import { EASE } from "../utils/motion";
 
 const draw = {
   hidden: { pathLength: 0, opacity: 0 },
   visible: {
     pathLength: 1,
     opacity: 1,
-    transition: { duration: 1.2, ease: "easeInOut" },
+    transition: { duration: 1.2, ease: EASE },
   },
 };
 

@@ -20,6 +20,7 @@ import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { useTranslation } from "../context/LanguageContext";
 import { Badge } from "../components/Badge";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
+import { EASE } from "../utils/motion";
 
 const TOPIC_PARAM = "topic";
 
@@ -87,7 +88,7 @@ function FilterChip({ active, label, count, onClick }) {
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`inline-flex items-center gap-2 border rule-frame rule-fine px-4 py-2 text-2xs font-black uppercase tracking-wider
+      className={`inline-flex items-center gap-2 border rule-frame px-4 py-2 text-2xs font-black uppercase tracking-wider
                   transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600
                   ${
                     active
@@ -168,7 +169,7 @@ function CertificateLightbox({ cert, onClose }) {
             type="button"
             onClick={onClose}
             aria-label={t("credentials.close")}
-            className="shrink-0 border rule-frame rule-fine px-3 py-1.5 text-2xs font-black uppercase tracking-wider
+            className="shrink-0 border rule-frame px-3 py-1.5 text-2xs font-black uppercase tracking-wider
                        text-text hover:text-primary-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
           >
             {t("credentials.close")} &#10005;
@@ -177,7 +178,7 @@ function CertificateLightbox({ cert, onClose }) {
 
         <div className="flex-1 overflow-auto bg-muted/30 p-4">
           {pdf ? (
-            <div className="border rule-frame bg-bg">
+            <div className="border rule-frame [--rule-fill-color:var(--bg)]">
               <iframe
                 src={cert.file}
                 title={`${cert.title} — ${cert.provider}`}
@@ -197,7 +198,7 @@ function CertificateLightbox({ cert, onClose }) {
           <a
             href={cert.file}
             download
-            className="border rule-frame rule-fine [--rule-line-color:rgb(var(--primary-rgb)/0.4)] px-4 py-2 text-2xs font-black uppercase tracking-wider
+            className="border rule-frame [--rule-line-color:rgb(var(--primary-rgb)/0.4)] px-4 py-2 text-2xs font-black uppercase tracking-wider
                        text-primary-600 hover:[--rule-fill-color:var(--blush-weak)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
           >
             {t("credentials.download")} &#8595;
@@ -284,7 +285,7 @@ function CertificateCard({ cert, index, onOpenFile }) {
       exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.97 }}
       transition={{
         duration: 0.3,
-        ease: "easeOut",
+        ease: EASE,
         // Stagger only the first screenful; a filter that reveals 15 cards
         // shouldn't take two seconds to finish drawing.
         delay: prefersReducedMotion ? 0 : Math.min(index, 8) * 0.04,
@@ -477,7 +478,7 @@ export default function Credentials() {
                 <button
                   type="button"
                   onClick={() => setSelected([])}
-                  className="mt-4 border rule-frame rule-fine [--rule-line-color:rgb(var(--primary-rgb)/0.4)] px-4 py-2 text-2xs font-black uppercase tracking-wider
+                  className="mt-4 border rule-frame [--rule-line-color:rgb(var(--primary-rgb)/0.4)] px-4 py-2 text-2xs font-black uppercase tracking-wider
                              text-primary-600 hover:[--rule-fill-color:var(--blush-weak)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
                 >
                   {t("credentials.reset")}

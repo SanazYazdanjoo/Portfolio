@@ -44,7 +44,7 @@ function ProcessStep({ item, index, total }) {
 
       <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
         {item.imagePath && !imgError && (
-          <div className="w-full sm:w-[150px] aspect-[4/3] shrink-0 overflow-hidden border rule-frame-in bg-muted/40">
+          <div className="w-full sm:w-[150px] aspect-[4/3] shrink-0 overflow-hidden border rule-frame-in [--rule-fill-color:rgb(var(--muted-rgb)/0.4)]">
             <img
               src={item.imagePath}
               alt={item.title}
@@ -99,7 +99,7 @@ function ProcessStep({ item, index, total }) {
                     className="overflow-hidden"
                   >
                     <p className="text-[13px] leading-relaxed text-text/70
-                                  border-l-2 rule-edge-l rule-thick [--rule-line-color:rgb(var(--primary-rgb)/0.4)] pl-3 mt-3">
+                                  border-l-2 rule-edge-l [--rule-line-color:rgb(var(--primary-rgb)/0.4)] pl-3 mt-3">
                       {item.insight}
                     </p>
                   </motion.div>
@@ -142,7 +142,7 @@ export function ProcessGallerySection({ items, number, isOpen, onToggle, stagger
         }}
       >
         <div style={{ overflow: "hidden", minHeight: 0 }}>
-          <ol className="list-none p-0 m-0 max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-out" role="list" aria-label={t("project.process.ariaLabel")}>
+          <ol className="list-none p-0 m-0 max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-smooth" role="list" aria-label={t("project.process.ariaLabel")}>
             {items.map((item, i) => (
               <ProcessStep key={`${item.phase}-${i}`} item={item} index={i} total={items.length} />
             ))}

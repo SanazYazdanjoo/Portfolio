@@ -11,6 +11,7 @@ import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
 import { careerPhases } from "../data/career";
+import { EASE } from "../utils/motion";
 
 // Hand-drawn ink arrow — shared by both variants
 function InkArrow({ className = "" }) {
@@ -49,7 +50,7 @@ const fadeUp = {
   show: (i = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.1, duration: 0.5, ease: "easeOut" },
+    transition: { delay: i * 0.1, duration: 0.5, ease: EASE },
   }),
 };
 
@@ -96,7 +97,7 @@ function CareerArcFull({ steps }) {
             <div key={group.label ?? `group-${gi}`} className={gi > 0 ? "mt-5" : ""}>
               {group.label && (
                 <p
-                  className={`text-[9px] font-black uppercase tracking-[0.2em] mb-2
+                  className={`text-2xs font-black uppercase tracking-[0.2em] mb-2
                     ${step.highlight ? "text-white" : "text-secondary-600"}`}
                 >
                   {group.label}
@@ -109,8 +110,8 @@ function CareerArcFull({ steps }) {
                 {group.items.map((item) => (
                   <li key={item}>
                     <span
-                      className={`inline-block text-[9px] font-bold uppercase tracking-wide px-2 py-1 rounded-full border
-                        rule-pill rule-fine [--rule-cap:12px]
+                      className={`inline-block text-2xs font-bold uppercase tracking-wide px-2 py-1 rounded-full border
+                        rule-pill [--rule-cap:14px]
                         transition-colors duration-200 ease-smooth
                         ${step.highlight
                           ? "[--rule-line-color:rgb(255_255_255/0.4)] text-white hover:[--rule-fill-color:rgb(255_255_255)] hover:[--rule-line-color:rgb(255_255_255)] hover:text-primary"
@@ -151,7 +152,7 @@ function CareerArcCompact({ steps }) {
     initial: reduce ? { opacity: 1 } : { opacity: 0, y: 16 },
     whileInView: { opacity: 1, y: 0 },
     viewport: { once: true, margin: "-10%" },
-    transition: { duration: reduce ? 0 : 0.4, delay, ease: [0.22, 0.61, 0.36, 1] },
+    transition: { duration: reduce ? 0 : 0.4, delay, ease: EASE },
   });
 
   return (
@@ -170,7 +171,7 @@ function CareerArcCompact({ steps }) {
           initial={reduce ? { pathLength: 1 } : { pathLength: 0 }}
           whileInView={{ pathLength: 1 }}
           viewport={{ once: true, margin: "-10%" }}
-          transition={{ duration: reduce ? 0 : 0.6, ease: [0.22, 0.61, 0.36, 1] }}
+          transition={{ duration: reduce ? 0 : 0.6, ease: EASE }}
         />
       </svg>
 

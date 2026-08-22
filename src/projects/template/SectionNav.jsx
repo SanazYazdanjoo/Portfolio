@@ -44,7 +44,7 @@ export function SidebarNav({
           aria-controls={listId}
           aria-label={toggleLabel}
           title={toggleLabel}
-          className="inline-flex h-8 w-8 items-center justify-center border rule-frame rule-fine
+          className="inline-flex h-8 w-8 items-center justify-center border rule-frame
                      text-dim transition-colors duration-200
                      hover:[--rule-line-color:var(--primary-600)] hover:text-primary-600
                      focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
@@ -96,7 +96,7 @@ export function SidebarNav({
                 {isActive && (
                   <motion.span
                     layoutId="project-toc-indicator"
-                    className="absolute left-0 top-0 bottom-0 w-0.5 rule-bar-v bg-primary-600"
+                    className="absolute left-0 top-0 bottom-0 w-[5px] rule-stroke-v bg-primary-600"
                     transition={{ duration: 0.25, ease: EASE }}
                   />
                 )}
@@ -104,7 +104,7 @@ export function SidebarNav({
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 {!collapsed && (
-                  <span className="text-[11px] font-bold uppercase tracking-widest">
+                  <span className="text-2xs font-bold uppercase tracking-widest">
                     {label}
                   </span>
                 )}
@@ -151,7 +151,7 @@ export function MobilePillBar({ sections, activeId, onNavigate }) {
               onClick={() => onNavigate(section.id)}
               className={`shrink-0 px-3 py-1.5 text-2xs font-black uppercase tracking-widest
                 transition-colors duration-200
-                border rule-frame rule-fine
+                border rule-frame
                 ${isActive
                   ? "text-white [--rule-line-color:var(--primary)] [--rule-fill-color:var(--primary)]"
                   : "text-dim hover:text-text"

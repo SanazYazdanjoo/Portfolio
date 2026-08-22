@@ -29,22 +29,12 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 import { useTranslation } from "../../context/LanguageContext";
 
-// Four corner-radius sets the badge melts between. Every keyframe keeps the
-// same 8-value `x / y` structure — framer interpolates the numbers inside a
-// complex string only while the structure matches, and a shorthand slipped
-// in here would snap instead of morph. BLOB[0] doubles as the static shape
-// under prefers-reduced-motion, so the badge is never a plain circle.
-const BLOB = [
-  "58% 42% 61% 39% / 47% 55% 45% 53%",
-  "41% 59% 38% 62% / 59% 42% 58% 41%",
-  "64% 36% 47% 53% / 39% 63% 37% 61%",
-  "58% 42% 61% 39% / 47% 55% 45% 53%",
-];
-
-// The backing blobs run their own phase order so the three silhouettes never
-// line up — that offset is what makes the edge look like it is breathing
-// rather than scaling.
-const BLOB_ALT = [BLOB[2], BLOB[0], BLOB[1], BLOB[2]];
+// The badge and its two backing shapes are all cut from `.rule-blob`, the
+// same hand-torn silhouette the rest of the site is drawn with. It replaced a
+// set of morphing border-radius keyframes: those melted smoothly but read as
+// vector-smooth next to every other edge on the page. The movement now comes
+// from rotation and scale instead — and because the shape is irregular, a
+// slow rotation is visible in a way it never is on a circle.
 
 // The eye, drawn the way it would be drawn: the lid is two separate pen
 // strokes rather than one closed almond, and they don't tidy up at the
@@ -368,7 +358,12 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
                     overlap, and still clears the 44px minimum tap target by a
                     comfortable margin. Desktop, where the badge sits in the
                     page margin and overlaps nothing, is unchanged. */}
-                <span className="relative grid h-14 w-14 md:h-[84px] md:w-[84px] place-items-center">
+                {/* The lift lives on this wrapper as a drop-shadow, not on the
+                    badge as a box-shadow: a mask clips the element's own
+                    shadow away with everything else outside the torn edge,
+                    while a filter on the parent follows the shape. */}
+                <span className="relative grid h-14 w-14 md:h-[84px] md:w-[84px] place-items-center
+                                 drop-shadow-[0_4px_7px_rgba(60,40,30,0.22)]">
                   {/* Two soft blobs behind the badge, morphing and drifting
                       out of phase with it and with each other. No stroke, no
                       pulse ring: the movement is the attention-getter. */}
@@ -376,11 +371,9 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
                     <>
                       <motion.span
                         aria-hidden="true"
-                        className="absolute -inset-1.5 md:-inset-2 bg-highlight opacity-25"
-                        style={{ borderRadius: BLOB_ALT[0] }}
-                        animate={{ borderRadius: BLOB_ALT, rotate: -360, scale: [1, 1.07, 1] }}
+                        className="absolute -inset-1.5 md:-inset-2 bg-highlight rule-blob opacity-25"
+                        animate={{ rotate: -360, scale: [1, 1.07, 1] }}
                         transition={{
-                          borderRadius: { duration: 9, repeat: Infinity, ease: "easeInOut" },
                           rotate: { duration: 26, repeat: Infinity, ease: "linear" },
                           scale: { duration: 3.8, repeat: Infinity, ease: "easeInOut" },
                         }}
@@ -393,13 +386,9 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
                         // the ~16px it saves on each side is the difference
                         // between clipping the ends of body-copy lines and
                         // grazing the margin.
-                        className="hidden md:block absolute -inset-4 bg-highlight opacity-[0.12]"
-                        style={{ borderRadius: BLOB[1] }}
-                        animate={{ borderRadius: [BLOB[1], BLOB[2], BLOB[0], BLOB[1]], rotate: 360 }}
-                        transition={{
-                          borderRadius: { duration: 12, repeat: Infinity, ease: "easeInOut" },
-                          rotate: { duration: 34, repeat: Infinity, ease: "linear" },
-                        }}
+                        className="hidden md:block absolute -inset-4 bg-highlight rule-blob opacity-[0.12]"
+                        animate={{ rotate: 360 }}
+                        transition={{ rotate: { duration: 34, repeat: Infinity, ease: "linear" } }}
                       />
                     </>
                   )}
@@ -409,14 +398,12 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
                       rude, because a reader deep in a case study is not
                       looking at the corner of their screen. */}
                   <motion.span
-                    className="relative grid h-full w-full place-items-center bg-highlight
-                               text-highlight-on shadow-md ring-offset-bg
+                    className="relative grid h-full w-full place-items-center bg-highlight rule-blob
+                               text-highlight-on ring-offset-bg
                                group-focus-visible:ring-2 group-focus-visible:ring-primary-600
                                group-focus-visible:ring-offset-2"
-                    style={{ borderRadius: BLOB[0] }}
-                    animate={reduce ? {} : { borderRadius: BLOB, rotate: [0, -9, 7, -4, 0] }}
+                    animate={reduce ? {} : { rotate: [0, -9, 7, -4, 0] }}
                     transition={{
-                      borderRadius: { duration: 8, repeat: Infinity, ease: "easeInOut" },
                       rotate: { duration: 0.9, repeat: Infinity, repeatDelay: 6, ease: "easeInOut" },
                     }}
                   >
