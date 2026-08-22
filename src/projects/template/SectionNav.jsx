@@ -44,9 +44,9 @@ export function SidebarNav({
           aria-controls={listId}
           aria-label={toggleLabel}
           title={toggleLabel}
-          className="inline-flex h-8 w-8 items-center justify-center border border-border
+          className="inline-flex h-8 w-8 items-center justify-center border rule-frame rule-fine
                      text-dim transition-colors duration-200
-                     hover:border-primary-600 hover:text-primary-600
+                     hover:[--rule-line-color:var(--primary-600)] hover:text-primary-600
                      focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
         >
           <svg aria-hidden="true" className="h-3.5 w-3.5" fill="none" stroke="currentColor"
@@ -96,7 +96,7 @@ export function SidebarNav({
                 {isActive && (
                   <motion.span
                     layoutId="project-toc-indicator"
-                    className="absolute left-0 top-0 bottom-0 w-0.5 bg-primary-600"
+                    className="absolute left-0 top-0 bottom-0 w-0.5 rule-bar-v bg-primary-600"
                     transition={{ duration: 0.25, ease: EASE }}
                   />
                 )}
@@ -117,7 +117,7 @@ export function SidebarNav({
       {!collapsed && (
         <button
           onClick={onToggleAll}
-          className="mt-6 pt-4 border-t border-border w-full text-left flex items-center gap-2
+          className="mt-6 pt-4 border-t rule-t w-full text-left flex items-center gap-2
                      text-2xs font-bold uppercase tracking-[0.15em] text-text/35
                      hover:text-primary-600 transition-colors duration-200"
         >
@@ -140,7 +140,7 @@ export function SidebarNav({
 export function MobilePillBar({ sections, activeId, onNavigate }) {
   const { t } = useTranslation();
   return (
-    <div className="sticky top-[80px] z-40 bg-bg border-b border-border
+    <div className="sticky top-[80px] z-40 bg-bg border-b rule-b
                      -mx-4 px-4 py-2 md:hidden no-print">
       <div className="flex gap-1 overflow-x-auto">
         {sections.map((section) => {
@@ -151,9 +151,10 @@ export function MobilePillBar({ sections, activeId, onNavigate }) {
               onClick={() => onNavigate(section.id)}
               className={`shrink-0 px-3 py-1.5 text-2xs font-black uppercase tracking-widest
                 transition-colors duration-200
+                border rule-frame rule-fine
                 ${isActive
-                  ? "bg-primary text-white"
-                  : "text-dim hover:text-text border border-border"
+                  ? "text-white [--rule-line-color:var(--primary)] [--rule-fill-color:var(--primary)]"
+                  : "text-dim hover:text-text"
                 }`}
             >
               {t(section.labelKey)}

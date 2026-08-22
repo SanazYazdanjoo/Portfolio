@@ -67,8 +67,8 @@ function CareerArcFull({ steps }) {
           viewport={{ once: true }}
           className={`relative p-8 group
             ${step.highlight
-              ? "bg-primary text-white"
-              : "bg-bg hover:bg-blush-weak transition-colors duration-300"
+              ? "bg-primary rule-fill text-white"
+              : "bg-bg rule-fill hover:bg-blush-weak transition-colors duration-300"
             }`}
         >
           <span
@@ -110,10 +110,11 @@ function CareerArcFull({ steps }) {
                   <li key={item}>
                     <span
                       className={`inline-block text-[9px] font-bold uppercase tracking-wide px-2 py-1 rounded-full border
+                        rule-pill rule-fine [--rule-cap:12px]
                         transition-colors duration-200 ease-smooth
                         ${step.highlight
-                          ? "border-white/40 text-white hover:bg-white hover:border-white hover:text-primary"
-                          : "border-border text-text/65 hover:bg-primary-600 hover:border-primary-600 hover:text-white"
+                          ? "[--rule-line-color:rgb(255_255_255/0.4)] text-white hover:[--rule-fill-color:rgb(255_255_255)] hover:[--rule-line-color:rgb(255_255_255)] hover:text-primary"
+                          : "text-text/65 hover:[--rule-fill-color:var(--primary-600)] hover:[--rule-line-color:var(--primary-600)] hover:text-white"
                         }`}
                     >
                       {item}

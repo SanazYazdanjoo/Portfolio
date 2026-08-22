@@ -68,7 +68,7 @@ export function ProjectHero({ meta, scrollY }) {
                The utility keeps the card's default for everyone else. */
             style={{ "--dots-size": "130px" }}
           />
-          <div className="photo-frame relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden bg-transparent shadow-sm">
+          <div className="photo-frame rule-frame-in relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden bg-transparent shadow-sm">
             <ProjectPicture
               src={meta.thumbnail}
               webpSrc={meta.thumbnailWebp}

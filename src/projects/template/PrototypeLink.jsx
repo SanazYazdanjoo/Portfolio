@@ -9,7 +9,7 @@ const isInternalPath = (url) => /^\/(?!\/)/.test(url);
 // both themes (same reasoning as .ink-highlight in theme.css). Print drops
 // the fill back to an outline rather than laying down a solid gold block.
 export function PrototypeLink({ href, label }) {
-  const className = "mt-6 inline-flex items-center gap-2 border-2 border-highlight bg-highlight px-5 py-3 " +
+  const className = "mt-6 inline-flex items-center gap-2 border-2 border-highlight bg-highlight rule-fill-r px-5 py-3 " +
     "text-2xs font-black uppercase tracking-[0.2em] text-highlight-on " +
     "shadow-sm transition duration-200 " +
     "hover:bg-highlight/85 hover:-translate-y-0.5 hover:shadow-md " +

@@ -68,7 +68,7 @@ function certAltText(t, cert) {
 function FallbackTile({ title }) {
   const initial = (title || "?").trim().charAt(0).toUpperCase() || "?";
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center gap-2 bg-blush-weak px-4">
+    <div className="flex h-full w-full flex-col items-center justify-center gap-2 bg-blush-weak rule-fill px-4">
       <span aria-hidden="true" className="font-display text-4xl font-extrabold text-primary-600">
         {initial}
       </span>
@@ -87,12 +87,12 @@ function FilterChip({ active, label, count, onClick }) {
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`inline-flex items-center gap-2 border px-4 py-2 text-2xs font-black uppercase tracking-wider
+      className={`inline-flex items-center gap-2 border rule-frame rule-fine px-4 py-2 text-2xs font-black uppercase tracking-wider
                   transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600
                   ${
                     active
-                      ? "border-primary-600 bg-primary-600 text-white"
-                      : "border-border bg-bg text-text/70 hover:border-primary-600 hover:text-primary-600"
+                      ? "[--rule-line-color:var(--primary-600)] [--rule-fill-color:var(--primary-600)] text-white"
+                      : "[--rule-fill-color:var(--bg)] text-text/70 hover:[--rule-line-color:var(--primary-600)] hover:text-primary-600"
                   }`}
     >
       {label}
@@ -159,7 +159,7 @@ function CertificateLightbox({ cert, onClose }) {
         onClick={(e) => e.stopPropagation()}
         className="relative flex max-h-full w-full max-w-3xl flex-col bg-bg shadow-md"
       >
-        <div className="flex items-center justify-between gap-4 border-b border-border px-5 py-4">
+        <div className="flex items-center justify-between gap-4 border-b rule-b px-5 py-4">
           <h2 id={titleId} className="font-display text-lg font-extrabold text-text">
             {cert.title}
           </h2>
@@ -168,7 +168,7 @@ function CertificateLightbox({ cert, onClose }) {
             type="button"
             onClick={onClose}
             aria-label={t("credentials.close")}
-            className="shrink-0 border border-border px-3 py-1.5 text-2xs font-black uppercase tracking-wider
+            className="shrink-0 border rule-frame rule-fine px-3 py-1.5 text-2xs font-black uppercase tracking-wider
                        text-text hover:text-primary-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
           >
             {t("credentials.close")} &#10005;
@@ -177,11 +177,13 @@ function CertificateLightbox({ cert, onClose }) {
 
         <div className="flex-1 overflow-auto bg-muted/30 p-4">
           {pdf ? (
-            <iframe
-              src={cert.file}
-              title={`${cert.title} — ${cert.provider}`}
-              className="h-[70vh] w-full border border-border bg-bg"
-            />
+            <div className="border rule-frame bg-bg">
+              <iframe
+                src={cert.file}
+                title={`${cert.title} — ${cert.provider}`}
+                className="block h-[70vh] w-full"
+              />
+            </div>
           ) : (
             <img
               src={cert.file}
@@ -191,12 +193,12 @@ function CertificateLightbox({ cert, onClose }) {
           )}
         </div>
 
-        <div className="flex justify-end border-t border-border px-5 py-4">
+        <div className="flex justify-end border-t rule-t px-5 py-4">
           <a
             href={cert.file}
             download
-            className="border border-primary/40 px-4 py-2 text-2xs font-black uppercase tracking-wider
-                       text-primary-600 hover:bg-blush-weak focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
+            className="border rule-frame rule-fine [--rule-line-color:rgb(var(--primary-rgb)/0.4)] px-4 py-2 text-2xs font-black uppercase tracking-wider
+                       text-primary-600 hover:[--rule-fill-color:var(--blush-weak)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
           >
             {t("credentials.download")} &#8595;
           </a>
@@ -239,7 +241,7 @@ function CertificateCard({ cert, index, onOpenFile }) {
   );
 
   const thumbWrapClasses =
-    "block aspect-[4/3] w-full overflow-hidden border-b border-border bg-muted/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary-600";
+    "block aspect-[4/3] w-full overflow-hidden border-b bg-muted/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary-600";
   const thumbInner = (
     <div className="h-full w-full transition-transform duration-300 group-hover:scale-[1.03]">
       {thumbContent}
@@ -287,11 +289,11 @@ function CertificateCard({ cert, index, onOpenFile }) {
         // shouldn't take two seconds to finish drawing.
         delay: prefersReducedMotion ? 0 : Math.min(index, 8) * 0.04,
       }}
-      className="flex h-full flex-col border border-border bg-bg"
+      className="flex h-full flex-col border rule-frame [--rule-fill-color:var(--bg)]"
     >
       {thumbEl}
 
-      <div className="flex flex-1 flex-col gap-2 p-5">
+      <div className="rule-t flex flex-1 flex-col gap-2 p-5">
         <div className="flex items-start justify-between gap-3">
           <h3 className="font-display text-base font-extrabold leading-snug text-text">
             {cert.title}
@@ -470,13 +472,13 @@ export default function Credentials() {
             )}
 
             {visible.length === 0 ? (
-              <div className="border border-border/60 px-8 py-16 text-center">
+              <div className="border rule-box px-8 py-16 text-center">
                 <p className="text-sm text-text/60">{t("credentials.noMatch")}</p>
                 <button
                   type="button"
                   onClick={() => setSelected([])}
-                  className="mt-4 border border-primary/40 px-4 py-2 text-2xs font-black uppercase tracking-wider
-                             text-primary-600 hover:bg-blush-weak focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
+                  className="mt-4 border rule-frame rule-fine [--rule-line-color:rgb(var(--primary-rgb)/0.4)] px-4 py-2 text-2xs font-black uppercase tracking-wider
+                             text-primary-600 hover:[--rule-fill-color:var(--blush-weak)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
                 >
                   {t("credentials.reset")}
                 </button>

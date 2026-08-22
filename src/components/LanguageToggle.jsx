@@ -37,7 +37,7 @@ export function LanguageToggle({ className = "" }) {
 
         {/* Underline indicator slides to active language */}
         <motion.span
-          className="absolute -bottom-0.5 h-[1.5px] bg-primary rounded-full"
+          className="absolute -bottom-0.5 h-[1.5px] rule-bar bg-primary"
           initial={false}
           animate={{
             left: lang === "en" ? "0%" : "55%",

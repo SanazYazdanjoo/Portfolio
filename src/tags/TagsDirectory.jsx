@@ -41,24 +41,31 @@ const TagsDirectory = () => {
         </header>
 
         {/* Top Controls */}
-        <div className="flex flex-wrap gap-3 mb-8 border-t border-border pt-6">
-          <input
-            type="text"
-            placeholder={t("tags.directory.searchPlaceholder")}
-            className="border border-border bg-bg px-3 py-2 text-sm text-text w-64 max-w-full
-                       focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <select
-            className="border border-border bg-bg px-3 py-2 text-sm text-text
-                       focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-          >
-            <option value="name">{t("tags.directory.sortByName")}</option>
-            <option value="count">{t("tags.directory.sortByCount")}</option>
-          </select>
+        <div className="flex flex-wrap gap-3 mb-8 border-t rule-t pt-6">
+          {/* The drawn outline lives on a wrapper, not on the field itself:
+              a replaced element (input, select, iframe, img) never renders a
+              pseudo-element, so .rule-frame has nothing to draw into. */}
+          <span className="inline-block border rule-frame rule-fine">
+            <input
+              type="text"
+              placeholder={t("tags.directory.searchPlaceholder")}
+              className="block bg-bg px-3 py-2 text-sm text-text w-64 max-w-full
+                         focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </span>
+          <span className="inline-block border rule-frame rule-fine">
+            <select
+              className="block bg-bg px-3 py-2 text-sm text-text
+                         focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+            >
+              <option value="name">{t("tags.directory.sortByName")}</option>
+              <option value="count">{t("tags.directory.sortByCount")}</option>
+            </select>
+          </span>
         </div>
 
         {/* Tag Grid */}

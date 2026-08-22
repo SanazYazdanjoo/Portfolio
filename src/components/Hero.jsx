@@ -77,7 +77,7 @@ export function Hero({ data }) {
           </span>
 
           <div
-            className="photo-frame relative z-20 rotate-1
+            className="photo-frame rule-frame-in relative z-20 rotate-1
                        transition-transform duration-[250ms] ease-smooth
                        hover:rotate-0 hover:scale-[1.02]"
           >

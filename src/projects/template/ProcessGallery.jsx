@@ -32,19 +32,19 @@ function ProcessStep({ item, index, total }) {
       transition={{ delay: Math.min(index, 6) * 0.06, duration: 0.4, ease: EASE }}
     >
       {index < total - 1 && (
-        <span aria-hidden="true" className="absolute left-[15px] md:left-[17px] top-9 bottom-0 w-px bg-border" />
+        <span aria-hidden="true" className="absolute left-[13px] md:left-[15px] top-9 bottom-0 rule-line-v" />
       )}
       <span
         aria-hidden="true"
         className="absolute left-0 top-0 flex items-center justify-center w-8 h-8 md:w-9 md:h-9
-                   rounded-full border-2 border-primary-600 bg-bg font-mono text-xs font-bold text-primary-600"
+                   rounded-full rule-circle [--rule-line-color:var(--primary-600)] [--rule-fill-color:var(--bg)] font-mono text-xs font-bold text-primary-600"
       >
         {index + 1}
       </span>
 
       <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
         {item.imagePath && !imgError && (
-          <div className="w-full sm:w-[150px] aspect-[4/3] shrink-0 overflow-hidden border border-border bg-muted/40">
+          <div className="w-full sm:w-[150px] aspect-[4/3] shrink-0 overflow-hidden border rule-frame-in bg-muted/40">
             <img
               src={item.imagePath}
               alt={item.title}
@@ -99,7 +99,7 @@ function ProcessStep({ item, index, total }) {
                     className="overflow-hidden"
                   >
                     <p className="text-[13px] leading-relaxed text-text/70
-                                  border-l-2 border-primary/40 pl-3 mt-3">
+                                  border-l-2 rule-edge-l rule-thick [--rule-line-color:rgb(var(--primary-rgb)/0.4)] pl-3 mt-3">
                       {item.insight}
                     </p>
                   </motion.div>
@@ -124,7 +124,7 @@ export function ProcessGallerySection({ items, number, isOpen, onToggle, stagger
   if (!items || items.length === 0) return null;
 
   return (
-    <section id="process" className="pt-10 mb-14 md:pt-16 md:mb-20 border-t border-border scroll-mt-32">
+    <section id="process" className="pt-10 mb-14 md:pt-16 md:mb-20 border-t rule-t scroll-mt-32">
       <CollapsibleSectionHead
         id="process" number={number} kicker={t("project.process.kicker")} heading={t("project.process.heading")}
         isOpen={isOpen} onToggle={onToggle}

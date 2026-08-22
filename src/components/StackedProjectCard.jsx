@@ -19,7 +19,7 @@ function Field({ label, children }) {
       <span className="block font-mono text-xs uppercase tracking-wider text-text/70 mb-2">
         {label}
       </span>
-      <div className="border-t border-border pt-2.5">{children}</div>
+      <div className="border-t rule-t pt-2.5">{children}</div>
     </div>
   );
 }
@@ -82,12 +82,12 @@ export function StackedProjectCard({ project, index }) {
         className="block outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
       >
         <div
-          className="relative px-6 md:px-8 py-7 bg-bg border-t border-border
+          className="relative px-6 md:px-8 py-7 bg-bg border-t rule-t
                      transition-colors duration-200 ease-smooth hover:bg-primary/[0.03] group"
         >
           <span
             aria-hidden="true"
-            className="absolute left-0 top-0 bottom-0 w-1 group-hover:w-2
+            className="absolute left-0 top-0 bottom-0 w-1 rule-bar-v group-hover:w-2
                        transition-all duration-200 ease-smooth"
             style={{ backgroundColor: "var(--accent-spine)" }}
           />
@@ -123,8 +123,8 @@ export function StackedProjectCard({ project, index }) {
                 </h2>
                 {isInProgress && (
                   <span
-                    className="shrink-0 mt-0.5 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.2em] text-primary-600"
-                    style={{ border: "1px solid var(--primary-600)" }}
+                    className="shrink-0 mt-0.5 border rule-frame rule-fine px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.2em] text-primary-600"
+                    style={{ "--rule-line-color": "var(--primary-600)" }}
                   >
                     {t("projects.inProgress")}
                   </span>
@@ -159,7 +159,7 @@ export function StackedProjectCard({ project, index }) {
           className="overflow-hidden bg-muted/40"
         >
           {everOpened && (
-          <div className="px-6 md:px-8 py-8 grid grid-cols-1 md:grid-cols-12 gap-8 border-b border-border">
+          <div className="px-6 md:px-8 py-8 grid grid-cols-1 md:grid-cols-12 gap-8 border-b rule-b">
             <div className="md:col-span-3 flex flex-col gap-5">
               {project.role && (
                 <Field label={t("project.meta.role")}>
@@ -199,7 +199,7 @@ export function StackedProjectCard({ project, index }) {
             {/* Thumbnail + CTA — cols 9–12 */}
             <div className="md:col-start-9 md:col-span-4 flex flex-col gap-4">
               {hasImage && (
-                <div className="photo-frame aspect-video overflow-hidden bg-primary/[0.03]">
+                <div className="photo-frame rule-frame-in aspect-video overflow-hidden bg-primary/[0.03]">
                   <ProjectPicture
                     src={project.thumbnail}
                     webpSrc={project.thumbnailWebp}

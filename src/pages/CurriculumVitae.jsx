@@ -93,10 +93,10 @@ export default function CV() {
   }, [cvSections]);
 
   return (
-    <div className="bg-white min-h-screen w-full print:min-h-0">
+    <div className="rule-light bg-white min-h-screen w-full print:min-h-0">
       <div className="flex items-start print:block">
         <aside className="hidden md:block w-[180px] lg:w-[220px] shrink-0 no-print sticky top-36 self-start pr-6 lg:pr-8">
-          <div className="border-l border-gray-200 pl-3 py-2">
+          <div className="border-l rule-edge-l pl-3 py-2">
             <CVSidebarNav sections={cvSections} activeId={activeId} />
           </div>
         </aside>
@@ -104,7 +104,7 @@ export default function CV() {
         <div
           id="curriculum-vitae"
           className="
-            w-full bg-white text-black md:border-l md:border-gray-200
+            w-full bg-white text-black md:border-l md:rule-edge-l
             px-6 py-12 md:px-16 lg:px-24 xl:px-32
             print:max-w-none print:px-8 print:py-8 print:m-0 print:border-0
           "
@@ -139,7 +139,7 @@ export default function CV() {
               {role}
             </h1>
 
-          <div className="md:hidden sticky top-[72px] z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 -mx-6 px-6 py-3 no-print">
+          <div className="md:hidden sticky top-[72px] z-40 bg-white/95 backdrop-blur-md border-b rule-edge-b -mx-6 px-6 py-3 no-print">
             <div className="flex gap-2 overflow-x-auto pb-1">
               {cvSections.map((section) => (
                 <button
@@ -148,10 +148,10 @@ export default function CV() {
                   onClick={() => {
                     document.getElementById(section.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
                   }}
-                  className={`shrink-0 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.18em] border transition-colors duration-200 ${
+                  className={`shrink-0 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.18em] border rule-frame rule-fine transition-colors duration-200 ${
                     activeId === section.id
-                      ? "bg-primary text-white border-primary"
-                      : "text-gray-500 border-gray-200 hover:text-primary"
+                      ? "text-white [--rule-line-color:var(--primary)] [--rule-fill-color:var(--primary)]"
+                      : "text-gray-500 hover:text-primary"
                   }`}
                 >
                   {section.label}
@@ -180,7 +180,7 @@ export default function CV() {
                 {experience.map((job, i) => (
                   <article
                     key={i}
-                    className={`break-inside-avoid ${i > 0 ? "border-t border-gray-100 pt-5" : ""}`}
+                    className={`break-inside-avoid ${i > 0 ? "border-t rule-edge-t rule-faint pt-5" : ""}`}
                   >
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1">
                       <h3 className="font-black text-xl text-black uppercase tracking-wide print:text-lg">
@@ -202,7 +202,8 @@ export default function CV() {
                             key={mi}
                             className="
                               text-xs font-bold uppercase tracking-wider
-                              bg-primary/10 text-primary border border-primary/20
+                              text-primary border rule-frame rule-fine [--rule-line-color:rgb(var(--primary-rgb)/0.2)]
+                              [--rule-fill-color:rgb(var(--primary-rgb)/0.1)]
                               px-2 py-1 rounded-sm
                               print:text-[10px]
                             "
@@ -352,10 +353,11 @@ function CVSidebarNav({ sections, activeId }) {
                 type="button"
                 onClick={() => scrollToSection(section.id)}
                 aria-current={isActive ? "true" : undefined}
-                className={`w-full text-left flex items-baseline gap-3 px-3 py-2 transition-colors duration-200 relative border-l-2 ${
+                className={`w-full text-left flex items-baseline gap-3 px-3 py-2 transition-colors duration-200 relative border-l-2
+                  rule-edge-l rule-thick ${
                   isActive
-                    ? "border-primary text-primary"
-                    : "border-transparent text-gray-500 hover:text-gray-900 hover:border-gray-300"
+                    ? "[--rule-line-color:var(--primary)] text-primary"
+                    : "[--rule-line-color:transparent] text-gray-500 hover:text-gray-900 hover:[--rule-line-color:rgb(209_213_219)]"
                 }`}
               >
                 <span className={`font-mono text-[10px] font-bold uppercase tracking-[0.2em] tabular-nums shrink-0 ${
@@ -381,10 +383,10 @@ function SectionHeading({ children, sidebar = false }) {
   return (
     <h2
       className={`
-        font-black uppercase tracking-widest border-b
+        font-black uppercase tracking-widest border-b rule-edge-b
         ${sidebar
-          ? "text-base text-primary border-gray-200 pb-2 mb-6 print:text-sm print:mb-4"
-          : "text-2xl text-primary border-primary/30 pb-3 mb-8 print:text-xl print:mb-6"
+          ? "text-base text-primary pb-2 mb-6 print:text-sm print:mb-4"
+          : "text-2xl text-primary [--rule-line-color:rgb(var(--primary-rgb)/0.3)] pb-3 mb-8 print:text-xl print:mb-6"
         }
       `}
     >

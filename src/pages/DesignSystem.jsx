@@ -83,7 +83,7 @@ function DSSection({ id, children }) {
       viewport={{ once: true, margin: "-60px" }}
       className="w-full pt-12 md:pt-16 scroll-mt-32"
     >
-      <div className="w-full h-px mb-8" style={{ background: "var(--border)" }} />
+      <div className="w-full rule-line mb-8" />
       <div className="grid grid-cols-1 gap-y-6">{children}</div>
     </motion.section>
   );
@@ -110,10 +110,11 @@ function DSNav({ sections, activeId }) {
                 type="button"
                 onClick={() => scrollToSection(section.id)}
                 aria-current={isActive ? "true" : undefined}
-                className={`w-full text-left flex items-baseline gap-3 px-3 py-2 transition-colors duration-200 relative border-l-2 ${
+                className={`w-full text-left flex items-baseline gap-3 px-3 py-2 transition-colors duration-200 relative border-l-2
+                  rule-edge-l rule-thick ${
                   isActive
-                    ? "border-primary text-primary"
-                    : "border-transparent text-gray-500 hover:text-gray-900 hover:border-gray-300"
+                    ? "[--rule-line-color:var(--primary)] text-primary"
+                    : "[--rule-line-color:transparent] text-gray-500 hover:text-gray-900 hover:[--rule-line-color:rgb(209_213_219)]"
                 }`}
               >
                 <span className={`text-[11px] font-bold uppercase tracking-[0.2em] leading-tight ${
@@ -136,17 +137,17 @@ function MobilePillBar({ sections, activeId }) {
   };
 
   return (
-    <div className="sticky top-[72px] z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 -mx-6 px-6 py-3 no-print md:hidden">
+    <div className="sticky top-[72px] z-40 bg-white/95 backdrop-blur-md border-b rule-edge-b -mx-6 px-6 py-3 no-print md:hidden">
       <div className="flex gap-2 overflow-x-auto pb-1">
         {sections.map((section) => (
           <button
             key={section.id}
             type="button"
             onClick={() => scrollToSection(section.id)}
-            className={`shrink-0 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.18em] border transition-colors duration-200 ${
+            className={`shrink-0 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.18em] border rule-frame rule-fine transition-colors duration-200 ${
               activeId === section.id
-                ? "bg-primary text-white border-primary"
-                : "text-gray-500 border-gray-200 hover:text-primary"
+                ? "text-white [--rule-line-color:var(--primary)] [--rule-fill-color:var(--primary)]"
+                : "text-gray-500 hover:text-primary"
             }`}
           >
             {section.label}
@@ -161,12 +162,8 @@ function Swatch({ name, varName, hex, note, rule, light }) {
   return (
     <motion.div
       variants={fadeUp}
-      className="flex flex-col justify-end p-3 h-28"
-      style={{
-        background: `var(${varName})`,
-        borderRadius: "var(--radius)",
-        border: "1px solid var(--border)",
-      }}
+      className="rule-swatch flex flex-col justify-end p-3 h-28"
+      style={{ backgroundColor: `var(${varName})` }}
     >
       {/* Text sits on a solid ink-900 chip rather than directly on the
           swatch fill: some accent -500 tones (e.g. rose) don't clear 4.5:1
@@ -197,8 +194,7 @@ function RuleRow({ name, value, note }) {
   return (
     <motion.div
       variants={fadeUp}
-      className="grid grid-cols-1 sm:grid-cols-12 gap-x-6 py-3"
-      style={{ borderBottom: "1px solid var(--border)" }}
+      className="grid grid-cols-1 sm:grid-cols-12 gap-x-6 py-3 border-b rule-b"
     >
       <p className="type-label m-0 sm:col-span-3" style={{ color: "var(--text-dim)", alignSelf: "center" }}>{name}</p>
       <p className="m-0 sm:col-span-4" style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-sm)" }}>{value}</p>
@@ -246,12 +242,12 @@ export default function DesignSystem() {
     <main className="design-system-page text-text bg-white min-h-screen w-full pb-28">
       <div className="flex items-start">
         <aside className="hidden md:block w-[180px] lg:w-[220px] shrink-0 no-print sticky top-36 self-start pr-6 lg:pr-8">
-          <div className="border-l border-gray-200 pl-3 py-2">
+          <div className="border-l rule-edge-l pl-3 py-2">
             <DSNav sections={DS_SECTIONS} activeId={activeId} />
           </div>
         </aside>
 
-        <div className="w-full border-l border-gray-200 px-6 py-12 md:px-16 lg:px-24 xl:px-32">
+        <div className="w-full border-l rule-edge-l px-6 py-12 md:px-16 lg:px-24 xl:px-32">
           <div className="max-w-5xl">
             <MobilePillBar sections={DS_SECTIONS} activeId={activeId} />
 
@@ -269,8 +265,7 @@ export default function DesignSystem() {
               <motion.p variants={fadeUp} className="type-lead mt-6 mb-0 max-w-2xl" style={{ color: "var(--text-dim)" }}>
                 Think <InkHighlight>researcher&rsquo;s field notebook</InkHighlight>: a clean white
                 page, true-black ink, hand-drawn doodles, one loud coral accent, and a gold
-                highlighter saved for what matters most. Everything below is pulled straight from
-                the live CSS tokens, so it never falls out of sync with the real site.
+                highlighter saved for what matters most.
               </motion.p>
             </motion.header>
 
@@ -288,8 +283,8 @@ export default function DesignSystem() {
 
               <motion.div
                 variants={fadeUp}
-                className="mt-6 p-4"
-                style={{ background: "var(--muted)", borderRadius: "var(--radius)", border: "1px solid var(--border)" }}
+                className="mt-6 p-4 border rule-frame-r"
+                style={{ background: "var(--muted)", borderRadius: "var(--radius)" }}
               >
                 <p className="type-label m-0 mb-2" style={{ color: "var(--primary-600)" }}>Contrast rules (WCAG AA)</p>
                 <p className="type-body m-0" style={{ fontSize: "var(--fs-sm)" }}>
@@ -312,7 +307,7 @@ export default function DesignSystem() {
               </motion.p>
 
               {TYPE_SPECIMENS.map(({ cls, label, spec, sample }) => (
-                <motion.div key={cls} variants={fadeUp} className="py-5" style={{ borderBottom: "1px solid var(--border)" }}>
+                <motion.div key={cls} variants={fadeUp} className="py-5 border-b rule-b">
                   <div className="flex flex-wrap items-baseline gap-x-4 mb-2">
                     <code style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-xs)", color: "var(--primary-600)" }}>{label}</code>
                     <span className="type-label" style={{ color: "var(--text-dim)" }}>{spec}</span>
@@ -321,7 +316,7 @@ export default function DesignSystem() {
                 </motion.div>
               ))}
 
-              <motion.div variants={fadeUp} className="py-5" style={{ borderBottom: "1px solid var(--border)" }}>
+              <motion.div variants={fadeUp} className="py-5 border-b rule-b">
                 <div className="flex flex-wrap items-baseline gap-x-4 mb-2">
                   <code style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-xs)", color: "var(--primary-600)" }}>.type-body / .type-lead</code>
                   <span className="type-label" style={{ color: "var(--text-dim)" }}>DM Sans 400 · leading 1.7</span>
@@ -367,6 +362,154 @@ export default function DesignSystem() {
                 <p className="type-label m-0 mb-3" style={{ color: "var(--text-dim)" }}>ScribbleDivider — wobbly hairline + ink dots</p>
                 <ScribbleDivider />
               </motion.div>
+
+              {/* Filed under Ink rather than Surfaces because the design-system
+                  project files it that way too — the source card is group="Ink".
+                  It is a mark, not a surface treatment. */}
+              <motion.div variants={fadeUp} className="mt-10">
+                <p className="type-label m-0 mb-2" style={{ color: "var(--text-dim)" }}>Dot pattern — seamless hand-drawn tile</p>
+                <p className="type-body mt-0 mb-6" style={{ fontSize: "var(--fs-sm)", color: "var(--text-dim)" }}>
+                  A 626px tile carrying 24 stroked rings and 56 solid specks, in the same ink as
+                  the doodles and scattered by hand so the repeat never reads as a grid. Two
+                  variants, and the ground decides which one you want. The sizes below are the
+                  defaults — override either with{" "}
+                  <code style={{ fontFamily: "var(--font-mono)" }}>--dots-size</code>, as the
+                  case-study banner mat does at 130px, because across a 32px band the default
+                  scatters too thin to read as a pattern.
+                </p>
+
+                <div className="grid gap-6" style={{ gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))" }}>
+                  <figure className="m-0">
+                    <div className="border rule-frame bg-dots-paper" style={{ height: "220px" }} />
+                    <code className="block mt-3 mb-1" style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-2xs)", color: "var(--primary-600)" }}>.bg-dots-paper</code>
+                    <figcaption className="type-body m-0" style={{ fontSize: "var(--fs-sm)", color: "var(--text-dim)" }}>
+                      Brings its own warm paper ground, drawn at 313px. For when the pattern
+                      IS the surface.
+                    </figcaption>
+                  </figure>
+
+                  <figure className="m-0">
+                    <div className="border rule-frame bg-dots" style={{ height: "220px", backgroundColor: "var(--primary)" }} />
+                    <code className="block mt-3 mb-1" style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-2xs)", color: "var(--primary-600)" }}>.bg-dots</code>
+                    <figcaption className="type-body m-0" style={{ fontSize: "var(--fs-sm)", color: "var(--text-dim)" }}>
+                      No ground of its own, drawn at 200px so the marks read finer. Layer it
+                      over a surface that is already painted — coral here, the banner&rsquo;s
+                      white mat on a case study.
+                    </figcaption>
+                  </figure>
+                </div>
+              </motion.div>
+
+              <motion.div variants={fadeUp} className="mt-10">
+                <p className="type-label m-0 mb-2" style={{ color: "var(--text-dim)" }}>Hand-drawn rules — every hairline on the site</p>
+                <p className="type-body mt-0 mb-6" style={{ fontSize: "var(--fs-sm)", color: "var(--text-dim)" }}>
+                  Same ink at the same opacity the hairlines always had — they are just no
+                  longer straight. A seamless 360px SVG tile carries the wobble and is painted
+                  as a background inside the element&rsquo;s (already transparent) 1px border, so
+                  swapping <code style={{ fontFamily: "var(--font-mono)" }}>border-border</code> for{" "}
+                  <code style={{ fontFamily: "var(--font-mono)" }}>rule-t</code> moves nothing.
+                  Dividers, frames, chips, buttons and the sidebar spines all get the hand.
+                  Only the loading spinner and the dashed &ldquo;+N more&rdquo; chip stay crisp,
+                  and print falls back to a straight hairline.
+                </p>
+
+                <div className="grid gap-10" style={{ gridTemplateColumns: "repeat(auto-fit,minmax(225px,1fr))" }}>
+                  <div>
+                    <p className="type-label m-0 mb-4" style={{ color: "var(--text-dim)" }}>Tints &amp; weight</p>
+                    {[
+                      [".rule-line", ""],
+                      [".rule-soft", "rule-soft"],
+                      [".rule-faint", "rule-faint"],
+                      [".rule-thick", "rule-thick"],
+                    ].map(([label, mod]) => (
+                      <div key={label} className="mb-5">
+                        <code className="block mb-2" style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-2xs)", color: "var(--primary-600)" }}>{label}</code>
+                        <div className={`rule-line ${mod}`} />
+                      </div>
+                    ))}
+                  </div>
+
+                  <div>
+                    <p className="type-label m-0 mb-4" style={{ color: "var(--text-dim)" }}>Frame &amp; vertical</p>
+                    <code className="block mb-2" style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-2xs)", color: "var(--primary-600)" }}>.rule-box</code>
+                    <div className="border rule-box px-5 py-6 mb-5">
+                      <p className="type-body m-0" style={{ fontSize: "var(--fs-sm)", color: "var(--text-dim)" }}>
+                        Only for frames whose children carry their own padding — a photo
+                        would sit on top of the line.
+                      </p>
+                    </div>
+                    <code className="block mb-2" style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-2xs)", color: "var(--primary-600)" }}>.rule-line-v</code>
+                    <div className="flex gap-5" style={{ height: "72px" }}>
+                      <div className="rule-line-v" />
+                      <div className="rule-line-v rule-thick" />
+                      <div className="rule-line-v rule-soft" />
+                    </div>
+                  </div>
+
+                  <div>
+                    <p className="type-label m-0 mb-4" style={{ color: "var(--text-dim)" }}>Outlines that sit over content</p>
+                    <code className="block mb-2" style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-2xs)", color: "var(--primary-600)" }}>.rule-frame / .rule-frame-in</code>
+                    <div className="border rule-frame px-5 py-4 mb-5">
+                      <p className="type-body m-0" style={{ fontSize: "var(--fs-sm)", color: "var(--text-dim)" }}>
+                        Drawn into an <code style={{ fontFamily: "var(--font-mono)" }}>::after</code>, so it lands
+                        on top of a photo. Use <code style={{ fontFamily: "var(--font-mono)" }}>-in</code> when the
+                        host clips with <code style={{ fontFamily: "var(--font-mono)" }}>overflow-hidden</code>.
+                      </p>
+                    </div>
+                    <code className="block mb-2" style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-2xs)", color: "var(--primary-600)" }}>.rule-pill &middot; --rule-fill-color</code>
+                    <div className="flex flex-wrap items-center gap-2 mb-2">
+                      <Badge tone="accent">Eye-Tracking</Badge>
+                      <Badge tone="rose">N=30</Badge>
+                      <Badge tone="muted">Coming Soon</Badge>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-2 mb-2">
+                      <Badge tone="accent" className="!text-white [--rule-fill-color:var(--primary-600)]">Eye-Tracking</Badge>
+                      <Badge tone="rose" className="!text-white [--rule-fill-color:var(--secondary-600)]">N=30</Badge>
+                      <Badge tone="highlight" className="[--rule-fill-color:var(--highlight)]">N=30</Badge>
+                    </div>
+                    <p className="type-body mt-0 mb-5" style={{ fontSize: "var(--fs-xs)", color: "var(--text-dim)" }}>
+                      The filled row is the hover state, forced. A fill never comes from
+                      <code style={{ fontFamily: "var(--font-mono)" }}> bg-*</code> on anything wearing a drawn
+                      outline — that would paint a hard rectangle under the drawn one.
+                    </p>
+                    <code className="block mb-2" style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-2xs)", color: "var(--primary-600)" }}>.rule-edge-l + --rule-line-color</code>
+                    <div className="flex gap-6">
+                      <div className="border-l-2 rule-edge-l rule-thick pl-4" style={{ height: "64px" }} />
+                      <div className="border-l-2 rule-edge-l rule-thick [--rule-line-color:var(--primary-600)] pl-4" style={{ height: "64px" }} />
+                      <div className="border-l-2 rule-edge-l rule-thick [--rule-line-color:var(--secondary-600)] pl-4" style={{ height: "64px" }} />
+                      <div className="border-l-2 rule-edge-l rule-thick [--rule-line-color:var(--highlight)] pl-4" style={{ height: "64px" }} />
+                    </div>
+                  </div>
+
+                  <div>
+                    <p className="type-label m-0 mb-4" style={{ color: "var(--text-dim)" }}>Curves, taps &amp; bars</p>
+                    <code className="block mb-2" style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-2xs)", color: "var(--primary-600)" }}>.rule-frame-r &middot; radius kept</code>
+                    <div className="border rule-frame-r px-4 py-3 mb-5" style={{ borderRadius: "var(--radius)" }}>
+                      <p className="type-body m-0" style={{ fontSize: "var(--fs-sm)", color: "var(--text-dim)" }}>
+                        Four corner arcs, four stretched runs. <code style={{ fontFamily: "var(--font-mono)" }}>--rule-r</code> is the radius.
+                      </p>
+                    </div>
+                    <code className="block mb-2" style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-2xs)", color: "var(--primary-600)" }}>.rule-circle &middot; .rule-dot</code>
+                    <div className="flex items-center gap-4 mb-5">
+                      <div className="w-9 h-9 rule-circle [--rule-line-color:var(--primary-600)]" />
+                      <div className="w-8 h-8 rule-circle rule-fine" />
+                      <div className="w-2 h-2 rule-dot" style={{ background: "var(--color-ink-900)" }} />
+                      <div className="w-2 h-2 rule-dot" style={{ background: "var(--primary-600)" }} />
+                      <div className="w-1.5 h-1.5 rule-dot" style={{ background: "var(--primary)" }} />
+                    </div>
+                    <code className="block mb-2" style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-2xs)", color: "var(--primary-600)" }}>.rule-bar-v &middot; .rule-bar &middot; .rule-stroke</code>
+                    <div className="flex items-stretch gap-4" style={{ height: "56px" }}>
+                      <div className="w-1 rule-bar-v" style={{ background: "var(--accent-spine)" }} />
+                      <div className="w-2 rule-bar-v" style={{ background: "var(--border)" }} />
+                      <div className="flex-1 flex flex-col justify-center gap-3">
+                        <div className="h-[3px] w-full rule-bar" style={{ background: "var(--border)" }} />
+                        <div className="h-[5px] w-full rule-bar" style={{ background: "var(--accent-spine)" }} />
+                        <div className="h-[5px] w-full rule-stroke" style={{ background: "var(--secondary-600)" }} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
             </motion.div>
           </DSSection>
 
@@ -407,7 +550,8 @@ export default function DesignSystem() {
                 <h2 className="type-h3 mt-0 mb-1">Surfaces &amp; imagery</h2>
                 <p className="type-body mt-0 mb-5" style={{ fontSize: "var(--fs-sm)", color: "var(--text-dim)" }}>
                   Cards use 12px radius; paper sheets, photo frames and project rows stay
-                  square-cornered. Shadows are warm brown-tinted, never gray. Photos sit in a
+                  square-cornered. Every one of those edges is drawn rather than stroked, radius
+                  included. Shadows are warm brown-tinted, never gray. Photos sit in a
                   white 8px mat, grayscale by default, colorizing on hover.
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">

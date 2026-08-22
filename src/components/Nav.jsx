@@ -37,7 +37,7 @@ export const Nav = ({ isScrolled = false }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: prefersReducedMotion ? 0 : 0.4, ease: [0.22, 0.61, 0.36, 1] }}
     >
-      <div className="flex items-center justify-between w-full pb-4 border-b border-border">
+      <div className="flex items-center justify-between w-full pb-4 border-b rule-b">
 
         {/* Wordmark: left, compact, one line */}
         <NavLink to="/" aria-label={profileData.name} className="shrink-0">
@@ -76,7 +76,7 @@ export const Nav = ({ isScrolled = false }) => {
                       {/* Hover underline — 1px, left to right, 200ms */}
                       <span
                         aria-hidden="true"
-                        className="absolute left-0 -bottom-1 h-px w-full bg-secondary-600
+                        className="absolute left-0 -bottom-[6px] h-[5px] w-full bg-secondary-600 rule-stroke
                                    origin-left scale-x-0 group-hover:scale-x-100
                                    transition-transform duration-200 ease-smooth"
                       />
@@ -87,7 +87,7 @@ export const Nav = ({ isScrolled = false }) => {
                           layoutId="nav-active-dot"
                           aria-hidden="true"
                           className="absolute left-1/2 -translate-x-1/2 -bottom-2
-                                     w-1.5 h-1.5 rounded-full bg-primary"
+                                     w-1.5 h-1.5 rule-dot bg-primary"
                           transition={{ duration: prefersReducedMotion ? 0 : 0.3, ease: [0.22, 0.61, 0.36, 1] }}
                         />
                       )}

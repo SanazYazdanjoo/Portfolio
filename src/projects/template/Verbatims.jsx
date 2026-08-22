@@ -21,7 +21,7 @@ function VerbatimBlock({ item, index }) {
   if (!item.quote) return null;
   return (
     <blockquote
-      className="border-l-2 border-primary-600 pl-5 pt-1"
+      className="border-l-2 rule-edge-l rule-thick [--rule-line-color:var(--primary-600)] pl-5 pt-1"
       aria-label={t("project.results.verbatim")}
       style={{ breakInside: "avoid" }}
     >

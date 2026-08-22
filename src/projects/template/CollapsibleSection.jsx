@@ -51,7 +51,7 @@ export function ContentSection({ id, number, kicker, heading, isOpen, onToggle, 
   return (
     <motion.section
       id={id}
-      className="pt-10 mb-14 md:pt-16 md:mb-20 border-t border-border scroll-mt-32"
+      className="pt-10 mb-14 md:pt-16 md:mb-20 border-t rule-t scroll-mt-32"
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0 }}

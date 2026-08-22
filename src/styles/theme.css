@@ -467,21 +467,23 @@
   .btn {
     display: inline-flex; align-items: center; gap: .5rem;
     padding: .625rem 1.25rem; border-radius: var(--radius);
-    border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+    border: 1px solid transparent; box-shadow: var(--shadow-sm);
     transition: transform 0.2s var(--smooth), background-color 0.2s var(--smooth),
                 filter 0.2s var(--smooth);
     font-weight: 700;
   }
   .btn-primary {
-    background: var(--primary); color: var(--color-white); border-color: var(--primary);
+    background: var(--primary); color: var(--color-white); --rule-line-color: var(--primary);
   }
   .btn-primary:hover { background: var(--primary-600); transform: translateY(-1px); }
   .btn-ghost { background: transparent; color: var(--text); }
   .btn-ghost:hover { background: var(--blush-weak); }
 
+  /* .card and .btn keep their 12px radius and hand the stroke to the drawn
+     outline (see section 6): the border stays for layout, transparent. */
   .card {
     background: var(--surface);
-    border: 1px solid var(--line);
+    border: 1px solid transparent;
     border-radius: var(--radius);
     box-shadow: var(--shadow-sm);
     padding: var(--space-4);
@@ -510,15 +512,16 @@
   }
   .ink-highlight--rose { background-image: linear-gradient(100deg, transparent 1%, var(--blush) 3%, var(--blush) 96%, transparent 99%); }
 
-  /* Photo frame: white mat with a faint blush edge on hover */
+  /* Photo frame: white mat with a faint blush edge on hover. The mat's
+     edge is drawn, not stroked — pair this class with `rule-frame-in`,
+     which lands the hand-drawn line inside the 8px mat, clear of the
+     photo and of the `overflow-hidden` some of these frames carry. */
   .photo-frame {
     background: var(--surface);
     padding: 8px;
-    box-shadow:
-      0 0 0 1px var(--border),
-      var(--shadow-md);
+    box-shadow: var(--shadow-md);
   }
-  .photo-frame:hover { box-shadow: 0 0 0 1px var(--blush), var(--shadow-md); }
+  .photo-frame:hover { --rule-line-color: var(--blush); }
 }
 
 /* Button sketch-oval draw-on animation */
@@ -577,6 +580,12 @@
      for .bg-dots over --surface instead. */
   @media (prefers-color-scheme: dark) {
     .bg-dots { filter: invert(1); }
+
+    /* /design-system is a fixed white page in BOTH themes (it pins its
+       tokens back to light values — see .design-system-page above), so the
+       specimen there is ink on white whatever the OS is set to. Inverting
+       it would paint white marks on white and blank the swatch. */
+    .design-system-page .bg-dots { filter: none; }
   }
 
   /* Ink-colored speckle texture, matching the black doodle illustrations */
@@ -620,7 +629,592 @@
   .TextContent { padding: 15px; }
 }
 
-/* 6. Print safety */
+/* 6. Hand-drawn rules
+   ------------------------------------------------------------------
+   Every hairline on the site is the same ink at the same opacity it
+   always was (--border, ink at 12%) — it is just no longer straight.
+   The line is a seamless 360px SVG tile whose centre wanders ~±0.85px
+   and whose weight breathes between 0.7px and 1.7px, so a divider
+   reads as pulled with a pen rather than snapped to the pixel grid.
+
+   Two mechanisms, because a divider and a chip need different things:
+
+     BACKGROUND  (.rule-t / .rule-b / .rule-l / .rule-r / .rule-line /
+                 .rule-box / .rule-divide) tiles the shape into the
+                 element's own border box. Cheapest, and right wherever
+                 the line lands in padding with nothing painted over it.
+
+     OVERLAY     (.rule-frame / .rule-frame-in / .rule-frame-r /
+                 .rule-pill / .rule-circle / .rule-edge-*) masks the same
+                 shape inside an absolutely positioned ::after. Costs a
+                 pseudo-element, and buys the two things a frame or a chip
+                 needs: it paints ABOVE the element's content (so a photo
+                 cannot hide it) and its colour is a plain custom property
+                 (so one shape serves ink, coral, a hover state and both
+                 themes).
+
+     FILL        every OVERLAY class also carries a ::before painted with
+                 --rule-fill-color and masked to the same shape, so a chip
+                 that fills on hover fills to its drawn edge instead of to
+                 a perfect rectangle underneath it. Set the colour, never
+                 `bg-*`, on anything wearing a drawn outline.
+
+     SELF-MASK   (.rule-stroke / .rule-bar / .rule-dot / .rule-swatch /
+                 .rule-fill / .rule-fill-r)
+                 cuts the element's OWN background into a drawn shape. No
+                 pseudo-element and no colour token: whatever `bg-*` the
+                 element already carries is what you see, which is what a
+                 spine keeps its hover colour and a status dot keeps its
+                 state colour by.
+
+   Still crisp on purpose, and only these: ProjectHeader's dashed "+N more"
+   chip (the dash IS the affordance, and a wobbly dash reads as a rendering
+   fault); the `gap-px` grid seams on About/CareerArc, which are 1px gaps
+   showing the container's colour, not strokes — a wobble needs more than
+   1px to live in; and /admin, whose form fields are replaced elements that
+   cannot carry an outline at all, so converting only its panels would look
+   half-finished.
+
+   Mechanics: neither one changes layout. The tile is painted into the
+   border box, so the element keeps its 1px `border-t` — already
+   transparent site-wide (see `* { @apply border-transparent }` in
+   index.css) — which means dropping `border-border` and adding
+   `rule-t` moves nothing by a pixel.
+
+   Retuning: --rule-w is the tile's thickness across the line, and the
+   stroke scales with it (that is all .rule-thick does); --rule-len is the
+   repeat length. The wobble itself is baked into the SVG paths below —
+   redraw those if you want a looser or steadier hand. Specimens live on
+   /designsystem under "Ink & doodles". */
+
+/* The four knobs the utilities read. Registered as non-inheriting so a
+   `.rule-soft` wrapper cannot quietly retint a `.rule-t` nested inside it
+   — custom properties inherit by default, and these are set by modifier
+   classes that sit on ancestors. (`--rule-w`/`--rule-len` DO inherit, on
+   purpose: pseudo-elements only see inherited properties, and the frame
+   utilities below draw into `::after`.) `syntax: "*"` leaves the image props
+   guaranteed-invalid until set, which is what makes the `var(--rule-img-h,
+   var(--rule-h))` fallback resolve to the default tint. */
+@property --rule-img-h { syntax: "*"; inherits: false; }
+@property --rule-img-v { syntax: "*"; inherits: false; }
+@property --rule-w   { syntax: "<length>"; inherits: true;  initial-value: 5px; }
+@property --rule-len { syntax: "<length>"; inherits: true;  initial-value: 360px; }
+
+@layer base {
+  :root {
+    --rule-h-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='5' viewBox='0 0 3600 50'%3E%3Cpath d='M0 16C87 16,173 12,260 12C342 12,424 28,506 28C604 28,701 29,799 29C909 29,1019 26,1129 26C1218 26,1308 20,1397 20C1481 20,1566 19,1650 19C1764 19,1878 21,1992 21C2076 21,2159 19,2243 19C2317 19,2390 21,2464 21C2557 21,2649 23,2742 23C2839 23,2936 17,3033 17C3118 17,3202 24,3287 24C3391 24,3496 16,3600 16L3600 26C3496 26,3391 35,3287 35C3202 35,3118 32,3033 32C2936 32,2839 39,2742 39C2649 39,2557 33,2464 33C2390 33,2317 33,2243 33C2159 33,2076 31,1992 31C1878 31,1764 26,1650 26C1566 26,1481 36,1397 36C1308 36,1218 38,1129 38C1019 38,909 37,799 37C701 37,604 37,506 37C424 37,342 28,260 28C173 28,87 26,0 26Z' fill='%23211d1c' fill-opacity='0.12'/%3E%3C/svg%3E");
+    --rule-h-soft-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='5' viewBox='0 0 3600 50'%3E%3Cpath d='M0 16C87 16,173 12,260 12C342 12,424 28,506 28C604 28,701 29,799 29C909 29,1019 26,1129 26C1218 26,1308 20,1397 20C1481 20,1566 19,1650 19C1764 19,1878 21,1992 21C2076 21,2159 19,2243 19C2317 19,2390 21,2464 21C2557 21,2649 23,2742 23C2839 23,2936 17,3033 17C3118 17,3202 24,3287 24C3391 24,3496 16,3600 16L3600 26C3496 26,3391 35,3287 35C3202 35,3118 32,3033 32C2936 32,2839 39,2742 39C2649 39,2557 33,2464 33C2390 33,2317 33,2243 33C2159 33,2076 31,1992 31C1878 31,1764 26,1650 26C1566 26,1481 36,1397 36C1308 36,1218 38,1129 38C1019 38,909 37,799 37C701 37,604 37,506 37C424 37,342 28,260 28C173 28,87 26,0 26Z' fill='%23211d1c' fill-opacity='0.08'/%3E%3C/svg%3E");
+    --rule-h-faint-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='5' viewBox='0 0 3600 50'%3E%3Cpath d='M0 16C87 16,173 12,260 12C342 12,424 28,506 28C604 28,701 29,799 29C909 29,1019 26,1129 26C1218 26,1308 20,1397 20C1481 20,1566 19,1650 19C1764 19,1878 21,1992 21C2076 21,2159 19,2243 19C2317 19,2390 21,2464 21C2557 21,2649 23,2742 23C2839 23,2936 17,3033 17C3118 17,3202 24,3287 24C3391 24,3496 16,3600 16L3600 26C3496 26,3391 35,3287 35C3202 35,3118 32,3033 32C2936 32,2839 39,2742 39C2649 39,2557 33,2464 33C2390 33,2317 33,2243 33C2159 33,2076 31,1992 31C1878 31,1764 26,1650 26C1566 26,1481 36,1397 36C1308 36,1218 38,1129 38C1019 38,909 37,799 37C701 37,604 37,506 37C424 37,342 28,260 28C173 28,87 26,0 26Z' fill='%23211d1c' fill-opacity='0.04'/%3E%3C/svg%3E");
+    --rule-v-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='360' viewBox='0 0 50 3600'%3E%3Cpath d='M14 0C14 107,23 213,23 320C23 401,24 482,24 563C24 644,23 725,23 806C23 897,23 988,23 1079C23 1166,22 1253,22 1340C22 1447,12 1553,12 1660C12 1770,15 1879,15 1989C15 2072,20 2155,20 2238C20 2321,24 2405,24 2488C24 2591,17 2695,17 2798C17 2898,22 2998,22 3098C22 3166,13 3234,13 3302C13 3401,14 3501,14 3600L24 3600C24 3501,24 3401,24 3302C24 3234,37 3166,37 3098C37 2998,33 2898,33 2798C33 2695,36 2591,36 2488C36 2405,34 2321,34 2238C34 2155,26 2072,26 1989C26 1879,28 1770,28 1660C28 1553,31 1447,31 1340C31 1253,33 1166,33 1079C33 988,35 897,35 806C35 725,33 644,33 563C33 482,34 401,34 320C34 213,24 107,24 0Z' fill='%23211d1c' fill-opacity='0.12'/%3E%3C/svg%3E");
+    --rule-v-soft-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='360' viewBox='0 0 50 3600'%3E%3Cpath d='M14 0C14 107,23 213,23 320C23 401,24 482,24 563C24 644,23 725,23 806C23 897,23 988,23 1079C23 1166,22 1253,22 1340C22 1447,12 1553,12 1660C12 1770,15 1879,15 1989C15 2072,20 2155,20 2238C20 2321,24 2405,24 2488C24 2591,17 2695,17 2798C17 2898,22 2998,22 3098C22 3166,13 3234,13 3302C13 3401,14 3501,14 3600L24 3600C24 3501,24 3401,24 3302C24 3234,37 3166,37 3098C37 2998,33 2898,33 2798C33 2695,36 2591,36 2488C36 2405,34 2321,34 2238C34 2155,26 2072,26 1989C26 1879,28 1770,28 1660C28 1553,31 1447,31 1340C31 1253,33 1166,33 1079C33 988,35 897,35 806C35 725,33 644,33 563C33 482,34 401,34 320C34 213,24 107,24 0Z' fill='%23211d1c' fill-opacity='0.08'/%3E%3C/svg%3E");
+    --rule-v-faint-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='360' viewBox='0 0 50 3600'%3E%3Cpath d='M14 0C14 107,23 213,23 320C23 401,24 482,24 563C24 644,23 725,23 806C23 897,23 988,23 1079C23 1166,22 1253,22 1340C22 1447,12 1553,12 1660C12 1770,15 1879,15 1989C15 2072,20 2155,20 2238C20 2321,24 2405,24 2488C24 2591,17 2695,17 2798C17 2898,22 2998,22 3098C22 3166,13 3234,13 3302C13 3401,14 3501,14 3600L24 3600C24 3501,24 3401,24 3302C24 3234,37 3166,37 3098C37 2998,33 2898,33 2798C33 2695,36 2591,36 2488C36 2405,34 2321,34 2238C34 2155,26 2072,26 1989C26 1879,28 1770,28 1660C28 1553,31 1447,31 1340C31 1253,33 1166,33 1079C33 988,35 897,35 806C35 725,33 644,33 563C33 482,34 401,34 320C34 213,24 107,24 0Z' fill='%23211d1c' fill-opacity='0.04'/%3E%3C/svg%3E");
+
+    --rule-mask-h: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='5' viewBox='0 0 3600 50' preserveAspectRatio='none'%3E%3Cpath d='M0 16C87 16,173 12,260 12C342 12,424 28,506 28C604 28,701 29,799 29C909 29,1019 26,1129 26C1218 26,1308 20,1397 20C1481 20,1566 19,1650 19C1764 19,1878 21,1992 21C2076 21,2159 19,2243 19C2317 19,2390 21,2464 21C2557 21,2649 23,2742 23C2839 23,2936 17,3033 17C3118 17,3202 24,3287 24C3391 24,3496 16,3600 16L3600 26C3496 26,3391 35,3287 35C3202 35,3118 32,3033 32C2936 32,2839 39,2742 39C2649 39,2557 33,2464 33C2390 33,2317 33,2243 33C2159 33,2076 31,1992 31C1878 31,1764 26,1650 26C1566 26,1481 36,1397 36C1308 36,1218 38,1129 38C1019 38,909 37,799 37C701 37,604 37,506 37C424 37,342 28,260 28C173 28,87 26,0 26Z' fill='%23fff'/%3E%3C/svg%3E");
+    --rule-mask-v: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='360' viewBox='0 0 50 3600' preserveAspectRatio='none'%3E%3Cpath d='M14 0C14 107,23 213,23 320C23 401,24 482,24 563C24 644,23 725,23 806C23 897,23 988,23 1079C23 1166,22 1253,22 1340C22 1447,12 1553,12 1660C12 1770,15 1879,15 1989C15 2072,20 2155,20 2238C20 2321,24 2405,24 2488C24 2591,17 2695,17 2798C17 2898,22 2998,22 3098C22 3166,13 3234,13 3302C13 3401,14 3501,14 3600L24 3600C24 3501,24 3401,24 3302C24 3234,37 3166,37 3098C37 2998,33 2898,33 2798C33 2695,36 2591,36 2488C36 2405,34 2321,34 2238C34 2155,26 2072,26 1989C26 1879,28 1770,28 1660C28 1553,31 1447,31 1340C31 1253,33 1166,33 1079C33 988,35 897,35 806C35 725,33 644,33 563C33 482,34 401,34 320C34 213,24 107,24 0Z' fill='%23fff'/%3E%3C/svg%3E");
+    --rule-mask-cap-l: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='28' viewBox='0 0 140 280' preserveAspectRatio='none'%3E%3Cpath d='M140 20L124 22L109 25L94 30L80 36L66 44L53 53L41 64L31 77L24 92L20 108L19 124L20 140L23 155L28 170L34 184L41 197L48 210L57 223L68 234L80 244L94 252L109 257L124 260L140 260L140 250L126 248L112 245L99 240L86 233L75 225L64 216L55 205L48 193L41 181L36 168L32 154L30 140L30 126L32 111L36 97L42 83L50 71L60 60L71 50L84 43L97 37L111 33L126 30L140 30Z' fill='%23fff'/%3E%3C/svg%3E");
+    --rule-mask-cap-r: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='28' viewBox='0 0 140 280' preserveAspectRatio='none'%3E%3Cpath d='M0 20L16 20L31 23L47 28L61 34L75 43L87 53L98 65L107 78L113 93L118 108L120 124L120 140L118 156L114 171L108 185L101 198L93 211L83 223L71 233L59 242L45 249L31 255L16 258L0 260L0 250L14 250L29 247L42 242L55 235L66 226L76 216L84 204L91 192L97 180L102 167L107 154L110 140L111 125L110 110L107 96L100 82L91 70L80 60L68 52L55 45L42 39L28 35L14 32L0 30Z' fill='%23fff'/%3E%3C/svg%3E");
+
+    --rule-mask-corner-br: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 120 120' preserveAspectRatio='none'%3E%3Cpath d='M100 0L98 11L95 22L92 32L87 42L82 51L76 60L69 69L61 77L52 83L43 89L33 94L22 97L11 99L0 100L0 90L10 88L20 86L29 82L38 78L46 73L54 68L62 62L69 55L75 47L80 39L85 30L88 20L89 10L90 0Z' fill='%23fff'/%3E%3C/svg%3E");
+    --rule-mask-corner-bl: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 120 120' preserveAspectRatio='none'%3E%3Cpath d='M120 100L109 98L98 95L88 92L78 87L69 82L60 76L51 69L43 61L37 52L31 43L26 33L23 22L21 11L20 0L30 0L32 10L34 20L38 29L42 38L47 46L52 54L58 62L65 69L73 75L81 80L90 85L100 88L110 89L120 90Z' fill='%23fff'/%3E%3C/svg%3E");
+    --rule-mask-corner-tl: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 120 120' preserveAspectRatio='none'%3E%3Cpath d='M20 120L22 109L25 98L28 88L33 78L38 69L44 60L51 51L59 43L68 37L77 31L87 26L98 23L109 21L120 20L120 30L110 32L100 34L91 38L82 42L74 47L66 52L58 58L51 65L45 73L40 81L35 90L32 100L31 110L30 120Z' fill='%23fff'/%3E%3C/svg%3E");
+    --rule-mask-corner-tr: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 120 120' preserveAspectRatio='none'%3E%3Cpath d='M0 20L11 22L22 25L32 28L42 33L51 38L60 44L69 51L77 59L83 68L89 77L94 87L97 98L99 109L100 120L90 120L88 110L86 100L82 91L78 82L73 74L68 66L62 58L55 51L47 45L39 40L30 35L20 32L10 31L0 30Z' fill='%23fff'/%3E%3C/svg%3E");
+    --rule-mask-ring: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 1000 1000' preserveAspectRatio='none'%3E%3Cpath d='M962 500L960 573L945 645L917 713L878 774L828 828L769 871L705 903L638 924L569 936L500 939L431 933L364 919L298 896L236 863L179 821L130 769L90 709L61 643L43 572L38 500L44 428L61 357L87 290L123 226L167 167L221 116L282 72L351 40L424 21L500 15L575 24L648 46L714 79L774 123L826 174L870 231L906 293L934 359L953 428L962 500Z M918 500L913 565L898 629L871 689L835 743L790 790L738 828L682 857L623 877L562 890L500 895L438 893L376 883L315 864L257 835L204 796L158 749L122 693L97 631L84 566L82 500L90 435L108 373L133 313L166 257L205 205L252 159L306 119L366 87L431 67L500 59L569 64L636 82L698 112L753 151L801 199L842 252L874 310L897 371L912 435L918 500Z' fill='%23fff' fill-rule='evenodd'/%3E%3C/svg%3E");
+    --rule-mask-ring-fine: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 1000 1000' preserveAspectRatio='none'%3E%3Cpath d='M952 500L949 571L934 641L907 707L868 767L819 819L762 861L700 892L634 914L567 926L500 929L433 924L367 911L302 888L241 857L185 815L136 764L97 705L69 640L52 571L48 500L55 429L71 361L98 295L133 233L176 176L228 125L288 83L354 51L426 31L500 25L574 33L645 54L711 87L769 129L820 180L863 236L899 297L926 362L944 430L952 500Z M928 500L924 567L908 633L882 694L844 750L798 798L745 837L687 867L626 888L563 900L500 905L436 902L373 891L311 871L252 841L198 802L151 753L114 696L89 634L75 567L72 500L80 433L97 369L123 308L156 250L197 197L245 149L300 108L362 77L430 56L500 49L570 55L638 74L702 104L758 145L807 193L848 247L881 306L906 368L922 433L928 500Z' fill='%23fff' fill-rule='evenodd'/%3E%3C/svg%3E");
+    --rule-mask-dot: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 1000 1000' preserveAspectRatio='none'%3E%3Cpath d='M960 500L962 592L944 684L903 769L843 843L767 900L682 939L592 962L500 969L408 962L318 939L233 900L157 843L97 769L56 684L38 592L40 500L60 413L94 332L138 258L192 192L256 135L330 89L412 59L500 49L588 59L670 89L744 135L808 192L862 258L906 332L940 413L960 500Z' fill='%23fff'/%3E%3C/svg%3E");
+    --rule-mask-bar-v: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='240' viewBox='0 0 60 2400' preserveAspectRatio='none'%3E%3Cpath d='M4 0L6 200L0 400L-1 600L1 800L5 1000L-1 1200L5 1400L5 1600L3 1800L0 2000L4 2200L4 2400L60 2400L61 2200L56 2000L53 1800L60 1600L56 1400L53 1200L60 1000L58 800L54 600L58 400L57 200L60 0Z' fill='%23fff'/%3E%3C/svg%3E");
+    --rule-mask-bar-h: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='6' viewBox='0 0 2400 60' preserveAspectRatio='none'%3E%3Cpath d='M0 4L200 6L400 0L600 7L800 5L1000 -1L1200 3L1400 -1L1600 5L1800 5L2000 7L2200 7L2400 4L2400 61L2200 60L2000 60L1800 57L1600 57L1400 54L1200 59L1000 60L800 61L600 60L400 58L200 58L0 61Z' fill='%23fff'/%3E%3C/svg%3E");
+    --rule-mask-fill: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='110' viewBox='0 0 2000 1100' preserveAspectRatio='none'%3E%3Cpath d='M0 8L91 5L182 4L273 6L364 8L455 7L545 4L636 0L727 -2L818 -1L909 2L1000 3L1091 2L1182 0L1273 -1L1364 1L1455 5L1545 8L1636 9L1727 7L1818 5L1909 5L2000 8L1992 0L1995 50L1997 100L1996 150L1995 200L1996 250L1999 300L2002 350L2003 400L2000 450L1995 500L1992 550L1992 600L1994 650L1995 700L1994 750L1992 800L1991 850L1994 900L1998 950L2002 1000L2003 1050L2000 1100L2000 1092L1909 1095L1818 1096L1727 1094L1636 1092L1545 1093L1455 1096L1364 1100L1273 1102L1182 1101L1091 1098L1000 1097L909 1098L818 1100L727 1101L636 1099L545 1095L455 1092L364 1091L273 1093L182 1095L91 1095L0 1092L8 1100L5 1050L3 1000L4 950L5 900L4 850L1 800L-2 750L-3 700L0 650L5 600L8 550L8 500L6 450L5 400L6 350L8 300L9 250L6 200L2 150L-2 100L-3 50L0 0Z' fill='%23fff'/%3E%3C/svg%3E");
+    --rule-mask-fill-r: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='110' viewBox='0 0 2000 1100' preserveAspectRatio='none'%3E%3Cpath d='M120 8L200 10L280 10L360 7L440 3L520 1L600 2L680 4L760 4L840 2L920 -2L1000 -3L1080 -1L1160 2L1240 5L1320 5L1400 3L1480 2L1560 4L1640 7L1720 11L1800 11L1880 8L1966 34L1992 120L1990 159L1991 198L1995 237L1999 276L2002 315L2001 355L1998 394L1996 433L1997 472L1999 511L1999 550L1996 589L1991 628L1989 667L1990 706L1994 745L1997 785L1998 824L1997 863L1996 902L1997 941L2000 980L1966 1066L1880 1092L1800 1090L1720 1090L1640 1093L1560 1097L1480 1099L1400 1098L1320 1096L1240 1096L1160 1098L1080 1102L1000 1103L920 1101L840 1098L760 1095L680 1095L600 1097L520 1098L440 1096L360 1093L280 1089L200 1089L120 1092L34 1066L8 980L10 941L9 902L5 863L1 824L-2 785L-1 745L2 706L4 667L3 628L1 589L1 550L4 511L9 472L11 433L10 394L6 355L3 315L2 276L3 237L4 198L3 159L0 120L34 34Z' fill='%23fff'/%3E%3C/svg%3E");
+    --rule-mask-fill-cap-l: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='28' viewBox='0 0 140 280' preserveAspectRatio='none'%3E%3Cpath d='M140 25L125 26L110 29L96 33L82 39L69 47L56 56L46 68L37 80L30 94L26 109L24 125L25 140L28 155L32 169L38 182L44 195L52 208L61 219L71 229L83 239L96 246L110 251L125 254L140 255Z' fill='%23fff'/%3E%3C/svg%3E");
+    --rule-mask-fill-cap-r: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='28' viewBox='0 0 140 280' preserveAspectRatio='none'%3E%3Cpath d='M0 25L15 24L31 26L46 30L60 37L72 46L84 56L93 69L101 82L107 96L111 110L114 125L115 140L114 155L111 170L106 184L99 197L89 209L79 219L68 228L55 236L42 242L29 248L15 252L0 255Z' fill='%23fff'/%3E%3C/svg%3E");
+    --rule-mask-fill-circle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 1000 1000' preserveAspectRatio='none'%3E%3Cpath d='M940 500L933 569L917 635L891 699L856 759L814 814L763 862L705 903L641 933L572 952L500 959L428 952L359 933L295 903L237 862L186 814L144 759L109 699L83 635L67 569L60 500L64 431L80 363L107 300L144 242L191 191L246 150L306 118L369 96L434 83L500 79L566 83L631 96L694 118L754 150L809 191L856 242L893 300L920 363L936 431L940 500Z' fill='%23fff'/%3E%3C/svg%3E");
+
+    --rule-mask-swatch: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='110' viewBox='0 0 2000 1100' preserveAspectRatio='none'%3E%3Cpath d='M300 40Q1000 8 1800 40Q1960 40 1960 200Q1984 550 1960 760Q1960 1060 1660 1060Q1000 1096 240 1060Q40 1060 40 860Q12 550 40 300Q40 40 300 40Z' fill='%23fff'/%3E%3C/svg%3E");
+    --rule-swatch-line: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='110' viewBox='0 0 2000 1100' preserveAspectRatio='none'%3E%3Cpath d='M300 40Q1000 8 1800 40Q1960 40 1960 200Q1984 550 1960 760Q1960 1060 1660 1060Q1000 1096 240 1060Q40 1060 40 860Q12 550 40 300Q40 40 300 40Z' fill='none' stroke='%23211d1c' stroke-opacity='0.14' stroke-width='14'/%3E%3C/svg%3E");
+
+    /* What the utilities actually read. Dark mode repoints these six at
+       pale tiles; an always-white page (.rule-light, .design-system-page)
+       points them back here. The -light shapes above stay defined in both
+       themes precisely so that aliasing works without a second copy. */
+    --rule-h: var(--rule-h-light);
+    --rule-h-soft: var(--rule-h-soft-light);
+    --rule-h-faint: var(--rule-h-faint-light);
+    --rule-v: var(--rule-v-light);
+    --rule-v-soft: var(--rule-v-soft-light);
+    --rule-v-faint: var(--rule-v-faint-light);
+
+    /* The tints again, this time as COLOURS. The mask shapes above are
+       colourless on purpose: the outline utilities paint them with
+       --rule-line-color, so one shape serves every tint, hover state and
+       theme without a second baked SVG. */
+    --rule-ink-soft: rgba(33, 29, 28, 0.08);
+    --rule-ink-faint: rgba(33, 29, 28, 0.04);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --rule-h: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='5' viewBox='0 0 3600 50'%3E%3Cpath d='M0 16C87 16,173 12,260 12C342 12,424 28,506 28C604 28,701 29,799 29C909 29,1019 26,1129 26C1218 26,1308 20,1397 20C1481 20,1566 19,1650 19C1764 19,1878 21,1992 21C2076 21,2159 19,2243 19C2317 19,2390 21,2464 21C2557 21,2649 23,2742 23C2839 23,2936 17,3033 17C3118 17,3202 24,3287 24C3391 24,3496 16,3600 16L3600 26C3496 26,3391 35,3287 35C3202 35,3118 32,3033 32C2936 32,2839 39,2742 39C2649 39,2557 33,2464 33C2390 33,2317 33,2243 33C2159 33,2076 31,1992 31C1878 31,1764 26,1650 26C1566 26,1481 36,1397 36C1308 36,1218 38,1129 38C1019 38,909 37,799 37C701 37,604 37,506 37C424 37,342 28,260 28C173 28,87 26,0 26Z' fill='%23f2efea' fill-opacity='0.14'/%3E%3C/svg%3E");
+      --rule-h-soft: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='5' viewBox='0 0 3600 50'%3E%3Cpath d='M0 16C87 16,173 12,260 12C342 12,424 28,506 28C604 28,701 29,799 29C909 29,1019 26,1129 26C1218 26,1308 20,1397 20C1481 20,1566 19,1650 19C1764 19,1878 21,1992 21C2076 21,2159 19,2243 19C2317 19,2390 21,2464 21C2557 21,2649 23,2742 23C2839 23,2936 17,3033 17C3118 17,3202 24,3287 24C3391 24,3496 16,3600 16L3600 26C3496 26,3391 35,3287 35C3202 35,3118 32,3033 32C2936 32,2839 39,2742 39C2649 39,2557 33,2464 33C2390 33,2317 33,2243 33C2159 33,2076 31,1992 31C1878 31,1764 26,1650 26C1566 26,1481 36,1397 36C1308 36,1218 38,1129 38C1019 38,909 37,799 37C701 37,604 37,506 37C424 37,342 28,260 28C173 28,87 26,0 26Z' fill='%23f2efea' fill-opacity='0.09'/%3E%3C/svg%3E");
+      --rule-h-faint: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='5' viewBox='0 0 3600 50'%3E%3Cpath d='M0 16C87 16,173 12,260 12C342 12,424 28,506 28C604 28,701 29,799 29C909 29,1019 26,1129 26C1218 26,1308 20,1397 20C1481 20,1566 19,1650 19C1764 19,1878 21,1992 21C2076 21,2159 19,2243 19C2317 19,2390 21,2464 21C2557 21,2649 23,2742 23C2839 23,2936 17,3033 17C3118 17,3202 24,3287 24C3391 24,3496 16,3600 16L3600 26C3496 26,3391 35,3287 35C3202 35,3118 32,3033 32C2936 32,2839 39,2742 39C2649 39,2557 33,2464 33C2390 33,2317 33,2243 33C2159 33,2076 31,1992 31C1878 31,1764 26,1650 26C1566 26,1481 36,1397 36C1308 36,1218 38,1129 38C1019 38,909 37,799 37C701 37,604 37,506 37C424 37,342 28,260 28C173 28,87 26,0 26Z' fill='%23f2efea' fill-opacity='0.05'/%3E%3C/svg%3E");
+      --rule-v: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='360' viewBox='0 0 50 3600'%3E%3Cpath d='M14 0C14 107,23 213,23 320C23 401,24 482,24 563C24 644,23 725,23 806C23 897,23 988,23 1079C23 1166,22 1253,22 1340C22 1447,12 1553,12 1660C12 1770,15 1879,15 1989C15 2072,20 2155,20 2238C20 2321,24 2405,24 2488C24 2591,17 2695,17 2798C17 2898,22 2998,22 3098C22 3166,13 3234,13 3302C13 3401,14 3501,14 3600L24 3600C24 3501,24 3401,24 3302C24 3234,37 3166,37 3098C37 2998,33 2898,33 2798C33 2695,36 2591,36 2488C36 2405,34 2321,34 2238C34 2155,26 2072,26 1989C26 1879,28 1770,28 1660C28 1553,31 1447,31 1340C31 1253,33 1166,33 1079C33 988,35 897,35 806C35 725,33 644,33 563C33 482,34 401,34 320C34 213,24 107,24 0Z' fill='%23f2efea' fill-opacity='0.14'/%3E%3C/svg%3E");
+      --rule-v-soft: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='360' viewBox='0 0 50 3600'%3E%3Cpath d='M14 0C14 107,23 213,23 320C23 401,24 482,24 563C24 644,23 725,23 806C23 897,23 988,23 1079C23 1166,22 1253,22 1340C22 1447,12 1553,12 1660C12 1770,15 1879,15 1989C15 2072,20 2155,20 2238C20 2321,24 2405,24 2488C24 2591,17 2695,17 2798C17 2898,22 2998,22 3098C22 3166,13 3234,13 3302C13 3401,14 3501,14 3600L24 3600C24 3501,24 3401,24 3302C24 3234,37 3166,37 3098C37 2998,33 2898,33 2798C33 2695,36 2591,36 2488C36 2405,34 2321,34 2238C34 2155,26 2072,26 1989C26 1879,28 1770,28 1660C28 1553,31 1447,31 1340C31 1253,33 1166,33 1079C33 988,35 897,35 806C35 725,33 644,33 563C33 482,34 401,34 320C34 213,24 107,24 0Z' fill='%23f2efea' fill-opacity='0.09'/%3E%3C/svg%3E");
+      --rule-v-faint: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='360' viewBox='0 0 50 3600'%3E%3Cpath d='M14 0C14 107,23 213,23 320C23 401,24 482,24 563C24 644,23 725,23 806C23 897,23 988,23 1079C23 1166,22 1253,22 1340C22 1447,12 1553,12 1660C12 1770,15 1879,15 1989C15 2072,20 2155,20 2238C20 2321,24 2405,24 2488C24 2591,17 2695,17 2798C17 2898,22 2998,22 3098C22 3166,13 3234,13 3302C13 3401,14 3501,14 3600L24 3600C24 3501,24 3401,24 3302C24 3234,37 3166,37 3098C37 2998,33 2898,33 2798C33 2695,36 2591,36 2488C36 2405,34 2321,34 2238C34 2155,26 2072,26 1989C26 1879,28 1770,28 1660C28 1553,31 1447,31 1340C31 1253,33 1166,33 1079C33 988,35 897,35 806C35 725,33 644,33 563C33 482,34 401,34 320C34 213,24 107,24 0Z' fill='%23f2efea' fill-opacity='0.05'/%3E%3C/svg%3E");
+      --rule-ink-soft: rgba(242, 239, 234, 0.09);
+      --rule-ink-faint: rgba(242, 239, 234, 0.05);
+    }
+  }
+}
+
+/* Pages that stay a white sheet in both themes: the CV document and
+   /designsystem. They keep the ink shapes and the ink line colour while the
+   rest of the site goes pale, which is why the -light tiles above are
+   declared unconditionally. */
+.rule-light,
+.design-system-page {
+  --rule-h: var(--rule-h-light);
+  --rule-h-soft: var(--rule-h-soft-light);
+  --rule-h-faint: var(--rule-h-faint-light);
+  --rule-v: var(--rule-v-light);
+  --rule-v-soft: var(--rule-v-soft-light);
+  --rule-v-faint: var(--rule-v-faint-light);
+  --rule-line-color: rgba(33, 29, 28, 0.12);
+  --rule-ink-soft: rgba(33, 29, 28, 0.08);
+  --rule-ink-faint: rgba(33, 29, 28, 0.04);
+}
+
+/* The positioning context the ::after outlines need. Deliberately in
+   `components` rather than `utilities`: an element that positions itself —
+   SectionMedia's absolutely-positioned "open prototype" chip, VoluntaryList's
+   taped label — must keep its own `absolute`, and a Tailwind utility outranks
+   anything in this layer, which is exactly the behaviour we want. Elements
+   that set no position of their own still get `relative` from here. */
+@layer components {
+  .rule-frame, .rule-frame-in, .rule-pill, .rule-frame-r, .rule-circle,
+  .card, .btn,
+  .rule-edge-t, .rule-edge-b, .rule-edge-l, .rule-edge-r { position: relative; }
+
+  /* The fill layer below sits at z-index:-1 so it lands above the element's
+     own background but under its label. That only stays put inside a
+     stacking context of the element's own — without one it would slip
+     behind an ancestor's background instead. */
+  .rule-frame, .rule-frame-in, .rule-pill, .rule-frame-r, .rule-circle,
+  .card, .btn { isolation: isolate; }
+}
+
+@layer utilities {
+  /* Single edges. --rule-w is the tile's thickness across the line;
+     scaling it up scales the stroke with it (see .rule-thick). */
+  .rule-t, .rule-b, .rule-l, .rule-r, .rule-box, .rule-line, .rule-line-v {
+    background-origin: border-box;
+  }
+
+  .rule-t {
+    background-image: var(--rule-img-h, var(--rule-h));
+    background-repeat: repeat-x;
+    background-position: left top;
+    background-size: var(--rule-len, 360px) var(--rule-w, 5px);
+  }
+  .rule-b {
+    background-image: var(--rule-img-h, var(--rule-h));
+    background-repeat: repeat-x;
+    background-position: left bottom;
+    background-size: var(--rule-len, 360px) var(--rule-w, 5px);
+  }
+  .rule-l {
+    background-image: var(--rule-img-v, var(--rule-v));
+    background-repeat: repeat-y;
+    background-position: left top;
+    background-size: var(--rule-w, 5px) var(--rule-len, 360px);
+  }
+  .rule-r {
+    background-image: var(--rule-img-v, var(--rule-v));
+    background-repeat: repeat-y;
+    background-position: right top;
+    background-size: var(--rule-w, 5px) var(--rule-len, 360px);
+  }
+
+  /* All four edges at once — only for frames with padded children, where
+     nothing paints over the 5px band (MetricsStrip's grid, not a card). */
+  .rule-box {
+    background-image:
+      var(--rule-img-h, var(--rule-h)), var(--rule-img-h, var(--rule-h)),
+      var(--rule-img-v, var(--rule-v)), var(--rule-img-v, var(--rule-v));
+    background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+    background-position: left top, left bottom, left top, right top;
+    background-size:
+      var(--rule-len, 360px) var(--rule-w, 5px), var(--rule-len, 360px) var(--rule-w, 5px),
+      var(--rule-w, 5px) var(--rule-len, 360px), var(--rule-w, 5px) var(--rule-len, 360px);
+  }
+
+  /* The Tailwind `divide-*` shape: a line before every child but the
+     first, drawn on the child's own top + left edge. */
+  .rule-divide > :not([hidden]) ~ :not([hidden]) {
+    background-image: var(--rule-img-h, var(--rule-h)), var(--rule-img-v, var(--rule-v));
+    background-repeat: repeat-x, repeat-y;
+    background-position: left top, left top;
+    background-size:
+      var(--rule-len, 360px) var(--rule-w, 5px),
+      var(--rule-w, 5px) var(--rule-len, 360px);
+    background-origin: border-box;
+  }
+
+  /* Standalone divider elements — the old `h-px bg-border` pattern.
+     These own their height/width, so they set it themselves. */
+  .rule-line {
+    height: var(--rule-w, 5px);
+    background-image: var(--rule-img-h, var(--rule-h));
+    background-repeat: repeat-x;
+    background-position: left center;
+    background-size: var(--rule-len, 360px) var(--rule-w, 5px);
+  }
+  .rule-line-v {
+    width: var(--rule-w, 5px);
+    background-image: var(--rule-img-v, var(--rule-v));
+    background-repeat: repeat-y;
+    background-position: center top;
+    background-size: var(--rule-w, 5px) var(--rule-len, 360px);
+  }
+
+  /* ---- Closed outlines: frames, chips, coloured edges ----------------
+     The utilities above paint the tile as the element's own BACKGROUND,
+     which is right for a divider sitting in padding — but a background is
+     painted under the element's content, so a photo covers it, and its
+     colour is baked into the tile.
+
+     These draw into an absolutely-positioned `::after` instead, using the
+     same shapes as a MASK over a plain background-colour. Two things
+     follow, and they are exactly what a frame or a chip needs:
+       - a positioned pseudo-element paints ABOVE the element's content,
+         so an image frame's line lands on top of the photo;
+       - the colour is `--rule-line-color`, an ordinary custom property,
+         so one shape serves ink, coral, rose, a hover state and both
+         themes. Set it like any other Tailwind value:
+         `[--rule-line-color:var(--primary-600)]`, `hover:[--rule-line-color:...]`.
+
+     Reach for `.rule-t`/`.rule-b`/... for a plain divider; reach for these
+     when the outline is closed, coloured, or has to sit over content.
+
+     One limit worth knowing: a REPLACED element (input, select, iframe,
+     img, video) never renders a pseudo-element, so these classes have
+     nothing to draw into there. Put them on a wrapper instead — see the
+     search field on /tags and the PDF viewer on /credentials. */
+  /* Guarded, and the guard matters: the overlay is a plain coloured box that
+     the mask cuts an outline out of, so a browser that ignored the mask would
+     paint a solid slab over every chip on the page. Without mask support
+     nothing is drawn and the crisp border below takes over instead. */
+  @supports (mask-image: linear-gradient(#000, #000)) or (-webkit-mask-image: linear-gradient(#000, #000)) {
+    .rule-frame::after, .rule-frame-in::after, .rule-pill::after,
+    .rule-frame-r::after, .rule-circle::after, .card::after, .btn::after,
+    .rule-edge-t::after, .rule-edge-b::after,
+    .rule-edge-l::after, .rule-edge-r::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      background-color: var(--rule-line-color, var(--border));
+    }
+  }
+
+  @supports not ((mask-image: linear-gradient(#000, #000)) or (-webkit-mask-image: linear-gradient(#000, #000))) {
+    .rule-frame, .rule-frame-in, .rule-pill,
+    .rule-frame-r, .rule-circle, .card, .btn { border-color: var(--rule-line-color, var(--border)); }
+    .rule-edge-t { border-top-color:    var(--rule-line-color, var(--border)); }
+    .rule-edge-b { border-bottom-color: var(--rule-line-color, var(--border)); }
+    .rule-edge-l { border-left-color:   var(--rule-line-color, var(--border)); }
+    .rule-edge-r { border-right-color:  var(--rule-line-color, var(--border)); }
+  }
+
+  /* All four sides. `.rule-frame` straddles the border edge; use
+     `.rule-frame-in` on a host with `overflow-hidden`, which would clip a
+     pseudo-element poking outside the padding box — there the line is
+     drawn just inside instead, over the photo, which reads as a pen line
+     traced around the print. */
+  .rule-frame::after, .rule-frame-in::after {
+    -webkit-mask-image: var(--rule-mask-h), var(--rule-mask-h), var(--rule-mask-v), var(--rule-mask-v);
+            mask-image: var(--rule-mask-h), var(--rule-mask-h), var(--rule-mask-v), var(--rule-mask-v);
+    -webkit-mask-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+            mask-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+    -webkit-mask-position: left top, left bottom, left top, right top;
+            mask-position: left top, left bottom, left top, right top;
+    -webkit-mask-size:
+      var(--rule-len, 360px) var(--rule-w, 5px), var(--rule-len, 360px) var(--rule-w, 5px),
+      var(--rule-w, 5px) var(--rule-len, 360px), var(--rule-w, 5px) var(--rule-len, 360px);
+            mask-size:
+      var(--rule-len, 360px) var(--rule-w, 5px), var(--rule-len, 360px) var(--rule-w, 5px),
+      var(--rule-w, 5px) var(--rule-len, 360px), var(--rule-w, 5px) var(--rule-len, 360px);
+  }
+  .rule-frame::after    { inset: -2px; }
+  .rule-frame-in::after { inset: 0; }
+
+  /* Stadium (`rounded-full` chips). Four layers: two straight runs that
+     STRETCH to the gap between the caps — stretching a horizontal line
+     horizontally only changes how often it wobbles, never how thick it is
+     — and two cap arcs that stretch vertically to the chip's height.
+     `--rule-cap` is the cap's width; set it to about half the chip's
+     height (the default suits a ~26px chip). */
+  .rule-pill::after {
+    inset: -2px;
+    -webkit-mask-image: var(--rule-mask-h), var(--rule-mask-h), var(--rule-mask-cap-l), var(--rule-mask-cap-r);
+            mask-image: var(--rule-mask-h), var(--rule-mask-h), var(--rule-mask-cap-l), var(--rule-mask-cap-r);
+    -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+    -webkit-mask-position: var(--rule-cap, 15px) top, var(--rule-cap, 15px) bottom, left center, right center;
+            mask-position: var(--rule-cap, 15px) top, var(--rule-cap, 15px) bottom, left center, right center;
+    -webkit-mask-size:
+      calc(100% - 2 * var(--rule-cap, 15px)) var(--rule-w, 5px),
+      calc(100% - 2 * var(--rule-cap, 15px)) var(--rule-w, 5px),
+      var(--rule-cap, 15px) 100%, var(--rule-cap, 15px) 100%;
+            mask-size:
+      calc(100% - 2 * var(--rule-cap, 15px)) var(--rule-w, 5px),
+      calc(100% - 2 * var(--rule-cap, 15px)) var(--rule-w, 5px),
+      var(--rule-cap, 15px) 100%, var(--rule-cap, 15px) 100%;
+  }
+
+  /* ---- The fill under the outline --------------------------------------
+     A drawn edge around a razor-sharp fill is worse than no edge at all, so
+     anything that fills gets the same hand. The colour is --rule-fill-color
+     (default transparent), which is what a hover state sets instead of
+     `hover:bg-*`: the element's own background would paint a hard rectangle
+     underneath the drawn one. The shapes end exactly on the outline's
+     centreline, so edge and fill agree. */
+  .rule-frame::before, .rule-frame-in::before, .rule-frame-r::before,
+  .rule-pill::before, .rule-circle::before, .card::before, .btn::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+    background-color: var(--rule-fill-color, transparent);
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  }
+  .rule-frame::before, .rule-frame-r::before, .rule-pill::before,
+  .rule-circle::before, .card::before, .btn::before { inset: -2px; }
+  .rule-frame-in::before { inset: 0; }
+
+  .rule-frame::before, .rule-frame-in::before {
+    -webkit-mask-image: var(--rule-mask-fill); mask-image: var(--rule-mask-fill);
+    -webkit-mask-position: center;             mask-position: center;
+    -webkit-mask-size: calc(100% - 5px) calc(100% - 5px);
+            mask-size: calc(100% - 5px) calc(100% - 5px);
+  }
+  .rule-frame-r::before, .card::before, .btn::before {
+    -webkit-mask-image: var(--rule-mask-fill-r); mask-image: var(--rule-mask-fill-r);
+    -webkit-mask-position: center;               mask-position: center;
+    -webkit-mask-size: calc(100% - 5px) calc(100% - 5px);
+            mask-size: calc(100% - 5px) calc(100% - 5px);
+  }
+  .rule-circle::before {
+    -webkit-mask-image: var(--rule-mask-fill-circle); mask-image: var(--rule-mask-fill-circle);
+    -webkit-mask-size: 100% 100%;                     mask-size: 100% 100%;
+  }
+  /* Three layers, same geometry as the stadium outline: a solid middle
+     between the caps, and the two caps filled to their own arc. */
+  .rule-pill::before {
+    -webkit-mask-image: linear-gradient(#000, #000), var(--rule-mask-fill-cap-l), var(--rule-mask-fill-cap-r);
+            mask-image: linear-gradient(#000, #000), var(--rule-mask-fill-cap-l), var(--rule-mask-fill-cap-r);
+    -webkit-mask-position: var(--rule-cap, 15px) center, left center, right center;
+            mask-position: var(--rule-cap, 15px) center, left center, right center;
+    -webkit-mask-size:
+      calc(100% - 2 * var(--rule-cap, 15px)) calc(100% - 5px),
+      var(--rule-cap, 15px) 100%, var(--rule-cap, 15px) 100%;
+            mask-size:
+      calc(100% - 2 * var(--rule-cap, 15px)) calc(100% - 5px),
+      var(--rule-cap, 15px) 100%, var(--rule-cap, 15px) 100%;
+  }
+
+  /* One coloured edge — sidebar spines, active-item marks. */
+  .rule-edge-t::after, .rule-edge-b::after {
+    left: 0; right: 0; height: var(--rule-w, 5px);
+    -webkit-mask-image: var(--rule-mask-h); mask-image: var(--rule-mask-h);
+    -webkit-mask-repeat: repeat-x;          mask-repeat: repeat-x;
+    -webkit-mask-size: var(--rule-len, 360px) var(--rule-w, 5px);
+            mask-size: var(--rule-len, 360px) var(--rule-w, 5px);
+  }
+  .rule-edge-t::after { top: -2px; }
+  .rule-edge-b::after { bottom: -2px; }
+  .rule-edge-l::after, .rule-edge-r::after {
+    top: 0; bottom: 0; width: var(--rule-w, 5px);
+    -webkit-mask-image: var(--rule-mask-v); mask-image: var(--rule-mask-v);
+    -webkit-mask-repeat: repeat-y;          mask-repeat: repeat-y;
+    -webkit-mask-size: var(--rule-w, 5px) var(--rule-len, 360px);
+            mask-size: var(--rule-w, 5px) var(--rule-len, 360px);
+  }
+  .rule-edge-l::after { left: -2px; }
+  .rule-edge-r::after { right: -2px; }
+
+  /* Rounded frames — the same construction as the stadium, with four corner
+     arcs instead of two caps and four runs stretched between them. Keeps a
+     radius honest (`--rule-r`, default 12px) where squaring the shape would
+     have been the lazy answer: cards, .btn, Contact's actions. */
+  .rule-frame-r::after, .card::after, .btn::after {
+    inset: -2px;
+    -webkit-mask-image:
+      var(--rule-mask-h), var(--rule-mask-h), var(--rule-mask-v), var(--rule-mask-v),
+      var(--rule-mask-corner-tl), var(--rule-mask-corner-tr), var(--rule-mask-corner-br), var(--rule-mask-corner-bl);
+            mask-image:
+      var(--rule-mask-h), var(--rule-mask-h), var(--rule-mask-v), var(--rule-mask-v),
+      var(--rule-mask-corner-tl), var(--rule-mask-corner-tr), var(--rule-mask-corner-br), var(--rule-mask-corner-bl);
+    -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+    -webkit-mask-position:
+      var(--rule-r, 12px) top, var(--rule-r, 12px) bottom, left var(--rule-r, 12px), right var(--rule-r, 12px),
+      left top, right top, right bottom, left bottom;
+            mask-position:
+      var(--rule-r, 12px) top, var(--rule-r, 12px) bottom, left var(--rule-r, 12px), right var(--rule-r, 12px),
+      left top, right top, right bottom, left bottom;
+    -webkit-mask-size:
+      calc(100% - 2 * var(--rule-r, 12px)) var(--rule-w, 5px),
+      calc(100% - 2 * var(--rule-r, 12px)) var(--rule-w, 5px),
+      var(--rule-w, 5px) calc(100% - 2 * var(--rule-r, 12px)),
+      var(--rule-w, 5px) calc(100% - 2 * var(--rule-r, 12px)),
+      var(--rule-r, 12px) var(--rule-r, 12px), var(--rule-r, 12px) var(--rule-r, 12px),
+      var(--rule-r, 12px) var(--rule-r, 12px), var(--rule-r, 12px) var(--rule-r, 12px);
+            mask-size:
+      calc(100% - 2 * var(--rule-r, 12px)) var(--rule-w, 5px),
+      calc(100% - 2 * var(--rule-r, 12px)) var(--rule-w, 5px),
+      var(--rule-w, 5px) calc(100% - 2 * var(--rule-r, 12px)),
+      var(--rule-w, 5px) calc(100% - 2 * var(--rule-r, 12px)),
+      var(--rule-r, 12px) var(--rule-r, 12px), var(--rule-r, 12px) var(--rule-r, 12px),
+      var(--rule-r, 12px) var(--rule-r, 12px), var(--rule-r, 12px) var(--rule-r, 12px);
+  }
+
+  /* Round hosts are square, so one ring stretched to 100% 100% distorts
+     nothing. The spinner wears it: a circle that is visibly not round is the
+     only reason you can see a uniform ring rotate at all. */
+  .rule-circle::after {
+    inset: -2px;
+    -webkit-mask-image: var(--rule-mask-ring); mask-image: var(--rule-mask-ring);
+    -webkit-mask-repeat: no-repeat;            mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;              mask-size: 100% 100%;
+  }
+
+  /* ---- Shapes that mask the element's OWN background ------------------
+     No pseudo-element, no colour token: whatever `bg-*` the element already
+     carries is what gets cut into a drawn shape. That is what these want —
+     a spine keeps its hover colour, a dot keeps its state colour. */
+  .rule-stroke, .rule-stroke-v, .rule-bar, .rule-bar-v, .rule-dot,
+  .rule-swatch, .rule-fill, .rule-fill-r {
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  }
+
+  /* A standalone hairline element (the nav's hover underline), in its own
+     colour rather than the ink tint .rule-line bakes in. */
+  .rule-stroke {
+    -webkit-mask-image: var(--rule-mask-h); mask-image: var(--rule-mask-h);
+    -webkit-mask-repeat: repeat-x;          mask-repeat: repeat-x;
+    -webkit-mask-size: var(--rule-len, 360px) var(--rule-w, 5px);
+            mask-size: var(--rule-len, 360px) var(--rule-w, 5px);
+  }
+  .rule-stroke-v {
+    -webkit-mask-image: var(--rule-mask-v); mask-image: var(--rule-mask-v);
+    -webkit-mask-repeat: repeat-y;          mask-repeat: repeat-y;
+    -webkit-mask-size: var(--rule-w, 5px) var(--rule-len, 360px);
+            mask-size: var(--rule-w, 5px) var(--rule-len, 360px);
+  }
+
+  /* Solid bars with a torn long edge — the domain spines down the left of a
+     project row and across the top of a tile. Tiles along its length, so a
+     tall spine never stretches its wobble flat. */
+  .rule-bar {
+    -webkit-mask-image: var(--rule-mask-bar-h); mask-image: var(--rule-mask-bar-h);
+    -webkit-mask-repeat: repeat-x;              mask-repeat: repeat-x;
+    -webkit-mask-size: var(--rule-bar-len, 240px) 100%;
+            mask-size: var(--rule-bar-len, 240px) 100%;
+  }
+  .rule-bar-v {
+    -webkit-mask-image: var(--rule-mask-bar-v); mask-image: var(--rule-mask-bar-v);
+    -webkit-mask-repeat: repeat-y;              mask-repeat: repeat-y;
+    -webkit-mask-size: 100% var(--rule-bar-len, 240px);
+            mask-size: 100% var(--rule-bar-len, 240px);
+  }
+
+  /* A filled surface with no outline of its own — the gold prototype
+     button, a tinted code chip. Masks the element's OWN background, so the
+     `bg-*` classes stay exactly as they were. */
+  .rule-fill {
+    -webkit-mask-image: var(--rule-mask-fill); mask-image: var(--rule-mask-fill);
+    -webkit-mask-size: 100% 100%;              mask-size: 100% 100%;
+  }
+  .rule-fill-r {
+    -webkit-mask-image: var(--rule-mask-fill-r); mask-image: var(--rule-mask-fill-r);
+    -webkit-mask-size: 100% 100%;                mask-size: 100% 100%;
+  }
+
+  /* Ink taps: the status dots, the timeline nodes, the nav's current-page
+     mark. Not quite discs, the way a pen tip is not quite a compass. */
+  .rule-dot {
+    -webkit-mask-image: var(--rule-mask-dot); mask-image: var(--rule-mask-dot);
+    -webkit-mask-size: 100% 100%;             mask-size: 100% 100%;
+  }
+
+  /* /designsystem's colour chips: a pebble rather than a rectangle. The fill
+     is masked, and the edge rides along as a background-image inside that
+     same mask, so the white swatch still reads against a white page. */
+  .rule-swatch {
+    background-image: var(--rule-swatch-line);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    -webkit-mask-image: var(--rule-mask-swatch); mask-image: var(--rule-mask-swatch);
+    -webkit-mask-size: 100% 100%;                mask-size: 100% 100%;
+  }
+
+  /* Weight + tone modifiers. They set custom properties, never the
+     background itself, so they compose with any edge, frame or chip
+     above — the mask-based ones read the tint as a colour rather than as
+     a tile, which is why each tint exists in both forms. */
+  .rule-soft  { --rule-img-h: var(--rule-h-soft);  --rule-img-v: var(--rule-v-soft);  --rule-line-color: var(--rule-ink-soft); }
+  .rule-faint { --rule-img-h: var(--rule-h-faint); --rule-img-v: var(--rule-v-faint); --rule-line-color: var(--rule-ink-faint); }
+  .rule-thick { --rule-w: 8px; }
+  .rule-fine  { --rule-w: 3.5px; --rule-mask-ring: var(--rule-mask-ring-fine); }
+
+  /* Escape hatch for the `first:border-t-0` pattern. Defined last so a
+     variant of it (`first:rule-off`) outranks the edge utilities. */
+  .rule-off { background-image: none; }
+  .rule-off::after, .rule-off::before { display: none; }
+}
+
+/* Paper wants a crisp hairline: a 12%-ink wobble at print resolution is
+   mostly dithering, and background images need print-color-adjust to
+   survive at all. Restore the straight rule for ink. */
+@media print {
+  .rule-t, .rule-b, .rule-l, .rule-r, .rule-box,
+  .rule-line, .rule-line-v, .rule-divide > * {
+    background-image: none !important;
+  }
+  /* Colour only, never the shorthand: the border WIDTHS still come from
+     the Tailwind utilities the element carries, so a `md:border-t-0`
+     stays zero on paper instead of sprouting a line. */
+  .rule-t, .rule-box, .rule-divide > :not([hidden]) ~ :not([hidden]) { border-top-color: rgba(0, 0, 0, 0.18) !important; }
+  .rule-b, .rule-box { border-bottom-color: rgba(0, 0, 0, 0.18) !important; }
+  .rule-l, .rule-box, .rule-divide > :not([hidden]) ~ :not([hidden]) { border-left-color: rgba(0, 0, 0, 0.18) !important; }
+  .rule-r, .rule-box { border-right-color: rgba(0, 0, 0, 0.18) !important; }
+  .rule-line   { height: 1px !important; background-color: rgba(0, 0, 0, 0.18) !important; }
+  .rule-line-v { width: 1px !important;  background-color: rgba(0, 0, 0, 0.18) !important; }
+
+  /* Masks are the first thing a print pipeline drops. Retire the overlay
+     and hand the crisp border back its colour — --rule-line-color, so a
+     coral chip still prints coral instead of falling back to grey. */
+  .rule-frame::after, .rule-frame-in::after, .rule-pill::after,
+  .rule-frame-r::after, .rule-circle::after, .card::after, .btn::after,
+  .rule-edge-t::after, .rule-edge-b::after,
+  .rule-edge-l::after, .rule-edge-r::after { display: none !important; }
+  .rule-stroke, .rule-stroke-v, .rule-bar, .rule-bar-v, .rule-dot,
+  .rule-swatch, .rule-fill, .rule-fill-r {
+    -webkit-mask-image: none !important; mask-image: none !important;
+  }
+  /* The fill has to survive print, so it drops its mask and squares up
+     rather than disappearing along with the outline. */
+  .rule-frame::before, .rule-frame-in::before, .rule-pill::before,
+  .rule-frame-r::before, .rule-circle::before, .card::before, .btn::before {
+    -webkit-mask-image: none !important; mask-image: none !important;
+  }
+  .rule-frame, .rule-frame-in, .rule-pill,
+  .rule-frame-r, .rule-circle, .card, .btn { border-color: var(--rule-line-color, rgba(0, 0, 0, 0.18)) !important; }
+  .rule-edge-t { border-top-color:    var(--rule-line-color, rgba(0, 0, 0, 0.18)) !important; }
+  .rule-edge-b { border-bottom-color: var(--rule-line-color, rgba(0, 0, 0, 0.18)) !important; }
+  .rule-edge-l { border-left-color:   var(--rule-line-color, rgba(0, 0, 0, 0.18)) !important; }
+  .rule-edge-r { border-right-color:  var(--rule-line-color, rgba(0, 0, 0, 0.18)) !important; }
+}
+
+/* 7. Print safety */
 @media print {
   *, *::before, *::after {
     cursor: default !important;

@@ -8,11 +8,11 @@ export function ProjectNavCard({ project, direction }) {
   return (
     <Link
       to={project.href}
-      className={`group flex items-center gap-4 border border-border p-4 transition-colors duration-200
-                 hover:border-primary-600 ${isNext ? "sm:flex-row-reverse sm:text-right" : ""}`}
+      className={`group flex items-center gap-4 border rule-frame p-4 transition-colors duration-200
+                 hover:[--rule-line-color:var(--primary-600)] ${isNext ? "sm:flex-row-reverse sm:text-right" : ""}`}
     >
       {project.thumbnail && (
-        <div className="w-20 aspect-[16/10] shrink-0 overflow-hidden border border-border bg-muted">
+        <div className="w-20 aspect-[16/10] shrink-0 overflow-hidden border rule-frame-in bg-muted">
           <ProjectPicture
             src={project.thumbnail}
             webpSrc={project.thumbnailWebp}

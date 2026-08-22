@@ -150,7 +150,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
       {/* Scroll-progress bar */}
       <motion.div
         aria-hidden="true"
-        className="no-print fixed top-0 left-0 right-0 h-[2px] bg-primary origin-left z-[70]"
+        className="no-print fixed top-0 left-0 right-0 h-[2px] rule-bar bg-primary origin-left z-[70]"
         style={{ scaleX: scrollProgress }}
       />
 
@@ -178,7 +178,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
             </aside>
 
             <div
-              className={`flex-1 min-w-0 md:border-l md:border-border md:pl-8 lg:pl-10
+              className={`flex-1 min-w-0 md:border-l md:rule-l md:pl-8 lg:pl-10
                           transition-[max-width] duration-300 ease-out
                           ${navCollapsed ? "max-w-[1280px]" : "max-w-[1060px]"}`}
               /* The reading measure travels with the collapse. Widening the
@@ -218,7 +218,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   staggerDelayMs={staggerDelayFor("process")} />
               ) : meta.heroImage && !hasHeroImage && (
                 <motion.div
-                  className="photo-frame text-text w-full aspect-video bg-muted mb-16"
+                  className="photo-frame rule-frame-in text-text w-full aspect-video bg-muted mb-16"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.2, duration: 0.6 }}
@@ -284,7 +284,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
 
                     {/* Research Methods + Tech Stack */}
                     {((methods && methods.length > 0) || (meta.techStack && meta.techStack.length > 0)) && (
-                      <div className="mt-8 flex flex-col gap-6 border-l-2 border-border pl-5">
+                      <div className="mt-8 flex flex-col gap-6 border-l-2 rule-l rule-thick pl-5">
 
                         {/* Research Methods */}
                         {methods && methods.length > 0 && (
@@ -343,7 +343,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                           not on `metrics`, so the notice can never describe a
                           strip the reader isn't looking at. */}
                       {glanceItems?.some((m) => m.pending) && (
-                        <p className="mb-6 border-l-2 border-border pl-4 text-sm text-text-meta leading-relaxed">
+                        <p className="mb-6 border-l-2 rule-l rule-thick pl-4 text-sm text-text-meta leading-relaxed">
                           {t("project.results.pendingNotice")}
                         </p>
                       )}
@@ -414,7 +414,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
               {(prevProject || nextProject) && (
                 <nav
                   aria-label={t("project.nav.label")}
-                  className="pt-10 mt-10 border-t border-border grid grid-cols-1 sm:grid-cols-2 gap-4"
+                  className="pt-10 mt-10 border-t rule-t grid grid-cols-1 sm:grid-cols-2 gap-4"
                 >
                   {prevProject ? <ProjectNavCard project={prevProject} direction="prev" /> : <div aria-hidden="true" />}
                   {nextProject && <ProjectNavCard project={nextProject} direction="next" />}
@@ -422,7 +422,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
               )}
 
               {/* Footer back link */}
-              <div className="pt-10 border-t border-border">
+              <div className="pt-10 border-t rule-t">
                 <Link
                   to="/projects"
                   className="inline-flex items-center gap-2 text-2xs font-black uppercase

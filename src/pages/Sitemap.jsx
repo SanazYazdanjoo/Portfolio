@@ -93,12 +93,12 @@ function RouteNode({ path, label, description, children, index, isActive }) {
       initial="hidden"
       whileInView="show"
       viewport={{ once: true }}
-      className="border-l-2 border-border/30 pl-5 mb-3"
+      className="border-l-2 rule-l rule-thick pl-5 mb-3"
     >
       {/* Route row */}
       <div className="flex items-start gap-3 group">
         {/* Dot on the timeline */}
-        <div className={`w-2 h-2 rounded-full shrink-0 mt-1.5 -ml-[25px] mr-3 border-2
+        <div className={`w-2 h-2 rule-dot shrink-0 mt-1.5 -ml-[25px] mr-3 border-2
           ${isActive ? "bg-primary border-primary" : "bg-bg border-primary/40 group-hover:border-primary"}`}
         />
 
@@ -241,7 +241,7 @@ export default function Sitemap() {
           </p>
 
           {/* Stats row */}
-          <div className="flex gap-8 mt-8 pt-6 border-t border-border/20">
+          <div className="flex gap-8 mt-8 pt-6 border-t rule-t">
             {[
               { value: totalRoutes, label: t("sitemap.stats.totalRoutes") },
               { value: mainRoutes.length, label: t("sitemap.stats.navPages") },
@@ -291,7 +291,7 @@ export default function Sitemap() {
         <section className="mb-12">
           <p className="text-[9px] font-black uppercase tracking-[0.2em] text-primary/60 mb-6">
             {t("sitemap.section.projectDetail")}{" "}
-            <code className="text-[9px] bg-primary/8 px-1.5 py-0.5 text-primary">
+            <code className="text-[9px] bg-primary/8 rule-fill px-1.5 py-0.5 text-primary">
               src/projects/**/data.js
             </code>
           </p>

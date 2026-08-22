@@ -42,10 +42,10 @@ export function ProjectHeader({ meta, tags }) {
       {/* Live-stage chip */}
       {meta.stage && (
         <div className="mb-4">
-          <span className="inline-flex items-center gap-2 border border-border px-2.5 py-1">
+          <span className="inline-flex items-center gap-2 border rule-frame rule-fine px-2.5 py-1">
             <span
               aria-hidden="true"
-              className="w-1.5 h-1.5 rounded-full bg-primary-600"
+              className="w-1.5 h-1.5 rule-dot bg-primary-600"
             />
             <span className="text-2xs font-black uppercase tracking-[0.2em] text-primary-600">
               {meta.stage}
@@ -81,9 +81,9 @@ export function ProjectHeader({ meta, tags }) {
           there are is an editorial question, and each one is pinned to a
           `tagEvidence` entry (enforced in data/projects.test.js). */}
       {(meta.role || meta.timeline || tags.length > 0 || meta.aiAssistance) && (
-        <dl className="border-t border-border">
+        <dl className="border-t rule-t">
           {meta.role && (
-            <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-[140px_1fr] sm:gap-4 py-4 border-b border-border">
+            <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-[140px_1fr] sm:gap-4 py-4 border-b rule-b">
               <dt className="text-[11px] font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
                 {t("project.meta.role")}
               </dt>
@@ -92,7 +92,7 @@ export function ProjectHeader({ meta, tags }) {
           )}
           {meta.myContribution && <ContributionRow contribution={meta.myContribution} />}
           {meta.timeline && (
-            <div className={`grid grid-cols-1 gap-1.5 sm:grid-cols-[140px_1fr] sm:gap-4 py-4 ${tags.length > 0 ? "border-b border-border" : ""}`}>
+            <div className={`grid grid-cols-1 gap-1.5 sm:grid-cols-[140px_1fr] sm:gap-4 py-4 ${tags.length > 0 ? "border-b rule-b" : ""}`}>
               <dt className="text-[11px] font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
                 {t("project.meta.timeline")}
               </dt>
@@ -100,7 +100,7 @@ export function ProjectHeader({ meta, tags }) {
             </div>
           )}
           {tags.length > 0 && (
-            <div className={`grid grid-cols-1 gap-1.5 sm:grid-cols-[140px_1fr] sm:gap-4 py-4 ${meta.aiAssistance ? "border-b border-border" : ""}`}>
+            <div className={`grid grid-cols-1 gap-1.5 sm:grid-cols-[140px_1fr] sm:gap-4 py-4 ${meta.aiAssistance ? "border-b rule-b" : ""}`}>
               <dt className="text-[11px] font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
                 {t("project.meta.skills")}
               </dt>

@@ -20,14 +20,14 @@ export function NotBuiltBlock({ notBuilt }) {
   if (!notBuilt?.title || items.length === 0) return null;
 
   return (
-    <div className="mt-12 border-t border-border pt-8 max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-out">
+    <div className="mt-12 border-t rule-t pt-8 max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-out">
       <p className="text-[10px] font-black uppercase tracking-[0.2em] text-dim mb-5">
         {notBuilt.title}
       </p>
 
-      <ul className="border-t border-border">
+      <ul className="border-t rule-t">
         {items.map((item, i) => (
-          <li key={i} className="border-b border-border py-3" style={{ breakInside: "avoid" }}>
+          <li key={i} className="border-b rule-b py-3" style={{ breakInside: "avoid" }}>
             <MaybeText
               value={item}
               path={`notBuilt.items[${i}]`}

@@ -81,13 +81,13 @@ function HomeSection({ id, eyebrow, heading, children, tight = false }) {
       id={id}
       className={`w-full overflow-visible scroll-mt-24 ${tight ? "pt-10 md:pt-12" : "pt-20"}`}
     >
-      <div className="w-full h-px bg-border mb-8" />
+      <div className="w-full rule-line mb-8" />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-10 gap-y-8 overflow-visible">
         {/* Label rail — sticky so the heading stays visible in long
             sections; releases at this wrapper's own bottom edge, which
             CSS Grid stretches to match the content column's height. */}
-        <div className="lg:col-span-4 lg:pr-6 lg:border-r lg:border-[rgba(33,29,28,0.08)]">
+        <div className="lg:col-span-4 lg:pr-6 lg:border-r lg:rule-r lg:rule-soft">
           <div className="lg:sticky lg:top-24">
             <SectionHeading eyebrow={eyebrow} heading={heading} />
           </div>
@@ -165,7 +165,7 @@ export default function Home() {
                 />
               ))}
               {/* Closing hairline under the last row */}
-              <div className="w-full h-px bg-border" />
+              <div className="w-full rule-line" />
             </div>
           ) : (
             <div className="py-16 text-center">

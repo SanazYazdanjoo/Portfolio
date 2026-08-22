@@ -39,7 +39,7 @@ export function ResearchPhases({ phases, intro, number, isOpen, onToggle, stagge
           return (
             <motion.li
               key={p.phase}
-              className="border-t border-border py-4 first:border-t-0 first:pt-0"
+              className="border-t rule-t py-4 first:border-t-0 first:pt-0 first:rule-off"
               initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "0px 0px -40px 0px" }}
@@ -48,7 +48,7 @@ export function ResearchPhases({ phases, intro, number, isOpen, onToggle, stagge
               <div className="flex items-baseline gap-3 flex-wrap">
                 <span
                   aria-hidden="true"
-                  className={`shrink-0 w-2 h-2 rounded-full translate-y-[-1px] ${s.dot}`}
+                  className={`shrink-0 w-2 h-2 rule-dot translate-y-[-1px] ${s.dot}`}
                 />
                 <span className="text-sm md:text-base font-semibold text-text">
                   {p.phase}

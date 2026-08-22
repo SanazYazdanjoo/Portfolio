@@ -40,7 +40,7 @@ export default function Impressum() {
         </header>
 
         {/* Legal Content - Structured as an Editorial Document */}
-        <article className="space-y-12 text-lg text-text leading-relaxed font-medium bg-panel p-8 md:p-12 border border-border shadow-sm relative">
+        <article className="space-y-12 text-lg text-text leading-relaxed font-medium bg-panel p-8 md:p-12 border rule-box shadow-sm relative">
 
           {/* Subtle Doodle on the document */}
           <FlowerDoodle className="absolute -bottom-6 -right-6 w-32 h-32 text-accent opacity-20 -rotate-12 pointer-events-none" />
@@ -63,7 +63,7 @@ export default function Impressum() {
             </p>
           </section>
 
-          <div className="h-px w-full bg-border/50 my-8"></div>
+          <div className="rule-line w-full my-8"></div>
 
           <section className="space-y-6 text-dim text-base">
             <div>
