@@ -9,8 +9,8 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
 import { SkillTagRow } from "./SkillTagRow";
 import { ProjectPicture } from "./ProjectPicture";
+import { EASE } from "../utils/motion";
 
-const EASE = [0.22, 0.61, 0.36, 1];
 
 const DOMAIN_SPINES = {
   attention:     "var(--primary)",
@@ -45,11 +45,12 @@ export function ProjectListRow({ project, index }) {
                    transition-colors duration-200 hover:bg-primary/[0.03] outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
       >
         {/* Domain spine — neutral at rest, fills with its color on hover so
-            the color reads as a hover affordance, not a permanent decoration. */}
+            the color reads as a hover affordance, not a permanent decoration.
+            Colour only: the width is fixed, like every other stroke here. */}
         <span
           aria-hidden="true"
-          className="absolute left-0 top-0 bottom-0 w-1 bg-border rule-bar-v transition-all duration-200
-                     group-hover:w-1.5 group-hover:bg-[var(--row-spine)]"
+          className="absolute left-0 top-0 bottom-0 w-[5px] bg-border rule-stroke-v transition-colors duration-200
+                     group-hover:bg-[var(--row-spine)]"
         />
 
         <span className="font-mono text-xs font-bold text-primary-600 tabular-nums shrink-0 self-start mt-1">
@@ -58,7 +59,7 @@ export function ProjectListRow({ project, index }) {
 
         {isInProgress && (
           <span
-            className="hidden md:inline-block shrink-0 self-start mt-0.5 border rule-frame rule-fine px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.2em] text-primary-600"
+            className="hidden md:inline-block shrink-0 self-start mt-0.5 border rule-frame px-2.5 py-1 text-2xs font-black uppercase tracking-[0.2em] text-primary-600"
             style={{ "--rule-line-color": "var(--primary-600)" }}
           >
             {t("projects.inProgress")}
@@ -90,7 +91,7 @@ export function ProjectListRow({ project, index }) {
         <div className="flex-1 min-w-0">
           {isInProgress && (
             <span
-              className="md:hidden inline-block mb-1.5 border rule-frame rule-fine px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.2em] text-primary-600"
+              className="md:hidden inline-block mb-1.5 border rule-frame px-2.5 py-1 text-2xs font-black uppercase tracking-[0.2em] text-primary-600"
               style={{ "--rule-line-color": "var(--primary-600)" }}
             >
               {t("projects.inProgress")}

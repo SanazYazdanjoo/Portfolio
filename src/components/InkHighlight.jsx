@@ -10,6 +10,7 @@
 
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { EASE } from "../utils/motion";
 
 export function InkHighlight({
   children,
@@ -40,7 +41,7 @@ export function InkHighlight({
         className="absolute left-[-0.15em] right-[-0.15em] bottom-[-0.06em] h-[0.72em] w-[calc(100%+0.3em)] -z-10 -rotate-[0.6deg]"
         initial={shouldAnimate ? { scaleX: 0 } : { scaleX: 1 }}
         {...revealProps}
-        transition={{ duration: shouldAnimate ? duration : 0, ease: [0.22, 0.61, 0.36, 1], delay }}
+        transition={{ duration: shouldAnimate ? duration : 0, ease: EASE, delay }}
         style={{ transformOrigin: "left center" }}
       >
         {/* Wobbly quad path = marker stroke, not a rectangle */}

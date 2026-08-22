@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useReducedMotion, useInView, animate as animateValue } from "framer-motion";
 import { useTranslation } from "../../context/LanguageContext";
+import { EASE } from "../../utils/motion";
 
 // The leading number a metric counts up to, with any thousands separators it
 // carries ("1,234"). Matching only the digits before the separator would count
@@ -33,7 +34,7 @@ function AnimatedMetricValue({ value }) {
     if (!match || !inView || reduce) return;
     const controls = animateValue(0, target, {
       duration: 0.8,
-      ease: "easeOut",
+      ease: EASE,
       onUpdate: (v) => setDisplay(Math.round(v)),
     });
     return () => controls.stop();
@@ -75,12 +76,12 @@ export function MetricsStrip({ metrics, title, intro }) {
   return (
     <div className="mt-8">
       {intro ? (
-        <p className="mb-5 max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-out text-sm leading-relaxed text-text-meta"
+        <p className="mb-5 max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-smooth text-sm leading-relaxed text-text-meta"
            style={{ breakInside: "avoid" }}>
           {intro}
         </p>
       ) : (
-        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-dim mb-5">
+        <p className="text-2xs font-black uppercase tracking-[0.2em] text-dim mb-5">
           {title || t("project.results.glance")}
         </p>
       )}
@@ -92,7 +93,7 @@ export function MetricsStrip({ metrics, title, intro }) {
                 <p className="font-display font-extrabold leading-none text-dim text-[15px] md:text-[17px] uppercase tracking-wide">
                   {t("project.results.pending")}
                 </p>
-                <p className="text-[11px] uppercase tracking-wider text-text-meta font-semibold mt-3 leading-snug">
+                <p className="text-2xs uppercase tracking-wider text-text-meta font-semibold mt-3 leading-snug">
                   {m.label}
                 </p>
               </div>
@@ -107,7 +108,7 @@ export function MetricsStrip({ metrics, title, intro }) {
               >
                 <AnimatedMetricValue value={m.value} />
               </p>
-              <p className="text-[11px] uppercase tracking-wider text-text-meta font-semibold mt-3 leading-snug">
+              <p className="text-2xs uppercase tracking-wider text-text-meta font-semibold mt-3 leading-snug">
                 {m.label}
               </p>
             </div>

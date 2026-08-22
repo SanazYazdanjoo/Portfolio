@@ -21,8 +21,8 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
 import CareerArc from "../components/CareerArc";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
+import { EASE } from "../utils/motion";
 
-const EASE = [0.22, 0.61, 0.36, 1];
 
 // Eyebrow + heading, animated in as a pair rather than one block: the
 // eyebrow only earns its line when it carries information the heading
@@ -40,7 +40,7 @@ function SectionHeading({ eyebrow, heading }) {
   return (
     <div>
       <motion.span
-        className="block text-[11px] tracking-[0.12em] uppercase text-primary-600 font-bold"
+        className="block text-2xs tracking-[0.12em] uppercase text-primary-600 font-bold"
         initial={reduce ? { opacity: 1 } : { opacity: 0, x: -8 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, margin: "-10%" }}

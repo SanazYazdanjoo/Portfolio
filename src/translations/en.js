@@ -81,7 +81,7 @@ const en = {
 
   // CV
   "cv.heading": "Curriculum Vitae",
-  "cv.experience": "Work Experience",
+  "cv.experience": "Experience",
   "cv.education": "Education",
   "cv.skills": "Skills",
   "cv.languages": "Languages",

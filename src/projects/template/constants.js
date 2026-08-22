@@ -1,5 +1,4 @@
-// Shared template config. EASE is the one easing curve every template
-// animation uses. SECTIONS is the fixed content model: the ids the sidebar
+// Shared template config. EASE is re-exported from src/utils/motion. SECTIONS is the fixed content model: the ids the sidebar
 // TOC, the mobile pill bar and the section renderers all resolve against.
 //
 // NOTE: this folder must never contain an `index.jsx` or a `data.js` —
@@ -7,7 +6,10 @@
 // auto-discovers `src/projects/*/data.js`, so either name would make the
 // template folder register as a project.
 
-export const EASE = [0.22, 0.61, 0.36, 1];
+// Re-exported so template modules can keep importing it from here; the
+// curve itself lives in src/utils/motion.js, which is the only place it
+// is written down.
+export { EASE } from "../../utils/motion";
 
 // Content section definitions. `labelKey` drives the sidebar/mobile-pill text (short form).
 export const SECTIONS = [

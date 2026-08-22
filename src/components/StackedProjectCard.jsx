@@ -11,6 +11,7 @@ import { motion, useReducedMotion, useInView, animate as animateValue } from "fr
 import { useTranslation } from "../context/LanguageContext";
 import { SkillTagRow } from "./SkillTagRow";
 import { ProjectPicture } from "./ProjectPicture";
+import { EASE } from "../utils/motion";
 
 function Field({ label, children }) {
   return (
@@ -38,7 +39,7 @@ function MetricValue({ value, className = "" }) {
     if (!isPureInteger || !inView || reduce) return;
     const controls = animateValue(0, Number(value), {
       duration: 0.8,
-      ease: "easeOut",
+      ease: EASE,
       onUpdate: (v) => setDisplay(Math.round(v)),
     });
     return () => controls.stop();
@@ -75,7 +76,7 @@ export function StackedProjectCard({ project, index }) {
       initial={{ opacity: 0, y: reduce ? 0 : 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-10%" }}
-      transition={{ delay: index * 0.06, duration: reduce ? 0 : 0.4, ease: [0.22, 0.61, 0.36, 1] }}
+      transition={{ delay: index * 0.06, duration: reduce ? 0 : 0.4, ease: EASE }}
     >
       <Link
         to={`/projects/${project.id}`}
@@ -87,8 +88,8 @@ export function StackedProjectCard({ project, index }) {
         >
           <span
             aria-hidden="true"
-            className="absolute left-0 top-0 bottom-0 w-1 rule-bar-v group-hover:w-2
-                       transition-all duration-200 ease-smooth"
+            className="absolute left-0 top-0 bottom-0 w-[5px] rule-stroke-v
+                       transition-colors duration-200 ease-smooth"
             style={{ backgroundColor: "var(--accent-spine)" }}
           />
 
@@ -100,7 +101,7 @@ export function StackedProjectCard({ project, index }) {
                        transition-colors duration-200 group-hover:text-primary-600"
             viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
             animate={{ rotate: open ? 180 : 0 }}
-            transition={{ duration: reduce ? 0 : 0.3, ease: [0.22, 0.61, 0.36, 1] }}
+            transition={{ duration: reduce ? 0 : 0.3, ease: EASE }}
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6" />
           </motion.svg>
@@ -123,7 +124,7 @@ export function StackedProjectCard({ project, index }) {
                 </h2>
                 {isInProgress && (
                   <span
-                    className="shrink-0 mt-0.5 border rule-frame rule-fine px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.2em] text-primary-600"
+                    className="shrink-0 mt-0.5 border rule-frame px-2.5 py-1 text-2xs font-black uppercase tracking-[0.2em] text-primary-600"
                     style={{ "--rule-line-color": "var(--primary-600)" }}
                   >
                     {t("projects.inProgress")}
@@ -153,7 +154,7 @@ export function StackedProjectCard({ project, index }) {
           initial={false}
           animate={{ height: open ? "auto" : 0, opacity: open ? 1 : 0 }}
           transition={{
-            height: { duration: reduce ? 0 : 0.3, ease: [0.22, 0.61, 0.36, 1] },
+            height: { duration: reduce ? 0 : 0.3, ease: EASE },
             opacity: { duration: reduce ? 0 : 0.3, delay: open ? 0.05 : 0 },
           }}
           className="overflow-hidden bg-muted/40"
