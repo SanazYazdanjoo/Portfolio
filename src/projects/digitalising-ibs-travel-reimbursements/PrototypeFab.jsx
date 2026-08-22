@@ -46,12 +46,17 @@ const BLOB = [
 // rather than scaling.
 const BLOB_ALT = [BLOB[2], BLOB[0], BLOB[1], BLOB[2]];
 
+// The lid outline, and the clip that keeps the tracking pupil behind it.
+// Top and bottom arcs are intentionally not mirrors.
+const ALMOND = "M1.9 12.4 C5.8 6.3, 18.4 6, 22.1 12.1 C18.3 18, 5.8 18.3, 1.9 12.4 Z";
+const LID_CLIP_ID = "prototype-fab-lid";
+
 const DEFAULT_NOTE = { en: "psst — it's live!", de: "psst — es ist live!" };
 const NEW_TAB_HINT = { en: "opens in a new tab", de: "öffnet in einem neuen Tab" };
 
-// One eye, drawn as outline strokes with a deliberately uneven almond and a
-// brow that sits slightly off-parallel — a compass-perfect eye reads as a
-// stock icon, and this page's whole visual language is hand-drawn.
+// One lashed eye, drawn as outline strokes with a deliberately uneven almond
+// and no two lashes alike — a compass-perfect eye reads as a stock icon, and
+// this page's whole visual language is hand-drawn.
 //
 // It blinks on a long cycle and its pupil tracks the pointer, so the badge
 // registers as something alive in the corner instead of a static sticker.
@@ -70,19 +75,24 @@ function EyeMark({ reduce, pupilX, pupilY, svgRef }) {
       strokeLinejoin="round"
       aria-hidden="true"
     >
-      {/* Brow — outside the blink group: a blink closes the lid, it does not
-          squash the brow with it. */}
-      <path d="M4.3 5.6 C8.3 2.8, 15.6 2.5, 19.7 5.1" strokeWidth="1.6" />
-
       <motion.g
         style={{ transformBox: "fill-box", transformOrigin: "center" }}
         animate={reduce ? {} : { scaleY: [1, 0.06, 1] }}
         transition={{ duration: 0.42, repeat: Infinity, repeatDelay: 3.6, ease: "easeInOut" }}
       >
-        {/* Almond: top and bottom arcs are intentionally not mirrors. */}
-        <path d="M1.9 12.4 C5.8 6.3, 18.4 6, 22.1 12.1 C18.3 18, 5.8 18.3, 1.9 12.4 Z" />
-
-        <motion.g style={reduce ? undefined : { x: pupilX, y: pupilY }}>
+        {/* Iris first, clipped to the lid and overdrawn by it: at full
+            stretch the pupil would otherwise cross the outline and read as
+            a ball sitting on top of the eye rather than behind it. Clip and
+            lid share one path, so they stay aligned through the blink. */}
+        <defs>
+          <clipPath id={LID_CLIP_ID}>
+            <path d={ALMOND} />
+          </clipPath>
+        </defs>
+        <motion.g
+          clipPath={`url(#${LID_CLIP_ID})`}
+          style={reduce ? undefined : { x: pupilX, y: pupilY }}
+        >
           <circle cx="12" cy="12.2" r="3.5" />
           <circle cx="12" cy="12.2" r="1.5" fill="currentColor" stroke="none" />
           {/* Glint, punched back out in the badge's own gold rather than
@@ -90,6 +100,26 @@ function EyeMark({ reduce, pupilX, pupilY, svgRef }) {
               mode, where --highlight is the lighter gold. */}
           <circle cx="10.9" cy="11.1" r="0.75" fill="var(--highlight)" stroke="none" />
         </motion.g>
+
+        <path d={ALMOND} />
+
+        {/* Four lashes, each rising off the top arc and leaning further
+            right as they go outward. Spread across the whole lid rather
+            than bunched at the corner: at 44px a corner cluster fuses into
+            the almond stroke and reads as a smudge — checked by rendering
+            the icon at size, not by eye in the editor. No two are the same
+            length or angle, which is the hand-drawn part.
+            They live inside the blink group on purpose — lashes belong to
+            the lid, so they come down with it. Their tips run past the
+            almond, which is why the <svg> is overflow-visible.
+            A brow used to sit above this: with lashes in, the two crowded
+            each other at icon size and the brow lost. */}
+        <g strokeWidth="1.5">
+          <path d="M9.2 7.9 C9.0 6.7, 8.8 5.8, 8.6 4.8" />
+          <path d="M13 7.55 C13.2 6.3, 13.4 5.3, 13.6 4.2" />
+          <path d="M16.9 8.15 C17.4 7.1, 17.9 6.2, 18.3 5.2" />
+          <path d="M20.3 9.9 C21.2 9.3, 22.1 8.7, 23 8.1" />
+        </g>
       </motion.g>
     </svg>
   );
@@ -167,10 +197,18 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
   // Pupil tracking. Coalesced to one rAF per frame, and the offset saturates
   // over the first ~280px so a pointer crossing the page still moves the eye
   // visibly instead of only registering right next to the badge.
+  //
+  // Mouse pointers only. `pointermove` covers touch as well, and on a phone
+  // dragging IS scrolling — one measured flick fired 70 pointermove events —
+  // so without this guard every scroll on mobile ran a getBoundingClientRect
+  // (a forced layout read) and drove two springs, for an eye that has no
+  // pointer to follow in the first place. The guard sits ahead of the rAF
+  // throttle so a touch costs nothing at all, not just one frame's work.
   useEffect(() => {
     if (reduce) return;
     let frame = 0;
     const onMove = (event) => {
+      if (event.pointerType !== "mouse") return;
       if (frame) return;
       frame = requestAnimationFrame(() => {
         frame = 0;
@@ -180,8 +218,8 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
         const dy = event.clientY - (box.top + box.height / 2);
         const distance = Math.hypot(dx, dy) || 1;
         const reach = Math.min(1, distance / 280);
-        pupilTargetX.set((dx / distance) * 2.7 * reach);
-        pupilTargetY.set((dy / distance) * 2.1 * reach);
+        pupilTargetX.set((dx / distance) * 2.3 * reach);
+        pupilTargetY.set((dy / distance) * 1.7 * reach);
       });
     };
     window.addEventListener("pointermove", onMove, { passive: true });
