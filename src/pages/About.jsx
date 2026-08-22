@@ -13,6 +13,7 @@ import { voluntaryItems as rawVoluntary } from "../data/voluntary";
 import { useTranslation } from "../context/LanguageContext";
 import CareerArc from "../components/CareerArc";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
+import { EASE } from "../utils/motion";
 
 // Animation variants
 const fadeUp = {
@@ -20,7 +21,7 @@ const fadeUp = {
   show: (i = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.1, duration: 0.5, ease: "easeOut" },
+    transition: { delay: i * 0.1, duration: 0.5, ease: EASE },
   }),
 };
 
@@ -73,7 +74,7 @@ export default function About() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: 0.8, ease: EASE }}
           >
             <div className="relative inline-block w-max mb-6 md:mb-10">
               <h1
@@ -97,7 +98,7 @@ export default function About() {
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
           >
             <div className="relative w-full max-w-[400px]">
               <div className="photo-frame rule-frame-in -rotate-1 transition-transform duration-500 hover:rotate-0">
@@ -258,11 +259,11 @@ export default function About() {
                 >
                   <div className="flex justify-between items-baseline mb-1.5">
                     <h3 className="font-black text-sm text-text">{item.title}</h3>
-                    <span className="text-[9px] font-semibold uppercase tracking-widest text-secondary-600 shrink-0 ml-4">
+                    <span className="text-2xs font-semibold uppercase tracking-widest text-secondary-600 shrink-0 ml-4">
                       {item.year}
                     </span>
                   </div>
-                  <p className="text-[9px] font-bold uppercase tracking-widest text-dim mb-1.5">
+                  <p className="text-2xs font-bold uppercase tracking-widest text-dim mb-1.5">
                     {item.org}
                   </p>
                   <p className="text-xs leading-relaxed text-text/65">{item.desc}</p>

@@ -19,8 +19,8 @@ import { useTranslation } from "../context/LanguageContext";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { profileData as rawProfile } from "../data/profile";
+import { EASE } from "../utils/motion";
 
-const EASE = [0.22, 0.61, 0.36, 1];
 const VIEW_STORAGE_KEY = "projects.view";
 
 function readStoredView() {

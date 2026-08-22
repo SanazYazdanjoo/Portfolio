@@ -13,7 +13,7 @@ import { EASE } from "./constants";
 export function CollapsibleSectionHead({ id, number, kicker, heading, isOpen, onToggle }) {
   return (
     <>
-      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary-600 mb-3">
+      <p className="text-2xs font-black uppercase tracking-[0.2em] text-primary-600 mb-3">
         {number} — {kicker}
       </p>
       <h2 className="mb-8">

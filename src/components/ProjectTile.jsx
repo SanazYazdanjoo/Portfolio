@@ -9,8 +9,8 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
 import { SkillTagRow } from "./SkillTagRow";
 import { ProjectPicture } from "./ProjectPicture";
+import { EASE } from "../utils/motion";
 
-const EASE = [0.22, 0.61, 0.36, 1];
 
 const DOMAIN_SPINES = {
   attention:     "var(--primary)",
@@ -35,15 +35,17 @@ export function ProjectTile({ project, index }) {
   const inner = (
     <div
       style={{ "--card-spine": spine }}
-      className={`group relative flex h-full flex-col border rule-frame bg-bg
+      className={`group relative flex h-full flex-col border rule-frame [--rule-fill-color:var(--bg)]
                  transition-all duration-[250ms] ease-smooth
                  ${isComingSoon ? "opacity-60" : "hover:-translate-y-1 hover:shadow-[0_12px_24px_rgba(30,25,20,0.07)]"}`}
     >
-      {/* Domain spine — neutral at rest, grows and colors in on hover. */}
+      {/* Domain spine — neutral at rest, colors in on hover. Its width never
+          changes: one nib drew this site, and a mark that fattens under the
+          pointer is a second one. */}
       <span
         aria-hidden="true"
-        className="absolute left-0 top-0 h-[3px] w-full bg-border rule-bar transition-all duration-200
-                   group-hover:h-[5px] group-hover:bg-[var(--card-spine)]"
+        className="absolute left-0 top-0 h-[5px] w-full bg-border rule-stroke transition-colors duration-200
+                   group-hover:bg-[var(--card-spine)]"
       />
 
       {/* Thumbnail well. The artwork is a transparent PNG, so the box paints
@@ -90,14 +92,14 @@ export function ProjectTile({ project, index }) {
           </span>
           {isComingSoon && (
             <span
-              className="shrink-0 border rule-frame rule-fine px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.2em] text-dim"
+              className="shrink-0 border rule-frame px-2.5 py-1 text-2xs font-black uppercase tracking-[0.2em] text-dim"
             >
               {t("projects.comingSoon")}
             </span>
           )}
           {isInProgress && (
             <span
-              className="shrink-0 border rule-frame rule-fine px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.2em] text-primary-600"
+              className="shrink-0 border rule-frame px-2.5 py-1 text-2xs font-black uppercase tracking-[0.2em] text-primary-600"
               style={{ "--rule-line-color": "var(--primary-600)" }}
             >
               {t("projects.inProgress")}
