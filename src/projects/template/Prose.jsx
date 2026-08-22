@@ -25,7 +25,7 @@ export function Prose({ text, quote, rail, children }) {
 
   return (
     <div className={rail ? "xl:grid xl:grid-cols-[1fr_240px] xl:gap-10 items-start" : ""}>
-      <div className="max-w-[68ch]">
+      <div className="max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-out">
         <ClampedText>
           <p className="text-[17px] leading-[1.7] text-text/90">{text}</p>
         </ClampedText>

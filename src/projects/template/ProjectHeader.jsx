@@ -158,7 +158,7 @@ export function ProjectHeader({ meta, tags }) {
               <dt className="text-[11px] font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
                 {t("project.meta.aiAssistance")}
               </dt>
-              <dd className="max-w-[68ch] text-sm leading-relaxed text-text/70">
+              <dd className="max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-out text-sm leading-relaxed text-text/70">
                 {meta.aiAssistance}
               </dd>
             </div>

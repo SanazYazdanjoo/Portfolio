@@ -181,6 +181,12 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
               className={`flex-1 min-w-0 md:border-l md:border-border md:pl-8 lg:pl-10
                           transition-[max-width] duration-300 ease-out
                           ${navCollapsed ? "max-w-[1280px]" : "max-w-[1060px]"}`}
+              /* The reading measure travels with the collapse. Widening the
+                 column while every prose block stayed pinned to 68ch only grew
+                 the empty gutter to its right, which is not reclaiming space.
+                 Set once here; every prose block below reads it, with 68ch
+                 as the fallback so the blocks still cap when rendered alone. */
+              style={{ "--measure": navCollapsed ? "88ch" : "68ch" }}
             >
               <ProjectHeader meta={meta} tags={tags} />
 
@@ -194,7 +200,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   isOpen={openSections.has("about")} onToggle={() => toggleSection("about")}
                   staggerDelayMs={staggerDelayFor("about")}
                   kicker={t("project.about.kicker")} heading={t("project.about.heading")}>
-                  <ClampedText className="max-w-[68ch]">
+                  <ClampedText className="max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-out">
                     <p className="text-[17px] leading-relaxed about-project text-text/90">
                       {meta.about}
                     </p>
@@ -250,7 +256,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   staggerDelayMs={staggerDelayFor("prototype")}
                   kicker={t("project.prototype.kicker")} heading={t("project.prototype.heading")}>
                   {meta.prototype && (
-                    <ClampedText className="max-w-[68ch]">
+                    <ClampedText className="max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-out">
                       <p className="text-[17px] leading-[1.7] text-text/90">
                         {meta.prototype}
                       </p>
@@ -332,7 +338,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                       two surfaces are allowed to show different numbers: the
                       card counts artefacts, this strip reports measurements. */}
                   <div className={verbatimsIn("results") ? "xl:grid xl:grid-cols-[1fr_240px] xl:gap-10 items-start" : ""}>
-                    <div className="max-w-[68ch]">
+                    <div className="max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-out">
                       {/* Gated on the items the strip below actually renders,
                           not on `metrics`, so the notice can never describe a
                           strip the reader isn't looking at. */}
@@ -373,7 +379,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   isOpen={openSections.has("implications")} onToggle={() => toggleSection("implications")}
                   staggerDelayMs={staggerDelayFor("implications")}
                   kicker={t("project.implications.kicker")} heading={t("project.implications.heading")}>
-                  <ClampedText className="max-w-[68ch]">
+                  <ClampedText className="max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-out">
                     <p className="text-[17px] leading-[1.7] text-text/90">
                       {meta.implications}
                     </p>
