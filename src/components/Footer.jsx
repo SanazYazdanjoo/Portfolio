@@ -15,7 +15,7 @@ export function Footer({ data }) {
   const isContactPage = pathname === "/contact";
 
   return (
-    <footer className="relative border-t border-border/20 bg-bg no-print">
+    <footer className="relative border-t rule-t bg-bg no-print">
       <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8 pt-12 pb-10">
 
         {/* Minimalist HR grid */}
@@ -91,7 +91,7 @@ export function Footer({ data }) {
         )}
 
         {/* Divider */}
-        <div className="h-px bg-border/10 mb-4" />
+        <div className="rule-line mb-4" />
 
         {/* Colophon: this site is the case study */}
         <p className="text-[11px] text-text-meta font-medium mb-3">

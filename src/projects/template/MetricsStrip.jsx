@@ -84,7 +84,7 @@ export function MetricsStrip({ metrics, title, intro }) {
           {title || t("project.results.glance")}
         </p>
       )}
-      <div className="grid grid-cols-2 sm:grid-cols-4 border border-border divide-x divide-y divide-border">
+      <div className="grid grid-cols-2 sm:grid-cols-4 border rule-box divide-x divide-y rule-divide">
         {metrics.map((m, i) => {
           if (m.pending) {
             return (

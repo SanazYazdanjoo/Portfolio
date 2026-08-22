@@ -31,7 +31,7 @@ const SingleTagPage = () => {
           &larr; {t("tags.single.backToAll")}
         </Link>
 
-        <header className="mb-10 border-t border-border pt-6">
+        <header className="mb-10 border-t rule-t pt-6">
           <p className="text-[11px] font-black uppercase tracking-[0.2em] text-primary-600 mb-3">
             {t("tags.single.heading")}
           </p>

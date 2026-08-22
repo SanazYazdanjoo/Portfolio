@@ -21,7 +21,7 @@ export function RouteSkeleton() {
       <span className="sr-only">{t("common.loading")}</span>
       <motion.div
         aria-hidden="true"
-        className="w-9 h-9 rounded-full border-2 border-border border-t-primary-600"
+        className="w-9 h-9 rule-circle [--rule-line-color:var(--primary-600)]"
         animate={reduce ? {} : { rotate: 360 }}
         transition={reduce ? { duration: 0 } : { duration: 0.8, repeat: Infinity, ease: "linear" }}
       />

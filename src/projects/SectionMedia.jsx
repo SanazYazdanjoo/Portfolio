@@ -1,4 +1,4 @@
-// Figure grid for project detail pages. Frames use border-border with no
+// Figure grid for project detail pages. Frames use .rule-frame-in with no
 // color chrome; captions are mono micro-type matching MetaField / Tech
 // Stack. `span: 2` makes a figure full-width for hero charts. `type:
 // "video"` plays an autoplay/loop/muted MP4 (converted from GIFs, roughly
@@ -131,9 +131,10 @@ function ZoomOverlay({ figure, onClose }) {
         onClick={onClose}
         aria-label={t("project.media.closeLabel")}
         className="fixed right-4 top-4 z-10 inline-flex h-11 w-11 items-center justify-center
-                   rounded-full border border-white/25 bg-black/70 text-white shadow-lg
+                   rounded-full rule-circle rule-fine [--rule-line-color:rgb(255_255_255/0.25)]
+                   [--rule-fill-color:rgb(0_0_0/0.7)] text-white shadow-lg
                    backdrop-blur-sm transition-colors duration-200
-                   hover:border-white hover:bg-black
+                   hover:[--rule-line-color:rgb(255_255_255)] hover:[--rule-fill-color:rgb(0_0_0)]
                    focus:outline-none focus-visible:ring-2 focus-visible:ring-white
                    focus-visible:ring-offset-2 focus-visible:ring-offset-black/60"
       >
@@ -244,8 +245,8 @@ export default function SectionMedia({ items }) {
               )}
 
               <div
-                className={`border border-border bg-muted/30 overflow-hidden
-                            ${isLink ? "transition-colors duration-200 hover:border-primary-600" : ""}`}
+                className={`border rule-frame-in bg-muted/30 overflow-hidden
+                            ${isLink ? "transition-colors duration-200 hover:[--rule-line-color:var(--primary-600)]" : ""}`}
               >
                 {isLink ? (
                   <a
@@ -260,10 +261,10 @@ export default function SectionMedia({ items }) {
                     <span
                       aria-hidden="true"
                       className="pointer-events-none absolute right-3 top-3 inline-flex items-center gap-1.5
-                                 border border-border bg-bg/90 px-2.5 py-1.5 font-mono text-2xs font-bold
+                                 border rule-frame rule-fine [--rule-fill-color:var(--bg)] px-2.5 py-1.5 font-mono text-2xs font-bold
                                  uppercase tracking-[0.15em] text-text backdrop-blur-sm no-print
                                  transition-colors duration-200
-                                 group-hover:border-primary-600 group-hover:text-primary-600"
+                                 group-hover:[--rule-line-color:var(--primary-600)] group-hover:text-primary-600"
                     >
                       {linkLabel}
                       <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
@@ -318,7 +319,7 @@ export default function SectionMedia({ items }) {
               {/* The "so what". Kept visually distinct from the description so
                   a scanning reader can take the finding without the setup. */}
               {f.takeaway && (
-                <div className="mt-4 border-l-2 border-primary-600 pl-4">
+                <div className="mt-4 border-l-2 rule-edge-l rule-thick [--rule-line-color:var(--primary-600)] pl-4">
                   <p className="m-0 mb-1 font-mono text-2xs uppercase tracking-[0.2em] text-primary-600">
                     {f.takeawayLabel || t("project.media.whatItShows")}
                   </p>
