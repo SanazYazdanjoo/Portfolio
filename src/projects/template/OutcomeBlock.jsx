@@ -33,7 +33,7 @@ export function OutcomeBlock({ outcome }) {
   const decisions = outcome.decisions || [];
 
   return (
-    <div className="mt-12 border-t border-border pt-8 max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-out">
+    <div className="mt-12 border-t rule-t pt-8 max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-out">
       <p className="text-[10px] font-black uppercase tracking-[0.2em] text-dim mb-5">
         {t("project.outcome.kicker")}
       </p>
@@ -58,9 +58,9 @@ export function OutcomeBlock({ outcome }) {
           <p className="text-[10px] font-black uppercase tracking-[0.2em] text-dim mb-3">
             {t("project.outcome.decisions")}
           </p>
-          <ul className="border-t border-border">
+          <ul className="border-t rule-t">
             {decisions.map((decision, i) => (
-              <li key={i} className="border-b border-border py-3">
+              <li key={i} className="border-b rule-b py-3">
                 <MaybeText
                   value={decision}
                   path={`outcome.decisions[${i}]`}

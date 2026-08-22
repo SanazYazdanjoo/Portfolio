@@ -100,7 +100,7 @@ export default function About() {
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           >
             <div className="relative w-full max-w-[400px]">
-              <div className="photo-frame -rotate-1 transition-transform duration-500 hover:rotate-0">
+              <div className="photo-frame rule-frame-in -rotate-1 transition-transform duration-500 hover:rotate-0">
                 <img
                   src={profileData.aboutImage}
                   alt={profileData.name}
@@ -116,7 +116,7 @@ export default function About() {
       </section>
 
       {/* Career Arc — skills grouped as chips */}
-      <section className="py-20 border-t border-border relative">
+      <section className="py-20 border-t rule-t relative">
         <div className="container mx-auto px-4 md:px-8">
           <SectionHeader
             eyebrow={t("about.howIGotHere")}
@@ -130,7 +130,7 @@ export default function About() {
 
       {/* Credentials: compact one-line list, no thumbnails — the full gallery lives at /credentials */}
       {profileData.certifications && profileData.certifications.length > 0 && (
-        <section className="py-20 border-t border-border">
+        <section className="py-20 border-t rule-t">
           <div className="container mx-auto px-4 md:px-8">
             <SectionHeader
               eyebrow={t("cv.certifications")}
@@ -160,7 +160,7 @@ export default function About() {
       )}
 
       {/* Research Process */}
-      <section className="py-20 border-t border-border">
+      <section className="py-20 border-t rule-t">
         <div className="container mx-auto px-4 md:px-8">
           <SectionHeader
             eyebrow={t("about.methodology")}
@@ -185,7 +185,7 @@ export default function About() {
             className="mb-16"
             variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}
           >
-            <div className="photo-frame">
+            <div className="photo-frame rule-frame-in">
               <picture>
                 <source srcSet="/assets/double-diamond.webp" type="image/webp" />
                 <img
@@ -213,7 +213,7 @@ export default function About() {
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true }}
-                className="bg-bg px-7 py-8 group hover:bg-blush-weak transition-colors duration-300"
+                className="bg-bg rule-fill px-7 py-8 group hover:bg-blush-weak transition-colors duration-300"
               >
                 <span
                   className="block font-hand font-bold text-4xl text-blush mb-3 select-none
@@ -236,7 +236,7 @@ export default function About() {
 
       {/* Voluntary Work — eyebrow only, no h2, dense two-column list so it doesn't compete with The Bridge */}
       {voluntaryItems.length > 0 && (
-        <section className="py-20 border-t border-border">
+        <section className="py-20 border-t rule-t">
           <div className="container mx-auto px-4 md:px-8">
             <motion.p
               className="text-2xs font-extrabold uppercase tracking-[0.18em] text-primary-600 mb-8"
@@ -254,7 +254,7 @@ export default function About() {
                   initial="hidden"
                   whileInView="show"
                   viewport={{ once: true }}
-                  className="bg-bg px-5 py-4 group hover:bg-blush-weak transition-colors duration-300"
+                  className="bg-bg rule-fill px-5 py-4 group hover:bg-blush-weak transition-colors duration-300"
                 >
                   <div className="flex justify-between items-baseline mb-1.5">
                     <h3 className="font-black text-sm text-text">{item.title}</h3>
@@ -274,7 +274,7 @@ export default function About() {
       )}
 
       {/* CTA */}
-      <section className="py-20 border-t border-border">
+      <section className="py-20 border-t rule-t">
         <div className="container mx-auto px-4 md:px-8">
           <motion.div
             className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8"
@@ -293,14 +293,14 @@ export default function About() {
             <div className="flex flex-wrap gap-4">
               <Link
                 to="/projects"
-                className="px-8 py-3 bg-primary text-white text-xs font-black uppercase tracking-widest
+                className="px-8 py-3 bg-primary rule-fill text-white text-xs font-black uppercase tracking-widest
                            hover:bg-primary-600 transition-all duration-200"
               >
                 {t("about.viewProjects")}
               </Link>
               <Link
                 to="/cv"
-                className="px-8 py-3 border border-text/30 text-text text-xs font-black uppercase tracking-widest
+                className="px-8 py-3 border rule-frame [--rule-line-color:rgb(var(--text-rgb)/0.3)] text-text text-xs font-black uppercase tracking-widest
                            hover:border-secondary hover:text-secondary-600 transition-all duration-200"
               >
                 {t("about.viewCV")}

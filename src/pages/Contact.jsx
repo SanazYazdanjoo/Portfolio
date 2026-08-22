@@ -93,7 +93,7 @@ export default function Contact() {
             <div className="flex flex-col sm:flex-row gap-3">
               <a
                 href={`mailto:${contact.email}`}
-                className={`inline-flex items-center justify-center gap-2 bg-text text-bg
+                className={`inline-flex items-center justify-center gap-2 bg-text rule-fill-r text-bg
                             px-5 py-3 rounded-[var(--radius)] font-medium transition-opacity
                             hover:opacity-90 ${focusRing}`}
               >
@@ -103,9 +103,9 @@ export default function Contact() {
               <button
                 type="button"
                 onClick={handleCopyEmail}
-                className={`inline-flex items-center justify-center gap-2 border border-border
+                className={`inline-flex items-center justify-center gap-2 border rule-frame-r
                             px-5 py-3 rounded-[var(--radius)] font-medium text-text
-                            transition-colors hover:bg-blush-weak ${focusRing}`}
+                            transition-colors hover:[--rule-fill-color:var(--blush-weak)] ${focusRing}`}
               >
                 {copied ? t("contact.copied") : t("contact.copyEmail")}
               </button>
@@ -118,7 +118,7 @@ export default function Contact() {
               {contact.email}
             </p>
 
-            <div className="border-t border-border pt-6">
+            <div className="border-t rule-t pt-6">
               <h3 className="text-2xs font-extrabold uppercase tracking-[0.18em] text-primary-600 mb-3">
                 {t("contact.goodToSend")}
               </h3>
@@ -135,9 +135,9 @@ export default function Contact() {
             <div className="flex flex-wrap gap-3 pt-2">
               <Link
                 to="/cv"
-                className={`inline-flex items-center gap-1.5 border border-border px-4 py-2
+                className={`inline-flex items-center gap-1.5 border rule-frame-r px-4 py-2
                             rounded-[var(--radius)] text-sm font-medium text-text
-                            transition-colors hover:bg-blush-weak ${focusRing}`}
+                            transition-colors hover:[--rule-fill-color:var(--blush-weak)] ${focusRing}`}
               >
                 {t("contact.viewCv")}
               </Link>
@@ -145,9 +145,9 @@ export default function Contact() {
                 href={contact.linkedin}
                 target="_blank"
                 rel="noreferrer"
-                className={`inline-flex items-center gap-1.5 border border-border px-4 py-2
+                className={`inline-flex items-center gap-1.5 border rule-frame-r px-4 py-2
                             rounded-[var(--radius)] text-sm font-medium text-text
-                            transition-colors hover:bg-blush-weak ${focusRing}`}
+                            transition-colors hover:[--rule-fill-color:var(--blush-weak)] ${focusRing}`}
               >
                 LinkedIn
               </a>
@@ -155,9 +155,9 @@ export default function Contact() {
                 href={contact.github}
                 target="_blank"
                 rel="noreferrer"
-                className={`inline-flex items-center gap-1.5 border border-border px-4 py-2
+                className={`inline-flex items-center gap-1.5 border rule-frame-r px-4 py-2
                             rounded-[var(--radius)] text-sm font-medium text-text
-                            transition-colors hover:bg-blush-weak ${focusRing}`}
+                            transition-colors hover:[--rule-fill-color:var(--blush-weak)] ${focusRing}`}
               >
                 GitHub
               </a>
@@ -165,7 +165,7 @@ export default function Contact() {
           </div>
 
           {/* RIGHT — the details */}
-          <div className="border-t md:border-t-0 md:border-l border-border pt-6 md:pt-0 md:pl-5 rounded-none">
+          <div className="border-t rule-t md:border-t-0 md:border-l md:rule-l pt-6 md:pt-0 md:pl-5 rounded-none">
             <h3 className="text-2xs font-extrabold uppercase tracking-[0.18em] text-primary-600 mb-4">
               {t("contact.details")}
             </h3>
@@ -191,13 +191,13 @@ export default function Contact() {
               </div>
             </dl>
 
-            <div className="border-t border-border mt-6 pt-6">
+            <div className="border-t rule-t mt-6 pt-6">
               <h3 className="text-2xs font-extrabold uppercase tracking-[0.18em] text-primary-600 mb-4">
                 {t("contact.collaborate")}
               </h3>
               <ul className="space-y-3">
                 {languages.map((lang, i) => (
-                  <li key={i} className="flex justify-between items-baseline border-b border-border/60 pb-2">
+                  <li key={i} className="flex justify-between items-baseline border-b rule-b pb-2">
                     <span className="font-bold text-sm text-text">{lang.name}</span>
                     <span className="text-xs text-text-dim italic">{lang.level}</span>
                   </li>

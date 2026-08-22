@@ -5,7 +5,7 @@ import { ClampedText } from "./ClampedText";
 function PullQuote({ text }) {
   if (!text) return null;
   return (
-    <blockquote className="hidden xl:block border-l-2 border-primary-600 pl-5 pt-1">
+    <blockquote className="hidden xl:block border-l-2 rule-edge-l rule-thick [--rule-line-color:var(--primary-600)] pl-5 pt-1">
       <p className="font-hand text-[28px] leading-snug text-text/80">{text}</p>
     </blockquote>
   );
