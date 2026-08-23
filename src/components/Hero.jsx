@@ -42,11 +42,10 @@ export function Hero({ data }) {
   const { t } = useTranslation();
 
   return (
-    // ~85vh is the target, not a clip: `max-h` caps the block on a normal
-    // desktop viewport, and content that genuinely needs more (a very short
-    // window, a large font-size setting) is allowed to run past it rather
-    // than be cut off.
-    <div className="relative w-full flex flex-col pt-4 md:pt-6 pb-6 min-h-0 md:max-h-[85vh]">
+    // No viewport cap. The name is the largest thing on the site and a
+    // max-h that made it fit a fold would be the viewport setting the type
+    // scale, which is backwards — the hero is allowed to run past the fold.
+    <div className="relative w-full flex flex-col pt-4 md:pt-6 pb-6">
 
       <div className="grid grid-cols-12 gap-x-6 md:gap-x-8 items-stretch">
 
@@ -75,7 +74,7 @@ export function Hero({ data }) {
           {data.positioning && (
             <motion.p
               {...fadeUp(0.3)}
-              className="max-w-[52ch] mt-4 md:mt-5 text-base md:text-lg leading-relaxed text-text"
+              className="max-w-[52ch] mt-5 md:mt-6 text-subhead text-text"
             >
               {data.positioning}
             </motion.p>
