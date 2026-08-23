@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
 import { StatusDot } from "./StatusDot";
+import { REPO_URL } from "../data/site";
 import { EASE } from "../utils/motion";
 
 const LINK =
@@ -88,6 +89,25 @@ export function HomeContact({ data }) {
           </Link>
         </li>
       </ul>
+
+      {/* Colophon — a credibility statement, not fine print. It used to be
+          10px at the very bottom of the footer, which is the wrong place for
+          the one sentence proving that the person asking for a UX
+          engineering role built the page the claim is on. It sits here, at
+          reading size, next to the ask. */}
+      <p className="mt-10 md:mt-12 border-t rule-t pt-6 max-w-[62ch]
+                    text-sm leading-relaxed text-text-meta">
+        {t("footer.colophon")}{" "}
+        <a
+          href={REPO_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-primary-600 hover:text-primary transition-colors duration-200
+                     rule-underline focus-ring"
+        >
+          {t("footer.viewSource")} <ExternalMark />
+        </a>
+      </p>
     </motion.div>
   );
 }
