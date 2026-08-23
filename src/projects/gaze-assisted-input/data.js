@@ -53,10 +53,13 @@ export const projectData = {
     en: "M.Sc. thesis",
     de: "Masterarbeit",
   },
-  cardTags: ["Mixed-Methods Research", "Experimental Design", "Eye-Tracking", "TypeScript", "React"],
+  // Four tags, chosen to differentiate rather than to enumerate: one method,
+  // one research skill, one technical, one domain. The full list lives on the
+  // detail page and on /tags — the card is a triage surface, not an index.
+  cardTags: ["Experimental Design", "Mixed-Methods Research", "TypeScript", "Eye-Tracking"],
   cardOutcome: {
-    en: "A 30-participant within-subjects study found a distance-dependent crossover (η²ₚ = .69), and 60% preferred the gaze-hybrid — trust, not raw speed, decided it.",
-    de: "Eine Within-Subjects-Studie mit 30 Teilnehmenden zeigte einen distanzabhängigen Crossover (η²ₚ = .69); 60 % bevorzugten den Blick-Hybrid — entschieden hat Vertrauen, nicht reine Geschwindigkeit.",
+    en: "Gaze wins over long cross-screen distances and loses over short ones; trust in the cursor decided preference.",
+    de: "Blicksteuerung gewinnt über große bildschirmübergreifende Distanzen und verliert über kurze; entschieden hat das Vertrauen in den Cursor.",
   },
   thumbnail: thumbnailImg,
   thumbnailWebp,

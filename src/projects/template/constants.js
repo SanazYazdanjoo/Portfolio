@@ -98,4 +98,5 @@ export const DATA_ONLY_FIELDS = [
   "order",       // sort key for the project grid
   "slug",        // ignored by the aggregator; folder name wins
   "tagEvidence", // consumed by projects.test.js, not by any page — by design
+  "excludeFromHome", // read by Home.jsx to keep a project off the homepage list
 ];
