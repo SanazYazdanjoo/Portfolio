@@ -29,6 +29,9 @@ export const projectData = {
   // `tags` list stays on this project's detail page. `cardOutcome` is the one
   // sentence a reader gets if they read nothing else, quantified where the
   // evidence supports it and hedged where it doesn't.
+  // No `cardImage`: the only image this project has is the generated
+  // cartoon, and the exhibition photographs were never added to the repo.
+  // The card renders text-only until a real photograph exists.
   year: "2023",
   context: {
     en: "University research project",

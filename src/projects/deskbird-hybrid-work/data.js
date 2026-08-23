@@ -32,6 +32,13 @@ export const projectData = {
   // `tags` list stays on this project's detail page. `cardOutcome` is the one
   // sentence a reader gets if they read nothing else, quantified where the
   // evidence supports it and hedged where it doesn't.
+  // Homepage card image — deliberately NOT `thumbnail`. Every Project-N.png
+  // in this repo is a generated cartoon of the subject matter, and a
+  // recruiter scanning five of them reads stock illustration, not evidence.
+  // `cardImage` therefore points only at a real artefact this project
+  // actually produced. A project with no such asset sets nothing and its
+  // card renders text-only — there is no placeholder state.
+  cardImage: interestsModal,
   year: "2023–2024",
   context: {
     en: "Industry project · deskbird",
