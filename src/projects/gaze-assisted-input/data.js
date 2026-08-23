@@ -5,6 +5,7 @@ import magicDemo from './media/magic-demo.mp4';
 import ninjaDemo from './media/ninja-demo.mp4';
 
 import SUS from './media/sus.png';
+import movementTimeChart from './media/chart-movement-time.png';
 import experimentalDesign from './media/experimental_design.png';
 import threeInputMethods from './media/three_input_methods.png';
 import conclusion from './media/conclusion.png';
@@ -40,6 +41,13 @@ export const projectData = {
   // `tags` list stays on this project's detail page. `cardOutcome` is the one
   // sentence a reader gets if they read nothing else, quantified where the
   // evidence supports it and hedged where it doesn't.
+  // Homepage card image — deliberately NOT `thumbnail`. Every Project-N.png
+  // in this repo is a generated cartoon of the subject matter, and a
+  // recruiter scanning five of them reads stock illustration, not evidence.
+  // `cardImage` therefore points only at a real artefact this project
+  // actually produced. A project with no such asset sets nothing and its
+  // card renders text-only — there is no placeholder state.
+  cardImage: movementTimeChart,
   year: "2025–2026",
   context: {
     en: "M.Sc. thesis",
