@@ -138,7 +138,7 @@ function WhatIBring() {
       </h3>
       <ul className="mt-4 space-y-3 list-none m-0 p-0 border-t rule-t pt-4">
         {items.map((item) => (
-          <li key={item} className="flex gap-2.5 text-sm leading-relaxed text-text-meta">
+          <li key={item} className="flex gap-2.5 text-body text-text-meta">
             <span className="text-primary-600 shrink-0" aria-hidden="true">—</span>
             <span>{item}</span>
           </li>
