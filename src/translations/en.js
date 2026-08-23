@@ -4,6 +4,7 @@
 const en = {
   // Navigation
   "nav.home": "Home",
+  "nav.work": "Work",
   "nav.projects": "Projects",
   "nav.about": "About",
   "nav.cv": "CV",

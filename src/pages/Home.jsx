@@ -1,13 +1,16 @@
-// One shared grid for the whole page: a 1200px column, 12 tracks, held by
-// every section (Hero, About, Bridge, Case Studies) via `.home-grid`. Case
-// Studies used to bleed its cards to the viewport edge with negative
-// margins — it now lives on the same label-rail + content-column axis as
-// About/Bridge instead, via HomeSection, so the content column never drifts
-// between sections. HomeSection controls the vertical gap above each
-// section via its `tight` prop.
-// The page does not pad its own bottom: the Footer already carries pt-12
-// above its first row, and adding a second gap on this side is what left a
-// dead band under the last case study.
+// One grid, one rhythm. Every section on this page is a `.grid-12` — 12
+// columns, 1200px, 32px gutters — inside a `.section-pad` band of 128px top
+// and bottom. No section sets its own padding and no block sets its own
+// max-width: a narrower text column spans fewer columns instead.
+//
+// Where a heading sits is the one structural choice per section:
+//
+//   heading cols 1-4, content cols 6-12   About, Contact
+//   heading full width, content below     Case Studies
+//
+// Case Studies is the exception because its cards must span all twelve
+// columns themselves (see StackedProjectCard), so there is no room beside
+// them for a heading rail.
 
 import React from "react";
 import { Hero } from "../components/Hero";
@@ -25,115 +28,55 @@ import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { EASE } from "../utils/motion";
 import { EmptyState } from "../components/EmptyState";
 
-
-// Eyebrow + heading, animated in as a pair rather than one block: the
-// eyebrow only earns its line when it carries information the heading
-// doesn't (a number + a short descriptor — "01 — Who I Am" — not a repeat
-// of "About Me"). Both share `type-section` so no two sections read at a
-// different scale. Lives in the sticky label rail so it scrolls with its
-// section instead of leaving a dead gutter.
-//
-// Note: `primary-600` (#5E1605) is the codebase's AA-safe coral for small
-// text (see theme.css) and is used here for the eyebrow so verification
-// item 5 holds — both -600 and the base -700/-500 clear WCAG AA on white
-// now that the palette runs on the darker Brandy coral. The eyebrow is
-// text-xs, not text-2xs: 10px of letter-spaced capitals is below the size
-// floor this page now holds every all-caps label to, so `tracking-caps` is
-// spelled out here rather than inherited from the 2xs font-size token.
+// Eyebrow + heading. The eyebrow is the label step — the only capitals on
+// the page — and the heading is h2, the same step in every section.
 function SectionHeading({ eyebrow, heading }) {
   const reduce = useReducedMotion();
   return (
-    <div>
-      <motion.span
-        className="block text-xs uppercase tracking-caps text-primary-600 font-bold"
-        initial={reduce ? { opacity: 1 } : { opacity: 0, x: -8 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, margin: "-10%" }}
-        transition={{ duration: reduce ? 0 : 0.25, ease: EASE }}
-      >
-        {eyebrow}
-      </motion.span>
-      <motion.h2
-        className="type-section mt-2"
-        initial={reduce ? { opacity: 1 } : { opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-10%" }}
-        transition={{ duration: reduce ? 0 : 0.3, delay: reduce ? 0 : 0.08, ease: EASE }}
-      >
-        {heading}
-      </motion.h2>
-    </div>
+    <motion.div
+      initial={reduce ? { opacity: 1 } : { opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: reduce ? 0 : 0.3, ease: EASE }}
+    >
+      <p className="type-label text-primary-600">{eyebrow}</p>
+      <h2 className="mt-s16 type-h2">{heading}</h2>
+    </motion.div>
   );
 }
 
-// The one section rhythm: divider → label rail + content, held to the
-// shared 1200px column everywhere it's used.
-//
-// Rail collapses to a stacked single column below 1024px (lg:) rather than
-// 768px (md:) — narrower than that and there isn't room for a sticky rail
-// beside the content without cramping it. The rail is 4/12 columns (not 3)
-// so "Case Studies" always sets on one line; a hairline at its right edge
-// reads the resulting gutter as intentional structure rather than leftover
-// space, and the sticky offset matches the fixed nav's height.
-//
-// `tight` is for a section that directly follows the Hero, which already
-// carries its own trailing space — the default pt-20 would double it up.
-//   tight  → pt-10 md:pt-12  (40 / 48px)
-//   normal → pt-20           (80px)
-//
-// `layout` decides whether the heading gets a column of its own.
-//
-//   "rail"    — 4/12 label rail beside an 8/12 content column. Only earns
-//               its width when the rail has something in it: About puts
-//               "What I bring" there (see WhatIBring below).
-//   "stacked" — heading full width above the content, content full width
-//               below it. This is the default for a section whose rail
-//               would otherwise be a third of the page holding two lines of
-//               text and then several screens of nothing, which is what
-//               Case Studies and Contact were.
-//
-// `tight` is for a section that directly follows the Hero, which already
-// carries its own trailing space — the default pt-20 would double it up.
-function HomeSection({ id, eyebrow, heading, children, rail = null, tight = false, layout = "stacked" }) {
-  const pad = tight ? "pt-10 md:pt-12" : "pt-20";
-
+// `layout`:
+//   "split"   heading cols 1-4, content cols 6-12
+//   "stacked" heading full width, content full width beneath it
+function HomeSection({ id, eyebrow, heading, children, rail = null, layout = "split" }) {
   return (
-    <section id={id} className={`w-full overflow-visible scroll-mt-24 ${pad}`}>
-      <div className="w-full rule-line mb-8" />
-
-      {layout === "rail" ? (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-10 gap-y-8 overflow-visible">
-          {/* Label rail — sticky so the heading stays visible in long
-              sections; releases at this wrapper's own bottom edge, which
-              CSS Grid stretches to match the content column's height. */}
-          <div className="lg:col-span-4 lg:pr-6 lg:border-r lg:rule-r lg:rule-soft">
-            <div className="lg:sticky lg:top-24">
+    <section id={id} className="section-pad scroll-mt-s96">
+      <div className="grid-12">
+        {layout === "split" ? (
+          <>
+            <div className="md:col-span-4">
               <SectionHeading eyebrow={eyebrow} heading={heading} />
-              {rail && <div className="mt-8 lg:mt-10">{rail}</div>}
+              {rail && <div className="mt-s48">{rail}</div>}
             </div>
-          </div>
-          <div className="lg:col-span-8 overflow-visible">{children}</div>
-        </div>
-      ) : (
-        <>
-          <div className="mb-10 md:mb-12">
-            <SectionHeading eyebrow={eyebrow} heading={heading} />
-          </div>
-          <div className="overflow-visible">{children}</div>
-        </>
-      )}
+            <div className="md:col-start-6 md:col-span-7 mt-s48 md:mt-0">{children}</div>
+          </>
+        ) : (
+          <>
+            <div className="md:col-span-12">
+              <SectionHeading eyebrow={eyebrow} heading={heading} />
+            </div>
+            <div className="md:col-span-12 mt-s64">{children}</div>
+          </>
+        )}
+      </div>
     </section>
   );
 }
 
-// Fills the About rail: three capability lines, each one a claim the page
-// goes on to evidence — the research methods and the stack come straight
-// from The Bridge's own skill groups (src/data/career.js), and the QA line
-// is the third phase of the same arc. Short enough to read as a summary
-// beside the bio rather than compete with it.
+// Three capability lines, drawn from the same skill groups The Bridge
+// renders (src/data/career.js) so the rail and the arc cannot drift.
 function WhatIBring() {
   const { t } = useTranslation();
-  const reduce = useReducedMotion();
   const items = [
     t("home.about.bring.research"),
     t("home.about.bring.build"),
@@ -141,24 +84,14 @@ function WhatIBring() {
   ];
 
   return (
-    <motion.div
-      initial={reduce ? { opacity: 1 } : { opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: reduce ? 0 : 0.3, ease: EASE }}
-    >
-      <h3 className="text-xs font-black uppercase tracking-caps text-primary-600">
-        {t("home.about.bring.title")}
-      </h3>
-      <ul className="mt-4 space-y-3 list-none m-0 p-0 border-t rule-t pt-4">
+    <div>
+      <h3 className="type-label text-primary-600">{t("home.about.bring.title")}</h3>
+      <ul className="mt-s16 pt-s16 border-t rule-t list-none m-0 p-0 flex flex-col gap-s12">
         {items.map((item) => (
-          <li key={item} className="flex gap-2.5 text-body text-text-meta">
-            <span className="text-primary-600 shrink-0" aria-hidden="true">—</span>
-            <span>{item}</span>
-          </li>
+          <li key={item} className="text-small text-text-meta">{item}</li>
         ))}
       </ul>
-    </motion.div>
+    </div>
   );
 }
 
@@ -172,92 +105,68 @@ export default function Home() {
     description: profileData.profileSummary,
   });
 
-  // Same split as /projects — one rule, two pages. Order comes from
-  // sortedProjects (each project's `order` field), NOT from re-grouping by
-  // status here: a live in-progress case study with order:1 must be able to
-  // lead the page. Only coming-soon is split out, because it renders a
-  // different row component.
-  // `excludeFromHome` is the one thing that overrides the shared order: a
-  // project can be published, routed and listed on /projects while still not
-  // belonging in the homepage's five-slot shortlist.
   const onHome     = localizedProjects.filter((p) => !p.excludeFromHome);
   const live       = onHome.filter((p) => p.status !== "coming-soon");
   const comingSoon = onHome.filter((p) => p.status === "coming-soon");
   const hasAnyProjects = live.length > 0 || comingSoon.length > 0;
 
   return (
-    // Footer owns the space above itself — this wrapper adds none of its own
-    <div className="w-full relative overflow-visible">
+    <div className="w-full">
 
-      {/* Hero — capped at ~85vh by Hero.jsx itself, not locked here. */}
-      <section id="Hero-Section" className="w-full relative overflow-visible max-w-page mx-auto">
+      <section id="Hero-Section" className="section-pad">
         <Hero data={profileData} />
       </section>
 
-      {/* About + Bridge — the page's one alternate surface: a warm off-white
-          band, bled edge-to-edge (matching App.jsx's own px-8/12/16 gutter)
-          so the page isn't a single uninterrupted white sheet. Content
-          inside still holds the shared 1200px column. */}
-      <div className="-mx-8 md:-mx-12 lg:-mx-16 bg-surface-warm">
-        <div className="px-8 md:px-12 lg:px-16 pb-14 md:pb-16">
-          <div className="max-w-page mx-auto w-full">
-            <HomeSection
-              id="AboutMe-Section"
-              eyebrow={t("home.about.kicker")}
-              heading={t("about.heading")}
-              rail={<WhatIBring />}
-              layout="rail"
-              tight
-            >
-              <AboutBio data={profileData} />
-
-              {/* The Bridge — visual proof of the bio's "5+ years across..." claim */}
-              <div className="mt-12">
-                <CareerArc variant="compact" />
-              </div>
-            </HomeSection>
-          </div>
-        </div>
-      </div>
-
-      {/* Case Studies + Contact — same label-rail + content-column system as
-          About/Bridge, so the content axis never drifts between sections.
-          id="projects" is the target of the /#projects nav anchor. The
-          bottom pad here is the page's only gap above the Footer's own
-          pt-12; the two together are the seam. */}
-      <div className="max-w-page mx-auto w-full pb-16 md:pb-20">
-        <HomeSection id="projects" eyebrow={t("home.projects.kicker")} heading={t("projects.heading")}>
-          {hasAnyProjects ? (
-            <div>
-              {live.map((project, i) => (
-                <StackedProjectCard key={project.slug} project={project} index={i} />
-              ))}
-              {comingSoon.map((project, i) => (
-                <ComingSoonRow
-                  key={project.slug}
-                  project={project}
-                  index={live.length + i}
-                />
-              ))}
-              {/* Closing hairline under the last row */}
-              <div className="w-full rule-line" />
-            </div>
-          ) : (
-            <EmptyState title={t("home.projects.empty")} />
-          )}
-        </HomeSection>
-
-        {/* Contact — the page's closing ask, on the same label-rail axis as
-            every other section so it reads as content rather than as an
-            appendix to the footer. */}
+      {/* About + The Bridge. The warm band bleeds to the viewport edge; the
+          grid inside it is the same 1200px column as everywhere else. */}
+      <div className="bg-surface-warm">
         <HomeSection
-          id="contact"
-          eyebrow={t("home.contact.kicker")}
-          heading={t("contact.headline")}
+          id="AboutMe-Section"
+          eyebrow={t("home.about.kicker")}
+          heading={t("about.heading")}
+          rail={<WhatIBring />}
         >
-          <HomeContact data={profileData} />
+          <AboutBio data={profileData} />
+          <div className="mt-s64">
+            <CareerArc variant="compact" />
+          </div>
         </HomeSection>
       </div>
+
+      <HomeSection
+        id="projects"
+        eyebrow={t("home.projects.kicker")}
+        heading={t("projects.heading")}
+        layout="stacked"
+      >
+        {hasAnyProjects ? (
+          // 64px between cards, with the single hairline that separates them
+          // sitting in the middle of that gap: 32px of list gap, the rule, and
+          // 32px of the next card's own lead-in.
+          <div className="flex flex-col gap-s32">
+            {live.map((project, i) => (
+              <div key={project.slug} className={i > 0 ? "border-t rule-t pt-s32" : undefined}>
+                <StackedProjectCard project={project} index={i} lead={i === 0} />
+              </div>
+            ))}
+            {comingSoon.map((project, i) => (
+              <div key={project.slug} className="border-t rule-t pt-s32">
+                <ComingSoonRow project={project} index={live.length + i} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <EmptyState title={t("home.projects.empty")} />
+        )}
+      </HomeSection>
+
+      <HomeSection
+        id="contact"
+        eyebrow={t("home.contact.kicker")}
+        heading={t("contact.headline")}
+      >
+        <HomeContact data={profileData} />
+      </HomeSection>
 
     </div>
   );
