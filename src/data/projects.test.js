@@ -486,3 +486,38 @@ describe("data/renderer contract — no field drifts in either direction", () =>
     }
   });
 });
+
+// The homepage card shows a capped, curated slice of a project's tags. That
+// slice has to be a real subset of `tags`, or a card advertises a skill the
+// detail page and the /tags directory have never heard of — the same
+// documentation-drift class as tagEvidence, one level up.
+describe("cardTags — the homepage card's capped tag list", () => {
+  it("is always a subset of the project's own tags", () => {
+    for (const p of projects) {
+      if (!p.cardTags) continue;
+      const known = new Set(p.tags);
+      const strays = p.cardTags.filter((tag) => !known.has(tag));
+      expect(
+        strays,
+        `${p.slug}: cardTags names tags that are not in \`tags\`: ${strays.join(", ")}`
+      ).toEqual([]);
+    }
+  });
+
+  // The cap is the point of the field — five is what the card renders before
+  // the "+N more" disclosure, so a longer list would silently be truncated
+  // by the renderer rather than curated here.
+  it("never exceeds the five the card can show", () => {
+    for (const p of projects) {
+      if (!p.cardTags) continue;
+      expect(p.cardTags.length, `${p.slug}: cardTags is longer than 5`).toBeLessThanOrEqual(5);
+    }
+  });
+
+  it("has no duplicates", () => {
+    for (const p of projects) {
+      if (!p.cardTags) continue;
+      expect(new Set(p.cardTags).size, `${p.slug}: cardTags repeats a tag`).toBe(p.cardTags.length);
+    }
+  });
+});

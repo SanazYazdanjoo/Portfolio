@@ -34,6 +34,22 @@ export const projectData = {
   },
 
   timeline: "10/2025 – 04/2026",
+
+  // Homepage card metadata (StackedProjectCard.jsx). `cardTags` is the signal
+  // subset — method + stack — shown before the "+N more" disclosure; the full
+  // `tags` list stays on this project's detail page. `cardOutcome` is the one
+  // sentence a reader gets if they read nothing else, quantified where the
+  // evidence supports it and hedged where it doesn't.
+  year: "2025–2026",
+  context: {
+    en: "M.Sc. thesis",
+    de: "Masterarbeit",
+  },
+  cardTags: ["Mixed-Methods Research", "Experimental Design", "Eye-Tracking", "TypeScript", "React"],
+  cardOutcome: {
+    en: "A 30-participant within-subjects study found a distance-dependent crossover (η²ₚ = .69), and 60% preferred the gaze-hybrid — trust, not raw speed, decided it.",
+    de: "Eine Within-Subjects-Studie mit 30 Teilnehmenden zeigte einen distanzabhängigen Crossover (η²ₚ = .69); 60 % bevorzugten den Blick-Hybrid — entschieden hat Vertrauen, nicht reine Geschwindigkeit.",
+  },
   thumbnail: thumbnailImg,
   thumbnailWebp,
   heroImage: thumbnailImg,

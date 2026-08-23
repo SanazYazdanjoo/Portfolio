@@ -26,6 +26,22 @@ export const projectData = {
     de: "UX Researcherin (6-köpfiges Team)",
   },
   timeline: "10/2023 – 03/2024",
+
+  // Homepage card metadata (StackedProjectCard.jsx). `cardTags` is the signal
+  // subset — method + stack — shown before the "+N more" disclosure; the full
+  // `tags` list stays on this project's detail page. `cardOutcome` is the one
+  // sentence a reader gets if they read nothing else, quantified where the
+  // evidence supports it and hedged where it doesn't.
+  year: "2023–2024",
+  context: {
+    en: "Industry project · deskbird",
+    de: "Industrieprojekt · deskbird",
+  },
+  cardTags: ["Mixed-Methods Research", "Contextual Inquiry", "Survey Design", "Usability Testing", "Figma"],
+  cardOutcome: {
+    en: "57 survey responses and 6 contextual inquiries narrowed three concepts to one validated prototype; deskbird stated an intent to build it at handover — recorded as unconfirmed, not claimed as adoption.",
+    de: "57 Umfrageantworten und 6 Contextual Inquiries verdichteten drei Konzepte zu einem validierten Prototyp; deskbird erklärte bei der Übergabe die Absicht, ihn zu bauen — als unbestätigt vermerkt, nicht als Adoption behauptet.",
+  },
   tags: ["User-Centered Design", "Mixed-Methods Research", "Stakeholder Interviews", "Contextual Inquiry", "Survey Design", "Competitive Analysis", "Affinity Diagramming", "Requirements Engineering", "Concept Development", "Interaction Design", "High-Fidelity Prototyping", "Usability Testing", "Figma", "B2B SaaS"],
   thumbnail: thumbnailImg,
   thumbnailWebp,

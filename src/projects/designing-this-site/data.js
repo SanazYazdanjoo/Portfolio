@@ -36,6 +36,22 @@ export const projectData = {
   },
   timeline: "Ongoing · continuously iterated",
 
+  // Homepage card metadata (StackedProjectCard.jsx). `cardTags` is the signal
+  // subset — method + stack — shown before the "+N more" disclosure; the full
+  // `tags` list stays on this project's detail page. `cardOutcome` is the one
+  // sentence a reader gets if they read nothing else, quantified where the
+  // evidence supports it and hedged where it doesn't.
+  year: "2026–present",
+  context: {
+    en: "Self-initiated",
+    de: "Eigeninitiative",
+  },
+  cardTags: ["React", "Tailwind CSS", "Design Systems", "Accessibility", "Automated Testing (Vitest)"],
+  cardOutcome: {
+    en: "Lighthouse 96 accessibility, 96 best practices, 100 SEO on the live build — and no user-facing outcome yet: the sessions that would test the thirty-second read are designed but not run.",
+    de: "Lighthouse 96 Accessibility, 96 Best Practices, 100 SEO im Live-Build — und noch kein nutzerseitiges Ergebnis: Die Sessions, die den Dreißig-Sekunden-Test prüfen würden, sind konzipiert, aber nicht durchgeführt.",
+  },
+
   tags: [
     "React",
     "Vite",
