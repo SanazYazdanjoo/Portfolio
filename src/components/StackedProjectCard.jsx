@@ -72,17 +72,31 @@ export function StackedProjectCard({ project, index }) {
       className="relative bg-bg border-t rule-t transition-colors duration-200 ease-smooth
                  hover:bg-primary/[0.03] group"
     >
+      {/* A short accent at the card's top edge, not a full-height rule.
+          Run down every card in a five-item list, the same stroke became one
+          continuous red line the length of the page and read as the loudest
+          element on it. */}
       <span
         aria-hidden="true"
-        className="absolute left-0 top-0 bottom-0 w-[5px] rule-stroke-v"
+        className="absolute left-0 top-0 h-10 w-[5px] rule-stroke-v"
         style={{ backgroundColor: "var(--accent-spine)" }}
       />
 
-      <div className="px-6 md:px-8 py-7 flex flex-col md:flex-row gap-5 md:gap-8">
-
+      {/* Two tracks from 900px up: the artefact at 40%, the text at 60% with
+          a 55ch floor so the measure never collapses to fit the image. Below
+          900px it is one column and the image stacks above the text. A card
+          with no artefact is a single full-width track — nothing is reserved
+          for an image that does not exist. */}
+      <div
+        className={`px-6 md:px-8 py-8 grid gap-6 min-[900px]:gap-10 ${
+          hasImage
+            ? "min-[900px]:grid-cols-[minmax(0,2fr)_minmax(min(55ch,100%),3fr)]"
+            : "grid-cols-1"
+        }`}
+      >
         {/* Real artefact, or no column at all. */}
         {hasImage && (
-          <div className="md:w-[230px] lg:w-[260px] shrink-0">
+          <div className="min-w-0">
             <div className="photo-frame rule-frame-in aspect-video overflow-hidden">
               <img
                 src={project.cardImage}
@@ -101,7 +115,7 @@ export function StackedProjectCard({ project, index }) {
         )}
 
         {/* Text column */}
-        <div className="flex-1 min-w-0 flex items-start gap-4 md:gap-6">
+        <div className="min-w-0 flex items-start gap-4 md:gap-6">
           <span className="font-mono text-xs font-bold text-primary-600 tabular-nums mt-1 shrink-0">
             {String(index + 1).padStart(2, "0")}
           </span>

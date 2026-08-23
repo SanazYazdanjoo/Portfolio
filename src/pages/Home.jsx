@@ -81,33 +81,47 @@ function SectionHeading({ eyebrow, heading }) {
 //   tight  → pt-10 md:pt-12  (40 / 48px)
 //   normal → pt-20           (80px)
 //
-// `rail` is content for the space under the sticky label. A 4/12 column
-// holding two lines of heading and then 400px of nothing is a hole, not
-// structure — either it earns its width or the section should collapse to
-// one centred column. About fills it (see WhatIBring below); Case Studies
-// deliberately leaves it empty, because its heading has to stay pinned
-// beside a list that runs several screens.
-function HomeSection({ id, eyebrow, heading, children, rail = null, tight = false }) {
+// `layout` decides whether the heading gets a column of its own.
+//
+//   "rail"    — 4/12 label rail beside an 8/12 content column. Only earns
+//               its width when the rail has something in it: About puts
+//               "What I bring" there (see WhatIBring below).
+//   "stacked" — heading full width above the content, content full width
+//               below it. This is the default for a section whose rail
+//               would otherwise be a third of the page holding two lines of
+//               text and then several screens of nothing, which is what
+//               Case Studies and Contact were.
+//
+// `tight` is for a section that directly follows the Hero, which already
+// carries its own trailing space — the default pt-20 would double it up.
+function HomeSection({ id, eyebrow, heading, children, rail = null, tight = false, layout = "stacked" }) {
+  const pad = tight ? "pt-10 md:pt-12" : "pt-20";
+
   return (
-    <section
-      id={id}
-      className={`w-full overflow-visible scroll-mt-24 ${tight ? "pt-10 md:pt-12" : "pt-20"}`}
-    >
+    <section id={id} className={`w-full overflow-visible scroll-mt-24 ${pad}`}>
       <div className="w-full rule-line mb-8" />
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-10 gap-y-8 overflow-visible">
-        {/* Label rail — sticky so the heading stays visible in long
-            sections; releases at this wrapper's own bottom edge, which
-            CSS Grid stretches to match the content column's height. */}
-        <div className="lg:col-span-4 lg:pr-6 lg:border-r lg:rule-r lg:rule-soft">
-          <div className="lg:sticky lg:top-24">
-            <SectionHeading eyebrow={eyebrow} heading={heading} />
-            {rail && <div className="mt-8 lg:mt-10">{rail}</div>}
+      {layout === "rail" ? (
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-10 gap-y-8 overflow-visible">
+          {/* Label rail — sticky so the heading stays visible in long
+              sections; releases at this wrapper's own bottom edge, which
+              CSS Grid stretches to match the content column's height. */}
+          <div className="lg:col-span-4 lg:pr-6 lg:border-r lg:rule-r lg:rule-soft">
+            <div className="lg:sticky lg:top-24">
+              <SectionHeading eyebrow={eyebrow} heading={heading} />
+              {rail && <div className="mt-8 lg:mt-10">{rail}</div>}
+            </div>
           </div>
+          <div className="lg:col-span-8 overflow-visible">{children}</div>
         </div>
-        {/* Content — the same axis in every section */}
-        <div className="lg:col-span-8 overflow-visible">{children}</div>
-      </div>
+      ) : (
+        <>
+          <div className="mb-10 md:mb-12">
+            <SectionHeading eyebrow={eyebrow} heading={heading} />
+          </div>
+          <div className="overflow-visible">{children}</div>
+        </>
+      )}
     </section>
   );
 }
@@ -188,6 +202,7 @@ export default function Home() {
               eyebrow={t("home.about.kicker")}
               heading={t("about.heading")}
               rail={<WhatIBring />}
+              layout="rail"
               tight
             >
               <AboutBio data={profileData} />
