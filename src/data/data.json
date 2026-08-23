@@ -3,10 +3,11 @@
     "navLinks": [
       {
         "name": "Home",
-        "path": "/"
+        "path": "/",
+        "secondary": true
       },
       {
-        "name": "Projects",
+        "name": "Work",
         "path": "/projects"
       },
       {
@@ -14,12 +15,12 @@
         "path": "/about"
       },
       {
-        "name": "Contact",
-        "path": "/contact"
-      },
-      {
         "name": "CV",
         "path": "/cv"
+      },
+      {
+        "name": "Contact",
+        "path": "/contact"
       },
       {
         "name": "Design System",

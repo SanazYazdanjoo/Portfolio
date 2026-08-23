@@ -14,7 +14,7 @@ import { EASE } from "../utils/motion";
 // language instead of the raw (English-only) name stored in profile data.
 const NAV_LABEL_KEYS = {
   "/": "nav.home",
-  "/projects": "nav.projects",
+  "/projects": "nav.work",
   "/about": "nav.about",
   "/contact": "nav.contact",
   "/cv": "nav.cv",
@@ -25,11 +25,12 @@ export const Nav = ({ isScrolled = false }) => {
   const profileData = useLocalizedProfile(rawProfile);
   const prefersReducedMotion = useReducedMotion();
   const { t } = useTranslation();
-  // `secondary: true` in profile.navLinks keeps a destination in the sitemap
-  // and in the Footer's utility column while taking it out of the primary
-  // nav. Design System is the case it exists for: it is a reference page for
-  // one reader in a hundred, and it was sitting at the same weight as Work
-  // and Contact.
+  // `secondary: true` in profile.navLinks keeps a destination routed and in
+  // the sitemap while taking it out of the primary nav. Two entries use it:
+  // Home, because the wordmark to the left is already the home link, and
+  // Design System, a reference page for one reader in a hundred that was
+  // sitting at the same weight as Work and Contact. What is left is the four
+  // things a visitor actually chooses between.
   const navLinks = profileData.navLinks
     .filter((link) => !link.secondary)
     .map((link) => ({
@@ -45,7 +46,7 @@ export const Nav = ({ isScrolled = false }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: prefersReducedMotion ? 0 : 0.4, ease: EASE }}
     >
-      <div className="flex items-center justify-between w-full pb-4 border-b rule-b">
+      <div className="flex items-center justify-between w-full pb-s16 border-b rule-b">
 
         {/* Wordmark: left, compact, one line */}
         <NavLink to="/" aria-label={profileData.name} className="shrink-0">
@@ -63,15 +64,15 @@ export const Nav = ({ isScrolled = false }) => {
         </NavLink>
 
         {/* Right cluster: links → language toggle → (mobile) burger */}
-        <div className="flex items-center gap-6 md:gap-9 lg:gap-12">
-          <ul className="hidden md:flex items-center gap-9 lg:gap-12">
+        <div className="flex items-center gap-s24 md:gap-s32 lg:gap-s48">
+          <ul className="hidden md:flex items-center gap-s32 lg:gap-s48">
             {navLinks.map((link) => (
               <li key={link.path}>
                 <NavLink
                   to={link.path}
                   end={link.path === "/"}
                   className={({ isActive }) =>
-                    `group relative text-sm transition-colors duration-200
+                    `group relative text-body transition-colors duration-200
                      ${isActive
                        ? "text-text font-semibold"
                        : "text-text-meta hover:text-secondary-600"
@@ -84,7 +85,8 @@ export const Nav = ({ isScrolled = false }) => {
                       {/* Hover underline — the house hairline, left to right, 200ms */}
                       <span
                         aria-hidden="true"
-                        className="absolute left-0 -bottom-[6px] h-[5px] w-full bg-secondary-600 rule-stroke
+                        style={{ height: "var(--rule-w)", bottom: "calc(-1 * var(--space-4))" }}
+                        className="absolute left-0 w-full bg-secondary-600 rule-stroke
                                    origin-left scale-x-0 group-hover:scale-x-100
                                    transition-transform duration-200 ease-smooth"
                       />
@@ -94,8 +96,8 @@ export const Nav = ({ isScrolled = false }) => {
                         <motion.span
                           layoutId="nav-active-dot"
                           aria-hidden="true"
-                          className="absolute left-1/2 -translate-x-1/2 -bottom-2
-                                     w-1.5 h-1.5 rule-dot bg-primary"
+                          className="absolute left-1/2 -translate-x-1/2 -bottom-s8
+                                     w-s4 h-s4 rule-dot bg-primary"
                           transition={{ duration: prefersReducedMotion ? 0 : 0.3, ease: EASE }}
                         />
                       )}
@@ -175,7 +177,7 @@ function MobileMenu({ links }) {
       <button
         ref={triggerRef}
         onClick={() => setOpen(!open)}
-        className="relative z-[70] text-text p-3 -m-1 focus-ring"
+        className="relative z-[70] text-text p-s12 -m-s4 focus-ring"
         aria-label={open ? t("nav.closeMenu") : t("nav.openMenu")}
         aria-expanded={open}
       >
@@ -195,9 +197,9 @@ function MobileMenu({ links }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[60] bg-bg flex flex-col justify-center px-10"
+            className="fixed inset-0 z-[60] bg-bg flex flex-col justify-center px-s32"
           >
-            <ul className="relative flex flex-col gap-2">
+            <ul className="relative flex flex-col gap-s8">
               {links.map((link, i) => (
                 <motion.li
                   key={link.path}
@@ -210,7 +212,7 @@ function MobileMenu({ links }) {
                     end={link.path === "/"}
                     onClick={() => setOpen(false)}
                     className={({ isActive }) =>
-                      `block py-3 font-display font-black text-4xl leading-tight
+                      `block py-s12 font-display font-black text-h1 leading-tight
                        transition-colors duration-200
                        ${isActive ? "text-text" : "text-dim hover:text-secondary-600"}`
                     }

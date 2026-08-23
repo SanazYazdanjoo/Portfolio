@@ -1,20 +1,19 @@
-// A homepage case-study row: thumbnail, then index → title → metadata →
-// outcome → capped tags → CTA. Everything a reader needs to triage the
-// project is on the collapsed card; nothing is behind a hover.
+// ONE card anatomy, on the page's 12-column grid.
 //
-// The row used to be a single <Link> wrapping a hover-expand panel that
-// carried role, timeline, context, metrics and the thumbnail. That panel is
-// gone: it was unreachable on touch, it hid the only quantified thing on the
-// card behind a pointer event, and its chevron promised an expansion that
-// the tag disclosure now does honestly. Role, context and year moved into
-// the metadata row; the metrics condensed into `cardOutcome`, one sentence
-// per project (see each src/projects/*/data.js).
+//   figure   cols 1-5      text   cols 6-12
 //
-// Because the tag disclosure is a real <button>, the row can no longer be
-// one big <a> — a button inside a link is invalid. The title link instead
-// stretches over the card with an inset-0 ::after, and the tag row lifts
-// above it with `relative z-10`. Same whole-row click target, one accessible
-// name, no nested interactive content.
+// A card with no figure leaves cols 1-5 empty and keeps its text in cols
+// 6-12, so every title in the list starts on the same x-axis. Text never
+// reflows leftward to fill a missing image — a ragged left edge down the list
+// costs more than the whitespace saves.
+//
+// The one exception is the lead card, the page's single deliberate emphasis
+// (see `lead`): its figure takes cols 1-7 and its title steps up one type
+// step, h3 to h2. That does move the lead's title off the shared axis, and
+// it is the only card allowed to.
+//
+// Every length here is a scale token (p-s24, gap-s16, mt-s12) or a type step
+// (type-h2, text-body, type-label). There are no other values.
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
@@ -23,7 +22,7 @@ import { useTranslation } from "../context/LanguageContext";
 import { SkillTagRow } from "./SkillTagRow";
 import { EASE } from "../utils/motion";
 
-export function StackedProjectCard({ project, index }) {
+export function StackedProjectCard({ project, index, lead = false }) {
   const [imgError, setImgError] = useState(false);
   const reduce = useReducedMotion();
   const { t } = useTranslation();
@@ -31,28 +30,16 @@ export function StackedProjectCard({ project, index }) {
   if (!project || project.status === "coming-soon" || !project.id) return null;
 
   const isInProgress = project.status === "in-progress";
-  // `cardImage`, never `thumbnail`. See the note in each data.js: the
-  // Project-N.png thumbnails are generated illustrations, and a card is
-  // better with no image at all than with clipart standing in for evidence.
-  // No image and no placeholder — the row simply has one column instead of
-  // two.
-  const hasImage = project.cardImage && !imgError;
-
-  // Exactly what `cardTags` names — four tags picked to differentiate, with
-  // no counter and nothing to expand. A project that has not curated its
-  // four shows none rather than an arbitrary prefix of the full list.
+  const hasFigure = project.cardImage && !imgError;
+  const crop = project.cardCrop || {};
   const tags = project.cardTags || [];
-  // year · context · role — a missing one is dropped rather than rendered as
-  // a stray separator.
   const meta = [project.year, project.context, project.role].filter(Boolean);
+
+  const figureCols = lead ? "md:col-span-7" : "md:col-span-5";
+  const textCols = lead ? "md:col-start-8 md:col-span-5" : "md:col-start-6 md:col-span-7";
 
   return (
     <motion.article
-      // Reveal fires as soon as 5% of the row is visible, and settles at a
-      // full opacity: 1. The old `margin: "-10%"` plus an uncapped
-      // index * 0.06 stagger left the third and fourth rows sitting at a
-      // partial opacity long enough to read as a rendering bug rather than
-      // an entrance. The delay is capped at two steps for the same reason.
       initial={reduce ? { opacity: 1 } : { opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.05 }}
@@ -61,123 +48,74 @@ export function StackedProjectCard({ project, index }) {
         duration: reduce ? 0 : 0.35,
         ease: EASE,
       }}
-      className="relative bg-bg border-t rule-t transition-colors duration-200 ease-smooth
-                 hover:bg-primary/[0.03] group"
+      className="grid-12 relative group"
     >
-      {/* A short accent at the card's top edge, not a full-height rule.
-          Run down every card in a five-item list, the same stroke became one
-          continuous red line the length of the page and read as the loudest
-          element on it. */}
-      <span
-        aria-hidden="true"
-        className="absolute left-0 top-0 h-10 w-[5px] rule-stroke-v"
-        style={{ backgroundColor: "var(--accent-spine)" }}
-      />
-
-      {/* Two tracks from 900px up: the artefact at 40%, the text at 60% with
-          a 55ch floor so the measure never collapses to fit the image. Below
-          900px it is one column and the image stacks above the text. A card
-          with no artefact is a single full-width track — nothing is reserved
-          for an image that does not exist. */}
-      <div
-        className={`px-6 md:px-8 py-8 grid gap-6 min-[900px]:gap-10 ${
-          hasImage
-            ? "min-[900px]:grid-cols-[minmax(0,2fr)_minmax(min(55ch,100%),3fr)]"
-            : "grid-cols-1"
-        }`}
-      >
-        {/* Real artefact, or no column at all. */}
-        {hasImage && (
-          <div className="min-w-0">
-            <div className="photo-frame rule-frame-in aspect-video overflow-hidden">
-              <img
-                src={project.cardImage}
-                /* Decorative: the title link right beside it already names
-                   the case study, so alt text here would only repeat it. */
-                alt=""
-                loading="lazy"
-                decoding="async"
-                onError={() => setImgError(true)}
-                className="w-full h-full object-cover object-center
-                           transition-transform duration-[400ms] ease-smooth
-                           motion-safe:group-hover:scale-[1.03]"
-              />
-            </div>
-          </div>
-        )}
-
-        {/* Text column */}
-        <div className="min-w-0 flex items-start gap-4 md:gap-6">
-          <span className="font-mono text-xs font-bold text-primary-600 tabular-nums mt-1 shrink-0">
-            {String(index + 1).padStart(2, "0")}
-          </span>
-
-          <div className="flex-1 min-w-0">
-            <div className="flex items-start gap-3 flex-wrap">
-              {/* 24px floor, 40px on a desktop — the second-loudest thing
-                  on the page after the name, and louder than the section
-                  label above the list. */}
-              <h2 className="font-display font-extrabold text-2xl md:text-3xl
-                             tracking-[-0.01em] uppercase leading-tight text-text
-                             transition-colors duration-300 group-hover:text-primary-600">
-                {/* Stretched link — the whole card is the click target, and
-                    the title is its accessible name. */}
-                <Link
-                  to={`/projects/${project.id}`}
-                  className="stretched-link focus-ring"
-                >
-                  {project.title}
-                </Link>
-              </h2>
-              {isInProgress && (
-                <span
-                  className="shrink-0 mt-0.5 border rule-frame px-2.5 py-1 text-xs font-black
-                             uppercase tracking-caps text-primary-600"
-                  style={{ "--rule-line-color": "var(--primary-600)" }}
-                >
-                  {t("projects.inProgress")}
-                </span>
-              )}
-            </div>
-
-            {/* Metadata — year · context · role */}
-            {meta.length > 0 && (
-              <p className="mt-2 text-xs text-text-meta leading-relaxed">
-                {meta.map((value, i) => (
-                  <React.Fragment key={value}>
-                    {i > 0 && <span aria-hidden="true" className="mx-2">·</span>}
-                    {value}
-                  </React.Fragment>
-                ))}
-              </p>
-            )}
-
-            {/* Outcome — the one sentence a reader gets if they read nothing
-                else on this card. */}
-            {project.cardOutcome && (
-              <p className="mt-3 text-body text-text max-w-[62ch]">
-                {project.cardOutcome}
-              </p>
-            )}
-
-            <SkillTagRow tags={tags} className="mt-5" />
-
-            {/* Visual affordance only — the stretched link above is the
-                actual control, and a second link here would list every case
-                study twice in the tab order. */}
-            <p
-              aria-hidden="true"
-              className="mt-4 mb-0 inline-flex items-center gap-1.5 text-xs font-black
-                         uppercase tracking-caps text-primary-600
-                         transition-transform duration-200 ease-smooth motion-safe:group-hover:translate-x-1"
-            >
-              {isInProgress ? t("project.card.readInProgress") : t("project.card.readCaseStudy")}
-              <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </p>
+      {hasFigure && (
+        <div className={`${figureCols} mb-s24 md:mb-0`}>
+          <div className="card-figure">
+            <img
+              src={project.cardImage}
+              /* Decorative: the title beside it already names the case study. */
+              alt=""
+              loading="lazy"
+              decoding="async"
+              onError={() => setImgError(true)}
+              style={{
+                "--crop-x": crop.x,
+                "--crop-y": crop.y,
+                "--crop-zoom": crop.zoom,
+              }}
+            />
           </div>
         </div>
+      )}
+
+      <div className={textCols}>
+        <p className="type-label text-primary-600">
+          {String(index + 1).padStart(2, "0")}
+          {isInProgress && (
+            <span className="ml-s12 text-text-meta">{t("projects.inProgress")}</span>
+          )}
+        </p>
+
+        {/* Sentence case: capitals belong to the label step and nowhere else. */}
+        <h2
+          className={`mt-s12 ${lead ? "type-h2" : "type-h3"} text-text
+                      transition-colors duration-200 group-hover:text-primary-600`}
+        >
+          <Link to={`/projects/${project.id}`} className="stretched-link focus-ring">
+            {project.title}
+          </Link>
+        </h2>
+
+        {/* 24px under the title block, then 16px between everything below it. */}
+        {meta.length > 0 && (
+          <p className="mt-s24 text-small text-text-meta">
+            {meta.map((value, i) => (
+              <React.Fragment key={value}>
+                {i > 0 && <span aria-hidden="true" className="px-s8">·</span>}
+                {value}
+              </React.Fragment>
+            ))}
+          </p>
+        )}
+
+        {project.cardOutcome && (
+          <p className="mt-s16 text-body text-text">{project.cardOutcome}</p>
+        )}
+
+        <SkillTagRow tags={tags} className="mt-s16" />
+
+        {/* Visual affordance only — the stretched title link is the control. */}
+        <p
+          aria-hidden="true"
+          className="mt-s24 inline-flex items-center gap-s8 type-label text-primary-600"
+        >
+          {isInProgress ? t("project.card.readInProgress") : t("project.card.readCaseStudy")}
+          <svg className="w-s16 h-s16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </p>
       </div>
     </motion.article>
   );

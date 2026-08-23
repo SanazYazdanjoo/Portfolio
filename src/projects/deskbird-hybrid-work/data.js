@@ -39,6 +39,11 @@ export const projectData = {
   // actually produced. A project with no such asset sets nothing and its
   // card renders text-only — there is no placeholder state.
   cardImage: interestsModal,
+  // The figure shows ONE legible detail, not the whole screenshot shrunk to a
+  // chip: object-position + a static scale, applied by .card-figure. Verified
+  // by simulating the exact CSS against the source at the rendered box size.
+  // The interest chips and their colleague counts.
+  cardCrop: { x: "50%", y: "62%", zoom: 2.4 },
   year: "2023–2024",
   context: {
     en: "Industry project · deskbird",
