@@ -65,6 +65,22 @@ export const projectData = {
     de: 'Alleinverantwortlich — UX Research, UI-Design und Frontend-Entwicklung',
   },
   timeline: '2026 · four phases · ongoing',
+
+  // Homepage card metadata (StackedProjectCard.jsx). `cardTags` is the signal
+  // subset — method + stack — shown before the "+N more" disclosure; the full
+  // `tags` list stays on this project's detail page. `cardOutcome` is the one
+  // sentence a reader gets if they read nothing else, quantified where the
+  // evidence supports it and hedged where it doesn't.
+  year: '2026',
+  context: {
+    en: 'In-house · public sector',
+    de: 'Intern · öffentlicher Sektor',
+  },
+  cardTags: ['UX Research', 'Requirements Engineering', 'Service Design', 'React', 'TypeScript'],
+  cardOutcome: {
+    en: '25 documented process problems and one claim traced end to end over 43+ days; the React/TypeScript replacement is deployed as a demo the team works with daily, guarded by 1,234 automated tests.',
+    de: '25 dokumentierte Prozessprobleme und ein Antrag über 43+ Tage durchgängig verfolgt; der React/TypeScript-Ersatz läuft als Demo, mit der das Team täglich arbeitet, abgesichert durch 1.234 automatisierte Tests.',
+  },
   aiAssistance: {
     en: 'Built with AI coding agents under my direction. The research, the requirements, the architecture decisions, the refusals recorded in the decision log — and every claim on this page — are mine and are traceable to their sources.',
     de: 'Entwickelt mit KI-Coding-Agenten unter meiner Leitung. Die Forschung, die Anforderungen, die Architekturentscheidungen, die im Entscheidungslog festgehaltenen Ablehnungen — und jede Aussage auf dieser Seite — sind meine und auf ihre Quellen rückführbar.',

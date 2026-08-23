@@ -282,6 +282,7 @@ const en = {
   "project.nav.next": "Next project",
   "project.card.readCaseStudy": "Read case study",
   "project.card.readInProgress": "Read work in progress",
+  "project.card.thumbnailPending": "Screenshot pending",
 
   // Project detail — figure viewer chrome
   "project.media.close": "Close",

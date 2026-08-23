@@ -512,6 +512,19 @@
   .focus-ring-inset:focus-visible { outline-offset: -2px; }
   .focus-ring-light:focus-visible { outline-color: var(--color-white); }
 
+  /* One link stretched over a whole card. The card gets `position: relative`
+     and its title link gets this: the ::after covers the card, so the entire
+     surface is the click target while the tab order and the accessible name
+     stay a single link. Any genuinely interactive sibling inside the card
+     (a disclosure button, a secondary link) must sit above it with
+     `relative z-10` — see StackedProjectCard.jsx. This is what replaced
+     wrapping the card in one big <a>, which made a nested <button> invalid. */
+  .stretched-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+
   .btn {
     display: inline-flex; align-items: center; gap: .5rem;
     padding: .625rem 1.25rem; border-radius: var(--radius);
