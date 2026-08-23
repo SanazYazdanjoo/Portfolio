@@ -36,7 +36,7 @@ export function ProjectHero({ meta, scrollY }) {
   const bannerVisibility = useTransform(scrollY, (y) => (y > FADE_PX ? "hidden" : "visible"));
 
   return (
-    <div className="sticky top-[80px] md:top-[100px] z-0 w-full px-4 md:px-8 max-w-[1500px] mx-auto mb-10 md:mb-20">
+    <div className="sticky top-[80px] md:top-[100px] z-0 w-full px-4 md:px-8 max-w-wide mx-auto mb-10 md:mb-20">
       <motion.div
         initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -78,7 +78,7 @@ export function ProjectHero({ meta, scrollY }) {
             />
           </div>
         </div>
-        <p className="mt-3 text-right text-2xs font-mono font-bold uppercase tracking-[0.2em] text-text-meta">
+        <p className="mt-3 text-right text-2xs font-mono font-bold uppercase text-text-meta">
           {t("project.media.heroCredit")}
         </p>
       </motion.div>

@@ -25,9 +25,9 @@ function VerbatimBlock({ item, index }) {
       aria-label={t("project.results.verbatim")}
       style={{ breakInside: "avoid" }}
     >
-      <p className="font-hand text-[28px] leading-snug text-text/80">“{item.quote}”</p>
+      <p className="font-hand text-quote leading-snug text-text-meta">“{item.quote}”</p>
       {item.attribution && !isNeedsInput(item.attribution) && (
-        <cite className="block not-italic text-2xs font-bold uppercase tracking-wider text-text-meta mt-2">
+        <cite className="block not-italic text-2xs font-bold uppercase text-text-meta mt-2">
           — {item.attribution}
         </cite>
       )}
@@ -50,7 +50,7 @@ export function VerbatimRail({ verbatims }) {
 export function VerbatimInline({ verbatims }) {
   if (!verbatims || verbatims.length === 0) return null;
   return (
-    <div className="xl:hidden mt-8 flex flex-col gap-6 max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-smooth">
+    <div className="xl:hidden mt-8 flex flex-col gap-6 max-w-measure transition-[max-width] duration-300 ease-smooth">
       {verbatims.map((item, i) => (
         <VerbatimBlock key={i} item={item} index={i} />
       ))}
@@ -61,7 +61,7 @@ export function VerbatimInline({ verbatims }) {
 export function VerbatimList({ verbatims }) {
   if (!verbatims || verbatims.length === 0) return null;
   return (
-    <div className="mt-8 flex flex-col gap-6 max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-smooth">
+    <div className="mt-8 flex flex-col gap-6 max-w-measure transition-[max-width] duration-300 ease-smooth">
       {verbatims.map((item, i) => (
         <VerbatimBlock key={i} item={item} index={i} />
       ))}

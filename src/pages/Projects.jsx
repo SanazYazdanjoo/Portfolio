@@ -20,6 +20,7 @@ import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { profileData as rawProfile } from "../data/profile";
 import { EASE } from "../utils/motion";
+import { EmptyState } from "../components/EmptyState";
 
 const VIEW_STORAGE_KEY = "projects.view";
 
@@ -41,8 +42,8 @@ function ViewToggleButton({ active, onClick, icon, label }) {
       onClick={onClick}
       aria-pressed={active}
       aria-label={label}
-      className={`relative flex items-center gap-2 px-3 py-2 text-xs font-bold uppercase tracking-widest
-                 transition-colors duration-200 ${active ? "text-white" : "text-text/60 hover:text-text"}`}
+      className={`relative flex items-center gap-2 px-3 py-2 text-xs font-bold uppercase tracking-caps
+                 transition-colors duration-200 ${active ? "text-white" : "text-dim hover:text-text"}`}
     >
       {active && (
         <motion.span
@@ -187,24 +188,7 @@ export default function Projects() {
           </AnimatePresence>
         ) : (
           /* Empty state — same keys as Home so both pages stay in sync */
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="border rule-box px-12 py-20 text-center"
-          >
-            <svg className="w-12 h-12 text-primary/25 mx-auto mb-6" fill="none"
-              stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round"
-                d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-            </svg>
-            <p className="text-[13px] font-semibold text-text-meta uppercase tracking-widest mb-2">
-              {t("projects.wip")}
-            </p>
-            <p className="text-[13px] text-dim max-w-xs mx-auto leading-relaxed font-light">
-              {t("projects.wipDesc")}
-            </p>
-          </motion.div>
+          <EmptyState title={t("projects.wip")}>{t("projects.wipDesc")}</EmptyState>
         )}
 
       </div>

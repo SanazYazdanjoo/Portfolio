@@ -76,12 +76,12 @@ export function MetricsStrip({ metrics, title, intro }) {
   return (
     <div className="mt-8">
       {intro ? (
-        <p className="mb-5 max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-smooth text-sm leading-relaxed text-text-meta"
+        <p className="mb-5 max-w-measure transition-[max-width] duration-300 ease-smooth text-sm leading-relaxed text-text-meta"
            style={{ breakInside: "avoid" }}>
           {intro}
         </p>
       ) : (
-        <p className="text-2xs font-black uppercase tracking-[0.2em] text-dim mb-5">
+        <p className="text-2xs font-black uppercase text-dim mb-5">
           {title || t("project.results.glance")}
         </p>
       )}
@@ -90,10 +90,10 @@ export function MetricsStrip({ metrics, title, intro }) {
           if (m.pending) {
             return (
               <div key={i} className="p-5 min-w-0">
-                <p className="font-display font-extrabold leading-none text-dim text-[15px] md:text-[17px] uppercase tracking-wide">
+                <p className="font-display font-extrabold leading-none text-dim text-base md:text-lg uppercase tracking-wide">
                   {t("project.results.pending")}
                 </p>
-                <p className="text-2xs uppercase tracking-wider text-text-meta font-semibold mt-3 leading-snug">
+                <p className="text-2xs uppercase text-text-meta font-semibold mt-3 leading-snug">
                   {m.label}
                 </p>
               </div>
@@ -104,11 +104,11 @@ export function MetricsStrip({ metrics, title, intro }) {
             <div key={i} className="p-5 min-w-0">
               <p
                 className={`font-display font-extrabold leading-none text-text tabular-nums break-words
-                           ${isLong ? "text-[22px] md:text-[26px]" : "text-[36px] md:text-[44px]"}`}
+                           ${isLong ? "text-metric-long" : "text-metric"}`}
               >
                 <AnimatedMetricValue value={m.value} />
               </p>
-              <p className="text-2xs uppercase tracking-wider text-text-meta font-semibold mt-3 leading-snug">
+              <p className="text-2xs uppercase text-text-meta font-semibold mt-3 leading-snug">
                 {m.label}
               </p>
             </div>

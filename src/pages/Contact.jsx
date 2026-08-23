@@ -14,8 +14,9 @@ import { StatusDot } from "../components/StatusDot";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { EASE } from "../utils/motion";
 
-const focusRing =
-  "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600";
+// The shared treatment (see .focus-ring in theme.css); kept as a local
+// alias only because these six call sites read better with it interpolated.
+const focusRing = "focus-ring";
 
 function MailIcon() {
   return (
@@ -64,7 +65,7 @@ export default function Contact() {
       <div className="container relative z-10 mx-auto max-w-4xl px-6">
 
         {/* Kicker + heading */}
-        <p className="text-2xs uppercase tracking-[0.18em] text-primary-600 font-bold mb-3">
+        <p className="text-2xs uppercase text-primary-600 font-bold mb-3">
           {t("contact.kicker")}
         </p>
         <header className="mb-6 relative inline-block">
@@ -77,7 +78,7 @@ export default function Contact() {
         {/* Availability */}
         <div className="flex items-start gap-3 max-w-md mb-12 md:mb-16">
           <StatusDot label={t("footer.available")} />
-          <p className="text-sm text-text/80 leading-relaxed font-medium">
+          <p className="text-sm text-text-meta leading-relaxed font-medium">
             {contact.availability}
           </p>
         </div>
@@ -120,12 +121,12 @@ export default function Contact() {
             </p>
 
             <div className="border-t rule-t pt-6">
-              <h3 className="text-2xs font-extrabold uppercase tracking-[0.18em] text-primary-600 mb-3">
+              <h3 className="text-2xs font-extrabold uppercase text-primary-600 mb-3">
                 {t("contact.goodToSend")}
               </h3>
               <ul className="space-y-2">
                 {contact.collaborateOn.map((item, i) => (
-                  <li key={i} className="text-sm text-text/80 leading-relaxed flex gap-2">
+                  <li key={i} className="text-sm text-text-meta leading-relaxed flex gap-2">
                     <span className="text-primary-600" aria-hidden="true">–</span>
                     {item}
                   </li>
@@ -166,8 +167,8 @@ export default function Contact() {
           </div>
 
           {/* RIGHT — the details */}
-          <div className="border-t rule-t md:border-t-0 md:border-l md:rule-l pt-6 md:pt-0 md:pl-5 rounded-none">
-            <h3 className="text-2xs font-extrabold uppercase tracking-[0.18em] text-primary-600 mb-4">
+          <div className="border-t rule-t md:border-t-0 md:border-l md:rule-l pt-6 md:pt-0 md:pl-5">
+            <h3 className="text-2xs font-extrabold uppercase text-primary-600 mb-4">
               {t("contact.details")}
             </h3>
 
@@ -193,7 +194,7 @@ export default function Contact() {
             </dl>
 
             <div className="border-t rule-t mt-6 pt-6">
-              <h3 className="text-2xs font-extrabold uppercase tracking-[0.18em] text-primary-600 mb-4">
+              <h3 className="text-2xs font-extrabold uppercase text-primary-600 mb-4">
                 {t("contact.collaborate")}
               </h3>
               <ul className="space-y-3">

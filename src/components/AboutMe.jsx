@@ -39,8 +39,8 @@ export function AboutBio({ data }) {
           variants={reduce ? itemReduced : item}
           className={
             i === 0
-              ? "text-[15px] md:text-base leading-[1.85] text-text"
-              : "text-sm leading-[1.9] text-text/75"
+              ? "text-base leading-[1.85] text-text"
+              : "text-sm leading-[1.9] text-text-meta"
           }
         >
           {para}

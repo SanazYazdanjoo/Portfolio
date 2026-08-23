@@ -33,13 +33,13 @@ function SectionHeader({ eyebrow, title, sub }) {
       className="mb-12"
       variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}
     >
-      <p className="text-2xs font-extrabold uppercase tracking-[0.18em] text-primary-600 mb-2">
+      <p className="text-2xs font-extrabold uppercase text-primary-600 mb-2">
         {eyebrow}
       </p>
       <h2 className="type-section">
         {title}
       </h2>
-      {sub && <p className="text-sm text-text/65 mt-5 max-w-md">{sub}</p>}
+      {sub && <p className="text-sm text-dim mt-5 max-w-md">{sub}</p>}
     </motion.div>
   );
 }
@@ -66,7 +66,7 @@ export default function About() {
 
       {/* Bio & Photo */}
       <section className="relative w-full px-[6%] md:px-[8%] pb-24 md:pb-32 font-sans text-text">
-        <div className="relative w-full max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-x-10 items-start">
+        <div className="relative w-full max-w-page mx-auto grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-x-10 items-start">
 
           {/* Left Column */}
           <motion.div
@@ -86,7 +86,7 @@ export default function About() {
               </h1>
             </div>
 
-            <p className="text-lg text-text/90 font-normal max-w-xl">
+            <p className="text-lg text-text font-normal max-w-xl">
               {profileData.bio}
             </p>
           </motion.div>
@@ -141,7 +141,7 @@ export default function About() {
               {profileData.certifications.slice(0, 4).map((cert, i) => (
                 <li
                   key={i}
-                  className="flex flex-wrap items-baseline gap-x-2 text-sm text-text/75"
+                  className="flex flex-wrap items-baseline gap-x-2 text-sm text-text-meta"
                 >
                   <span className="font-bold text-text">{cert.title}</span>
                   <span className="text-text-meta" aria-hidden="true">&mdash;</span>
@@ -152,7 +152,7 @@ export default function About() {
             </ul>
             <Link
               to="/credentials"
-              className="mt-6 inline-block text-xs font-black uppercase tracking-widest text-primary-600 hover:underline"
+              className="mt-6 inline-block text-xs font-black uppercase tracking-caps text-primary-600 hover:text-primary"
             >
               {t("credentials.viewAll")} &rarr;
             </Link>
@@ -174,10 +174,10 @@ export default function About() {
             className="max-w-2xl space-y-5 mb-12"
             variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}
           >
-            <p className="text-[15px] md:text-base leading-[1.85] text-text">
+            <p className="text-base leading-[1.85] text-text">
               {t("about.doubleDiamond.intro")}
             </p>
-            <p className="text-sm leading-[1.9] text-text/75">
+            <p className="text-sm leading-[1.9] text-text-meta">
               {t("about.doubleDiamond.intro2")}
             </p>
           </motion.div>
@@ -200,7 +200,7 @@ export default function About() {
                 />
               </picture>
             </div>
-            <figcaption className="mt-4 text-xs leading-relaxed text-text/60 max-w-xl">
+            <figcaption className="mt-4 text-xs leading-relaxed text-dim max-w-xl">
               {t("about.doubleDiamond.caption")}
             </figcaption>
           </motion.figure>
@@ -223,10 +223,10 @@ export default function About() {
                 >
                   {step.number}
                 </span>
-                <h3 className="font-black text-base text-text mb-3 uppercase tracking-wide">
+                <h3 className="font-black text-base text-text mb-3 uppercase tracking-caps">
                   {step.title}
                 </h3>
-                <p className="text-[12px] leading-relaxed text-text/65">
+                <p className="text-xs leading-relaxed text-dim">
                   {step.desc}
                 </p>
               </motion.div>
@@ -240,7 +240,7 @@ export default function About() {
         <section className="py-20 border-t rule-t">
           <div className="container mx-auto px-4 md:px-8">
             <motion.p
-              className="text-2xs font-extrabold uppercase tracking-[0.18em] text-primary-600 mb-8"
+              className="text-2xs font-extrabold uppercase text-primary-600 mb-8"
               variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}
             >
               {t("about.beyondTheBrief")}
@@ -259,14 +259,14 @@ export default function About() {
                 >
                   <div className="flex justify-between items-baseline mb-1.5">
                     <h3 className="font-black text-sm text-text">{item.title}</h3>
-                    <span className="text-2xs font-semibold uppercase tracking-widest text-secondary-600 shrink-0 ml-4">
+                    <span className="text-2xs font-semibold uppercase text-secondary-600 shrink-0 ml-4">
                       {item.year}
                     </span>
                   </div>
-                  <p className="text-2xs font-bold uppercase tracking-widest text-dim mb-1.5">
+                  <p className="text-2xs font-bold uppercase text-dim mb-1.5">
                     {item.org}
                   </p>
-                  <p className="text-xs leading-relaxed text-text/65">{item.desc}</p>
+                  <p className="text-xs leading-relaxed text-dim">{item.desc}</p>
                 </motion.div>
               ))}
             </div>
@@ -282,7 +282,7 @@ export default function About() {
             variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}
           >
             <div>
-              <p className="text-2xs font-extrabold uppercase tracking-[0.18em] text-primary-600 mb-2">
+              <p className="text-2xs font-extrabold uppercase text-primary-600 mb-2">
                 {t("about.whatsNext")}
               </p>
               <h2 className="type-section">
@@ -294,14 +294,14 @@ export default function About() {
             <div className="flex flex-wrap gap-4">
               <Link
                 to="/projects"
-                className="px-8 py-3 bg-primary rule-fill text-white text-xs font-black uppercase tracking-widest
+                className="px-8 py-3 bg-primary rule-fill text-white text-xs font-black uppercase tracking-caps
                            hover:bg-primary-600 transition-all duration-200"
               >
                 {t("about.viewProjects")}
               </Link>
               <Link
                 to="/cv"
-                className="px-8 py-3 border rule-frame [--rule-line-color:rgb(var(--text-rgb)/0.3)] text-text text-xs font-black uppercase tracking-widest
+                className="px-8 py-3 border rule-frame [--rule-line-color:rgb(var(--text-rgb)/0.3)] text-text text-xs font-black uppercase tracking-caps
                            hover:border-secondary hover:text-secondary-600 transition-all duration-200"
               >
                 {t("about.viewCV")}

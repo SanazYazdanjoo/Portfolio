@@ -22,7 +22,7 @@ export function ProjectNavCard({ project, direction }) {
         </div>
       )}
       <div className={`min-w-0 flex-1 flex flex-col ${isNext ? "sm:items-end" : ""}`}>
-        <p className={`flex items-center gap-1.5 text-2xs font-black uppercase tracking-[0.2em] text-text-meta mb-1 ${isNext ? "sm:flex-row-reverse" : ""}`}>
+        <p className={`flex items-center gap-1.5 text-2xs font-black uppercase text-text-meta mb-1 ${isNext ? "sm:flex-row-reverse" : ""}`}>
           <svg aria-hidden="true" className={`w-3 h-3 transition-transform duration-200 ${isNext ? "group-hover:translate-x-1" : "group-hover:-translate-x-1"}`}
             fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d={isNext ? "M14 5l7 7m0 0l-7 7m7-7H3" : "M10 19l-7-7m0 0l7-7m-7 7h18"} />

@@ -64,7 +64,7 @@ export const Nav = ({ isScrolled = false }) => {
                   to={link.path}
                   end={link.path === "/"}
                   className={({ isActive }) =>
-                    `group relative text-[13px] md:text-[14px] transition-colors duration-200
+                    `group relative text-sm transition-colors duration-200
                      ${isActive
                        ? "text-text font-semibold"
                        : "text-text-meta hover:text-secondary-600"
@@ -74,7 +74,7 @@ export const Nav = ({ isScrolled = false }) => {
                   {({ isActive }) => (
                     <>
                       {link.name}
-                      {/* Hover underline — 1px, left to right, 200ms */}
+                      {/* Hover underline — the house hairline, left to right, 200ms */}
                       <span
                         aria-hidden="true"
                         className="absolute left-0 -bottom-[6px] h-[5px] w-full bg-secondary-600 rule-stroke
@@ -168,7 +168,7 @@ function MobileMenu({ links }) {
       <button
         ref={triggerRef}
         onClick={() => setOpen(!open)}
-        className="relative z-[70] text-text p-3 -m-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
+        className="relative z-[70] text-text p-3 -m-1 focus-ring"
         aria-label={open ? t("nav.closeMenu") : t("nav.openMenu")}
         aria-expanded={open}
       >
@@ -205,7 +205,7 @@ function MobileMenu({ links }) {
                     className={({ isActive }) =>
                       `block py-3 font-display font-black text-4xl leading-tight
                        transition-colors duration-200
-                       ${isActive ? "text-text" : "text-text/50 hover:text-secondary-600"}`
+                       ${isActive ? "text-text" : "text-dim hover:text-secondary-600"}`
                     }
                   >
                     {({ isActive }) => (

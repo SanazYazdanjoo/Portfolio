@@ -54,7 +54,7 @@ function ProcessStep({ item, index, total }) {
           </div>
         )}
         <div className="flex-1 min-w-0">
-          <p className="font-mono text-2xs uppercase tracking-wider text-text-meta mb-2">
+          <p className="font-mono text-2xs uppercase text-text-meta mb-2">
             {phase.number} {t(phase.labelKey)}
             <span className="mx-1.5 text-text/25">·</span>
             {item.type}
@@ -64,7 +64,7 @@ function ProcessStep({ item, index, total }) {
             {item.title}
           </h3>
 
-          <p className="text-sm text-text/70 leading-relaxed">
+          <p className="text-sm text-text-meta leading-relaxed">
             {item.annotation}
           </p>
 
@@ -75,13 +75,13 @@ function ProcessStep({ item, index, total }) {
                 aria-expanded={expanded}
                 className="flex items-center gap-2 group/btn"
               >
-                <span className="text-2xs font-extrabold uppercase tracking-[0.18em] text-primary-600">
+                <span className="text-2xs font-extrabold uppercase text-primary-600">
                   {expanded ? t("project.process.hideInsight") : t("project.process.keyInsight")}
                 </span>
                 <motion.span
                   animate={{ rotate: expanded ? 180 : 0 }}
                   transition={{ duration: 0.2 }}
-                  className="text-text-meta group-hover/btn:text-text/60 transition-colors"
+                  className="text-text-meta group-hover/btn:text-dim transition-colors"
                 >
                   <svg className="w-3 h-3" fill="none" stroke="currentColor"
                     strokeWidth="2.5" viewBox="0 0 24 24">
@@ -98,7 +98,7 @@ function ProcessStep({ item, index, total }) {
                     transition={{ duration: 0.22 }}
                     className="overflow-hidden"
                   >
-                    <p className="text-[13px] leading-relaxed text-text/70
+                    <p className="text-sm leading-relaxed text-text-meta
                                   border-l-2 rule-edge-l [--rule-line-color:rgb(var(--primary-rgb)/0.4)] pl-3 mt-3">
                       {item.insight}
                     </p>
@@ -142,7 +142,7 @@ export function ProcessGallerySection({ items, number, isOpen, onToggle, stagger
         }}
       >
         <div style={{ overflow: "hidden", minHeight: 0 }}>
-          <ol className="list-none p-0 m-0 max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-smooth" role="list" aria-label={t("project.process.ariaLabel")}>
+          <ol className="list-none p-0 m-0 max-w-measure transition-[max-width] duration-300 ease-smooth" role="list" aria-label={t("project.process.ariaLabel")}>
             {items.map((item, i) => (
               <ProcessStep key={`${item.phase}-${i}`} item={item} index={i} total={items.length} />
             ))}

@@ -37,7 +37,7 @@ export function ProjectTile({ project, index }) {
       style={{ "--card-spine": spine }}
       className={`group relative flex h-full flex-col border rule-frame [--rule-fill-color:var(--bg)]
                  transition-all duration-[250ms] ease-smooth
-                 ${isComingSoon ? "opacity-60" : "hover:-translate-y-1 hover:shadow-[0_12px_24px_rgba(30,25,20,0.07)]"}`}
+                 ${isComingSoon ? "opacity-60" : "hover:-translate-y-1 hover:shadow-lg"}`}
     >
       {/* Domain spine — neutral at rest, colors in on hover. Its width never
           changes: one nib drew this site, and a mark that fattens under the
@@ -75,7 +75,7 @@ export function ProjectTile({ project, index }) {
           />
         ) : (
           <div className="relative flex h-full w-full items-center justify-center">
-            <span className="font-mono text-2xs uppercase tracking-widest text-text/25">
+            <span className="font-mono text-2xs uppercase text-dim">
               {project.title}
             </span>
           </div>
@@ -92,14 +92,14 @@ export function ProjectTile({ project, index }) {
           </span>
           {isComingSoon && (
             <span
-              className="shrink-0 border rule-frame px-2.5 py-1 text-2xs font-black uppercase tracking-[0.2em] text-dim"
+              className="shrink-0 border rule-frame px-2.5 py-1 text-2xs font-black uppercase text-dim"
             >
               {t("projects.comingSoon")}
             </span>
           )}
           {isInProgress && (
             <span
-              className="shrink-0 border rule-frame px-2.5 py-1 text-2xs font-black uppercase tracking-[0.2em] text-primary-600"
+              className="shrink-0 border rule-frame px-2.5 py-1 text-2xs font-black uppercase text-primary-600"
               style={{ "--rule-line-color": "var(--primary-600)" }}
             >
               {t("projects.inProgress")}
@@ -138,7 +138,7 @@ export function ProjectTile({ project, index }) {
     <motion.div {...motionProps}>
       <Link
         to={`/projects/${project.id}`}
-        className="block h-full outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+        className="block h-full outline-none focus-ring"
       >
         {inner}
       </Link>

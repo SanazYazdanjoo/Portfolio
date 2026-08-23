@@ -5,6 +5,7 @@ import { useTranslation } from '../context/LanguageContext';
 import { useDocumentMeta } from '../hooks/useDocumentMeta';
 import { profileData as rawProfile } from '../data/profile';
 import { useLocalizedProfile } from '../hooks/useLocalizedProfile';
+import { EmptyState } from "../components/EmptyState";
 
 const TagsDirectory = () => {
   const { t } = useTranslation();
@@ -35,7 +36,7 @@ const TagsDirectory = () => {
           <h1 className="font-display text-4xl md:text-6xl font-extrabold text-text tracking-tighter leading-tight mb-4">
             {t("tags.directory.title")}
           </h1>
-          <p className="text-base text-text/60 max-w-xl leading-relaxed">
+          <p className="text-base text-dim max-w-xl leading-relaxed">
             {t("tags.directory.subheading")}
           </p>
         </header>
@@ -49,16 +50,14 @@ const TagsDirectory = () => {
             <input
               type="text"
               placeholder={t("tags.directory.searchPlaceholder")}
-              className="block bg-bg px-3 py-2 text-sm text-text w-64 max-w-full
-                         focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+              className="block bg-bg px-3 py-2 text-sm text-text w-64 max-w-full focus-ring"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </span>
           <span className="inline-block border rule-frame">
             <select
-              className="block bg-bg px-3 py-2 text-sm text-text
-                         focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+              className="block bg-bg px-3 py-2 text-sm text-text focus-ring"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
             >
@@ -76,7 +75,7 @@ const TagsDirectory = () => {
             ))}
           </div>
         ) : (
-          <p className="text-sm text-text/50">{t("tags.directory.empty")}</p>
+          <EmptyState title={t("tags.directory.empty")} />
         )}
       </div>
     </main>

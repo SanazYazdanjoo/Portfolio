@@ -22,15 +22,15 @@ export function ComingSoonRow({ project, index }) {
       </span>
 
       <div className="flex-1 min-w-0">
-        <h2 className="font-display font-extrabold text-[24px] line-clamp-2 tracking-[-0.01em]
+        <h2 className="font-display font-extrabold text-2xl line-clamp-2 tracking-[-0.01em]
                        uppercase leading-tight text-text-meta">
           {project.title}
         </h2>
         <SkillTagRow tags={tags} className="mt-2 opacity-60" />
       </div>
 
-      <span className="hidden sm:inline-block shrink-0 text-2xs font-black uppercase tracking-[0.2em]
-                       text-text/35 border rule-frame px-2.5 py-1">
+      <span className="hidden sm:inline-block shrink-0 text-2xs font-black uppercase
+                       text-dim border rule-frame px-2.5 py-1">
         {t("projects.comingSoon")}
       </span>
     </div>

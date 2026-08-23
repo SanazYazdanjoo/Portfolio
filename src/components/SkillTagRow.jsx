@@ -16,7 +16,7 @@ export function SkillTagRow({ tags, className = "" }) {
       {tags.map((tag) => (
         <span
           key={tag}
-          className="inline-block rounded-full border rule-pill [--rule-cap:14px] px-2 py-1 text-2xs font-bold uppercase tracking-wide text-text/65
+          className="inline-block rounded-full border rule-pill [--rule-cap:14px] px-2 py-1 text-2xs font-bold uppercase text-dim
                      transition-colors duration-200 ease-smooth hover:[--rule-line-color:var(--primary-600)] hover:[--rule-fill-color:var(--primary-600)] hover:text-white"
         >
           {tag}

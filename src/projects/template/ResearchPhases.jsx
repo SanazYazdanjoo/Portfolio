@@ -26,14 +26,14 @@ export function ResearchPhases({ phases, intro, number, isOpen, onToggle, stagge
       staggerDelayMs={staggerDelayMs}
     >
       {intro && (
-        <ClampedText className="max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-smooth mb-8">
-          <p className="text-[17px] leading-[1.7] text-text/90">
+        <ClampedText className="max-w-measure transition-[max-width] duration-300 ease-smooth mb-8">
+          <p className="text-lg leading-[1.7] text-text">
             {intro}
           </p>
         </ClampedText>
       )}
 
-      <ol className="list-none p-0 m-0 max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-smooth">
+      <ol className="list-none p-0 m-0 max-w-measure transition-[max-width] duration-300 ease-smooth">
         {phases.map((p, i) => {
           const s = PHASE_STATUS[p.status] ?? PHASE_STATUS.planned;
           return (
@@ -54,13 +54,13 @@ export function ResearchPhases({ phases, intro, number, isOpen, onToggle, stagge
                   {p.phase}
                 </span>
                 <span
-                  className={`text-2xs font-black uppercase tracking-[0.2em] ${s.text}`}
+                  className={`text-2xs font-black uppercase ${s.text}`}
                 >
                   {t(s.labelKey)}
                 </span>
               </div>
               {p.note && (
-                <p className="mt-1.5 ml-5 text-sm text-text/60 leading-relaxed">
+                <p className="mt-1.5 ml-5 text-sm text-dim leading-relaxed">
                   {p.note}
                 </p>
               )}

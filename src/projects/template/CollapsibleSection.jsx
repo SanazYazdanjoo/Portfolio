@@ -13,7 +13,7 @@ import { EASE } from "./constants";
 export function CollapsibleSectionHead({ id, number, kicker, heading, isOpen, onToggle }) {
   return (
     <>
-      <p className="text-2xs font-black uppercase tracking-[0.2em] text-primary-600 mb-3">
+      <p className="text-2xs font-black uppercase text-primary-600 mb-3">
         {number} — {kicker}
       </p>
       <h2 className="mb-8">
@@ -23,9 +23,8 @@ export function CollapsibleSectionHead({ id, number, kicker, heading, isOpen, on
           aria-expanded={isOpen}
           aria-controls={`${id}-body`}
           className="group flex w-full items-center justify-between gap-4 border-0 bg-transparent
-                     p-0 text-left font-display font-extrabold text-2xl md:text-3xl tracking-tight
-                     leading-tight text-text focus:outline-none focus-visible:ring-2
-                     focus-visible:ring-primary-600"
+ p-0 text-left font-display font-extrabold text-2xl md:text-3xl tracking-tight
+ leading-tight text-text focus-ring"
         >
           <span>{heading}</span>
           <span className="mt-0.5 shrink-0 text-text-meta transition-colors duration-200 group-hover:text-primary-600 no-print">

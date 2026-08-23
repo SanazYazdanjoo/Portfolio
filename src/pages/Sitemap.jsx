@@ -108,12 +108,12 @@ function RouteNode({ path, label, description, children, index, isActive }) {
             {/* Path */}
             <Link
               to={path}
-              className="font-black text-xs text-primary hover:underline underline-offset-4 tracking-widest uppercase"
+              className="font-black text-xs text-primary hover:text-primary-600 tracking-caps uppercase"
             >
               {path}
             </Link>
             {/* Label */}
-            <span className="font-semibold text-sm text-text/80">{label}</span>
+            <span className="font-semibold text-sm text-text-meta">{label}</span>
             {/* Description */}
             {description && (
               <span className="text-2xs tracking-normal text-dim">{description}</span>
@@ -124,7 +124,7 @@ function RouteNode({ path, label, description, children, index, isActive }) {
           {hasChildren && (
             <button
               onClick={() => setOpen(p => !p)}
-              className="mt-2 text-2xs font-black uppercase tracking-widest text-primary/50
+              className="mt-2 text-2xs font-black uppercase text-primary/50
                          hover:text-primary transition-colors flex items-center gap-1"
             >
               <motion.span animate={{ rotate: open ? 90 : 0 }} transition={{ duration: 0.2 }}>
@@ -149,9 +149,9 @@ function RouteNode({ path, label, description, children, index, isActive }) {
             <div key={i} className="flex items-start gap-2">
               <span className="text-primary/30 text-2xs tracking-normal mt-0.5 shrink-0">└</span>
               <div>
-                <span className="text-2xs tracking-normal font-bold text-text/70">{child.label}</span>
+                <span className="text-2xs tracking-normal font-bold text-text-meta">{child.label}</span>
                 {child.description && (
-                  <span className="text-2xs tracking-normal text-text/35 ml-2">{child.description}</span>
+                  <span className="text-2xs tracking-normal text-dim ml-2">{child.description}</span>
                 )}
               </div>
             </div>
@@ -228,7 +228,7 @@ export default function Sitemap() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <p className="text-2xs font-black uppercase tracking-[0.25em] text-primary mb-2">
+          <p className="text-2xs font-black uppercase text-primary mb-2">
             {t("sitemap.kicker")}
           </p>
           <div className="relative inline-block mb-4">
@@ -251,7 +251,7 @@ export default function Sitemap() {
             ].map((stat) => (
               <div key={stat.label}>
                 <p className="font-black text-2xl text-primary leading-none">{stat.value}</p>
-                <p className="text-2xs uppercase tracking-widest text-dim font-semibold mt-1">
+                <p className="text-2xs uppercase text-dim font-semibold mt-1">
                   {stat.label}
                 </p>
               </div>
@@ -261,7 +261,7 @@ export default function Sitemap() {
 
         {/* Main navigation routes */}
         <section className="mb-12">
-          <p className="text-2xs font-black uppercase tracking-[0.2em] text-primary/60 mb-6">
+          <p className="text-2xs font-black uppercase text-primary/60 mb-6">
             {t("sitemap.section.mainNav")}
           </p>
           {mainRoutes.map((route, i) => (
@@ -277,7 +277,7 @@ export default function Sitemap() {
 
         {/* Credentials — standalone, not part of primary nav */}
         <section className="mb-12">
-          <p className="text-2xs font-black uppercase tracking-[0.2em] text-primary/60 mb-6">
+          <p className="text-2xs font-black uppercase text-primary/60 mb-6">
             {t("sitemap.section.credentials")}
           </p>
           <RouteNode
@@ -290,7 +290,7 @@ export default function Sitemap() {
 
         {/* Project detail routes (dynamic) */}
         <section className="mb-12">
-          <p className="text-2xs font-black uppercase tracking-[0.2em] text-primary/60 mb-6">
+          <p className="text-2xs font-black uppercase text-primary/60 mb-6">
             {t("sitemap.section.projectDetail")}{" "}
             <code className="text-2xs bg-primary/8 rule-fill px-1.5 py-0.5 text-primary">
               src/projects/**/data.js
@@ -310,7 +310,7 @@ export default function Sitemap() {
 
         {/* Legal routes */}
         <section>
-          <p className="text-2xs font-black uppercase tracking-[0.2em] text-primary/60 mb-6">
+          <p className="text-2xs font-black uppercase text-primary/60 mb-6">
             {t("sitemap.section.legal")}
           </p>
           {legalRoutes.map((route, i) => (

@@ -38,7 +38,7 @@ export function Hero({ data }) {
       <motion.p
         {...fadeUp(0.06)}
         className="text-2xs md:text-xs font-bold uppercase
-                   tracking-[0.28em] text-text-dim mb-5 md:mb-7"
+                   text-text-dim mb-5 md:mb-7"
       >
         {t("hero.kicker")}&nbsp;&nbsp;—&nbsp;&nbsp;{data.heroMeta?.location ?? data.contact?.location}
       </motion.p>
@@ -117,14 +117,14 @@ export function Hero({ data }) {
       >
         <SolidButton
           to="/projects"
-          className="text-sm md:text-base uppercase tracking-[0.18em]"
+          className="text-sm md:text-base uppercase tracking-caps"
         >
           {t("hero.ctaWork")}
         </SolidButton>
-        <Button to="/cv" className="text-sm uppercase tracking-[0.14em]">
+        <Button to="/cv" className="text-sm uppercase tracking-caps">
           {t("hero.ctaCv")}
         </Button>
-        <Button to="/about" className="text-sm uppercase tracking-[0.14em]">
+        <Button to="/about" className="text-sm uppercase tracking-caps">
           {t("nav.about")}
         </Button>
       </motion.div>

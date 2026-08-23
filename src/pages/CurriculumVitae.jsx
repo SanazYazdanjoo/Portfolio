@@ -109,7 +109,7 @@ export default function CV() {
             print:max-w-none print:px-8 print:py-8 print:m-0 print:border-0
           "
         >
-          <div className="max-w-5xl">
+          <div className="max-w-doc">
             {/* Name + contact — the one line that must survive both screen and
                 print, so a forwarded/printed PDF is still attributable to a
                 person, not just a role. `.cv-header` is exempt from the
@@ -148,7 +148,7 @@ export default function CV() {
                   onClick={() => {
                     document.getElementById(section.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
                   }}
-                  className={`shrink-0 px-3 py-1.5 text-2xs font-black uppercase tracking-[0.18em] border rule-frame transition-colors duration-200 ${
+                  className={`shrink-0 px-3 py-1.5 text-2xs font-black uppercase border rule-frame transition-colors duration-200 ${
                     activeId === section.id
                       ? "text-white [--rule-line-color:var(--primary)] [--rule-fill-color:var(--primary)]"
                       : "text-gray-500 hover:text-primary"
@@ -183,7 +183,7 @@ export default function CV() {
                     className={`break-inside-avoid ${i > 0 ? "border-t rule-edge-t rule-faint pt-5" : ""}`}
                   >
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1">
-                      <h3 className="font-black text-xl text-black uppercase tracking-wide print:text-lg">
+                      <h3 className="font-black text-xl text-black uppercase tracking-caps print:text-lg">
                         {job.company}
                       </h3>
                       <span className="text-sm font-bold text-gray-500 uppercase shrink-0 mt-1 sm:mt-0 sm:ml-4 print:text-xs">
@@ -201,10 +201,10 @@ export default function CV() {
                           <span
                             key={mi}
                             className="
-                              text-xs font-bold uppercase tracking-wider
+                              text-xs font-bold uppercase tracking-caps
                               text-primary border rule-frame [--rule-line-color:rgb(var(--primary-rgb)/0.2)]
                               [--rule-fill-color:rgb(var(--primary-rgb)/0.1)]
-                              px-2 py-1 rounded-sm
+                              px-2 py-1
                               print:text-2xs
                             "
                           >
@@ -258,7 +258,7 @@ export default function CV() {
               <div className="space-y-5 print:space-y-4">
                 {Object.entries(skills).map(([category, items]) => (
                   <div key={category} className="break-inside-avoid">
-                    <h3 className="text-sm font-black uppercase text-gray-500 tracking-widest mb-1.5 print:text-xs">
+                    <h3 className="text-sm font-black uppercase text-gray-500 tracking-caps mb-1.5 print:text-xs">
                       {SKILL_CATEGORY_KEYS[category]
                         ? t(SKILL_CATEGORY_KEYS[category], category)
                         : category}
@@ -284,7 +284,7 @@ export default function CV() {
                           href={cert.file || cert.verifyUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="no-print ml-2 text-primary underline underline-offset-2"
+                          className="no-print ml-2 text-primary-600 rule-underline"
                         >
                           {t("credentials.viewCredential")} &#8599;
                         </a>
@@ -295,7 +295,7 @@ export default function CV() {
               </div>
               <Link
                 to="/credentials"
-                className="no-print mt-5 inline-block text-sm font-bold text-primary underline underline-offset-2"
+                className="no-print mt-5 inline-block text-sm font-bold text-primary-600 rule-underline"
               >
                 {t("credentials.viewAll")} &rarr;
               </Link>
@@ -340,7 +340,7 @@ function CVSidebarNav({ sections, activeId }) {
 
   return (
     <nav aria-label={t("cv.sectionsAriaLabel")} className="pt-1">
-      <p className="text-2xs font-black uppercase tracking-[0.28em] text-gray-500 mb-5 pl-3">
+      <p className="text-2xs font-black uppercase text-gray-500 mb-5 pl-3">
         {t("cv.onThisPage")}
       </p>
       <ul className="space-y-0.5">
@@ -360,12 +360,12 @@ function CVSidebarNav({ sections, activeId }) {
                     : "[--rule-line-color:transparent] text-gray-500 hover:text-gray-900 hover:[--rule-line-color:rgb(209_213_219)]"
                 }`}
               >
-                <span className={`font-mono text-2xs font-bold uppercase tracking-[0.2em] tabular-nums shrink-0 ${
+                <span className={`font-mono text-2xs font-bold uppercase tabular-nums shrink-0 ${
                   isActive ? "text-primary" : "text-gray-500"
                 }`}>
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <span className={`text-2xs font-bold uppercase tracking-[0.2em] leading-tight ${
+                <span className={`text-2xs font-bold uppercase leading-tight ${
                   isActive ? "text-primary" : "text-gray-600"
                 }`}>
                   {section.label}
@@ -383,7 +383,7 @@ function SectionHeading({ children, sidebar = false }) {
   return (
     <h2
       className={`
-        font-black uppercase tracking-widest border-b rule-edge-b
+        font-black uppercase tracking-caps border-b rule-edge-b
         ${sidebar
           ? "text-base text-primary pb-2 mb-6 print:text-sm print:mb-4"
           : "text-2xl text-primary [--rule-line-color:rgb(var(--primary-rgb)/0.3)] pb-3 mb-8 print:text-xl print:mb-6"
