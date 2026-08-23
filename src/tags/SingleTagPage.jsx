@@ -5,6 +5,7 @@ import { useTranslation } from '../context/LanguageContext';
 import { ProjectTile } from '../components/ProjectTile';
 import { useDocumentMeta } from '../hooks/useDocumentMeta';
 import { profileData as rawProfile } from '../data/profile';
+import { EmptyState } from "../components/EmptyState";
 
 const SingleTagPage = () => {
   const { tagName } = useParams();
@@ -23,22 +24,22 @@ const SingleTagPage = () => {
 
   return (
     <main className="min-h-screen bg-bg pt-20 md:pt-24 pb-16">
-      <div className="w-full px-4 md:px-8 max-w-[1500px] mx-auto">
+      <div className="w-full px-4 md:px-8 max-w-wide mx-auto">
         <Link
           to="/tags"
-          className="inline-flex items-center gap-1 text-sm font-medium text-primary-600 hover:underline mb-8"
+          className="inline-flex items-center gap-1 text-sm font-medium text-primary-600 hover:text-primary mb-8"
         >
           &larr; {t("tags.single.backToAll")}
         </Link>
 
         <header className="mb-10 border-t rule-t pt-6">
-          <p className="text-2xs font-black uppercase tracking-[0.2em] text-primary-600 mb-3">
+          <p className="text-2xs font-black uppercase text-primary-600 mb-3">
             {t("tags.single.heading")}
           </p>
           <h1 className="font-display text-4xl md:text-6xl font-extrabold text-text tracking-tighter leading-tight mb-4">
             {tagName}
           </h1>
-          <p className="text-base text-text/60 max-w-xl leading-relaxed">
+          <p className="text-base text-dim max-w-xl leading-relaxed">
             {t("tags.single.subheading")}
           </p>
         </header>
@@ -50,7 +51,7 @@ const SingleTagPage = () => {
             ))}
           </div>
         ) : (
-          <p className="text-sm text-text/50">{t("tags.single.empty")}</p>
+          <EmptyState title={t("tags.single.empty")} />
         )}
       </div>
     </main>

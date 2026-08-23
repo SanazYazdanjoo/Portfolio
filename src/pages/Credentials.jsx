@@ -21,6 +21,7 @@ import { useTranslation } from "../context/LanguageContext";
 import { Badge } from "../components/Badge";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { EASE } from "../utils/motion";
+import { EmptyState } from "../components/EmptyState";
 
 const TOPIC_PARAM = "topic";
 
@@ -73,7 +74,7 @@ function FallbackTile({ title }) {
       <span aria-hidden="true" className="font-display text-4xl font-extrabold text-primary-600">
         {initial}
       </span>
-      <span className="max-w-full truncate text-center text-2xs font-bold uppercase tracking-widest text-dim">
+      <span className="max-w-full truncate text-center text-2xs font-bold uppercase text-dim">
         {title}
       </span>
     </div>
@@ -88,16 +89,16 @@ function FilterChip({ active, label, count, onClick }) {
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`inline-flex items-center gap-2 border rule-frame px-4 py-2 text-2xs font-black uppercase tracking-wider
-                  transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600
-                  ${
-                    active
-                      ? "[--rule-line-color:var(--primary-600)] [--rule-fill-color:var(--primary-600)] text-white"
-                      : "[--rule-fill-color:var(--bg)] text-text/70 hover:[--rule-line-color:var(--primary-600)] hover:text-primary-600"
-                  }`}
+      className={`inline-flex items-center gap-2 border rule-frame px-4 py-2 text-2xs font-black uppercase
+ transition-colors duration-200
+ ${
+ active
+ ? "[--rule-line-color:var(--primary-600)] [--rule-fill-color:var(--primary-600)] text-white"
+ : "[--rule-fill-color:var(--bg)] text-text-meta hover:[--rule-line-color:var(--primary-600)] hover:text-primary-600"
+ } focus-ring`}
     >
       {label}
-      <span className={active ? "text-white/70" : "text-text/35"}>{count}</span>
+      <span className={active ? "text-white/70" : "text-dim"}>{count}</span>
     </button>
   );
 }
@@ -169,8 +170,8 @@ function CertificateLightbox({ cert, onClose }) {
             type="button"
             onClick={onClose}
             aria-label={t("credentials.close")}
-            className="shrink-0 border rule-frame px-3 py-1.5 text-2xs font-black uppercase tracking-wider
-                       text-text hover:text-primary-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
+            className="shrink-0 border rule-frame px-3 py-1.5 text-2xs font-black uppercase
+ text-text hover:text-primary-600 focus-ring"
           >
             {t("credentials.close")} &#10005;
           </button>
@@ -198,8 +199,8 @@ function CertificateLightbox({ cert, onClose }) {
           <a
             href={cert.file}
             download
-            className="border rule-frame [--rule-line-color:rgb(var(--primary-rgb)/0.4)] px-4 py-2 text-2xs font-black uppercase tracking-wider
-                       text-primary-600 hover:[--rule-fill-color:var(--blush-weak)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
+            className="border rule-frame [--rule-line-color:rgb(var(--primary-rgb)/0.4)] px-4 py-2 text-2xs font-black uppercase
+ text-primary-600 hover:[--rule-fill-color:var(--blush-weak)] focus-ring"
           >
             {t("credentials.download")} &#8595;
           </a>
@@ -242,7 +243,7 @@ function CertificateCard({ cert, index, onOpenFile }) {
   );
 
   const thumbWrapClasses =
-    "block aspect-[4/3] w-full overflow-hidden border-b bg-muted/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary-600";
+    "block aspect-[4/3] w-full overflow-hidden border-b bg-muted/20 focus-ring-inset";
   const thumbInner = (
     <div className="h-full w-full transition-transform duration-300 group-hover:scale-[1.03]">
       {thumbContent}
@@ -306,13 +307,13 @@ function CertificateCard({ cert, index, onOpenFile }) {
           )}
         </div>
 
-        <p className="text-sm text-text/65">
+        <p className="text-sm text-dim">
           {cert.provider}
-          {cert.year && <span className="text-text/35"> &middot; {cert.year}</span>}
-          {cert.duration && <span className="text-text/35"> &middot; {cert.duration}</span>}
+          {cert.year && <span className="text-dim"> &middot; {cert.year}</span>}
+          {cert.duration && <span className="text-dim"> &middot; {cert.duration}</span>}
         </p>
 
-        {detail && <p className="text-sm leading-relaxed text-text/55">{detail}</p>}
+        {detail && <p className="text-sm leading-relaxed text-dim">{detail}</p>}
 
         {hasSkills && (
           <div className="mt-auto flex flex-wrap gap-1.5 pt-2">
@@ -329,8 +330,8 @@ function CertificateCard({ cert, index, onOpenFile }) {
             href={cert.verifyUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-1 inline-flex w-fit items-center gap-1 text-2xs font-black uppercase tracking-wider
-                       text-primary-600 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
+            className="mt-1 inline-flex w-fit items-center gap-1 text-2xs font-black uppercase
+ text-primary-600 hover:text-primary focus-ring"
           >
             {t("credentials.verify")} &#8599;
           </a>
@@ -422,7 +423,7 @@ export default function Credentials() {
 
   return (
     <main className="min-h-screen bg-bg pt-20 md:pt-24 pb-24">
-      <div className="container mx-auto max-w-6xl px-4 md:px-8">
+      <div className="container mx-auto max-w-doc px-4 md:px-8">
         <motion.header
           className="mb-10 max-w-2xl"
           initial={{ opacity: 0, y: 16 }}
@@ -432,11 +433,11 @@ export default function Credentials() {
           <h1 className="font-display text-4xl md:text-5xl font-black tracking-tight text-text">
             {t("credentials.heading")}
           </h1>
-          <p className="mt-4 text-sm text-text/60">{t("credentials.subheading")}</p>
+          <p className="mt-4 text-sm text-dim">{t("credentials.subheading")}</p>
         </motion.header>
 
         {sorted.length === 0 ? (
-          <p className="text-sm text-text/50">{t("credentials.empty")}</p>
+          <EmptyState title={t("credentials.empty")} />
         ) : (
           <>
             {/* Filter bar — centred above the grid */}
@@ -464,7 +465,7 @@ export default function Credentials() {
                   ))}
                 </div>
 
-                <p aria-live="polite" className="text-2xs uppercase tracking-widest text-dim">
+                <p aria-live="polite" className="text-2xs uppercase text-dim">
                   {t("credentials.showing")
                     .replace("{count}", visible.length)
                     .replace("{total}", sorted.length)}
@@ -473,17 +474,19 @@ export default function Credentials() {
             )}
 
             {visible.length === 0 ? (
-              <div className="border rule-box px-8 py-16 text-center">
-                <p className="text-sm text-text/60">{t("credentials.noMatch")}</p>
-                <button
-                  type="button"
-                  onClick={() => setSelected([])}
-                  className="mt-4 border rule-frame [--rule-line-color:rgb(var(--primary-rgb)/0.4)] px-4 py-2 text-2xs font-black uppercase tracking-wider
-                             text-primary-600 hover:[--rule-fill-color:var(--blush-weak)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
-                >
-                  {t("credentials.reset")}
-                </button>
-              </div>
+              <EmptyState
+                title={t("credentials.noMatch")}
+                action={
+                  <button
+                    type="button"
+                    onClick={() => setSelected([])}
+                    className="border rule-frame [--rule-line-color:rgb(var(--primary-rgb)/0.4)] px-4 py-2 text-2xs font-black uppercase
+ text-primary-600 hover:[--rule-fill-color:var(--blush-weak)] focus-ring"
+                  >
+                    {t("credentials.reset")}
+                  </button>
+                }
+              />
             ) : (
               <motion.div layout className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                 <AnimatePresence mode="popLayout" initial={false}>

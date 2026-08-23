@@ -45,9 +45,8 @@ export function SidebarNav({
           aria-label={toggleLabel}
           title={toggleLabel}
           className="inline-flex h-8 w-8 items-center justify-center border rule-frame
-                     text-dim transition-colors duration-200
-                     hover:[--rule-line-color:var(--primary-600)] hover:text-primary-600
-                     focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
+ text-dim transition-colors duration-200
+ hover:[--rule-line-color:var(--primary-600)] hover:text-primary-600 focus-ring"
         >
           <svg aria-hidden="true" className="h-3.5 w-3.5" fill="none" stroke="currentColor"
                strokeWidth="2.5" viewBox="0 0 24 24">
@@ -63,7 +62,7 @@ export function SidebarNav({
       {!collapsed && (
         <Link
           to="/projects"
-          className="flex items-center gap-2 text-2xs font-black uppercase tracking-[0.2em]
+          className="flex items-center gap-2 text-2xs font-black uppercase
                      text-dim hover:text-primary-600 transition-colors duration-200 mb-8 group"
         >
           <svg className="w-3 h-3 transform group-hover:-translate-x-0.5 transition-transform"
@@ -91,7 +90,7 @@ export function SidebarNav({
                 className={`relative w-full text-left flex items-baseline gap-3 py-2
                   transition-colors duration-200
                   ${collapsed ? "justify-center px-0" : "pl-3 pr-3"}
-                  ${isActive ? "text-primary-600" : "text-dim hover:text-text/80"}`}
+                  ${isActive ? "text-primary-600" : "text-dim hover:text-text-meta"}`}
               >
                 {isActive && (
                   <motion.span
@@ -104,7 +103,7 @@ export function SidebarNav({
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 {!collapsed && (
-                  <span className="text-2xs font-bold uppercase tracking-widest">
+                  <span className="text-2xs font-bold uppercase">
                     {label}
                   </span>
                 )}
@@ -118,7 +117,7 @@ export function SidebarNav({
         <button
           onClick={onToggleAll}
           className="mt-6 pt-4 border-t rule-t w-full text-left flex items-center gap-2
-                     text-2xs font-bold uppercase tracking-[0.15em] text-text/35
+                     text-2xs font-bold uppercase text-dim
                      hover:text-primary-600 transition-colors duration-200"
         >
           <Chevron isOpen={allOpen} />
@@ -149,7 +148,7 @@ export function MobilePillBar({ sections, activeId, onNavigate }) {
             <button
               key={section.id}
               onClick={() => onNavigate(section.id)}
-              className={`shrink-0 px-3 py-1.5 text-2xs font-black uppercase tracking-widest
+              className={`shrink-0 px-3 py-1.5 text-2xs font-black uppercase
                 transition-colors duration-200
                 border rule-frame
                 ${isActive

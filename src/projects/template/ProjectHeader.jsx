@@ -47,7 +47,7 @@ export function ProjectHeader({ meta, tags }) {
               aria-hidden="true"
               className="w-1.5 h-1.5 rule-dot bg-primary-600"
             />
-            <span className="text-2xs font-black uppercase tracking-[0.2em] text-primary-600">
+            <span className="text-2xs font-black uppercase text-primary-600">
               {meta.stage}
             </span>
           </span>
@@ -60,7 +60,7 @@ export function ProjectHeader({ meta, tags }) {
       </FitTitle>
 
       {meta.tagline && (
-        <p className="max-w-[720px] text-lg md:text-xl text-text/60 font-medium leading-relaxed mb-8">
+        <p className="max-w-[720px] text-lg md:text-xl text-dim font-medium leading-relaxed mb-8">
           {meta.tagline}
         </p>
       )}
@@ -84,7 +84,7 @@ export function ProjectHeader({ meta, tags }) {
         <dl className="border-t rule-t">
           {meta.role && (
             <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-[140px_1fr] sm:gap-4 py-4 border-b rule-b">
-              <dt className="text-2xs font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
+              <dt className="text-2xs font-black uppercase text-primary-600 pt-0.5">
                 {t("project.meta.role")}
               </dt>
               <dd className="text-sm text-text font-medium">{meta.role}</dd>
@@ -93,7 +93,7 @@ export function ProjectHeader({ meta, tags }) {
           {meta.myContribution && <ContributionRow contribution={meta.myContribution} />}
           {meta.timeline && (
             <div className={`grid grid-cols-1 gap-1.5 sm:grid-cols-[140px_1fr] sm:gap-4 py-4 ${tags.length > 0 ? "border-b rule-b" : ""}`}>
-              <dt className="text-2xs font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
+              <dt className="text-2xs font-black uppercase text-primary-600 pt-0.5">
                 {t("project.meta.timeline")}
               </dt>
               <dd className="font-mono text-sm text-text">{meta.timeline}</dd>
@@ -101,7 +101,7 @@ export function ProjectHeader({ meta, tags }) {
           )}
           {tags.length > 0 && (
             <div className={`grid grid-cols-1 gap-1.5 sm:grid-cols-[140px_1fr] sm:gap-4 py-4 ${meta.aiAssistance ? "border-b rule-b" : ""}`}>
-              <dt className="text-2xs font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
+              <dt className="text-2xs font-black uppercase text-primary-600 pt-0.5">
                 {t("project.meta.skills")}
               </dt>
               <dd className="flex flex-wrap gap-2">
@@ -129,10 +129,9 @@ export function ProjectHeader({ meta, tags }) {
                         : t("project.meta.showAllSkills").replace("{n}", tags.length)
                     }
                     className="sm:hidden no-print inline-flex items-center rounded-full border-[1.5px]
-                               border-dashed border-text-meta bg-transparent px-3 py-1 text-xs
-                               font-semibold tracking-wide text-text-meta transition-colors
-                               duration-200 ease-smooth hover:border-primary-600 hover:text-primary-600
-                               focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
+ rule-pill [--rule-line-color:var(--text-meta)] bg-transparent px-3 py-1 text-xs
+ font-semibold tracking-wide text-text-meta transition-colors
+ duration-200 ease-smooth hover:[--rule-line-color:var(--primary-600)] hover:text-primary-600 focus-ring"
                   >
                     {allTagsShown
                       ? t("project.meta.fewerSkills")
@@ -155,10 +154,10 @@ export function ProjectHeader({ meta, tags }) {
           {meta.aiAssistance && (
             <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-[140px_1fr] sm:gap-4 py-4"
                  style={{ breakInside: "avoid" }}>
-              <dt className="text-2xs font-black uppercase tracking-[0.2em] text-primary-600 pt-0.5">
+              <dt className="text-2xs font-black uppercase text-primary-600 pt-0.5">
                 {t("project.meta.aiAssistance")}
               </dt>
-              <dd className="max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-smooth text-sm leading-relaxed text-text/70">
+              <dd className="max-w-measure transition-[max-width] duration-300 ease-smooth text-sm leading-relaxed text-text-meta">
                 {meta.aiAssistance}
               </dd>
             </div>

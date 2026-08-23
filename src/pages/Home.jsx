@@ -22,6 +22,7 @@ import { useTranslation } from "../context/LanguageContext";
 import CareerArc from "../components/CareerArc";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { EASE } from "../utils/motion";
+import { EmptyState } from "../components/EmptyState";
 
 
 // Eyebrow + heading, animated in as a pair rather than one block: the
@@ -40,7 +41,7 @@ function SectionHeading({ eyebrow, heading }) {
   return (
     <div>
       <motion.span
-        className="block text-2xs tracking-[0.12em] uppercase text-primary-600 font-bold"
+        className="block text-2xs uppercase text-primary-600 font-bold"
         initial={reduce ? { opacity: 1 } : { opacity: 0, x: -8 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, margin: "-10%" }}
@@ -124,7 +125,7 @@ export default function Home() {
 
       {/* Hero — natural height, no viewport lock. Keep overflow-visible:
           overflow-hidden here clips the handwritten role badge. */}
-      <section id="Hero-Section" className="w-full relative overflow-visible max-w-[1200px] mx-auto">
+      <section id="Hero-Section" className="w-full relative overflow-visible max-w-page mx-auto">
         <Hero data={profileData} />
       </section>
 
@@ -134,7 +135,7 @@ export default function Home() {
           inside still holds the shared 1200px column. */}
       <div className="-mx-8 md:-mx-12 lg:-mx-16 bg-surface-warm">
         <div className="px-8 md:px-12 lg:px-16 pb-14 md:pb-16">
-          <div className="max-w-[1200px] mx-auto w-full">
+          <div className="max-w-page mx-auto w-full">
             <HomeSection id="AboutMe-Section" eyebrow={t("home.about.kicker")} heading={t("about.heading")} tight>
               <AboutBio data={profileData} />
 
@@ -150,7 +151,7 @@ export default function Home() {
       {/* Case Studies — same label-rail + content-column system as
           About/Bridge, so the content axis never drifts between sections.
           id="projects" is the target of the /#projects nav anchor. */}
-      <div className="max-w-[1200px] mx-auto w-full">
+      <div className="max-w-page mx-auto w-full">
         <HomeSection id="projects" eyebrow={t("home.projects.kicker")} heading={t("projects.heading")}>
           {hasAnyProjects ? (
             <div>
@@ -168,11 +169,7 @@ export default function Home() {
               <div className="w-full rule-line" />
             </div>
           ) : (
-            <div className="py-16 text-center">
-              <p className="doodle-text m-0 text-3xl text-dim">
-                {t("home.projects.empty")}
-              </p>
-            </div>
+            <EmptyState title={t("home.projects.empty")} />
           )}
         </HomeSection>
       </div>
