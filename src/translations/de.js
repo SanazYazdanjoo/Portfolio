@@ -1,6 +1,7 @@
 const de = {
   // Navigation
   "nav.home": "Startseite",
+  "nav.work": "Arbeiten",
   "nav.projects": "Projekte",
   "nav.about": "Über mich",
   "nav.cv": "Lebenslauf",
