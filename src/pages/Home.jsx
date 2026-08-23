@@ -16,6 +16,7 @@ import { StackedProjectCard } from "../components/StackedProjectCard";
 import { sortedProjects } from "../data/projects";
 import { profileData as rawProfile } from "../data/profile";
 import { ComingSoonRow } from "../components/ComingSoonRow";
+import { HomeContact } from "../components/HomeContact";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
@@ -197,10 +198,12 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Case Studies — same label-rail + content-column system as
+      {/* Case Studies + Contact — same label-rail + content-column system as
           About/Bridge, so the content axis never drifts between sections.
-          id="projects" is the target of the /#projects nav anchor. */}
-      <div className="max-w-page mx-auto w-full">
+          id="projects" is the target of the /#projects nav anchor. The
+          bottom pad here is the page's only gap above the Footer's own
+          pt-12; the two together are the seam. */}
+      <div className="max-w-page mx-auto w-full pb-16 md:pb-20">
         <HomeSection id="projects" eyebrow={t("home.projects.kicker")} heading={t("projects.heading")}>
           {hasAnyProjects ? (
             <div>
@@ -220,6 +223,17 @@ export default function Home() {
           ) : (
             <EmptyState title={t("home.projects.empty")} />
           )}
+        </HomeSection>
+
+        {/* Contact — the page's closing ask, on the same label-rail axis as
+            every other section so it reads as content rather than as an
+            appendix to the footer. */}
+        <HomeSection
+          id="contact"
+          eyebrow={t("home.contact.kicker")}
+          heading={t("contact.headline")}
+        >
+          <HomeContact data={profileData} />
         </HomeSection>
       </div>
 

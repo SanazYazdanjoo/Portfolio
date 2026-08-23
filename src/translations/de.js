@@ -17,6 +17,8 @@ const de = {
   // Projects
   "projects.heading": "Fallstudien",
   "home.projects.kicker": "02 — Ausgewählte Arbeiten",
+  "home.contact.kicker": "03 — Kontakt aufnehmen",
+  "home.contact.moreWays": "Alle Kontaktdaten",
   "projects.title": "Projekte",
   "projects.viewProject": "Fallstudie ansehen",
   "projects.comingSoon": "Demnächst",

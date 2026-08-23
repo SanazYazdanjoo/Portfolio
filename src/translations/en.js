@@ -20,6 +20,8 @@ const en = {
   // Projects
   "projects.heading": "Case Studies",
   "home.projects.kicker": "02 — Selected Work",
+  "home.contact.kicker": "03 — Get in touch",
+  "home.contact.moreWays": "All contact details",
   "projects.title": "Projects",
   "projects.viewProject": "View Case Study",
   "projects.comingSoon": "Coming Soon",
