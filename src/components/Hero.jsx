@@ -1,8 +1,17 @@
-// The photo cluster reserves headroom (pt-10 md:pt-12) so the handwritten
-// role badge sits inside the layout box at top-0 instead of hanging above it
-// via negative offsets — that way it can't get clipped by an ancestor's
-// overflow-hidden. Home.jsx's Hero-Section wrapper must stay overflow-visible
-// to match.
+// One optical block: the eyebrow, name, positioning line and tagline sit in
+// the left column, the headshot in the right, and CSS Grid's default
+// `stretch` makes the two columns end at the same y. That is what pins the
+// photo's top edge to the eyebrow line and its bottom edge to the tagline
+// baseline — no magic offsets, and it holds at every breakpoint because the
+// row height is whichever column is taller. `mt-auto` on the tagline is the
+// other half of the rule: when the photo is the taller of the two, the slack
+// lands between the positioning line and the tagline rather than under it,
+// so the tagline stays welded to the photo's bottom edge.
+//
+// The handwritten role badge that used to hang over the photo is gone: it
+// said "UX Engineer", which is the first half of the eyebrow line and now
+// also the first two words of the positioning statement. The role still
+// reaches assistive tech via the sr-only span inside the <h1>.
 
 import React from "react";
 import { useTranslation } from "../context/LanguageContext";
@@ -13,7 +22,8 @@ import { EASE } from "../utils/motion";
 
 // Shared entrance timing — 400ms max per the motion spec, single easing
 // token, staggered per element (kicker 60ms, name lines 120/180ms, portrait
-// 240ms, tagline 320ms). Nav's own entrance (0ms) lives in Nav.jsx.
+// 240ms, positioning 300ms, tagline 320ms). Nav's own entrance (0ms) lives
+// in Nav.jsx.
 const ENTRANCE_DURATION = 0.4;
 
 export function Hero({ data }) {
@@ -32,100 +42,103 @@ export function Hero({ data }) {
   const { t } = useTranslation();
 
   return (
-    <div className="relative w-full flex flex-col pt-6 md:pt-10 pb-4 min-h-0 md:max-h-[100vh]">
+    // ~85vh is the target, not a clip: `max-h` caps the block on a normal
+    // desktop viewport, and content that genuinely needs more (a very short
+    // window, a large font-size setting) is allowed to run past it rather
+    // than be cut off.
+    <div className="relative w-full flex flex-col pt-4 md:pt-6 pb-6 min-h-0 md:max-h-[85vh]">
 
-      {/* Kicker: the 2-second read */}
-      <motion.p
-        {...fadeUp(0.06)}
-        className="text-2xs md:text-xs font-bold uppercase
-                   text-text-dim mb-5 md:mb-7"
-      >
-        {t("hero.kicker")}&nbsp;&nbsp;—&nbsp;&nbsp;{data.heroMeta?.location ?? data.contact?.location}
-      </motion.p>
+      <div className="grid grid-cols-12 gap-x-6 md:gap-x-8 items-stretch">
 
-      {/* Name + Photo: 12-col editorial grid (≈ 70/30 split), bottom-aligned
-          so the portrait's baseline matches the last name line's baseline. */}
-      <div className="grid grid-cols-12 gap-x-4 md:gap-x-6 items-end">
+        {/* Text column — eyebrow at the top, tagline pinned to the bottom */}
+        <div className="col-span-12 md:col-span-8 flex flex-col">
 
-        <h1
-          className="type-hero col-span-12 md:col-span-8 md:col-start-1 md:row-start-1
-                     relative z-20 text-text pointer-events-none"
-        >
-          <motion.span {...fadeUp(0.12)} className="block">{firstName}</motion.span>
-          <motion.span {...fadeUp(0.18)} className="block">{lastName}</motion.span>
-          <span className="sr-only"> — {data.role || "UX Engineer"}</span>
-        </h1>
+          {/* Kicker: the 2-second read. 12px floor for an all-caps,
+              letter-spaced label (see tracking-caps in tailwind.config). */}
+          <motion.p
+            {...fadeUp(0.06)}
+            className="text-xs font-bold uppercase tracking-caps
+                       text-text-meta mb-4 md:mb-5"
+          >
+            {t("hero.kicker")}&nbsp;&nbsp;—&nbsp;&nbsp;{data.heroMeta?.location ?? data.contact?.location}
+          </motion.p>
 
-        {/* Photo cluster — pt-* reserves space for the badge inside the box */}
+          <h1 className="type-hero relative z-20 text-text pointer-events-none">
+            <motion.span {...fadeUp(0.12)} className="block">{firstName}</motion.span>
+            <motion.span {...fadeUp(0.18)} className="block">{lastName}</motion.span>
+            <span className="sr-only"> — {data.role || "UX Engineer"}</span>
+          </h1>
+
+          {/* Positioning statement — role + specialism + what I'm looking
+              for, in one line of plain prose. This is the sentence a
+              recruiter needs and the handwritten tagline can't carry. */}
+          {data.positioning && (
+            <motion.p
+              {...fadeUp(0.3)}
+              className="max-w-[52ch] mt-4 md:mt-5 text-base md:text-lg leading-relaxed text-text"
+            >
+              {data.positioning}
+            </motion.p>
+          )}
+
+          {/* Tagline: the one gold-highlighter moment on this page. The sweep
+              fires once, timed to start just after the tagline itself settles
+              (delay 0.32 + entrance duration 0.4 ≈ 0.72s). */}
+          <motion.p
+            {...fadeUp(0.32)}
+            className="hero-tagline max-w-2xl mt-auto pt-5
+                       font-hand font-bold text-2xl md:text-3xl leading-[1.15]"
+          >
+            <InkHighlight triggerOnLoad delay={0.75} duration={0.4}>
+              {data.tagline || "I speak both ‘user’ and ‘developer’."}
+            </InkHighlight>
+          </motion.p>
+        </div>
+
+        {/* Photo column — `h-full` inside the stretched grid cell is what
+            makes the frame span exactly eyebrow-top to tagline-bottom. The
+            crop is horizontal (the box is narrower per unit height than the
+            source 4:5), so object-cover never cuts the face. */}
         <motion.div
           {...fadeUp(0.24)}
-          className="col-span-9 col-start-2 sm:col-span-8 sm:col-start-3 mt-6 md:mt-0
-                     md:col-span-4 md:col-start-9 md:row-start-1
-                     relative z-10 pt-8 md:pt-10"
+          className="col-span-8 col-start-3 sm:col-span-6 sm:col-start-4 mt-8 md:mt-0
+                     md:col-span-3 md:col-start-10 relative z-10"
         >
-          {/* Badge lives in the reserved headroom: top-0, right-anchored,
-              wrappable via max-w — no negative offsets, so it can't clip. */}
-          <span
-            aria-hidden="true"
-            className="hero-role absolute top-0 right-2 md:right-0
-                       origin-bottom-right -rotate-[4deg]
-                       font-hand font-bold text-secondary
-                       text-2xl md:text-3xl leading-[1.05]
-                       z-30 select-none text-right max-w-[16ch]"
-          >
-            {data.role || "UX Engineer"}
-          </span>
-
           <div
-            className="photo-frame rule-frame-in relative z-20 rotate-1
+            className="photo-frame rule-frame-in relative z-20 rotate-1 h-full
                        transition-transform duration-[250ms] ease-smooth
                        hover:rotate-0 hover:scale-[1.02]"
           >
             <img
               src={data.aboutImage}
               alt={data.name}
-              className="w-full h-auto object-cover grayscale
+              className="w-full h-full object-cover object-center grayscale
+                         aspect-[4/5] md:aspect-auto md:min-h-[320px]
                          transition-all duration-[400ms] ease-smooth hover:grayscale-0"
-              style={{ aspectRatio: "4 / 5" }}
             />
           </div>
         </motion.div>
       </div>
 
-      {/* Tagline: the one gold-highlighter moment on this page. The sweep
-          fires once, timed to start just after the tagline itself settles
-          (delay 0.32 + entrance duration 0.4 ≈ 0.72s). Type deliberately
-          mirrors the role badge above (font-hand, 2xl/3xl) so the two
-          handwritten notes read as the same voice. */}
-      <motion.p
-        {...fadeUp(0.32)}
-        className="hero-tagline max-w-2xl mt-4 md:mt-5
-                   font-hand font-bold text-2xl md:text-3xl leading-[1.15]"
-      >
-        <InkHighlight triggerOnLoad delay={0.75} duration={0.4}>
-          {data.tagline || "I speak both ‘user’ and ‘developer’."}
-        </InkHighlight>
-      </motion.p>
-
-      {/* CTA row. The work is the primary action — a recruiter's first
-          question is "what has she built?", not "who is she?". About/CV
-          stay reachable as plain text links so there's one visual primary,
-          not three competing SolidButtons. */}
+      {/* CTA row. One primary — the work — carrying the house hand-drawn
+          underline so it reads as the page's single ask at rest, not only on
+          hover. CV is the secondary; "About" is gone because it is already
+          in the primary nav two lines above. */}
       <motion.div
         {...fadeUp(0.38)}
-        className="mt-4 md:mt-5 flex flex-wrap items-center gap-x-6 gap-y-3"
+        className="mt-8 md:mt-10 flex flex-wrap items-center gap-x-8 gap-y-4"
       >
         <SolidButton
           to="/projects"
-          className="text-sm md:text-base uppercase tracking-caps"
+          className="rule-underline"
         >
           {t("hero.ctaWork")}
         </SolidButton>
-        <Button to="/cv" className="text-sm uppercase tracking-caps">
+        <Button
+          to="/cv"
+          className="text-xs uppercase tracking-caps font-bold text-text-meta hover:text-primary-600"
+        >
           {t("hero.ctaCv")}
-        </Button>
-        <Button to="/about" className="text-sm uppercase tracking-caps">
-          {t("nav.about")}
         </Button>
       </motion.div>
     </div>
