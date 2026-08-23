@@ -20,9 +20,11 @@ const LINK =
   "inline-flex items-center gap-1.5 text-sm font-bold text-text " +
   "hover:text-primary-600 transition-colors duration-200 focus-ring";
 
-// The house external-link mark, at the 12px floor rather than 10px.
+// The house external-link mark. Decorative, but it still carries the full
+// text-meta ink rather than a half-opacity wash — an opacity that puts a
+// glyph at 3.6:1 is not a "subtle" version of a legible one.
 function ExternalMark() {
-  return <span aria-hidden="true" className="text-xs opacity-60">↗</span>;
+  return <span aria-hidden="true" className="text-xs">↗</span>;
 }
 
 export function HomeContact({ data }) {

@@ -24,11 +24,11 @@ export function LanguageToggle({ className = "" }) {
       aria-label={switchLabel}
       title={switchLabel}
     >
-      {/* Inactive language: /65 is the AA floor for 10px text on white —
-          anything lighter than ~65% of this ink drops below 4.5:1. The
-          active/inactive distinction rides on the coral + underline, not
-          on pushing the inactive label past legibility. */}
-      <span className="relative flex items-center gap-1 text-2xs font-black uppercase">
+      {/* 12px, not 10px: this is an all-caps, letter-spaced label and the
+          site holds those to a 12px floor. The active/inactive distinction
+          rides on the coral + underline, not on pushing the inactive label
+          past legibility. */}
+      <span className="relative flex items-center gap-1 text-xs tracking-caps font-black uppercase">
         <span className={lang === "en" ? "text-primary" : "text-dim"}>EN</span>
         <span className="text-text/20">/</span>
         <span className={lang === "de" ? "text-primary" : "text-dim"}>DE</span>

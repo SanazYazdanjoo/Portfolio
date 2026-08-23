@@ -36,13 +36,16 @@ import { EmptyState } from "../components/EmptyState";
 // Note: `primary-600` (#5E1605) is the codebase's AA-safe coral for small
 // text (see theme.css) and is used here for the eyebrow so verification
 // item 5 holds — both -600 and the base -700/-500 clear WCAG AA on white
-// now that the palette runs on the darker Brandy coral.
+// now that the palette runs on the darker Brandy coral. The eyebrow is
+// text-xs, not text-2xs: 10px of letter-spaced capitals is below the size
+// floor this page now holds every all-caps label to, so `tracking-caps` is
+// spelled out here rather than inherited from the 2xs font-size token.
 function SectionHeading({ eyebrow, heading }) {
   const reduce = useReducedMotion();
   return (
     <div>
       <motion.span
-        className="block text-2xs uppercase text-primary-600 font-bold"
+        className="block text-xs uppercase tracking-caps text-primary-600 font-bold"
         initial={reduce ? { opacity: 1 } : { opacity: 0, x: -8 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, margin: "-10%" }}

@@ -24,7 +24,7 @@ export function Footer({ data }) {
 
           {/* Column 1: Status */}
           <div className="md:col-span-5">
-            <h3 className="text-2xs font-black uppercase text-dim mb-5">
+            <h3 className="text-xs font-black uppercase tracking-caps text-text-meta mb-5">
               {t("footer.status")}
             </h3>
             <div className="flex items-start gap-3">
@@ -38,7 +38,7 @@ export function Footer({ data }) {
 
           {/* Column 2: Direct Contact */}
           <div className="md:col-span-4">
-            <h3 className="text-2xs font-black uppercase text-dim mb-5">
+            <h3 className="text-xs font-black uppercase tracking-caps text-text-meta mb-5">
               {t("footer.directContact")}
             </h3>
             <ul className="space-y-3 text-sm font-medium">
@@ -50,7 +50,7 @@ export function Footer({ data }) {
               {contact.linkedin && (
                 <li>
                   <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="text-text hover:text-primary transition-colors duration-300 inline-flex items-center gap-1.5">
-                    LinkedIn <span className="text-2xs tracking-normal opacity-50">↗</span>
+                    LinkedIn <span aria-hidden="true" className="text-xs">↗</span>
                   </a>
                 </li>
               )}
@@ -59,30 +59,28 @@ export function Footer({ data }) {
 
           {/* Column 3: Utility */}
           <div className="md:col-span-3">
-            <h3 className="text-2xs font-black uppercase text-dim mb-5">
+            <h3 className="text-xs font-black uppercase tracking-caps text-text-meta mb-5">
               {t("footer.utility")}
             </h3>
             <ul className="space-y-3 text-sm font-medium">
               <li>
                 <Link to="/cv" className="text-text hover:text-primary transition-colors duration-300 inline-flex items-center gap-1.5">
-                  {t("footer.cvLink")}<span className="text-2xs tracking-normal opacity-50">↗</span>
+                  {t("footer.cvLink")}<span aria-hidden="true" className="text-xs">↗</span>
                 </Link>
               </li>
               <li>
                 <Link to="/credentials" className="text-text hover:text-primary transition-colors duration-300 inline-flex items-center gap-1.5">
-                  {t("credentials.heading")}<span className="text-2xs tracking-normal opacity-50">↗</span>
+                  {t("credentials.heading")}<span aria-hidden="true" className="text-xs">↗</span>
                 </Link>
               </li>
               {contact.github && (
                 <li>
                   <a href={contact.github} target="_blank" rel="noopener noreferrer" className="text-text hover:text-primary transition-colors duration-300 inline-flex items-center gap-1.5">
-                    {t("footer.githubLink")} <span className="text-2xs tracking-normal opacity-50">↗</span>
+                    {t("footer.githubLink")} <span aria-hidden="true" className="text-xs">↗</span>
                   </a>
                 </li>
               )}
-              {/* /70 — the AA floor for 11px text is ~/65; /70 matches the
-                  "/70 ink on white" convention used for small meta text. */}
-              <li className="text-text-meta pt-1 text-2xs uppercase font-bold">
+              <li className="text-text-meta pt-1 text-xs uppercase tracking-caps font-bold">
                 {t("footer.timezone")}
               </li>
             </ul>
@@ -94,7 +92,7 @@ export function Footer({ data }) {
         <div className="rule-line mb-4" />
 
         {/* Colophon: this site is the case study */}
-        <p className="text-2xs tracking-normal text-text-meta font-medium mb-3">
+        <p className="text-xs text-text-meta font-medium mb-3">
           {t("footer.colophon")}{" "}
           <a
             href={REPO_URL}
@@ -102,32 +100,32 @@ export function Footer({ data }) {
             rel="noopener noreferrer"
             className="text-primary-600 hover:text-primary transition-colors duration-300 rule-underline"
           >
-            {t("footer.viewSource")} <span className="text-2xs tracking-normal opacity-50">↗</span>
+            {t("footer.viewSource")} <span aria-hidden="true" className="text-xs">↗</span>
           </a>
         </p>
 
         {/* Bottom bar: copyright + legal */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <p className="text-2xs tracking-normal text-text-meta font-medium">© {year} {name}</p>
+          <p className="text-xs text-text-meta font-medium">© {year} {name}</p>
 
           <nav className="flex items-center gap-5" aria-label={t("footer.legalAriaLabel")}>
             <Link
               to="/impressum"
-              className="text-2xs font-bold uppercase text-text-meta
+              className="text-xs font-bold uppercase tracking-caps text-text-meta
                          hover:text-primary transition-colors duration-300"
             >
               {t("footer.impressum")}
             </Link>
             <Link
               to="/privacy"
-              className="text-2xs font-bold uppercase text-text-meta
+              className="text-xs font-bold uppercase tracking-caps text-text-meta
                          hover:text-primary transition-colors duration-300"
             >
               {t("footer.privacy")}
             </Link>
             <Link
               to="/sitemap"
-              className="text-2xs font-bold uppercase text-text-meta
+              className="text-xs font-bold uppercase tracking-caps text-text-meta
                          hover:text-primary transition-colors duration-300"
             >
               {t("footer.sitemap")}
