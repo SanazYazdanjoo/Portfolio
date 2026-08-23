@@ -23,6 +23,22 @@ export const projectData = {
     de: "HCI-Researcherin & Prototyping-Engineer (3-köpfiges Team)",
   },
   timeline: "SoSe 2023",
+
+  // Homepage card metadata (StackedProjectCard.jsx). `cardTags` is the signal
+  // subset — method + stack — shown before the "+N more" disclosure; the full
+  // `tags` list stays on this project's detail page. `cardOutcome` is the one
+  // sentence a reader gets if they read nothing else, quantified where the
+  // evidence supports it and hedged where it doesn't.
+  year: "2023",
+  context: {
+    en: "University research project",
+    de: "Universitäres Forschungsprojekt",
+  },
+  cardTags: ["Human-Robot Interaction", "Physical Prototyping", "Material Testing", "Arduino", "Interaction Design"],
+  cardOutcome: {
+    en: "Three prototype iterations produced a working 3s/9s inflate–deflate hug; public-exhibition observation showed the binary touch trigger, not the hardware, was what broke the experience.",
+    de: "Drei Prototyp-Iterationen führten zu einer funktionierenden Umarmung im 3s/9s-Takt; die Beobachtung in der öffentlichen Ausstellung zeigte, dass der binäre Berührungsauslöser die Erfahrung brach — nicht die Hardware.",
+  },
   tags: ["Soft Robotics", "Human-Robot Interaction", "Shape-Changing Interfaces", "Literature Review", "Competitive Analysis", "Physical Prototyping", "Material Testing", "Arduino", "Sensor Integration", "Interaction Design", "Data Physicalization", "Public Exhibition Research"],
   thumbnail: thumbnailImg,
   thumbnailWebp,
