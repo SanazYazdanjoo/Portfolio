@@ -18,7 +18,6 @@ const de = {
   "projects.heading": "Fallstudien",
   "home.projects.kicker": "02 — Ausgewählte Arbeiten",
   "home.contact.kicker": "03 — Kontakt aufnehmen",
-  "home.contact.moreWays": "Alle Kontaktdaten",
   "projects.title": "Projekte",
   "projects.viewProject": "Fallstudie ansehen",
   "projects.comingSoon": "Demnächst",
@@ -165,15 +164,9 @@ const de = {
   "hero.meta.locationValue": "Weimar, DE · Umzugsbereit",
 
   // Footer
-  "footer.status": "Status",
-  "footer.directContact": "Direkter Kontakt",
-  "footer.basedIn": "Derzeit ansässig in {location}.",
   "footer.openToRoles": "Offen für Rollen als {role}.",
-  "footer.utility": "Weiteres",
   "footer.available": "Verfügbar",
   "footer.timezone": "Zeitzone: MEZ (UTC+1)",
-  "footer.cvLink": "CV",
-  "footer.githubLink": "GitHub",
   "footer.cookieSettings": "Cookie-Einstellungen",
   "footer.legalAriaLabel": "Rechtliches",
   "footer.colophon": "Von Grund auf entworfen & entwickelt — React, Tailwind CSS, Framer Motion.",
