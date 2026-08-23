@@ -4,8 +4,7 @@
 // margins — it now lives on the same label-rail + content-column axis as
 // About/Bridge instead, via HomeSection, so the content column never drifts
 // between sections. HomeSection controls the vertical gap above each
-// section via its `tight` prop; the Hero-Section wrapper must stay
-// overflow-visible or it clips the handwritten role badge in Hero.jsx.
+// section via its `tight` prop.
 // Footer padding here (pb-6) pairs with Footer's own internal lead-in —
 // both sides define the gap between them.
 
@@ -123,8 +122,7 @@ export default function Home() {
     // Footer owns the space above itself; this wrapper only needs a small pad
     <div className="w-full relative pb-6 overflow-visible">
 
-      {/* Hero — natural height, no viewport lock. Keep overflow-visible:
-          overflow-hidden here clips the handwritten role badge. */}
+      {/* Hero — capped at ~85vh by Hero.jsx itself, not locked here. */}
       <section id="Hero-Section" className="w-full relative overflow-visible max-w-page mx-auto">
         <Hero data={profileData} />
       </section>
