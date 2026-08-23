@@ -20,8 +20,8 @@ export function NotBuiltBlock({ notBuilt }) {
   if (!notBuilt?.title || items.length === 0) return null;
 
   return (
-    <div className="mt-12 border-t rule-t pt-8 max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-smooth">
-      <p className="text-2xs font-black uppercase tracking-[0.2em] text-dim mb-5">
+    <div className="mt-12 border-t rule-t pt-8 max-w-measure transition-[max-width] duration-300 ease-smooth">
+      <p className="text-2xs font-black uppercase text-dim mb-5">
         {notBuilt.title}
       </p>
 
@@ -32,7 +32,7 @@ export function NotBuiltBlock({ notBuilt }) {
               value={item}
               path={`notBuilt.items[${i}]`}
               as="p"
-              className="text-sm text-text/80 leading-relaxed"
+              className="text-sm text-text-meta leading-relaxed"
             />
           </li>
         ))}

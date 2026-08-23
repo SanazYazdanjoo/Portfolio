@@ -310,7 +310,7 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${labelText} — ${hintText}`}
-                className="group flex items-center focus:outline-none"
+                className="group flex items-center focus-ring"
                 whileHover={reduce ? {} : { scale: 1.08 }}
                 whileTap={reduce ? {} : { scale: 0.94 }}
                 transition={{ type: "spring", stiffness: 400, damping: 20 }}
@@ -330,7 +330,7 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
                     <span
                       className="mr-3 flex items-center gap-2 whitespace-nowrap rounded-full
                                  bg-surface px-4 py-2 text-2xs font-black uppercase
-                                 tracking-[0.18em] text-text shadow-md opacity-0
+                                 text-text shadow-md opacity-0
                                  transition-opacity duration-200 group-hover:opacity-100
                                  group-focus-visible:opacity-100"
                     >
@@ -399,9 +399,7 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
                       looking at the corner of their screen. */}
                   <motion.span
                     className="relative grid h-full w-full place-items-center bg-highlight rule-blob
-                               text-highlight-on ring-offset-bg
-                               group-focus-visible:ring-2 group-focus-visible:ring-primary-600
-                               group-focus-visible:ring-offset-2"
+                               text-highlight-on"
                     animate={reduce ? {} : { rotate: [0, -9, 7, -4, 0] }}
                     transition={{
                       rotate: { duration: 0.9, repeat: Infinity, repeatDelay: 6, ease: "easeInOut" },

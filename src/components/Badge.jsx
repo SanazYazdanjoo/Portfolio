@@ -19,7 +19,7 @@ export function Badge({ tone = "accent", children, className = "" }) {
     highlight: "text-text [--rule-line-color:var(--highlight)] hover:[--rule-fill-color:var(--highlight)] hover:text-text",
     success:   "text-success [--rule-line-color:var(--success)] hover:[--rule-fill-color:var(--success)] hover:text-white",
     danger:    "text-danger [--rule-line-color:var(--danger)] hover:[--rule-fill-color:var(--danger)] hover:text-white",
-    muted:     "text-text-muted [--rule-line-color:var(--text-muted)] hover:[--rule-fill-color:var(--text-muted)] hover:text-bg",
+    muted:     "text-dim [--rule-line-color:var(--text-dim)] hover:[--rule-fill-color:var(--text-dim)] hover:text-bg",
   };
   return (
     <span

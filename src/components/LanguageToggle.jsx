@@ -17,12 +17,10 @@ export function LanguageToggle({ className = "" }) {
   return (
     <button
       onClick={toggleLang}
-      className={`
-        relative flex items-center justify-center min-w-[44px] min-h-[44px]
-        text-text/50 hover:text-text transition-colors
-        focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600
-        ${className}
-      `}
+      className={`relative flex items-center justify-center min-w-[44px] min-h-[44px]
+ text-dim hover:text-text transition-colors
+
+ ${className} focus-ring`}
       aria-label={switchLabel}
       title={switchLabel}
     >
@@ -30,10 +28,10 @@ export function LanguageToggle({ className = "" }) {
           anything lighter than ~65% of this ink drops below 4.5:1. The
           active/inactive distinction rides on the coral + underline, not
           on pushing the inactive label past legibility. */}
-      <span className="relative flex items-center gap-1 text-2xs font-black uppercase tracking-[0.2em]">
-        <span className={lang === "en" ? "text-primary" : "text-text/65"}>EN</span>
+      <span className="relative flex items-center gap-1 text-2xs font-black uppercase">
+        <span className={lang === "en" ? "text-primary" : "text-dim"}>EN</span>
         <span className="text-text/20">/</span>
-        <span className={lang === "de" ? "text-primary" : "text-text/65"}>DE</span>
+        <span className={lang === "de" ? "text-primary" : "text-dim"}>DE</span>
 
         {/* Underline indicator slides to active language */}
         <motion.span

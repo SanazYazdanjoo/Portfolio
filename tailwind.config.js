@@ -17,7 +17,6 @@ export default {
         text: "rgb(var(--text-rgb) / <alpha-value>)",
         "text-display": "var(--text-display)",
         dim: "rgb(var(--text-dim-rgb) / <alpha-value>)",
-        "text-muted": "rgb(var(--text-muted-rgb) / <alpha-value>)",
         border: "var(--border)",
         line: "var(--line)",
         ink: "rgb(var(--text-rgb) / <alpha-value>)",
@@ -61,6 +60,13 @@ export default {
       boxShadow: {
         sm: "var(--shadow-sm)",
         md: "var(--shadow-md)",
+        lg: "var(--shadow-lg)",
+      },
+      maxWidth: {
+        page: "var(--w-page)",
+        wide: "var(--w-wide)",
+        doc: "var(--w-doc)",
+        measure: "var(--measure, 68ch)",
       },
 fontFamily: {
   sans:    "var(--font-family-sans)",
@@ -79,7 +85,18 @@ fontSize: {
   "3xl":     ["var(--fs-3xl)",     { lineHeight: "var(--leading-heading)", letterSpacing: "var(--tracking-heading)" }],
   "4xl":     ["var(--fs-4xl)",     { lineHeight: "var(--leading-heading)", letterSpacing: "var(--tracking-heading)" }],
   display:   ["var(--fs-display)", { lineHeight: "var(--leading-display)", letterSpacing: "var(--tracking-display)" }],
+  quote:         ["var(--fs-quote)",       { lineHeight: "1.375" }],
+  metric:        ["var(--fs-metric)",      { lineHeight: "1" }],
+  "metric-long": ["var(--fs-metric-long)", { lineHeight: "1" }],
 },
+      // The three tracking tokens, exposed as utilities. Without these the
+      // only way to reach --tracking-caps was an arbitrary value, which is
+      // how one token ended up spelled eight different ways.
+      letterSpacing: {
+        caps: "var(--tracking-caps)",
+        heading: "var(--tracking-heading)",
+        display: "var(--tracking-display)",
+      },
       transitionTimingFunction: {
         smooth: "cubic-bezier(.22,.61,.36,1)",
       },

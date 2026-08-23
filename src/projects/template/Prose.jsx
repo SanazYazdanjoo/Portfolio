@@ -6,7 +6,7 @@ function PullQuote({ text }) {
   if (!text) return null;
   return (
     <blockquote className="hidden xl:block border-l-2 rule-edge-l [--rule-line-color:var(--primary-600)] pl-5 pt-1">
-      <p className="font-hand text-[28px] leading-snug text-text/80">{text}</p>
+      <p className="font-hand text-quote leading-snug text-text-meta">{text}</p>
     </blockquote>
   );
 }
@@ -25,9 +25,9 @@ export function Prose({ text, quote, rail, children }) {
 
   return (
     <div className={rail ? "xl:grid xl:grid-cols-[1fr_240px] xl:gap-10 items-start" : ""}>
-      <div className="max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-smooth">
+      <div className="max-w-measure transition-[max-width] duration-300 ease-smooth">
         <ClampedText>
-          <p className="text-[17px] leading-[1.7] text-text/90">{text}</p>
+          <p className="text-lg leading-[1.7] text-text">{text}</p>
         </ClampedText>
         {children}
       </div>

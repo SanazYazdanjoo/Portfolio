@@ -54,6 +54,8 @@ const TYPE_SPECIMENS = [
   { cls: "type-h2", label: ".type-h2", spec: "Bricolage 800 · H2 zone", sample: "Mixed-methods research" },
   { cls: "type-section", label: ".type-section", spec: "Bricolage 800 · clamp(28px → 36px) · pairs with an eyebrow above it", sample: "About Me" },
   { cls: "type-h3", label: ".type-h3", spec: "Bricolage 700 · H3 zone", sample: "Contextual inquiry, N=30" },
+  { cls: "font-display font-extrabold text-metric", label: "text-metric", spec: "36 → 44px fluid · MetricsStrip numerals (text-metric-long for long values)", sample: "73%" },
+  { cls: "font-hand text-quote", label: "text-quote", spec: "Caveat · 28px fixed · the hand runs optically small, so it gets its own step", sample: "“I stopped guessing.”" },
 ];
 
 const MOTION_RULES = [
@@ -61,7 +63,10 @@ const MOTION_RULES = [
   { name: "Entrance", value: "fade-up · y 16–24px · 0.45–0.7s", note: "Staggered ~0.1s between siblings." },
   { name: "Draw-on", value: "SVG pathLength / stroke-dashoffset", note: "Scribbles, ovals, and highlighter swipes." },
   { name: "Line weight", value: "~1.2px, breathing 0.7–1.6px", note: "One nib for every drawn mark. No bold tier." },
-  { name: "Hover", value: "translateY(-1px) · darken to -600", note: "Photos de-grayscale in 0.5–0.7s." },
+  { name: "Hover", value: "colour first", note: "~50 of ~60 hovers are a colour change. A lift is only for cards and raised buttons; photos de-grayscale in 0.5–0.7s." },
+  { name: "Focus", value: ".focus-ring", note: "2px coral outline, 2px offset. -inset for edge-to-edge targets, -light on dark. Never bare outline-none." },
+  { name: "Links", value: ".rule-underline", note: "Inline prose links carry the drawn hairline in coral. Label and button links use colour alone." },
+  { name: "Empty states", value: "<EmptyState>", note: "A drawn panel and a handwritten line. One pattern for every “nothing here”." },
   { name: "Accessibility", value: "prefers-reduced-motion", note: "MotionConfig at the app root + a CSS block. Transform and transition stop; opacity fades stay." },
 ];
 
@@ -98,7 +103,7 @@ function DSNav({ sections, activeId }) {
 
   return (
     <nav aria-label={t("designSystem.sectionsAriaLabel")} className="pt-1">
-      <p className="text-2xs font-black uppercase tracking-[0.28em] text-gray-500 mb-5 pl-3">
+      <p className="text-2xs font-black uppercase text-gray-500 mb-5 pl-3">
         {t("cv.onThisPage")}
       </p>
       <ul className="space-y-0.5">
@@ -118,7 +123,7 @@ function DSNav({ sections, activeId }) {
                     : "[--rule-line-color:transparent] text-gray-500 hover:text-gray-900 hover:[--rule-line-color:rgb(209_213_219)]"
                 }`}
               >
-                <span className={`text-2xs font-bold uppercase tracking-[0.2em] leading-tight ${
+                <span className={`text-2xs font-bold uppercase leading-tight ${
                   isActive ? "text-primary" : "text-gray-600"
                 }`}>
                   {section.label}
@@ -145,7 +150,7 @@ function MobilePillBar({ sections, activeId }) {
             key={section.id}
             type="button"
             onClick={() => scrollToSection(section.id)}
-            className={`shrink-0 px-3 py-1.5 text-2xs font-black uppercase tracking-[0.18em] border rule-frame transition-colors duration-200 ${
+            className={`shrink-0 px-3 py-1.5 text-2xs font-black uppercase border rule-frame transition-colors duration-200 ${
               activeId === section.id
                 ? "text-white [--rule-line-color:var(--primary)] [--rule-fill-color:var(--primary)]"
                 : "text-gray-500 hover:text-primary"
@@ -249,7 +254,7 @@ export default function DesignSystem() {
         </aside>
 
         <div className="w-full border-l rule-edge-l px-6 py-12 md:px-16 lg:px-24 xl:px-32">
-          <div className="max-w-5xl">
+          <div className="max-w-doc">
             <MobilePillBar sections={DS_SECTIONS} activeId={activeId} />
 
             <motion.header variants={stagger} initial="hidden" animate="show" className="pt-16 md:pt-20">
@@ -326,6 +331,23 @@ export default function DesignSystem() {
                 <p className="type-body m-0" style={{ color: "var(--text-dim)" }}>
                   Metrics are the vocabulary: N=30, SUS 85.2, 50 survey respondents. Sentence case
                   for body; tiny UPPERCASE tracked labels for kickers and metadata.
+                </p>
+              </motion.div>
+
+              <motion.div variants={fadeUp} className="py-5 border-b rule-b">
+                <div className="flex flex-wrap items-baseline gap-x-4 mb-2">
+                  <code style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-xs)", color: "var(--primary-600)" }}>Text tiers</code>
+                  <span className="type-label" style={{ color: "var(--text-dim)" }}>three, and only three</span>
+                </div>
+                <p className="type-body m-0 mb-4">Body and display sit on <code style={{ fontFamily: "var(--font-mono)" }}>text-text</code>.</p>
+                <p className="type-body m-0 mb-4 text-text-meta">Supporting prose, captions and method notes sit on <code style={{ fontFamily: "var(--font-mono)" }}>text-text-meta</code>.</p>
+                <p className="type-body m-0 mb-4 text-dim">Labels, counts and timestamps sit on <code style={{ fontFamily: "var(--font-mono)" }}>text-dim</code> — the quietest tier that still clears AA.</p>
+                <p className="type-body m-0" style={{ fontSize: "var(--fs-sm)", color: "var(--text-dim)" }}>
+                  Never a <code style={{ fontFamily: "var(--font-mono)" }}>text-text/NN</code> alpha: an alpha says nothing about which
+                  tier it meant, and the low ones had drifted under 4.5:1 on real copy. Raw alphas are for
+                  decorative glyphs only. Tracking is the same story &mdash;{" "}
+                  <code style={{ fontFamily: "var(--font-mono)" }}>tracking-caps</code> is the token, and{" "}
+                  <code style={{ fontFamily: "var(--font-mono)" }}>text-2xs</code> already carries it, so a micro-label needs no tracking class at all.
                 </p>
               </motion.div>
 

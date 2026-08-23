@@ -159,7 +159,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
 
       {/* Content wrapper — solid bg + z-10 so it slides over the sticky banner */}
       <div className="relative z-10 w-full bg-bg pb-16 pt-8 md:pt-12">
-        <div className="w-full px-4 md:px-8 max-w-[1500px] mx-auto">
+        <div className="w-full px-4 md:px-8 max-w-wide mx-auto">
           <div className="flex items-start">
             {/* Widths are the collapse: the aside drops to a 56px rail and
                 the content column's cap rises by roughly what the aside gave
@@ -200,8 +200,8 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   isOpen={openSections.has("about")} onToggle={() => toggleSection("about")}
                   staggerDelayMs={staggerDelayFor("about")}
                   kicker={t("project.about.kicker")} heading={t("project.about.heading")}>
-                  <ClampedText className="max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-smooth">
-                    <p className="text-[17px] leading-relaxed about-project text-text/90">
+                  <ClampedText className="max-w-measure transition-[max-width] duration-300 ease-smooth">
+                    <p className="text-lg leading-relaxed about-project text-text">
                       {meta.about}
                     </p>
                   </ClampedText>
@@ -256,8 +256,8 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   staggerDelayMs={staggerDelayFor("prototype")}
                   kicker={t("project.prototype.kicker")} heading={t("project.prototype.heading")}>
                   {meta.prototype && (
-                    <ClampedText className="max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-smooth">
-                      <p className="text-[17px] leading-[1.7] text-text/90">
+                    <ClampedText className="max-w-measure transition-[max-width] duration-300 ease-smooth">
+                      <p className="text-lg leading-[1.7] text-text">
                         {meta.prototype}
                       </p>
                     </ClampedText>
@@ -289,13 +289,13 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                         {/* Research Methods */}
                         {methods && methods.length > 0 && (
                           <div>
-                            <span className="block font-mono text-2xs uppercase tracking-wider text-text-meta mb-2">
+                            <span className="block font-mono text-2xs uppercase text-text-meta mb-2">
                               {t("project.meta.methods")}
                             </span>
-                            <div className="text-sm text-text/80 tracking-wide leading-relaxed">
+                            <div className="text-sm text-text-meta leading-relaxed">
                               {methods.map((m, i, arr) => (
                                 <span key={m.en || m}>
-                                  <span className="font-medium text-text/70">{m.en || m}</span>
+                                  <span className="font-medium text-text-meta">{m.en || m}</span>
                                   {i < arr.length - 1 && <span className="mx-2 text-text/25">·</span>}
                                 </span>
                               ))}
@@ -306,13 +306,13 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                         {/* Tech Stack */}
                         {meta.techStack && meta.techStack.length > 0 && (
                           <div>
-                            <span className="block font-mono text-2xs uppercase tracking-wider text-text-meta mb-2">
+                            <span className="block font-mono text-2xs uppercase text-text-meta mb-2">
                               {t("project.methodology.techStack")}
                             </span>
-                            <div className="text-sm text-text/80 tracking-wide leading-relaxed">
+                            <div className="text-sm text-text-meta leading-relaxed">
                               {meta.techStack.map((tech, i, arr) => (
                                 <span key={tech}>
-                                  <span className="font-medium text-text/70">{tech}</span>
+                                  <span className="font-medium text-text-meta">{tech}</span>
                                   {i < arr.length - 1 && <span className="mx-2 text-text/25">·</span>}
                                 </span>
                               ))}
@@ -338,7 +338,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                       two surfaces are allowed to show different numbers: the
                       card counts artefacts, this strip reports measurements. */}
                   <div className={verbatimsIn("results") ? "xl:grid xl:grid-cols-[1fr_240px] xl:gap-10 items-start" : ""}>
-                    <div className="max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-smooth">
+                    <div className="max-w-measure transition-[max-width] duration-300 ease-smooth">
                       {/* Gated on the items the strip below actually renders,
                           not on `metrics`, so the notice can never describe a
                           strip the reader isn't looking at. */}
@@ -349,7 +349,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                       )}
                       {meta.results && (
                         <ClampedText>
-                          <p className="text-[17px] leading-[1.7] text-text/90">
+                          <p className="text-lg leading-[1.7] text-text">
                             {meta.results}
                           </p>
                         </ClampedText>
@@ -379,8 +379,8 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   isOpen={openSections.has("implications")} onToggle={() => toggleSection("implications")}
                   staggerDelayMs={staggerDelayFor("implications")}
                   kicker={t("project.implications.kicker")} heading={t("project.implications.heading")}>
-                  <ClampedText className="max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-smooth">
-                    <p className="text-[17px] leading-[1.7] text-text/90">
+                  <ClampedText className="max-w-measure transition-[max-width] duration-300 ease-smooth">
+                    <p className="text-lg leading-[1.7] text-text">
                       {meta.implications}
                     </p>
                   </ClampedText>
@@ -426,7 +426,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                 <Link
                   to="/projects"
                   className="inline-flex items-center gap-2 text-2xs font-black uppercase
-                             tracking-[0.2em] text-text-meta hover:text-primary-600
+                             text-text-meta hover:text-primary-600
                              transition-colors duration-200 group"
                 >
                   <svg className="w-3.5 h-3.5 transform group-hover:-translate-x-0.5 transition-transform"

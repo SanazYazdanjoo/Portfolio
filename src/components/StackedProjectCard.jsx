@@ -17,7 +17,7 @@ function Field({ label, children }) {
   return (
     <div className="flex flex-col">
       {/* 12px min + /70 ink — AA on white */}
-      <span className="block font-mono text-xs uppercase tracking-wider text-text/70 mb-2">
+      <span className="block font-mono text-xs uppercase tracking-caps text-text-meta mb-2">
         {label}
       </span>
       <div className="border-t rule-t pt-2.5">{children}</div>
@@ -80,7 +80,7 @@ export function StackedProjectCard({ project, index }) {
     >
       <Link
         to={`/projects/${project.id}`}
-        className="block outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+        className="block outline-none focus-ring"
       >
         <div
           className="relative px-6 md:px-8 py-7 bg-bg border-t rule-t
@@ -124,7 +124,7 @@ export function StackedProjectCard({ project, index }) {
                 </h2>
                 {isInProgress && (
                   <span
-                    className="shrink-0 mt-0.5 border rule-frame px-2.5 py-1 text-2xs font-black uppercase tracking-[0.2em] text-primary-600"
+                    className="shrink-0 mt-0.5 border rule-frame px-2.5 py-1 text-2xs font-black uppercase text-primary-600"
                     style={{ "--rule-line-color": "var(--primary-600)" }}
                   >
                     {t("projects.inProgress")}
@@ -137,7 +137,7 @@ export function StackedProjectCard({ project, index }) {
               {/* Explicit CTA — same affordance on every row, works on touch */}
               <p
                 className="mt-4 mb-0 inline-flex items-center gap-1.5 text-xs font-black
-                           uppercase tracking-[0.2em] text-primary-600
+                           uppercase tracking-caps text-primary-600
                            transition-transform duration-200 ease-smooth group-hover:translate-x-1"
               >
                 {isInProgress ? t("project.card.readInProgress") : t("project.card.readCaseStudy")}
@@ -164,12 +164,12 @@ export function StackedProjectCard({ project, index }) {
             <div className="md:col-span-3 flex flex-col gap-5">
               {project.role && (
                 <Field label={t("project.meta.role")}>
-                  <p className="text-sm font-semibold text-text/85 leading-snug">{project.role}</p>
+                  <p className="text-sm font-semibold text-text leading-snug">{project.role}</p>
                 </Field>
               )}
               {project.timeline && (
                 <Field label={t("project.meta.timeline")}>
-                  <p className="font-mono text-xs text-text/70">{project.timeline}</p>
+                  <p className="font-mono text-xs text-text-meta">{project.timeline}</p>
                 </Field>
               )}
             </div>
@@ -177,7 +177,7 @@ export function StackedProjectCard({ project, index }) {
             <div className="md:col-start-5 md:col-span-4 flex flex-col gap-5">
               {project.tagline && (
                 <Field label={t("project.meta.context")}>
-                  <p className="text-xs text-text/70 leading-relaxed">{project.tagline}</p>
+                  <p className="text-xs text-text-meta leading-relaxed">{project.tagline}</p>
                 </Field>
               )}
               {metrics.length > 0 && (
@@ -185,7 +185,7 @@ export function StackedProjectCard({ project, index }) {
                   <div className="flex flex-wrap gap-x-8 gap-y-4">
                     {metrics.map((m) => (
                       <div key={m.label} className="flex flex-col">
-                        <span className="text-2xs uppercase tracking-wider text-text/60">{m.label}</span>
+                        <span className="text-2xs uppercase text-dim">{m.label}</span>
                         <MetricValue
                           value={m.value}
                           className="mt-1 font-display font-extrabold text-lg text-primary-600 tabular-nums"
@@ -212,7 +212,7 @@ export function StackedProjectCard({ project, index }) {
                 </div>
               )}
               <span className="inline-flex items-center gap-1.5 text-xs font-extrabold
-                               uppercase tracking-[0.18em] text-primary-600">
+                               uppercase tracking-caps text-primary-600">
                 {t("projects.viewProject")}
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor"
                      strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">

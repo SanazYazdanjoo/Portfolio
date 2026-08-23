@@ -6,7 +6,7 @@ export function VoluntaryList({ items = [] }) {
       {items.map((item) => (
         <article 
           key={item.id} 
-          className="bg-panel p-8 md:p-12 border rule-box shadow-sm relative -rotate-0 hover:rotate-2 transition-transform duration-500"
+          className="bg-panel p-8 md:p-12 border rule-box shadow-sm relative rotate-1 hover:rotate-0 transition-transform duration-500"
         >
           {/* Tape Decor */}
           <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-6 [--rule-fill-color:rgb(255_255_255/0.5)] backdrop-blur-sm border rule-frame shadow-sm"></div>
@@ -16,7 +16,7 @@ export function VoluntaryList({ items = [] }) {
             <span className="doodle-text text-xl text-primary">{item.year}</span>
           </div>
           
-          <h3 className="text-sm font-bold uppercase tracking-widest text-dim mb-6">{item.org}</h3>
+          <h3 className="text-sm font-bold uppercase tracking-caps text-dim mb-6">{item.org}</h3>
           
           <p className="text-lg text-text leading-relaxed">
             {item.desc}

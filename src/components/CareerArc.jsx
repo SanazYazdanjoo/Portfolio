@@ -86,10 +86,10 @@ function CareerArcFull({ steps }) {
           <h3 className={`font-display font-bold text-xl leading-tight mb-1 ${step.highlight ? "text-white" : "text-text"}`}>
             {step.label}
           </h3>
-          <p className={`text-2xs font-semibold uppercase tracking-[0.18em] mb-4 ${step.highlight ? "text-white/60" : "text-secondary-600"}`}>
+          <p className={`text-2xs font-semibold uppercase mb-4 ${step.highlight ? "text-white/60" : "text-secondary-600"}`}>
             {step.years}
           </p>
-          <p className={`text-sm leading-relaxed mb-6 ${step.highlight ? "text-white/85" : "text-text/70"}`}>
+          <p className={`text-sm leading-relaxed mb-6 ${step.highlight ? "text-white/85" : "text-text-meta"}`}>
             {step.summary}
           </p>
 
@@ -97,7 +97,7 @@ function CareerArcFull({ steps }) {
             <div key={group.label ?? `group-${gi}`} className={gi > 0 ? "mt-5" : ""}>
               {group.label && (
                 <p
-                  className={`text-2xs font-black uppercase tracking-[0.2em] mb-2
+                  className={`text-2xs font-black uppercase mb-2
                     ${step.highlight ? "text-white" : "text-secondary-600"}`}
                 >
                   {group.label}
@@ -110,12 +110,12 @@ function CareerArcFull({ steps }) {
                 {group.items.map((item) => (
                   <li key={item}>
                     <span
-                      className={`inline-block text-2xs font-bold uppercase tracking-wide px-2 py-1 rounded-full border
+                      className={`inline-block text-2xs font-bold uppercase px-2 py-1 rounded-full border
                         rule-pill [--rule-cap:14px]
                         transition-colors duration-200 ease-smooth
                         ${step.highlight
                           ? "[--rule-line-color:rgb(255_255_255/0.4)] text-white hover:[--rule-fill-color:rgb(255_255_255)] hover:[--rule-line-color:rgb(255_255_255)] hover:text-primary"
-                          : "text-text/65 hover:[--rule-fill-color:var(--primary-600)] hover:[--rule-line-color:var(--primary-600)] hover:text-white"
+                          : "text-dim hover:[--rule-fill-color:var(--primary-600)] hover:[--rule-line-color:var(--primary-600)] hover:text-white"
                         }`}
                     >
                       {item}
@@ -128,7 +128,7 @@ function CareerArcFull({ steps }) {
 
           {i < steps.length - 1 && (
             <div className="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2 z-10">
-              <InkArrow className="text-text/60" />
+              <InkArrow className="text-dim" />
             </div>
           )}
         </motion.div>
@@ -201,7 +201,7 @@ function CareerArcCompact({ steps }) {
                   {step.label}
                 </span>
                 <span
-                  className={`block text-2xs font-semibold uppercase tracking-[0.18em] mt-1
+                  className={`block text-2xs font-semibold uppercase mt-1
                     ${step.highlight ? "text-primary-600" : "text-text-dim"}`}
                 >
                   {step.years}

@@ -33,8 +33,8 @@ export function OutcomeBlock({ outcome }) {
   const decisions = outcome.decisions || [];
 
   return (
-    <div className="mt-12 border-t rule-t pt-8 max-w-[var(--measure,68ch)] transition-[max-width] duration-300 ease-smooth">
-      <p className="text-2xs font-black uppercase tracking-[0.2em] text-dim mb-5">
+    <div className="mt-12 border-t rule-t pt-8 max-w-measure transition-[max-width] duration-300 ease-smooth">
+      <p className="text-2xs font-black uppercase text-dim mb-5">
         {t("project.outcome.kicker")}
       </p>
 
@@ -43,7 +43,7 @@ export function OutcomeBlock({ outcome }) {
           value={outcome.body}
           path="outcome.body"
           as="p"
-          className="text-[17px] leading-[1.7] text-text/90"
+          className="text-lg leading-[1.7] text-text"
         />
       </ClampedText>
 
@@ -55,7 +55,7 @@ export function OutcomeBlock({ outcome }) {
 
       {decisions.length > 0 && (
         <div className="mt-8">
-          <p className="text-2xs font-black uppercase tracking-[0.2em] text-dim mb-3">
+          <p className="text-2xs font-black uppercase text-dim mb-3">
             {t("project.outcome.decisions")}
           </p>
           <ul className="border-t rule-t">
@@ -65,7 +65,7 @@ export function OutcomeBlock({ outcome }) {
                   value={decision}
                   path={`outcome.decisions[${i}]`}
                   as="p"
-                  className="text-sm text-text/80 leading-relaxed"
+                  className="text-sm text-text-meta leading-relaxed"
                 />
               </li>
             ))}
