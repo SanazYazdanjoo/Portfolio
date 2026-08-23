@@ -34,14 +34,14 @@ export function AboutBio({ data }) {
       viewport={{ once: true, margin: "-10%" }}
     >
       {bioParagraphs.map((para, i) => (
+        // Every paragraph reads at the same size, weight and ink. The
+        // second one used to be 14px in text-meta while the first was 16px
+        // in text — a difference that said "this half matters less" about
+        // the half that carries the research/engineering claim.
         <motion.p
           key={i}
           variants={reduce ? itemReduced : item}
-          className={
-            i === 0
-              ? "text-base leading-[1.85] text-text"
-              : "text-sm leading-[1.9] text-text-meta"
-          }
+          className="text-base leading-[1.85] text-text"
         >
           {para}
         </motion.p>
