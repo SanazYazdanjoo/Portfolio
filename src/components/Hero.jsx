@@ -14,9 +14,9 @@
 // reaches assistive tech via the sr-only span inside the <h1>.
 
 import React from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "../context/LanguageContext";
 import { motion, useReducedMotion } from "framer-motion";
-import { Button, SolidButton } from "./Button";
 import { InkHighlight } from "./InkHighlight";
 import { EASE } from "../utils/motion";
 
@@ -80,13 +80,16 @@ export function Hero({ data }) {
             </motion.p>
           )}
 
-          {/* Tagline: the one gold-highlighter moment on this page. The sweep
-              fires once, timed to start just after the tagline itself settles
+          {/* Tagline: the one gold-highlighter moment on this page, and an
+              aside — it sits under the positioning line and reads smaller
+              than it. Caveat has a much smaller x-height than DM Sans, so
+              text-xl here is optically below the 19px subhead above. The
+              sweep fires once, timed to start just after the line settles
               (delay 0.32 + entrance duration 0.4 ≈ 0.72s). */}
           <motion.p
             {...fadeUp(0.32)}
-            className="hero-tagline max-w-2xl mt-auto pt-5
-                       font-hand font-bold text-2xl md:text-3xl leading-[1.15]"
+            className="hero-tagline max-w-2xl mt-auto pt-4
+                       font-hand font-bold text-xl leading-[1.2]"
           >
             <InkHighlight triggerOnLoad delay={0.75} duration={0.4}>
               {data.tagline || "I speak both ‘user’ and ‘developer’."}
@@ -119,26 +122,37 @@ export function Hero({ data }) {
         </motion.div>
       </div>
 
-      {/* CTA row. One primary — the work — carrying the house hand-drawn
-          underline so it reads as the page's single ask at rest, not only on
-          hover. CV is the secondary; "About" is gone because it is already
-          in the primary nav two lines above. */}
+      {/* CTA row. Both labels are set in the body face at reading sizes —
+          20px primary, 16px secondary — rather than one in 30px Caveat and
+          the other in 12px capitals, which made the pair look like a heading
+          next to a footnote instead of a primary next to a secondary.
+          The primary is the filled ink recipe the Contact page already uses
+          (bg-text on text-bg, ~16.7:1) with the house drawn edge, so it is
+          unambiguously the loudest interactive thing on the page. "About" is
+          gone because it is in the primary nav two lines above. */}
       <motion.div
         {...fadeUp(0.38)}
-        className="mt-8 md:mt-10 flex flex-wrap items-center gap-x-8 gap-y-4"
+        className="mt-8 md:mt-10 flex flex-wrap items-center gap-x-7 gap-y-4"
       >
-        <SolidButton
+        <Link
           to="/projects"
-          className="rule-underline"
+          className="inline-flex items-center gap-2.5 bg-text rule-fill-r text-bg
+                     px-6 py-3.5 rounded-[var(--radius)] text-xl font-bold
+                     transition-opacity duration-200 hover:opacity-90 focus-ring"
         >
           {t("hero.ctaWork")}
-        </SolidButton>
-        <Button
+          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </Link>
+        <Link
           to="/cv"
-          className="text-xs uppercase tracking-caps font-bold text-text-meta hover:text-primary-600"
+          className="text-base font-semibold text-text rule-underline
+                     hover:text-primary-600 transition-colors duration-200 focus-ring"
         >
           {t("hero.ctaCv")}
-        </Button>
+        </Link>
       </motion.div>
     </div>
   );
