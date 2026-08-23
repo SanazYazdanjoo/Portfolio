@@ -44,10 +44,13 @@ export const projectData = {
     en: "Industry project · deskbird",
     de: "Industrieprojekt · deskbird",
   },
-  cardTags: ["Mixed-Methods Research", "Contextual Inquiry", "Survey Design", "Usability Testing", "Figma"],
+  // Four tags, chosen to differentiate rather than to enumerate: one method,
+  // one research skill, one technical, one domain. The full list lives on the
+  // detail page and on /tags — the card is a triage surface, not an index.
+  cardTags: ["Contextual Inquiry", "Usability Testing", "Figma", "B2B SaaS"],
   cardOutcome: {
-    en: "57 survey responses and 6 contextual inquiries narrowed three concepts to one validated prototype; deskbird stated an intent to build it at handover — recorded as unconfirmed, not claimed as adoption.",
-    de: "57 Umfrageantworten und 6 Contextual Inquiries verdichteten drei Konzepte zu einem validierten Prototyp; deskbird erklärte bei der Übergabe die Absicht, ihn zu bauen — als unbestätigt vermerkt, nicht als Adoption behauptet.",
+    en: "Socialising happens in breaks, so the concept connects colleagues by shared interest rather than by shared calendar.",
+    de: "Sozialer Austausch passiert in Pausen — das Konzept verbindet Kolleg:innen über gemeinsame Interessen statt über gemeinsame Kalender.",
   },
   tags: ["User-Centered Design", "Mixed-Methods Research", "Stakeholder Interviews", "Contextual Inquiry", "Survey Design", "Competitive Analysis", "Affinity Diagramming", "Requirements Engineering", "Concept Development", "Interaction Design", "High-Fidelity Prototyping", "Usability Testing", "Figma", "B2B SaaS"],
   thumbnail: thumbnailImg,

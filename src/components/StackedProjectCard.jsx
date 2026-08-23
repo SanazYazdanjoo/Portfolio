@@ -23,10 +23,6 @@ import { useTranslation } from "../context/LanguageContext";
 import { SkillTagRow } from "./SkillTagRow";
 import { EASE } from "../utils/motion";
 
-// How many tags the collapsed card shows. The rest are one click away here,
-// and in full on the detail page.
-const CARD_TAG_CAP = 5;
-
 export function StackedProjectCard({ project, index }) {
   const [imgError, setImgError] = useState(false);
   const reduce = useReducedMotion();
@@ -42,14 +38,10 @@ export function StackedProjectCard({ project, index }) {
   // two.
   const hasImage = project.cardImage && !imgError;
 
-  // One list, reordered — not a shortened one. The signal tags lead so the
-  // five the card shows are the five worth showing, and the remainder keeps
-  // its authored order behind the "+N more" disclosure. Reordering rather
-  // than slicing is what makes that disclosure honest: it reveals the rest
-  // of the project's tags instead of re-shuffling the same five.
-  const allTags = project.tags || [];
-  const signal = project.cardTags?.length ? project.cardTags : allTags.slice(0, CARD_TAG_CAP);
-  const tags = [...signal, ...allTags.filter((tag) => !signal.includes(tag))];
+  // Exactly what `cardTags` names — four tags picked to differentiate, with
+  // no counter and nothing to expand. A project that has not curated its
+  // four shows none rather than an arbitrary prefix of the full list.
+  const tags = project.cardTags || [];
   // year · context · role — a missing one is dropped rather than rendered as
   // a stray separator.
   const meta = [project.year, project.context, project.role].filter(Boolean);
@@ -168,8 +160,7 @@ export function StackedProjectCard({ project, index }) {
               </p>
             )}
 
-            {/* z-10 lifts the "+N more" button above the stretched link. */}
-            <SkillTagRow tags={tags} max={CARD_TAG_CAP} className="relative z-10 mt-4" />
+            <SkillTagRow tags={tags} className="mt-5" />
 
             {/* Visual affordance only — the stretched link above is the
                 actual control, and a second link here would list every case

@@ -83,10 +83,13 @@ export const projectData = {
     en: 'In-house · public sector',
     de: 'Intern · öffentlicher Sektor',
   },
-  cardTags: ['UX Research', 'Requirements Engineering', 'Service Design', 'React', 'TypeScript'],
+  // Four tags, chosen to differentiate rather than to enumerate: one method,
+  // one research skill, one technical, one domain. The full list lives on the
+  // detail page and on /tags — the card is a triage surface, not an index.
+  cardTags: ['Service Design', 'Stakeholder Interviews', 'React', 'Public Sector'],
   cardOutcome: {
-    en: '25 documented process problems and one claim traced end to end over 43+ days; the React/TypeScript replacement is deployed as a demo the team works with daily, guarded by 1,234 automated tests.',
-    de: '25 dokumentierte Prozessprobleme und ein Antrag über 43+ Tage durchgängig verfolgt; der React/TypeScript-Ersatz läuft als Demo, mit der das Team täglich arbeitet, abgesichert durch 1.234 automatisierte Tests.',
+    en: 'Replaced a paper reimbursement process with a working application the institute now runs its claims through.',
+    de: 'Ersetzte einen papierbasierten Erstattungsprozess durch eine funktionierende Anwendung, über die das Institut seine Anträge heute abwickelt.',
   },
   aiAssistance: {
     en: 'Built with AI coding agents under my direction. The research, the requirements, the architecture decisions, the refusals recorded in the decision log — and every claim on this page — are mine and are traceable to their sources.',

@@ -504,13 +504,14 @@ describe("cardTags — the homepage card's capped tag list", () => {
     }
   });
 
-  // The cap is the point of the field — five is what the card renders before
-  // the "+N more" disclosure, so a longer list would silently be truncated
-  // by the renderer rather than curated here.
-  it("never exceeds the five the card can show", () => {
+  // Exactly four, not "at most four": the card renders the list verbatim
+  // with no counter and no expansion, so a fifth tag would silently not
+  // appear anywhere and a third would leave the row looking unfinished.
+  // One method, one research skill, one technical, one domain.
+  it("is exactly four tags", () => {
     for (const p of projects) {
       if (!p.cardTags) continue;
-      expect(p.cardTags.length, `${p.slug}: cardTags is longer than 5`).toBeLessThanOrEqual(5);
+      expect(p.cardTags.length, `${p.slug}: cardTags must be exactly 4`).toBe(4);
     }
   });
 
@@ -518,6 +519,61 @@ describe("cardTags — the homepage card's capped tag list", () => {
     for (const p of projects) {
       if (!p.cardTags) continue;
       expect(new Set(p.cardTags).size, `${p.slug}: cardTags repeats a tag`).toBe(p.cardTags.length);
+    }
+  });
+});
+
+// The homepage card gets one sentence per project. Twenty words is the point
+// at which it stops being a summary and starts being the case study, and the
+// forbidden phrases are the ones that spend the sentence taking the claim
+// back — the caveats belong in the case study body, where there is room to
+// earn them.
+describe("cardOutcome — the homepage card's one-sentence result", () => {
+  const HEDGES = [
+    "not confirmed", "unconfirmed", "not yet", "not run", "pending",
+    "nicht bestätigt", "unbestätigt", "noch nicht", "nicht durchgeführt",
+  ];
+
+  it("is at most twenty words, in both languages", () => {
+    for (const p of projects) {
+      if (!p.cardOutcome) continue;
+      for (const lang of ["en", "de"]) {
+        const words = p.cardOutcome[lang].trim().split(/\s+/).length;
+        expect(
+          words,
+          `${p.slug}.cardOutcome.${lang} is ${words} words`
+        ).toBeLessThanOrEqual(20);
+      }
+    }
+  });
+
+  it("does not spend the sentence hedging", () => {
+    for (const p of projects) {
+      if (!p.cardOutcome) continue;
+      for (const lang of ["en", "de"]) {
+        const text = p.cardOutcome[lang].toLowerCase();
+        const found = HEDGES.filter((h) => text.includes(h));
+        expect(
+          found,
+          `${p.slug}.cardOutcome.${lang} hedges: "${found.join('", "')}" — move the caveat to the case study body`
+        ).toEqual([]);
+      }
+    }
+  });
+});
+
+// A project kept off the homepage must not also carry the fields only the
+// homepage card reads, or it is holding content nothing renders.
+describe("excludeFromHome", () => {
+  it("means the project carries no homepage-card fields", () => {
+    for (const p of projects) {
+      if (!p.excludeFromHome) continue;
+      for (const field of ["cardTags", "cardOutcome", "cardImage", "year", "context"]) {
+        expect(
+          p[field],
+          `${p.slug} is excluded from the homepage but still defines \`${field}\``
+        ).toBeUndefined();
+      }
     }
   });
 });
