@@ -21,32 +21,11 @@ import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
 import { SkillTagRow } from "./SkillTagRow";
-import { ProjectPicture } from "./ProjectPicture";
 import { EASE } from "../utils/motion";
 
 // How many tags the collapsed card shows. The rest are one click away here,
 // and in full on the detail page.
 const CARD_TAG_CAP = 5;
-
-// A labelled slot, not a decorative grey box: a case study without a
-// screenshot yet should say so rather than look like a broken image.
-function ThumbnailPlaceholder({ label }) {
-  return (
-    <div className="w-full h-full flex flex-col items-center justify-center gap-2 px-3 text-center bg-muted/40">
-      <svg
-        className="w-6 h-6 text-text-meta" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" strokeWidth="1.5" aria-hidden="true"
-      >
-        <rect x="3" y="4" width="18" height="16" rx="1.5" />
-        <path strokeLinecap="round" d="M3 16l4.5-4.5 4 3.5 3.5-3 6 5.5" />
-        <circle cx="8.5" cy="8.5" r="1.25" />
-      </svg>
-      <span className="text-xs font-bold uppercase tracking-caps text-text-meta">
-        {label}
-      </span>
-    </div>
-  );
-}
 
 export function StackedProjectCard({ project, index }) {
   const [imgError, setImgError] = useState(false);
@@ -56,7 +35,12 @@ export function StackedProjectCard({ project, index }) {
   if (!project || project.status === "coming-soon" || !project.id) return null;
 
   const isInProgress = project.status === "in-progress";
-  const hasImage = project.thumbnail && !imgError;
+  // `cardImage`, never `thumbnail`. See the note in each data.js: the
+  // Project-N.png thumbnails are generated illustrations, and a card is
+  // better with no image at all than with clipart standing in for evidence.
+  // No image and no placeholder — the row simply has one column instead of
+  // two.
+  const hasImage = project.cardImage && !imgError;
 
   // One list, reordered — not a shortened one. The signal tags lead so the
   // five the card shows are the five worth showing, and the remainder keeps
@@ -96,26 +80,25 @@ export function StackedProjectCard({ project, index }) {
 
       <div className="px-6 md:px-8 py-7 flex flex-col md:flex-row gap-5 md:gap-8">
 
-        {/* Thumbnail — left of the text from md up, above it on a phone. */}
-        <div className="md:w-[230px] lg:w-[260px] shrink-0">
-          <div className="photo-frame rule-frame-in aspect-[4/3] overflow-hidden">
-            {hasImage ? (
-              <ProjectPicture
-                src={project.thumbnail}
-                webpSrc={project.thumbnailWebp}
+        {/* Real artefact, or no column at all. */}
+        {hasImage && (
+          <div className="md:w-[230px] lg:w-[260px] shrink-0">
+            <div className="photo-frame rule-frame-in aspect-video overflow-hidden">
+              <img
+                src={project.cardImage}
                 /* Decorative: the title link right beside it already names
                    the case study, so alt text here would only repeat it. */
                 alt=""
+                loading="lazy"
+                decoding="async"
                 onError={() => setImgError(true)}
-                className="w-full h-full object-cover object-top
+                className="w-full h-full object-cover object-center
                            transition-transform duration-[400ms] ease-smooth
                            motion-safe:group-hover:scale-[1.03]"
               />
-            ) : (
-              <ThumbnailPlaceholder label={t("project.card.thumbnailPending")} />
-            )}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Text column */}
         <div className="flex-1 min-w-0 flex items-start gap-4 md:gap-6">
