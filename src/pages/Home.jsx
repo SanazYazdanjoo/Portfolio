@@ -177,8 +177,12 @@ export default function Home() {
   // status here: a live in-progress case study with order:1 must be able to
   // lead the page. Only coming-soon is split out, because it renders a
   // different row component.
-  const live       = localizedProjects.filter((p) => p.status !== "coming-soon");
-  const comingSoon = localizedProjects.filter((p) => p.status === "coming-soon");
+  // `excludeFromHome` is the one thing that overrides the shared order: a
+  // project can be published, routed and listed on /projects while still not
+  // belonging in the homepage's five-slot shortlist.
+  const onHome     = localizedProjects.filter((p) => !p.excludeFromHome);
+  const live       = onHome.filter((p) => p.status !== "coming-soon");
+  const comingSoon = onHome.filter((p) => p.status === "coming-soon");
   const hasAnyProjects = live.length > 0 || comingSoon.length > 0;
 
   return (

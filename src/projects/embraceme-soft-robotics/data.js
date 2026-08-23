@@ -37,10 +37,13 @@ export const projectData = {
     en: "University research project",
     de: "Universitäres Forschungsprojekt",
   },
-  cardTags: ["Human-Robot Interaction", "Physical Prototyping", "Material Testing", "Arduino", "Interaction Design"],
+  // Four tags, chosen to differentiate rather than to enumerate: one method,
+  // one research skill, one technical, one domain. The full list lives on the
+  // detail page and on /tags — the card is a triage surface, not an index.
+  cardTags: ["Physical Prototyping", "Public Exhibition Research", "Arduino", "Human-Robot Interaction"],
   cardOutcome: {
-    en: "Three prototype iterations produced a working 3s/9s inflate–deflate hug; public-exhibition observation showed the binary touch trigger, not the hardware, was what broke the experience.",
-    de: "Drei Prototyp-Iterationen führten zu einer funktionierenden Umarmung im 3s/9s-Takt; die Beobachtung in der öffentlichen Ausstellung zeigte, dass der binäre Berührungsauslöser die Erfahrung brach — nicht die Hardware.",
+    en: "Visitors wanted to control the hug; a binary touch trigger, not the soft hardware, broke the experience.",
+    de: "Besucher:innen wollten die Umarmung steuern; ein binärer Berührungsauslöser brach die Erfahrung — nicht die weiche Hardware.",
   },
   tags: ["Soft Robotics", "Human-Robot Interaction", "Shape-Changing Interfaces", "Literature Review", "Competitive Analysis", "Physical Prototyping", "Material Testing", "Arduino", "Sensor Integration", "Interaction Design", "Data Physicalization", "Public Exhibition Research"],
   thumbnail: thumbnailImg,
