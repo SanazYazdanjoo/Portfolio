@@ -279,6 +279,7 @@ const de = {
   "project.nav.next": "Nächstes Projekt",
   "project.card.readCaseStudy": "Fallstudie lesen",
   "project.card.readInProgress": "Laufende Arbeit lesen",
+  "project.card.thumbnailPending": "Screenshot folgt",
 
   // Project detail — figure viewer chrome
   "project.media.close": "Schließen",
