@@ -1365,3 +1365,23 @@
   filter: grayscale(0%) contrast(1);
 }
 
+/* ── Cookiebot's persistent widget ──────────────────────────────────────
+   index.html loads Cookiebot's uc.js, which — after the consent dialog is
+   answered — leaves a fixed floating badge on the page for the rest of the
+   session. It renders as a solid black disc pinned over the bottom corner
+   of the content, in nobody's palette and at nobody's scale, and it is
+   third-party markup whose inner class names are not ours to depend on.
+
+   So it is hidden rather than restyled, and its one function — reopening
+   the consent dialog — is served by controls that do belong to this design
+   system: the "Cookie settings" button in the Footer's bottom bar, which
+   renders on every route, and the matching button on /privacy. Both call
+   window.Cookiebot.renew(), the same API the widget itself calls, so
+   consent stays withdrawable at any time (Art. 7(3) GDPR).
+
+   This hides ONLY the persistent badge. #CybotCookiebotDialog — the
+   first-visit consent dialog itself — is a different element and must keep
+   showing; do not extend this selector to it. */
+#CookiebotWidget {
+  display: none !important;
+}
