@@ -37,6 +37,12 @@ const en = {
   // About
   "about.heading": "About Me",
   "home.about.kicker": "01 — Who I Am",
+  // The About rail (Home.jsx, WhatIBring) — three capability lines drawn from
+  // the same skill groups The Bridge renders, so the rail and the arc can't drift.
+  "home.about.bring.title": "What I bring",
+  "home.about.bring.research": "Mixed-methods research — contextual inquiry, controlled experiments, eye-tracking, thematic analysis.",
+  "home.about.bring.build": "Production frontend — React, TypeScript, Tailwind CSS, WCAG accessibility.",
+  "home.about.bring.qa": "A QA habit — test plans, automated coverage, and evidence behind every claim.",
 
   "about.howIGotHere": "How I Got Here",
   "about.theBridge": "The Bridge",

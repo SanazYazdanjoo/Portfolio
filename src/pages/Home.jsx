@@ -5,8 +5,9 @@
 // About/Bridge instead, via HomeSection, so the content column never drifts
 // between sections. HomeSection controls the vertical gap above each
 // section via its `tight` prop.
-// Footer padding here (pb-6) pairs with Footer's own internal lead-in —
-// both sides define the gap between them.
+// The page does not pad its own bottom: the Footer already carries pt-12
+// above its first row, and adding a second gap on this side is what left a
+// dead band under the last case study.
 
 import React from "react";
 import { Hero } from "../components/Hero";
@@ -75,7 +76,14 @@ function SectionHeading({ eyebrow, heading }) {
 // carries its own trailing space — the default pt-20 would double it up.
 //   tight  → pt-10 md:pt-12  (40 / 48px)
 //   normal → pt-20           (80px)
-function HomeSection({ id, eyebrow, heading, children, tight = false }) {
+//
+// `rail` is content for the space under the sticky label. A 4/12 column
+// holding two lines of heading and then 400px of nothing is a hole, not
+// structure — either it earns its width or the section should collapse to
+// one centred column. About fills it (see WhatIBring below); Case Studies
+// deliberately leaves it empty, because its heading has to stay pinned
+// beside a list that runs several screens.
+function HomeSection({ id, eyebrow, heading, children, rail = null, tight = false }) {
   return (
     <section
       id={id}
@@ -90,12 +98,49 @@ function HomeSection({ id, eyebrow, heading, children, tight = false }) {
         <div className="lg:col-span-4 lg:pr-6 lg:border-r lg:rule-r lg:rule-soft">
           <div className="lg:sticky lg:top-24">
             <SectionHeading eyebrow={eyebrow} heading={heading} />
+            {rail && <div className="mt-8 lg:mt-10">{rail}</div>}
           </div>
         </div>
         {/* Content — the same axis in every section */}
         <div className="lg:col-span-8 overflow-visible">{children}</div>
       </div>
     </section>
+  );
+}
+
+// Fills the About rail: three capability lines, each one a claim the page
+// goes on to evidence — the research methods and the stack come straight
+// from The Bridge's own skill groups (src/data/career.js), and the QA line
+// is the third phase of the same arc. Short enough to read as a summary
+// beside the bio rather than compete with it.
+function WhatIBring() {
+  const { t } = useTranslation();
+  const reduce = useReducedMotion();
+  const items = [
+    t("home.about.bring.research"),
+    t("home.about.bring.build"),
+    t("home.about.bring.qa"),
+  ];
+
+  return (
+    <motion.div
+      initial={reduce ? { opacity: 1 } : { opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: reduce ? 0 : 0.3, ease: EASE }}
+    >
+      <h3 className="text-xs font-black uppercase tracking-caps text-primary-600">
+        {t("home.about.bring.title")}
+      </h3>
+      <ul className="mt-4 space-y-3 list-none m-0 p-0 border-t rule-t pt-4">
+        {items.map((item) => (
+          <li key={item} className="flex gap-2.5 text-sm leading-relaxed text-text-meta">
+            <span className="text-primary-600 shrink-0" aria-hidden="true">—</span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </motion.div>
   );
 }
 
@@ -119,8 +164,8 @@ export default function Home() {
   const hasAnyProjects = live.length > 0 || comingSoon.length > 0;
 
   return (
-    // Footer owns the space above itself; this wrapper only needs a small pad
-    <div className="w-full relative pb-6 overflow-visible">
+    // Footer owns the space above itself — this wrapper adds none of its own
+    <div className="w-full relative overflow-visible">
 
       {/* Hero — capped at ~85vh by Hero.jsx itself, not locked here. */}
       <section id="Hero-Section" className="w-full relative overflow-visible max-w-page mx-auto">
@@ -134,7 +179,13 @@ export default function Home() {
       <div className="-mx-8 md:-mx-12 lg:-mx-16 bg-surface-warm">
         <div className="px-8 md:px-12 lg:px-16 pb-14 md:pb-16">
           <div className="max-w-page mx-auto w-full">
-            <HomeSection id="AboutMe-Section" eyebrow={t("home.about.kicker")} heading={t("about.heading")} tight>
+            <HomeSection
+              id="AboutMe-Section"
+              eyebrow={t("home.about.kicker")}
+              heading={t("about.heading")}
+              rail={<WhatIBring />}
+              tight
+            >
               <AboutBio data={profileData} />
 
               {/* The Bridge — visual proof of the bio's "5+ years across..." claim */}
