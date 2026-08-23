@@ -21,7 +21,6 @@ const en = {
   "projects.heading": "Case Studies",
   "home.projects.kicker": "02 — Selected Work",
   "home.contact.kicker": "03 — Get in touch",
-  "home.contact.moreWays": "All contact details",
   "projects.title": "Projects",
   "projects.viewProject": "View Case Study",
   "projects.comingSoon": "Coming Soon",
@@ -168,15 +167,9 @@ const en = {
   "hero.meta.locationValue": "Weimar, DE · Open to relocation",
   
   // Footer
-  "footer.status": "Status",
-  "footer.directContact": "Direct Contact",
-  "footer.basedIn": "Currently based in {location}.",
   "footer.openToRoles": "Open to {role} roles.",
-  "footer.utility": "Utility",
   "footer.available": "Available",
   "footer.timezone": "Timezone: CET (UTC+1)",
-  "footer.cvLink": "CV",
-  "footer.githubLink": "GitHub",
   "footer.cookieSettings": "Cookie settings",
   "footer.legalAriaLabel": "Legal",
   "footer.colophon": "Designed & engineered from scratch — React, Tailwind CSS, Framer Motion.",
