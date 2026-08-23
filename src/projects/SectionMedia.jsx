@@ -119,7 +119,7 @@ function ZoomOverlay({ figure, onClose }) {
       aria-label={figure.alt || t("project.media.enlargedDefault")}
       tabIndex={-1}
       className="fixed inset-0 z-[100] overflow-auto bg-black/80 backdrop-blur-md
-                 focus:outline-none print:hidden"
+ print:hidden focus-ring"
       onClick={onClose}
     >
       {/* Fixed, not sticky: a sticky header scrolls with the overlay's own
@@ -131,12 +131,10 @@ function ZoomOverlay({ figure, onClose }) {
         onClick={onClose}
         aria-label={t("project.media.closeLabel")}
         className="fixed right-4 top-4 z-10 inline-flex h-11 w-11 items-center justify-center
-                   rounded-full rule-circle rule-circle-lg [--rule-line-color:rgb(255_255_255/0.25)]
-                   [--rule-fill-color:rgb(0_0_0/0.7)] text-white shadow-lg
-                   backdrop-blur-sm transition-colors duration-200
-                   hover:[--rule-line-color:rgb(255_255_255)] hover:[--rule-fill-color:rgb(0_0_0)]
-                   focus:outline-none focus-visible:ring-2 focus-visible:ring-white
-                   focus-visible:ring-offset-2 focus-visible:ring-offset-black/60"
+ rounded-full rule-circle rule-circle-lg [--rule-line-color:rgb(255_255_255/0.25)]
+ [--rule-fill-color:rgb(0_0_0/0.7)] text-white shadow-lg
+ backdrop-blur-sm transition-colors duration-200
+ hover:[--rule-line-color:rgb(255_255_255)] hover:[--rule-fill-color:rgb(0_0_0)] focus-ring-light"
       >
         <svg aria-hidden="true" className="h-5 w-5" fill="none" stroke="currentColor"
              strokeWidth="2.5" viewBox="0 0 24 24">
@@ -154,7 +152,7 @@ function ZoomOverlay({ figure, onClose }) {
         />
         {figure.caption && (
           <p className="mx-auto mt-4 max-w-3xl text-center font-mono text-2xs
-                        uppercase tracking-wider leading-relaxed text-white/70">
+                        uppercase leading-relaxed text-white/70">
             {figure.caption}
           </p>
         )}
@@ -192,7 +190,7 @@ export default function SectionMedia({ items }) {
 
           const media = needsArtwork ? (
             <div className="flex min-h-[160px] flex-col items-center justify-center gap-2 p-8 text-center">
-              <span className="font-mono text-2xs uppercase tracking-[0.2em] text-text-meta">
+              <span className="font-mono text-2xs uppercase text-text-meta">
                 {t("project.media.pending")}
               </span>
               {isNeedsInput(f.src) && <NeedsInputMarker path={`figures[${i}].src`} />}
@@ -227,7 +225,7 @@ export default function SectionMedia({ items }) {
               {(f.label || f.title || f.description) && (
                 <div className="mb-4">
                   {f.label && (
-                    <p className="m-0 mb-2 font-mono text-2xs uppercase tracking-[0.2em] text-primary-600">
+                    <p className="m-0 mb-2 font-mono text-2xs uppercase text-primary-600">
                       {f.label}
                     </p>
                   )}
@@ -237,7 +235,7 @@ export default function SectionMedia({ items }) {
                     </h4>
                   )}
                   {f.description && (
-                    <p className="m-0 text-sm md:text-base leading-relaxed text-text/70">
+                    <p className="m-0 text-sm md:text-base leading-relaxed text-text-meta">
                       {f.description}
                     </p>
                   )}
@@ -254,15 +252,14 @@ export default function SectionMedia({ items }) {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`${linkLabel}: ${f.alt}`}
-                    className="group relative block focus:outline-none
-                               focus-visible:ring-2 focus-visible:ring-primary-600"
+                    className="group relative block focus-ring"
                   >
                     {media}
                     <span
                       aria-hidden="true"
                       className="pointer-events-none absolute right-3 top-3 inline-flex items-center gap-1.5
                                  border rule-frame [--rule-fill-color:var(--bg)] px-2.5 py-1.5 font-mono text-2xs font-bold
-                                 uppercase tracking-[0.15em] text-text backdrop-blur-sm no-print
+                                 uppercase text-text backdrop-blur-sm no-print
                                  transition-colors duration-200
                                  group-hover:[--rule-line-color:var(--primary-600)] group-hover:text-primary-600"
                     >
@@ -277,8 +274,7 @@ export default function SectionMedia({ items }) {
                     type="button"
                     onClick={(e) => { triggerRef.current = e.currentTarget; setZoomed(f); }}
                     aria-label={`${t("project.media.enlarge")}: ${f.alt}`}
-                    className="group block w-full cursor-zoom-in appearance-none border-0 bg-transparent p-0
-                               focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
+                    className="group block w-full cursor-zoom-in appearance-none border-0 bg-transparent p-0 focus-ring"
                   >
                     {media}
                   </button>
@@ -298,7 +294,7 @@ export default function SectionMedia({ items }) {
 
               {(f.caption || isLink) && (
                 <figcaption
-                  className="mt-2.5 font-mono text-2xs uppercase tracking-wider
+                  className="mt-2.5 font-mono text-2xs uppercase
                              text-text-meta leading-relaxed"
                 >
                   {f.caption}
@@ -320,10 +316,10 @@ export default function SectionMedia({ items }) {
                   a scanning reader can take the finding without the setup. */}
               {f.takeaway && (
                 <div className="mt-4 border-l-2 rule-edge-l [--rule-line-color:var(--primary-600)] pl-4">
-                  <p className="m-0 mb-1 font-mono text-2xs uppercase tracking-[0.2em] text-primary-600">
+                  <p className="m-0 mb-1 font-mono text-2xs uppercase text-primary-600">
                     {f.takeawayLabel || t("project.media.whatItShows")}
                   </p>
-                  <p className="m-0 text-sm leading-relaxed text-text/75">
+                  <p className="m-0 text-sm leading-relaxed text-text-meta">
                     {f.takeaway}
                   </p>
                 </div>

@@ -7,7 +7,7 @@ export function NeedsInputMarker({ path }) {
   return (
     <span
       className="inline-flex items-center gap-1.5 bg-danger rule-fill px-2 py-0.5 font-mono text-2xs
-                 font-black uppercase tracking-wider text-white"
+                 font-black uppercase text-white"
       role="note"
     >
       NEEDS INPUT — {path}

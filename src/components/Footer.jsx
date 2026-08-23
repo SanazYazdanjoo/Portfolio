@@ -16,7 +16,7 @@ export function Footer({ data }) {
 
   return (
     <footer className="relative border-t rule-t bg-bg no-print">
-      <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8 pt-12 pb-10">
+      <div className="w-full max-w-page mx-auto px-4 md:px-8 pt-12 pb-10">
 
         {/* Minimalist HR grid */}
         {!isContactPage && (
@@ -24,12 +24,12 @@ export function Footer({ data }) {
 
           {/* Column 1: Status */}
           <div className="md:col-span-5">
-            <h3 className="text-2xs font-black uppercase tracking-widest text-dim mb-5">
+            <h3 className="text-2xs font-black uppercase text-dim mb-5">
               {t("footer.status")}
             </h3>
             <div className="flex items-start gap-3">
               <StatusDot label={t("footer.available")} />
-              <p className="text-sm text-text/80 leading-relaxed font-medium">
+              <p className="text-sm text-text-meta leading-relaxed font-medium">
                 {t("footer.basedIn").replace("{location}", contact.location)}<br />
                 {data.heroMeta?.status || t("hero.meta.statusValue")}
               </p>
@@ -38,7 +38,7 @@ export function Footer({ data }) {
 
           {/* Column 2: Direct Contact */}
           <div className="md:col-span-4">
-            <h3 className="text-2xs font-black uppercase tracking-widest text-dim mb-5">
+            <h3 className="text-2xs font-black uppercase text-dim mb-5">
               {t("footer.directContact")}
             </h3>
             <ul className="space-y-3 text-sm font-medium">
@@ -59,7 +59,7 @@ export function Footer({ data }) {
 
           {/* Column 3: Utility */}
           <div className="md:col-span-3">
-            <h3 className="text-2xs font-black uppercase tracking-widest text-dim mb-5">
+            <h3 className="text-2xs font-black uppercase text-dim mb-5">
               {t("footer.utility")}
             </h3>
             <ul className="space-y-3 text-sm font-medium">
@@ -82,7 +82,7 @@ export function Footer({ data }) {
               )}
               {/* /70 — the AA floor for 11px text is ~/65; /70 matches the
                   "/70 ink on white" convention used for small meta text. */}
-              <li className="text-text/70 pt-1 text-2xs uppercase tracking-wide font-bold">
+              <li className="text-text-meta pt-1 text-2xs uppercase font-bold">
                 {t("footer.timezone")}
               </li>
             </ul>
@@ -100,7 +100,7 @@ export function Footer({ data }) {
             href={REPO_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-text/70 hover:text-primary transition-colors duration-300 underline underline-offset-2"
+            className="text-primary-600 hover:text-primary transition-colors duration-300 rule-underline"
           >
             {t("footer.viewSource")} <span className="text-2xs tracking-normal opacity-50">↗</span>
           </a>
@@ -113,21 +113,21 @@ export function Footer({ data }) {
           <nav className="flex items-center gap-5" aria-label={t("footer.legalAriaLabel")}>
             <Link
               to="/impressum"
-              className="text-2xs font-bold uppercase tracking-widest text-text-meta
+              className="text-2xs font-bold uppercase text-text-meta
                          hover:text-primary transition-colors duration-300"
             >
               {t("footer.impressum")}
             </Link>
             <Link
               to="/privacy"
-              className="text-2xs font-bold uppercase tracking-widest text-text-meta
+              className="text-2xs font-bold uppercase text-text-meta
                          hover:text-primary transition-colors duration-300"
             >
               {t("footer.privacy")}
             </Link>
             <Link
               to="/sitemap"
-              className="text-2xs font-bold uppercase tracking-widest text-text-meta
+              className="text-2xs font-bold uppercase text-text-meta
                          hover:text-primary transition-colors duration-300"
             >
               {t("footer.sitemap")}

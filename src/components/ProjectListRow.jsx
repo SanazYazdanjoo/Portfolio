@@ -42,7 +42,7 @@ export function ProjectListRow({ project, index }) {
         to={`/projects/${project.id}`}
         style={{ "--row-spine": spine }}
         className="group relative flex items-center gap-5 md:gap-8 px-8 md:px-16 py-6 bg-bg border-t rule-t
-                   transition-colors duration-200 hover:bg-primary/[0.03] outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+ transition-colors duration-200 hover:bg-primary/[0.03] outline-none focus-ring"
       >
         {/* Domain spine — neutral at rest, fills with its color on hover so
             the color reads as a hover affordance, not a permanent decoration.
@@ -59,7 +59,7 @@ export function ProjectListRow({ project, index }) {
 
         {isInProgress && (
           <span
-            className="hidden md:inline-block shrink-0 self-start mt-0.5 border rule-frame px-2.5 py-1 text-2xs font-black uppercase tracking-[0.2em] text-primary-600"
+            className="hidden md:inline-block shrink-0 self-start mt-0.5 border rule-frame px-2.5 py-1 text-2xs font-black uppercase text-primary-600"
             style={{ "--rule-line-color": "var(--primary-600)" }}
           >
             {t("projects.inProgress")}
@@ -91,14 +91,14 @@ export function ProjectListRow({ project, index }) {
         <div className="flex-1 min-w-0">
           {isInProgress && (
             <span
-              className="md:hidden inline-block mb-1.5 border rule-frame px-2.5 py-1 text-2xs font-black uppercase tracking-[0.2em] text-primary-600"
+              className="md:hidden inline-block mb-1.5 border rule-frame px-2.5 py-1 text-2xs font-black uppercase text-primary-600"
               style={{ "--rule-line-color": "var(--primary-600)" }}
             >
               {t("projects.inProgress")}
             </span>
           )}
           <h2
-            className="font-display font-extrabold text-[24px] uppercase leading-tight text-text
+            className="font-display font-extrabold text-2xl uppercase leading-tight text-text
                        line-clamp-2 transition-all duration-200 ease-smooth
                        group-hover:translate-x-0.5 group-hover:text-primary-600"
           >

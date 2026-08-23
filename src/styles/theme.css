@@ -114,6 +114,21 @@
 --fs-display: clamp(3rem,     6.5vw + 1rem, 6rem);     /* page-level display (Contact, About) */
 --fs-hero:    clamp(3rem,     8vw,          8rem);     /* homepage name ONLY */
 
+/* Two roles the sans/display steps above cannot serve.
+
+   --fs-quote is for Caveat, which renders optically smaller than DM Sans at
+   the same point size; borrowing --fs-2xl would shrink a pull quote on the
+   narrow screens where it most needs presence. Fixed on purpose — a
+   handwritten aside should not drift with the viewport.
+
+   --fs-metric and --fs-metric-long are the numerals in MetricsStrip, picked
+   by value length rather than by hierarchy, so they cannot share a step with
+   anything. They were hard breakpoint jumps (36/44 and 22/26) in a scale that
+   is fluid everywhere else; same endpoints, smooth in between. */
+--fs-quote:       1.75rem;                                 /* 28px — Caveat pull quotes */
+--fs-metric:      clamp(2.25rem,  0.89vw + 2.04rem, 2.75rem);  /* 36 → 44px */
+--fs-metric-long: clamp(1.375rem, 0.44vw + 1.27rem, 1.625rem); /* 22 → 26px */
+
 /* Rhythm */
 --leading-display: 0.98;
 --leading-heading: 1.12;
@@ -133,9 +148,20 @@
     --space-8: 2rem;
     --radius-md: 12px;
 
+    /* Page shells. Twenty different max-widths were in use; three of them
+       were doing the actual work and the rest were near-misses of those.
+       --measure (2.1.2) stays the separate, narrower prose limit. */
+    --w-page: 1200px;   /* home, about, footer — the marketing shell */
+    --w-wide: 1500px;   /* case studies and tag pages, which carry a sidebar */
+    --w-doc:  64rem;    /* CV, design system, credentials — document pages */
+
     /* 2.1.4: Shadows — warmed to match the paper */
     --shadow-sm: 0 1px 2px rgba(60, 40, 30, .06);
     --shadow-md: 0 6px 16px rgba(60, 40, 30, .09);
+    /* The lift a card takes on hover. It was an arbitrary
+       rgba(30, 25, 20, .07) — cooler and darker than the other two, against a
+       scale the design system describes as "warm brown-tinted, never gray". */
+    --shadow-lg: 0 12px 24px rgba(60, 40, 30, .10);
 
     /* 2.1.5: Other */
     --timing-smooth: cubic-bezier(.22,.61,.36,1);
@@ -189,14 +215,19 @@
     --border: rgba(33, 29, 28, 0.12);  /* ink at 12% — visible hairlines */
     --line: var(--color-paper-200);
 
-    /* Text */
+    /* Text — three tiers, and only three. Anything quieter than --text is one
+       of these, never a `text-text/NN` alpha: an ad-hoc alpha says nothing
+       about which tier it meant, and several of them had drifted below the
+       4.5:1 contrast floor on real copy. Raw alphas are for decorative glyphs
+       (the mid-dot separators, the ghost numeral) and nothing else.
+         --text        body and display
+         --text-meta   supporting prose, captions, method notes
+         --text-dim    labels, counts, timestamps, the quietest legible tier */
     --text: var(--color-ink-900);
     --text-rgb: var(--color-ink-900-rgb);
     --text-display: var(--color-ink-900);
     --text-dim: var(--color-ink-600);
     --text-dim-rgb: var(--color-ink-600-rgb);
-    --text-muted: var(--color-ink-600);
-    --text-muted-rgb: var(--color-ink-600-rgb);
 
     /* Typography */
     --font-sans: var(--font-family-sans);
@@ -239,8 +270,6 @@
       --text: var(--color-dark-text);
       --text-rgb: var(--color-dark-text-rgb);
       --text-display: var(--color-white);
-      --text-muted: var(--color-dark-text-muted);
-      --text-muted-rgb: var(--color-dark-text-muted-rgb);
       --text-dim: var(--color-dark-text-muted);
       --text-dim-rgb: var(--color-dark-text-muted-rgb);
 
@@ -282,8 +311,6 @@
       --text: var(--color-ink-900);
       --text-rgb: var(--color-ink-900-rgb);
       --text-display: var(--color-ink-900);
-      --text-muted: var(--color-ink-600);
-      --text-muted-rgb: var(--color-ink-600-rgb);
       --text-dim: var(--color-ink-600);
       --text-dim-rgb: var(--color-ink-600-rgb);
 
@@ -370,7 +397,7 @@
   .title { font-weight: 700; line-height: 1.15; }
   .h1 { font-size: clamp(1.75rem, 2.2vw + 1rem, 2.5rem); }
   .h2 { font-size: clamp(1.25rem, 1.6vw + .9rem, 1.75rem); }
-  .lead { color: var(--text-muted); }
+  .lead { color: var(--text-dim); }
   .doodle-text { font-family: var(--font-hand); line-height: 1; letter-spacing: -0.025em; }
 
 /* ── Typography roles — the only heading classes components use ── */
@@ -463,6 +490,27 @@
   text-transform: uppercase;
   letter-spacing: var(--tracking-caps);
 }
+
+  /* One focus treatment. It was fourteen: ring-2 on primary-600 mostly, but
+     also primary/40, gold-on-gold, and three different offset combinations —
+     and two interactive elements had `focus:outline-none` with nothing to
+     replace it, which removes the indicator outright.
+
+     `outline` rather than a ring: it follows border-radius, it is never
+     clipped by an ancestor's overflow, and it gets its offset for free.
+       .focus-ring         everything
+       .focus-ring-inset   edge-to-edge targets (an image thumbnail) where an
+                           outside ring would sit on the neighbour
+       .focus-ring-light   controls on a dark overlay */
+  .focus-ring, .focus-ring-inset, .focus-ring-light { outline: none; }
+  .focus-ring:focus-visible,
+  .focus-ring-inset:focus-visible,
+  .focus-ring-light:focus-visible {
+    outline: 2px solid var(--primary-600);
+    outline-offset: 2px;
+  }
+  .focus-ring-inset:focus-visible { outline-offset: -2px; }
+  .focus-ring-light:focus-visible { outline-color: var(--color-white); }
 
   .btn {
     display: inline-flex; align-items: center; gap: .5rem;
@@ -731,6 +779,9 @@
     --rule-v-soft-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='360' viewBox='0 0 50 3600'%3E%3Cpath d='M14 0C14 107,23 213,23 320C23 401,24 482,24 563C24 644,23 725,23 806C23 897,23 988,23 1079C23 1166,22 1253,22 1340C22 1447,12 1553,12 1660C12 1770,15 1879,15 1989C15 2072,20 2155,20 2238C20 2321,24 2405,24 2488C24 2591,17 2695,17 2798C17 2898,22 2998,22 3098C22 3166,13 3234,13 3302C13 3401,14 3501,14 3600L24 3600C24 3501,24 3401,24 3302C24 3234,37 3166,37 3098C37 2998,33 2898,33 2798C33 2695,36 2591,36 2488C36 2405,34 2321,34 2238C34 2155,26 2072,26 1989C26 1879,28 1770,28 1660C28 1553,31 1447,31 1340C31 1253,33 1166,33 1079C33 988,35 897,35 806C35 725,33 644,33 563C33 482,34 401,34 320C34 213,24 107,24 0Z' fill='%23211d1c' fill-opacity='0.08'/%3E%3C/svg%3E");
     --rule-v-faint-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='360' viewBox='0 0 50 3600'%3E%3Cpath d='M14 0C14 107,23 213,23 320C23 401,24 482,24 563C24 644,23 725,23 806C23 897,23 988,23 1079C23 1166,22 1253,22 1340C22 1447,12 1553,12 1660C12 1770,15 1879,15 1989C15 2072,20 2155,20 2238C20 2321,24 2405,24 2488C24 2591,17 2695,17 2798C17 2898,22 2998,22 3098C22 3166,13 3234,13 3302C13 3401,14 3501,14 3600L24 3600C24 3501,24 3401,24 3302C24 3234,37 3166,37 3098C37 2998,33 2898,33 2798C33 2695,36 2591,36 2488C36 2405,34 2321,34 2238C34 2155,26 2072,26 1989C26 1879,28 1770,28 1660C28 1553,31 1447,31 1340C31 1253,33 1166,33 1079C33 988,35 897,35 806C35 725,33 644,33 563C33 482,34 401,34 320C34 213,24 107,24 0Z' fill='%23211d1c' fill-opacity='0.04'/%3E%3C/svg%3E");
 
+    --rule-h-link-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='5' viewBox='0 0 3600 50'%3E%3Cpath d='M0 16C87 16,173 12,260 12C342 12,424 28,506 28C604 28,701 29,799 29C909 29,1019 26,1129 26C1218 26,1308 20,1397 20C1481 20,1566 19,1650 19C1764 19,1878 21,1992 21C2076 21,2159 19,2243 19C2317 19,2390 21,2464 21C2557 21,2649 23,2742 23C2839 23,2936 17,3033 17C3118 17,3202 24,3287 24C3391 24,3496 16,3600 16L3600 26C3496 26,3391 35,3287 35C3202 35,3118 32,3033 32C2936 32,2839 39,2742 39C2649 39,2557 33,2464 33C2390 33,2317 33,2243 33C2159 33,2076 31,1992 31C1878 31,1764 26,1650 26C1566 26,1481 36,1397 36C1308 36,1218 38,1129 38C1019 38,909 37,799 37C701 37,604 37,506 37C424 37,342 28,260 28C173 28,87 26,0 26Z' fill='%235e1605'/%3E%3C/svg%3E");
+    --rule-h-link-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='5' viewBox='0 0 3600 50'%3E%3Cpath d='M0 16C87 16,173 12,260 12C342 12,424 28,506 28C604 28,701 29,799 29C909 29,1019 26,1129 26C1218 26,1308 20,1397 20C1481 20,1566 19,1650 19C1764 19,1878 21,1992 21C2076 21,2159 19,2243 19C2317 19,2390 21,2464 21C2557 21,2649 23,2742 23C2839 23,2936 17,3033 17C3118 17,3202 24,3287 24C3391 24,3496 16,3600 16L3600 26C3496 26,3391 35,3287 35C3202 35,3118 32,3033 32C2936 32,2839 39,2742 39C2649 39,2557 33,2464 33C2390 33,2317 33,2243 33C2159 33,2076 31,1992 31C1878 31,1764 26,1650 26C1566 26,1481 36,1397 36C1308 36,1218 38,1129 38C1019 38,909 37,799 37C701 37,604 37,506 37C424 37,342 28,260 28C173 28,87 26,0 26Z' fill='%23de2b00'/%3E%3C/svg%3E");
+
     --rule-mask-h: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='5' viewBox='0 0 3600 50' preserveAspectRatio='none'%3E%3Cpath d='M0 16C87 16,173 12,260 12C342 12,424 28,506 28C604 28,701 29,799 29C909 29,1019 26,1129 26C1218 26,1308 20,1397 20C1481 20,1566 19,1650 19C1764 19,1878 21,1992 21C2076 21,2159 19,2243 19C2317 19,2390 21,2464 21C2557 21,2649 23,2742 23C2839 23,2936 17,3033 17C3118 17,3202 24,3287 24C3391 24,3496 16,3600 16L3600 26C3496 26,3391 35,3287 35C3202 35,3118 32,3033 32C2936 32,2839 39,2742 39C2649 39,2557 33,2464 33C2390 33,2317 33,2243 33C2159 33,2076 31,1992 31C1878 31,1764 26,1650 26C1566 26,1481 36,1397 36C1308 36,1218 38,1129 38C1019 38,909 37,799 37C701 37,604 37,506 37C424 37,342 28,260 28C173 28,87 26,0 26Z' fill='%23fff'/%3E%3C/svg%3E");
     --rule-mask-v: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='360' viewBox='0 0 50 3600' preserveAspectRatio='none'%3E%3Cpath d='M14 0C14 107,23 213,23 320C23 401,24 482,24 563C24 644,23 725,23 806C23 897,23 988,23 1079C23 1166,22 1253,22 1340C22 1447,12 1553,12 1660C12 1770,15 1879,15 1989C15 2072,20 2155,20 2238C20 2321,24 2405,24 2488C24 2591,17 2695,17 2798C17 2898,22 2998,22 3098C22 3166,13 3234,13 3302C13 3401,14 3501,14 3600L24 3600C24 3501,24 3401,24 3302C24 3234,37 3166,37 3098C37 2998,33 2898,33 2798C33 2695,36 2591,36 2488C36 2405,34 2321,34 2238C34 2155,26 2072,26 1989C26 1879,28 1770,28 1660C28 1553,31 1447,31 1340C31 1253,33 1166,33 1079C33 988,35 897,35 806C35 725,33 644,33 563C33 482,34 401,34 320C34 213,24 107,24 0Z' fill='%23fff'/%3E%3C/svg%3E");
     --rule-mask-cap-l: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='28' viewBox='0 0 140 280' preserveAspectRatio='none'%3E%3Cpath d='M140 20L124 22L109 25L94 30L80 36L66 44L53 53L41 64L31 77L24 92L20 108L19 124L20 140L23 155L28 170L34 184L41 197L48 210L57 223L68 234L80 244L94 252L109 257L124 260L140 260L140 250L126 248L112 245L99 240L86 233L75 225L64 216L55 205L48 193L41 181L36 168L32 154L30 140L30 126L32 111L36 97L42 83L50 71L60 60L71 50L84 43L97 37L111 33L126 30L140 30Z' fill='%23fff'/%3E%3C/svg%3E");
@@ -757,6 +808,7 @@
        points them back here. The -light shapes above stay defined in both
        themes precisely so that aliasing works without a second copy. */
     --rule-h: var(--rule-h-light);
+    --rule-h-link: var(--rule-h-link-light);
     --rule-h-soft: var(--rule-h-soft-light);
     --rule-h-faint: var(--rule-h-faint-light);
     --rule-v: var(--rule-v-light);
@@ -779,6 +831,7 @@
       --rule-v: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='360' viewBox='0 0 50 3600'%3E%3Cpath d='M14 0C14 107,23 213,23 320C23 401,24 482,24 563C24 644,23 725,23 806C23 897,23 988,23 1079C23 1166,22 1253,22 1340C22 1447,12 1553,12 1660C12 1770,15 1879,15 1989C15 2072,20 2155,20 2238C20 2321,24 2405,24 2488C24 2591,17 2695,17 2798C17 2898,22 2998,22 3098C22 3166,13 3234,13 3302C13 3401,14 3501,14 3600L24 3600C24 3501,24 3401,24 3302C24 3234,37 3166,37 3098C37 2998,33 2898,33 2798C33 2695,36 2591,36 2488C36 2405,34 2321,34 2238C34 2155,26 2072,26 1989C26 1879,28 1770,28 1660C28 1553,31 1447,31 1340C31 1253,33 1166,33 1079C33 988,35 897,35 806C35 725,33 644,33 563C33 482,34 401,34 320C34 213,24 107,24 0Z' fill='%23f2efea' fill-opacity='0.14'/%3E%3C/svg%3E");
       --rule-v-soft: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='360' viewBox='0 0 50 3600'%3E%3Cpath d='M14 0C14 107,23 213,23 320C23 401,24 482,24 563C24 644,23 725,23 806C23 897,23 988,23 1079C23 1166,22 1253,22 1340C22 1447,12 1553,12 1660C12 1770,15 1879,15 1989C15 2072,20 2155,20 2238C20 2321,24 2405,24 2488C24 2591,17 2695,17 2798C17 2898,22 2998,22 3098C22 3166,13 3234,13 3302C13 3401,14 3501,14 3600L24 3600C24 3501,24 3401,24 3302C24 3234,37 3166,37 3098C37 2998,33 2898,33 2798C33 2695,36 2591,36 2488C36 2405,34 2321,34 2238C34 2155,26 2072,26 1989C26 1879,28 1770,28 1660C28 1553,31 1447,31 1340C31 1253,33 1166,33 1079C33 988,35 897,35 806C35 725,33 644,33 563C33 482,34 401,34 320C34 213,24 107,24 0Z' fill='%23f2efea' fill-opacity='0.09'/%3E%3C/svg%3E");
       --rule-v-faint: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='360' viewBox='0 0 50 3600'%3E%3Cpath d='M14 0C14 107,23 213,23 320C23 401,24 482,24 563C24 644,23 725,23 806C23 897,23 988,23 1079C23 1166,22 1253,22 1340C22 1447,12 1553,12 1660C12 1770,15 1879,15 1989C15 2072,20 2155,20 2238C20 2321,24 2405,24 2488C24 2591,17 2695,17 2798C17 2898,22 2998,22 3098C22 3166,13 3234,13 3302C13 3401,14 3501,14 3600L24 3600C24 3501,24 3401,24 3302C24 3234,37 3166,37 3098C37 2998,33 2898,33 2798C33 2695,36 2591,36 2488C36 2405,34 2321,34 2238C34 2155,26 2072,26 1989C26 1879,28 1770,28 1660C28 1553,31 1447,31 1340C31 1253,33 1166,33 1079C33 988,35 897,35 806C35 725,33 644,33 563C33 482,34 401,34 320C34 213,24 107,24 0Z' fill='%23f2efea' fill-opacity='0.05'/%3E%3C/svg%3E");
+      --rule-h-link: var(--rule-h-link-dark);
       --rule-ink-soft: rgba(242, 239, 234, 0.09);
       --rule-ink-faint: rgba(242, 239, 234, 0.05);
     }
@@ -797,6 +850,7 @@
   --rule-v: var(--rule-v-light);
   --rule-v-soft: var(--rule-v-soft-light);
   --rule-v-faint: var(--rule-v-faint-light);
+  --rule-h-link: var(--rule-h-link-light);
   --rule-line-color: rgba(33, 29, 28, 0.12);
   --rule-ink-soft: rgba(33, 29, 28, 0.08);
   --rule-ink-faint: rgba(33, 29, 28, 0.04);
@@ -1116,6 +1170,22 @@
   .rule-blob, .rule-fill, .rule-fill-r, .rule-disc {
     -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
   }
+
+  /* Inline prose links. `text-decoration` draws a mathematically straight
+     line, which on this site is the one stroke that never got the hand — so
+     the underline is the house hairline as a repeating background instead.
+     box-decoration-break: clone is what makes it survive a line wrap: each
+     line box paints its own run rather than one band across the lot. */
+  .rule-underline {
+    text-decoration: none;
+    background-image: var(--rule-h-link);
+    background-repeat: repeat-x;
+    background-position: 0 100%;
+    background-size: var(--rule-len, 360px) var(--rule-w, 5px);
+    -webkit-box-decoration-break: clone;
+            box-decoration-break: clone;
+  }
+  @media print { .rule-underline { background-image: none; text-decoration: underline; } }
 
   /* A standalone hairline in its own colour, rather than the ink tint that
      .rule-line bakes in: the nav's hover underline, the domain spine down a
