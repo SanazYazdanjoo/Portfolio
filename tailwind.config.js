@@ -74,28 +74,63 @@ fontFamily: {
   hand:    "var(--font-family-hand)",
   mono:    "var(--font-family-mono)",
 },
+/* ── THE TYPE SCALE ──────────────────────────────────────────────────
+   Eight steps, each one a token in theme.css. A component writes
+   text-h3 or text-body; it never writes a size. The legacy names below
+   are kept only so the pages this pass does not re-render keep
+   compiling, and every one of them is pinned to a step above — there
+   is one set of sizes, two sets of names. */
 fontSize: {
-  "2xs":     ["var(--fs-2xs)",     { lineHeight: "1.4", letterSpacing: "var(--tracking-caps)" }],
-  xs:        ["var(--fs-xs)",      { lineHeight: "1.5" }],
-  sm:        ["var(--fs-sm)",      { lineHeight: "1.6" }],
-  base:      ["var(--fs-base)",    { lineHeight: "var(--leading-body)" }],
-  body:      ["var(--fs-body)",    { lineHeight: "var(--leading-body-snug)" }],
-  subhead:   ["var(--fs-subhead)", { lineHeight: "1.5" }],
-  lg:        ["var(--fs-lg)",      { lineHeight: "var(--leading-body)" }],
-  xl:        ["var(--fs-xl)",      { lineHeight: "1.4" }],
-  "2xl":     ["var(--fs-2xl)",     { lineHeight: "var(--leading-heading)" }],
-  "3xl":     ["var(--fs-3xl)",     { lineHeight: "var(--leading-heading)", letterSpacing: "var(--tracking-heading)" }],
-  "4xl":     ["var(--fs-4xl)",     { lineHeight: "var(--leading-heading)", letterSpacing: "var(--tracking-heading)" }],
-  display:   ["var(--fs-display)", { lineHeight: "var(--leading-display)", letterSpacing: "var(--tracking-display)" }],
-  quote:         ["var(--fs-quote)",       { lineHeight: "1.375" }],
-  metric:        ["var(--fs-metric)",      { lineHeight: "1" }],
-  "metric-long": ["var(--fs-metric-long)", { lineHeight: "1" }],
+  display:   ["var(--fs-display)", { lineHeight: "var(--lh-display)", letterSpacing: "var(--tracking-display)" }],
+  h1:        ["var(--fs-h1)",      { lineHeight: "var(--lh-h1)",      letterSpacing: "var(--tracking-display)" }],
+  h2:        ["var(--fs-h2)",      { lineHeight: "var(--lh-h2)",      letterSpacing: "var(--tracking-heading)" }],
+  h3:        ["var(--fs-h3)",      { lineHeight: "var(--lh-h3)",      letterSpacing: "var(--tracking-heading)" }],
+  "body-lg": ["var(--fs-body-lg)", { lineHeight: "var(--lh-body-lg)" }],
+  body:      ["var(--fs-body)",    { lineHeight: "var(--lh-body)" }],
+  small:     ["var(--fs-small)",   { lineHeight: "var(--lh-small)" }],
+  label:     ["var(--fs-label)",   { lineHeight: "var(--lh-label)", letterSpacing: "var(--tracking-label)" }],
+
+  // Legacy names — pinned to the steps above, not to sizes of their own.
+  "2xs":     ["var(--fs-label)",   { lineHeight: "var(--lh-label)", letterSpacing: "var(--tracking-caps)" }],
+  xs:        ["var(--fs-label)",   { lineHeight: "var(--lh-label)" }],
+  sm:        ["var(--fs-small)",   { lineHeight: "var(--lh-small)" }],
+  base:      ["var(--fs-body)",    { lineHeight: "var(--lh-body)" }],
+  lg:        ["var(--fs-body-lg)", { lineHeight: "var(--lh-body-lg)" }],
+  xl:        ["var(--fs-h3)",      { lineHeight: "var(--lh-h3)" }],
+  "2xl":     ["var(--fs-h3)",      { lineHeight: "var(--lh-h3)" }],
+  "3xl":     ["var(--fs-h2)",      { lineHeight: "var(--lh-h2)" }],
+  "4xl":     ["var(--fs-h1)",      { lineHeight: "var(--lh-h1)" }],
+  quote:         ["var(--fs-h3)",  { lineHeight: "var(--lh-h3)" }],
+  metric:        ["var(--fs-h2)",  { lineHeight: "var(--lh-h2)" }],
+  "metric-long": ["var(--fs-h3)",  { lineHeight: "var(--lh-h3)" }],
 },
+
+/* ── THE SPACING SCALE ───────────────────────────────────────────────
+   Ten steps, deliberately given their own `s`-prefixed namespace rather
+   than overriding Tailwind's default numeric spacing: overriding it
+   would silently drop every w-6 / h-4 / inset-2 on the pages this pass
+   does not touch. The prefix is also what makes the audit greppable —
+   a homepage padding that is not p-sNN is a bug you can find with a
+   regex. */
+spacing: {
+  s4:   "var(--space-4)",
+  s8:   "var(--space-8)",
+  s12:  "var(--space-12)",
+  s16:  "var(--space-16)",
+  s24:  "var(--space-24)",
+  s32:  "var(--space-32)",
+  s48:  "var(--space-48)",
+  s64:  "var(--space-64)",
+  s96:  "var(--space-96)",
+  s128: "var(--space-128)",
+},
+
       // The three tracking tokens, exposed as utilities. Without these the
       // only way to reach --tracking-caps was an arbitrary value, which is
       // how one token ended up spelled eight different ways.
       letterSpacing: {
-        caps: "var(--tracking-caps)",
+        label: "var(--tracking-label)",   // 0.08em — the only caps tracking
+        caps: "var(--tracking-caps)",     // legacy, pages not re-rendered here
         heading: "var(--tracking-heading)",
         display: "var(--tracking-display)",
       },
