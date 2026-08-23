@@ -43,7 +43,7 @@ export function HomeContact({ data }) {
       {/* Availability — the answer to "can she even take this job?" */}
       <div className="flex items-start gap-3 max-w-[58ch]">
         <StatusDot label={t("footer.available")} />
-        <p className="text-base leading-relaxed text-text">
+        <p className="text-body text-text">
           {contact.availability}
         </p>
       </div>
