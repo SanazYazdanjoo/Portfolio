@@ -25,10 +25,17 @@ export const Nav = ({ isScrolled = false }) => {
   const profileData = useLocalizedProfile(rawProfile);
   const prefersReducedMotion = useReducedMotion();
   const { t } = useTranslation();
-  const navLinks = profileData.navLinks.map((link) => ({
-    ...link,
-    name: NAV_LABEL_KEYS[link.path] ? t(NAV_LABEL_KEYS[link.path]) : link.name,
-  }));
+  // `secondary: true` in profile.navLinks keeps a destination in the sitemap
+  // and in the Footer's utility column while taking it out of the primary
+  // nav. Design System is the case it exists for: it is a reference page for
+  // one reader in a hundred, and it was sitting at the same weight as Work
+  // and Contact.
+  const navLinks = profileData.navLinks
+    .filter((link) => !link.secondary)
+    .map((link) => ({
+      ...link,
+      name: NAV_LABEL_KEYS[link.path] ? t(NAV_LABEL_KEYS[link.path]) : link.name,
+    }));
 
   return (
     <motion.nav

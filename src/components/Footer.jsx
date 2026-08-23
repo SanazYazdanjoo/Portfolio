@@ -2,10 +2,25 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "../context/LanguageContext";
 import { StatusDot } from "./StatusDot";
+import { REPO_URL } from "../data/site";
 
-// This site's own source, for the colophon — distinct from contact.github
-// (the profile link), which points at the author's GitHub root instead.
-const REPO_URL = "https://github.com/SanazYazdanjoo/Portfolio";
+// Utility links come in two tiers. The first is what a visitor might
+// actually want next (CV, credentials, GitHub). The second, after a
+// hairline, is site meta — the design system, this page's source, and the
+// cookie control — which belongs here and not in the primary nav.
+//
+// The cookie control is a button, not a link: Cookiebot's own floating
+// widget is hidden site-wide (see #CookiebotWidget in theme.css) because it
+// renders as a black disc on top of the page content, so this and the
+// matching button on /privacy are how consent gets withdrawn.
+const UTILITY_LINK =
+  "text-text hover:text-primary transition-colors duration-300 inline-flex items-center gap-1.5";
+const META_LINK =
+  "text-text-meta hover:text-primary transition-colors duration-300 inline-flex items-center gap-1.5";
+
+function ExternalMark() {
+  return <span aria-hidden="true" className="text-xs">↗</span>;
+}
 
 export function Footer({ data }) {
   const { name, contact } = data;
@@ -64,26 +79,41 @@ export function Footer({ data }) {
             </h3>
             <ul className="space-y-3 text-sm font-medium">
               <li>
-                <Link to="/cv" className="text-text hover:text-primary transition-colors duration-300 inline-flex items-center gap-1.5">
-                  {t("footer.cvLink")}<span aria-hidden="true" className="text-xs">↗</span>
+                <Link to="/cv" className={UTILITY_LINK}>
+                  {t("footer.cvLink")} <ExternalMark />
                 </Link>
               </li>
               <li>
-                <Link to="/credentials" className="text-text hover:text-primary transition-colors duration-300 inline-flex items-center gap-1.5">
-                  {t("credentials.heading")}<span aria-hidden="true" className="text-xs">↗</span>
+                <Link to="/credentials" className={UTILITY_LINK}>
+                  {t("credentials.heading")} <ExternalMark />
                 </Link>
               </li>
               {contact.github && (
                 <li>
-                  <a href={contact.github} target="_blank" rel="noopener noreferrer" className="text-text hover:text-primary transition-colors duration-300 inline-flex items-center gap-1.5">
-                    {t("footer.githubLink")} <span aria-hidden="true" className="text-xs">↗</span>
+                  <a href={contact.github} target="_blank" rel="noopener noreferrer" className={UTILITY_LINK}>
+                    {t("footer.githubLink")} <ExternalMark />
                   </a>
                 </li>
               )}
-              <li className="text-text-meta pt-1 text-xs uppercase tracking-caps font-bold">
-                {t("footer.timezone")}
+            </ul>
+
+            {/* Second tier: site meta, after a hairline. */}
+            <ul className="mt-5 pt-4 border-t rule-t space-y-2.5 text-xs font-medium">
+              <li>
+                <Link to="/designsystem" className={META_LINK}>
+                  {t("nav.designSystem")}
+                </Link>
+              </li>
+              <li>
+                <a href={REPO_URL} target="_blank" rel="noopener noreferrer" className={META_LINK}>
+                  {t("footer.viewSource")} <ExternalMark />
+                </a>
               </li>
             </ul>
+
+            <p className="mt-5 text-text-meta text-xs uppercase tracking-caps font-bold">
+              {t("footer.timezone")}
+            </p>
           </div>
         </div>
         )}
@@ -91,19 +121,11 @@ export function Footer({ data }) {
         {/* Divider */}
         <div className="rule-line mb-4" />
 
-        {/* Colophon: this site is the case study */}
-        <p className="text-xs text-text-meta font-medium mb-3">
-          {t("footer.colophon")}{" "}
-          <a
-            href={REPO_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary-600 hover:text-primary transition-colors duration-300 rule-underline"
-          >
-            {t("footer.viewSource")} <span aria-hidden="true" className="text-xs">↗</span>
-          </a>
-        </p>
-
+        {/* The colophon sentence itself now sits beside the homepage's
+            contact section (HomeContact.jsx), where it reads as a
+            credibility statement rather than as the smallest line on the
+            page. "View source" stays reachable from every route via the
+            utility column above. */}
         {/* Bottom bar: copyright + legal */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <p className="text-xs text-text-meta font-medium">© {year} {name}</p>
@@ -130,6 +152,19 @@ export function Footer({ data }) {
             >
               {t("footer.sitemap")}
             </Link>
+            {/* The replacement for Cookiebot's own floating widget, which is
+                hidden site-wide (see #CookiebotWidget in theme.css). This bar
+                renders on every route — including /contact, where the grid
+                above is suppressed — so consent stays withdrawable from
+                anywhere, alongside the button on /privacy. */}
+            <button
+              type="button"
+              onClick={() => window.Cookiebot?.renew?.()}
+              className="text-xs font-bold uppercase tracking-caps text-text-meta
+                         hover:text-primary transition-colors duration-300 focus-ring"
+            >
+              {t("footer.cookieSettings")}
+            </button>
           </nav>
         </div>
 
