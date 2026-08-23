@@ -108,7 +108,10 @@ export function StackedProjectCard({ project, index }) {
 
           <div className="flex-1 min-w-0">
             <div className="flex items-start gap-3 flex-wrap">
-              <h2 className="font-display font-extrabold text-lg md:text-xl
+              {/* 24px floor, 40px on a desktop — the second-loudest thing
+                  on the page after the name, and louder than the section
+                  label above the list. */}
+              <h2 className="font-display font-extrabold text-2xl md:text-3xl
                              tracking-[-0.01em] uppercase leading-tight text-text
                              transition-colors duration-300 group-hover:text-primary-600">
                 {/* Stretched link — the whole card is the click target, and
@@ -146,7 +149,7 @@ export function StackedProjectCard({ project, index }) {
             {/* Outcome — the one sentence a reader gets if they read nothing
                 else on this card. */}
             {project.cardOutcome && (
-              <p className="mt-3 text-sm leading-relaxed text-text max-w-[62ch]">
+              <p className="mt-3 text-body text-text max-w-[62ch]">
                 {project.cardOutcome}
               </p>
             )}

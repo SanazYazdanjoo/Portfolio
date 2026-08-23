@@ -37,11 +37,12 @@ export function AboutBio({ data }) {
         // Every paragraph reads at the same size, weight and ink. The
         // second one used to be 14px in text-meta while the first was 16px
         // in text — a difference that said "this half matters less" about
-        // the half that carries the research/engineering claim.
+        // the half that carries the research/engineering claim. `text-body`
+        // is the 17px/1.55 floor (see --fs-body in theme.css).
         <motion.p
           key={i}
           variants={reduce ? itemReduced : item}
-          className="text-base leading-[1.85] text-text"
+          className="text-body text-text"
         >
           {para}
         </motion.p>

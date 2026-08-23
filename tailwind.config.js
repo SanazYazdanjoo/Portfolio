@@ -79,6 +79,8 @@ fontSize: {
   xs:        ["var(--fs-xs)",      { lineHeight: "1.5" }],
   sm:        ["var(--fs-sm)",      { lineHeight: "1.6" }],
   base:      ["var(--fs-base)",    { lineHeight: "var(--leading-body)" }],
+  body:      ["var(--fs-body)",    { lineHeight: "var(--leading-body-snug)" }],
+  subhead:   ["var(--fs-subhead)", { lineHeight: "1.5" }],
   lg:        ["var(--fs-lg)",      { lineHeight: "var(--leading-body)" }],
   xl:        ["var(--fs-xl)",      { lineHeight: "1.4" }],
   "2xl":     ["var(--fs-2xl)",     { lineHeight: "var(--leading-heading)" }],
