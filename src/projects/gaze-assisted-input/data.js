@@ -48,6 +48,11 @@ export const projectData = {
   // actually produced. A project with no such asset sets nothing and its
   // card renders text-only — there is no placeholder state.
   cardImage: movementTimeChart,
+  // The figure shows ONE legible detail, not the whole screenshot shrunk to a
+  // chip: object-position + a static scale, applied by .card-figure. Verified
+  // by simulating the exact CSS against the source at the rendered box size.
+  // The large-target panel, with its axis values and distance labels.
+  cardCrop: { x: "8%", y: "50%", zoom: 1.45 },
   year: "2025–2026",
   context: {
     en: "M.Sc. thesis",

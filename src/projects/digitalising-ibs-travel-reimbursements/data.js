@@ -78,6 +78,11 @@ export const projectData = {
   // actually produced. A project with no such asset sets nothing and its
   // card renders text-only — there is no placeholder state.
   cardImage: prototypeScreenshot,
+  // The figure shows ONE legible detail, not the whole screenshot shrunk to a
+  // chip: object-position + a static scale, applied by .card-figure. Verified
+  // by simulating the exact CSS against the source at the rendered box size.
+  // Participant rows with their transport type and receipt status.
+  cardCrop: { x: '26%', y: '50%', zoom: 2.0 },
   year: '2026',
   context: {
     en: 'In-house · public sector',

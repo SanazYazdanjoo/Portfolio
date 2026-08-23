@@ -66,14 +66,14 @@ function CareerArcFull({ steps }) {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className={`relative p-8 group
+          className={`relative p-s32 group
             ${step.highlight
               ? "bg-primary rule-fill text-white"
               : "bg-bg rule-fill hover:bg-blush-weak transition-colors duration-300"
             }`}
         >
           <span
-            className={`block font-display font-extrabold text-4xl leading-none mb-4 select-none
+            className={`block font-display font-extrabold text-h1 leading-none mb-s16 select-none
               ${step.highlight
                 ? "text-white/40"
                 : "text-blush group-hover:text-secondary transition-colors duration-300"
@@ -83,34 +83,34 @@ function CareerArcFull({ steps }) {
             {step.phase}
           </span>
 
-          <h3 className={`font-display font-bold text-xl leading-tight mb-1 ${step.highlight ? "text-white" : "text-text"}`}>
+          <h3 className={`font-display font-bold text-h3 leading-tight mb-s4 ${step.highlight ? "text-white" : "text-text"}`}>
             {step.label}
           </h3>
-          <p className={`text-2xs font-semibold uppercase mb-4 ${step.highlight ? "text-white/60" : "text-secondary-600"}`}>
+          <p className={`type-label mb-s16 ${step.highlight ? "text-white/60" : "text-secondary-600"}`}>
             {step.years}
           </p>
-          <p className={`text-sm leading-relaxed mb-6 ${step.highlight ? "text-white/85" : "text-text-meta"}`}>
+          <p className={`text-small mb-s24 ${step.highlight ? "text-white/85" : "text-text-meta"}`}>
             {step.summary}
           </p>
 
           {step.skillGroups.map((group, gi) => (
-            <div key={group.label ?? `group-${gi}`} className={gi > 0 ? "mt-5" : ""}>
+            <div key={group.label ?? `group-${gi}`} className={gi > 0 ? "mt-s24" : ""}>
               {group.label && (
                 <p
-                  className={`text-2xs font-black uppercase mb-2
+                  className={`type-label mb-s8
                     ${step.highlight ? "text-white" : "text-secondary-600"}`}
                 >
                   {group.label}
                 </p>
               )}
               <ul
-                className="flex flex-wrap gap-1.5 list-none m-0 p-0"
+                className="flex flex-wrap gap-s8 list-none m-0 p-0"
                 aria-label={group.label || undefined}
               >
                 {group.items.map((item) => (
                   <li key={item}>
                     <span
-                      className={`inline-block text-2xs font-bold uppercase px-2 py-1 rounded-full border
+                      className={`inline-block type-label px-s12 py-s4 rounded-full border
                         rule-pill [--rule-cap:14px]
                         transition-colors duration-200 ease-smooth
                         ${step.highlight
@@ -139,29 +139,17 @@ function CareerArcFull({ steps }) {
 
 // COMPACT — homepage strip (numeral · label · years, arrows between)
 //
-// Three equal-width columns spanning the full content width, with a thin
-// connector line running behind the arrows at the numeral baseline.
-//
-// All three steps carry identical colour, weight and timing. They used to
-// fade in one after another (delay i * 0.15) with the two earlier phases
-// drawn in --blush, a token the palette reserves for tints and explicitly
-// forbids as text: on screen that read as two greyed-out, half-loaded
-// entries next to one live one — a bug, not a hierarchy. Which phase is
-// current is now said in words ("2022 – Present"), which is the only place
-// it belongs. The single remaining animation is the connector drawing
-// itself in, and it is reduced-motion guarded like everything else.
-//
-// `no-underline` and `border-b-0` guard against inherited link styling.
+// Three equal columns with a connector line behind the arrows. All three
+// steps carry identical colour, weight and timing; which phase is current is
+// said in words. Sizes are type steps, spacing is scale tokens.
 function CareerArcCompact({ steps }) {
   const reduce = useReducedMotion();
 
   return (
     <div className="relative w-full">
-      {/* Connector line — behind the arrows, at the numeral baseline.
-          Hidden on mobile, where steps stack instead of running inline. */}
       <svg
         aria-hidden="true"
-        className="hidden md:block absolute left-0 right-0 top-[27px] w-full h-[2px] overflow-visible -z-10"
+        className="hidden md:block absolute left-0 right-0 top-s24 w-full h-px overflow-visible -z-10"
         preserveAspectRatio="none"
       >
         <motion.line
@@ -175,46 +163,35 @@ function CareerArcCompact({ steps }) {
         />
       </svg>
 
-      {/* One entrance for the whole strip — the three steps are a single
-          progression, not three independent reveals. */}
       <motion.ol
-        className="relative grid grid-cols-1 gap-y-5 list-none m-0 p-0 w-full md:grid-cols-3 md:gap-x-8"
+        className="relative grid grid-cols-1 md:grid-cols-3 gap-s24 md:gap-s32 list-none m-0 p-0 w-full"
         initial={reduce ? { opacity: 1 } : { opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: reduce ? 0 : 0.4, ease: EASE }}
       >
         {steps.map((step, i) => (
-          <li key={step.phase} className="relative md:text-left">
-            <div className="flex items-baseline gap-3 md:block">
-              <span
-                className="font-display font-extrabold text-2xl md:text-3xl leading-none
-                           select-none text-secondary-600"
-                aria-hidden="true"
-              >
+          <li key={step.phase} className="relative">
+            <div className="flex items-baseline gap-s12 md:block">
+              <span className="type-h3 font-extrabold text-secondary-600 select-none" aria-hidden="true">
                 {step.phase}
               </span>
-              <span className="md:block md:mt-2">
-                <span
-                  className="block font-display font-bold text-sm md:text-base leading-tight
-                             md:whitespace-nowrap no-underline border-b-0 text-text"
-                >
+              <span className="md:block md:mt-s12">
+                <span className="block font-display font-bold text-body text-text">
                   {step.label}
                 </span>
-                <span className="block text-xs font-semibold uppercase tracking-caps mt-1 text-text-meta">
+                <span className="block mt-s4 type-label text-text-meta">
                   {step.years}
                 </span>
               </span>
             </div>
 
-            {/* Arrow — sits over the connector line in the gutter between
-                columns. Decoration, so the rose tint is fine here. */}
             {i < steps.length - 1 && (
               <span
                 aria-hidden="true"
-                className="hidden md:flex absolute top-[9px] -right-4 translate-x-1/2 items-center justify-center text-secondary"
+                className="hidden md:flex absolute top-s4 -right-s16 translate-x-1/2 items-center justify-center text-secondary"
               >
-                <InkArrow className="w-9 h-8" />
+                <InkArrow className="w-s32 h-s32" />
               </span>
             )}
           </li>

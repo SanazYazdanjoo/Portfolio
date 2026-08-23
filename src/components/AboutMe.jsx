@@ -1,49 +1,29 @@
-// Skills live inside The Bridge (CareerArc, variant="full") as
-// chronologically-grouped chips; see src/data/career.js.
+// The bio. Every paragraph reads at the same step, weight and ink; the
+// column's width comes from the grid it is placed in, not from a max-width
+// here. Skills live inside The Bridge (CareerArc) — see src/data/career.js.
 
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { EASE } from "../utils/motion";
 
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.06 } },
-};
+const container = { hidden: {}, show: { transition: { staggerChildren: 0.06 } } };
+const item = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE } } };
+const itemReduced = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { duration: 0 } } };
 
-const item = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE } },
-};
-
-const itemReduced = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { duration: 0 } },
-};
-
-// Bio — one calm reading column
 export function AboutBio({ data }) {
   const bioParagraphs = data.bioParagraphs || [];
   const reduce = useReducedMotion();
 
   return (
     <motion.div
-      className="space-y-6"
+      className="flex flex-col gap-s24"
       variants={container}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, margin: "-10%" }}
+      viewport={{ once: true, amount: 0.1 }}
     >
       {bioParagraphs.map((para, i) => (
-        // Every paragraph reads at the same size, weight and ink. The
-        // second one used to be 14px in text-meta while the first was 16px
-        // in text — a difference that said "this half matters less" about
-        // the half that carries the research/engineering claim. `text-body`
-        // is the 17px/1.55 floor (see --fs-body in theme.css).
-        <motion.p
-          key={i}
-          variants={reduce ? itemReduced : item}
-          className="text-body text-text"
-        >
+        <motion.p key={i} variants={reduce ? itemReduced : item} className="text-body text-text">
           {para}
         </motion.p>
       ))}
