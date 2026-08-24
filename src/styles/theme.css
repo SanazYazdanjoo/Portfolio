@@ -99,118 +99,107 @@
 --font-family-hand:    "Caveat", "Segoe Script", cursive;
 --font-family-mono:    ui-monospace, "SF Mono", "Cascadia Code", Menlo, monospace;
 
-/* ---------------------------------------------------------------------
-   TYPE SCALE — eight fixed steps. There are no intermediate sizes: a size
-   that is not one of these is a bug, not a decision. Anything that used to
-   sit between two steps snaps to the nearer one.
+/* =====================================================================
+   THE SCALE — taken verbatim from the design reference
+   (Claude Design › Ink & Bloom › templates/portfolio-homepage).
 
-     display  112   the homepage name, and page-level display type
-     h1        56   the contact email; page titles
-     h2        32   section headings, and the lead case study's title
-     h3        24   case study titles, the handwritten tagline
-     body-lg   19   the hero positioning line, lead paragraphs
-     body      17   body copy
-     small     15   supporting prose
-     label     13   THE ONLY PLACE CAPITALS ARE ALLOWED (see --tracking-label)
+   Every size and length the homepage uses is below. A value that is not
+   here is not a decision, it is a leftover — design-system.test.js fails
+   the build on one. Names are the ROLE the reference gives each value,
+   because that is how the reference is organised: it has no abstract
+   ramp, it has a size for the card title and a size for the eyebrow.
+   ===================================================================== */
 
-   Line height is part of the step, not a separate decision per call site.
-   --------------------------------------------------------------------- */
---fs-display:  7rem;        /* 112px */
---fs-h1:       3.5rem;      /*  56px */
---fs-h2:       2rem;        /*  32px */
---fs-h3:       1.5rem;      /*  24px */
---fs-body-lg:  1.1875rem;   /*  19px */
---fs-body:     1.0625rem;   /*  17px */
---fs-small:    0.9375rem;   /*  15px */
---fs-label:    0.8125rem;   /*  13px */
+/* Grid — 1200px, 12 columns, 32px gutters */
+--content-max:   1200px;
+--gutter:          32px;
+--section-pad:     88px;   /* every section, top and bottom */
+--hero-pad-top:    72px;   /* the single exception the reference makes */
+--card-pad:        48px;   /* case-study card, top and bottom */
 
---lh-display:  1;
---lh-h1:       1.05;
---lh-h2:       1.15;
---lh-h3:       1.25;
---lh-body-lg:  1.5;
---lh-body:     1.55;
---lh-small:    1.5;
---lh-label:    1.4;
+/* Spacing — the reference's own set, nothing between the steps */
+--space-2:    2px;
+--space-3:    3px;
+--space-5:    5px;
+--space-6:    6px;
+--space-8:    8px;
+--space-10:  10px;
+--space-12:  12px;
+--space-15:  15px;
+--space-16:  16px;
+--space-20:  20px;
+--space-24:  24px;
+--space-26:  26px;
+--space-28:  28px;
+--space-32:  32px;
+--space-48:  48px;
+--space-56:  56px;
+--space-72:  72px;
+--space-88:  88px;
 
-/* Tracking */
---tracking-display: -0.015em;
---tracking-heading: -0.01em;
---tracking-label:    0.08em;
-/* Legacy. Still referenced by pages this pass does not re-render; every
-   homepage label uses --tracking-label. */
---tracking-caps:     0.18em;
+/* Type */
+--fs-plate:        11px;   /* figure plate caption, card badge */
+--fs-label:        12px;   /* every mono label */
+--fs-small:        15px;   /* nav links, card CTA, colophon */
+--fs-body:         17px;   /* body copy, nav wordmark, buttons, links */
+--fs-lead:         19px;   /* lead paragraph, card outcome, availability */
+--fs-hand:         26px;   /* the handwritten aside */
+--fs-card-title:   27px;
+--fs-numeral:      30px;   /* career-arc numerals */
+--fs-h2:           34px;   /* section headings */
+--fs-email:        clamp(28px, 3.2vw, 44px);
+--fs-hero:         clamp(56px, 7vw, 104px);
 
-/* ---------------------------------------------------------------------
-   SPACING SCALE — ten steps, in px because they are layout, not type.
-   Every margin, padding and gap on the homepage is one of these. Nothing
-   else is permitted; see the audit note at the end of this file.
-   --------------------------------------------------------------------- */
---space-4:     4px;
---space-8:     8px;
---space-12:   12px;
---space-16:   16px;
---space-24:   24px;
---space-32:   32px;
---space-48:   48px;
---space-64:   64px;
---space-96:   96px;
---space-128: 128px;
+/* Line heights, by value */
+--lh-94:  .94;  --lh-100: 1;    --lh-110: 1.1;  --lh-118: 1.18;
+--lh-125: 1.25; --lh-130: 1.3;  --lh-140: 1.4;  --lh-150: 1.5;
+--lh-155: 1.55; --lh-160: 1.6;  --lh-165: 1.65; --lh-170: 1.7;
+--lh-180: 1.8;
 
-/* One grid, everywhere: 12 columns, 1200px, 32px gutters. */
---grid-gutter: var(--space-32);
+/* Tracking, by value */
+--ls-hero:       -.025em;
+--ls-h2:          -.02em;
+--ls-card-title: -.015em;
+--ls-wordmark:    -.01em;
+--ls-06:           .06em;
+--ls-08:           .08em;
+--ls-10:            .1em;
+--ls-12:           .12em;
+--ls-14:           .14em;
+--ls-16:           .16em;
 
-/* ---------------------------------------------------------------------
-   Two derived lengths — the only non-scale values in the system, and the
-   reason they are allowed is that they are computed from real font metrics
-   (@capsizecss/metrics) rather than eyeballed. Both position the hero
-   photo against type, which the spacing scale cannot express.
+/* The hero photo's bottom edge sits on the CTA row's text baseline (the
+   reference's portrait plate says so in as many words). The distance from
+   the button's bottom edge up to that baseline is not a spacing decision,
+   it is a consequence of the button's own padding and DM Sans's descent
+   (.310 of the em, from @capsizecss/metrics), at line-height normal:
+       --space-15  +  .310 × --fs-body   =  15px + 5.27px */
+--hero-baseline-inset: calc(var(--space-15) + 0.310 * var(--fs-body));
 
-   Bricolage Grotesque: ascent .930  descent -.270  capHeight .660
-   DM Sans:             ascent .992  descent -.310
-
-   --hero-cap-inset — top of the name's first line box down to its cap
-   height, at --lh-display (1):
-       (1 − (.930 + .270)) / 2 + (.930 − .660)  =  −.100 + .270  =  .170em
-
-   --hero-baseline-inset — the CTA button's bottom edge up to its text
-   baseline, at --fs-body-lg and --lh-body-lg (1.5):
-       padding-bottom + ((1.5 − (.992 + .310)) / 2 + .310) × font-size
-       = --space-16 + .409 × 19px
-   --------------------------------------------------------------------- */
---hero-cap-inset:      calc(0.170 * var(--fs-display));
---hero-baseline-inset: calc(var(--space-16) + 0.409 * var(--fs-body-lg));
-
-/* Caveat renders optically far smaller than DM Sans at the same point size,
-   so the handwritten pull quote borrows the step above the one it reads as.
-   Kept because /projects and the case study template use it. */
---fs-quote:       var(--fs-h3);
---fs-metric:      var(--fs-h2);
---fs-metric-long: var(--fs-h3);
-
-/* Rhythm */
---leading-display: var(--lh-display);
---leading-heading: var(--lh-h2);
---leading-body:    var(--lh-body);
-
-/* ---------------------------------------------------------------------
-   Legacy ramp. Still referenced by the pages this pass does not re-render
-   (project template, CV, credentials, design system). Each one is pinned
-   to a step of the scale above rather than left on its own fluid curve, so
-   there is exactly one set of sizes in the codebase even while two sets of
-   names survive. Migrating the call sites is the remaining work.
-   --------------------------------------------------------------------- */
---fs-2xs:     var(--fs-label);
+/* Roles the reference does not set, kept for pages this pass does not
+   re-render. Each is pinned to a value above rather than to a curve of
+   its own, so the codebase holds one set of sizes. */
+--fs-quote:       var(--fs-hand);
+--fs-metric:      var(--fs-numeral);
+--fs-metric-long: var(--fs-card-title);
+--leading-display: var(--lh-94);
+--leading-heading: var(--lh-110);
+--leading-body:    var(--lh-160);
+--tracking-display: var(--ls-hero);
+--tracking-heading: var(--ls-h2);
+--tracking-label:   var(--ls-08);
+--tracking-caps:    var(--ls-16);
+--fs-2xs:     var(--fs-plate);
 --fs-xs:      var(--fs-label);
 --fs-sm:      var(--fs-small);
 --fs-base:    var(--fs-body);
---fs-lg:      var(--fs-body-lg);
---fs-xl:      var(--fs-h3);
---fs-2xl:     var(--fs-h3);
+--fs-lg:      var(--fs-lead);
+--fs-xl:      var(--fs-hand);
+--fs-2xl:     var(--fs-card-title);
 --fs-section: var(--fs-h2);
 --fs-3xl:     var(--fs-h2);
---fs-4xl:     var(--fs-h1);
---fs-hero:    var(--fs-display);
+--fs-4xl:     var(--fs-email);
+--fs-display: var(--fs-hero);
 
     --radius-md: 12px;
 
@@ -606,14 +595,13 @@
   .focus-ring-light:focus-visible { outline-color: var(--color-white); }
 
   /* ─────────────────────────────────────────────────────────────────────
-     THE GRID. One 12-column grid, 1200px, 32px gutters, used by every
-     section including the hero and the footer. Children place themselves
+     THE GRID — 1200px, 12 columns, 32px gutters. Every section uses it:
+     header, hero, about, work, contact, footer. Children place themselves
      with Tailwind's col-span-* / col-start-* at the md: breakpoint.
 
-     Below md the twelve columns cannot exist — the gutters alone would be
-     352px of a 390px screen — so the grid collapses to one column and each
-     child becomes a full-width row. That collapse is the system's single
-     responsive rule; nothing else changes shape with the viewport.
+     Below md the twelve columns cannot exist (the gutters alone would be
+     352px of a 390px screen), so the grid collapses to one column and each
+     child becomes a full-width row. That is the only responsive rule.
      ───────────────────────────────────────────────────────────────────── */
   .grid-12 {
     display: grid;
@@ -621,47 +609,58 @@
     column-gap: var(--space-16);
     row-gap: 0;
     width: 100%;
-    max-width: var(--w-page);
+    max-width: var(--content-max);
     margin-inline: auto;
+    padding-inline: var(--gutter);
   }
   @media (min-width: 768px) {
     .grid-12 {
       grid-template-columns: repeat(12, minmax(0, 1fr));
-      column-gap: var(--grid-gutter);
+      column-gap: var(--gutter);
     }
   }
 
-  /* Every section, the same block padding. No section sets its own. */
-  .section-pad {
-    padding-block: var(--space-128);
-  }
+  /* 88px top and bottom, the same for every section. */
+  .section-pad { padding-block: var(--section-pad); }
 
   /* ─────────────────────────────────────────────────────────────────────
-     CASE STUDY FIGURE. One treatment, no variants: 4:3, cover, a single
-     hairline in the neutral border token, no shadow, no inner mat, and the
-     page cream behind it so a transparent asset does not float.
-
-     --crop-x / --crop-y / --crop-zoom come from the project's own data
-     (`cardCrop` in each project's data.js): the card shows ONE legible
-     detail of the artefact, not a whole screenshot shrunk to a chip. The
-     zoom is a static transform, not an animation.
+     CASE STUDY FIGURE — a fixed 4:3 box, the paper tint behind it, one
+     hairline around it, and object-fit: CONTAIN. Never cover: a UI
+     screenshot may not be cropped by its container. The assets are already
+     cropped to the detail each plate names and already 4:3, so contain
+     fills the box exactly (see scripts/generate-card-crops.mjs); an asset
+     of any other ratio letterboxes onto the tint rather than losing an edge.
      ───────────────────────────────────────────────────────────────────── */
   .card-figure {
-    position: relative;
+    width: 100%;
     aspect-ratio: 4 / 3;
-    overflow: hidden;
+    background: var(--color-paper-100);
     border: 1px solid var(--border);
-    background-color: var(--surface-warm);
   }
   .card-figure > img {
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: var(--crop-x, 50%) var(--crop-y, 50%);
-    transform: scale(var(--crop-zoom, 1));
-    transform-origin: var(--crop-x, 50%) var(--crop-y, 50%);
+    object-fit: contain;
   }
+  /* The same box carrying the plate's own caption, for a card whose asset
+     does not exist yet — the reference's plate, rendered as the reference
+     draws it. */
+  .card-figure--plate {
+    display: grid;
+    place-items: center;
+    padding: var(--space-20);
+    text-align: center;
+  }
+
+  /* The tagline highlighter. The reference draws it as a flat gradient that
+     stops at 42% of the line box, not as the animated sweep .ink-highlight
+     renders — a static band, no draw-on. */
+  .hero-highlight {
+    background: linear-gradient(to top, var(--highlight-weak) 42%, transparent 42%);
+    padding: 0 var(--space-2);
+  }
+
 
   /* One link stretched over a whole card. The card gets `position: relative`
      and its title link gets this: the ::after covers the card, so the entire
