@@ -144,7 +144,22 @@
 --fs-body:         17px;   /* body copy, nav wordmark, buttons, links */
 --fs-lead:         19px;   /* lead paragraph, card outcome, availability */
 --fs-statement:    21px;   /* the hero's one-line positioning, the About bio */
---fs-aside:        24px;   /* the handwritten aside under it */
+/* The handwritten aside. 31px, and the odd number is the point: this is the
+   one token on the page sized by what it PAINTS rather than by its nominal
+   value, because Caveat and DM Sans disagree about what a point size means.
+
+   Measured in Chrome with canvas actualBoundingBoxAscent — not from the
+   font's declared metrics, which disagree with the rasteriser for this face:
+
+     Caveat   x-height .333em   cap .708em
+     DM Sans  x-height .524em   cap .714em
+
+   Caveat's lowercase is 1.57x smaller at the same point size, and this line
+   is almost entirely lowercase. At 24px it therefore computed LARGER than
+   the 21px subhead above it and read visibly smaller — 8px of lowercase
+   against 11px. 31px puts it at 12px, 9% above the subhead, which is the
+   last step before the line wraps in a 7-column text block. */
+--fs-aside:        31px;
 --fs-hand:         26px;   /* legacy: the pull quote on the case-study template */
 --fs-card-title:   27px;
 --fs-numeral:      30px;   /* career-arc numerals */
