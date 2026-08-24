@@ -168,7 +168,7 @@ function CareerArcCompact({ steps }) {
         >
           <span
             className={`w-timeline-date shrink-0 whitespace-nowrap text-date font-mono ${
-              step.highlight ? "text-primary-600" : "text-text-dim"
+              step.highlight ? "text-primary-600" : "text-dim"
             }`}
           >
             {step.years}
