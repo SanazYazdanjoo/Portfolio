@@ -62,7 +62,7 @@ export default function About() {
   ];
 
   return (
-    <main className="bg-bg min-h-screen relative overflow-hidden">
+    <div className="bg-bg min-h-screen relative overflow-hidden">
 
       {/* Bio & Photo */}
       <section className="relative w-full px-[6%] md:px-[8%] pb-24 md:pb-32 font-sans text-text">
@@ -311,6 +311,6 @@ export default function About() {
         </div>
       </section>
 
-    </main>
+    </div>
   );
 }

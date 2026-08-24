@@ -16,7 +16,7 @@ export default function Impressum() {
   });
 
   return (
-    <main className="min-h-screen pt-20 md:pt-24 pb-20 relative overflow-hidden">
+    <div className="min-h-screen pt-20 md:pt-24 pb-20 relative overflow-hidden">
       {/* Background Decorative Element */}
       <FlowerDoodle className="absolute top-20 right-10 w-64 h-64 text-peach opacity-10 rotate-12 pointer-events-none" />
 
@@ -91,6 +91,6 @@ export default function Impressum() {
         </article>
 
       </div>
-    </main>
+    </div>
   );
 }

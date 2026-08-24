@@ -88,7 +88,7 @@ export default function Projects() {
   const allForGrid = localizedProjects; // already ordered, coming-soon last
 
   return (
-    <main className="min-h-screen pt-20 md:pt-24 pb-8 relative overflow-hidden bg-transparent">
+    <div className="min-h-screen pt-20 md:pt-24 pb-8 relative overflow-hidden bg-transparent">
       <div className="container relative z-10 mx-auto px-4 md:px-8">
 
         {/* Page header */}
@@ -159,6 +159,7 @@ export default function Projects() {
                     key={project.id || `soon-${i}`}
                     project={project}
                     index={live.length + i}
+                    headingLevel="h2"
                   />
                 ))}
                 {/* Closing hairline under the last row — its own element, not
@@ -192,6 +193,6 @@ export default function Projects() {
         )}
 
       </div>
-    </main>
+    </div>
   );
 }

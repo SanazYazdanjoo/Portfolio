@@ -126,6 +126,9 @@ function MobileMenu({ links }) {
   useEffect(() => {
     if (!open) return undefined;
 
+    // Captured now so the cleanup returns focus to the button that was the
+    // trigger when the menu opened, not whatever the ref holds at cleanup.
+    const trigger = triggerRef.current;
     const focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
     panelRef.current?.querySelector(focusableSelector)?.focus();
 
@@ -153,7 +156,7 @@ function MobileMenu({ links }) {
     document.addEventListener("keydown", onKeyDown);
     return () => {
       document.removeEventListener("keydown", onKeyDown);
-      triggerRef.current?.focus();
+      trigger?.focus();
     };
   }, [open]);
 

@@ -11,7 +11,7 @@ const de = {
 
   // Hero
   "hero.portfolio": "PORTFOLIO",
-  "hero.tagline": "Ich spreche sowohl ‚User' als auch ‚Developer'.",
+  "hero.tagline": "Ich spreche sowohl ‚User‘ als auch ‚Entwickler‘.",
   "hero.ctaWork": "Meine Projekte",
   "hero.ctaCv": "Lebenslauf ansehen",
 
@@ -52,10 +52,10 @@ const de = {
   // Career arc
   "about.career.phase1.label": "Software-Engineering",
   "about.career.phase1.years": "2015 – 2020",
-  "about.career.phase1.summary": "10+ Produktivseiten von Grund auf gebaut. Gelernt, dass Code einfach ist — zu wissen, was man bauen soll, ist schwer.",
+  "about.career.phase1.summary": "10+ Websites von Grund auf gebaut und live gebracht. Gelernt, dass Code einfach ist — zu wissen, was man bauen soll, ist schwer.",
   "about.career.phase2.label": "QA-Engineering",
   "about.career.phase2.years": "2020 – 2022",
-  "about.career.phase2.summary": "Vom Bauen zum Brechen gewechselt — und erkannt, dass jeder Bug ein Nutzereinblick war, der gehört werden wollte.",
+  "about.career.phase2.summary": "Vom Bauen zum Brechen gewechselt — und erkannt, dass hinter jedem Bug eine Nutzererkenntnis steckte, die gehört werden wollte.",
   "about.career.phase3.label": "UX Research & Engineering",
   "about.career.phase3.years": "2022 – heute",
   "about.career.phase3.summary": "Hier verschmelzen Forschung und Entwicklung. Ich konzipiere methodisch fundierte Studien und setze die Architektur (z. B. in TypeScript) direkt selbst um.",
@@ -64,9 +64,9 @@ const de = {
 
   // Research process
   // Double Diamond — der Rahmen, in dem die vier Prozessschritte unten stehen
-  "about.doubleDiamond.intro": "Als UX Engineer ist das Double Diamond meine liebste Arbeitsweise: divergieren, um zu verstehen, konvergieren, um zu entscheiden — und das zweimal. Der erste Diamant hält mich lange genug im Problemraum, um das richtige Problem zu formulieren; der zweite macht daraus etwas Gebautes, Getestetes und Messbares.",
+  "about.doubleDiamond.intro": "Als UX Engineer ist der Double Diamond meine liebste Arbeitsweise: divergieren, um zu verstehen, konvergieren, um zu entscheiden — und das zweimal. Der erste Diamant hält mich lange genug im Problemraum, um das richtige Problem zu formulieren; der zweite macht daraus etwas Gebautes, Getestetes und Messbares.",
   "about.doubleDiamond.intro2": "Was ich daran schätze, ist die Disziplin, die er erzwingt — nie zu früh konvergieren und nie für ein Problem gestalten, das niemand validiert hat. Zwischen Forschung und Entwicklung darf ich beide Diamanten selbst durchlaufen: die Studien, die entscheiden, was gebaut wird, und den Code, der zeigt, dass es trägt.",
-  "about.doubleDiamond.caption": "Das Double Diamond, geprägt vom British Design Council. Die verschlungene Linie ist der ehrliche Teil — Discovery verläuft nie geradlinig.",
+  "about.doubleDiamond.caption": "Der Double Diamond, geprägt vom Design Council (UK). Die verschlungene Linie ist der ehrliche Teil — Discovery verläuft nie geradlinig.",
   "about.doubleDiamond.alt": "Handgezeichnetes Double-Diamond-Diagramm: zwei Rauten mit den Beschriftungen Discover, Define, Develop und Deliver; eine Linie schlängelt sich durch die erste Raute und wird auf dem Weg zur Auslieferung gerade.",
 
   "about.process.discover.title": "Entdecken",
@@ -92,11 +92,16 @@ const de = {
   "cv.saveAsPdf": "Als PDF speichern",
   "cv.sectionsAriaLabel": "Lebenslauf-Abschnitte",
 
+  // The one-line replacement for the former AI-Assisted Development chip
+  // category — the claim lives with its evidence (the IBS aiAssistance
+  // paragraph), not as unbacked chips.
+  "cv.aiAssisted.text": "KI-gestützte Entwicklung — Agenten unter meiner Leitung; die Ablehnungen sind dokumentiert",
+  "cv.aiAssisted.link": "IBS-Fallstudie",
+
   // Skill-group headings on the CV. "UX Research & Design" and "QA & Testing"
   // stay English — they are the established terms in German job ads, and
   // translating them would read as less professional, not more.
   "cv.skillCategory.frontendEngineering": "Frontend-Entwicklung & Design",
-  "cv.skillCategory.aiAssistedDevelopment": "KI-gestützte Entwicklung",
   "cv.skillCategory.uxResearchDesign": "UX Research & Testing",
   "cv.skillCategory.qaTesting": "QA & Testing",
   "cv.skillCategory.analysisTools": "Analyse & Tools",
@@ -107,7 +112,7 @@ const de = {
   "contact.email": "E-Mail",
   "contact.locationPhone": "Standort & Telefon",
   "contact.socials": "Soziale Netzwerke",
-  "contact.collaborate": "Zusammenarbeit auf:",
+  "contact.collaborate": "Zusammenarbeit bei:",
   "contact.location": "Derzeit in Weimar, Deutschland, und offen für interdisziplinäre UX- und Tech-Rollen.",
   "contact.kicker": "Kontakt",
   "contact.headline": "Sprechen wir",
@@ -118,7 +123,7 @@ const de = {
   "contact.basedIn": "Standort",
 
   "contact.phone": "Telefon",
-  "contact.goodToSend": "Worüber ich gerne spreche",
+  "contact.goodToSend": "Was Sie mir gerne schicken können",
   "contact.viewCv": "Lebenslauf ansehen",
 
   // Footer
@@ -126,12 +131,12 @@ const de = {
   "footer.privacy": "Datenschutzerklärung",
   "footer.impressum": "Impressum",
   "footer.sitemap": "Seitenübersicht",
-  "footer.letsWork": "Lass uns zusammenarbeiten.",
+  "footer.letsWork": "Lassen Sie uns zusammenarbeiten.",
   "footer.openTo": "Offen für {role}-Stellen in Deutschland",
 
   // Voluntary
   "voluntary.heading": "Ehrenamt",
-  "voluntary.description": "Gemeinschaftsaufbau, Mentoring und außercurriculare Initiativen.",
+  "voluntary.description": "Gemeinschaftsaufbau, Mentoring und ehrenamtliche Initiativen.",
 
   // Common
   "common.backToPortfolio": "← Zurück zum Portfolio",
@@ -233,6 +238,17 @@ const de = {
   "project.outcome.adoption.notAdopted": "Nicht übernommen",
   "project.outcome.adoption.unknown": "Ergebnis offen",
   "project.outcome.adoption.academic": "Akademisches Projekt",
+  "project.outcome.adoption.deferred": "Evaluation ausstehend",
+
+  // One-line definitions for the outcome vocabulary — rendered as visible
+  // text under the pill (never a tooltip), and as the defined table on
+  // /designsystem. A status a reader can't decode is an unexplained verdict.
+  "project.outcome.def.shipped": "Die Organisation hat umgesetzt und veröffentlicht, was diese Arbeit empfahl.",
+  "project.outcome.def.roadmapped": "Verbindlich auf der Produkt-Roadmap; noch nicht veröffentlicht.",
+  "project.outcome.def.notAdopted": "Geprüft und nicht übernommen — festgehalten statt verschwiegen.",
+  "project.outcome.def.unknown": "Übergeben; ob es umgesetzt wurde, wurde nie verifiziert.",
+  "project.outcome.def.academic": "Akademische Arbeit — Produkt-Adoption ist hier nicht anwendbar.",
+  "project.outcome.def.deferred": "Evaluation konzipiert und ausstehend; das Ergebnis wird erst berichtet, wenn es gemessen ist — nie geschätzt.",
 
   "project.implications.kicker": "Was das bedeutet",
   "project.implications.heading": "Gestaltungsimplikationen",
@@ -296,7 +312,7 @@ const de = {
   "credentials.download": "PDF herunterladen",
   "credentials.close": "Schließen",
   "credentials.verify": "Verifizieren",
-  "credentials.empty": "Nachweise werden gerade ergänzt — schau bald wieder vorbei.",
+  "credentials.empty": "Nachweise werden gerade ergänzt — schauen Sie bald wieder vorbei.",
   "credentials.type.workshop": "Workshop",
   "credentials.type.course": "Kurs",
   "credentials.type.internship": "Praktikum",
@@ -324,8 +340,9 @@ const de = {
 
   // Tags
   "tags.directory.title": "Fähigkeiten & Tags",
-  "tags.directory.subheading": "Jedes Werkzeug, jede Methode und jeder Bereich aus meinen Fallstudien — auf einen Tag klicken, um zu sehen, wo er eingesetzt wurde.",
+  "tags.directory.subheading": "Jedes Werkzeug, jede Methode und jeder Bereich aus meinen Fallstudien — auf einen Tag klicken, um zu sehen, wo er eingesetzt wurde. Jede Aussage in den Fallstudien trägt ihren Beleg. Zahlen aus Stationen vor 2021 stammen aus der Zeit davor und sind selbst berichtet.",
   "tags.directory.searchPlaceholder": "Tags durchsuchen...",
+  "tags.directory.sortLabel": "Tags sortieren",
   "tags.directory.sortByName": "Nach Name sortieren",
   "tags.directory.sortByCount": "Nach Anzahl sortieren",
   "tags.directory.empty": "Keine Tags gefunden.",
@@ -348,7 +365,17 @@ const de = {
   "project.sidebar.ariaLabel": "Seitenabschnitte",
 
   // Home — empty state when there are no projects at all (edge case)
-  "home.projects.empty": "Fallstudien werden gerade geschrieben — schau bald wieder vorbei.",
+  "home.projects.empty": "Fallstudien werden gerade geschrieben — schauen Sie bald wieder vorbei.",
+
+  // Router error fallback (ErrorPage.jsx)
+  "error.title": "Etwas ist schiefgelaufen",
+  "error.body": "Beim Laden dieser Seite ist ein unerwarteter Fehler aufgetreten.",
+
+  // 404 — the catch-all route (NotFound.jsx)
+  "notFound.kicker": "404",
+  "notFound.title": "Seite nicht gefunden",
+  "notFound.body": "Diese Seite existiert nicht — oder ihre Adresse hat sich geändert. Alles, was es gibt, ist über die Startseite erreichbar.",
+  "notFound.cta": "Zur Startseite",
 
   // Privacy Policy
   "privacy.title": "Datenschutzerklärung",
@@ -440,7 +467,7 @@ const de = {
   "sitemap.sections.workExperience.label": "Berufserfahrung",
   "sitemap.sections.workExperience.desc": "Mit Wirkungskennzahlen",
   "sitemap.sections.portfolioHighlights.label": "Portfolio-Highlights",
-  "sitemap.sections.portfolioHighlights.desc": "3 Projekte mit Kennzahlen",
+  "sitemap.sections.portfolioHighlights.desc": "Eine Zeile pro Projekt: Name, eine aussagekräftige Kennzahl, Link zur Fallstudie",
   "sitemap.sections.skillsEduLang.label": "Kompetenzen / Ausbildung / Sprachen",
   "sitemap.sections.skillsEduLang.desc": "Seitenleiste",
   "sitemap.sections.saveAsPdf.label": "Als PDF speichern",

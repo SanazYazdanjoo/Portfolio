@@ -47,6 +47,11 @@ export const RENDERED_FIELDS = [
   // Header / card metadata
   "title", "subtitle", "tagline", "stage", "status", "role", "myContribution",
   "timeline", "tags", "thumbnail", "thumbnailWebp", "heroImage", "aiAssistance",
+  // ProjectHero: true when the hero is an AI-generated illustration, which
+  // renders the visible generation credit. A project whose hero is a real
+  // photograph omits it — a photo must never carry the AI credit, and an
+  // AI image must never pass as documentation (EmbraceMe rule, 2026-08).
+  "heroIsGenerated",
   // Homepage card only (StackedProjectCard.jsx) — `year` and `context` are the
   // metadata row, `cardTags` the capped signal subset of `tags`, `cardOutcome`
   // the one-sentence result line.
