@@ -14,6 +14,7 @@
 
 import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
+import { projects } from "../data/projects";
 
 const HOMEPAGE = [
   "src/App.jsx",
@@ -283,6 +284,54 @@ describe("reference — the card assets", () => {
     for (const path of CARD_IMAGES) {
       const kb = readFileSync(path).length / 1024;
       expect(kb, `${path} is ${Math.round(kb)} KB`).toBeLessThan(120);
+    }
+  });
+});
+
+// The tag row has to sit on one line. It wrapped once, on the card with the
+// longest labels, and the failure was invisible until someone looked at the
+// page — so the arithmetic is asserted instead.
+//
+// The row is monospace, which makes its width computable from a character
+// count: every glyph is one advance wide, plus the tracking, and the chips
+// add their own padding, borders and gaps. The three faces below are the
+// ones this font stack can actually resolve to, measured from the files in
+// C:/Windows/Fonts. The widest of them is the one that has to fit.
+describe("reference — the tag row fits one line", () => {
+  const GRID = 1200;
+  const PAGE_PADDING = 32;            // .grid-12 padding-inline
+  const GUTTER = 32;
+  const COLUMN = (GRID - 2 * PAGE_PADDING - 11 * GUTTER) / 12;
+  const TEXT_COLUMN = 7 * COLUMN + 6 * GUTTER;   // cols 6-12
+
+  const FS = 12;                      // --fs-label
+  const TRACKING = 0.08 * FS;         // --ls-08
+  const CHIP_PADDING_X = 6;           // px-s6
+  const CHIP_BORDER = 1;
+  const GAP = 8;                      // gap-s8
+
+  // em advance per character, read from each font's OS/2 xAvgCharWidth.
+  const FACES = { "Cascadia Code": 0.5859, Consolas: 0.5498, "Courier New": 0.6001 };
+
+  function rowWidth(tags, advanceEm) {
+    const chars = tags.reduce((n, t) => n + t.length, 0);
+    const text = chars * (advanceEm * FS + TRACKING);
+    const chrome = tags.length * (2 * CHIP_PADDING_X + 2 * CHIP_BORDER);
+    return text + chrome + (tags.length - 1) * GAP;
+  }
+
+  it("fits in the text column in every mono face the stack can resolve to", () => {
+    for (const p of projects) {
+      if (!p.cardTags) continue;
+      for (const [face, advance] of Object.entries(FACES)) {
+        const w = rowWidth(p.cardTags, advance);
+        expect(
+          w,
+          `${p.slug}: tag row is ${w.toFixed(0)}px in ${face}, over the ` +
+            `${TEXT_COLUMN.toFixed(0)}px text column — shorten a label or ` +
+            `reduce chip padding, do not substitute a different skill`
+        ).toBeLessThanOrEqual(TEXT_COLUMN);
+      }
     }
   });
 });

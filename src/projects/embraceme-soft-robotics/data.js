@@ -42,17 +42,21 @@ export const projectData = {
   // Four tags, chosen to differentiate rather than to enumerate: one method,
   // one research skill, one technical, one domain. The full list lives on the
   // detail page and on /tags — the card is a triage surface, not an index.
-  // 57 characters, against 63 for the longest row that fits on one line
-  // (case study 03). "Public Exhibition Research" and "Human-Robot
-  // Interaction" are the two that pushed this to 75 and wrapped it; the
-  // shorter tags below hold the same four roles — method, research skill,
-  // technical, domain.
-  cardTags: ["Physical Prototyping", "Literature Review", "Arduino", "Soft Robotics"],
+  // The project's own four skills, not substitutes. The one edit is a
+  // shortened label: "Public Exhibition Research" -> "Exhibition Research",
+  // renamed everywhere it appears rather than only on the card, so the tag
+  // and its evidence stay one thing. It claims the same skill.
+  //
+  // Even at 6px chip padding the full 76-character row cannot fit a 649px
+  // column at 12px mono: the text alone is 607px and four chips plus three
+  // gaps need another 32px minimum. 69 characters can, with the same margin
+  // case study 03 has.
+  cardTags: ["Physical Prototyping", "Exhibition Research", "Arduino", "Human-Robot Interaction"],
   cardOutcome: {
     en: "Visitors wanted to control the hug; a binary touch trigger, not the soft hardware, broke the experience.",
     de: "Besucher:innen wollten die Umarmung steuern; ein binärer Berührungsauslöser brach die Erfahrung — nicht die weiche Hardware.",
   },
-  tags: ["Soft Robotics", "Human-Robot Interaction", "Shape-Changing Interfaces", "Literature Review", "Competitive Analysis", "Physical Prototyping", "Material Testing", "Arduino", "Sensor Integration", "Interaction Design", "Data Physicalization", "Public Exhibition Research"],
+  tags: ["Soft Robotics", "Human-Robot Interaction", "Shape-Changing Interfaces", "Literature Review", "Competitive Analysis", "Physical Prototyping", "Material Testing", "Arduino", "Sensor Integration", "Interaction Design", "Data Physicalization", "Exhibition Research"],
   thumbnail: thumbnailImg,
   thumbnailWebp,
   heroImage: thumbnailImg,
@@ -264,7 +268,7 @@ export const projectData = {
     { tag: "Sensor Integration", evidence: "process:Touch-Triggered Hugging with an LED Feedback Cycle — 5-pad capacitive touch sensor", status: "evidenced" },
     { tag: "Interaction Design", evidence: "process:Touch-Triggered Hugging with an LED Feedback Cycle — touch as the trigger and a green/white/blinking-red LED cycle communicating readiness, hugging, and reset; results names the missing signifiers that stopped visitors initiating a hug unprompted", status: "evidenced" },
     { tag: "Data Physicalization", evidence: "process:Critical Reflection & Redesign Proposal — Offenhuber's data physicalization framework", status: "evidenced" },
-    { tag: "Public Exhibition Research", evidence: "process:Real Users, Real (Uncomfortable) Findings", status: "evidenced" },
+    { tag: "Exhibition Research", evidence: "process:Real Users, Real (Uncomfortable) Findings", status: "evidenced" },
   ],
 };
 
