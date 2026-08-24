@@ -29,9 +29,17 @@ export const projectData = {
   // `tags` list stays on this project's detail page. `cardOutcome` is the one
   // sentence a reader gets if they read nothing else, quantified where the
   // evidence supports it and hedged where it doesn't.
-  // No `cardImage`: the only image this project has is the generated
-  // cartoon, and the exhibition photographs were never added to the repo.
-  // The card renders text-only until a real photograph exists.
+  // Plate 04 of the design reference asks for "exhibition photo — a visitor
+  // touching the prototype, hands and device in frame". No such photograph
+  // exists anywhere in this repo; the only image this project has is the
+  // generated cartoon, which is exactly what those photographs would replace.
+  // So the card carries the reference's own plate in cols 1-5 — the same 4:3
+  // box, naming the crop it needs — rather than an empty column or clipart.
+  // Drop a photograph in and swap this for a `cardImage`.
+  cardPlate: {
+    en: "Plate 04 — exhibition photo: a visitor touching the prototype, hands and device in frame",
+    de: "Tafel 04 — Ausstellungsfoto: eine Besucherin berührt den Prototyp, Hände und Gerät im Bild",
+  },
   year: "2023",
   context: {
     en: "University research project",
