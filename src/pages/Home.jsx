@@ -8,7 +8,8 @@
 //             heading full width · bio cols 1-7 · timeline cols 9-12
 //   work      88px · heading cols 1-7, 56px below it, then the card list
 //   contact   88px · warm band, ruled top
-//             heading cols 1-4 · availability, email, links, colophon cols 6-12
+//             heading full width · availability, email, links, colophon
+//             cols 1-7, on the heading's own axis
 //
 // No component on this page sets a size or a length of its own: every value
 // is a token from the reference's scale (see theme.css) reached through a
@@ -126,13 +127,14 @@ export default function Home() {
         className="section-pad scroll-mt-s56 bg-surface-warm border-t rule-t"
       >
         <div className="grid-12">
-          <div className="md:col-span-4">
+          <div className="md:col-span-12 mb-s48">
             <SectionHeading
               eyebrow={t("home.contact.kicker")}
               heading={t("contact.headline")}
             />
           </div>
-          <div className="md:col-start-6 md:col-span-7 mt-s48 md:mt-0">
+          {/* Column 1, the same axis as the heading above it. */}
+          <div className="md:col-span-7">
             <HomeContact data={profileData} />
           </div>
         </div>

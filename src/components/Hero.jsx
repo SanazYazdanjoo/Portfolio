@@ -87,11 +87,6 @@ export function Hero({ data }) {
           </Link>
         </motion.div>
 
-        {credentials && (
-          <motion.p {...fadeUp(0.36)} className="text-date font-mono text-text-meta">
-            {credentials}
-          </motion.p>
-        )}
       </div>
 
       {/* Portrait — 4:5, black and white, bottom edge on the CTA baseline. */}
@@ -108,6 +103,21 @@ export function Hero({ data }) {
           />
         </div>
       </motion.div>
+
+      {/* The credential line runs the full content width on its own row.
+          Keeping it inside the text column had a second cost besides
+          wrapping: `items-end` aligns the portrait to the bottom of the
+          TALLEST item in the row, so a line below the buttons moved the row
+          floor and --hero-baseline-inset stopped landing on the CTA
+          baseline. Out here, the text column ends at the buttons again. */}
+      {credentials && (
+        <motion.p
+          {...fadeUp(0.36)}
+          className="md:col-span-12 mt-s32 text-date font-mono text-text-meta"
+        >
+          {credentials}
+        </motion.p>
+      )}
     </div>
   );
 }
