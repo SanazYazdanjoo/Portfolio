@@ -1,5 +1,12 @@
-// The hand-drawn arrow, used wherever a link points forward: the hero's
-// primary button and every "Read case study" link.
+// The hand-drawn arrow, in two directions.
+//
+//   forward   the hero's primary button, every "Read case study" link
+//   up-right  the external-link mark on LinkedIn, GitHub, CV, View source
+//
+// The up-right one is not a second drawing: it is the same two paths rotated
+// -45deg inside a viewBox opened up to hold them, so both marks are the same
+// hand. That is the whole reason it exists — a ↗ glyph next to a drawn
+// arrow reads as two different pens.
 //
 // The shaft is deliberately off-straight and the head asymmetric — that is
 // the whole point of it, and the same reason the rule-* hairlines are drawn
@@ -12,12 +19,17 @@
 
 import React from "react";
 
-export function HandArrow({ className = "" }) {
+export function HandArrow({ direction = "forward", className = "" }) {
+  const upRight = direction === "up-right";
+
   return (
     <svg
-      width="24"
-      height="10"
-      viewBox="0 0 24 10"
+      width={upRight ? "13" : "24"}
+      height={upRight ? "12" : "10"}
+      /* Rotating the 24x10 artwork about (12,5) takes it to roughly
+         x 1.6-22, y -5.3-15.2, so the up-right box is opened to fit it
+         rather than clipping the head or the tail. */
+      viewBox={upRight ? "0 -6 24 22" : "0 0 24 10"}
       fill="none"
       stroke="currentColor"
       strokeWidth="1.4"
@@ -26,8 +38,10 @@ export function HandArrow({ className = "" }) {
       aria-hidden="true"
       className={className}
     >
-      <path d="M1 5.3c4.3-.5 11.6-.7 21.8-.5" />
-      <path d="M18.2 1.3c1.8 1.6 3.2 2.8 4.6 3.6-1.6.9-3 1.9-4.4 3.5" />
+      <g transform={upRight ? "rotate(-45 12 5)" : undefined}>
+        <path d="M1 5.3c4.3-.5 11.6-.7 21.8-.5" />
+        <path d="M18.2 1.3c1.8 1.6 3.2 2.8 4.6 3.6-1.6.9-3 1.9-4.4 3.5" />
+      </g>
     </svg>
   );
 }
