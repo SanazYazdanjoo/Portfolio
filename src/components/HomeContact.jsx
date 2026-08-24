@@ -9,8 +9,8 @@ import { useTranslation } from "../context/LanguageContext";
 import { REPO_URL } from "../data/site";
 
 const LINK =
-  "text-body font-medium text-text border-b border-border pb-s2 " +
-  "hover:text-primary-600 hover:border-primary-600 transition-colors duration-200 focus-ring";
+  "text-body font-medium text-text border-b rule-b pb-s2 " +
+  "hover:text-primary-600 transition-colors duration-200 focus-ring";
 
 export function HomeContact({ data }) {
   const { contact } = data;
@@ -26,7 +26,7 @@ export function HomeContact({ data }) {
       <a
         href={`mailto:${contact.email}`}
         className="text-email font-display font-bold text-text break-words self-start
-                   border-b-2 border-primary-600 pb-s8
+                   rule-underline pb-s8
                    hover:text-primary-600 transition-colors duration-200 focus-ring"
       >
         {contact.email}
@@ -52,7 +52,7 @@ export function HomeContact({ data }) {
           href={REPO_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-primary-600 border-b border-current hover:opacity-80 transition-opacity duration-200 focus-ring"
+          className="text-primary-600 rule-underline hover:opacity-80 transition-opacity duration-200 focus-ring"
         >
           {t("footer.viewSource")} &#8599;
         </a>

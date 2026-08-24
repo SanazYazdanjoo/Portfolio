@@ -16,15 +16,15 @@ export function LanguageToggle({ className = "" }) {
   return (
     <button
       onClick={toggleLang}
-      className={`flex items-baseline gap-s6 text-tag font-mono pl-s8 border-l border-border ${className} focus-ring`}
+      className={`flex items-baseline gap-s6 text-tag font-mono pl-s8 border-l rule-l ${className} focus-ring`}
       aria-label={switchLabel}
       title={switchLabel}
     >
       {/* The reference sets the inactive language in --color-ink-300, which
           is 2.1:1 on paper. text-dim (5.7:1) is the one place this page
           departs from the reference, and it departs on contrast. */}
-      <span className={lang === "en" ? "text-primary-600 border-b border-current" : "text-text-dim"}>EN</span>
-      <span className={lang === "de" ? "text-primary-600 border-b border-current" : "text-text-dim"}>DE</span>
+      <span className={lang === "en" ? "text-primary-600 rule-underline" : "text-text-dim"}>EN</span>
+      <span className={lang === "de" ? "text-primary-600 rule-underline" : "text-text-dim"}>DE</span>
     </button>
   );
 }

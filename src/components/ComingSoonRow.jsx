@@ -11,9 +11,9 @@ export function ComingSoonRow({ project, index }) {
   const tags = project.cardTags || [];
 
   return (
-    <div aria-disabled="true" className="grid-12 py-s48 border-t border-border">
+    <div aria-disabled="true" className="grid-12 py-s48 border-t rule-t">
       <div className="md:col-span-5">
-        <div className="card-figure card-figure--plate">
+        <div className="card-figure card-figure--plate rule-frame-in">
           <span className="text-plate uppercase font-mono text-text-dim">
             {t("projects.comingSoon")}
           </span>
@@ -24,7 +24,7 @@ export function ComingSoonRow({ project, index }) {
           <span className="text-num font-mono text-text-dim">
             {String(index + 1).padStart(2, "0")}
           </span>
-          <span className="text-badge font-mono uppercase text-text-dim border border-border px-s8 py-s3">
+          <span className="text-badge font-mono uppercase text-text-dim border rule-frame px-s8 py-s3">
             {t("projects.comingSoon")}
           </span>
         </div>

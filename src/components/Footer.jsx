@@ -19,7 +19,7 @@ export function Footer({ data }) {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border no-print">
+    <footer className="border-t rule-t no-print">
       <div
         className="grid-12 text-tag font-mono text-text-dim"
         style={{ paddingBlock: "var(--space-32)" }}

@@ -59,7 +59,7 @@ function WhatIBring() {
   ];
 
   return (
-    <div className="flex flex-col gap-s16 pt-s24 border-t border-border">
+    <div className="flex flex-col gap-s16 pt-s24 border-t rule-t">
       <p className="text-label font-mono uppercase text-text-dim">
         {t("home.about.bring.title")}
       </p>
@@ -95,7 +95,7 @@ export default function Home() {
 
       <section
         id="AboutMe-Section"
-        className="section-pad scroll-mt-s56 bg-surface-warm border-y border-border"
+        className="section-pad scroll-mt-s56 bg-surface-warm border-y rule-t rule-b"
       >
         <div className="grid-12">
           <div className="md:col-span-4 flex flex-col gap-s32">
@@ -104,7 +104,7 @@ export default function Home() {
           </div>
           <div className="md:col-start-6 md:col-span-7 flex flex-col gap-s24 mt-s48 md:mt-0">
             <AboutBio data={profileData} />
-            <div className="mt-s24 pt-s32 border-t border-border">
+            <div className="mt-s24 pt-s32 border-t rule-t">
               <CareerArc variant="compact" />
             </div>
           </div>
@@ -141,7 +141,7 @@ export default function Home() {
 
       <section
         id="contact"
-        className="section-pad scroll-mt-s56 bg-surface-warm border-t border-border"
+        className="section-pad scroll-mt-s56 bg-surface-warm border-t rule-t"
       >
         <div className="grid-12">
           <div className="md:col-span-4">

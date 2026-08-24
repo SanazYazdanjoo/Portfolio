@@ -635,7 +635,12 @@
     width: 100%;
     aspect-ratio: 4 / 3;
     background: var(--color-paper-100);
-    border: 1px solid var(--border);
+    /* Transparent, because the edge is DRAWN, not stroked: the element
+       carries `rule-frame-in`, whose ::after paints the house hairline
+       inside this same 1px border box. The reference's geometry is
+       untouched — the line is a paint layer, not a measurement. */
+    border: 1px solid transparent;
+    overflow: hidden;
   }
   .card-figure > img {
     display: block;
@@ -651,14 +656,6 @@
     place-items: center;
     padding: var(--space-20);
     text-align: center;
-  }
-
-  /* The tagline highlighter. The reference draws it as a flat gradient that
-     stops at 42% of the line box, not as the animated sweep .ink-highlight
-     renders — a static band, no draw-on. */
-  .hero-highlight {
-    background: linear-gradient(to top, var(--highlight-weak) 42%, transparent 42%);
-    padding: 0 var(--space-2);
   }
 
 

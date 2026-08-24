@@ -68,7 +68,7 @@ export default function App() {
         >
           {t("common.skipToContent")}
         </a>
-        <header className="w-full z-50 shrink-0 bg-bg border-b border-border no-print">
+        <header className="w-full z-50 shrink-0 bg-bg border-b rule-b no-print">
           <Nav />
         </header>
 
