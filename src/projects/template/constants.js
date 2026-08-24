@@ -50,7 +50,7 @@ export const RENDERED_FIELDS = [
   // Homepage card only (StackedProjectCard.jsx) — `year` and `context` are the
   // metadata row, `cardTags` the capped signal subset of `tags`, `cardOutcome`
   // the one-sentence result line.
-  "year", "context", "cardTags", "cardOutcome", "cardImage", "cardCrop",
+  "year", "context", "cardTags", "cardOutcome", "cardImage", "cardPlate",
   // Body sections (see SECTIONS above for the ones with their own heading)
   "about", "process", "challenge", "challengeQuote", "solution", "solutionQuote",
   "design", "designQuote", "prototype", "prototypeUrl", "prototypeUrlLabel", "methodology",
