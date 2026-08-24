@@ -10,6 +10,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "../context/LanguageContext";
 import { motion, useReducedMotion } from "framer-motion";
+import { InkHighlight } from "./InkHighlight";
 import { EASE } from "../utils/motion";
 
 const ENTRANCE_DURATION = 0.4;
@@ -50,25 +51,31 @@ export function Hero({ data }) {
         {/* The reference sets the highlighter as a flat gradient stopping at
             42% of the line box, not as a drawn sweep. */}
         <motion.p {...fadeUp(0.32)} className="text-hand font-hand text-text">
-          <span className="hero-highlight">
+          <InkHighlight triggerOnLoad delay={0.75} duration={0.4}>
             {data.tagline || "I speak both ‘user’ and ‘developer’."}
-          </span>
+          </InkHighlight>
         </motion.p>
 
         <motion.div {...fadeUp(0.38)} className="flex flex-wrap items-center gap-s28 mt-s8">
           <Link
             to="/projects"
-            className="inline-flex items-center gap-s10 bg-text text-bg text-body font-medium
+            className="inline-flex items-center gap-s10 bg-text rule-fill-r text-bg text-body font-medium
                        px-s26 py-s15 rounded-sm hover:opacity-90 transition-opacity duration-200 focus-ring"
           >
             {t("hero.ctaWork")} <span aria-hidden="true">&rarr;</span>
           </Link>
           <Link
             to="/cv"
-            className="text-body font-medium text-text border-b-rule border-text pb-s2
-                       hover:text-primary-600 hover:border-primary-600 transition-colors duration-200 focus-ring"
+            className="relative text-body font-medium text-text pb-s2
+                       hover:text-primary-600 transition-colors duration-200 focus-ring group/cv"
           >
             {t("hero.ctaCv")}
+            <span
+              aria-hidden="true"
+              style={{ height: "var(--rule-w)" }}
+              className="absolute left-0 right-0 bottom-0 bg-text rule-stroke
+                         transition-colors duration-200 group-hover/cv:bg-primary-600"
+            />
           </Link>
         </motion.div>
       </div>
@@ -79,7 +86,7 @@ export function Hero({ data }) {
         className="md:col-start-9 md:col-span-4 mt-s48 md:mt-0"
         style={{ marginBottom: "var(--hero-baseline-inset)" }}
       >
-        <div className="w-full aspect-portrait bg-muted-surface border border-border">
+        <div className="w-full aspect-portrait photo-frame rule-frame-in">
           <img
             src={data.aboutImage}
             alt={data.name}

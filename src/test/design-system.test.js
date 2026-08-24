@@ -153,12 +153,75 @@ describe("reference — the card figure", () => {
   it("is a fixed 4:3 box on the paper tint with one hairline", () => {
     expect(figure).toContain("aspect-ratio: 4 / 3;");
     expect(figure).toContain("background: var(--color-paper-100);");
-    expect(figure).toContain("border: 1px solid var(--border);");
+    // Exactly 1px, so the reference's geometry holds — but transparent,
+    // because the line itself is painted by `rule-frame-in` rather than
+    // stroked by the border. Both halves matter: a solid colour here would
+    // flatten the edge, and any other width would move the box.
+    expect(figure).toContain("border: 1px solid transparent;");
   });
 
   // The CSS-side zoom the previous pass used to fake a crop.
   it("carries no crop transform", () => {
     expect(figure).not.toContain("transform: scale(");
     expect(figure).not.toContain("object-position:");
+  });
+});
+
+// The hand-drawn line work is the site's signature, and building the page to
+// a reference that draws every rule as `1px solid` is exactly how it got
+// flattened once already. These assertions are the guard: the geometry comes
+// from the reference, the line quality comes from the house rule-* system,
+// and the two are independent — rule-* paints over the same border box, so
+// restoring the texture never moves a measurement.
+describe("reference — drawn, not stroked", () => {
+  const EXPECTED = {
+    "src/pages/Home.jsx":                       ["rule-t", "rule-b"],
+    "src/components/Hero.jsx":                  ["rule-fill-r", "rule-stroke", "photo-frame", "rule-frame-in", "InkHighlight"],
+    "src/components/StackedProjectCard.jsx":    ["rule-t", "rule-frame-in", "rule-frame"],
+    "src/components/ComingSoonRow.jsx":         ["rule-t", "rule-frame-in", "rule-frame"],
+    "src/components/SkillTagRow.jsx":           ["rule-pill"],
+    "src/components/HomeContact.jsx":           ["rule-underline", "rule-b"],
+    "src/components/CareerArc.jsx":             ["InkArrow"],
+    "src/components/Nav.jsx":                   ["rule-stroke"],
+    "src/components/LanguageToggle.jsx":        ["rule-l", "rule-underline"],
+    "src/components/Footer.jsx":                ["rule-t"],
+    "src/App.jsx":                              ["rule-b"],
+  };
+
+  // Any class ending in a stroke colour, keeping whatever prefixed it so a
+  // `focus:` variant can be told apart from a plain one.
+  const STROKE = /[\w:-]*\bborder-(?:border|text|primary-600|secondary-600|current)\b/g;
+
+  it("draws every line through the house rule-* system", () => {
+    for (const [file, classes] of Object.entries(EXPECTED)) {
+      const src = read(file);
+      const missing = classes.filter((c) => !src.includes(c));
+      expect(
+        missing,
+        `${file} lost its drawn line work: ${missing.join(", ")} — a plain ` +
+          `border would flatten the page away from the rest of the site`
+      ).toEqual([]);
+    }
+  });
+
+  // A visible solid stroke means something was drawn with a border colour
+  // instead of the rule system. Focus indicators are the exception: those
+  // want a crisp, unambiguous line, not a wobbly one.
+  it("leaves no solid stroke colour outside a focus indicator", () => {
+    for (const file of Object.keys(EXPECTED)) {
+      const hits = findAll(read(file), STROKE).filter((h) => !h.startsWith("focus:"));
+      expect(
+        hits,
+        `${file} strokes a line instead of drawing it: ${hits.join(", ")}`
+      ).toEqual([]);
+    }
+  });
+
+  // Guards the guard. A pattern that silently stopped matching would let
+  // every file above pass vacuously, which is exactly how a check rots.
+  it("has a pattern that actually catches a solid stroke", () => {
+    expect("border-t rule-t border-border".match(STROKE)).toEqual(["border-border"]);
+    expect("focus:border-primary-600".match(STROKE)).toEqual(["focus:border-primary-600"]);
+    expect("border-t rule-t rule-frame-in".match(STROKE)).toBeNull();
   });
 });
