@@ -631,14 +631,24 @@
      fills the box exactly (see scripts/generate-card-crops.mjs); an asset
      of any other ratio letterboxes onto the tint rather than losing an edge.
      ───────────────────────────────────────────────────────────────────── */
+  /* ONE definition. Every plate on the page is this box and nothing else:
+     full width of its column, 4:3, 12px of padding, the paper tint behind,
+     one hairline around, and the image contained inside it. Because the box
+     is driven only by its own width and ratio, all three plates resolve to
+     exactly the same height and the left column aligns down the list.
+
+     The border is transparent because the edge is DRAWN, not stroked: the
+     element carries `rule-frame-in`, whose ::after paints the house hairline
+     inside this same 1px box. A paint layer, not a measurement.
+
+     There is no plate variant. A card with no asset renders no figure column
+     at all — a box that explains what image belongs in it is instruction
+     text, and instruction text is not UI. */
   .card-figure {
     width: 100%;
     aspect-ratio: 4 / 3;
+    padding: var(--space-12);
     background: var(--color-paper-100);
-    /* Transparent, because the edge is DRAWN, not stroked: the element
-       carries `rule-frame-in`, whose ::after paints the house hairline
-       inside this same 1px border box. The reference's geometry is
-       untouched — the line is a paint layer, not a measurement. */
     border: 1px solid transparent;
     overflow: hidden;
   }
@@ -646,16 +656,12 @@
     display: block;
     width: 100%;
     height: 100%;
+    /* CONTAIN, never cover. The assets are cropped to a clean detail and
+       extended to 4:3 on this same paper tint by
+       scripts/generate-card-crops.mjs, so they fill the box without a
+       visible letterbox — and an asset of any other ratio would letterbox
+       rather than lose an edge. */
     object-fit: contain;
-  }
-  /* The same box carrying the plate's own caption, for a card whose asset
-     does not exist yet — the reference's plate, rendered as the reference
-     draws it. */
-  .card-figure--plate {
-    display: grid;
-    place-items: center;
-    padding: var(--space-20);
-    text-align: center;
   }
 
 
