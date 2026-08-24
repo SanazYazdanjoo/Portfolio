@@ -29,17 +29,11 @@ export const projectData = {
   // `tags` list stays on this project's detail page. `cardOutcome` is the one
   // sentence a reader gets if they read nothing else, quantified where the
   // evidence supports it and hedged where it doesn't.
-  // Plate 04 of the design reference asks for "exhibition photo — a visitor
-  // touching the prototype, hands and device in frame". No such photograph
-  // exists anywhere in this repo; the only image this project has is the
-  // generated cartoon, which is exactly what those photographs would replace.
-  // So the card carries the reference's own plate in cols 1-5 — the same 4:3
-  // box, naming the crop it needs — rather than an empty column or clipart.
-  // Drop a photograph in and swap this for a `cardImage`.
-  cardPlate: {
-    en: "Plate 04 — exhibition photo: a visitor touching the prototype, hands and device in frame",
-    de: "Tafel 04 — Ausstellungsfoto: eine Besucherin berührt den Prototyp, Hände und Gerät im Bild",
-  },
+  // No `cardImage`. The exhibition photographs were never added to this
+  // repo, and the only image the project has is a generated cartoon. The
+  // card therefore renders text-only, with no figure column at all — not a
+  // box explaining which photograph belongs in it. Add a photograph here and
+  // set `cardImage` to it.
   year: "2023",
   context: {
     en: "University research project",
@@ -48,7 +42,12 @@ export const projectData = {
   // Four tags, chosen to differentiate rather than to enumerate: one method,
   // one research skill, one technical, one domain. The full list lives on the
   // detail page and on /tags — the card is a triage surface, not an index.
-  cardTags: ["Physical Prototyping", "Public Exhibition Research", "Arduino", "Human-Robot Interaction"],
+  // 57 characters, against 63 for the longest row that fits on one line
+  // (case study 03). "Public Exhibition Research" and "Human-Robot
+  // Interaction" are the two that pushed this to 75 and wrapped it; the
+  // shorter tags below hold the same four roles — method, research skill,
+  // technical, domain.
+  cardTags: ["Physical Prototyping", "Literature Review", "Arduino", "Soft Robotics"],
   cardOutcome: {
     en: "Visitors wanted to control the hug; a binary touch trigger, not the soft hardware, broke the experience.",
     de: "Besucher:innen wollten die Umarmung steuern; ein binärer Berührungsauslöser brach die Erfahrung — nicht die weiche Hardware.",

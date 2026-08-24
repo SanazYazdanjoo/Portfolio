@@ -45,8 +45,12 @@ export function StackedProjectCard({ project, index }) {
       }}
       className="grid-12 relative group py-s48 border-t rule-t"
     >
-      <div className="md:col-span-5">
-        {figure ? (
+      {/* A card with no asset renders no figure column — not an empty box,
+          and never a box explaining which photograph belongs in it. The text
+          stays in cols 6-12 either way, so every title on the page starts on
+          the same x-axis. */}
+      {figure && (
+        <div className="md:col-span-5">
           <div className="card-figure rule-frame-in">
             <img
               src={figure}
@@ -57,14 +61,8 @@ export function StackedProjectCard({ project, index }) {
               onError={() => setImgError(true)}
             />
           </div>
-        ) : (
-          <div className="card-figure card-figure--plate rule-frame-in">
-            <span className="text-plate uppercase font-mono text-text-dim">
-              {project.cardPlate}
-            </span>
-          </div>
-        )}
-      </div>
+        </div>
+      )}
 
       <div className="md:col-start-6 md:col-span-7 flex flex-col gap-s16 mt-s24 md:mt-0">
         <div className="flex items-center gap-s12">

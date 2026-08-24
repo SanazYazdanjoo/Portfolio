@@ -150,14 +150,28 @@ describe("reference — the card figure", () => {
     expect(figure).not.toContain("object-fit: cover;");
   });
 
-  it("is a fixed 4:3 box on the paper tint with one hairline", () => {
+  // One box, no variants: full width, 4:3, 12px padding, paper tint, one
+  // hairline. Driven only by its own width and ratio, so all three plates
+  // resolve to the same height and the left column aligns down the list.
+  it("is a single fixed box", () => {
+    expect(figure).toContain("width: 100%;");
     expect(figure).toContain("aspect-ratio: 4 / 3;");
+    expect(figure).toContain("padding: var(--space-12);");
     expect(figure).toContain("background: var(--color-paper-100);");
-    // Exactly 1px, so the reference's geometry holds — but transparent,
-    // because the line itself is painted by `rule-frame-in` rather than
-    // stroked by the border. Both halves matter: a solid colour here would
-    // flatten the edge, and any other width would move the box.
+    // Exactly 1px, so the geometry holds — but transparent, because the line
+    // is painted by `rule-frame-in` rather than stroked by the border.
     expect(figure).toContain("border: 1px solid transparent;");
+  });
+
+  // A plate whose content is a caption about which image belongs in it is
+  // instruction text. It rendered as UI once; it may not again.
+  it("has no plate variant anywhere", () => {
+    expect(theme).not.toContain("card-figure--plate");
+    for (const file of HOMEPAGE) {
+      expect(read(file), `${file} still renders a plate`).not.toMatch(
+        /card-figure--plate|cardPlate|text-plate/
+      );
+    }
   });
 
   // The CSS-side zoom the previous pass used to fake a crop.
@@ -178,10 +192,10 @@ describe("reference — drawn, not stroked", () => {
     "src/pages/Home.jsx":                       ["rule-t", "rule-b"],
     "src/components/Hero.jsx":                  ["rule-fill-r", "rule-stroke", "photo-frame", "rule-frame-in", "InkHighlight"],
     "src/components/StackedProjectCard.jsx":    ["rule-t", "rule-frame-in", "rule-frame"],
-    "src/components/ComingSoonRow.jsx":         ["rule-t", "rule-frame-in", "rule-frame"],
+    // No figure column here, so no frame — the row rule and the badge.
+    "src/components/ComingSoonRow.jsx":         ["rule-t", "rule-frame"],
     "src/components/SkillTagRow.jsx":           ["rule-pill"],
     "src/components/HomeContact.jsx":           ["rule-underline", "rule-b"],
-    "src/components/CareerArc.jsx":             ["InkArrow"],
     "src/components/Nav.jsx":                   ["rule-stroke"],
     "src/components/LanguageToggle.jsx":        ["rule-l", "rule-underline"],
     "src/components/Footer.jsx":                ["rule-t"],
@@ -223,5 +237,52 @@ describe("reference — drawn, not stroked", () => {
     expect("border-t rule-t border-border".match(STROKE)).toEqual(["border-border"]);
     expect("focus:border-primary-600".match(STROKE)).toEqual(["focus:border-primary-600"]);
     expect("border-t rule-t rule-frame-in".match(STROKE)).toBeNull();
+  });
+});
+
+// The card assets are cropped by scripts/generate-card-crops.mjs, never by
+// CSS. These assert the contract that script upholds, because a hand-edited
+// or re-exported asset that breaks it shows up as a squashed or letterboxed
+// plate rather than as an error.
+describe("reference — the card assets", () => {
+  const CARD_IMAGES = [
+    "src/projects/digitalising-ibs-travel-reimbursements/card-claim-table.webp",
+    "src/projects/deskbird-hybrid-work/media/card-interest-picker.webp",
+    "src/projects/gaze-assisted-input/media/card-large-target-panel.webp",
+  ];
+
+  // Read the WebP header directly rather than pulling in an image library:
+  // a VP8L/VP8X/VP8 chunk carries the dimensions at a fixed offset.
+  function webpSize(buf) {
+    const fourCC = buf.toString("ascii", 12, 16);
+    if (fourCC === "VP8X") {
+      return {
+        width: 1 + buf.readUIntLE(24, 3),
+        height: 1 + buf.readUIntLE(27, 3),
+      };
+    }
+    if (fourCC === "VP8L") {
+      const b = buf.readUInt32LE(21);
+      return { width: 1 + (b & 0x3fff), height: 1 + ((b >> 14) & 0x3fff) };
+    }
+    return { width: buf.readUInt16LE(26) & 0x3fff, height: buf.readUInt16LE(28) & 0x3fff };
+  }
+
+  it("are all exactly 4:3, so every plate renders at the same height", () => {
+    for (const path of CARD_IMAGES) {
+      const { width, height } = webpSize(readFileSync(path));
+      const ratio = width / height;
+      expect(
+        Math.abs(ratio - 4 / 3),
+        `${path} is ${width}x${height} (${ratio.toFixed(3)}), not 4:3`
+      ).toBeLessThan(0.01);
+    }
+  });
+
+  it("stay small enough to sit below the fold without cost", () => {
+    for (const path of CARD_IMAGES) {
+      const kb = readFileSync(path).length / 1024;
+      expect(kb, `${path} is ${Math.round(kb)} KB`).toBeLessThan(120);
+    }
   });
 });
