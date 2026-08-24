@@ -170,13 +170,28 @@
 --ls-14:           .14em;
 --ls-16:           .16em;
 
-/* The hero photo's bottom edge sits on the CTA row's text baseline (the
-   reference's portrait plate says so in as many words). The distance from
-   the button's bottom edge up to that baseline is not a spacing decision,
-   it is a consequence of the button's own padding and DM Sans's descent
-   (.310 of the em, from @capsizecss/metrics), at line-height normal:
-       --space-15  +  .310 × --fs-body   =  15px + 5.27px */
---hero-baseline-inset: calc(var(--space-15) + 0.310 * var(--fs-body));
+/* The hero photo's bottom edge sits on the CTA row's text baseline. The
+   distance from the button's bottom edge up to that baseline is not a
+   spacing decision — it falls out of the button's own padding and the
+   metrics of the face it is set in:
+
+       padding-bottom  +  half-leading  +  descent
+
+   The button is --fs-body at --lh-160, and DM Sans has ascent .992 and
+   descent .310 (@capsizecss/metrics), so its content area is 1.302em:
+
+       half-leading = (1.600 − 1.302) / 2 = .149em
+       descent      =                        .310em
+                                             ───────
+                                             .459em
+
+   = --space-15 + .459 × 17px = 22.8px.
+
+   The .149em half-leading was missing from an earlier version of this,
+   which assumed line-height: normal — where the line box equals the content
+   area and half-leading is zero. The button does not use normal, so the
+   photo sat 2.5px above the baseline it was supposed to meet. */
+--hero-baseline-inset: calc(var(--space-15) + 0.459 * var(--fs-body));
 
 /* The timeline's date column. Not a spacing step — a measured width: the
    longest date, "2022 – Present", is 14 characters, and at --fs-label in the

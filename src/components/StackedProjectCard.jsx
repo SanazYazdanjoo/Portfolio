@@ -89,7 +89,7 @@ export function StackedProjectCard({ project, index }) {
         </h3>
 
         {meta.length > 0 && (
-          <p className="text-meta font-mono text-text-dim">{meta.join(" · ")}</p>
+          <p className="text-meta font-mono text-dim">{meta.join(" · ")}</p>
         )}
 
         {project.cardOutcome && (

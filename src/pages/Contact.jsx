@@ -116,7 +116,7 @@ export default function Contact() {
               </span>
             </div>
 
-            <p className="font-mono text-sm text-text-dim break-all">
+            <p className="font-mono text-sm text-dim break-all">
               {contact.email}
             </p>
 
@@ -174,14 +174,14 @@ export default function Contact() {
 
             <dl className="space-y-4 text-sm">
               <div>
-                <dt className="text-text-dim">{t("contact.basedIn")}</dt>
+                <dt className="text-dim">{t("contact.basedIn")}</dt>
                 <dd className="font-medium text-text">
                   {contact.location} · {contact.timezone}
                 </dd>
               </div>
 
               <div>
-                <dt className="text-text-dim">{t("contact.phone")}</dt>
+                <dt className="text-dim">{t("contact.phone")}</dt>
                 <dd>
                   <a
                     href={`tel:${contact.phone.replace(/[^+\d]/g, "")}`}
@@ -201,7 +201,7 @@ export default function Contact() {
                 {languages.map((lang, i) => (
                   <li key={i} className="flex justify-between items-baseline border-b rule-b pb-2">
                     <span className="font-bold text-sm text-text">{lang.name}</span>
-                    <span className="text-xs text-text-dim italic">{lang.level}</span>
+                    <span className="text-xs text-dim italic">{lang.level}</span>
                   </li>
                 ))}
               </ul>
