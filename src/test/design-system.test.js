@@ -196,7 +196,7 @@ describe("reference — drawn, not stroked", () => {
     // No figure column here, so no frame — the row rule and the badge.
     "src/components/ComingSoonRow.jsx":         ["rule-t", "rule-frame"],
     "src/components/SkillTagRow.jsx":           ["rule-pill"],
-    "src/components/HomeContact.jsx":           ["rule-underline", "rule-b"],
+    "src/components/HomeContact.jsx":           ["rule-underline", "rule-b", "HandArrow"],
     "src/components/Nav.jsx":                   ["rule-stroke"],
     "src/components/LanguageToggle.jsx":        ["rule-l", "rule-underline"],
     "src/components/Footer.jsx":                ["rule-t"],
@@ -340,7 +340,7 @@ describe("reference — the tag row fits one line", () => {
 // is the typeface's arrow, not this site's, and it is what HandArrow
 // replaced — so its reappearance is a regression, not a shortcut.
 describe("reference — the forward arrow is drawn", () => {
-  const GLYPHS = /[→➡➔]|&rarr;/g;
+  const GLYPHS = /[→➡➔↗]|&rarr;|&#8599;/g;
 
   it("uses no arrow glyph anywhere on the page", () => {
     for (const file of HOMEPAGE) {
