@@ -1,65 +1,38 @@
 // Content is sourced from Group_Report__EmbraceMe__.docx and FBHCI_Individual_Final_Report.pdf.
-import thumbnailImg from './Project-3.png';
-import thumbnailWebp from './Project-3.webp';
+//
+// Photographs (added 2026-08-24): the team's own figures from the group
+// report — full-resolution originals live in this folder next to FIGURES.md,
+// which maps each file to its report caption and records the two crop
+// decisions. media/ holds the optimised derivatives the page imports;
+// regenerate them with scripts/process-embraceme-figures.mjs. The former
+// AI-generated cartoon (Project-3.png) is gone: a generated illustration
+// must not stand as the image of a physical artefact.
+// Card-level fields (id/status/title/tags/thumbnails/card*) live in
+// ./card.js — eagerly aggregated site-wide — and are spread here so the
+// detail page sees one object. This file carries only the prose and media
+// that load with the route's own chunk.
+import card from './card';
+import finalBuildJpg from './media/final-build.jpg';
+import sketchBackpack from './media/sketch-backpack-concept.jpg';
+import sketchStandalone from './media/sketch-standalone-concept.jpg';
+import armFinalStructure from './media/arm-final-structure.jpg';
+import tpuTransparent from './media/tpu-transparent.jpg';
+import tpuInconsistent from './media/tpu-inconsistent-inflation.jpg';
+import tpuYellow from './media/tpu-yellow.jpg';
+import airChannelPipes from './media/air-channel-pipes.jpg';
+import arduinoSetup from './media/arduino-setup.jpg';
+import touchSensorChest from './media/touch-sensor-chest.jpg';
+import innerStructure from './media/inner-structure.jpg';
 
 export const projectData = {
-  id: "embraceme-soft-robotics",
-  status: "Published",
-  order: 4,
-  title: {
-    en: "EmbraceMe – Inflatable Human-Robot for Emotional Care",
-    de: "EmbraceMe – aufblasbarer Mensch-Roboter für emotionale Fürsorge",
-  },
-  subtitle: {
-    en: "A Pneumatic Soft-Robotic Hugging Interface, Exhibited & Evaluated in Public",
-    de: "Ein pneumatisches Soft-Robotik-Umarmungsinterface, öffentlich ausgestellt und evaluiert",
-  },
-  tagline: {
-    en: "Engineering a soft-robotic hug — and honestly reporting where it fell short.",
-    de: "Eine soft-robotische Umarmung entwickeln — und ehrlich berichten, wo sie scheiterte.",
-  },
-  role: {
-    en: "HCI Researcher & Prototyping Engineer (team of 3)",
-    de: "HCI-Researcherin & Prototyping-Engineer (3-köpfiges Team)",
-  },
-  timeline: "SoSe 2023",
+  ...card,
+  // Bilingual: "SoSe" means nothing to an English reader; ProjectTemplate
+  // localizes the whole meta object, so { en, de } resolves like any field.
+  timeline: { en: "Summer semester 2023", de: "SoSe 2023" },
 
-  // Homepage card metadata (StackedProjectCard.jsx). `cardTags` is the signal
-  // subset — method + stack — shown before the "+N more" disclosure; the full
-  // `tags` list stays on this project's detail page. `cardOutcome` is the one
-  // sentence a reader gets if they read nothing else, quantified where the
-  // evidence supports it and hedged where it doesn't.
-  // No `cardImage`. The exhibition photographs were never added to this
-  // repo, and the only image the project has is a generated cartoon. The
-  // card therefore renders text-only, with no figure column at all — not a
-  // box explaining which photograph belongs in it. Add a photograph here and
-  // set `cardImage` to it.
-  year: "2023",
-  context: {
-    en: "University research project",
-    de: "Universitäres Forschungsprojekt",
-  },
-  // Four tags, chosen to differentiate rather than to enumerate: one method,
-  // one research skill, one technical, one domain. The full list lives on the
-  // detail page and on /tags — the card is a triage surface, not an index.
-  // The project's own four skills, not substitutes. The one edit is a
-  // shortened label: "Public Exhibition Research" -> "Exhibition Research",
-  // renamed everywhere it appears rather than only on the card, so the tag
-  // and its evidence stay one thing. It claims the same skill.
-  //
-  // Even at 6px chip padding the full 76-character row cannot fit a 649px
-  // column at 12px mono: the text alone is 607px and four chips plus three
-  // gaps need another 32px minimum. 69 characters can, with the same margin
-  // case study 03 has.
-  cardTags: ["Physical Prototyping", "Exhibition Research", "Arduino", "Human-Robot Interaction"],
-  cardOutcome: {
-    en: "Visitors wanted to control the hug; a binary touch trigger, not the soft hardware, broke the experience.",
-    de: "Besucher:innen wollten die Umarmung steuern; ein binärer Berührungsauslöser brach die Erfahrung — nicht die weiche Hardware.",
-  },
-  tags: ["Soft Robotics", "Human-Robot Interaction", "Shape-Changing Interfaces", "Literature Review", "Competitive Analysis", "Physical Prototyping", "Material Testing", "Arduino", "Sensor Integration", "Interaction Design", "Data Physicalization", "Exhibition Research"],
-  thumbnail: thumbnailImg,
-  thumbnailWebp,
-  heroImage: thumbnailImg,
+  // Real photograph (report Fig. 16, tight crop to artefact and stand) — no
+  // `heroIsGenerated`, so the hero renders WITHOUT the AI-generation credit.
+  heroImage: finalBuildJpg,
 
   methods: [
     { en: "Literature Review",                                  de: "Literaturrecherche" },
@@ -79,14 +52,160 @@ export const projectData = {
 
   techStack: ["Arduino", "Festo 5/3 Solenoid Valve", "5-Pad Capacitive Touch Sensor", "TPU (heat-sealed)", "Foam Fabrication", "LED Feedback"],
 
+  // All figures are the team's own photographs from the group report (see
+  // FIGURES.md for the file→caption map). Captions carry the report figure
+  // number so a reader can trace each image to its source document.
+  figures: {
+    solution: [
+      {
+        type: "image",
+        src: finalBuildJpg,
+        span: 2,
+        className: "w-full h-auto block",
+        alt: {
+          en: "The final EmbraceMe build: a plush, skin-toned torso with two inflatable arms on a black mannequin stand, an orange heart marking the touch sensor on the chest",
+          de: "Der finale EmbraceMe-Aufbau: ein plüschiger, hautfarbener Torso mit zwei aufblasbaren Armen auf einem schwarzen Schaufensterpuppen-Ständer, ein oranges Herz markiert den Berührungssensor auf der Brust",
+        },
+        caption: {
+          en: "The final build on its stand, as exhibited (report Fig. 16, cropped to the artefact)",
+          de: "Der finale Aufbau auf dem Ständer, wie ausgestellt (Report-Abb. 16, auf das Artefakt beschnitten)",
+        },
+      },
+      {
+        type: "image",
+        src: armFinalStructure,
+        alt: {
+          en: "The final arm structure: slotted foam limb with embedded TPU air chambers, bending as inflated",
+          de: "Die finale Armstruktur: geschlitzter Schaumstoffarm mit eingebetteten TPU-Luftkammern, gebogen im aufgeblasenen Zustand",
+        },
+        caption: {
+          en: "Final structure of the PneuNet arm (report Fig. 8)",
+          de: "Finale Struktur des PneuNet-Arms (Report-Abb. 8)",
+        },
+      },
+      {
+        type: "image",
+        src: innerStructure,
+        alt: {
+          en: "Inner structure of the bot with the air routing and arm mounting visible before the plush cover",
+          de: "Innere Struktur des Roboters mit sichtbarer Luftführung und Armbefestigung vor dem Plüschüberzug",
+        },
+        caption: {
+          en: "Inner structure before the cover (report Fig. 15)",
+          de: "Innere Struktur vor dem Überzug (Report-Abb. 15)",
+        },
+      },
+      {
+        type: "image",
+        src: touchSensorChest,
+        alt: {
+          en: "The 5-pad capacitive touch sensor mounted on the robot's chest",
+          de: "Der kapazitive 5-Pad-Berührungssensor auf der Brust des Roboters",
+        },
+        caption: {
+          en: "Touch sensor on the chest — the hug trigger (report Fig. 14)",
+          de: "Berührungssensor auf der Brust — der Umarmungsauslöser (Report-Abb. 14)",
+        },
+      },
+      {
+        type: "image",
+        src: arduinoSetup,
+        alt: {
+          en: "The Arduino and valve control setup wired for the pneumatic system",
+          de: "Arduino- und Ventilsteuerung, verkabelt für das pneumatische System",
+        },
+        caption: {
+          en: "Arduino setup driving the Festo valve (report Fig. 13)",
+          de: "Arduino-Setup zur Ansteuerung des Festo-Ventils (Report-Abb. 13)",
+        },
+      },
+      {
+        type: "image",
+        src: airChannelPipes,
+        alt: {
+          en: "Air channels built from pipes distributing airflow into the arm chambers",
+          de: "Aus Rohren gebaute Luftkanäle, die den Luftstrom in die Armkammern verteilen",
+        },
+        caption: {
+          en: "Air channel, using pipes (report Fig. 12)",
+          de: "Luftkanal aus Rohren (Report-Abb. 12)",
+        },
+      },
+    ],
+    methodology: [
+      {
+        type: "image",
+        src: sketchBackpack,
+        alt: {
+          en: "Early concept sketch of the wearable backpack model with soft-growing arms",
+          de: "Frühe Konzeptskizze des tragbaren Rucksackmodells mit soft-growing Armen",
+        },
+        caption: {
+          en: "Early sketch — backpack concept (report Fig. 1)",
+          de: "Frühe Skizze — Rucksack-Konzept (Report-Abb. 1)",
+        },
+      },
+      {
+        type: "image",
+        src: sketchStandalone,
+        alt: {
+          en: "Early concept sketch of the standalone hugging figure with PneuNet bending arms",
+          de: "Frühe Konzeptskizze der eigenständigen Umarmungsfigur mit PneuNet-Biegearmen",
+        },
+        caption: {
+          en: "Early sketch — the standalone concept that won (report Fig. 2)",
+          de: "Frühe Skizze — das eigenständige Konzept, das sich durchsetzte (Report-Abb. 2)",
+        },
+      },
+      {
+        type: "image",
+        src: tpuTransparent,
+        alt: {
+          en: "Five heat-sealed transparent TPU inflatable components laid out on a cutting mat",
+          de: "Fünf heißverschweißte transparente TPU-Aufblaskomponenten auf einer Schneidematte",
+        },
+        caption: {
+          en: "Homogenous inflatable components, transparent TPU (report Fig. 9, cropped)",
+          de: "Homogene Aufblaskomponenten, transparentes TPU (Report-Abb. 9, beschnitten)",
+        },
+      },
+      {
+        type: "image",
+        src: tpuInconsistent,
+        span: 2,
+        className: "w-full h-auto block",
+        alt: {
+          en: "Inflated transparent TPU chambers showing visibly inconsistent volumes — the documented material failure",
+          de: "Aufgeblasene transparente TPU-Kammern mit sichtbar ungleichen Volumina — das dokumentierte Materialversagen",
+        },
+        caption: {
+          en: "The failure that forced the iteration: inconsistent volume of inflated TPU (report Fig. 10)",
+          de: "Das Versagen, das die Iteration erzwang: ungleiches Volumen des aufgeblasenen TPU (Report-Abb. 10)",
+        },
+      },
+      {
+        type: "image",
+        src: tpuYellow,
+        alt: {
+          en: "The stiffer yellow TPU inflatable component of the final iteration",
+          de: "Die steifere gelbe TPU-Aufblaskomponente der finalen Iteration",
+        },
+        caption: {
+          en: "Final iteration: yellow TPU chamber (report Fig. 11)",
+          de: "Finale Iteration: gelbe TPU-Kammer (Report-Abb. 11)",
+        },
+      },
+    ],
+  },
+
   about: {
     en: "A soft-robotics project exploring whether a machine can deliver the calming effect of a hug. In a team of three I designed and built EmbraceMe, a standalone hugging robot with inflatable PneuNet foam arms driven by an Arduino and a capacitive touch sensor. We exhibited it publicly and observed real visitors using it — documenting both what delighted them and where the design fell short.",
-    de: "Ein Soft-Robotics-Projekt zu der Frage, ob eine Maschine die beruhigende Wirkung einer Umarmung vermitteln kann. In einem dreiköpfigen Team habe ich EmbraceMe entworfen und gebaut — einen eigenständigen Umarmungsroboter mit aufblasbaren PneuNet-Schaumstoffarmen, gesteuert von einem Arduino und einem kapazitiven Berührungssensor. Wir haben ihn öffentlich ausgestellt und echte Besucher:innen dabei beobachtet — und dokumentiert, was sie begeisterte und wo das Design scheiterte.",
+    de: "Ein Soft-Robotics-Projekt zur Frage, ob eine Maschine die beruhigende Wirkung einer Umarmung vermitteln kann. In einem dreiköpfigen Team habe ich EmbraceMe entworfen und gebaut — einen eigenständigen Umarmungsroboter mit aufblasbaren PneuNet-Schaumstoffarmen, gesteuert von einem Arduino und einem kapazitiven Berührungssensor. Wir haben ihn öffentlich ausgestellt und echte Besucher:innen dabei beobachtet — und dokumentiert, was sie begeisterte und wo das Design an seine Grenzen stieß.",
   },
 
   challenge: {
     en: "Physical touch like hugging releases oxytocin and measurably reduces stress — but not everyone has access to it: loved ones may be distant, or contact may be unsafe. We set out to build an inflatable soft-robotic interface delivering Deep Pressure Stimulation through a standalone hugging experience, gentle enough for direct human contact where rigid robots fail.",
-    de: "Körperliche Berührung wie Umarmen setzt Oxytocin frei und reduziert nachweislich Stress — doch nicht jeder hat Zugang dazu: Nahestehende können weit entfernt sein, oder Kontakt kann unsicher sein. Wir wollten ein aufblasbares Soft-Robotik-Interface bauen, das Deep Pressure Stimulation über eine eigenständige Umarmungserfahrung liefert — sanft genug für direkten menschlichen Kontakt, wo starre Roboter versagen.",
+    de: "Körperliche Berührung wie Umarmen setzt Oxytocin frei und reduziert nachweislich Stress — doch nicht alle haben Zugang dazu: Nahestehende können weit entfernt sein, oder Kontakt kann unsicher sein. Wir wollten ein aufblasbares Soft-Robotik-Interface bauen, das Deep Pressure Stimulation über eine eigenständige Umarmungserfahrung liefert — sanft genug für direkten menschlichen Kontakt, wo starre Roboter versagen.",
   },
 
   solution: {
@@ -95,13 +214,13 @@ export const projectData = {
   },
 
   methodology: {
-    en: "We grounded the design in a literature review of interpersonal touch, Deep Pressure Stimulation, and soft robotics, and a comparative analysis of prior hugging systems (Hug Over a Distance, Huggy Pajama, HugShirt, HuggieBot, and Bauhaus's own Hugging Suit) to identify their gaps — partial body coverage, static holds, and no emotional context. Two actuation techniques were evaluated (soft-growing vs. PneuNet bending); the standalone form factor decided for inclusivity determined the PneuNet approach. The prototype then went through iterative material testing before public exhibition with observation and user feedback.",
-    de: "Wir haben das Design auf eine Literaturrecherche zu zwischenmenschlicher Berührung, Deep Pressure Stimulation und Soft Robotics sowie eine Vergleichsanalyse bestehender Umarmungssysteme (Hug Over a Distance, Huggy Pajama, HugShirt, HuggieBot und Bauhaus' eigenen Hugging Suit) gestützt, um deren Lücken zu identifizieren — partielle Körperabdeckung, statisches Halten und fehlender emotionaler Kontext. Zwei Aktuierungstechniken wurden evaluiert (soft-growing vs. PneuNet-Biegung); die für Inklusivität gewählte eigenständige Form entschied für den PneuNet-Ansatz. Der Prototyp durchlief anschließend iterative Materialtests vor der öffentlichen Ausstellung mit Beobachtung und Nutzerfeedback.",
+    en: "We grounded the design in a literature review of interpersonal touch, Deep Pressure Stimulation, and soft robotics, and a comparative analysis of prior hugging systems (Hug Over a Distance, Huggy Pajama, HugShirt, HuggieBot 3.0, MIT's Huggable, and Bauhaus's own Hugging Suit) to identify their gaps — partial body coverage, static holds, and no emotional context. Two actuation techniques were evaluated (soft-growing vs. PneuNet bending); the standalone form factor decided for inclusivity determined the PneuNet approach. The prototype then went through iterative material testing before public exhibition with observation and user feedback.",
+    de: "Wir haben das Design auf eine Literaturrecherche zu zwischenmenschlicher Berührung, Deep Pressure Stimulation und Soft Robotics sowie eine Vergleichsanalyse bestehender Umarmungssysteme (Hug Over a Distance, Huggy Pajama, HugShirt, HuggieBot 3.0, MITs Huggable und Bauhaus' eigenen Hugging Suit) gestützt, um deren Lücken zu identifizieren — partielle Körperabdeckung, statisches Halten und fehlender emotionaler Kontext. Zwei Aktuierungstechniken wurden evaluiert (soft-growing vs. PneuNet-Biegung); die für Inklusivität gewählte eigenständige Form entschied für den PneuNet-Ansatz. Der Prototyp durchlief anschließend iterative Materialtests vor der öffentlichen Ausstellung mit Beobachtung und Nutzerfeedback.",
   },
 
   results: {
     en: "At a public university exhibition, visitors described the interaction as fun and surprising — the bot 'waking up' to hug back was the standout moment. The evaluation also surfaced honest design failures: some users read the pink, muscular arms as uncanny and avoided full contact, and without clear signifiers, nobody could guess how to initiate a hug unprompted. My individual follow-up applied Offenhuber's data physicalization framework to propose the next iteration: emotion-recognition data (wearables, mood tracking) mapped to arm extension and hug intensity, turning a binary-triggered mechanism into an emotionally adaptive interface.",
-    de: "Bei einer öffentlichen Universitätsausstellung beschrieben Besucher:innen die Interaktion als lustig und überraschend — das 'Aufwachen' des Bots, um zurückzuumarmen, war der Höhepunkt. Die Evaluation zeigte auch ehrliche Designfehler: Manche Nutzer:innen empfanden die pinken, muskulösen Arme als unheimlich und vermieden vollen Kontakt, und ohne klare Signifikanten konnte niemand ohne Anleitung erraten, wie eine Umarmung eingeleitet wird. Meine individuelle Nachbetrachtung wandte Offenhubers Data-Physicalization-Framework an, um die nächste Iteration vorzuschlagen: Emotionserkennungsdaten (Wearables, Stimmungs-Tracking), die auf Armausdehnung und Umarmungsintensität abgebildet werden — ein binär ausgelöster Mechanismus wird so zu einem emotional adaptiven Interface.",
+    de: "Bei einer öffentlichen Universitätsausstellung beschrieben Besucher:innen die Interaktion als lustig und überraschend — das „Aufwachen“ des Bots, um die Umarmung zu erwidern, war der Höhepunkt. Die Evaluation zeigte auch ehrliche Designfehler: Manche Nutzer:innen empfanden die pinken, muskulösen Arme als unheimlich und vermieden vollen Kontakt, und ohne klare Signifier konnte niemand ohne Anleitung erraten, wie eine Umarmung eingeleitet wird. Meine individuelle Nachbetrachtung wandte Offenhubers Data-Physicalization-Framework an, um die nächste Iteration vorzuschlagen: Emotionserkennungsdaten (Wearables, Stimmungs-Tracking), die auf Armausdehnung und Umarmungsintensität abgebildet werden — ein binär ausgelöster Mechanismus wird so zu einem emotional adaptiven Interface.",
   },
 
   // Process gallery
@@ -125,7 +244,7 @@ export const projectData = {
       type: { en: "Comparative Analysis", de: "Vergleichsanalyse" },
       title: { en: "Mapping the Gaps in Prior Hugging Systems", de: "Die Lücken bestehender Umarmungssysteme kartieren" },
       annotation: {
-        en: "Analyzed Hug Over a Distance, Huggy Pajama, HugShirt, HuggieBot 3.0, MIT's Huggable, and the Bauhaus Hugging Suit — comparing wearable vs. standalone forms, actuation, and sensing.",
+        en: "Analysed Hug Over a Distance, Huggy Pajama, HugShirt, HuggieBot 3.0, MIT's Huggable, and the Bauhaus Hugging Suit — comparing wearable vs. standalone forms, actuation, and sensing.",
         de: "Analysiert wurden Hug Over a Distance, Huggy Pajama, HugShirt, HuggieBot 3.0, MITs Huggable und der Bauhaus Hugging Suit — im Vergleich von tragbaren und eigenständigen Formen, Aktuierung und Sensorik.",
       },
       insight: {
@@ -146,7 +265,7 @@ export const projectData = {
         en: "The form-factor decision cascaded into the actuation technique: standalone required PneuNet bending arms that hold their position in space without a skeleton — the project's hardest engineering constraint.",
         de: "Die Formfaktor-Entscheidung zog die Aktuierungstechnik nach sich: Die eigenständige Variante erforderte PneuNet-Biegearme, die ihre Position im Raum ohne Skelett halten — die härteste technische Randbedingung des Projekts.",
       },
-      imagePath: null,
+      imagePath: sketchStandalone,
     },
     {
       phase: "design",
@@ -160,7 +279,7 @@ export const projectData = {
         en: "Material properties drove interaction quality: consistent chamber volume was the difference between a controlled embrace and an erratic one. Slot spacing (10 cm) and chamber size (8×6 cm) were tuned empirically across numerous arm samples.",
         de: "Materialeigenschaften bestimmten die Interaktionsqualität: konsistentes Kammervolumen war der Unterschied zwischen einer kontrollierten und einer unberechenbaren Umarmung. Schlitzabstand (10 cm) und Kammergröße (8×6 cm) wurden empirisch über zahlreiche Armmuster hinweg justiert.",
       },
-      imagePath: null,
+      imagePath: tpuInconsistent,
     },
     {
       phase: "design",
@@ -174,7 +293,7 @@ export const projectData = {
         en: "Timings were derived through trial-and-error experimentation — long enough to hold a firm hug, short enough to protect the chambers from over-inflation.",
         de: "Die Zeittaktung wurde durch Trial-and-Error ermittelt — lang genug für eine feste Umarmung, kurz genug, um die Kammern vor Überaufblasen zu schützen.",
       },
-      imagePath: null,
+      imagePath: touchSensorChest,
     },
     {
       phase: "deliver",
@@ -182,13 +301,13 @@ export const projectData = {
       title: { en: "Real Users, Real (Uncomfortable) Findings", de: "Echte Nutzer:innen, echte (unbequeme) Erkenntnisse" },
       annotation: {
         en: "Exhibited at a university event open to academic and non-academic visitors. Observed interactions and collected impressions: delight at the bot 'waking up,' but also uncanny-valley reactions to its form and confusion about how to initiate contact without our explanation.",
-        de: "Ausgestellt bei einer Universitätsveranstaltung, offen für akademisches und nicht-akademisches Publikum. Interaktionen beobachtet und Eindrücke gesammelt: Freude über das 'Aufwachen' des Bots, aber auch Uncanny-Valley-Reaktionen auf seine Form und Verwirrung darüber, wie Kontakt ohne unsere Erklärung eingeleitet wird.",
+        de: "Ausgestellt bei einer Universitätsveranstaltung, offen für akademisches und nicht-akademisches Publikum. Interaktionen beobachtet und Eindrücke gesammelt: Freude über das „Aufwachen“ des Bots, aber auch Uncanny-Valley-Reaktionen auf seine Form und Verwirrung darüber, wie Kontakt ohne unsere Erklärung eingeleitet wird.",
       },
       insight: {
         en: "Two design failures documented honestly: aesthetic choices triggered avoidance in some users, and the interface lacked signifiers — curiosity did not translate into interaction without designer intervention.",
-        de: "Zwei Designfehler ehrlich dokumentiert: ästhetische Entscheidungen lösten bei manchen Nutzer:innen Vermeidung aus, und dem Interface fehlten Signifikanten — Neugier übersetzte sich ohne Eingreifen der Designer:innen nicht in Interaktion.",
+        de: "Zwei Designfehler ehrlich dokumentiert: ästhetische Entscheidungen lösten bei manchen Nutzer:innen Vermeidung aus, und dem Interface fehlten Signifier — Neugier übersetzte sich ohne Eingreifen der Designer:innen nicht in Interaktion.",
       },
-      imagePath: null,
+      imagePath: finalBuildJpg,
     },
     {
       phase: "deliver",
@@ -246,7 +365,7 @@ export const projectData = {
     decisions: [
       {
         en: "The visible design failures (uncanny arm aesthetics, no signifiers for initiating a hug) were not patched within the group project — they were carried into an individual critical-reflection report instead.",
-        de: "Die sichtbaren Designfehler (unheimliche Armästhetik, fehlende Signifikanten zum Einleiten einer Umarmung) wurden nicht innerhalb des Gruppenprojekts nachgebessert — sie wurden stattdessen in einen individuellen kritischen Reflexionsbericht überführt.",
+        de: "Die sichtbaren Designfehler (unheimliche Armästhetik, fehlende Signifier zum Einleiten einer Umarmung) wurden nicht innerhalb des Gruppenprojekts nachgebessert — sie wurden stattdessen in einen individuellen kritischen Reflexionsbericht überführt.",
       },
       {
         en: "The redesign proposal rejected the binary-trigger mechanism outright, replacing it with emotion-recognition data driving arm extension and hug intensity, with user autonomy, explicit consent, and privacy-first handling defined as guardrails before any such system would be built.",

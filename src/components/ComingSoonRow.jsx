@@ -9,7 +9,10 @@ import React from "react";
 import { useTranslation } from "../context/LanguageContext";
 import { SkillTagRow } from "./SkillTagRow";
 
-export function ComingSoonRow({ project, index }) {
+// `headingLevel`: h3 on the homepage (beside StackedProjectCard's h3 titles),
+// h2 on /projects (beside ProjectListRow/ProjectTile's h2 titles) — the row
+// must not break the heading outline of whichever list it sits in.
+export function ComingSoonRow({ project, index, headingLevel: Heading = "h3" }) {
   const { t } = useTranslation();
   const tags = project.cardTags || [];
 
@@ -24,7 +27,7 @@ export function ComingSoonRow({ project, index }) {
             {t("projects.comingSoon")}
           </span>
         </div>
-        <h3 className="text-card-title font-display font-bold text-text-meta">{project.title}</h3>
+        <Heading className="text-card-title font-display font-bold text-text-meta">{project.title}</Heading>
         <SkillTagRow tags={tags} className="mt-s8" />
       </div>
     </div>

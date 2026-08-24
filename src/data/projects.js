@@ -1,9 +1,20 @@
-// Dynamic aggregator — project content is edited in src/projects/<folder>/data.js,
-// not here. import.meta.glob scans src/projects/*/data.js at build time (and
-// hot-reloads in dev), so any folder containing a data.js is discovered
-// automatically with no manual registration. import.meta.glob is Vite-only.
+// Dynamic aggregator — project content is edited in src/projects/<folder>/,
+// not here. import.meta.glob scans the folders at build time (and hot-reloads
+// in dev), so any folder is discovered automatically with no manual
+// registration. import.meta.glob is Vite-only.
+//
+// CARD FILES, not data.js: this module reaches every page (homepage grid,
+// /projects, tag pages, sitemap, CV highlights, the meta/sitemap scripts),
+// so eagerly globbing the full data.js files shipped all five case studies'
+// complete bilingual prose (~57 KiB gzipped) on the homepage's critical
+// path — 85% of mobile LCP was render delay waiting on exactly this chain.
+// card.js carries only what card surfaces read; each data.js spreads its
+// card and loads with the detail route's own chunk. Full-content consumers
+// (the test suites, check-needs-input) glob data.js themselves via
+// src/test/fullProjects.js — never import that helper from app code, or
+// the split is undone.
 
-const modules = import.meta.glob("../projects/*/data.js", { eager: true });
+const modules = import.meta.glob("../projects/*/card.js", { eager: true });
 
 /**
  * Normalize the status field at the boundary, so data.js files
@@ -46,7 +57,7 @@ export const projects = Object.entries(modules)
           `[projects] ${path} sets slug "${p.slug}" — ignored; the folder name is the slug. Rename the folder to change the URL.`
         );
       }
-      for (const field of ["status", "title", "methods"]) {
+      for (const field of ["status", "title", "tags"]) {
         if (!p?.[field]) {
           console.warn(`[projects] ${path} is missing required field "${field}"`);
         }

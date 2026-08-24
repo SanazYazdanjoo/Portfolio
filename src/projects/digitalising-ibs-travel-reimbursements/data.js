@@ -18,10 +18,13 @@
 // 20.08.2026: revised against 'for Case study IBS.docx' — multi-Excel before-
 // state, n=3 interviews, UCD/double-diamond framing, results deferred until
 // real use (no study eyebrow — see metricsIntro), design section added.
+// Card-level fields (id/status/title/tags/thumbnails/card*) live in
+// ./card.js — eagerly aggregated site-wide — and are spread here so the
+// detail page sees one object. This file carries only the prose and media
+// that load with the route's own chunk.
+import card from './card';
 import thumbnailImg from './Project-4.png';
-import thumbnailWebp from './Project-4.webp';
 import prototypeScreenshot from './Fahrtkostenerstattung-—-Prototyp-08-14-2026.jpg';
-import cardClaimTable from './card-claim-table.webp';
 import umlPreview from './UML-preview.png';
 import fiveW1HFrame from './5W1H.png';
 import stakeholderMap from './Stakeholders.png';
@@ -42,100 +45,19 @@ import processStrip from './process-sketch-wireframe-shipped.svg';
 const DOCS = '/projects/digitalising-ibs-travel-reimbursements';
 
 export const projectData = {
-  id: 'digitalising-ibs-travel-reimbursements',
-  status: 'in-progress', // Phase 3 shipped · demo delivered · evaluation pending deployment
+  ...card,
   stage: { en: 'Demo delivered · evaluation pending', de: 'Demo übergeben · Evaluation ausstehend' },
-  order: 1,
-  title: {
-    en: 'Digitalising IBS Travel Reimbursements',
-    de: 'Digitalisierung der IBS Fahrtkostenerstattung',
-  },
-  subtitle: {
-    en: 'From paper forms and a folder of Excel files to one traceable application',
-    de: 'Von Papierformularen und einem Ordner voller Excel-Dateien zu einer nachvollziehbaren Anwendung',
-  },
-  // Restored 20.08.2026 — the header lead line and the project card's
-  // "Context" field both read `tagline`, and both render nothing at all
-  // without it. `subtitle` is a separate field and does not stand in.
-  tagline: {
-    en: 'A reimbursement process whose only status update is the money arriving — researched from the inside, rebuilt from the evidence.',
-    de: 'Ein Erstattungsprozess, dessen einzige Statusmeldung das eintreffende Geld ist — von innen erforscht, aus der Evidenz neu gebaut.',
-  },
-  role: {
-    en: 'Solo — UX Research, UI Design, and Frontend Development',
-    de: 'Alleinverantwortlich — UX Research, UI-Design und Frontend-Entwicklung',
-  },
-  timeline: '2026 · four phases · ongoing',
+  timeline: { en: '2026 · four phases · ongoing', de: '2026 · vier Phasen · laufend' },
 
-  // Homepage card metadata (StackedProjectCard.jsx). `cardTags` is the signal
-  // subset — method + stack — shown before the "+N more" disclosure; the full
-  // `tags` list stays on this project's detail page. `cardOutcome` is the one
-  // sentence a reader gets if they read nothing else, quantified where the
-  // evidence supports it and hedged where it doesn't.
-  // Homepage card image — deliberately NOT `thumbnail`. Every Project-N.png
-  // in this repo is a generated cartoon of the subject matter, and a
-  // recruiter scanning five of them reads stock illustration, not evidence.
-  // `cardImage` therefore points only at a real artefact this project
-  // actually produced. A project with no such asset sets nothing and its
-  // card renders text-only — there is no placeholder state.
-  // Plate 01 of the design reference: "claim table — one participant row with
-  // its status controls, legible at 480px". The asset is cropped to that
-  // detail and to 4:3 by scripts/generate-card-crops.mjs, so the card's
-  // object-fit: contain shows it whole — the box never crops a screenshot.
-  cardImage: cardClaimTable,
-  year: '2026',
-  context: {
-    en: 'In-house · public sector',
-    de: 'Intern · öffentlicher Sektor',
-  },
-  // Four tags, chosen to differentiate rather than to enumerate: one method,
-  // one research skill, one technical, one domain. The full list lives on the
-  // detail page and on /tags — the card is a triage surface, not an index.
-  cardTags: ['Service Design', 'Stakeholder Interviews', 'React', 'Public Sector'],
-  cardOutcome: {
-    en: 'Replaced a paper reimbursement process with a working application the institute now runs its claims through.',
-    de: 'Ersetzte einen papierbasierten Erstattungsprozess durch eine funktionierende Anwendung, über die das Institut seine Anträge heute abwickelt.',
-  },
   aiAssistance: {
     en: 'Built with AI coding agents under my direction. The research, the requirements, the architecture decisions, the refusals recorded in the decision log — and every claim on this page — are mine and are traceable to their sources.',
     de: 'Entwickelt mit KI-Coding-Agenten unter meiner Leitung. Die Forschung, die Anforderungen, die Architekturentscheidungen, die im Entscheidungslog festgehaltenen Ablehnungen — und jede Aussage auf dieser Seite — sind meine und auf ihre Quellen rückführbar.',
   },
-  tags: [
-    'UX Research',
-    'Stakeholder Interviews',
-    'Survey Design',
-    'Thematic Analysis',
-    'Persona Development',
-    'Process Mapping (UML)',
-    'Service Design',
-    'Requirements Engineering',
-    'Requirements Traceability',
-    'Information Architecture',
-    'State Machine Modelling',
-    'Wireframing',
-    'Interaction Design',
-    'Design Systems',
-    'Prototyping',
-    'Usability Evaluation (instrumented)',
-    'Accessibility',
-    'Data Visualization',
-    'React',
-    'TypeScript',
-    'Node.js / Fastify',
-    'SQLite',
-    'Excel Automation (SheetJS)',
-    'Automated Testing (Vitest)',
-    'Product Instrumentation',
-    'Privacy by Design',
-    'GDPR / DSGVO',
-    'Public Sector',
-  ],
-  thumbnail: thumbnailImg,
-  thumbnailWebp,
   // Only rendered as a fallback for a project with no thumbnail and no
   // process gallery, which this one is not — but it pointed at a file that
   // was never authored, so it now names the image that does exist.
   heroImage: thumbnailImg,
+  heroIsGenerated: true, // the hero is a generated illustration — renders the credit
 
   methods: [
     { en: 'Insider process observation (AS-IS)',              de: 'Insider-Prozessbeobachtung (IST-Zustand)' },
@@ -159,15 +81,15 @@ export const projectData = {
   // measured version.
   metrics: [
     { value: '25', label: { en: 'problems documented — six added by the participant survey', de: 'dokumentierte Probleme — sechs durch die Teilnehmenden-Umfrage ergänzt' } },
-    { value: 'n=6', label: { en: 'survey responses so far (survey open; PK cohort not yet reached — stated on every figure)', de: 'Umfrage-Antworten bisher (Umfrage offen; PK-Kohorte noch nicht erreicht — auf jeder Abbildung vermerkt)' } },
+    { value: 'n=6', label: { en: 'survey responses so far (survey open; the in-person Präsenzkurs cohort not yet reached — stated on every figure)', de: 'Umfrage-Antworten bisher (Umfrage offen; Präsenzkurs-Kohorte noch nicht erreicht — auf jeder Abbildung vermerkt)' } },
     { value: 'n=3', label: { en: 'expert interviews — project management, accounting, administration/IT — checking the failure set from the administrative and the financial side', de: 'Experteninterviews — Projektleitung, Buchhaltung, Verwaltung/IT — Prüfung der Fehlermenge aus administrativer und finanzieller Sicht' } },
-    { value: '>1 yr', label: { en: 'running the process myself before redesigning it — insider observation as the first evidence source', de: 'den Prozess selbst betrieben, bevor ich ihn neu entwarf — Insider-Beobachtung als erste Evidenzquelle' } },
+    { value: { en: '>1 yr', de: '>1 Jahr' }, label: { en: 'running the process myself before redesigning it — insider observation as the first evidence source', de: 'den Prozess selbst betrieben, bevor ich ihn neu entwarf — Insider-Beobachtung als erste Evidenzquelle' } },
     { value: '7', label: { en: 'personas, each with its provenance stated', de: 'Personas, jede mit angegebener Herkunft' } },
     { value: '9', label: { en: 'actors mapped across 13 steps and 4 return loops', de: 'Akteure über 13 Schritte und 4 Rückschleifen kartiert' } },
     { value: '43+', label: { en: 'days and still unpaid — one claim traced end to end through the paper process: 8 days sitting unseen, 1 day of admin work, the rest downstream and invisible', de: 'Tage und weiter unbezahlt — ein Antrag durchgängig im Papierprozess verfolgt: 8 Tage unbemerkt liegend, 1 Tag Bearbeitung, der Rest nachgelagert und unsichtbar' } },
     { value: { en: 'NO TRIGGER', de: 'KEIN AUSLÖSER' }, label: { en: 'Private-vehicle claims were never prompted for — a PKW claim depends entirely on the participant remembering', de: 'PKW-Anträge wurden nie abgefragt — ein PKW-Antrag hängt allein am Erinnern der Teilnehmenden' } },
     { value: '4/6', label: { en: 'respondents do not know how their amount is calculated; two have stopped trying', de: 'Befragte wissen nicht, wie ihr Betrag berechnet wird; zwei haben aufgehört, es zu versuchen' } },
-    { value: '1,234', label: { en: 'automated tests — including guards that fail the build on an untraced requirement citation or a design-token drift', de: 'automatisierte Tests — darunter Guards, die den Build bei unbelegten Anforderungszitaten oder Token-Abweichungen scheitern lassen' } },
+    { value: { en: '1,234', de: '1.234' }, label: { en: 'automated tests — including guards that fail the build on an untraced requirement citation or a design-token drift', de: 'automatisierte Tests — darunter Guards, die den Build bei unbelegten Anforderungszitaten oder Token-Abweichungen scheitern lassen' } },
   ],
 
   metricsIntro: {
@@ -200,7 +122,7 @@ export const projectData = {
   },
   challenge: {
     en: 'Every month, participants in a state-funded qualification programme claim back their travel costs. On paper it is a form; in practice it was an ecosystem of disconnected spreadsheets held together by one administrative role. Attendance started as paper marks in the classroom, was retyped by lecturers into an attendance-only Excel shared over Teams — often late, often incomplete, always chased — and exported again by the admin. A hasty „A“ for a participant who left early could quietly become an unexcused „U“ if the follow-up excuse never arrived, unfairly costing attendance days and, with them, reimbursement money. Calculating each month’s totals followed rules so error-prone that I built myself a helper spreadsheet just to get them right. Around that sat a master overview file, one prefilled Abrechnung file per participant, and whatever month- or case-specific lists the situation required. Participants, meanwhile, submitted into a void: no visible calculation, no confirmation, no status — four of six survey respondents could not say how long reimbursement takes, and that is not a data gap, it is the finding. The failure was structural, not clerical.',
-    de: 'Jeden Monat fordern Teilnehmende eines staatlich geförderten Qualifizierungsprogramms ihre Fahrtkosten zurück. Auf dem Papier ist das ein Formular; in der Praxis war es ein Geflecht unverbundener Tabellen, zusammengehalten von einer einzigen administrativen Rolle. Die Anwesenheit begann als Papiereintrag im Kursraum, wurde von Dozierenden in eine reine Anwesenheits-Excel übertragen und über Teams geteilt — oft spät, oft unvollständig, immer angemahnt — und von der Verwaltung wieder exportiert. Aus einem hastigen „A“ für eine früher gehende Person konnte stillschweigend ein unentschuldigtes „U“ werden, wenn die Entschuldigung ausblieb — und mit den Anwesenheitstagen sank zu Unrecht auch die Erstattung. Die Monatsberechnung folgte Regeln, die so fehleranfällig waren, dass ich mir eine eigene Hilfs-Excel baute, um sie sicher zu beherrschen. Darum herum: eine Master-Übersichtsdatei, je Teilnehmer:in eine vorbefüllte Abrechnungsdatei und die monats- oder fallspezifischen Listen. Teilnehmende reichten derweil ins Leere ein: keine sichtbare Berechnung, keine Bestätigung, kein Status — vier von sechs Befragten konnten nicht sagen, wie lange die Erstattung dauert, und das ist keine Datenlücke, das ist der Befund. Das Versagen war strukturell, nicht schreibtechnisch.',
+    de: 'Jeden Monat fordern Teilnehmende eines staatlich geförderten Qualifizierungsprogramms ihre Fahrtkosten zurück. Auf dem Papier ist das ein Formular; in der Praxis war es ein Geflecht unverbundener Tabellen, zusammengehalten von einer einzigen administrativen Rolle. Die Anwesenheit begann als Papiereintrag im Kursraum, wurde von Dozierenden in eine reine Anwesenheits-Excel übertragen und über Teams geteilt — oft spät, oft unvollständig, immer angemahnt — und von der Verwaltung wieder exportiert. Aus einem hastigen „A“ für eine früher gehende Person konnte stillschweigend ein unentschuldigtes „U“ werden, wenn die Entschuldigung ausblieb — und mit den Anwesenheitstagen sank zu Unrecht auch die Erstattung. Die Monatsberechnung folgte Regeln, die so fehleranfällig waren, dass ich mir eine eigene Hilfs-Excel baute, um sie sicher zu beherrschen. Darum herum: eine Master-Übersichtsdatei, je teilnehmender Person eine vorbefüllte Abrechnungsdatei und die monats- oder fallspezifischen Listen. Teilnehmende reichten derweil ins Leere ein: keine sichtbare Berechnung, keine Bestätigung, kein Status — vier von sechs Befragten konnten nicht sagen, wie lange die Erstattung dauert, und das ist keine Datenlücke, das ist der Befund. Das Versagen war strukturell, nicht schreibtechnisch.',
   },
 
   solutionQuote: {
@@ -222,15 +144,15 @@ export const projectData = {
     de: 'Das Projekt läuft als nutzerzentrierter Designprozess in der Form des Double Diamond. Discover: Insider-Beobachtung aus über einem Jahr im Prozess, drei Experteninterviews — Projektleitung, Buchhaltung, Verwaltung/IT — und die Teilnehmenden-Umfrage (n=6, laufend), die eine meiner Prioritäten umkehrte und sechs Probleme ergänzte, die ich von innen nicht gesehen hatte; weil ich den Ablauf persönlich kannte, bestand die erste Forschungsaufgabe strikt darin, meine eigenen Annahmen falsifizierbar zu machen. Define: thematisches Clustern in ein Problemregister, in dem jeder Eintrag ein Evidenzlabel trägt — bestätigt, indikativ, Hypothese, ungeprüft — und Zählungen ein Problem bestätigen oder reframen, nie beziffern; aus den geclusterten Problemen wurden nummerierte Anforderungen, eine rollenbasierte Sitemap und das IBS-DesignSystem, dessen neun Rollenfarben die neun Spurfarben der Forschungskarte sind. Develop: Phase 3 entwickelte die Berechnungsregeln als reines, unit-getestetes TypeScript — mit einem Build-brechenden Test, der jedes Anforderungszitat im Code auf sein Quellproblem zurückführt und seine eigene Grenze benennt: Er erkennt ein Zitat ohne Quelle, nicht ein Problem ohne Umsetzung. Deliver: Die Evaluation ist in die App eingebaut — geführte Aufgaben, ein pseudonymes lokales Ereignisprotokoll, ein Abschlussfragebogen — und beim Dogfooding auf meinen eigenen Entwicklungsdaten fand sie bereits drei ihrer eigenen Messfehler, bevor je ein Reviewer sie berührte.',
   },
 
-  // Deferred by decision (20.08.2026): outcomes render only once the app is
-  // published and in real use. The measured material stays where it belongs —
-  // the 43+ day traced claim in metrics, the instrumentation story in
-  // methodology. `metricsIntro` replaces the "Study at a Glance" eyebrow
-  // above the grid, so the numbers keep a frame without being called the
-  // results of a study that has not run.
+  // The deferral statement lives in the `outcome` block below (with the
+  // shared "deferred" pill), not here — one voice, one place. `results`
+  // keeps only the pointer to where the measured material sits, and
+  // `metricsIntro` replaces the "Study at a Glance" eyebrow above the grid,
+  // so the numbers keep a frame without being called the results of a study
+  // that has not run.
   results: {
-    en: 'This section is intentionally short for now: it will be completed with measured outcomes once the application is published and in real use (status 20.08.2026). Until then, the measured material lives where it belongs — the paper-process baseline in the metrics above, and the evaluation instruments in the methodology.',
-    de: 'Dieser Abschnitt bleibt bewusst kurz: Er wird mit gemessenen Ergebnissen gefüllt, sobald die Anwendung veröffentlicht und im echten Einsatz ist (Stand 20.08.2026). Bis dahin steht das Gemessene dort, wo es hingehört — die Basiswerte des Papierprozesses in den Metriken oben, die Evaluationsinstrumente in der Methodik.',
+    en: 'The measured material lives where it belongs — the paper-process baseline in the metrics above, and the evaluation instruments in the methodology.',
+    de: 'Das Gemessene steht dort, wo es hingehört — die Basiswerte des Papierprozesses in den Metriken oben, die Evaluationsinstrumente in der Methodik.',
   },
 
   // What is deliberately not built or not switched on. This section is what
@@ -251,8 +173,8 @@ export const projectData = {
         de: 'Die automatische Vertretungsaktivierung wird angezeigt, aber nicht automatisiert — sie wartet auf einen echten Abwesenheitsstatus.',
       },
       {
-        en: 'The participant survey has not yet reached the PK cohort or any Abo-Karte holder — the branch of the process with the strongest claims carries the least evidence, and every figure says so.',
-        de: 'Die Umfrage hat die PK-Kohorte und Abo-Karte-Nutzende noch nicht erreicht — der Prozesszweig mit den stärksten Annahmen trägt die wenigste Evidenz, und jede Abbildung vermerkt das.',
+        en: 'The participant survey has not yet reached the in-person (Präsenzkurs) cohort or any travel-pass (Abo-Karte) holder — the branch of the process with the strongest claims carries the least evidence, and every figure says so.',
+        de: 'Die Umfrage hat die Präsenzkurs-Kohorte und Abo-Karten-Nutzende noch nicht erreicht — der Prozesszweig mit den stärksten Annahmen trägt die wenigste Evidenz, und jede Abbildung vermerkt das.',
       },
       {
         en: 'A phone-width layout for the signed-in app shell is in progress — my own survey says most participants submit from a phone, and my own build did not honour that below 768px until the finding forced it.',
@@ -582,8 +504,8 @@ export const projectData = {
           de: 'Von einem Teilnehmenden-Satz zu einer erzwungenen Regel',
         },
         description: {
-          en: 'One finding, followed end to end. Four of six survey respondents do not know how their reimbursement is calculated — two have stopped trying: „Nein, ich nehme den Betrag so, wie er kommt." That became problem P3/P15 in the register, the requirement that a participant-visible amount must never be a black box, the pure calculation module whose trace every role renders, and a build-failing test that keeps the citation chain intact. The figure also states the mechanism’s limit on its face: the guard fails on a citation without a source — never on a problem without an implementation.',
-          de: 'Ein Befund, durchgängig verfolgt. Vier von sechs Befragten wissen nicht, wie ihre Erstattung berechnet wird — zwei haben aufgehört, es zu versuchen: „Nein, ich nehme den Betrag so, wie er kommt." Daraus wurde Problem P3/P15 im Register, die Anforderung, dass ein teilnehmenden-sichtbarer Betrag nie eine Black Box sein darf, das reine Berechnungsmodul, dessen Nachvollziehbarkeit jede Rolle anzeigt, und ein Build-brechender Test, der die Zitationskette intakt hält. Die Abbildung benennt auch die Grenze des Mechanismus: Der Guard scheitert an einem Zitat ohne Quelle — nie an einem Problem ohne Umsetzung.',
+          en: 'One finding, followed end to end. Four of six survey respondents do not know how their reimbursement is calculated — two have stopped trying: "No, I just take the amount as it comes." That became problem P3/P15 in the register, the requirement that a participant-visible amount must never be a black box, the pure calculation module whose trace every role renders, and a build-failing test that keeps the citation chain intact. The figure also states the mechanism’s limit on its face: the guard fails on a citation without a source — never on a problem without an implementation.',
+          de: 'Ein Befund, durchgängig verfolgt. Vier von sechs Befragten wissen nicht, wie ihre Erstattung berechnet wird — zwei haben aufgehört, es zu versuchen: „Nein, ich nehme den Betrag so, wie er kommt.“ Daraus wurde Problem P3/P15 im Register, die Anforderung, dass ein teilnehmenden-sichtbarer Betrag nie eine Black Box sein darf, das reine Berechnungsmodul, dessen Nachvollziehbarkeit jede Rolle anzeigt, und ein Build-brechender Test, der die Zitationskette intakt hält. Die Abbildung benennt auch die Grenze des Mechanismus: Der Guard scheitert an einem Zitat ohne Quelle — nie an einem Problem ohne Umsetzung.',
         },
         alt: {
           en: 'Five-stage chain from left to right: a survey verbatim, problem P3/P15 with a CONFIRMED chip, the requirements row, the calculation code files, and a guard test drawn as a lock closing back onto the chain with a return arrow labelled build fails. A handwritten annotation states the limit of the guard.',
@@ -606,7 +528,7 @@ export const projectData = {
         },
         description: {
           en: 'The same five stages for problem P21, silent intake — and an honest break before the last one. Four of six respondents learn their documents arrived only when the money appears; a fifth does not check at all. The requirement row exists, the error case is implemented in plain German, and the positive case — telling a participant their documents did arrive — is not built. The requirements table says so, the link to the guard is drawn broken, and the lock stands open: blocked and recorded, not defective.',
-          de: 'Dieselben fünf Stufen für Problem P21, Silent Intake — mit einem ehrlichen Bruch vor der letzten. Vier von sechs Befragten erfahren nur am eintreffenden Geld, dass ihre Unterlagen angekommen sind; ein:e fünfte:r prüft gar nicht. Die Anforderungszeile existiert, der Fehlerfall ist auf verständlichem Deutsch umgesetzt, und der positive Fall — Teilnehmenden zu sagen, dass ihre Unterlagen angekommen sind — ist nicht gebaut. Die Anforderungstabelle sagt das, die Verbindung zum Guard ist gebrochen gezeichnet, und das Schloss steht offen: blockiert und dokumentiert, nicht defekt.',
+          de: 'Dieselben fünf Stufen für Problem P21, Silent Intake — mit einem ehrlichen Bruch vor der letzten. Vier von sechs Befragten erfahren nur am eintreffenden Geld, dass ihre Unterlagen angekommen sind; eine fünfte Person prüft gar nicht. Die Anforderungszeile existiert, der Fehlerfall ist auf verständlichem Deutsch umgesetzt, und der positive Fall — Teilnehmenden zu sagen, dass ihre Unterlagen angekommen sind — ist nicht gebaut. Die Anforderungstabelle sagt das, die Verbindung zum Guard ist gebrochen gezeichnet, und das Schloss steht offen: blockiert und dokumentiert, nicht defekt.',
         },
         alt: {
           en: 'Compressed five-stage chain for problem P21 ending in a dashed, broken link before the guard test, whose lock is drawn open. A handwritten line beneath reads: the positive case — telling a TN their documents arrived — is not built; the table says so.',
@@ -738,10 +660,19 @@ export const projectData = {
     de: 'Live-Prototyp öffnen',
   },
 
-  // No `outcome` block: it renders inside the Results section, and the only
-  // honest content is already in `results`. `adoption` stays off too — an
-  // "Outcome Unknown" pill reads as a verdict on the project instead of a
-  // statement that the work is running.
+  // The outcome block joined the shared status system in the Phase 3
+  // normalization: this project's earlier objection was to the "Outcome
+  // Unknown" pill specifically (a verdict on running work), and the
+  // vocabulary now carries "deferred" — evaluation designed, pending by
+  // decision — which states exactly what is true. Body content moved here
+  // from `results`, not written new; nothing is estimated or upgraded.
+  outcome: {
+    body: {
+      en: 'Deferred by decision (status 20.08.2026): this space reports measured outcomes once the application is published and in daily use. The evaluation is already built into the app — guided tasks, an event log, an end-of-session questionnaire — so when the sessions run, what changed gets recorded here, not estimated beforehand.',
+      de: 'Aufgeschoben per Entscheidung (Stand 20.08.2026): An dieser Stelle stehen gemessene Ergebnisse, sobald die Anwendung veröffentlicht und im Alltag im Einsatz ist. Die Evaluation ist bereits in die App eingebaut — geführte Aufgaben, ein Ereignisprotokoll, ein Abschlussfragebogen —, sodass hier festgehalten wird, was sich tatsächlich geändert hat, statt es vorab zu schätzen.',
+    },
+    adoption: 'deferred',
+  },
 
   // Every pointer below resolves to a field that exists in THIS file.
   tagEvidence: [

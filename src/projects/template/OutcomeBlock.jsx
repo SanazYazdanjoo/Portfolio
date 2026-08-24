@@ -3,12 +3,24 @@ import { Badge } from "../../components/Badge";
 import { ClampedText } from "./ClampedText";
 import { MaybeText } from "./MaybeText";
 
-const ADOPTION_META = {
-  shipped:      { labelKey: "project.outcome.adoption.shipped",    tone: "success" },
-  roadmapped:   { labelKey: "project.outcome.adoption.roadmapped", tone: "accent"  },
-  "not-adopted":{ labelKey: "project.outcome.adoption.notAdopted", tone: "muted"   },
-  unknown:      { labelKey: "project.outcome.adoption.unknown",    tone: "muted"   },
-  academic:     { labelKey: "project.outcome.adoption.academic",   tone: "highlight" },
+// The defined outcome vocabulary — one term per situation, so five projects
+// with pending outcomes read as a convention, not five separate apologies:
+//   shipped / roadmapped / not-adopted — a verdict exists.
+//   unknown  — handed over, never verified (deskbird).
+//   academic — adoption doesn't apply in the product sense (gaze, embraceme).
+//   deferred — the work is running and evaluation is designed but pending;
+//              the outcome is withheld on purpose, not missing (IBS,
+//              designing-this-site).
+// Exported: /designsystem renders this exact table as the vocabulary's
+// user-facing definition — one source, no drift between the pills a case
+// study shows and the terms the style guide documents.
+export const ADOPTION_META = {
+  shipped:      { labelKey: "project.outcome.adoption.shipped",    defKey: "project.outcome.def.shipped",    tone: "success" },
+  roadmapped:   { labelKey: "project.outcome.adoption.roadmapped", defKey: "project.outcome.def.roadmapped", tone: "accent"  },
+  "not-adopted":{ labelKey: "project.outcome.adoption.notAdopted", defKey: "project.outcome.def.notAdopted", tone: "muted"   },
+  unknown:      { labelKey: "project.outcome.adoption.unknown",    defKey: "project.outcome.def.unknown",    tone: "muted"   },
+  academic:     { labelKey: "project.outcome.adoption.academic",   defKey: "project.outcome.def.academic",   tone: "highlight" },
+  deferred:     { labelKey: "project.outcome.adoption.deferred",   defKey: "project.outcome.def.deferred",   tone: "accent"  },
 };
 
 function AdoptionPill({ adoption }) {
@@ -16,9 +28,18 @@ function AdoptionPill({ adoption }) {
   const meta = ADOPTION_META[adoption];
   if (!meta) return null;
   return (
-    <Badge tone={meta.tone} className="mt-1">
-      {t(meta.labelKey)}
-    </Badge>
+    <div>
+      <Badge tone={meta.tone} className="mt-1">
+        {t(meta.labelKey)}
+      </Badge>
+      {/* The term's one-line definition, as VISIBLE rendered text — not a
+          tooltip or title attribute — so it reaches print and screen
+          readers the same as any prose. A pill without its definition is
+          an unexplained verdict. */}
+      <p className="mt-2 text-sm text-dim leading-relaxed max-w-measure">
+        {t(meta.defKey)}
+      </p>
+    </div>
   );
 }
 

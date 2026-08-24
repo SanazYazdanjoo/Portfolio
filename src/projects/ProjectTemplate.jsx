@@ -146,7 +146,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
   const hasHeroImage = !!meta.thumbnail;
 
   return (
-    <main ref={mainRef} className="min-h-screen bg-bg pt-20 md:pt-24">
+    <div ref={mainRef} className="min-h-screen bg-bg pt-20 md:pt-24">
       {/* Scroll-progress bar */}
       <motion.div
         aria-hidden="true"
@@ -442,6 +442,6 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

@@ -40,10 +40,13 @@ async function main() {
   });
 
   try {
-    const { projects } = await server.ssrLoadModule("/src/data/projects.js");
+    // The FULL data.js modules, not the card-level aggregator — sentinels
+    // live in the prose, which src/data/projects.js no longer carries after
+    // the Phase 5 card/data split.
+    const { fullProjects } = await server.ssrLoadModule("/src/test/fullProjects.js");
 
     const failures = [];
-    for (const project of projects) {
+    for (const project of fullProjects) {
       const hits = [];
       findNeedsInput(project, "", hits);
       if (hits.length > 0) {

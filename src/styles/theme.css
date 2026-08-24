@@ -460,8 +460,12 @@
     scrollbar-color: var(--color-ink-300) transparent;
   }
 
+  /* No `.group` here: it is Tailwind's hover-coordination MARKER class and
+     sits on many non-interactive wrappers — a pointer cursor there promises
+     a click that doesn't exist. Interactive elements are already covered by
+     the tag/role selectors. */
   a, button, [role="button"], input[type="submit"], input[type="button"],
-  label, select, textarea, .cursor-pointer, .group {
+  label, select, textarea, .cursor-pointer {
     cursor: pointer !important;
     transition: transform 0.2s var(--smooth), background-color 0.2s var(--smooth);
   }

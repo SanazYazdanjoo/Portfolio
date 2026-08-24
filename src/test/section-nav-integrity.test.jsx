@@ -24,7 +24,7 @@ import { describe, it, expect } from "vitest";
 import { within } from "@testing-library/react";
 import { renderWithProviders, screen } from "./renderWithProviders";
 import ProjectTemplate from "../projects/ProjectTemplate";
-import { projects } from "../data/projects";
+import { fullProjects as projects } from "./fullProjects";
 
 describe("section rail — every listed section resolves to a real section", () => {
   it.each(projects.map((p) => [p.slug, p]))(

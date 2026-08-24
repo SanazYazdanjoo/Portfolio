@@ -78,9 +78,14 @@ export function ProjectHero({ meta, scrollY }) {
             />
           </div>
         </div>
-        <p className="mt-3 text-right text-2xs font-mono font-bold uppercase text-text-meta">
-          {t("project.media.heroCredit")}
-        </p>
+        {/* Only when the hero is an AI illustration — a real photograph must
+            not inherit the generation credit, and a generated image must not
+            stand unlabelled as documentation of a physical artefact. */}
+        {meta.heroIsGenerated && (
+          <p className="mt-3 text-right text-2xs font-mono font-bold uppercase text-text-meta">
+            {t("project.media.heroCredit")}
+          </p>
+        )}
       </motion.div>
     </div>
   );

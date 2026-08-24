@@ -30,7 +30,7 @@ const TagsDirectory = () => {
   });
 
   return (
-    <main className="min-h-screen bg-bg pt-20 md:pt-24 pb-16">
+    <div className="min-h-screen bg-bg pt-20 md:pt-24 pb-16">
       <div className="w-full px-4 md:px-8 max-w-4xl mx-auto">
         <header className="mb-10">
           <h1 className="font-display text-4xl md:text-6xl font-extrabold text-text tracking-tighter leading-tight mb-4">
@@ -50,6 +50,7 @@ const TagsDirectory = () => {
             <input
               type="text"
               placeholder={t("tags.directory.searchPlaceholder")}
+              aria-label={t("tags.directory.searchPlaceholder")}
               className="block bg-bg px-3 py-2 text-sm text-text w-64 max-w-full focus-ring"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -57,6 +58,7 @@ const TagsDirectory = () => {
           </span>
           <span className="inline-block border rule-frame">
             <select
+              aria-label={t("tags.directory.sortLabel")}
               className="block bg-bg px-3 py-2 text-sm text-text focus-ring"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
@@ -78,7 +80,7 @@ const TagsDirectory = () => {
           <EmptyState title={t("tags.directory.empty")} />
         )}
       </div>
-    </main>
+    </div>
   );
 };
 

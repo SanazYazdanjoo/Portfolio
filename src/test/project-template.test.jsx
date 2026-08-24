@@ -18,7 +18,9 @@ afterEach(() => window.localStorage.removeItem("portfolio-lang"));
 describe("ProjectTemplate", () => {
   it("renders challenge figures when they exist in the project data", () => {
     renderWithProviders(<ProjectTemplate meta={projectData} />);
-    expect(screen.getByAltText("challenge")).toBeInTheDocument();
+    expect(
+      screen.getByAltText(projectData.figures.challenge[0].alt.en)
+    ).toBeInTheDocument();
   });
 });
 

@@ -12,7 +12,7 @@ npm install
 npm run dev        # vite dev server, opens a browser
 npm run test       # vitest, watch mode
 npm run test:run   # vitest, single run
-npm run build      # lint → sitemap → content guard → vite build
+npm run build      # lint → tests → sitemap → content guard → vite build → per-route meta
 ```
 
 ## How content is organised
@@ -29,10 +29,19 @@ rather than letting them drift.
 | UI strings (EN/DE) | `src/translations/{en,de}.js` |
 | Design tokens | `src/styles/theme.css`, surfaced at `/designsystem` |
 
-**Adding a case study:** create `src/projects/<slug>/` with a `data.js` and an
-`index.jsx`. Nothing else. `import.meta.glob` discovers the folder at build
-time, so the route, the homepage card, the tag pages, and the sitemap all
-pick it up with no manual registration. The folder name *is* the URL slug.
+**Adding a case study:** create `src/projects/<slug>/` with a `card.js`
+(card-level fields: id, status, title, tags, thumbnails, card* — everything
+the homepage grid, tag pages, and sitemap read), a `data.js` (the full prose
+and figures; it imports and spreads its card), and an `index.jsx`. Nothing
+else. `import.meta.glob` discovers the folder at build time, so the route,
+the homepage card, the tag pages, and the sitemap all pick it up with no
+manual registration. The folder name *is* the URL slug.
+
+The card/data split is a performance contract: the aggregator eagerly globs
+only `card.js`, so case-study prose loads with its own route chunk instead
+of riding every page. Tests and build guards that need the full content glob
+`data.js` through `src/test/fullProjects.js` — never import that helper from
+app code.
 
 **Bilingual fields** are `{ en, de }` objects anywhere in the tree.
 `useLocalizedProfile` resolves them recursively, so a page never handles

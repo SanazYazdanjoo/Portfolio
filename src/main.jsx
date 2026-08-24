@@ -29,12 +29,16 @@ const Sitemap = lazyWithRetry(() => import('./pages/Sitemap'));
 const DesignSystem = lazyWithRetry(() => import('./pages/DesignSystem'));
 const TagsDirectory = lazyWithRetry(() => import('./tags/TagsDirectory'));
 const SingleTagPage = lazyWithRetry(() => import('./tags/SingleTagPage'));
+const NotFound = lazyWithRetry(() => import('./pages/NotFound'));
 
-// Dev-only: lazy so the Admin dashboard never ships in the production
-// bundle. Predates Sprint 2 and never runs in production, so it's not
-// wrapped in lazyWithRetry — a dev hitting a real local import error wants
-// to see it, not have the page silently reload.
-const Admin = lazy(() => import('./pages/Admin'));
+// Dev-only: the DEV guard sits on the import itself, not just the route.
+// Guarding only the route still emits an Admin chunk into dist/ (the
+// dynamic import is live code even if never rendered); guarding here lets
+// the build replace DEV with false and dead-code-eliminate the import, so
+// no chunk is emitted at all. Not wrapped in lazyWithRetry — a dev hitting
+// a real local import error wants to see it, not have the page silently
+// reload.
+const Admin = import.meta.env.DEV ? lazy(() => import('./pages/Admin')) : null;
 
 // Auto-discovers a route for every 'index.jsx' under 'src/projects/'.
 // eager: false — each case study is its own chunk, loaded on navigation.
@@ -85,6 +89,9 @@ const router = createBrowserRouter([
           }]
         : []),
       ...dynamicProjectRoutes,
+      // Catch-all LAST: any URL no route above claimed renders the styled,
+      // translated 404 inside the App shell instead of the bare errorElement.
+      { path: "*", element: <NotFound /> },
     ],
   },
 ]);

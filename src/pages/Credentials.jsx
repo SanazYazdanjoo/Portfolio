@@ -422,7 +422,7 @@ export default function Credentials() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-bg pt-20 md:pt-24 pb-24">
+    <div className="min-h-screen bg-bg pt-20 md:pt-24 pb-24">
       <div className="container mx-auto max-w-doc px-4 md:px-8">
         <motion.header
           className="mb-10 max-w-2xl"
@@ -506,6 +506,6 @@ export default function Credentials() {
       </div>
 
       {openCert && <CertificateLightbox cert={openCert} onClose={closeLightbox} />}
-    </main>
+    </div>
   );
 }

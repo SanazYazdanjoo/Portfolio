@@ -55,10 +55,15 @@
         "label": {
           "en": "Study participants across projects",
           "de": "Teilnehmende über alle Projekte"
-        }
+        },
+        "derivedFrom": [
+          { "id": "gaze-assisted-input", "counts": [30, 20] },
+          { "id": "deskbird-hybrid-work", "counts": [57, 6] },
+          { "id": "digitalising-ibs-travel-reimbursements", "counts": [6, 3] }
+        ]
       },
       {
-        "value": "5+ yrs",
+        "value": { "en": "Since 2015", "de": "Seit 2015" },
         "label": {
           "en": "Frontend, QA & research experience",
           "de": "Frontend-, QA- & Research-Erfahrung"
@@ -123,8 +128,8 @@
       ]
     },
     "profileSummary": {
-      "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar) and 5+ years of experience at the intersection of frontend development, user research, and QA. I design user-centric systems that translate complex data structures and business requirements into pragmatic B2B solutions — building performant, accessible UI components in React and TypeScript, and systematically validating design decisions through mixed-methods research. I use AI-assisted development tools productively, while critically reviewing every line of generated code. The case studies below show how that plays out in real projects.",
-      "de": "Ich bin UX Engineer mit einem M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar) und über fünf Jahren Erfahrung an der Schnittstelle von Frontend-Entwicklung, User Research und QA. Ich gestalte nutzerzentrierte Systeme, die komplexe Datenstrukturen und Geschäftsanforderungen in pragmatische B2B-Lösungen übersetzen — mit performanten, barrierefreien UI-Komponenten in React und TypeScript und Designentscheidungen, die ich systematisch mit Mixed-Methods-Research validiere. KI-gestützte Entwicklungswerkzeuge nutze ich produktiv und prüfe generierten Code dabei kritisch. Die Case Studies unten zeigen, wie das in echten Projekten aussieht."
+      "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar) and experience across frontend development, QA, and user research since 2015. I design user-centric systems that translate complex data structures and business requirements into pragmatic B2B solutions — building performant, accessible UI components in React and TypeScript, and systematically validating design decisions through mixed-methods research. I use AI-assisted development tools productively, while critically reviewing every line of generated code. The case studies below show how that plays out in real projects.",
+      "de": "Ich bin UX Engineer mit einem M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar) und seit 2015 Erfahrung in Frontend-Entwicklung, QA und User Research. Ich gestalte nutzerzentrierte Systeme, die komplexe Datenstrukturen und Geschäftsanforderungen in pragmatische B2B-Lösungen übersetzen — mit performanten, barrierefreien UI-Komponenten in React und TypeScript und Designentscheidungen, die ich systematisch mit Mixed-Methods-Research validiere. KI-gestützte Entwicklungswerkzeuge nutze ich produktiv und prüfe generierten Code dabei kritisch. Die Case Studies unten zeigen, wie das in echten Projekten aussieht."
     },
     "experience": [
       {
@@ -136,17 +141,17 @@
         "date": "12/2024 – Present",
         "impactMetrics": [
           { "en": "13-step paper workflow digitised", "de": "13-stufiger Papierprozess digitalisiert" },
-          { "en": "158 automated tests, 100% traceable requirements", "de": "158 automatisierte Tests, 100 % rückverfolgbare Anforderungen" },
+          { "en": "1,234 automated tests, build-enforced requirement traceability", "de": "1.234 automatisierte Tests, Build-erzwungene Anforderungs-Traceability" },
           { "en": "GDPR-first data pipeline", "de": "DSGVO-konforme Datenhaltung" }
         ],
         "tasks": [
           {
-            "en": "Engineered a role-based web application (React, TypeScript, Vite, SQLite) to digitalize a 13-step paper reimbursement workflow, replacing manual Excel tracking with an explicit claim state machine backed by 158 automated tests.",
-            "de": "Entwicklung einer rollenbasierten Webanwendung (React, TypeScript, Vite, SQLite) zur Digitalisierung eines 13-stufigen papierbasierten Erstattungsprozesses — die manuelle Excel-Verwaltung wurde durch eine explizite Antrags-Zustandsmaschine mit 158 automatisierten Tests ersetzt."
+            "en": "Engineered a role-based web application (React, TypeScript, Vite, SQLite) to digitalise a 13-step paper reimbursement workflow, replacing manual Excel tracking with an explicit claim state machine backed by 1,234 automated tests.",
+            "de": "Entwicklung einer rollenbasierten Webanwendung (React, TypeScript, Vite, SQLite) zur Digitalisierung eines 13-stufigen papierbasierten Erstattungsprozesses — die manuelle Excel-Verwaltung wurde durch eine explizite Antrags-Zustandsmaschine mit 1.234 automatisierten Tests ersetzt."
           },
           {
-            "en": "Spearheaded empirical UX research (5W1H, UML activity diagrams, stakeholder mapping) across 9 distinct actor roles, translating structural workflow failures into 100% traceable UI requirements.",
-            "de": "Durchführung empirischer UX-Research (5W1H, UML-Aktivitätsdiagramme, Stakeholder-Mapping) über 9 Akteursrollen; strukturelle Prozessfehler wurden in zu 100 % rückverfolgbare UI-Anforderungen übersetzt."
+            "en": "Spearheaded empirical UX research (5W1H, UML activity diagrams, stakeholder mapping) across 9 distinct actor roles, translating structural workflow failures into numbered requirements whose citations in code are kept traceable by a build-failing test.",
+            "de": "Durchführung empirischer UX-Research (5W1H, UML-Aktivitätsdiagramme, Stakeholder-Mapping) über 9 Akteursrollen; strukturelle Prozessfehler wurden in nummerierte Anforderungen übersetzt, deren Zitationskette im Code ein Build-brechender Test absichert."
           },
           {
             "en": "Architected a strict GDPR/DSGVO-compliant data pipeline by developing local persistence adapters and Nextcloud WebDAV integrations, ensuring participant data never leaves internal institute servers.",
@@ -161,8 +166,8 @@
       {
         "company": "Bauhaus-Universität Weimar",
         "role": {
-          "en": "UX Engineer / Researcher - Master's Thesis",
-          "de": "UX Engineer / Researcher - Masterarbeit"
+          "en": "UX Engineer / Researcher — Master's Thesis",
+          "de": "UX Engineer / Researcher — Masterarbeit"
         },
         "date": "10/2025 – 05/2026",
         "impactMetrics": [
@@ -186,7 +191,7 @@
         ]
       },
       {
-        "company": "deskbird Co. x Bauhaus-Universität Weimar",
+        "company": "deskbird × Bauhaus-Universität Weimar",
         "role": {
           "en": "UX Researcher — Research Project",
           "de": "UX Researcher — Forschungsprojekt"
@@ -199,11 +204,11 @@
         ],
         "tasks": [
           {
-            "en": "Co-led end-to-end user research for a B2B SaaS product in the hybrid work sector (surveys, contextual inquiries, stakeholder interviews).",
-            "de": "Mitverantwortliche Leitung der End-to-End-Nutzerforschung für ein B2B-SaaS-Produkt im Bereich Hybrid Work (Umfragen, Contextual Inquiries, Stakeholder-Interviews)."
+            "en": "Ran end-to-end user research as part of a six-person team for a B2B SaaS product in the hybrid work sector (surveys, contextual inquiries, stakeholder interviews).",
+            "de": "End-to-End-Nutzerforschung im sechsköpfigen Team für ein B2B-SaaS-Produkt im Bereich Hybrid Work (Umfragen, Contextual Inquiries, Stakeholder-Interviews)."
           },
           {
-            "en": "Synthesized research findings into three competing concepts; client stakeholders selected mine by vote, and it was delivered as a high-fidelity prototype with development recommendations for their upcoming sprints.",
+            "en": "Synthesised research findings into three competing concepts; client stakeholders selected mine by vote, and it was delivered as a high-fidelity prototype with development recommendations for their upcoming sprints.",
             "de": "Synthese der Forschungsergebnisse zu drei konkurrierenden Konzepten; die Stakeholder des Kunden wählten meines per Abstimmung aus, und es wurde als High-Fidelity-Prototyp mit Entwicklungsempfehlungen für die kommenden Sprints übergeben."
           }
         ]
@@ -211,8 +216,8 @@
       {
         "company": "Bauhaus-Universität Weimar",
         "role": {
-          "en": "Web Designer & Content Manager - Working Student",
-          "de": "Webdesignerin & Content-Managerin - Werkstudentin"
+          "en": "Web Designer & Content Manager — Working Student",
+          "de": "Webdesignerin & Content-Managerin — Werkstudentin"
         },
         "date": "04/2023 – 09/2023",
         "impactMetrics": [
@@ -233,8 +238,8 @@
       {
         "company": "TDSoftware",
         "role": {
-          "en": "QA Engineer - Working Student",
-          "de": "QA Engineer - Werkstudentin"
+          "en": "QA Engineer — Working Student",
+          "de": "QA Engineer — Werkstudentin"
         },
         "date": "04/2022 – 06/2022",
         "impactMetrics": [
@@ -243,7 +248,7 @@
         ],
         "tasks": [
           {
-            "en": "Conducted acceptance testing and heuristic evaluations in close collaboration with the frontend development team to prioritize and resolve bugs prior to release.",
+            "en": "Conducted acceptance testing and heuristic evaluations in close collaboration with the frontend development team to prioritise and resolve bugs prior to release.",
             "de": "Durchführung von Abnahmetests und heuristischen Evaluationen in enger Zusammenarbeit mit der Frontend-Entwicklung zur Priorisierung und Behebung von Fehlern vor dem Release."
           },
           {
@@ -300,6 +305,45 @@
     ],
     "portfolioHighlights": [
       {
+        "id": "digitalising-ibs-travel-reimbursements",
+        "title": {
+          "en": "Digitalising IBS Travel Reimbursements",
+          "de": "Digitalisierung der IBS Fahrtkostenerstattung"
+        },
+        "type": {
+          "en": "Solo Build · UX Research · React & TypeScript",
+          "de": "Solo-Umsetzung · UX Research · React & TypeScript"
+        },
+        "cvMetric": 2,
+        "metrics": [
+          {
+            "value": { "en": "1,234", "de": "1.234" },
+            "label": {
+              "en": "automated tests",
+              "de": "automatisierte Tests"
+            }
+          },
+          {
+            "value": "9",
+            "label": {
+              "en": "actor roles mapped",
+              "de": "kartierte Akteursrollen"
+            }
+          },
+          {
+            "value": "43+",
+            "label": {
+              "en": "days — one claim traced end to end",
+              "de": "Tage — ein Antrag durchgängig verfolgt"
+            }
+          }
+        ],
+        "summary": {
+          "en": "Rebuilt a 13-step paper reimbursement process as one role-based web application — researched from the inside, with every claim traced to a survey answer, a process map, or a line of code. The team works with the deployed demo; instrumented evaluation precedes release.",
+          "de": "Ein 13-stufiger Papierprozess, neu gebaut als eine rollenbasierte Webanwendung — von innen erforscht, mit jeder Aussage rückführbar auf eine Umfrageantwort, eine Prozesskarte oder eine Codezeile. Das Team arbeitet mit der bereitgestellten Demo; die instrumentierte Evaluation geht der Veröffentlichung voraus."
+        }
+      },
+      {
         "id": "gaze-assisted-input",
         "title": {
           "en": "Gaze-Assisted Input in Dual-Display Environments",
@@ -309,6 +353,7 @@
           "en": "TypeScript Custom App · Quantitative UX · Eye-Tracking",
           "de": "Eigene TypeScript-Anwendung · Quantitative UX · Eye-Tracking"
         },
+        "cvMetric": 1,
         "metrics": [
           {
             "value": "N=30",
@@ -318,10 +363,10 @@
             }
           },
           {
-            "value": "React",
+            "value": "60%",
             "label": {
-              "en": "UI architecture",
-              "de": "UI-Architektur"
+              "en": "preferred the gaze-hybrid — trust beat raw speed",
+              "de": "bevorzugten den Blick-Hybrid — Vertrauen schlug Tempo"
             }
           },
           {
@@ -347,7 +392,15 @@
           "en": "User-Centered Design · Mixed Methods · Figma",
           "de": "User-Centered Design · Mixed Methods · Figma"
         },
+        "cvMetric": 0,
         "metrics": [
+          {
+            "value": "3 → 1",
+            "label": {
+              "en": "concepts, decided by client vote",
+              "de": "Konzepte, per Kundenvotum entschieden"
+            }
+          },
           {
             "value": "57",
             "label": {
@@ -361,25 +414,18 @@
               "en": "contextual inquiries",
               "de": "Contextual Inquiries"
             }
-          },
-          {
-            "value": "4",
-            "label": {
-              "en": "stakeholder interviews",
-              "de": "Stakeholder-Interviews"
-            }
           }
         ],
         "summary": {
-          "en": "Co-led end-to-end UX research for a hybrid workplace SaaS product: stakeholder interviews, surveys (n=57), contextual inquiries (n=6), and usability testing. Delivered high-fidelity prototypes and strategic design recommendations to the frontend product team.",
-          "de": "Co-Leitung des End-to-End-UX-Research für ein Hybrid-Workplace-SaaS-Produkt: Stakeholder-Interviews, Umfragen (n=57), kontextuelle Befragungen (n=6) und Usability-Tests. Übergabe von High-Fidelity-Prototypen und strategischen Designempfehlungen an das Frontend-Produktteam."
+          "en": "End-to-end UX research in a six-person team for a hybrid workplace SaaS product: stakeholder interviews, surveys (n=57), contextual inquiries (n=6), and usability testing. My concept won the client vote and was delivered as a high-fidelity prototype with development recommendations.",
+          "de": "End-to-End-UX-Research im sechsköpfigen Team für ein Hybrid-Workplace-SaaS-Produkt: Stakeholder-Interviews, Umfragen (n=57), Contextual Inquiries (n=6) und Usability-Tests. Mein Konzept gewann die Kundenabstimmung und wurde als High-Fidelity-Prototyp mit Entwicklungsempfehlungen übergeben."
         }
       },
       {
         "id": "embraceme-soft-robotics",
         "title": {
-          "en": "EmbraceMe – Inflatable Human-Robot for Emotional Care",
-          "de": "EmbraceMe – aufblasbarer Mensch-Roboter für emotionale Zuwendung"
+          "en": "EmbraceMe – An Inflatable Soft Robot for Emotional Care",
+          "de": "EmbraceMe – ein aufblasbarer Soft-Roboter für emotionale Fürsorge"
         },
         "type": {
           "en": "Arduino · Capacitive Sensors · C++ · Soft Robotics",
@@ -412,9 +458,9 @@
         "school": "Bauhaus-Universität Weimar",
         "degree": {
           "en": "M.Sc. Human-Computer Interaction",
-          "de": "M.Sc. Human-Computer-Interaction"
+          "de": "M.Sc. Human-Computer Interaction"
         },
-        "year": "10/2021 - 05/2026",
+        "year": "10/2021 – 05/2026",
         "grade": {
           "en": "Final grade: 1.7",
           "de": "Abschlussnote: 1,7"
@@ -432,13 +478,13 @@
           "en": "B.E. Software Engineering",
           "de": "B.E. Software-Engineering"
         },
-        "year": "10/2010 - 06/2015"
+        "year": "10/2010 – 06/2015"
       }
     ],
     "bioParagraphs": [
       {
-        "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar) and 5+ years of experience at the intersection of frontend development, user research, and QA. I design user-centric systems that translate complex data structures and business requirements into pragmatic B2B solutions: performant, accessible UI components in React and TypeScript. That mix is the point — I validate design decisions systematically through mixed-methods research, and my engineering background means I can take the findings all the way to working code.",
-        "de": "Ich bin UX Engineer mit einem M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar) und über fünf Jahren Erfahrung an der Schnittstelle von Frontend-Entwicklung, User Research und QA. Ich gestalte nutzerzentrierte Systeme, die komplexe Datenstrukturen und Geschäftsanforderungen in pragmatische B2B-Lösungen übersetzen: performante, barrierefreie UI-Komponenten in React und TypeScript. Genau diese Mischung ist der Punkt — Designentscheidungen validiere ich systematisch mit Mixed-Methods-Research, und mein Engineering-Hintergrund bedeutet, dass ich die Erkenntnisse bis zum funktionierenden Code bringe."
+        "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar) and experience across frontend development, QA, and user research since 2015. I design user-centric systems that translate complex data structures and business requirements into pragmatic B2B solutions: performant, accessible UI components in React and TypeScript. That mix is the point — I validate design decisions systematically through mixed-methods research, and my engineering background means I can take the findings all the way to working code. I relocated to Germany in 2021 for the degree and defended in May 2026; the QA, web, and research roles on my CV ran alongside full-time study.",
+        "de": "Ich bin UX Engineer mit einem M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar) und seit 2015 Erfahrung in Frontend-Entwicklung, QA und User Research. Ich gestalte nutzerzentrierte Systeme, die komplexe Datenstrukturen und Geschäftsanforderungen in pragmatische B2B-Lösungen übersetzen: performante, barrierefreie UI-Komponenten in React und TypeScript. Genau diese Mischung ist der Punkt — Designentscheidungen validiere ich systematisch mit Mixed-Methods-Research, und mein Engineering-Hintergrund bedeutet, dass ich die Erkenntnisse bis zum funktionierenden Code bringe. 2021 bin ich für das Studium nach Deutschland gezogen und habe die Masterarbeit im Mai 2026 verteidigt; die QA-, Web- und Research-Stationen in meinem Lebenslauf liefen parallel zum Vollzeitstudium."
       }
     ],
     "skills": {
@@ -446,20 +492,12 @@
         "JavaScript (ES6+)",
         "TypeScript",
         "React",
-        "HTML5",
-        "CSS3",
+        "HTML",
+        "CSS",
         "Tailwind CSS",
         "Vite",
-        "System Architecture for Complex Features",
         "Web Accessibility",
-        "Figma",
-        "Adobe XD"
-      ],
-      "AI-Assisted Development": [
-        "Claude Code & Copilot (daily use)",
-        "Precise Prompting",
-        "Critical Review of AI-Generated Code",
-        "LLM Hallucination-Risk Awareness"
+        "Figma"
       ],
       "UX Research & Testing": [
         "B2B User Research",
@@ -474,15 +512,10 @@
         "Unit & Integration Testing (Vitest)",
         "Postman (REST API Validation)",
         "Heuristic Evaluation",
-        "Acceptance Testing",
-        "Test Plan Creation"
+        "Acceptance Testing"
       ],
       "Analysis & Tools": [
-        "R",
         "Python",
-        "Google Analytics",
-        "Hotjar",
-        "Jira",
         "Git & GitHub",
         "Vercel"
       ]
@@ -517,8 +550,8 @@
         "thumb": "",
         "verifyUrl": "",
         "detail": {
-          "en": "Final grade 1.7 (gut), 120 ECTS. Thesis: Gaze-Assisted Input in Dual-Display Environments — a comparative evaluation of MAGIC Pointing, Ninja Cursors, and a mouse baseline (1.5).",
-          "de": "Gesamtprädikat 1,7 (gut), 120 ECTS. Masterarbeit: Gaze-Assisted Input in Dual-Display Environments — vergleichende Evaluation von MAGIC Pointing, Ninja Cursors und einer Maus-Baseline (1,5)."
+          "en": "Final grade 1.7 (gut), 120 ECTS. Thesis: Gaze-Assisted Input in Dual-Display Environments — a comparative evaluation of MAGIC Pointing, Ninja Cursors, and a mouse baseline. Thesis grade: 1.5.",
+          "de": "Gesamtprädikat 1,7 (gut), 120 ECTS. Masterarbeit: Gaze-Assisted Input in Dual-Display Environments — vergleichende Evaluation von MAGIC Pointing, Ninja Cursors und einer Maus-Baseline. Note der Masterarbeit: 1,5."
         }
       },
       {
@@ -907,8 +940,8 @@
       }
     ],
     "bio": {
-      "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction and 5+ years at the intersection of frontend development, user research, and QA. I design user-centric systems that translate complex data structures and business requirements into pragmatic B2B solutions — performant, accessible UI components in React and TypeScript, validated through mixed-methods research. I turn findings into recommendations, and recommendations into shipped code. Below is how the two halves came together.",
-      "de": "Ich bin UX Engineer mit einem M.Sc. in Human-Computer Interaction und über fünf Jahren Erfahrung an der Schnittstelle von Frontend-Entwicklung, User Research und QA. Ich gestalte nutzerzentrierte Systeme, die komplexe Datenstrukturen und Geschäftsanforderungen in pragmatische B2B-Lösungen übersetzen — performante, barrierefreie UI-Komponenten in React und TypeScript, validiert mit Mixed-Methods-Research. Ich mache aus Erkenntnissen Empfehlungen — und aus Empfehlungen fertigen Code. Wie beide Seiten zusammenkommen, zeigt sich weiter unten."
+      "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction and experience across frontend development, QA, and user research since 2015. I design user-centric systems that translate complex data structures and business requirements into pragmatic B2B solutions — performant, accessible UI components in React and TypeScript, validated through mixed-methods research. I turn findings into recommendations, and recommendations into shipped code. Below is how the two halves came together.",
+      "de": "Ich bin UX Engineer mit einem M.Sc. in Human-Computer Interaction und seit 2015 Erfahrung in Frontend-Entwicklung, QA und User Research. Ich gestalte nutzerzentrierte Systeme, die komplexe Datenstrukturen und Geschäftsanforderungen in pragmatische B2B-Lösungen übersetzen — performante, barrierefreie UI-Komponenten in React und TypeScript, validiert mit Mixed-Methods-Research. Ich mache aus Erkenntnissen Empfehlungen — und aus Empfehlungen fertigen Code. Wie beide Seiten zusammenkommen, zeigt sich weiter unten."
     },
     "aboutImage": "/assets/me.jpg"
   },

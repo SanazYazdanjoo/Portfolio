@@ -48,6 +48,8 @@ function ProcessStep({ item, index, total }) {
             <img
               src={item.imagePath}
               alt={item.title}
+              loading="lazy"
+              decoding="async"
               onError={() => setImgError(true)}
               className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
             />

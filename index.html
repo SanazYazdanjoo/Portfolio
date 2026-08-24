@@ -10,23 +10,27 @@
     <link rel="preload" as="font" type="font/woff2" href="/fonts/bricolage-grotesque-latin-variable.woff2" crossorigin />
     <link rel="preload" as="font" type="font/woff2" href="/fonts/dm-sans-latin-variable.woff2" crossorigin />
     <!-- ── Identity ── -->
-    <title>Sanaz Yazdanjoo — Portfolio UX Engineer</title>
+    <title>Sanaz Yazdanjoo — UX Engineer</title>
     <meta
       name="description"
-      content="UX Engineer with an M.Sc. in Human-Computer Interaction."
+      content="UX Engineer with an M.Sc. in Human-Computer Interaction. Mixed-methods research and production React — case studies with methods, numbers, and honest limits."
     />
     <meta name="author" content="Sanaz Yazdanjoo" />
 
     <!-- ── Open Graph / Twitter ── -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://yazdanjoo.de" />
-    <meta property="og:title" content="Sanaz Yazdanjoo — Portfolio UX Engineer" />
+    <meta property="og:title" content="Sanaz Yazdanjoo — UX Engineer" />
     <meta property="og:description" content="UX Engineer with an M.Sc. in Human-Computer Interaction." />
-    <meta property="og:image" content="https://yazdanjoo.de/assets/me.jpg" />
+    <!-- og-card.png is generated (scripts/generate-og-image.mjs): the raw
+         square portrait got its forehead/chin cropped off by every 1.91:1
+         unfurler. Served from the root, not /assets/, for the same
+         cache-correctness reason as the favicons below. -->
+    <meta property="og:image" content="https://yazdanjoo.de/og-card.png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Sanaz Yazdanjoo — Portfolio UX Engineer" />
+    <meta name="twitter:title" content="Sanaz Yazdanjoo — UX Engineer" />
     <meta name="twitter:description" content="UX Engineer with an M.Sc. in Human-Computer Interaction." />
-    <meta name="twitter:image" content="https://yazdanjoo.de/assets/me.jpg" />
+    <meta name="twitter:image" content="https://yazdanjoo.de/og-card.png" />
 
     <!-- ── Favicons ──
          The SVG carries its own prefers-color-scheme rule, so the mark
@@ -68,7 +72,10 @@
       gtag('config', 'G-20Q8K2V97V');
     </script>
   </head>
-  <body class="bg-white">
+  <!-- No utility class on body: index.css already paints it var(--bg) in the
+       base layer, and a utilities-layer bg-white outranked that — keeping the
+       document ground white in dark mode (visible on overscroll). -->
+  <body>
     <div id="root" class=""></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

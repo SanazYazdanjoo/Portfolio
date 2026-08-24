@@ -91,7 +91,9 @@ async function main() {
     const site = profileData.contact.website.replace(/\/$/, "");
     const name = profileData.name;
     const role = en(profileData.role);
-    const image = `${site}/assets/me.jpg`;
+    // The generated 1200×630 card (scripts/generate-og-image.mjs), not the
+    // raw square portrait — unfurlers crop to ~1.91:1.
+    const image = `${site}/og-card.png`;
     const template = await readFile(join(DIST, "index.html"), "utf-8");
 
     // Static routes. Hand-written because there is nothing to derive a good
@@ -100,8 +102,11 @@ async function main() {
       ["/about", `About ${name}`, en(profileData.profileSummary)],
       ["/projects", `Case Studies — ${name}`,
         "Case studies in UX research and engineering: controlled experiments, mixed-methods studies, and the interfaces built from them."],
+      // "since 2015", not a year-count: a start year cannot drift stale the
+      // way a hand-written span did (this line said "eight years" while the
+      // hero said "5+" — F3, reconciled 2026-08-24).
       ["/cv", `CV — ${name}`,
-        `${role} with an M.Sc. in Human-Computer Interaction. Frontend development, UX research, and QA across eight years.`],
+        `${role} with an M.Sc. in Human-Computer Interaction. Frontend development, UX research, and QA since 2015.`],
       ["/contact", `Contact — ${name}`, en(profileData.contact.availability)],
       ["/credentials", `Credentials — ${name}`,
         "Degrees, certifications and workshop credentials, with the source documents attached."],
@@ -111,6 +116,12 @@ async function main() {
         "Community building, mentorship, and conference volunteering alongside the professional work."],
       ["/tags", `Skills & Methods — ${name}`,
         "Every skill tag on this site, each linked to the case-study evidence that backs it."],
+      ["/sitemap", `Sitemap — ${name}`,
+        "Every route on this site, generated from the same data the app routes from."],
+      ["/privacy", `Privacy Policy — ${name}`,
+        "How visitor data is handled on this site, in line with the GDPR."],
+      ["/impressum", `Impressum — ${name}`,
+        "Legal notice and disclosure according to § 5 DDG."],
     ];
 
     const projectRoutes = projects

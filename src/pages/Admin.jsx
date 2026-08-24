@@ -993,7 +993,7 @@ export default function Admin() {
         </nav>
 
         {/* Content area */}
-        <main className="flex-1 bg-white border border-gray-200 shadow-sm p-8">
+        <div className="flex-1 bg-white border border-gray-200 shadow-sm p-8">
           {tab === "personal" && <PersonalTab data={profileData} setData={setProfile} />}
           {tab === "experience" && <ExperienceTab data={profileData} setData={setProfile} />}
           {tab === "skills" && <SkillsTab data={profileData} setData={setProfile} />}
@@ -1002,7 +1002,7 @@ export default function Admin() {
           {tab === "certifications" && <CertificationsTab data={profileData} setData={setProfile} />}
           {tab === "voluntary" && <VoluntaryTab voluntary={voluntary} setVoluntary={setVol} />}
           {tab === "nav" && <NavLinksTab data={profileData} setData={setProfile} />}
-        </main>
+        </div>
       </div>
     </div>
   );

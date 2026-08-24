@@ -23,7 +23,7 @@ const SingleTagPage = () => {
   );
 
   return (
-    <main className="min-h-screen bg-bg pt-20 md:pt-24 pb-16">
+    <div className="min-h-screen bg-bg pt-20 md:pt-24 pb-16">
       <div className="w-full px-4 md:px-8 max-w-wide mx-auto">
         <Link
           to="/tags"
@@ -54,7 +54,7 @@ const SingleTagPage = () => {
           <EmptyState title={t("tags.single.empty")} />
         )}
       </div>
-    </main>
+    </div>
   );
 };
 

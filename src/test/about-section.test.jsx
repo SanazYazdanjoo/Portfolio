@@ -6,7 +6,7 @@ import { describe, it, expect } from "vitest";
 import { screen } from "@testing-library/react";
 import { renderWithProviders } from "./renderWithProviders";
 import ProjectTemplate from "../projects/ProjectTemplate";
-import { projects } from "../data/projects";
+import { fullProjects as projects } from "./fullProjects";
 import { projectData } from "../projects/gaze-assisted-input/data";
 
 describe("About section", () => {
