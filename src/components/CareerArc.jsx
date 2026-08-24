@@ -146,9 +146,10 @@ function CareerArcFull({ steps }) {
 // own row downward and moves nothing, because the date sits at the top-left
 // of the same row instead of below a label of unpredictable height.
 //
-// The date is 12px mono with no tracking — at .1em the longest of them
-// ("2022 – Present") would not fit 88px in any mono this stack resolves to.
-// The current phase takes the accent; the others are dim.
+// The date is 12px mono with no tracking, in a 108px column wide enough for
+// the longest of them ("2022 – Present", 101px in the widest mono this stack
+// resolves to) with nowrap to guarantee it. The current phase takes the
+// accent; the others are dim.
 function CareerArcCompact({ steps }) {
   const reduce = useReducedMotion();
 
@@ -166,7 +167,7 @@ function CareerArcCompact({ steps }) {
           className={`flex items-baseline gap-s24 py-s16 ${i > 0 ? "border-t rule-t" : ""}`}
         >
           <span
-            className={`w-s88 shrink-0 text-date font-mono ${
+            className={`w-timeline-date shrink-0 whitespace-nowrap text-date font-mono ${
               step.highlight ? "text-primary-600" : "text-text-dim"
             }`}
           >

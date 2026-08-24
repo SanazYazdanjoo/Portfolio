@@ -178,6 +178,12 @@
        --space-15  +  .310 × --fs-body   =  15px + 5.27px */
 --hero-baseline-inset: calc(var(--space-15) + 0.310 * var(--fs-body));
 
+/* The timeline's date column. Not a spacing step — a measured width: the
+   longest date, "2022 – Present", is 14 characters, and at --fs-label in the
+   widest mono this stack resolves to (Courier New, .600em) that is 101px.
+   108px clears it without wrapping in any of the three faces. */
+--timeline-date: 108px;
+
 /* Roles the reference does not set, kept for pages this pass does not
    re-render. Each is pinned to a value above rather than to a curve of
    its own, so the codebase holds one set of sizes. */

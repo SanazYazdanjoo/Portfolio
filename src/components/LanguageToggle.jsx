@@ -2,9 +2,11 @@
 //
 // The inactive language is a real control, not a greyed-out span: a visitor
 // who reads German has to be able to see that DE is there and click it. So
-// each language is its own button — the current one is inert and marked
-// aria-current, the other one carries the house drawn underline and full
-// body ink, which is what makes it read as clickable rather than disabled.
+// each language is its own button — the current one is inert, marked
+// aria-current and carrying the drawn underline, and the other is a real
+// button in full body ink. The underline marks the current language only;
+// what makes the other read as clickable is the ink it is set in, the
+// pointer cursor and the hover to the accent.
 //
 // Ink, not a dim tint. --text is 16.7:1 on the page background and
 // --primary-600 is 13.2:1; the design reference set the inactive language in
@@ -44,7 +46,7 @@ export function LanguageToggle({ className = "" }) {
             onClick={() => setLang(code)}
             aria-label={switchLabel}
             title={switchLabel}
-            className="text-text rule-underline hover:text-primary-600
+            className="text-text cursor-pointer hover:text-primary-600
                        transition-colors duration-200 focus-ring"
           >
             {code.toUpperCase()}
