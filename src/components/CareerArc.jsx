@@ -158,12 +158,19 @@ function CareerArcCompact({ steps }) {
       transition={{ duration: reduce ? 0 : 0.4, ease: EASE }}
     >
       {steps.map((step) => (
-        <li key={step.phase} className="flex flex-col gap-s6">
+        <li key={step.phase} className="flex flex-col gap-s6 h-full">
           <span className="text-numeral font-display font-bold text-primary-600" aria-hidden="true">
             {step.phase}
           </span>
+          {/* 2.6em is two lines at this step's leading, so a one-line label
+              still reserves the height a two-line one takes. */}
           <span className="text-arc font-medium text-text min-h-arc">{step.label}</span>
-          <span className="text-years font-mono text-text-dim">{step.years}</span>
+          {/* And `mt-auto` is what makes the reservation hold when a label
+              needs a third line at a narrow column: the three <li> are grid
+              items and stretch to a common height, so pushing the date to
+              the bottom of that height puts all three on one baseline
+              whatever the label above them did. */}
+          <span className="text-years font-mono text-text-dim mt-auto">{step.years}</span>
         </li>
       ))}
     </motion.ol>
