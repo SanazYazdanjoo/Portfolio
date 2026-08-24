@@ -43,11 +43,11 @@ export function StackedProjectCard({ project, index }) {
         duration: reduce ? 0 : 0.35,
         ease: EASE,
       }}
-      className="grid-12 relative group py-s48 border-t border-border"
+      className="grid-12 relative group py-s48 border-t rule-t"
     >
       <div className="md:col-span-5">
         {figure ? (
-          <div className="card-figure">
+          <div className="card-figure rule-frame-in">
             <img
               src={figure}
               /* Decorative: the title beside it already names the case study. */
@@ -58,7 +58,7 @@ export function StackedProjectCard({ project, index }) {
             />
           </div>
         ) : (
-          <div className="card-figure card-figure--plate">
+          <div className="card-figure card-figure--plate rule-frame-in">
             <span className="text-plate uppercase font-mono text-text-dim">
               {project.cardPlate}
             </span>
@@ -72,7 +72,8 @@ export function StackedProjectCard({ project, index }) {
             {String(index + 1).padStart(2, "0")}
           </span>
           {isInProgress && (
-            <span className="text-badge font-mono uppercase text-primary-600 border border-primary-600 px-s8 py-s3">
+            <span className="text-badge font-mono uppercase text-primary-600 border rule-frame px-s8 py-s3"
+              style={{ "--rule-line-color": "var(--primary-600)" }}>
               {t("projects.inProgress")}
             </span>
           )}

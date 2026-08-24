@@ -65,14 +65,30 @@ export const Nav = () => {
                   to={link.path}
                   end={link.path === "/"}
                   className={({ isActive }) =>
-                    `text-nav transition-colors duration-200 ${
-                      isActive
-                        ? "text-text font-medium border-b-rule border-primary-600 pb-s3"
-                        : "text-text-dim hover:text-text"
+                    `group relative text-nav pb-s3 transition-colors duration-200 ${
+                      isActive ? "text-text font-medium" : "text-text-dim hover:text-text"
                     }`
                   }
                 >
-                  {link.name}
+                  {({ isActive }) => (
+                    <>
+                      {link.name}
+                      {/* Drawn, not stroked. The current page carries the
+                          house hairline in the accent; hover draws the same
+                          line in rose, left to right. `rule-stroke` masks the
+                          span's own background, so both are one mechanism. */}
+                      <span
+                        aria-hidden="true"
+                        style={{ height: "var(--rule-w)" }}
+                        className={`absolute left-0 right-0 bottom-0 rule-stroke origin-left
+                                    transition-transform duration-200 ease-smooth ${
+                          isActive
+                            ? "bg-primary-600 scale-x-100"
+                            : "bg-secondary-600 scale-x-0 group-hover:scale-x-100"
+                        }`}
+                      />
+                    </>
+                  )}
                 </NavLink>
               </li>
             ))}
