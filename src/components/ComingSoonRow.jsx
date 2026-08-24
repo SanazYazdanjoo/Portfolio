@@ -1,6 +1,9 @@
-// The card anatomy with nothing to link to: the plate holds cols 1-5 so the
-// column is never empty, and the text keeps cols 6-12 on the shared title
-// axis. Muted by tokens, never by opacity.
+// The card anatomy with nothing to link to and no asset: no figure column,
+// text in cols 6-12 on the same title axis as every other card, and inert —
+// no link, no hover, no accent. Muted by tokens, never by opacity.
+//
+// It renders no plate. A box whose content is a caption about which image
+// belongs in it is instruction text, and instruction text is not UI.
 
 import React from "react";
 import { useTranslation } from "../context/LanguageContext";
@@ -12,14 +15,7 @@ export function ComingSoonRow({ project, index }) {
 
   return (
     <div aria-disabled="true" className="grid-12 py-s48 border-t rule-t">
-      <div className="md:col-span-5">
-        <div className="card-figure card-figure--plate rule-frame-in">
-          <span className="text-plate uppercase font-mono text-text-dim">
-            {t("projects.comingSoon")}
-          </span>
-        </div>
-      </div>
-      <div className="md:col-start-6 md:col-span-7 flex flex-col gap-s16 mt-s24 md:mt-0">
+      <div className="md:col-start-6 md:col-span-7 flex flex-col gap-s16">
         <div className="flex items-center gap-s12">
           <span className="text-num font-mono text-text-dim">
             {String(index + 1).padStart(2, "0")}
