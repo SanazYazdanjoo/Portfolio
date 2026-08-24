@@ -45,10 +45,10 @@ export function StackedProjectCard({ project, index }) {
       }}
       className="grid-12 relative group py-s48 border-t rule-t"
     >
-      {/* A card with no asset renders no figure column — not an empty box,
-          and never a box explaining which photograph belongs in it. The text
-          stays in cols 6-12 either way, so every title on the page starts on
-          the same x-axis. */}
+      {/* A card with no asset renders no figure column and no plate. Its text
+          takes all twelve columns rather than leaving cols 1-5 standing
+          empty — an empty column reads as a missing image, which is the same
+          defect a placeholder box was. */}
       {figure && (
         <div className="md:col-span-5">
           <div className="card-figure rule-frame-in">
@@ -64,7 +64,11 @@ export function StackedProjectCard({ project, index }) {
         </div>
       )}
 
-      <div className="md:col-start-6 md:col-span-7 flex flex-col gap-s16 mt-s24 md:mt-0">
+      <div
+        className={`flex flex-col gap-s16 ${
+          figure ? "md:col-start-6 md:col-span-7 mt-s24 md:mt-0" : "md:col-span-12"
+        }`}
+      >
         <div className="flex items-center gap-s12">
           <span className="text-num font-mono text-primary-600">
             {String(index + 1).padStart(2, "0")}

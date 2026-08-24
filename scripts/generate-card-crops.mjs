@@ -62,13 +62,21 @@ const CROPS = [
   },
   {
     // Plate 03: "one chart panel with readable axis labels — not the
-    // two-panel plot". The right edge falls in the gutter between the two
-    // panels, so the second panel is absent rather than sliced. Includes the
-    // axis title, the tick values and the distance labels; excludes the
-    // legend, which spans both panels and could not be cut cleanly.
+    // two-panel plot".
+    //
+    // The right edge is 1069, and that number is measured, not chosen: the
+    // left panel's own ink ends at x=1054 (the axis line and its last tick),
+    // and the right panel's first x-label — rotated ~45deg, so it leans
+    // down and to the LEFT of its own panel — reaches back to x=1071. A cut
+    // anywhere in 1055-1070 takes all of one panel and none of the other.
+    // The earlier edge at 1105 sat inside that leaning label, which is the
+    // "0T" fragment that showed up in the bottom right corner.
+    //
+    // The legend is excluded, not clipped: it is centred across both panels
+    // and has no clean cut.
     from: "src/projects/gaze-assisted-input/media/chart-movement-time.png",
     to: "src/projects/gaze-assisted-input/media/card-large-target-panel.webp",
-    rect: { left: 0, top: 234, width: 1105, height: 834 },
+    rect: { left: 0, top: 234, width: 1069, height: 828 },
     sourceTextPx: 29,
   },
 ];
