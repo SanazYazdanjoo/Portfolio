@@ -21,7 +21,7 @@ const NAV_LABEL_KEYS = {
   "/designsystem": "nav.designSystem",
 };
 
-export const Nav = ({ isScrolled = false }) => {
+export const Nav = () => {
   const profileData = useLocalizedProfile(rawProfile);
   const prefersReducedMotion = useReducedMotion();
   const { t } = useTranslation();
@@ -41,74 +41,43 @@ export const Nav = ({ isScrolled = false }) => {
   return (
     <motion.nav
       data-no-sketch="true"
-      className="w-full no-print"
+      className="w-full no-print grid-12 py-s20"
       initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: prefersReducedMotion ? 0 : 0.4, ease: EASE }}
     >
-      <div className="flex items-center justify-between w-full pb-s16 border-b rule-b">
+      {/* One row, baseline-aligned, as the reference sets it: the wordmark
+          at body size in the display face, the destinations at nav size in
+          dim ink, and the active one carrying a 1.5px rule in the accent. */}
+      <div className="md:col-span-12 flex items-baseline justify-between w-full gap-s32">
 
-        {/* Wordmark: left, compact, one line */}
         <NavLink to="/" aria-label={profileData.name} className="shrink-0">
-          <p
-            className="font-display text-text whitespace-nowrap transition-all duration-300"
-            style={{
-              fontWeight: 700,
-              fontSize: isScrolled ? "1.15rem" : "1.45rem",
-              letterSpacing: "-0.01em",
-              fontVariationSettings: "'opsz' 24",
-            }}
-          >
+          <span className="text-wordmark font-display font-bold text-text whitespace-nowrap">
             {profileData.name}
-          </p>
+          </span>
         </NavLink>
 
-        {/* Right cluster: links → language toggle → (mobile) burger */}
-        <div className="flex items-center gap-s24 md:gap-s32 lg:gap-s48">
-          <ul className="hidden md:flex items-center gap-s32 lg:gap-s48">
+        <div className="flex items-baseline gap-s28">
+          <ul className="hidden md:flex items-baseline gap-s28 list-none m-0 p-0">
             {navLinks.map((link) => (
               <li key={link.path}>
                 <NavLink
                   to={link.path}
                   end={link.path === "/"}
                   className={({ isActive }) =>
-                    `group relative text-body transition-colors duration-200
-                     ${isActive
-                       ? "text-text font-semibold"
-                       : "text-text-meta hover:text-secondary-600"
-                     }`
+                    `text-nav transition-colors duration-200 ${
+                      isActive
+                        ? "text-text font-medium border-b-rule border-primary-600 pb-s3"
+                        : "text-text-dim hover:text-text"
+                    }`
                   }
                 >
-                  {({ isActive }) => (
-                    <>
-                      {link.name}
-                      {/* Hover underline — the house hairline, left to right, 200ms */}
-                      <span
-                        aria-hidden="true"
-                        style={{ height: "var(--rule-w)", bottom: "calc(-1 * var(--space-4))" }}
-                        className="absolute left-0 w-full bg-secondary-600 rule-stroke
-                                   origin-left scale-x-0 group-hover:scale-x-100
-                                   transition-transform duration-200 ease-smooth"
-                      />
-                      {/* Coral dot — a pen tap under the current page. Shared
-                          layoutId so it slides between items instead of popping. */}
-                      {isActive && (
-                        <motion.span
-                          layoutId="nav-active-dot"
-                          aria-hidden="true"
-                          className="absolute left-1/2 -translate-x-1/2 -bottom-s8
-                                     w-s4 h-s4 rule-dot bg-primary"
-                          transition={{ duration: prefersReducedMotion ? 0 : 0.3, ease: EASE }}
-                        />
-                      )}
-                    </>
-                  )}
+                  {link.name}
                 </NavLink>
               </li>
             ))}
           </ul>
 
-          {/* Far right on desktop; inside the burger on mobile */}
           <LanguageToggle />
 
           <MobileMenu links={navLinks} />

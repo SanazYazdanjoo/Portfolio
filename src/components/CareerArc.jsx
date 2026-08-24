@@ -137,67 +137,31 @@ function CareerArcFull({ steps }) {
   );
 }
 
-// COMPACT — homepage strip (numeral · label · years, arrows between)
-//
-// Three equal columns with a connector line behind the arrows. All three
-// steps carry identical colour, weight and timing; which phase is current is
-// said in words. Sizes are type steps, spacing is scale tokens.
+// COMPACT — the homepage strip, as the reference draws it: three equal
+// columns, each a numeral over a label over its years. No connector, no
+// arrows, no per-step stagger — the reference has none of them, and the
+// stagger is what used to read as two greyed-out entries beside a live one.
 function CareerArcCompact({ steps }) {
   const reduce = useReducedMotion();
 
   return (
-    <div className="relative w-full">
-      <svg
-        aria-hidden="true"
-        className="hidden md:block absolute left-0 right-0 top-s24 w-full h-px overflow-visible -z-10"
-        preserveAspectRatio="none"
-      >
-        <motion.line
-          x1="0" y1="1" x2="100%" y2="1"
-          stroke="var(--border)"
-          strokeWidth="1.5"
-          initial={reduce ? { pathLength: 1 } : { pathLength: 0 }}
-          whileInView={{ pathLength: 1 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: reduce ? 0 : 0.6, ease: EASE }}
-        />
-      </svg>
-
-      <motion.ol
-        className="relative grid grid-cols-1 md:grid-cols-3 gap-s24 md:gap-s32 list-none m-0 p-0 w-full"
-        initial={reduce ? { opacity: 1 } : { opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: reduce ? 0 : 0.4, ease: EASE }}
-      >
-        {steps.map((step, i) => (
-          <li key={step.phase} className="relative">
-            <div className="flex items-baseline gap-s12 md:block">
-              <span className="type-h3 font-extrabold text-secondary-600 select-none" aria-hidden="true">
-                {step.phase}
-              </span>
-              <span className="md:block md:mt-s12">
-                <span className="block font-display font-bold text-body text-text">
-                  {step.label}
-                </span>
-                <span className="block mt-s4 type-label text-text-meta">
-                  {step.years}
-                </span>
-              </span>
-            </div>
-
-            {i < steps.length - 1 && (
-              <span
-                aria-hidden="true"
-                className="hidden md:flex absolute top-s4 -right-s16 translate-x-1/2 items-center justify-center text-secondary"
-              >
-                <InkArrow className="w-s32 h-s32" />
-              </span>
-            )}
-          </li>
-        ))}
-      </motion.ol>
-    </div>
+    <motion.ol
+      className="grid grid-cols-1 md:grid-cols-3 gap-s24 list-none m-0 p-0 w-full"
+      initial={reduce ? { opacity: 1 } : { opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: reduce ? 0 : 0.4, ease: EASE }}
+    >
+      {steps.map((step) => (
+        <li key={step.phase} className="flex flex-col gap-s6">
+          <span className="text-numeral font-display font-bold text-primary-600" aria-hidden="true">
+            {step.phase}
+          </span>
+          <span className="text-arc font-medium text-text min-h-arc">{step.label}</span>
+          <span className="text-years font-mono text-text-dim">{step.years}</span>
+        </li>
+      ))}
+    </motion.ol>
   );
 }
 

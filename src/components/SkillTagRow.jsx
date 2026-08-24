@@ -1,15 +1,12 @@
-// Outline-only chips for a project's tags. They are the label step — 13px,
-// caps, 0.08em — which is what makes capitals legitimate here: the label
-// step is the only place on the page they are allowed.
-//
-// No cap, no counter, no expansion. The card passes the four tags it shows;
-// the full set lives on the detail page and on /tags.
+// Tag chips, exactly as the reference draws them: mono 12px at .08em,
+// uppercase, a 1px hairline in the border token, fully rounded, 5/12
+// padding. Capitals are legitimate here because this is the label role —
+// the only role in the system allowed them.
 import React from "react";
 
 const CHIP =
-  "inline-block rounded-full border rule-pill [--rule-cap:14px] px-s12 py-s4 " +
-  "type-label text-text-meta transition-colors duration-200 ease-smooth " +
-  "hover:[--rule-line-color:var(--primary-600)] hover:[--rule-fill-color:var(--primary-600)] hover:text-white";
+  "inline-block text-tag font-mono uppercase text-text-meta " +
+  "border border-border rounded-full px-s12 py-s5";
 
 export function SkillTagRow({ tags, className = "" }) {
   if (!tags || tags.length === 0) return null;

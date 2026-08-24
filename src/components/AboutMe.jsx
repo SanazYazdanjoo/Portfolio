@@ -1,6 +1,6 @@
-// The bio. Every paragraph reads at the same step, weight and ink; the
-// column's width comes from the grid it is placed in, not from a max-width
-// here. Skills live inside The Bridge (CareerArc) — see src/data/career.js.
+// The bio, as the reference sets it: the first paragraph leads at 19px, the
+// rest carry the supporting weight at 17px in meta ink, both at 1.65. The
+// column's width comes from the grid, never from a max-width here.
 
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
@@ -23,7 +23,11 @@ export function AboutBio({ data }) {
       viewport={{ once: true, amount: 0.1 }}
     >
       {bioParagraphs.map((para, i) => (
-        <motion.p key={i} variants={reduce ? itemReduced : item} className="text-body text-text">
+        <motion.p
+          key={i}
+          variants={reduce ? itemReduced : item}
+          className={i === 0 ? "text-prose-lead text-text" : "text-prose text-text-meta"}
+        >
           {para}
         </motion.p>
       ))}

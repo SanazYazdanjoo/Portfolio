@@ -9,7 +9,7 @@
 // on the container is the second half of the same rule: it keeps a flick at
 // either end from chaining out to the document.
 
-import React, { useRef, useState, useEffect, Suspense } from "react";
+import React, { useRef, useEffect, Suspense } from "react";
 import { MotionConfig } from "framer-motion";
 import { Outlet, useLocation } from "react-router-dom";
 import { Nav } from "./components/Nav";
@@ -25,17 +25,10 @@ export default function App() {
   const profileData = useLocalizedProfile(rawProfile);
   const { t } = useTranslation();
   const scrollRef = useRef(null);
-  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
-  // Nav shrinks on scroll
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const handleScroll = () => setIsScrolled(el.scrollTop > 60);
-    el.addEventListener("scroll", handleScroll, { passive: true });
-    return () => el.removeEventListener("scroll", handleScroll);
-  }, []);
+  // The nav no longer changes size on scroll: the reference sets the
+  // wordmark at one size, so there is nothing for a scroll listener to do.
 
   // Hash anchors and route-change scroll reset
   useEffect(() => {
@@ -75,14 +68,14 @@ export default function App() {
         >
           {t("common.skipToContent")}
         </a>
-        <header className="w-full z-50 shrink-0 px-s16 md:px-s32 pt-s24 md:pt-s32 bg-bg no-print">
-          <Nav isScrolled={isScrolled} />
+        <header className="w-full z-50 shrink-0 bg-bg border-b border-border no-print">
+          <Nav />
         </header>
 
         <div
           ref={scrollRef}
           className="flex-1 overflow-y-auto overflow-x-hidden overscroll-y-contain
-                     relative z-10 px-s16 md:px-s32"
+                     relative z-10"
           style={{ scrollBehavior: "smooth" }}
         >
           <main id="main-content" tabIndex={-1}>

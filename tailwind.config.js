@@ -53,6 +53,18 @@ export default {
 
       
       },
+      // 1.5px is the reference's rule weight under the active nav item and
+      // under the secondary CTA. 2.6em is the min-height it gives a career
+      // arc label so the three years line up whatever the label wraps to.
+      borderWidth: {
+        rule: "1.5px",
+      },
+      minHeight: {
+        arc: "2.6em",
+      },
+      aspectRatio: {
+        portrait: "4 / 5",
+      },
       borderRadius: {
         xl: "var(--radius)",
         "2xl": `calc(var(--radius) * 1.5)`,
@@ -63,7 +75,7 @@ export default {
         lg: "var(--shadow-lg)",
       },
       maxWidth: {
-        page: "var(--w-page)",
+        page: "var(--content-max)",
         wide: "var(--w-wide)",
         doc: "var(--w-doc)",
         measure: "var(--measure, 68ch)",
@@ -75,64 +87,94 @@ fontFamily: {
   mono:    "var(--font-family-mono)",
 },
 /* ── THE TYPE SCALE ──────────────────────────────────────────────────
-   Eight steps, each one a token in theme.css. A component writes
-   text-h3 or text-body; it never writes a size. The legacy names below
-   are kept only so the pages this pass does not re-render keep
-   compiling, and every one of them is pinned to a step above — there
-   is one set of sizes, two sets of names. */
+   One key per role in the design reference, carrying that role's exact
+   size, line height and tracking. A component writes text-card-title or
+   text-lead; it never writes a size, a leading or a tracking. The legacy
+   names at the bottom exist only so the pages this pass does not
+   re-render keep compiling, and each is pinned to a role above. */
 fontSize: {
-  display:   ["var(--fs-display)", { lineHeight: "var(--lh-display)", letterSpacing: "var(--tracking-display)" }],
-  h1:        ["var(--fs-h1)",      { lineHeight: "var(--lh-h1)",      letterSpacing: "var(--tracking-display)" }],
-  h2:        ["var(--fs-h2)",      { lineHeight: "var(--lh-h2)",      letterSpacing: "var(--tracking-heading)" }],
-  h3:        ["var(--fs-h3)",      { lineHeight: "var(--lh-h3)",      letterSpacing: "var(--tracking-heading)" }],
-  "body-lg": ["var(--fs-body-lg)", { lineHeight: "var(--lh-body-lg)" }],
-  body:      ["var(--fs-body)",    { lineHeight: "var(--lh-body)" }],
-  small:     ["var(--fs-small)",   { lineHeight: "var(--lh-small)" }],
-  label:     ["var(--fs-label)",   { lineHeight: "var(--lh-label)", letterSpacing: "var(--tracking-label)" }],
+  // 11px
+  plate:        ["var(--fs-plate)", { lineHeight: "var(--lh-180)", letterSpacing: "var(--ls-10)" }],
+  badge:        ["var(--fs-plate)", { lineHeight: "var(--lh-140)", letterSpacing: "var(--ls-14)" }],
+  // 12px — every mono label
+  label:        ["var(--fs-label)", { lineHeight: "var(--lh-170)", letterSpacing: "var(--ls-16)" }],
+  meta:         ["var(--fs-label)", { lineHeight: "var(--lh-170)", letterSpacing: "var(--ls-06)" }],
+  tag:          ["var(--fs-label)", { lineHeight: "var(--lh-140)", letterSpacing: "var(--ls-08)" }],
+  num:          ["var(--fs-label)", { lineHeight: "var(--lh-140)", letterSpacing: "var(--ls-14)" }],
+  years:        ["var(--fs-label)", { lineHeight: "var(--lh-140)", letterSpacing: "var(--ls-10)" }],
+  // 15px
+  small:        ["var(--fs-small)", { lineHeight: "var(--lh-160)" }],
+  nav:          ["var(--fs-small)", { lineHeight: "var(--lh-140)" }],
+  cta:          ["var(--fs-small)", { lineHeight: "var(--lh-140)", letterSpacing: "var(--ls-06)" }],
+  // 17px
+  body:         ["var(--fs-body)", { lineHeight: "var(--lh-160)" }],
+  prose:        ["var(--fs-body)", { lineHeight: "var(--lh-165)" }],
+  arc:          ["var(--fs-body)", { lineHeight: "var(--lh-130)" }],
+  wordmark:     ["var(--fs-body)", { lineHeight: "var(--lh-140)", letterSpacing: "var(--ls-wordmark)" }],
+  // 19px
+  lead:         ["var(--fs-lead)", { lineHeight: "var(--lh-150)" }],
+  outcome:      ["var(--fs-lead)", { lineHeight: "var(--lh-155)" }],
+  "prose-lead": ["var(--fs-lead)", { lineHeight: "var(--lh-165)" }],
+  // display sizes
+  hand:         ["var(--fs-hand)", { lineHeight: "var(--lh-125)" }],
+  "card-title": ["var(--fs-card-title)", { lineHeight: "var(--lh-118)", letterSpacing: "var(--ls-card-title)" }],
+  numeral:      ["var(--fs-numeral)", { lineHeight: "var(--lh-100)" }],
+  h2:           ["var(--fs-h2)", { lineHeight: "var(--lh-110)", letterSpacing: "var(--ls-h2)" }],
+  email:        ["var(--fs-email)", { lineHeight: "var(--lh-110)", letterSpacing: "var(--ls-h2)" }],
+  hero:         ["var(--fs-hero)", { lineHeight: "var(--lh-94)", letterSpacing: "var(--ls-hero)" }],
 
-  // Legacy names — pinned to the steps above, not to sizes of their own.
-  "2xs":     ["var(--fs-label)",   { lineHeight: "var(--lh-label)", letterSpacing: "var(--tracking-caps)" }],
-  xs:        ["var(--fs-label)",   { lineHeight: "var(--lh-label)" }],
-  sm:        ["var(--fs-small)",   { lineHeight: "var(--lh-small)" }],
-  base:      ["var(--fs-body)",    { lineHeight: "var(--lh-body)" }],
-  lg:        ["var(--fs-body-lg)", { lineHeight: "var(--lh-body-lg)" }],
-  xl:        ["var(--fs-h3)",      { lineHeight: "var(--lh-h3)" }],
-  "2xl":     ["var(--fs-h3)",      { lineHeight: "var(--lh-h3)" }],
-  "3xl":     ["var(--fs-h2)",      { lineHeight: "var(--lh-h2)" }],
-  "4xl":     ["var(--fs-h1)",      { lineHeight: "var(--lh-h1)" }],
-  quote:         ["var(--fs-h3)",  { lineHeight: "var(--lh-h3)" }],
-  metric:        ["var(--fs-h2)",  { lineHeight: "var(--lh-h2)" }],
-  "metric-long": ["var(--fs-h3)",  { lineHeight: "var(--lh-h3)" }],
+  // Legacy names — pinned to roles above, not to sizes of their own.
+  "2xs":     ["var(--fs-plate)",      { lineHeight: "var(--lh-140)", letterSpacing: "var(--ls-16)" }],
+  xs:        ["var(--fs-label)",      { lineHeight: "var(--lh-140)" }],
+  sm:        ["var(--fs-small)",      { lineHeight: "var(--lh-160)" }],
+  base:      ["var(--fs-body)",       { lineHeight: "var(--lh-160)" }],
+  lg:        ["var(--fs-lead)",       { lineHeight: "var(--lh-150)" }],
+  xl:        ["var(--fs-hand)",       { lineHeight: "var(--lh-125)" }],
+  "2xl":     ["var(--fs-card-title)", { lineHeight: "var(--lh-118)" }],
+  "3xl":     ["var(--fs-h2)",         { lineHeight: "var(--lh-110)" }],
+  "4xl":     ["var(--fs-email)",      { lineHeight: "var(--lh-110)" }],
+  display:   ["var(--fs-hero)",       { lineHeight: "var(--lh-94)" }],
+  quote:         ["var(--fs-hand)",       { lineHeight: "var(--lh-125)" }],
+  metric:        ["var(--fs-numeral)",    { lineHeight: "var(--lh-100)" }],
+  "metric-long": ["var(--fs-card-title)", { lineHeight: "var(--lh-118)" }],
 },
 
 /* ── THE SPACING SCALE ───────────────────────────────────────────────
-   Ten steps, deliberately given their own `s`-prefixed namespace rather
-   than overriding Tailwind's default numeric spacing: overriding it
-   would silently drop every w-6 / h-4 / inset-2 on the pages this pass
-   does not touch. The prefix is also what makes the audit greppable —
-   a homepage padding that is not p-sNN is a bug you can find with a
-   regex. */
+   The reference's own set, in its own `s`-prefixed namespace. The prefix
+   keeps Tailwind's default numeric spacing intact for the pages this
+   pass does not touch, and makes the audit greppable: a homepage padding
+   that is not p-sNN is findable with a regex. */
 spacing: {
-  s4:   "var(--space-4)",
+  s2:   "var(--space-2)",
+  s3:   "var(--space-3)",
+  s5:   "var(--space-5)",
+  s6:   "var(--space-6)",
   s8:   "var(--space-8)",
+  s10:  "var(--space-10)",
   s12:  "var(--space-12)",
+  s15:  "var(--space-15)",
   s16:  "var(--space-16)",
+  s20:  "var(--space-20)",
   s24:  "var(--space-24)",
+  s26:  "var(--space-26)",
+  s28:  "var(--space-28)",
   s32:  "var(--space-32)",
   s48:  "var(--space-48)",
-  s64:  "var(--space-64)",
-  s96:  "var(--space-96)",
-  s128: "var(--space-128)",
+  s56:  "var(--space-56)",
+  s72:  "var(--space-72)",
+  s88:  "var(--space-88)",
 },
 
       // The three tracking tokens, exposed as utilities. Without these the
       // only way to reach --tracking-caps was an arbitrary value, which is
       // how one token ended up spelled eight different ways.
+      // Tracking travels with its type role above; these stay only for the
+      // pages this pass does not re-render.
       letterSpacing: {
-        label: "var(--tracking-label)",   // 0.08em — the only caps tracking
-        caps: "var(--tracking-caps)",     // legacy, pages not re-rendered here
-        heading: "var(--tracking-heading)",
-        display: "var(--tracking-display)",
+        label: "var(--ls-08)",
+        caps: "var(--ls-16)",
+        heading: "var(--ls-h2)",
+        display: "var(--ls-hero)",
       },
       transitionTimingFunction: {
         smooth: "cubic-bezier(.22,.61,.36,1)",

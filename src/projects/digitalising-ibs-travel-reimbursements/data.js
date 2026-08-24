@@ -21,6 +21,7 @@
 import thumbnailImg from './Project-4.png';
 import thumbnailWebp from './Project-4.webp';
 import prototypeScreenshot from './Fahrtkostenerstattung-—-Prototyp-08-14-2026.jpg';
+import cardClaimTable from './card-claim-table.webp';
 import umlPreview from './UML-preview.png';
 import fiveW1HFrame from './5W1H.png';
 import stakeholderMap from './Stakeholders.png';
@@ -77,12 +78,11 @@ export const projectData = {
   // `cardImage` therefore points only at a real artefact this project
   // actually produced. A project with no such asset sets nothing and its
   // card renders text-only — there is no placeholder state.
-  cardImage: prototypeScreenshot,
-  // The figure shows ONE legible detail, not the whole screenshot shrunk to a
-  // chip: object-position + a static scale, applied by .card-figure. Verified
-  // by simulating the exact CSS against the source at the rendered box size.
-  // Participant rows with their transport type and receipt status.
-  cardCrop: { x: '26%', y: '50%', zoom: 2.0 },
+  // Plate 01 of the design reference: "claim table — one participant row with
+  // its status controls, legible at 480px". The asset is cropped to that
+  // detail and to 4:3 by scripts/generate-card-crops.mjs, so the card's
+  // object-fit: contain shows it whole — the box never crops a screenshot.
+  cardImage: cardClaimTable,
   year: '2026',
   context: {
     en: 'In-house · public sector',

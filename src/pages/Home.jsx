@@ -1,16 +1,19 @@
-// One grid, one rhythm. Every section on this page is a `.grid-12` — 12
-// columns, 1200px, 32px gutters — inside a `.section-pad` band of 128px top
-// and bottom. No section sets its own padding and no block sets its own
-// max-width: a narrower text column spans fewer columns instead.
+// The homepage, built to the design reference
+// (Claude Design › Ink & Bloom › templates/portfolio-homepage).
 //
-// Where a heading sits is the one structural choice per section:
+// Structure, section by section, exactly as the reference lays it out:
 //
-//   heading cols 1-4, content cols 6-12   About, Contact
-//   heading full width, content below     Case Studies
+//   hero      72px top / 88px bottom · text cols 1-7 · portrait cols 9-12
+//   about     88px · warm band, ruled top and bottom
+//             heading cols 1-4 (with "What I bring" under a rule)
+//             bio + career arc cols 6-12
+//   work      88px · heading cols 1-7, 56px below it, then the card list
+//   contact   88px · warm band, ruled top
+//             heading cols 1-4 · availability, email, links, colophon cols 6-12
 //
-// Case Studies is the exception because its cards must span all twelve
-// columns themselves (see StackedProjectCard), so there is no room beside
-// them for a heading rail.
+// No component on this page sets a size or a length of its own: every value
+// is a token from the reference's scale (see theme.css) reached through a
+// Tailwind key. design-system.test.js fails the build on any that is not.
 
 import React from "react";
 import { Hero } from "../components/Hero";
@@ -28,8 +31,9 @@ import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { EASE } from "../utils/motion";
 import { EmptyState } from "../components/EmptyState";
 
-// Eyebrow + heading. The eyebrow is the label step — the only capitals on
-// the page — and the heading is h2, the same step in every section.
+// Eyebrow + heading. The eyebrow is the mono label role — the only place
+// capitals appear — and the heading is the section role, 34px, in every
+// section without exception.
 function SectionHeading({ eyebrow, heading }) {
   const reduce = useReducedMotion();
   return (
@@ -39,42 +43,13 @@ function SectionHeading({ eyebrow, heading }) {
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: reduce ? 0 : 0.3, ease: EASE }}
     >
-      <p className="type-label text-primary-600">{eyebrow}</p>
-      <h2 className="mt-s16 type-h2">{heading}</h2>
+      <p className="text-label font-mono uppercase text-primary-600 mb-s8">{eyebrow}</p>
+      <h2 className="text-h2 font-display font-bold text-text-display">{heading}</h2>
     </motion.div>
   );
 }
 
-// `layout`:
-//   "split"   heading cols 1-4, content cols 6-12
-//   "stacked" heading full width, content full width beneath it
-function HomeSection({ id, eyebrow, heading, children, rail = null, layout = "split" }) {
-  return (
-    <section id={id} className="section-pad scroll-mt-s96">
-      <div className="grid-12">
-        {layout === "split" ? (
-          <>
-            <div className="md:col-span-4">
-              <SectionHeading eyebrow={eyebrow} heading={heading} />
-              {rail && <div className="mt-s48">{rail}</div>}
-            </div>
-            <div className="md:col-start-6 md:col-span-7 mt-s48 md:mt-0">{children}</div>
-          </>
-        ) : (
-          <>
-            <div className="md:col-span-12">
-              <SectionHeading eyebrow={eyebrow} heading={heading} />
-            </div>
-            <div className="md:col-span-12 mt-s64">{children}</div>
-          </>
-        )}
-      </div>
-    </section>
-  );
-}
-
-// Three capability lines, drawn from the same skill groups The Bridge
-// renders (src/data/career.js) so the rail and the arc cannot drift.
+// The About rail: the heading, then "What I bring" under a rule, 24px below.
 function WhatIBring() {
   const { t } = useTranslation();
   const items = [
@@ -84,13 +59,13 @@ function WhatIBring() {
   ];
 
   return (
-    <div>
-      <h3 className="type-label text-primary-600">{t("home.about.bring.title")}</h3>
-      <ul className="mt-s16 pt-s16 border-t rule-t list-none m-0 p-0 flex flex-col gap-s12">
-        {items.map((item) => (
-          <li key={item} className="text-small text-text-meta">{item}</li>
-        ))}
-      </ul>
+    <div className="flex flex-col gap-s16 pt-s24 border-t border-border">
+      <p className="text-label font-mono uppercase text-text-dim">
+        {t("home.about.bring.title")}
+      </p>
+      {items.map((item) => (
+        <p key={item} className="text-body text-text">{item}</p>
+      ))}
     </div>
   );
 }
@@ -113,60 +88,73 @@ export default function Home() {
   return (
     <div className="w-full">
 
-      <section id="Hero-Section" className="section-pad">
+      {/* Hero — the one section the reference gives a different top pad. */}
+      <section id="Hero-Section" className="pb-s88" style={{ paddingTop: "var(--hero-pad-top)" }}>
         <Hero data={profileData} />
       </section>
 
-      {/* About + The Bridge. The warm band bleeds to the viewport edge; the
-          grid inside it is the same 1200px column as everywhere else. */}
-      <div className="bg-surface-warm">
-        <HomeSection
-          id="AboutMe-Section"
-          eyebrow={t("home.about.kicker")}
-          heading={t("about.heading")}
-          rail={<WhatIBring />}
-        >
-          <AboutBio data={profileData} />
-          <div className="mt-s64">
-            <CareerArc variant="compact" />
-          </div>
-        </HomeSection>
-      </div>
-
-      <HomeSection
-        id="projects"
-        eyebrow={t("home.projects.kicker")}
-        heading={t("projects.heading")}
-        layout="stacked"
+      <section
+        id="AboutMe-Section"
+        className="section-pad scroll-mt-s56 bg-surface-warm border-y border-border"
       >
+        <div className="grid-12">
+          <div className="md:col-span-4 flex flex-col gap-s32">
+            <SectionHeading eyebrow={t("home.about.kicker")} heading={t("about.heading")} />
+            <WhatIBring />
+          </div>
+          <div className="md:col-start-6 md:col-span-7 flex flex-col gap-s24 mt-s48 md:mt-0">
+            <AboutBio data={profileData} />
+            <div className="mt-s24 pt-s32 border-t border-border">
+              <CareerArc variant="compact" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects" className="section-pad scroll-mt-s56">
+        <div className="grid-12 mb-s56">
+          <div className="md:col-span-7">
+            <SectionHeading
+              eyebrow={t("home.projects.kicker")}
+              heading={t("projects.heading")}
+            />
+          </div>
+        </div>
+
         {hasAnyProjects ? (
-          // 64px between cards, with the single hairline that separates them
-          // sitting in the middle of that gap: 32px of list gap, the rule, and
-          // 32px of the next card's own lead-in.
-          <div className="flex flex-col gap-s32">
+          <div>
             {live.map((project, i) => (
-              <div key={project.slug} className={i > 0 ? "border-t rule-t pt-s32" : undefined}>
-                <StackedProjectCard project={project} index={i} lead={i === 0} />
-              </div>
+              <StackedProjectCard key={project.slug} project={project} index={i} />
             ))}
             {comingSoon.map((project, i) => (
-              <div key={project.slug} className="border-t rule-t pt-s32">
-                <ComingSoonRow project={project} index={live.length + i} />
-              </div>
+              <ComingSoonRow key={project.slug} project={project} index={live.length + i} />
             ))}
           </div>
         ) : (
-          <EmptyState title={t("home.projects.empty")} />
+          <div className="grid-12">
+            <div className="md:col-span-12">
+              <EmptyState title={t("home.projects.empty")} />
+            </div>
+          </div>
         )}
-      </HomeSection>
+      </section>
 
-      <HomeSection
+      <section
         id="contact"
-        eyebrow={t("home.contact.kicker")}
-        heading={t("contact.headline")}
+        className="section-pad scroll-mt-s56 bg-surface-warm border-t border-border"
       >
-        <HomeContact data={profileData} />
-      </HomeSection>
+        <div className="grid-12">
+          <div className="md:col-span-4">
+            <SectionHeading
+              eyebrow={t("home.contact.kicker")}
+              heading={t("contact.headline")}
+            />
+          </div>
+          <div className="md:col-start-6 md:col-span-7 mt-s48 md:mt-0">
+            <HomeContact data={profileData} />
+          </div>
+        </div>
+      </section>
 
     </div>
   );

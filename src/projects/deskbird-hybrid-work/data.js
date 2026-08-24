@@ -3,6 +3,7 @@
 import thumbnailImg from './Project-2.png';
 import thumbnailWebp from './Project-2.webp';
 import interestsModal from './media/interests-modal.png';
+import cardInterestPicker from './media/card-interest-picker.webp';
 import ucdProcess from './media/ucd-process.jpg';
 
 export const projectData = {
@@ -38,12 +39,9 @@ export const projectData = {
   // `cardImage` therefore points only at a real artefact this project
   // actually produced. A project with no such asset sets nothing and its
   // card renders text-only — there is no placeholder state.
-  cardImage: interestsModal,
-  // The figure shows ONE legible detail, not the whole screenshot shrunk to a
-  // chip: object-position + a static scale, applied by .card-figure. Verified
-  // by simulating the exact CSS against the source at the rendered box size.
-  // The interest chips and their colleague counts.
-  cardCrop: { x: "50%", y: "62%", zoom: 2.4 },
+  // Plate 02: "interest-picker panel — chips and selected state only, not the
+  // full screen". Pre-cropped to 4:3; the card shows it whole.
+  cardImage: cardInterestPicker,
   year: "2023–2024",
   context: {
     en: "Industry project · deskbird",

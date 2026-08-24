@@ -5,7 +5,7 @@ import magicDemo from './media/magic-demo.mp4';
 import ninjaDemo from './media/ninja-demo.mp4';
 
 import SUS from './media/sus.png';
-import movementTimeChart from './media/chart-movement-time.png';
+import cardLargeTargetPanel from './media/card-large-target-panel.webp';
 import experimentalDesign from './media/experimental_design.png';
 import threeInputMethods from './media/three_input_methods.png';
 import conclusion from './media/conclusion.png';
@@ -47,12 +47,10 @@ export const projectData = {
   // `cardImage` therefore points only at a real artefact this project
   // actually produced. A project with no such asset sets nothing and its
   // card renders text-only — there is no placeholder state.
-  cardImage: movementTimeChart,
-  // The figure shows ONE legible detail, not the whole screenshot shrunk to a
-  // chip: object-position + a static scale, applied by .card-figure. Verified
-  // by simulating the exact CSS against the source at the rendered box size.
-  // The large-target panel, with its axis values and distance labels.
-  cardCrop: { x: "8%", y: "50%", zoom: 1.45 },
+  // Plate 03: "one chart panel with readable axis labels — not the two-panel
+  // plot". The plate offers a rig photograph as the alternative; the repo has
+  // no photograph of the setup. Pre-cropped to 4:3; the card shows it whole.
+  cardImage: cardLargeTargetPanel,
   year: "2025–2026",
   context: {
     en: "M.Sc. thesis",
