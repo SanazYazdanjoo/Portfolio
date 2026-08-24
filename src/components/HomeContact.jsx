@@ -7,9 +7,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "../context/LanguageContext";
 import { REPO_URL } from "../data/site";
+import { HandArrow } from "./HandArrow";
 
 const LINK =
-  "text-body font-medium text-text border-b rule-b pb-s2 " +
+  "inline-flex items-center gap-s6 text-body font-medium text-text border-b rule-b pb-s2 " +
   "hover:text-primary-600 transition-colors duration-200 focus-ring";
 
 export function HomeContact({ data }) {
@@ -35,15 +36,15 @@ export function HomeContact({ data }) {
       <div className="flex flex-wrap gap-s24">
         {contact.linkedin && (
           <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className={LINK}>
-            LinkedIn &#8599;
+            LinkedIn <HandArrow direction="up-right" />
           </a>
         )}
         {contact.github && (
           <a href={contact.github} target="_blank" rel="noopener noreferrer" className={LINK}>
-            GitHub &#8599;
+            GitHub <HandArrow direction="up-right" />
           </a>
         )}
-        <Link to="/cv" className={LINK}>{t("nav.cv")} &#8599;</Link>
+        <Link to="/cv" className={LINK}>{t("nav.cv")} <HandArrow direction="up-right" /></Link>
       </div>
 
       <p className="mt-s8 text-small text-text-meta">
@@ -52,9 +53,9 @@ export function HomeContact({ data }) {
           href={REPO_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-primary-600 rule-underline hover:opacity-80 transition-opacity duration-200 focus-ring"
+          className="inline-flex items-center gap-s6 text-primary-600 rule-underline hover:opacity-80 transition-opacity duration-200 focus-ring"
         >
-          {t("footer.viewSource")} &#8599;
+          {t("footer.viewSource")} <HandArrow direction="up-right" />
         </a>
       </p>
     </div>
