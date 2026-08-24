@@ -137,10 +137,15 @@ function CareerArcFull({ steps }) {
   );
 }
 
-// COMPACT — the homepage strip, as the reference draws it: three equal
-// columns, each a numeral over a label over its years. No connector, no
-// arrows, no per-step stagger — the reference has none of them, and the
-// stagger is what used to read as two greyed-out entries beside a live one.
+// COMPACT — the homepage strip: three equal columns, each a numeral over a
+// label over its years.
+//
+// No arrows between the phases. The house InkArrow is 32px wide and this
+// grid's gutter is 24px, so an arrow centred in it cannot have the 12px of
+// clear space on each side that would keep it off the numerals — that needs
+// 56px of gutter. Cramped into 24px it read as "→02". The numbering
+// already carries the sequence, so they are gone rather than crowded.
+// CareerArcFull, on the About page, has the room and keeps them.
 function CareerArcCompact({ steps }) {
   const reduce = useReducedMotion();
 
@@ -152,26 +157,13 @@ function CareerArcCompact({ steps }) {
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: reduce ? 0 : 0.4, ease: EASE }}
     >
-      {steps.map((step, i) => (
-        <li key={step.phase} className="relative flex flex-col gap-s6">
+      {steps.map((step) => (
+        <li key={step.phase} className="flex flex-col gap-s6">
           <span className="text-numeral font-display font-bold text-primary-600" aria-hidden="true">
             {step.phase}
           </span>
           <span className="text-arc font-medium text-text min-h-arc">{step.label}</span>
           <span className="text-years font-mono text-text-dim">{step.years}</span>
-
-          {/* The hand-drawn arrow between phases. Absolutely positioned in
-              the gutter, so it reads the progression without taking a
-              column or moving one. */}
-          {i < steps.length - 1 && (
-            <span
-              aria-hidden="true"
-              className="hidden md:flex absolute top-s8 -right-s16 translate-x-1/2
-                         items-center justify-center text-secondary"
-            >
-              <InkArrow className="w-s32 h-s28" />
-            </span>
-          )}
         </li>
       ))}
     </motion.ol>
