@@ -36,12 +36,6 @@ const de = {
   // About
   "about.heading": "Über mich",
   "home.about.kicker": "01 — Wer ich bin",
-  // Die About-Spalte (Home.jsx, WhatIBring) — drei Kompetenzzeilen aus denselben
-  // Skill-Gruppen, die auch The Bridge rendert.
-  "home.about.bring.title": "Was ich mitbringe",
-  "home.about.bring.research": "Mixed-Methods-Research — Contextual Inquiry, kontrollierte Experimente, Eye-Tracking, thematische Analyse.",
-  "home.about.bring.build": "Produktives Frontend — React, TypeScript, Tailwind CSS, WCAG-Barrierefreiheit.",
-  "home.about.bring.qa": "QA-Haltung — Testpläne, automatisierte Abdeckung und Belege für jede Aussage.",
 
   "about.howIGotHere": "Wie ich hierher gelangt bin",
   "about.theBridge": "Die Brücke",
@@ -151,7 +145,6 @@ const de = {
   "common.switchToOther": "Switch to English",
 
   // Hero meta strip
-  "hero.kicker": "UX Research × Engineering",
 
   "hero.meta.background": "Hintergrund",
   "hero.meta.focus": "Fokus",

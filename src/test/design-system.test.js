@@ -191,8 +191,8 @@ describe("reference — the card figure", () => {
 describe("reference — drawn, not stroked", () => {
   const EXPECTED = {
     "src/pages/Home.jsx":                       ["rule-t", "rule-b"],
-    "src/components/Hero.jsx":                  ["rule-fill-r", "rule-stroke", "photo-frame", "rule-frame-in", "InkHighlight"],
-    "src/components/StackedProjectCard.jsx":    ["rule-t", "rule-frame-in", "rule-frame"],
+    "src/components/Hero.jsx":                  ["rule-fill-r", "rule-stroke", "photo-frame", "rule-frame-in", "HandArrow"],
+    "src/components/StackedProjectCard.jsx":    ["rule-t", "rule-frame-in", "rule-frame", "HandArrow"],
     // No figure column here, so no frame — the row rule and the badge.
     "src/components/ComingSoonRow.jsx":         ["rule-t", "rule-frame"],
     "src/components/SkillTagRow.jsx":           ["rule-pill"],
@@ -333,5 +333,31 @@ describe("reference — the tag row fits one line", () => {
         ).toBeLessThanOrEqual(TEXT_COLUMN);
       }
     }
+  });
+});
+
+// The forward arrow is drawn, like every other line on the page. A → glyph
+// is the typeface's arrow, not this site's, and it is what HandArrow
+// replaced — so its reappearance is a regression, not a shortcut.
+describe("reference — the forward arrow is drawn", () => {
+  const GLYPHS = /[→➡➔]|&rarr;/g;
+
+  it("uses no arrow glyph anywhere on the page", () => {
+    for (const file of HOMEPAGE) {
+      const hits = findAll(read(file), GLYPHS);
+      expect(
+        hits,
+        `${file} renders an arrow glyph — use <HandArrow /> instead`
+      ).toEqual([]);
+    }
+  });
+
+  it("keeps the path values the design specifies", () => {
+    const src = read("src/components/HandArrow.jsx");
+    // The off-straight shaft and the asymmetric head. "Correcting" either to
+    // a straight line or a symmetric chevron is the failure this catches.
+    expect(src).toContain("M1 5.3c4.3-.5 11.6-.7 21.8-.5");
+    expect(src).toContain("M18.2 1.3c1.8 1.6 3.2 2.8 4.6 3.6-1.6.9-3 1.9-4.4 3.5");
+    expect(src).toContain('stroke="currentColor"');
   });
 });

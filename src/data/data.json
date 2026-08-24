@@ -39,8 +39,8 @@
       "de": "Ich spreche sowohl ‚User‘ als auch ‚Entwickler‘ – und diese Seite ist der Beweis."
     },
     "positioning": {
-      "en": "UX Engineer bridging mixed-methods research and production React — M.Sc. HCI, Bauhaus-Universität Weimar. Open to UX Research & UX Engineering roles in the EU.",
-      "de": "UX Engineerin an der Schnittstelle von Mixed-Methods-Research und produktivem React — M.Sc. HCI, Bauhaus-Universität Weimar. Offen für UX-Research- und UX-Engineering-Rollen in der EU."
+      "en": "UX Engineer bridging mixed-methods research and production React.",
+      "de": "UX Engineerin an der Schnittstelle von Mixed-Methods-Research und produktivem React."
     },
     "impactStats": [
       {
@@ -66,6 +66,10 @@
       }
     ],
     "heroMeta": {
+      "credential": {
+        "en": "M.Sc. HCI, Bauhaus-Universität Weimar",
+        "de": "M.Sc. HCI, Bauhaus-Universität Weimar"
+      },
       "photoCaption": { "en": "Weimar, 2026", "de": "Weimar, 2026" },
       "location": {
         "en": "Weimar, DE · Open to relocation",
@@ -433,12 +437,8 @@
     ],
     "bioParagraphs": [
       {
-        "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar) and 5+ years of experience at the intersection of frontend development, user research, and QA. I design user-centric systems that translate complex data structures and business requirements into pragmatic B2B solutions: performant, accessible UI components in React and TypeScript.",
-        "de": "Ich bin UX Engineer mit einem M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar) und über fünf Jahren Erfahrung an der Schnittstelle von Frontend-Entwicklung, User Research und QA. Ich gestalte nutzerzentrierte Systeme, die komplexe Datenstrukturen und Geschäftsanforderungen in pragmatische B2B-Lösungen übersetzen: performante, barrierefreie UI-Komponenten in React und TypeScript."
-      },
-      {
-        "en": "That mix is the point. I validate design decisions systematically through mixed-methods research, and my engineering background means I can take the findings all the way to working code — using AI-assisted development tools productively while reviewing every generated line critically. The case studies below show how that plays out in real projects.",
-        "de": "Genau diese Mischung ist der Punkt. Designentscheidungen validiere ich systematisch mit Mixed-Methods-Research — und mein Engineering-Hintergrund bedeutet, dass ich die Erkenntnisse bis zum funktionierenden Code bringe. KI-gestützte Entwicklungswerkzeuge nutze ich dabei produktiv und prüfe generierten Code kritisch. Die Case Studies unten zeigen, wie das in echten Projekten aussieht."
+        "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar) and 5+ years of experience at the intersection of frontend development, user research, and QA. I design user-centric systems that translate complex data structures and business requirements into pragmatic B2B solutions: performant, accessible UI components in React and TypeScript. That mix is the point — I validate design decisions systematically through mixed-methods research, and my engineering background means I can take the findings all the way to working code.",
+        "de": "Ich bin UX Engineer mit einem M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar) und über fünf Jahren Erfahrung an der Schnittstelle von Frontend-Entwicklung, User Research und QA. Ich gestalte nutzerzentrierte Systeme, die komplexe Datenstrukturen und Geschäftsanforderungen in pragmatische B2B-Lösungen übersetzen: performante, barrierefreie UI-Komponenten in React und TypeScript. Genau diese Mischung ist der Punkt — Designentscheidungen validiere ich systematisch mit Mixed-Methods-Research, und mein Engineering-Hintergrund bedeutet, dass ich die Erkenntnisse bis zum funktionierenden Code bringe."
       }
     ],
     "skills": {
