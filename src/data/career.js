@@ -22,11 +22,16 @@ export const careerPhases = [
     labelKey: "about.career.phase2.label",
     yearsKey: "about.career.phase2.years",
     summaryKey: "about.career.phase2.summary",
+    // Trimmed 2026-08 by the evidence rule: chips named in neither a case
+    // study (Tier 1) nor an experience entry's task text (Tier 2) were
+    // deleted, not evidenced after the fact — Test Plan Creation, Jira,
+    // TestLink, and End-to-End Testing (whose only textual match was IBS's
+    // "end-to-end AS-IS cycle", a false positive).
     skillGroups: [
       { groupKey: null, items: [
-        "Test Plan Creation", "Unit & Integration Testing (Vitest)",
-        "End-to-End Testing", "Acceptance Testing", "Postman",
-        "Jira", "TestLink", "Performance Optimization"
+        "Unit & Integration Testing (Vitest)",
+        "Acceptance Testing", "Postman",
+        "Performance Optimization"
       ]}
     ],
   },
@@ -41,11 +46,11 @@ export const careerPhases = [
         "Mixed-Methods Research", "Contextual Inquiry", "Usability Testing",
         "Controlled Experiments", "Eye-Tracking (Pupil Labs Neon)",
         "Questionnaire Design", "Heuristic Evaluation",
-        "R / Python", "Behavioural Analytics (GA, Hotjar)"
+        "Python"
       ]},
       { groupKey: "about.career.group.build", items: [
         "TypeScript", "React", "Tailwind CSS", "Framer Motion",
-        "Web Accessibility (WCAG)", "Figma", "AI-Assisted Development"
+        "Web Accessibility (WCAG)", "Figma"
       ]},
     ],
   },

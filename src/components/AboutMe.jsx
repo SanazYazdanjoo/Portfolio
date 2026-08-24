@@ -25,8 +25,3 @@ export function AboutBio({ data }) {
     </motion.div>
   );
 }
-
-// Legacy alias — safe to delete once nothing imports <AboutMe>
-export function AboutMe({ data }) {
-  return <AboutBio data={data} />;
-}

@@ -5,7 +5,14 @@
 // malformed data.js will.
 
 import { describe, it, expect } from "vitest";
+import { execFileSync } from "node:child_process";
 import { projects, sortedProjects, getProject, getTagData } from "./projects";
+// The aggregator carries CARD-level fields only (see the Phase 5 split in
+// projects.js). Content-level suites — bilingual parity, tagEvidence, the
+// renderer registry, metric provenance — verify the FULL data.js modules
+// through this test-only glob.
+import { fullProjects, getFullProject } from "../test/fullProjects";
+import { profileData } from "./profile";
 import { isNeedsInput } from "./needsInput";
 import {
   RENDERED_FIELDS,
@@ -21,12 +28,32 @@ describe("projects aggregator — data contract", () => {
     expect(projects.length).toBeGreaterThan(0);
   });
 
-  it("every project has the required fields", () => {
+  it("every card has the required fields", () => {
     for (const p of projects) {
       expect(p.slug, `missing slug`).toBeTruthy();
       expect(p.title, `${p.slug} missing title`).toBeTruthy();
       expect(p.status, `${p.slug} missing status`).toBeTruthy();
+      expect(p.tags, `${p.slug} missing tags`).toBeTruthy();
+    }
+  });
+
+  // `methods` renders on the detail page, so it lives in data.js, not the card.
+  it("every full data.js has methods", () => {
+    for (const p of fullProjects) {
       expect(p.methods, `${p.slug} missing methods`).toBeTruthy();
+    }
+  });
+
+  // The split's own contract: every card has a data.js spreading it (same
+  // folder set), and the card's identity fields survive the spread unchanged.
+  it("card.js and data.js folders match one-to-one, and data spreads its card", () => {
+    const cardSlugs = new Set(projects.map((p) => p.slug));
+    const fullSlugs = new Set(fullProjects.map((p) => p.slug));
+    expect(fullSlugs).toEqual(cardSlugs);
+    for (const p of projects) {
+      const full = getFullProject(p.slug);
+      expect(full.id, `${p.slug}: data.js id diverges from card.js`).toBe(p.id);
+      expect(full.title.en, `${p.slug}: data.js title diverges from card.js`).toBe(p.title.en);
     }
   });
 
@@ -175,7 +202,7 @@ function findBilingualParityGaps(value, path, out) {
 
 describe("bilingual parity — every { en, de } field has both languages or neither", () => {
   it("no project has an en value without a matching de value (or vice versa)", () => {
-    for (const p of projects) {
+    for (const p of fullProjects) {
       const gaps = [];
       findBilingualParityGaps(p, "", gaps);
       expect(gaps, `${p.slug} has one-sided bilingual fields:\n${gaps.join("\n")}`).toEqual([]);
@@ -191,7 +218,7 @@ const ALLOWED_EVIDENCE_STATUSES = ["evidenced", "thin", "unevidenced"];
 
 describe("tagEvidence — every skill tag is backed by a pointer into the case study", () => {
   it("every project defines tagEvidence when it defines tags", () => {
-    for (const p of projects) {
+    for (const p of fullProjects) {
       if (p.tags.length > 0) {
         expect(Array.isArray(p.tagEvidence), `${p.slug} has tags but no tagEvidence`).toBe(true);
       }
@@ -199,7 +226,7 @@ describe("tagEvidence — every skill tag is backed by a pointer into the case s
   });
 
   it("every tag has a matching tagEvidence entry, and no entry references an unknown tag", () => {
-    for (const p of projects) {
+    for (const p of fullProjects) {
       if (!p.tagEvidence) continue;
       const tagSet = new Set(p.tags);
       const evidenceTagSet = new Set(p.tagEvidence.map((e) => e.tag));
@@ -214,7 +241,7 @@ describe("tagEvidence — every skill tag is backed by a pointer into the case s
   });
 
   it("every tagEvidence entry has an allowed status and a non-empty evidence pointer", () => {
-    for (const p of projects) {
+    for (const p of fullProjects) {
       if (!p.tagEvidence) continue;
       for (const entry of p.tagEvidence) {
         expect(
@@ -231,7 +258,7 @@ describe("tagEvidence — every skill tag is backed by a pointer into the case s
 
   it("thin evidence warns but passes; unevidenced evidence fails the build", () => {
     const unevidenced = [];
-    for (const p of projects) {
+    for (const p of fullProjects) {
       if (!p.tagEvidence) continue;
       for (const entry of p.tagEvidence) {
         if (entry.status === "thin") {
@@ -259,7 +286,7 @@ describe("data/renderer contract — no field drifts in either direction", () =>
   const KNOWN = new Set([...RENDERED_FIELDS, ...DATA_ONLY_FIELDS]);
 
   it("every field in every data.js is either rendered or explicitly data-only", () => {
-    for (const p of projects) {
+    for (const p of fullProjects) {
       // `href` is synthesized by the aggregator, not authored in data.js.
       const unknown = Object.keys(p).filter((k) => k !== "href" && !KNOWN.has(k));
       expect(
@@ -283,7 +310,7 @@ describe("data/renderer contract — no field drifts in either direction", () =>
   // a later wholesale data replacement, still doing nothing, which is why
   // this guard is worth its line count.
   it("no project reintroduces the resultsDetail boolean", () => {
-    for (const p of projects) {
+    for (const p of fullProjects) {
       expect(
         "resultsDetail" in p,
         `${p.slug}: resultsDetail is gone — the strip renders from ` +
@@ -298,7 +325,7 @@ describe("data/renderer contract — no field drifts in either direction", () =>
   // still renders nothing. `figures.design` was exactly this — written in
   // full, with alt text and captions, reachable by no one.
   it("every figures.* group is a slot some section actually renders", () => {
-    for (const p of projects) {
+    for (const p of fullProjects) {
       if (!p.figures) continue;
       const unknown = Object.keys(p.figures).filter((k) => !FIGURE_KEYS.includes(k));
       expect(
@@ -328,7 +355,7 @@ describe("data/renderer contract — no field drifts in either direction", () =>
   // the strip and notBuilt: present-but-empty is worse than absent, because
   // it renders a heading over nothing.
   it("design and metricsIntro, where present, are non-empty bilingual blocks", () => {
-    for (const p of projects) {
+    for (const p of fullProjects) {
       for (const key of ["design", "metricsIntro"]) {
         if (!(key in p)) continue;
         const v = p[key];
@@ -353,7 +380,7 @@ describe("data/renderer contract — no field drifts in either direction", () =>
   // that says so and, unlike the NEEDS_INPUT sentinel, does not fail the
   // build — an absent illustration is not a fabricated claim.
   it("every figure has a src, an href, or pending: true", () => {
-    for (const p of projects) {
+    for (const p of fullProjects) {
       if (!p.figures) continue;
       for (const [group, items] of Object.entries(p.figures)) {
         items.forEach((f, i) => {
@@ -370,7 +397,7 @@ describe("data/renderer contract — no field drifts in either direction", () =>
   // A design section with no figures is legitimate prose; figures with no
   // prose would render a numbered heading straight into an image grid.
   it("figures.design never appears without the design prose that heads it", () => {
-    for (const p of projects) {
+    for (const p of fullProjects) {
       if (!p.figures?.design) continue;
       expect(
         p.design,
@@ -385,7 +412,7 @@ describe("data/renderer contract — no field drifts in either direction", () =>
   // a typo would otherwise silently fall back and move quotes off the
   // section their author put them in.
   it("verbatimsIn, where present, names a section that renders verbatims", () => {
-    for (const p of projects) {
+    for (const p of fullProjects) {
       if (!("verbatimsIn" in p)) continue;
       expect(
         VERBATIM_SECTIONS,
@@ -400,7 +427,7 @@ describe("data/renderer contract — no field drifts in either direction", () =>
   });
 
   it("resultsAtAGlance, where present, carries a title and renderable items", () => {
-    for (const p of projects) {
+    for (const p of fullProjects) {
       const glance = p.resultsAtAGlance;
       if (!glance) continue;
       expect(glance.title, `${p.slug}: resultsAtAGlance has no title`).toBeTruthy();
@@ -415,7 +442,7 @@ describe("data/renderer contract — no field drifts in either direction", () =>
   // Applies to both strip sources, since ProjectTemplate feeds whichever is
   // present through the same MetricsStrip.
   it("every strip item has a label and either a value or pending: true", () => {
-    for (const p of projects) {
+    for (const p of fullProjects) {
       const sources = [
         ["metrics", p.metrics],
         ["resultsAtAGlance.items", p.resultsAtAGlance?.items],
@@ -440,7 +467,7 @@ describe("data/renderer contract — no field drifts in either direction", () =>
   // projects filled the line and one silently didn't. Every project with a
   // detail page owes the reader that sentence.
   it("every project with a detail page has a tagline", () => {
-    for (const p of projects) {
+    for (const p of fullProjects) {
       if (p.status === "coming-soon") continue;
       expect(
         p.tagline,
@@ -454,7 +481,7 @@ describe("data/renderer contract — no field drifts in either direction", () =>
   // that would render as a bare heading over nothing should be omitted, not
   // rendered empty.
   it("notBuilt, where present, carries a title and at least one item", () => {
-    for (const p of projects) {
+    for (const p of fullProjects) {
       const nb = p.notBuilt;
       if (!nb) continue;
       expect(nb.title, `${p.slug}: notBuilt has no title`).toBeTruthy();
@@ -469,7 +496,7 @@ describe("data/renderer contract — no field drifts in either direction", () =>
   // Optional by contract: the renderer must stay silent, not render an empty
   // row, for every project that has not written its disclosure.
   it("aiAssistance is optional, and a bilingual object wherever it is present", () => {
-    for (const p of projects) {
+    for (const p of fullProjects) {
       if (!("aiAssistance" in p)) continue;
       const v = p.aiAssistance;
       expect(
@@ -575,5 +602,141 @@ describe("excludeFromHome", () => {
         ).toBeUndefined();
       }
     }
+  });
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Metric provenance — a CV-highlight metric may not be satisfied by case-study
+// text born in the same commit as the metric itself. Evidence has to predate
+// the claim it backs (or arrive later, verified from primary records, in its
+// own commit). The failure mode this catches is real and recent: a metric
+// ("4 stakeholder interviews") existed with no backing, and the tempting fix
+// was to write the count into the case study in the same change — which turns
+// the claim into its own source.
+//
+// Mechanism: for every numeric metric in profile.portfolioHighlights, find the
+// case-study sentences that back it (the number, as digits or spelled out,
+// co-occurring with a word from the metric's label), then ask git which commit
+// first introduced each backing fragment into the project's data.js and which
+// first introduced the metric's label into data.json. If every backing
+// fragment was born in the metric's own commit — and that commit did not
+// create the case-study file (a new case study legitimately lands claim and
+// evidence together) — the build fails.
+//
+// Stated limits, in the spirit of the enforcement table: git pickaxe reads
+// committed history, so an offending pair sitting uncommitted in the working
+// tree passes until its first post-commit build; rewording a backing sentence
+// resets its provenance; and a metric with NO backing text at all passes here
+// vacuously — absence of evidence is a different rule's job, this one only
+// polices where evidence came from. Shallow CI clones collapse old history
+// into one boundary commit, which the file-creation exception absorbs.
+const NUMBER_WORDS = {
+  1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 6: "six",
+  7: "seven", 8: "eight", 9: "nine", 10: "ten", 11: "eleven", 12: "twelve",
+};
+
+function collectEnglishStrings(value, out) {
+  if (value === null || value === undefined) return;
+  if (typeof value === "string") { out.push(value); return; }
+  if (Array.isArray(value)) { value.forEach((v) => collectEnglishStrings(v, out)); return; }
+  if (typeof value !== "object") return;
+  if (Object.prototype.hasOwnProperty.call(value, "en")) {
+    if (typeof value.en === "string") out.push(value.en);
+    return; // bilingual leaf — EN side only; DE mirrors it by the parity test
+  }
+  for (const key of Object.keys(value)) collectEnglishStrings(value[key], out);
+}
+
+describe("metric provenance — evidence may not be born in the metric's own commit", () => {
+  let gitAvailable = true;
+  const git = (...args) => {
+    try {
+      return execFileSync("git", args, { encoding: "utf8" }).trim();
+    } catch {
+      gitAvailable = false;
+      return "";
+    }
+  };
+  const firstCommitIntroducing = (needle, file) =>
+    git("log", "--reverse", "--format=%H", "-S", needle, "--", file).split("\n")[0] || "";
+  const firstCommitTouching = (file) =>
+    git("log", "--reverse", "--format=%H", "--", file).split("\n")[0] || "";
+
+  it("no numeric CV-highlight metric is backed only by same-commit text", () => {
+    const highlights = profileData.portfolioHighlights ?? [];
+    const violations = [];
+
+    for (const h of highlights) {
+      // FULL module: the evidence corpus is the prose, which cards no
+      // longer carry after the Phase 5 split.
+      const project = getFullProject(h.id);
+      if (!project) continue; // the id/slug contract is asserted elsewhere
+      const projectFile = `src/projects/${h.id}/data.js`;
+      const projectStrings = [];
+      collectEnglishStrings(project, projectStrings);
+
+      for (const metric of h.metrics ?? []) {
+        const rawValue =
+          typeof metric.value === "object" ? metric.value.en : String(metric.value ?? "");
+        const label = typeof metric.label === "object" ? metric.label.en : String(metric.label ?? "");
+        const numbers = String(rawValue).match(/\d+(?:\.\d+)?/g) ?? [];
+        if (numbers.length === 0) continue; // non-numeric values are out of scope
+
+        const keywords = label.toLowerCase().split(/[^a-z-]+/).filter((w) => w.length >= 5);
+        if (keywords.length === 0) continue;
+
+        for (const num of numbers) {
+          const word = NUMBER_WORDS[Number(num)];
+          // Digit-boundary lookarounds, not \b: "4" must not match inside
+          // "aged 25–34", nor "30" inside "300" — \b would accept both.
+          const digitPattern =
+            "(?<![0-9.])" + num.replace(".", "[.]") + "(?![0-9.])";
+          const numberPattern = new RegExp(
+            word ? digitPattern + "|\\b" + word + "\\b" : digitPattern,
+            "i"
+          );
+
+          // Backing fragments: a ±30-char window around the number in any
+          // project string that also carries a label keyword. The window is
+          // cut at quote characters so the fragment stays a literal substring
+          // of the source file (pickaxe matches text, not semantics).
+          const fragments = [];
+          for (const s of projectStrings) {
+            const lower = s.toLowerCase();
+            if (!keywords.some((k) => lower.includes(k))) continue;
+            const m = numberPattern.exec(s);
+            if (!m) continue;
+            const start = Math.max(0, m.index - 30);
+            const end = Math.min(s.length, m.index + m[0].length + 30);
+            const frag = s.slice(start, end).split(/["'\u2018\u2019\u201C\u201E]/).sort((a, b) => b.length - a.length)[0].trim();
+            if (frag.length >= 8) fragments.push(frag);
+          }
+          if (fragments.length === 0) continue; // no backing at all — vacuous here
+
+          const metricIntro = firstCommitIntroducing(label, "src/data/data.json");
+          if (!gitAvailable) return; // no repo history to consult — stated limit
+          if (!metricIntro) continue; // metric not committed yet — bites next build
+
+          const fileCreation = firstCommitTouching(projectFile);
+          const intros = fragments.map((f) => firstCommitIntroducing(f, projectFile));
+          const independent = intros.some(
+            (c) => c === "" || c !== metricIntro || c === fileCreation
+          );
+          const selfBorn =
+            !independent && intros.every((c) => c === metricIntro) && metricIntro !== fileCreation;
+
+          if (selfBorn) {
+            violations.push(
+              `${h.id}: metric "${rawValue} ${label}" is backed only by text introduced in its own commit (${metricIntro.slice(0, 10)}) — evidence must come from primary records, in its own change`
+            );
+          }
+        }
+      }
+    }
+
+    expect(
+      violations,
+      `Self-born metrics:\n${violations.join("\n")}`
+    ).toEqual([]);
   });
 });

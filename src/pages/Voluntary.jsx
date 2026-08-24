@@ -1,6 +1,6 @@
 import React from "react";
 import { VoluntaryList } from "../components/VoluntaryList";
-import { voluntaryItems } from "../data/voluntary";
+import { voluntaryItems as rawVoluntary } from "../data/voluntary";
 import { ScribbleUnderline, FlowerDoodle } from "../components/DoodleLibrary";
 import { useTranslation } from "../context/LanguageContext";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
@@ -10,13 +10,17 @@ import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 export default function Voluntary() {
   const { t } = useTranslation();
   const profileData = useLocalizedProfile(rawProfile);
+  // Raw items carry { en, de } objects — rendering them unlocalized throws
+  // "Objects are not valid as a React child" (About.jsx localizes the same
+  // list; this page must too).
+  const voluntaryItems = useLocalizedProfile(rawVoluntary);
 
   useDocumentMeta({
     title: `${t("voluntary.heading")} — ${profileData.name}`,
     description: t("voluntary.description"),
   });
   return (
-    <main className="min-h-screen pt-20 md:pt-24 pb-24 relative overflow-hidden bg-transparent">
+    <div className="min-h-screen pt-20 md:pt-24 pb-24 relative overflow-hidden bg-transparent">
       
       {/* Background Decor */}
       <FlowerDoodle className="absolute top-32 -left-20 w-96 h-96 text-accent opacity-10 -rotate-12 pointer-events-none" />
@@ -36,6 +40,6 @@ export default function Voluntary() {
         <VoluntaryList items={voluntaryItems} />
 
       </div>
-    </main>
+    </div>
   );
 }
