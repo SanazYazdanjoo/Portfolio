@@ -1,16 +1,21 @@
-// The hero, matching the design reference: text cols 1-7, portrait cols
-// 9-12, the grid bottom-aligned so the portrait's bottom edge lands on the
-// CTA row. The reference's portrait plate reads "4:5 · b/w · bottom edge on
-// CTA baseline" — `align-items:end` puts it on the button's bottom EDGE, so
-// --hero-baseline-inset lifts it the rest of the way to the text baseline.
-// That inset is the button's own bottom padding plus DM Sans's descent; the
-// derivation is written out in theme.css.
+// The hero: text cols 1-7, portrait cols 9-12, the grid bottom-aligned so
+// the portrait's bottom edge lands on the CTA row. --hero-baseline-inset
+// lifts it from the button's bottom EDGE to its text baseline; that inset is
+// the button's own bottom padding plus DM Sans's descent, derived in
+// theme.css.
+//
+// Three blocks, not five. The eyebrow that used to sit above the name said
+// the same things as the positioning line and the credential line — one of
+// which is now above the buttons and the other below them — so it is gone.
+// The positioning line is one sentence at 21px, and the handwritten line
+// under it is an aside: muted, unhighlighted, rather than a second headline
+// competing with the name.
 
 import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "../context/LanguageContext";
 import { motion, useReducedMotion } from "framer-motion";
-import { InkHighlight } from "./InkHighlight";
+import { HandArrow } from "./HandArrow";
 import { EASE } from "../utils/motion";
 
 const ENTRANCE_DURATION = 0.4;
@@ -29,40 +34,43 @@ export function Hero({ data }) {
     transition: { duration: reduce ? 0 : ENTRANCE_DURATION, delay, ease: EASE },
   });
 
+  // The credential and the location, on one line under the buttons. Both
+  // already exist in profile data — this is where they are read, not a
+  // second copy of them.
+  const credentials = [
+    data.heroMeta?.credential,
+    data.heroMeta?.location ?? data.contact?.location,
+  ]
+    .filter(Boolean)
+    .join(" · ");
+
   return (
     <div className="grid-12 items-end">
       <div className="md:col-span-7 flex flex-col gap-s24">
-        <motion.p {...fadeUp(0.06)} className="text-label font-mono uppercase text-text-dim">
-          {t("hero.kicker")} — {data.heroMeta?.location ?? data.contact?.location}
-        </motion.p>
-
         <h1 className="text-hero font-display font-extrabold text-text-display">
-          <motion.span {...fadeUp(0.12)} className="block">{firstName}</motion.span>
-          <motion.span {...fadeUp(0.18)} className="block">{lastName}</motion.span>
+          <motion.span {...fadeUp(0.06)} className="block">{firstName}</motion.span>
+          <motion.span {...fadeUp(0.12)} className="block">{lastName}</motion.span>
           <span className="sr-only"> — {data.role || "UX Engineer"}</span>
         </h1>
 
         {data.positioning && (
-          <motion.p {...fadeUp(0.3)} className="text-lead text-text">
+          <motion.p {...fadeUp(0.24)} className="text-statement text-text">
             {data.positioning}
           </motion.p>
         )}
 
-        {/* The reference sets the highlighter as a flat gradient stopping at
-            42% of the line box, not as a drawn sweep. */}
-        <motion.p {...fadeUp(0.32)} className="text-hand font-hand text-text">
-          <InkHighlight triggerOnLoad delay={0.75} duration={0.4}>
-            {data.tagline || "I speak both ‘user’ and ‘developer’."}
-          </InkHighlight>
+        {/* An aside: muted ink, no highlighter behind it. */}
+        <motion.p {...fadeUp(0.28)} className="text-aside font-hand text-text-meta">
+          {data.tagline || "I speak both ‘user’ and ‘developer’."}
         </motion.p>
 
-        <motion.div {...fadeUp(0.38)} className="flex flex-wrap items-center gap-s28 mt-s8">
+        <motion.div {...fadeUp(0.32)} className="flex flex-wrap items-center gap-s28 mt-s8">
           <Link
             to="/projects"
             className="inline-flex items-center gap-s10 bg-text rule-fill-r text-bg text-body font-medium
                        px-s26 py-s15 rounded-sm hover:opacity-90 transition-opacity duration-200 focus-ring"
           >
-            {t("hero.ctaWork")} <span aria-hidden="true">&rarr;</span>
+            {t("hero.ctaWork")} <HandArrow />
           </Link>
           <Link
             to="/cv"
@@ -78,11 +86,17 @@ export function Hero({ data }) {
             />
           </Link>
         </motion.div>
+
+        {credentials && (
+          <motion.p {...fadeUp(0.36)} className="text-date font-mono text-text-meta">
+            {credentials}
+          </motion.p>
+        )}
       </div>
 
       {/* Portrait — 4:5, black and white, bottom edge on the CTA baseline. */}
       <motion.div
-        {...fadeUp(0.24)}
+        {...fadeUp(0.18)}
         className="md:col-start-9 md:col-span-4 mt-s48 md:mt-0"
         style={{ marginBottom: "var(--hero-baseline-inset)" }}
       >

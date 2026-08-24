@@ -137,40 +137,42 @@ function CareerArcFull({ steps }) {
   );
 }
 
-// COMPACT — the homepage strip: three equal columns, each a numeral over a
-// label over its years.
+// COMPACT — the homepage timeline, a vertical list rather than three
+// side-by-side columns.
 //
-// No arrows between the phases. The house InkArrow is 32px wide and this
-// grid's gutter is 24px, so an arrow centred in it cannot have the 12px of
-// clear space on each side that would keep it off the numerals — that needs
-// 56px of gutter. Cramped into 24px it read as "→02". The numbering
-// already carries the sequence, so they are gone rather than crowded.
-// CareerArcFull, on the About page, has the room and keeps them.
+// Each row is a fixed 88px date column beside the role, separated by the
+// house hairline. That geometry is what permanently retires the wrapping
+// problem the horizontal version had: a role that needs two lines grows its
+// own row downward and moves nothing, because the date sits at the top-left
+// of the same row instead of below a label of unpredictable height.
+//
+// The date is 12px mono with no tracking — at .1em the longest of them
+// ("2022 – Present") would not fit 88px in any mono this stack resolves to.
+// The current phase takes the accent; the others are dim.
 function CareerArcCompact({ steps }) {
   const reduce = useReducedMotion();
 
   return (
     <motion.ol
-      className="grid grid-cols-1 md:grid-cols-3 gap-s24 list-none m-0 p-0 w-full"
+      className="flex flex-col list-none m-0 p-0 w-full"
       initial={reduce ? { opacity: 1 } : { opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: reduce ? 0 : 0.4, ease: EASE }}
     >
-      {steps.map((step) => (
-        <li key={step.phase} className="flex flex-col gap-s6 h-full">
-          <span className="text-numeral font-display font-bold text-primary-600" aria-hidden="true">
-            {step.phase}
+      {steps.map((step, i) => (
+        <li
+          key={step.phase}
+          className={`flex items-baseline gap-s24 py-s16 ${i > 0 ? "border-t rule-t" : ""}`}
+        >
+          <span
+            className={`w-s88 shrink-0 text-date font-mono ${
+              step.highlight ? "text-primary-600" : "text-text-dim"
+            }`}
+          >
+            {step.years}
           </span>
-          {/* 2.6em is two lines at this step's leading, so a one-line label
-              still reserves the height a two-line one takes. */}
-          <span className="text-arc font-medium text-text min-h-arc">{step.label}</span>
-          {/* And `mt-auto` is what makes the reservation hold when a label
-              needs a third line at a narrow column: the three <li> are grid
-              items and stretch to a common height, so pushing the date to
-              the bottom of that height puts all three on one baseline
-              whatever the label above them did. */}
-          <span className="text-years font-mono text-text-dim mt-auto">{step.years}</span>
+          <span className="text-body text-text">{step.label}</span>
         </li>
       ))}
     </motion.ol>

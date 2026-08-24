@@ -19,6 +19,7 @@ import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
 import { SkillTagRow } from "./SkillTagRow";
+import { HandArrow } from "./HandArrow";
 import { EASE } from "../utils/motion";
 
 export function StackedProjectCard({ project, index }) {
@@ -103,7 +104,7 @@ export function StackedProjectCard({ project, index }) {
           className="mt-s12 text-cta font-medium uppercase text-primary-600 inline-flex items-center gap-s8"
         >
           {isInProgress ? t("project.card.readInProgress") : t("project.card.readCaseStudy")}
-          <span>→</span>
+          <HandArrow />
         </span>
       </div>
     </motion.article>
