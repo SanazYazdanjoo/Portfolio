@@ -5,8 +5,7 @@
 //
 //   hero      72px top / 88px bottom · text cols 1-7 · portrait cols 9-12
 //   about     88px · warm band, ruled top and bottom
-//             heading cols 1-4 (with "What I bring" under a rule)
-//             bio + career arc cols 6-12
+//             heading full width · bio cols 1-7 · timeline cols 9-12
 //   work      88px · heading cols 1-7, 56px below it, then the card list
 //   contact   88px · warm band, ruled top
 //             heading cols 1-4 · availability, email, links, colophon cols 6-12
@@ -49,27 +48,6 @@ function SectionHeading({ eyebrow, heading }) {
   );
 }
 
-// The About rail: the heading, then "What I bring" under a rule, 24px below.
-function WhatIBring() {
-  const { t } = useTranslation();
-  const items = [
-    t("home.about.bring.research"),
-    t("home.about.bring.build"),
-    t("home.about.bring.qa"),
-  ];
-
-  return (
-    <div className="flex flex-col gap-s16 pt-s24 border-t rule-t">
-      <p className="text-label font-mono uppercase text-text-dim">
-        {t("home.about.bring.title")}
-      </p>
-      {items.map((item) => (
-        <p key={item} className="text-body text-text">{item}</p>
-      ))}
-    </div>
-  );
-}
-
 export default function Home() {
   const profileData = useLocalizedProfile(rawProfile);
   const localizedProjects = useLocalizedProfile(sortedProjects);
@@ -93,20 +71,24 @@ export default function Home() {
         <Hero data={profileData} />
       </section>
 
+      {/* About — the heading runs the full width above the content rather
+          than sitting in a sidebar beside it. Below it the bio takes cols
+          1-7 (about 55ch at the statement step, so the measure comes from
+          the columns and not from a max-width) and the timeline takes
+          cols 9-12. */}
       <section
         id="AboutMe-Section"
         className="section-pad scroll-mt-s56 bg-surface-warm border-y rule-t rule-b"
       >
         <div className="grid-12">
-          <div className="md:col-span-4 flex flex-col gap-s32">
+          <div className="md:col-span-12 mb-s48">
             <SectionHeading eyebrow={t("home.about.kicker")} heading={t("about.heading")} />
-            <WhatIBring />
           </div>
-          <div className="md:col-start-6 md:col-span-7 flex flex-col gap-s24 mt-s48 md:mt-0">
+          <div className="md:col-span-7">
             <AboutBio data={profileData} />
-            <div className="mt-s24 pt-s32 border-t rule-t">
-              <CareerArc variant="compact" />
-            </div>
+          </div>
+          <div className="md:col-start-9 md:col-span-4 mt-s48 md:mt-0">
+            <CareerArc variant="compact" />
           </div>
         </div>
       </section>

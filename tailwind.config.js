@@ -102,6 +102,7 @@ fontSize: {
   tag:          ["var(--fs-label)", { lineHeight: "var(--lh-140)", letterSpacing: "var(--ls-08)" }],
   num:          ["var(--fs-label)", { lineHeight: "var(--lh-140)", letterSpacing: "var(--ls-14)" }],
   years:        ["var(--fs-label)", { lineHeight: "var(--lh-140)", letterSpacing: "var(--ls-10)" }],
+  date:         ["var(--fs-label)", { lineHeight: "var(--lh-140)" }],
   // 15px
   small:        ["var(--fs-small)", { lineHeight: "var(--lh-160)" }],
   nav:          ["var(--fs-small)", { lineHeight: "var(--lh-140)" }],
@@ -114,6 +115,10 @@ fontSize: {
   // 19px
   lead:         ["var(--fs-lead)", { lineHeight: "var(--lh-150)" }],
   outcome:      ["var(--fs-lead)", { lineHeight: "var(--lh-155)" }],
+  // 21px / 24px — the hero's positioning line and the aside beneath it,
+  // and the About bio, which reads at the same step as the positioning line.
+  statement:    ["var(--fs-statement)", { lineHeight: "var(--lh-150)" }],
+  aside:        ["var(--fs-aside)", { lineHeight: "var(--lh-125)" }],
   "prose-lead": ["var(--fs-lead)", { lineHeight: "var(--lh-165)" }],
   // display sizes
   hand:         ["var(--fs-hand)", { lineHeight: "var(--lh-125)" }],
