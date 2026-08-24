@@ -168,6 +168,8 @@ spacing: {
   s56:  "var(--space-56)",
   s72:  "var(--space-72)",
   s88:  "var(--space-88)",
+  // Not a rhythm step — a measured column width, see theme.css.
+  "timeline-date": "var(--timeline-date)",
 },
 
       // The three tracking tokens, exposed as utilities. Without these the
