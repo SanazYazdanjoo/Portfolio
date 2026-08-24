@@ -12,6 +12,7 @@
 // detail page sees one object. This file carries only the prose and media
 // that load with the route's own chunk.
 import card from './card';
+import thumbnailImg from './Project-3.png';
 import finalBuildJpg from './media/final-build.jpg';
 import sketchBackpack from './media/sketch-backpack-concept.jpg';
 import sketchStandalone from './media/sketch-standalone-concept.jpg';
@@ -30,9 +31,12 @@ export const projectData = {
   // localizes the whole meta object, so { en, de } resolves like any field.
   timeline: { en: "Summer semester 2023", de: "SoSe 2023" },
 
-  // Real photograph (report Fig. 16, tight crop to artefact and stand) — no
-  // `heroIsGenerated`, so the hero renders WITHOUT the AI-generation credit.
-  heroImage: finalBuildJpg,
+  // The AI illustration as the hero banner, by owner decision (2026-08-24) —
+  // heroIsGenerated renders the visible generation credit, so it never
+  // passes as documentation. The real photographs carry the evidence in the
+  // figures below and on the homepage card.
+  heroImage: thumbnailImg,
+  heroIsGenerated: true,
 
   methods: [
     { en: "Literature Review",                                  de: "Literaturrecherche" },
