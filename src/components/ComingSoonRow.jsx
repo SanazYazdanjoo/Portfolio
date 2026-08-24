@@ -17,10 +17,10 @@ export function ComingSoonRow({ project, index }) {
     <div aria-disabled="true" className="grid-12 py-s48 border-t rule-t">
       <div className="md:col-start-6 md:col-span-7 flex flex-col gap-s16">
         <div className="flex items-center gap-s12">
-          <span className="text-num font-mono text-text-dim">
+          <span className="text-num font-mono text-dim">
             {String(index + 1).padStart(2, "0")}
           </span>
-          <span className="text-badge font-mono uppercase text-text-dim border rule-frame px-s8 py-s3">
+          <span className="text-badge font-mono uppercase text-dim border rule-frame px-s8 py-s3">
             {t("projects.comingSoon")}
           </span>
         </div>

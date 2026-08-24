@@ -66,7 +66,7 @@ export const Nav = () => {
                   end={link.path === "/"}
                   className={({ isActive }) =>
                     `group relative text-nav pb-s3 transition-colors duration-200 ${
-                      isActive ? "text-text font-medium" : "text-text-dim hover:text-text"
+                      isActive ? "text-text font-medium" : "text-dim hover:text-text"
                     }`
                   }
                 >

@@ -21,7 +21,7 @@ export function Footer({ data }) {
   return (
     <footer className="border-t rule-t no-print">
       <div
-        className="grid-12 text-tag font-mono text-text-dim"
+        className="grid-12 text-tag font-mono text-dim"
         style={{ paddingBlock: "var(--space-32)" }}
       >
         <div className="md:col-span-12 flex flex-wrap items-baseline justify-between gap-s24">
