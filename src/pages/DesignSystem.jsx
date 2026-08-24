@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 
 import { Button, SolidButton } from "../components/Button";
 import { Badge } from "../components/Badge";
+import { ADOPTION_META } from "../projects/template/OutcomeBlock";
 import TagChip from "../components/TagChip";
 import { InkHighlight } from "../components/InkHighlight";
 import { ScribbleDivider } from "../components/ScribbleDivider";
@@ -245,7 +246,7 @@ export default function DesignSystem() {
   }, []);
 
   return (
-    <main className="design-system-page text-text bg-white min-h-screen w-full pb-28">
+    <div className="design-system-page text-text bg-white min-h-screen w-full pb-28">
       <div className="flex items-start">
         <aside className="hidden md:block w-[180px] lg:w-[220px] shrink-0 no-print sticky top-36 self-start pr-6 lg:pr-8">
           <div className="border-l rule-edge-l pl-3 py-2">
@@ -572,6 +573,31 @@ export default function DesignSystem() {
                 </div>
               </motion.div>
 
+              {/* The outcome vocabulary — the defined table behind the status
+                  pill every case study's outcome block renders. Built from
+                  the SAME ADOPTION_META the pill component uses, so the
+                  documented convention and the live pills cannot drift. */}
+              <motion.div variants={fadeUp} className="mb-10">
+                <h2 className="type-h3 mt-0 mb-1">Outcome status vocabulary</h2>
+                <p className="type-body mt-0 mb-5" style={{ fontSize: "var(--fs-sm)", color: "var(--text-dim)" }}>
+                  Every case study closes with exactly one of these statuses. The
+                  convention: a pending outcome is stated in a defined term, never
+                  upgraded, never estimated — the same discipline as the evidence
+                  grades (confirmed / indicative / hypothesis / untested) the IBS
+                  research applies to its findings.
+                </p>
+                <ul className="space-y-3 m-0 p-0 list-none">
+                  {Object.entries(ADOPTION_META).map(([key, meta]) => (
+                    <li key={key} className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                      <Badge tone={meta.tone}>{t(meta.labelKey)}</Badge>
+                      <span className="type-body" style={{ fontSize: "var(--fs-sm)", color: "var(--text-dim)" }}>
+                        {t(meta.defKey)}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+
               <motion.div variants={fadeUp}>
                 <h2 className="type-h3 mt-0 mb-1">Surfaces &amp; imagery</h2>
                 <p className="type-body mt-0 mb-5" style={{ fontSize: "var(--fs-sm)", color: "var(--text-dim)" }}>
@@ -610,7 +636,7 @@ export default function DesignSystem() {
                   No icon fonts, no icon libraries. Three sources only:
                 </motion.p>
                 <motion.div variants={fadeUp}>
-                  <RuleRow name="Doodles" value="assets/icons/*.svg via CSS mask" note="Hand-drawn ink marks, tinted with currentColor (CustomIcon)." />
+                  <RuleRow name="Doodles" value="assets/icons/*.svg via CSS mask" note="Hand-drawn ink marks, tinted with currentColor." />
                   <RuleRow name="Inline strokes" value="stroke-width: 2 · currentColor" note="Arrow, chevron, hamburger/close — tiny inline SVGs only." />
                   <RuleRow name="Unicode" value="↗ · ×" note="External links, separators, close. No emoji, ever." />
                 </motion.div>
@@ -619,6 +645,6 @@ export default function DesignSystem() {
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

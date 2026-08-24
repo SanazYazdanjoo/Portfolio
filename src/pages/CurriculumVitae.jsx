@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { profileData as rawProfile } from "../data/profile";
+import { getProject } from "../data/projects";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { useTranslation } from "../context/LanguageContext";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
@@ -11,7 +12,6 @@ import { useDocumentMeta } from "../hooks/useDocumentMeta";
 // (added later via /admin) falls back to the raw English key.
 const SKILL_CATEGORY_KEYS = {
   "Frontend Engineering & Design": "cv.skillCategory.frontendEngineering",
-  "AI-Assisted Development": "cv.skillCategory.aiAssistedDevelopment",
   "UX Research & Testing": "cv.skillCategory.uxResearchDesign",
   "QA & Testing": "cv.skillCategory.qaTesting",
   "Analysis & Tools": "cv.skillCategory.analysisTools",
@@ -33,7 +33,26 @@ export default function CV() {
     languages,
     certifications,
     volunteerWork,
+    portfolioHighlights,
   } = profileData;
+
+  // Compact highlight rows: name + ONE metric + case-study URL per project.
+  // `cvMetric` in data.json picks which metric renders here — the criterion
+  // is a decision or a finding, never a headcount; the full metric set stays
+  // in the data. A highlight without `cvMetric` (EmbraceMe, pending its
+  // Phase 4 verdict) doesn't render a row. Links come from the aggregator's
+  // canonical `href`, not a hand-built path.
+  const highlightRows = useMemo(
+    () =>
+      (portfolioHighlights || [])
+        .map((h) => {
+          const metric = Number.isInteger(h.cvMetric) ? h.metrics?.[h.cvMetric] : null;
+          const href = getProject(h.id)?.href;
+          return metric && href ? { h, metric, href } : null;
+        })
+        .filter(Boolean),
+    [portfolioHighlights]
+  );
 
   useDocumentMeta({
     title: `${role} — ${name}`,
@@ -54,6 +73,7 @@ export default function CV() {
     () => [
       { id: "about", label: t("nav.about") },
       { id: "experience", label: t("cv.experience") },
+      { id: "highlights", label: t("cv.portfolioHighlights") },
       { id: "education", label: t("cv.education") },
       { id: "skills", label: t("cv.skills") },
       { id: "certificates", label: t("cv.certificates") },
@@ -224,6 +244,35 @@ export default function CV() {
               </div>
             </section>
 
+            {/* Portfolio Highlights — the compact bridge from CV to case
+                studies: one line per project, one decisive metric, and the
+                visible URL (a printed page can't click, so the address IS
+                the content). Phase 6 has standing authority to cut this to
+                two projects, or drop it, if the one-A4-page print test
+                cannot hold it. */}
+            {highlightRows.length > 0 && (
+              <section id="highlights" className="mt-12 print:mt-8 scroll-mt-32">
+                <SectionHeading>{t("cv.portfolioHighlights")}</SectionHeading>
+                <ul className="space-y-3 print:space-y-2">
+                  {highlightRows.map(({ h, metric, href }) => (
+                    <li key={h.id} className="text-base print:text-sm leading-relaxed break-inside-avoid">
+                      <Link to={href} className="font-bold text-gray-900 hover:text-primary">
+                        {h.title}
+                      </Link>
+                      <span className="text-gray-700">
+                        {" — "}
+                        <span className="font-bold text-primary">{metric.value}</span> {metric.label}
+                      </span>{" "}
+                      <span className="text-sm print:text-xs text-gray-500 break-all">
+                        · {contact.websiteHandle}
+                        {href}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
             <section id="education" className="mt-12 print:mt-8 scroll-mt-32">
               <SectionHeading>{t("cv.education")}</SectionHeading>
               <div className="space-y-6 print:space-y-5">
@@ -268,6 +317,21 @@ export default function CV() {
                     </p>
                   </div>
                 ))}
+                {/* The former "AI-Assisted Development" chip category,
+                    replaced by one evidence-pointing line: the IBS
+                    aiAssistance paragraph is the claim's backing, so the
+                    line links there instead of restating it as chips.
+                    Printed, the link renders as plain text and the sentence
+                    still names where the record lives. */}
+                <p className="text-base leading-relaxed text-gray-700 print:text-sm break-inside-avoid">
+                  {t("cv.aiAssisted.text")}{" "}
+                  <Link
+                    to="/projects/digitalising-ibs-travel-reimbursements"
+                    className="text-primary font-semibold hover:underline"
+                  >
+                    → {t("cv.aiAssisted.link")}
+                  </Link>
+                </p>
               </div>
             </section>
 

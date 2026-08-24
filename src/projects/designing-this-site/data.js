@@ -12,56 +12,22 @@
 // measured 2026-08-14 against production (see comment above `metrics`).
 //
 // No thumbnail/heroImage/figures yet — see assets/README.md.
+//
+// Card-level fields (id/status/title/tags/excludeFromHome) live in ./card.js
+// — eagerly aggregated site-wide — and are spread here so the detail page
+// sees one object. This file carries only the prose, which loads with the
+// route's own chunk.
+
+import card from './card';
 
 export const projectData = {
-  id: "designing-this-site",
-  status: "published",
-  order: 99,
+  ...card,
+  timeline: { en: "Ongoing · continuously iterated", de: "Laufend · kontinuierlich iteriert" },
 
-  title: {
-    en: "Designing This Portfolio",
-    de: "Dieses Portfolio gestalten",
-  },
-  subtitle: {
-    en: "A Case Study in Designing Under Constraint — Researcher, Designer, Engineer, and QA on the Same Artifact",
-    de: "Eine Fallstudie über Gestalten unter Beschränkung — Researcherin, Designerin, Entwicklerin und QA am selben Artefakt",
-  },
-  tagline: {
-    en: "A recruiter gets thirty seconds. An engineer reads the source. A printer gets one page. Same site, three tests.",
-    de: "Eine Recruiterin bekommt dreißig Sekunden. Ein Engineer liest den Quellcode. Ein Drucker bekommt eine Seite. Dieselbe Website, drei Prüfungen.",
-  },
-  role: {
-    en: "Researcher, Designer, Frontend Engineer & QA (solo)",
-    de: "Researcherin, Designerin, Frontend-Entwicklerin & QA (alleinverantwortlich)",
-  },
-  timeline: "Ongoing · continuously iterated",
-
-  // Not on the homepage: the case studies there are client, research and
-  // thesis work, and a case study about the page you are already looking at
-  // reads as filler in that list. It keeps its own route, its /projects
-  // entry and its detail page. The card fields the homepage needs are
-  // deliberately absent — a field no renderer reads is content the author
-  // believes is published and isn't.
-  excludeFromHome: true,
-
-  tags: [
-    "React",
-    "Vite",
-    "Tailwind CSS",
-    "Framer Motion",
-    "React Router",
-    "Design Systems",
-    "Component Architecture",
-    "Information Architecture",
-    "Responsive Design",
-    "Accessibility",
-    "Internationalization (i18n)",
-    "Print CSS",
-    "Automated Testing (Vitest)",
-  ],
-
+  // No moderated-testing chip here: the sessions are planned, not run
+  // (methodology and results say so), and a methods chip claiming them
+  // "in progress" contradicted both. The chip returns when the sessions do.
   methods: [
-    { en: "Moderated Usability Testing (5 sessions, in progress)", de: "Moderierte Usability-Tests (5 Sessions, laufend)" },
     { en: "5-Second Test (hero)", de: "5-Sekunden-Test (Hero)" },
     { en: "First-Click Test (navigation)", de: "First-Click-Test (Navigation)" },
     { en: "Component Architecture & Design Systems Engineering", de: "Komponentenarchitektur & Design-Systems-Engineering" },
@@ -111,7 +77,7 @@ export const projectData = {
       },
       insight: {
         en: "Splitting a color into a 'large text' step and a 'small text' step means the contrast rule is enforced by which token name a component reaches for, not by a linter running after the fact — and the gold highlighter is deliberately excluded from that split, restricted by convention to a single highlighter mark per page rather than offered as a general-purpose text color.",
-        de: "Eine Farbe in eine 'großer Text'- und eine 'kleiner Text'-Stufe aufzuteilen bedeutet, dass die Kontrastregel dadurch durchgesetzt wird, welchen Token-Namen eine Komponente verwendet — nicht durch einen nachträglich laufenden Linter. Die goldene Textmarker-Farbe ist bewusst von dieser Aufteilung ausgenommen und per Konvention auf eine einzige Markierung pro Seite beschränkt, statt als allgemeine Textfarbe angeboten zu werden.",
+        de: "Eine Farbe in eine „großer Text“- und eine „kleiner Text“-Stufe aufzuteilen bedeutet, dass die Kontrastregel dadurch durchgesetzt wird, welchen Token-Namen eine Komponente verwendet — nicht durch einen nachträglich laufenden Linter. Die goldene Textmarker-Farbe ist bewusst von dieser Aufteilung ausgenommen und per Konvention auf eine einzige Markierung pro Seite beschränkt, statt als allgemeine Textfarbe angeboten zu werden.",
       },
       imagePath: null,
     },
@@ -151,13 +117,13 @@ export const projectData = {
   },
 
   challenge: {
-    en: "A recruiter spends roughly thirty seconds on a portfolio before deciding whether to keep reading — and in that window, the only question that matters is whether the person behind it can do the job. That's the primary constraint. But this site can't optimize for that reader alone: a technical reviewer who gets further will open the console and read the actual source, not just the prose, and the same content also has to leave the browser entirely and survive a printer queue as a one-page A4 CV, because plenty of hiring pipelines still forward a PDF, not a URL. Three audiences read the same fifteen files and expect three different things from them: a recruiter wants a verdict in seconds, an engineer wants a contract they can inspect, and a printer wants a page that doesn't orphan a heading halfway down. The decision this case study documents is treating the portfolio itself as a fourth case study — the one where I am simultaneously the researcher framing the problem, the designer making the trade-offs, the engineer shipping the code, and the QA who has to catch my own mistakes before a reader does. Every claim made about the other three case studies — evidence over adjectives, methods stated with an n, failures reported honestly — has to hold up when the artifact making those claims is judged by the same standard.",
+    en: "A recruiter spends roughly thirty seconds on a portfolio before deciding whether to keep reading — and in that window, the only question that matters is whether the person behind it can do the job. That's the primary constraint. But this site can't optimise for that reader alone: a technical reviewer who gets further will open the console and read the actual source, not just the prose, and the same content also has to leave the browser entirely and survive a printer queue as a one-page A4 CV, because plenty of hiring pipelines still forward a PDF, not a URL. Three audiences read the same fifteen files and expect three different things from them: a recruiter wants a verdict in seconds, an engineer wants a contract they can inspect, and a printer wants a page that doesn't orphan a heading halfway down. The decision this case study documents is treating the portfolio itself as a fourth case study — the one where I am simultaneously the researcher framing the problem, the designer making the trade-offs, the engineer shipping the code, and the QA who has to catch my own mistakes before a reader does. Every claim made about the other three case studies — evidence over adjectives, methods stated with an n, failures reported honestly — has to hold up when the artefact making those claims is judged by the same standard.",
     de: "Eine Recruiterin verbringt etwa dreißig Sekunden mit einem Portfolio, bevor sie entscheidet, ob sie weiterliest — und in diesem Fenster zählt nur eine Frage: Kann die Person hinter der Seite den Job? Das ist die primäre Beschränkung. Doch die Website kann nicht allein für diese Leserin optimiert werden: Eine technisch versiertere Prüferin, die weiterliest, öffnet die Konsole und liest den tatsächlichen Quellcode, nicht nur den Fließtext, und derselbe Inhalt muss den Browser vollständig verlassen und als einseitiger A4-Lebenslauf eine Druckerwarteschlange überstehen, weil viele Bewerbungsprozesse noch immer ein PDF erwarten, keine URL. Drei Zielgruppen lesen dieselben fünfzehn Dateien und erwarten drei unterschiedliche Dinge davon: Eine Recruiterin will in Sekunden ein Urteil, eine Entwicklerin einen Vertrag, den sie prüfen kann, und ein Drucker eine Seite, die keine Überschrift verwaist zurücklässt. Die Entscheidung, die diese Fallstudie dokumentiert, ist, das Portfolio selbst als vierte Fallstudie zu behandeln — jene, in der ich gleichzeitig die Researcherin bin, die das Problem rahmt, die Designerin, die die Kompromisse trifft, die Entwicklerin, die den Code ausliefert, und die QA, die eigene Fehler abfangen muss, bevor eine Leserin es tut. Jeder Anspruch, der in den anderen drei Fallstudien erhoben wird — Evidenz statt Adjektive, Methoden mit angegebenem n, ehrlich berichtete Fehlschläge — muss standhalten, wenn das Artefakt, das diese Ansprüche erhebt, am selben Maßstab gemessen wird.",
   },
 
   solution: {
-    en: "Three explicit trade-offs shape the visual system and the information architecture. First, the hand-drawn doodles (Framer Motion pathLength draw-ins, a Caveat display face for annotations) carry personality against an otherwise disciplined type system — the cost is looking less immediately 'corporate' than a template-driven portfolio, a bet that a recruiter remembers a site with a voice. Second, every section on a case study renders open by default rather than collapsed: the primary reader is scanning for thirty seconds, and gating evidence behind a click optimizes for the wrong person. That decision also keeps browser find-in-page working end to end, lets a shared deep link land on visible content instead of a closed accordion, and means the screen and the printed page show the same information without a separate print-only layout. The cost is a longer page and a denser first paint; the mitigation is a sticky numbered section rail plus a per-section collapse control for a reader who wants to prune rather than scroll. Third, color is rationed on purpose: one loud coral (#892107) carries every accent, and the gold highlighter mark is used exactly once per page, by convention documented on the style guide itself — restraint as a design decision, not an oversight. The style guide isn't duplicated into this case study; it's linked directly, so a claim about the token system or the type scale can be checked against the same live tokens the rest of the site uses, not a screenshot of them.",
-    de: "Drei bewusste Kompromisse prägen das visuelle System und die Informationsarchitektur. Erstens tragen die handgezeichneten Doodles (Framer-Motion-Pfadlängen-Animationen, eine Caveat-Displayschrift für Annotationen) Persönlichkeit gegen ein sonst diszipliniertes Typesystem — der Preis ist, weniger unmittelbar 'seriös' zu wirken als ein templategetriebenes Portfolio, eine Wette darauf, dass eine Recruiterin sich an eine Seite mit einer Stimme erinnert. Zweitens rendert jeder Abschnitt einer Fallstudie standardmäßig geöffnet statt eingeklappt: Die primäre Leserin scannt dreißig Sekunden lang, und Evidenz hinter einem Klick zu verstecken optimiert für die falsche Person. Diese Entscheidung hält außerdem die browserinterne Suche durchgängig funktionsfähig, lässt einen geteilten Deep-Link auf sichtbarem statt eingeklapptem Inhalt landen, und bedeutet, dass Bildschirm- und Druckausgabe dieselben Informationen zeigen, ohne ein separates reines Drucklayout. Der Preis ist eine längere Seite und ein dichterer erster Bildaufbau; die Abmilderung ist eine sticky nummerierte Abschnittsleiste plus eine Einklapp-Kontrolle pro Abschnitt für Leserinnen, die kürzen statt scrollen wollen. Drittens wird Farbe bewusst rationiert: Ein einziges lautes Koralle (#892107) trägt jeden Akzent, und die goldene Textmarker-Markierung wird laut dokumentierter Konvention im Styleguide selbst genau einmal pro Seite eingesetzt — Zurückhaltung als Designentscheidung, nicht als Versehen. Der Styleguide wird nicht in diese Fallstudie hineinkopiert, sondern direkt verlinkt, damit sich eine Aussage über das Token-System oder die Schriftskala gegen dieselben lebenden Tokens prüfen lässt, die der Rest der Website verwendet — nicht gegen einen Screenshot davon.",
+    en: "Three explicit trade-offs shape the visual system and the information architecture. First, the hand-drawn doodles (Framer Motion pathLength draw-ins, a Caveat display face for annotations) carry personality against an otherwise disciplined type system — the cost is looking less immediately 'corporate' than a template-driven portfolio, a bet that a recruiter remembers a site with a voice. Second, every section on a case study renders open by default rather than collapsed: the primary reader is scanning for thirty seconds, and gating evidence behind a click optimises for the wrong person. That decision also keeps browser find-in-page working end to end, lets a shared deep link land on visible content instead of a closed accordion, and means the screen and the printed page show the same information without a separate print-only layout. The cost is a longer page and a denser first paint; the mitigation is a sticky numbered section rail plus a per-section collapse control for a reader who wants to prune rather than scroll. Third, colour is rationed on purpose: one loud coral (#892107) carries every accent, and the gold highlighter mark is used exactly once per page, by convention documented on the style guide itself — restraint as a design decision, not an oversight. The style guide isn't duplicated into this case study; it's linked directly, so a claim about the token system or the type scale can be checked against the same live tokens the rest of the site uses, not a screenshot of them.",
+    de: "Drei bewusste Kompromisse prägen das visuelle System und die Informationsarchitektur. Erstens tragen die handgezeichneten Doodles (Framer-Motion-Pfadlängen-Animationen, eine Caveat-Displayschrift für Annotationen) Persönlichkeit gegen ein sonst diszipliniertes Typesystem — der Preis ist, weniger unmittelbar „seriös“ zu wirken als ein templategetriebenes Portfolio, eine Wette darauf, dass eine Recruiterin sich an eine Seite mit einer Stimme erinnert. Zweitens rendert jeder Abschnitt einer Fallstudie standardmäßig geöffnet statt eingeklappt: Die primäre Leserin scannt dreißig Sekunden lang, und Evidenz hinter einem Klick zu verstecken optimiert für die falsche Person. Diese Entscheidung hält außerdem die browserinterne Suche durchgängig funktionsfähig, lässt einen geteilten Deep-Link auf sichtbarem statt eingeklapptem Inhalt landen, und bedeutet, dass Bildschirm- und Druckausgabe dieselben Informationen zeigen, ohne ein separates reines Drucklayout. Der Preis ist eine längere Seite und ein dichterer erster Bildaufbau; die Abmilderung ist eine sticky nummerierte Abschnittsleiste plus eine Einklapp-Kontrolle pro Abschnitt für Leserinnen, die kürzen statt scrollen wollen. Drittens wird Farbe bewusst rationiert: Ein einziges lautes Koralle (#892107) trägt jeden Akzent, und die goldene Textmarker-Markierung wird laut dokumentierter Konvention im Styleguide selbst genau einmal pro Seite eingesetzt — Zurückhaltung als Designentscheidung, nicht als Versehen. Der Styleguide wird nicht in diese Fallstudie hineinkopiert, sondern direkt verlinkt, damit sich eine Aussage über das Token-System oder die Schriftskala gegen dieselben lebenden Tokens prüfen lässt, die der Rest der Website verwendet — nicht gegen einen Screenshot davon.",
   },
 
   prototype: {
@@ -172,7 +138,7 @@ export const projectData = {
 
   methodology: {
     en: "Three methods are planned to test this page against real readers, not just against my own judgment: five moderated sessions with a 90-second task ('decide whether you'd interview me'), a 5-second test on the hero to check what a viewer retains before they've consciously read anything, and a first-click test on the navigation to check whether the information architecture matches what a visitor actually goes looking for first. This section will report, for each method, the sample size and the specific question it was chosen to answer — once those sessions have run. No participant count, quote, or finding is stated here until it exists.",
-    de: "Drei Methoden sind geplant, um diese Seite an echten Leserinnen zu prüfen, nicht nur an meinem eigenen Urteil: fünf moderierte Sessions mit einer 90-Sekunden-Aufgabe ('entscheide, ob du mich zum Interview einladen würdest'), ein 5-Sekunden-Test auf dem Hero, um zu prüfen, was eine Betrachterin behält, bevor sie bewusst irgendetwas gelesen hat, und ein First-Click-Test auf der Navigation, um zu prüfen, ob die Informationsarchitektur dem entspricht, wonach eine Besucherin tatsächlich zuerst sucht. Dieser Abschnitt wird für jede Methode Stichprobengröße und die konkrete Frage berichten, die sie beantworten sollte — sobald diese Sessions gelaufen sind. Keine Teilnehmerzahl, kein Zitat und kein Befund wird hier behauptet, bevor es existiert.",
+    de: "Drei Methoden sind geplant, um diese Seite an echten Leserinnen zu prüfen, nicht nur an meinem eigenen Urteil: fünf moderierte Sessions mit einer 90-Sekunden-Aufgabe („entscheide, ob du mich zum Interview einladen würdest“), ein 5-Sekunden-Test auf dem Hero, um zu prüfen, was eine Betrachterin behält, bevor sie bewusst irgendetwas gelesen hat, und ein First-Click-Test auf der Navigation, um zu prüfen, ob die Informationsarchitektur dem entspricht, wonach eine Besucherin tatsächlich zuerst sucht. Dieser Abschnitt wird für jede Methode Stichprobengröße und die konkrete Frage berichten, die sie beantworten sollte — sobald diese Sessions gelaufen sind. Keine Teilnehmerzahl, kein Zitat und kein Befund wird hier behauptet, bevor es existiert.",
   },
 
   results: {
@@ -194,7 +160,10 @@ export const projectData = {
       en: "No outcome yet, and none will be invented: once those sessions run, this is where what actually changed gets recorded — a shipped fix, a reprioritised backlog item, or a finding that changed nothing.",
       de: "Noch kein Ergebnis, und es wird keines erfunden: Sobald diese Sessions gelaufen sind, wird hier festgehalten, was sich tatsächlich geändert hat — eine ausgelieferte Korrektur, ein neu priorisierter Backlog-Punkt oder ein Befund ohne Konsequenz.",
     },
-    adoption: "unknown",
+    // "deferred", not "unknown": unknown means handed over and never
+    // verified (deskbird); here the evaluation is designed and simply has
+    // not run yet — the outcome is withheld on purpose, not missing.
+    adoption: "deferred",
   },
 
   tagEvidence: [

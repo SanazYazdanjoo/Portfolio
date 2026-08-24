@@ -68,7 +68,7 @@ const en = {
   // Double Diamond — the frame the four process steps below sit inside
   "about.doubleDiamond.intro": "As a UX Engineer, the Double Diamond is my favourite way to work: diverge to understand, converge to decide — twice over. The first diamond keeps me in the problem long enough to frame the right one; the second turns that frame into something built, tested, and measured.",
   "about.doubleDiamond.intro2": "What I value is the discipline it enforces — never converging too early, and never designing for a problem nobody validated. Working across research and engineering, I get to walk both diamonds: the studies that decide what to build, and the code that proves it holds up.",
-  "about.doubleDiamond.caption": "The Double Diamond, as framed by the British Design Council. The tangled line is the honest part — discovery is never a straight path.",
+  "about.doubleDiamond.caption": "The Double Diamond, as framed by the Design Council (UK). The tangled line is the honest part — discovery is never a straight path.",
   "about.doubleDiamond.alt": "Hand-drawn Double Diamond diagram: two diamonds labelled Discover, Define, Develop and Deliver, with a line that loops and wanders through the first diamond, then straightens out on its way to delivery.",
 
   // Research process
@@ -95,11 +95,16 @@ const en = {
   "cv.saveAsPdf": "Save as PDF",
   "cv.sectionsAriaLabel": "CV sections",
 
+  // The one-line replacement for the former AI-Assisted Development chip
+  // category — the claim lives with its evidence (the IBS aiAssistance
+  // paragraph), not as unbacked chips.
+  "cv.aiAssisted.text": "AI-assisted development — agents under my direction; the refusals are on record",
+  "cv.aiAssisted.link": "IBS case study",
+
   // Skill-group headings on the CV. Keyed off the English category name in
   // data.json (see SKILL_CATEGORY_KEYS in CurriculumVitae.jsx); a category
   // added later without a key here simply falls back to its raw name.
   "cv.skillCategory.frontendEngineering": "Frontend Engineering & Design",
-  "cv.skillCategory.aiAssistedDevelopment": "AI-Assisted Development",
   "cv.skillCategory.uxResearchDesign": "UX Research & Testing",
   "cv.skillCategory.qaTesting": "QA & Testing",
   "cv.skillCategory.analysisTools": "Analysis & Tools",
@@ -110,7 +115,7 @@ const en = {
   "contact.email": "Email",
   "contact.locationPhone": "Location & Phone",
   "contact.socials": "Socials",
-  "contact.collaborate": "Let's collaborate in:",
+  "contact.collaborate": "Let's collaborate on:",
   "contact.location": "Currently based in Weimar, Germany, and open to interdisciplinary UX and Tech roles.",
   "contact.kicker": "Contact",
   "contact.headline": "Let's talk",
@@ -236,6 +241,17 @@ const en = {
   "project.outcome.adoption.notAdopted": "Not Adopted",
   "project.outcome.adoption.unknown": "Outcome Unknown",
   "project.outcome.adoption.academic": "Academic Project",
+  "project.outcome.adoption.deferred": "Evaluation Pending",
+
+  // One-line definitions for the outcome vocabulary — rendered as visible
+  // text under the pill (never a tooltip), and as the defined table on
+  // /designsystem. A status a reader can't decode is an unexplained verdict.
+  "project.outcome.def.shipped": "The organisation built and released what this work recommended.",
+  "project.outcome.def.roadmapped": "Committed to the product roadmap; not yet released.",
+  "project.outcome.def.notAdopted": "Considered and not taken up — recorded rather than hidden.",
+  "project.outcome.def.unknown": "Handed over; whether it shipped was never verified.",
+  "project.outcome.def.academic": "Academic work — product adoption does not apply.",
+  "project.outcome.def.deferred": "Evaluation designed and pending; the outcome is reported once measured, never estimated.",
 
   "project.implications.kicker": "So What",
   "project.implications.heading": "Design Implications",
@@ -327,8 +343,9 @@ const en = {
 
   // Tags
   "tags.directory.title": "Skills & Tags",
-  "tags.directory.subheading": "Every tool, method, and domain used across my case studies — click a tag to see where it was applied.",
+  "tags.directory.subheading": "Every tool, method, and domain used across my case studies — click a tag to see where it was applied. Every claim in a case study carries its evidence. Figures from roles before 2021 predate the case studies and are self-reported.",
   "tags.directory.searchPlaceholder": "Search tags...",
+  "tags.directory.sortLabel": "Sort tags",
   "tags.directory.sortByName": "Sort by Name",
   "tags.directory.sortByCount": "Sort by Count",
   "tags.directory.empty": "No tags match your search.",
@@ -352,6 +369,16 @@ const en = {
 
   // Home — empty state when there are no projects at all (edge case)
   "home.projects.empty": "Case studies are being inked — check back soon.",
+
+  // Router error fallback (ErrorPage.jsx)
+  "error.title": "Something went wrong",
+  "error.body": "An unexpected error occurred while loading this page.",
+
+  // 404 — the catch-all route (NotFound.jsx)
+  "notFound.kicker": "404",
+  "notFound.title": "Page not found",
+  "notFound.body": "This page doesn't exist — or its address has changed. Everything that does exist is reachable from the homepage.",
+  "notFound.cta": "Back to the homepage",
 
   // Privacy Policy
   "privacy.title": "Privacy Policy",
@@ -443,7 +470,7 @@ const en = {
   "sitemap.sections.workExperience.label": "Work Experience",
   "sitemap.sections.workExperience.desc": "With impact metrics",
   "sitemap.sections.portfolioHighlights.label": "Portfolio Highlights",
-  "sitemap.sections.portfolioHighlights.desc": "3 projects with metrics",
+  "sitemap.sections.portfolioHighlights.desc": "One line per project: name, one decisive metric, case-study link",
   "sitemap.sections.skillsEduLang.label": "Skills / Education / Languages",
   "sitemap.sections.skillsEduLang.desc": "Sidebar",
   "sitemap.sections.saveAsPdf.label": "Save as PDF",

@@ -1,72 +1,30 @@
+// Card-level fields (id/status/title/tags/thumbnails/card*) live in
+// ./card.js — eagerly aggregated site-wide — and are spread here so the
+// detail page sees one object. This file carries only the prose and media
+// that load with the route's own chunk.
+import card from './card';
 import thumbnailImg from './Project-1.png';
-import thumbnailWebp from './Project-1.webp';
 import challenge from './media/challenge.png';
 import magicDemo from './media/magic-demo.mp4';
 import ninjaDemo from './media/ninja-demo.mp4';
 
 import SUS from './media/sus.png';
-import cardLargeTargetPanel from './media/card-large-target-panel.webp';
 import experimentalDesign from './media/experimental_design.png';
 import threeInputMethods from './media/three_input_methods.png';
 import conclusion from './media/conclusion.png';
 
 
 export const projectData = {
-  id: "gaze-assisted-input",
-  status: "Published",
-  order: 3,
-  title: {
-    en: "Gaze-Assisted Input in Dual-Display Environments",
-    de: "Blickgestützte Eingabe in Dual-Display-Umgebungen",
-  },
-  tags: ["TypeScript", "React", "Python", "Eye-Tracking", "Real-Time API Integration", "Mixed-Methods Research", "Experimental Design", "Semi-Structured Interviews", "Thematic Analysis", "Quantitative UX Research", "Statistical Analysis (ANOVA)", "SUS Evaluation", "Figma"],
+  ...card,
 
-  subtitle: {
-    en: "A Comparative Evaluation of MAGIC Pointing, Ninja Cursors, and a Mouse Baseline",
-    de: "Eine vergleichende Evaluation von MAGIC Pointing, Ninja Cursors und einer Maus-Baseline",
-  },
-  tagline: {
-    en: "Can gaze make cross-screen pointing faster — without sacrificing user trust?",
-    de: "Kann Blicksteuerung bildschirmübergreifendes Zeigen beschleunigen — ohne das Vertrauen der Nutzer:innen zu kosten?",
-  },
-  role: {
-    en: "UX Engineer (Master's Thesis)",
-    de: "UX Engineer (Masterarbeit)",
-  },
+  // Submission and defence are different dates and both are real: the thesis
+  // was submitted 04/2026 and defended 05/2026. data.json's role entry runs
+  // to 05/2026 (through the defence); this states the split so the two never
+  // read as a contradiction. (F1, confirmed by the owner 2026-08-24.)
+  timeline: { en: "10/2025 – 04/2026 · defence 05/2026", de: "10/2025 – 04/2026 · Verteidigung 05/2026" },
 
-  timeline: "10/2025 – 04/2026",
-
-  // Homepage card metadata (StackedProjectCard.jsx). `cardTags` is the signal
-  // subset — method + stack — shown before the "+N more" disclosure; the full
-  // `tags` list stays on this project's detail page. `cardOutcome` is the one
-  // sentence a reader gets if they read nothing else, quantified where the
-  // evidence supports it and hedged where it doesn't.
-  // Homepage card image — deliberately NOT `thumbnail`. Every Project-N.png
-  // in this repo is a generated cartoon of the subject matter, and a
-  // recruiter scanning five of them reads stock illustration, not evidence.
-  // `cardImage` therefore points only at a real artefact this project
-  // actually produced. A project with no such asset sets nothing and its
-  // card renders text-only — there is no placeholder state.
-  // Plate 03: "one chart panel with readable axis labels — not the two-panel
-  // plot". The plate offers a rig photograph as the alternative; the repo has
-  // no photograph of the setup. Pre-cropped to 4:3; the card shows it whole.
-  cardImage: cardLargeTargetPanel,
-  year: "2025–2026",
-  context: {
-    en: "M.Sc. thesis",
-    de: "Masterarbeit",
-  },
-  // Four tags, chosen to differentiate rather than to enumerate: one method,
-  // one research skill, one technical, one domain. The full list lives on the
-  // detail page and on /tags — the card is a triage surface, not an index.
-  cardTags: ["Experimental Design", "Mixed-Methods Research", "TypeScript", "Eye-Tracking"],
-  cardOutcome: {
-    en: "Gaze wins over long cross-screen distances and loses over short ones; trust in the cursor decided preference.",
-    de: "Blicksteuerung gewinnt über große bildschirmübergreifende Distanzen und verliert über kurze; entschieden hat das Vertrauen in den Cursor.",
-  },
-  thumbnail: thumbnailImg,
-  thumbnailWebp,
   heroImage: thumbnailImg,
+  heroIsGenerated: true, // the hero is a generated illustration — renders the credit
 
   methods: [
     { en: "Custom TypeScript Architecture",       de: "Eigene TypeScript-Architektur" },
@@ -80,7 +38,7 @@ export const projectData = {
   metrics: [
     { value: "TypeScript", label: { en: "experimental software built", de: "entwickelte Experimentalsoftware" } },
     { value: "N=30", label: { en: "within-subjects experiment", de: "Within-Subjects-Experiment" } },
-    { value: "η²ₚ=.69", label: { en: "technique × distance interaction", de: "Interaktion Technik × Distanz" } },
+    { value: "η²ₚ=.690", label: { en: "technique × distance interaction", de: "Interaktion Technik × Distanz" } },
     { value: "60%", label: { en: "preferred the gaze-hybrid (Ninja)", de: "bevorzugten den Blick-Hybrid (Ninja)" } },
   ],
 
@@ -91,8 +49,14 @@ export const projectData = {
       {
         type: "image",
         src: challenge,
-        alt: { en: "challenge", de: "Herausforderung" },
-        caption: { en: "challenge", de: "Herausforderung" },
+        alt: {
+          en: "Slide: multi-display workstations are common, but cross-display pointing is costly with the mouse alone — long pointer transits, lost cursor after boundary crossing, and costly attentional switches, each with literature citations",
+          de: "Folie: Multi-Display-Arbeitsplätze sind verbreitet, doch bildschirmübergreifendes Zeigen ist mit der Maus allein teuer — lange Zeigerwege, verlorener Cursor nach dem Rahmenübergang und teure Aufmerksamkeitswechsel, jeweils mit Literaturbelegen",
+        },
+        caption: {
+          en: "The problem: three documented costs of cross-display pointing with a mouse",
+          de: "Das Problem: drei belegte Kosten bildschirmübergreifenden Zeigens mit der Maus",
+        },
         span: 2,
         className: "w-full h-auto block",
       },
@@ -155,7 +119,7 @@ export const projectData = {
       },
       insight: {
         en: "Cursor loss was a real, named pain point: participants described 'shaking' the mouse to find the pointer, and 14 of 20 reported neck strain or eye fatigue. This directly motivated the focus on cross-display target acquisition.",
-        de: "Cursor-Verlust war ein real benannter Schwachpunkt: Teilnehmende beschrieben das 'Schütteln' der Maus, um den Zeiger wiederzufinden, und 14 von 20 berichteten Nackenverspannungen oder Augenermüdung. Das motivierte direkt den Fokus auf bildschirmübergreifendes Zielerfassen.",
+        de: "Cursor-Verlust war ein real benannter Schwachpunkt: Teilnehmende beschrieben das „Schütteln“ der Maus, um den Zeiger wiederzufinden, und 14 von 20 berichteten Nackenverspannungen oder Augenermüdung. Das motivierte direkt den Fokus auf bildschirmübergreifendes Zielerfassen.",
       },
       imagePath: null,
     },
@@ -192,7 +156,7 @@ export const projectData = {
       type: { en: "Frontend Engineering", de: "Frontend-Entwicklung" },
       title: { en: "TypeScript Architecture & Real-Time Gaze Pipeline", de: "TypeScript-Architektur & Echtzeit-Blickpipeline" },
       annotation: {
-        en: "Engineered the complete experiment software from scratch in TypeScript. Interfaced with the Pupil Labs Neon head-mounted tracker via its real-time streaming API, utilizing AprilTag-based surface mapping to translate gaze onto each display. Implemented MAGIC (gaze-triggered warp, 20 px landing offset) and a gaze-augmented Ninja variant (one cursor per screen, gaze-based switching, 150 ms guard).",
+        en: "Engineered the complete experiment software from scratch in TypeScript. Interfaced with the Pupil Labs Neon head-mounted tracker via its real-time streaming API, using AprilTag-based surface mapping to translate gaze onto each display. Implemented MAGIC (gaze-triggered warp, 20 px landing offset) and a gaze-augmented Ninja variant (one cursor per screen, gaze-based switching, 150 ms guard).",
         de: "Die komplette Experimentalsoftware von Grund auf in TypeScript entwickelt. Anbindung an den kopfgetragenen Pupil Labs Neon Eyetracker über dessen Echtzeit-Streaming-API, mit AprilTag-basiertem Oberflächen-Mapping zur Übersetzung des Blicks auf jeden Bildschirm. Implementiert wurden MAGIC (blickausgelöster Warp, 20 px Landeversatz) und eine blickunterstützte Ninja-Variante (ein Cursor pro Bildschirm, blickbasiertes Umschalten, 150 ms Sperrzeit).",
       },
       insight: {
@@ -220,12 +184,12 @@ export const projectData = {
       type: { en: "SUS + Thematic Analysis", de: "SUS + thematische Analyse" },
       title: { en: "Trust Beats Speed", de: "Vertrauen schlägt Tempo" },
       annotation: {
-        en: "SUS after each block (n=30): Mouse 85.2, Ninja 72.6, MAGIC 55.9 (Friedman p < .001) — MAGIC the only technique below the 68-point acceptability threshold. Reflexive thematic analysis of open feedback surfaced seven primary themes, from the 'transport advantage' (23/30) to the 'landing penalty' (22/30).",
-        de: "SUS nach jedem Block (n=30): Maus 85,2, Ninja 72,6, MAGIC 55,9 (Friedman p < .001) — MAGIC als einzige Technik unter der Akzeptanzschwelle von 68 Punkten. Die reflexive thematische Analyse des offenen Feedbacks ergab sieben Hauptthemen, vom 'Transportvorteil' (23/30) bis zur 'Landestrafe' (22/30).",
+        en: "SUS after each block (N=30): Mouse 85.2, Ninja 72.6, MAGIC 55.9 (Friedman p < .001) — MAGIC the only technique below the 68-point acceptability threshold. Reflexive thematic analysis of open feedback surfaced seven primary themes, from the 'transport advantage' (23/30) to the 'landing penalty' (22/30).",
+        de: "SUS nach jedem Block (N=30): Maus 85,2, Ninja 72,6, MAGIC 55,9 (Friedman p < .001) — MAGIC als einzige Technik unter der Akzeptanzschwelle von 68 Punkten. Die reflexive thematische Analyse des offenen Feedbacks ergab sieben Hauptthemen, vom „Transportvorteil“ (23/30) bis zur „Landestrafe“ (22/30).",
       },
       insight: {
         en: "60% preferred Ninja despite the mouse's higher SUS — participants framed it as 'best of both worlds.' Predictability and trust, not raw speed, determined acceptance.",
-        de: "60 % bevorzugten Ninja trotz des höheren SUS-Werts der Maus — Teilnehmende beschrieben es als 'das Beste aus beiden Welten.' Vorhersagbarkeit und Vertrauen, nicht reine Geschwindigkeit, entschieden über die Akzeptanz.",
+        de: "60 % bevorzugten Ninja trotz des höheren SUS-Werts der Maus — Teilnehmende beschrieben es als „das Beste aus beiden Welten“. Vorhersagbarkeit und Vertrauen, nicht reine Geschwindigkeit, entschieden über die Akzeptanz.",
       },
       imagePath: null,
     },
@@ -233,12 +197,12 @@ export const projectData = {
 
   about: {
     en: "A Master's thesis asking whether eye gaze can make pointing across two screens faster without costing users their trust in the cursor. I built the entire experiment software in TypeScript, connected it to a head-mounted eye tracker, and compared two gaze-assisted techniques — MAGIC Pointing and Ninja Cursors — against a plain mouse with 30 participants.",
-    de: "Eine Masterarbeit zu der Frage, ob Blicksteuerung das Zeigen über zwei Bildschirme hinweg beschleunigen kann, ohne das Vertrauen der Nutzer:innen in den Cursor zu kosten. Ich habe die komplette Experimentalsoftware in TypeScript entwickelt, sie an einen kopfgetragenen Eyetracker angebunden und zwei blickgestützte Techniken — MAGIC Pointing und Ninja Cursors — mit 30 Teilnehmenden gegen eine gewöhnliche Maus verglichen.",
+    de: "Eine Masterarbeit zur Frage, ob Blicksteuerung das Zeigen über zwei Bildschirme hinweg beschleunigen kann, ohne das Vertrauen der Nutzer:innen in den Cursor zu kosten. Ich habe die komplette Experimentalsoftware in TypeScript entwickelt, sie an einen kopfgetragenen Eyetracker angebunden und zwei blickgestützte Techniken — MAGIC Pointing und Ninja Cursors — mit 30 Teilnehmenden gegen eine gewöhnliche Maus verglichen.",
   },
 
   challenge: {
     en: "Multi-display workstations are everywhere, yet the mouse alone makes cross-display pointing costly: long pointer transits, cursor re-acquisition after bezel crossings, and attentional switches between screens. Prior work proposed gaze-assisted hybrids, but few controlled studies had compared MAGIC Pointing and Ninja Cursors against a mouse baseline in a dual-display setting — a comparison explicitly called for as future work by Räihä & Špakov (2009).",
-    de: "Multi-Display-Arbeitsplätze sind überall verbreitet, doch allein die Maus macht bildschirmübergreifendes Zeigen teuer: lange Zeigerwege, erneutes Auffinden des Cursors nach Rahmenübergängen und Aufmerksamkeitswechsel zwischen Bildschirmen. Frühere Arbeiten schlugen blickunterstützte Hybride vor, doch nur wenige kontrollierte Studien hatten MAGIC Pointing und Ninja Cursors gegen eine Maus-Baseline in einer Dual-Display-Umgebung verglichen — ein Vergleich, der von Räihä & Špakov (2009) explizit als zukünftige Arbeit gefordert wurde.",
+    de: "Multi-Display-Arbeitsplätze sind weit verbreitet, doch allein die Maus macht bildschirmübergreifendes Zeigen teuer: lange Zeigerwege, erneutes Auffinden des Cursors nach Rahmenübergängen und Aufmerksamkeitswechsel zwischen Bildschirmen. Frühere Arbeiten schlugen blickunterstützte Hybride vor, doch nur wenige kontrollierte Studien hatten MAGIC Pointing und Ninja Cursors gegen eine Maus-Baseline in einer Dual-Display-Umgebung verglichen — ein Vergleich, der von Räihä & Špakov (2009) explizit als zukünftige Arbeit gefordert wurde.",
   },
   solution: {
     en: "I engineered the complete technical architecture and evaluation framework. This included building a dual-display eye-tracking apparatus (Pupil Labs Neon, real-time streaming API, AprilTag surface mapping) and developing performant TypeScript implementations of MAGIC Pointing (gaze-triggered cursor warp with manual fine-tuning) and a gaze-augmented Ninja Cursors variant (one persistent cursor per screen, activated by gaze). Both were then evaluated against a standard mouse baseline in reciprocal pointing tasks.",
@@ -261,8 +225,14 @@ export const projectData = {
         type: "image",
         src: conclusion,
         poster: thumbnailImg,
-        alt: { en: "conclusion", de: "Fazit" },
-        caption: { en: "conclusion", de: "Fazit" },
+        alt: {
+          en: "Summary slide with three takeaways — performance: distance-dependent, Ninja beats the mouse at intermediate cross-screen distances; acceptance: trust outweighs raw speed; design: treat gaze as a context-aware accelerator",
+          de: "Zusammenfassungsfolie mit drei Kernaussagen — Leistung: distanzabhängig, Ninja schlägt die Maus bei mittleren bildschirmübergreifenden Distanzen; Akzeptanz: Vertrauen wiegt mehr als reine Geschwindigkeit; Design: Blick als kontextsensitiven Beschleuniger behandeln",
+        },
+        caption: {
+          en: "Three takeaways: performance is distance-dependent, trust beats raw speed, and gaze belongs in a context-aware accelerator role",
+          de: "Drei Kernaussagen: Leistung ist distanzabhängig, Vertrauen schlägt reine Geschwindigkeit, und Blicksteuerung gehört in die Rolle eines kontextsensitiven Beschleunigers",
+        },
         span: 2,
         className: "w-full h-auto block"
       }
@@ -270,8 +240,8 @@ export const projectData = {
 
   outcome: {
     body: {
-      en: "This is a Master's thesis, not a commercially deployed system — adoption in the product sense doesn't apply the way it would for a shipped feature. The three design directions named in the Implications section are the concrete output of the work to date.",
-      de: "Dies ist eine Masterarbeit, kein kommerziell ausgeliefertes System — Adoption im produktbezogenen Sinne ist hier nicht in derselben Weise anwendbar wie bei einem ausgelieferten Feature. Die drei im Implikationen-Abschnitt genannten Gestaltungsrichtungen sind der konkrete Ertrag der Arbeit bis heute.",
+      en: "This is a Master's thesis, not a commercially deployed system — adoption in the product sense doesn't apply the way it would for a shipped feature. The three design directions named in the Implications section are the concrete output the completed work delivered.",
+      de: "Dies ist eine Masterarbeit, kein kommerziell ausgeliefertes System — Adoption im produktbezogenen Sinne ist hier nicht in derselben Weise anwendbar wie bei einem ausgelieferten Feature. Die drei im Implikationen-Abschnitt genannten Gestaltungsrichtungen sind der konkrete Ertrag der abgeschlossenen Arbeit.",
     },
     adoption: "academic",
   },
@@ -310,10 +280,10 @@ export const projectData = {
     { tag: "Mixed-Methods Research", evidence: "methodology: \"A two-phase mixed-methods design. Phase I:... Phase II:...\"", status: "evidenced" },
     { tag: "Experimental Design", evidence: "process:A 3×2×6 Within-Subjects Protocol", status: "evidenced" },
     { tag: "Semi-Structured Interviews", evidence: "process:Characterising Real Multi-Display Work — 20 participants in ~30-minute semi-structured sessions on screen roles, input preferences, and cross-display pain points", status: "evidenced" },
-    { tag: "Thematic Analysis", evidence: "process:Trust Beats Speed — seven themes coded from open feedback (n=30), from the \"transport advantage\" (23/30) to the \"landing penalty\" (22/30); methods: \"Reflexive Thematic Analysis\"", status: "evidenced" },
+    { tag: "Thematic Analysis", evidence: "process:Trust Beats Speed — seven themes coded from open feedback (N=30), from the \"transport advantage\" (23/30) to the \"landing penalty\" (22/30); methods: \"Reflexive Thematic Analysis\"", status: "evidenced" },
     { tag: "Quantitative UX Research", evidence: "process:RM-ANOVA: A Distance-Dependent Crossover — N=30 within-subjects experiment", status: "evidenced" },
     { tag: "Statistical Analysis (ANOVA)", evidence: "process:RM-ANOVA: A Distance-Dependent Crossover — repeated-measures ANOVA, η²ₚ=.690", status: "evidenced" },
-    { tag: "SUS Evaluation", evidence: "process:Trust Beats Speed — SUS after each block (n=30)", status: "evidenced" },
+    { tag: "SUS Evaluation", evidence: "process:Trust Beats Speed — SUS after each block (N=30)", status: "evidenced" },
     { tag: "Figma", evidence: "process:Characterising Real Multi-Display Work — participants recreated their workstation on a shared Figma canvas; methodology: \"a Figma-based workspace visualisation task\"", status: "evidenced" },
   ],
 };

@@ -1,64 +1,19 @@
 // Content is sourced from UCD4UX_FINAL PRESENTATION.pdf and the UCD4UX
 // research report (deskbird x Bauhaus-Universität Weimar).
+// Card-level fields (id/status/title/tags/thumbnails/card*) live in
+// ./card.js — eagerly aggregated site-wide — and are spread here so the
+// detail page sees one object. This file carries only the prose and media
+// that load with the route's own chunk.
+import card from './card';
 import thumbnailImg from './Project-2.png';
-import thumbnailWebp from './Project-2.webp';
 import interestsModal from './media/interests-modal.png';
-import cardInterestPicker from './media/card-interest-picker.webp';
 import ucdProcess from './media/ucd-process.jpg';
 
 export const projectData = {
-  id: "deskbird-hybrid-work",
-  status: "Published",
-  order: 2,
-  title: {
-    en: "UCD4UX: Encouraging Social Interactions in Hybrid Work",
-    de: "UCD4UX: Soziale Interaktion im Hybrid Work fördern",
-  },
-  subtitle: {
-    en: "Industry UX Research Project with deskbird × Bauhaus-Universität Weimar",
-    de: "Industrie-UX-Research-Projekt mit deskbird × Bauhaus-Universität Weimar",
-  },
-  tagline: {
-    en: "Reconnecting hybrid teams through evidence-based social feature design.",
-    de: "Hybride Teams durch evidenzbasiertes Social-Feature-Design wieder verbinden.",
-  },
-  role: {
-    en: "UX Researcher (team of 6)",
-    de: "UX Researcherin (6-köpfiges Team)",
-  },
+  ...card,
   timeline: "10/2023 – 03/2024",
-
-  // Homepage card metadata (StackedProjectCard.jsx). `cardTags` is the signal
-  // subset — method + stack — shown before the "+N more" disclosure; the full
-  // `tags` list stays on this project's detail page. `cardOutcome` is the one
-  // sentence a reader gets if they read nothing else, quantified where the
-  // evidence supports it and hedged where it doesn't.
-  // Homepage card image — deliberately NOT `thumbnail`. Every Project-N.png
-  // in this repo is a generated cartoon of the subject matter, and a
-  // recruiter scanning five of them reads stock illustration, not evidence.
-  // `cardImage` therefore points only at a real artefact this project
-  // actually produced. A project with no such asset sets nothing and its
-  // card renders text-only — there is no placeholder state.
-  // Plate 02: "interest-picker panel — chips and selected state only, not the
-  // full screen". Pre-cropped to 4:3; the card shows it whole.
-  cardImage: cardInterestPicker,
-  year: "2023–2024",
-  context: {
-    en: "Industry project · deskbird",
-    de: "Industrieprojekt · deskbird",
-  },
-  // Four tags, chosen to differentiate rather than to enumerate: one method,
-  // one research skill, one technical, one domain. The full list lives on the
-  // detail page and on /tags — the card is a triage surface, not an index.
-  cardTags: ["Contextual Inquiry", "Usability Testing", "Figma", "B2B SaaS"],
-  cardOutcome: {
-    en: "Socialising happens in breaks, so the concept connects colleagues by shared interest rather than by shared calendar.",
-    de: "Sozialer Austausch passiert in Pausen — das Konzept verbindet Kolleg:innen über gemeinsame Interessen statt über gemeinsame Kalender.",
-  },
-  tags: ["User-Centered Design", "Mixed-Methods Research", "Stakeholder Interviews", "Contextual Inquiry", "Survey Design", "Competitive Analysis", "Affinity Diagramming", "Requirements Engineering", "Concept Development", "Interaction Design", "High-Fidelity Prototyping", "Usability Testing", "Figma", "B2B SaaS"],
-  thumbnail: thumbnailImg,
-  thumbnailWebp,
   heroImage: thumbnailImg,
+  heroIsGenerated: true, // the hero is a generated illustration — renders the credit
 
   methods: [
     { en: "Stakeholder Interviews",                       de: "Stakeholder-Interviews" },
@@ -73,7 +28,7 @@ export const projectData = {
   metrics: [
     { value: "57", label: { en: "survey respondents", de: "Umfrageteilnehmende" } },
     { value: "6", label: { en: "contextual inquiries + follow-ups", de: "Contextual Inquiries + Folgeinterviews" } },
-    { value: "~75%", label: { en: "relate more when knowing personal details", de: "fühlen sich verbundener bei bekannten persönlichen Details" } },
+    { value: "~75%", label: { en: "say they relate more to colleagues whose personal details they know", de: "fühlen sich Kolleg:innen näher, deren persönliche Details sie kennen" } },
     { value: "3 → 1", label: { en: "concepts refined into final prototype", de: "Konzepte zum finalen Prototyp verdichtet" } },
   ],
 
@@ -115,8 +70,8 @@ export const projectData = {
   },
 
   about: {
-    en: "An industry UX research project with deskbird and Bauhaus-Universität Weimar on why hybrid teams lose their everyday social connection. In a team of six I ran the full user-centred design process — stakeholder interviews, a 57-person survey, and six contextual inquiries — to establish how a social feature should work before it reached the roadmap. The outcome is 'Interest-Based Communities', delivered as a research-backed high-fidelity prototype.",
-    de: "Ein Industrie-UX-Research-Projekt mit deskbird und der Bauhaus-Universität Weimar zu der Frage, warum hybride Teams ihre alltägliche soziale Verbindung verlieren. In einem sechsköpfigen Team habe ich den vollständigen User-Centered-Design-Prozess durchlaufen — Stakeholder-Interviews, eine Umfrage mit 57 Teilnehmenden und sechs Contextual Inquiries —, um vor der Roadmap-Aufnahme zu klären, wie ein Social Feature funktionieren sollte. Das Ergebnis sind 'Interest-Based Communities', übergeben als forschungsbasierter High-Fidelity-Prototyp.",
+    en: "An industry UX research project with deskbird and Bauhaus-Universität Weimar on why hybrid teams lose their everyday social connection. In a team of six we ran the full user-centred design process — stakeholder interviews, a 57-person survey, and six contextual inquiries — to establish how a social feature should work before it reached the roadmap. The outcome is 'Interest-Based Communities', my concept, selected by deskbird's stakeholders and delivered as a research-backed high-fidelity prototype.",
+    de: "Ein Industrie-UX-Research-Projekt mit deskbird und der Bauhaus-Universität Weimar zur Frage, warum hybride Teams ihre alltägliche soziale Verbindung verlieren. In einem sechsköpfigen Team haben wir den vollständigen User-Centered-Design-Prozess durchlaufen — Stakeholder-Interviews, eine Umfrage mit 57 Teilnehmenden und sechs Contextual Inquiries —, um vor der Roadmap-Aufnahme zu klären, wie ein Social Feature funktionieren sollte. Das Ergebnis sind „Interest-Based Communities“ — mein Konzept, von den deskbird-Stakeholdern ausgewählt und als forschungsbasierter High-Fidelity-Prototyp übergeben.",
   },
 
   challenge: {
@@ -126,7 +81,7 @@ export const projectData = {
 
   solution: {
     en: "We designed 'Interest-Based Communities': employees add interests to their profile, see colleagues' interests, and create or get invited to interest-based events. The concept connects both office-based and remote staff and was delivered as a high-fidelity prototype with development recommendations, grounded in every research finding along the way.",
-    de: "Wir gestalteten 'Interest-Based Communities': Mitarbeitende fügen ihrem Profil Interessen hinzu, sehen die Interessen von Kolleg:innen und erstellen interessenbasierte Events oder werden dazu eingeladen. Das Konzept verbindet Büro- und Remote-Mitarbeitende und wurde als High-Fidelity-Prototyp mit Entwicklungsempfehlungen übergeben, durchgehend auf den Forschungsergebnissen aufgebaut.",
+    de: "Wir gestalteten „Interest-Based Communities“: Mitarbeitende fügen ihrem Profil Interessen hinzu, sehen die Interessen von Kolleg:innen und erstellen interessenbasierte Events oder werden dazu eingeladen. Das Konzept verbindet Büro- und Remote-Mitarbeitende und wurde als High-Fidelity-Prototyp mit Entwicklungsempfehlungen übergeben, durchgehend auf den Forschungsergebnissen aufgebaut.",
   },
 
   methodology: {
@@ -135,7 +90,7 @@ export const projectData = {
   },
 
   results: {
-    en: "The research produced clear, actionable requirements: socialization happens during breaks, and office breaks differ fundamentally from home-office breaks; the office is preferred for real interactions and faster communication while home office wins on convenience and fewer distractions; and nearly three-quarters of survey respondents agreed that knowing personal details about a colleague makes them relate more. Interaction across seniority levels and departments emerged as a persistent barrier. These findings shaped three competing concepts (Chat2Meet, Flows & Breaks, Interest-Based Communities); Interest-Based Communities was selected, refined into the final prototype, and validated in user testing sessions that returned positive feedback on usability and feature understanding.",
+    en: "The research produced clear, actionable requirements: socialisation happens during breaks, and office breaks differ fundamentally from home-office breaks; the office is preferred for real interactions and faster communication while home office wins on convenience and fewer distractions; and nearly three-quarters of survey respondents agreed that knowing personal details about a colleague makes them relate more. Interaction across seniority levels and departments emerged as a persistent barrier. These findings shaped three competing concepts (Chat2Meet, Flows & Breaks, Interest-Based Communities); Interest-Based Communities was selected, refined into the final prototype, and validated in user testing sessions that returned positive feedback on usability and feature understanding.",
     de: "Die Forschung lieferte klare, umsetzbare Anforderungen: Sozialisierung findet in Pausen statt, und Büropausen unterscheiden sich grundlegend von Homeoffice-Pausen; das Büro wird für echte Interaktionen und schnellere Kommunikation bevorzugt, während das Homeoffice bei Bequemlichkeit und weniger Ablenkung punktet; und fast drei Viertel der Umfrageteilnehmenden stimmten zu, dass persönliche Details über Kolleg:innen sie verbundener fühlen lassen. Interaktion über Senioritäts- und Abteilungsgrenzen hinweg erwies sich als hartnäckige Hürde. Diese Erkenntnisse formten drei konkurrierende Konzepte (Chat2Meet, Flows & Breaks, Interest-Based Communities); Interest-Based Communities wurde ausgewählt, zum finalen Prototyp verfeinert und in Usability-Tests validiert, die positives Feedback zu Bedienbarkeit und Verständlichkeit des Features ergaben.",
   },
 
@@ -151,7 +106,7 @@ export const projectData = {
       },
       insight: {
         en: "The business goal ('attract people back to the office') and the user goal ('meaningful connection') were not the same thing. Framing our requirements around both kept the project honest.",
-        de: "Das Geschäftsziel ('Menschen zurück ins Büro locken') und das Nutzerziel ('bedeutsame Verbindung') waren nicht dasselbe. Unsere Anforderungen an beiden auszurichten hielt das Projekt ehrlich.",
+        de: "Das Geschäftsziel („Menschen zurück ins Büro locken“) und das Nutzerziel („bedeutsame Verbindung“) waren nicht dasselbe. Unsere Anforderungen an beiden auszurichten hielt das Projekt ehrlich.",
       },
       imagePath: null,
     },
@@ -172,13 +127,13 @@ export const projectData = {
     {
       phase: "discover",
       type: { en: "Remote Contextual Inquiry", de: "Remote Contextual Inquiry" },
-      title: { en: "Observing the Hybrid Workday In-Context (N=6)", de: "Den hybriden Arbeitstag im Kontext beobachten (N=6)" },
+      title: { en: "Observing the Hybrid Workday in Context (N=6)", de: "Den hybriden Arbeitstag im Kontext beobachten (N=6)" },
       annotation: {
         en: "Six 90-minute remote observations of hybrid workers in their real workplace — product manager, software engineer, customer success manager, product designer, UX working student, business analyst — followed by 30-minute semi-structured interviews to clarify observations and capture desires for improvement.",
         de: "Sechs 90-minütige Remote-Beobachtungen hybrider Mitarbeitender an ihrem realen Arbeitsplatz — Product Manager, Software Engineer, Customer Success Manager, Product Designer, UX-Werkstudentin, Business Analyst — gefolgt von 30-minütigen semi-strukturierten Interviews zur Klärung der Beobachtungen und zur Erfassung von Verbesserungswünschen.",
       },
       insight: {
-        en: "Breaks are when socialization happens — and breaks at the office differ fundamentally from breaks at home. Participants wanted variety and meaningful social breaks — and to be left undisturbed when they needed focus.",
+        en: "Breaks are when socialisation happens — and breaks at the office differ fundamentally from breaks at home. Participants wanted variety and meaningful social breaks — and to be left undisturbed when they needed focus.",
         de: "Sozialisierung findet in Pausen statt — und Pausen im Büro unterscheiden sich grundlegend von Pausen zu Hause. Teilnehmende wollten Abwechslung und bedeutsame soziale Pausen — und ungestört bleiben, wenn sie Fokus brauchten.",
       },
       imagePath: null,
@@ -188,7 +143,7 @@ export const projectData = {
       type: { en: "Requirements Synthesis", de: "Anforderungssynthese" },
       title: { en: "From Findings to Four Requirement Categories", de: "Von Erkenntnissen zu vier Anforderungskategorien" },
       annotation: {
-        en: "Findings were synthesized into functional, environmental, user, and data requirements: foster interaction across seniority levels and around shared interests, integrate seamlessly on every platform, stay accessible to both remote and on-site staff, stay intuitive for all users, and collect data privacy-first.",
+        en: "Findings were synthesised into functional, environmental, user, and data requirements: foster interaction across seniority levels and around shared interests, integrate seamlessly on every platform, stay accessible to both remote and on-site staff, stay intuitive for all users, and collect data privacy-first.",
         de: "Die Erkenntnisse wurden zu funktionalen, umgebungsbezogenen, nutzer- und datenbezogenen Anforderungen verdichtet: Interaktion über Senioritätsstufen hinweg und über geteilte Interessen fördern, nahtlose Integration auf jeder Plattform, Zugänglichkeit für Remote- und Vor-Ort-Mitarbeitende, intuitive Bedienung für alle Nutzenden und datenschutzorientierte Datenerhebung.",
       },
       insight: {
@@ -271,7 +226,7 @@ export const projectData = {
     { tag: "User-Centered Design", evidence: "methodology: \"We followed the full UCD process in an industry setting.\"", status: "evidenced" },
     { tag: "Mixed-Methods Research", evidence: "methodology: a 57-respondent online survey quantifying work conditions and privacy preferences, run alongside six 90-minute contextual inquiries and 30-minute semi-structured follow-ups — a quantitative and a qualitative strand feeding one synthesis", status: "evidenced" },
     { tag: "Stakeholder Interviews", evidence: "process:Aligning on Scope with deskbird", status: "evidenced" },
-    { tag: "Contextual Inquiry", evidence: "process:Observing the Hybrid Workday In-Context (N=6)", status: "evidenced" },
+    { tag: "Contextual Inquiry", evidence: "process:Observing the Hybrid Workday in Context (N=6)", status: "evidenced" },
     { tag: "Survey Design", evidence: "process:Quantifying Hybrid Social Life (N=57) — multiple-choice, rating, and open-ended items, convenience and snowball sampling", status: "evidenced" },
     { tag: "Competitive Analysis", evidence: "methodology: state-of-the-art review of the hybrid-work tool landscape (Microsoft Viva, Workvivo, Donut for Slack, Happeo, and ~25 others) plus heuristic evaluation and user-flow analysis of the existing deskbird app; myContribution.shared: \"competitor research\"", status: "evidenced" },
     { tag: "Affinity Diagramming", evidence: "myContribution.shared: \"affinity diagramming and synthesis\"; process:From Findings to Four Requirement Categories is the clustered output it produced", status: "evidenced" },

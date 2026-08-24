@@ -53,10 +53,12 @@ const LEGAL_ROUTES = [
 ];
 
 // Same mapping Nav.jsx uses — profileData.navLinks[].name is English-only,
-// so route labels are resolved through translation keys instead.
+// so route labels are resolved through translation keys instead. Keep the
+// values identical to Nav.jsx's NAV_LABEL_KEYS: the same destination must
+// not carry a different name here than in the nav.
 const NAV_LABEL_KEYS = {
   "/": "nav.home",
-  "/projects": "nav.projects",
+  "/projects": "nav.work",
   "/about": "nav.about",
   "/contact": "nav.contact",
   "/cv": "nav.cv",
@@ -195,13 +197,17 @@ export default function Sitemap() {
     return { path, label, children };
   });
 
-  // Dynamic project detail routes
-  const projectRoutes = localizedProjects.map((p) => ({
-    path: `/projects/${p.id}`,
-    label: p.title,
-    description: p.role,
-    children: projectSectionLabels.map((label) => ({ label })),
-  }));
+  // Dynamic project detail routes. `href` is the aggregator's canonical link
+  // (null for coming-soon, which has no route yet) — hand-building
+  // `/projects/${id}` here would list links that 404.
+  const projectRoutes = localizedProjects
+    .filter((p) => p.href)
+    .map((p) => ({
+      path: p.href,
+      label: p.title,
+      description: p.role,
+      children: projectSectionLabels.map((label) => ({ label })),
+    }));
 
   const legalRoutes = LEGAL_ROUTES.map((r) => ({ path: r.path, label: t(r.labelKey) }));
   const credentialsRoute = {
@@ -218,7 +224,7 @@ export default function Sitemap() {
   const totalProjects = localizedProjects.filter(p => p.status !== "coming-soon").length;
 
   return (
-    <main className="min-h-screen pt-20 md:pt-24 pb-24 bg-bg">
+    <div className="min-h-screen pt-20 md:pt-24 pb-24 bg-bg">
       <div className="container mx-auto px-6 md:px-12 max-w-4xl">
 
         {/* Header */}
@@ -324,6 +330,6 @@ export default function Sitemap() {
         </section>
 
       </div>
-    </main>
+    </div>
   );
 }
