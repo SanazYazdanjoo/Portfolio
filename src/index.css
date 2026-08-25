@@ -107,6 +107,56 @@
     mask-image: none !important;
   }
 
+  /* Project figure grids (SectionMedia) on paper: keep the two-column
+     grid, so before/after pairs print SIDE BY SIDE at half width with a
+     caption beneath each, and cap every figure image at 90mm tall so no
+     single portrait photo can consume a page — the image scales down
+     (width auto, centred) and the frame shrinks to fit it rather than
+     leaving empty bordered flanks. The zoom-button wrapper drops its
+     w-full for the same reason.
+
+     Fragmentation: the un-splittable unit is ONE figure — its framing,
+     image and caption — and nothing larger. The grid container is
+     explicitly breakable so a page break can fall between rows (Chromium
+     fragments grids between rows; observed directly — the design grid
+     spans multiple PDF pages). The 90mm cap plus the tighter print
+     row-gap brings a figure row to ~130mm, so two rows share one A4 page
+     instead of one row plus a half-page of waste. Figures a data file
+     marks `printHidden` carry Tailwind's own print:hidden and are gone. */
+  [data-section-media] {
+    break-inside: auto;
+    row-gap: 24px !important;
+  }
+  [data-section-media] > figure {
+    break-inside: avoid;
+  }
+  [data-section-media] figure img {
+    max-height: 90mm;
+    width: auto;
+    max-width: 100%;
+    margin-inline: auto;
+  }
+  [data-section-media] figure button {
+    width: auto !important;
+    margin-inline: auto;
+    display: block;
+  }
+  [data-section-media] figure .rule-frame-in {
+    width: fit-content;
+    margin-inline: auto;
+    max-width: 100%;
+  }
+
+  /* A heading must not strand at a page bottom, and prose must not leave
+     single-line orphans or widows across the break. */
+  h1, h2, h3, h4 {
+    break-after: avoid;
+  }
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+
 
   /* Hide UI chrome. Deliberately not a bare `nav` selector: every nav that
      should be hidden (the site header's Nav, the CV/Design System/project
@@ -129,14 +179,18 @@
   [class*="doodle"],
   [class*="scribble"],
   [class*="Scribble"],
-  [class*="cursor"],
-  [class*="Cursor"],
   [class*="trail"],
   [class*="Trail"],
   [class*="sketch"],
   [class*="Sketch"] {
     display: none !important;
   }
+  /* Deliberately NOT [class*="cursor"]: no markup carries a custom cursor
+     decoration class (cursor-pen lives only in theme.css selectors), so the
+     only elements that substring ever matched were Tailwind cursor-* utility
+     carriers — including the cursor-zoom-in buttons SectionMedia and
+     Credentials wrap their figures in, which silently deleted every
+     zoomable image from every printed case study. */
 
   /* Hide stray SVG decorations outside the CV */
   svg:not(#curriculum-vitae svg) {
