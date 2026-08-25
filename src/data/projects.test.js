@@ -662,6 +662,10 @@ describe("metric provenance — evidence may not be born in the metric's own com
   const firstCommitTouching = (file) =>
     git("log", "--reverse", "--format=%H", "--", file).split("\n")[0] || "";
 
+  // Explicit timeout: this test shells out to dozens of `git log -S`
+  // pickaxe sweeps over the full history. Alone it finishes in ~3s, but
+  // under the full suite's parallel workers it intermittently crosses
+  // vitest's 5s default and fails as a timeout, not as a violation.
   it("no numeric CV-highlight metric is backed only by same-commit text", () => {
     const highlights = profileData.portfolioHighlights ?? [];
     const violations = [];
@@ -738,5 +742,5 @@ describe("metric provenance — evidence may not be born in the metric's own com
       violations,
       `Self-born metrics:\n${violations.join("\n")}`
     ).toEqual([]);
-  });
+  }, 30_000);
 });
