@@ -1,0 +1,10 @@
+# Source coursework documents must never enter the repo — they carry
+# classmates' full names and matriculation numbers. Extract content only.
+*.docx
+*.doc
+*.pdf
+*.pptx
+# Raw questionnaire response data (timestamps + free-text answers from
+# respondents who were promised anonymity). It stays local as the source
+# for scripts/generate-smart-home-chart.mjs; only the derived chart ships.
+*.xlsx

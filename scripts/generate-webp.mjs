@@ -34,13 +34,21 @@ const THUMBNAILS = [
   "src/projects/deskbird-hybrid-work/Project-2.png",
   "src/projects/embraceme-soft-robotics/Project-3.png",
   "src/projects/digitalising-ibs-travel-reimbursements/Project-4.png",
+  // JPG master (photograph of the v1 paper-prototype flow map) — the .jpg
+  // stays as the <picture> fallback, same as the PNG masters above.
+  "src/projects/smart-home-control/media/v1/flow-map.jpg",
 ];
 
 for (const rel of THUMBNAILS) {
   const src = join(ROOT, rel);
-  const dest = src.replace(/\.png$/, ".webp");
+  const dest = src.replace(/\.(png|jpg)$/, ".webp");
   const before = (await stat(src)).size;
+  // .rotate() with no args applies the EXIF orientation, then discards the
+  // tag. Defensive for phone-photo masters: sharp strips EXIF from the
+  // webp without baking the rotation in, so an orientation-tagged source
+  // would export sideways. No-op for untagged sources and the PNGs.
   await sharp(src)
+    .rotate()
     .resize({ width: 1600, withoutEnlargement: true })
     .webp({ quality: 82 })
     .toFile(dest);
