@@ -179,7 +179,11 @@ export default function SectionMedia({ items }) {
 
   return (
     <>
-      <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-12">
+      {/* data-section-media: print hook. The A4 rules in index.css keep
+          this grid two-column on paper (pairs print side by side, a
+          caption beneath each) and cap figure images at ~100mm tall so a
+          portrait photo can't consume a page. */}
+      <div data-section-media="" className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-12">
         {items.map((f, i) => {
           const isVideo = f.type === "video";
           const isLink = !!f.href;
@@ -220,7 +224,10 @@ export default function SectionMedia({ items }) {
           return (
             <figure
               key={i}
-              className={`m-0 ${f.span === 2 ? "sm:col-span-2" : ""}`}
+              /* `printHidden: true` keeps a figure on screen but out of the
+                 A4 export — how a 12-image flow gallery prints its lead
+                 images only instead of blowing up the PDF. */
+              className={`m-0 ${f.span === 2 ? "sm:col-span-2" : ""} ${f.printHidden ? "print:hidden" : ""}`}
             >
               {/* Optional framing above the image; a figure that omits these
                   renders as a plain image. */}

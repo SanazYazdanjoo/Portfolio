@@ -61,6 +61,18 @@ const CROPS = [
     sourceTextPx: 14,
   },
   {
+    // Plate 05 (smart-home-control): "the Josh's Home card with the green
+    // highlighter bracket". The bracket IS the case study's first design
+    // change — a selection indicator added after testing — so the card
+    // detail doubles as the outcome. The crop stops left of the second
+    // carousel card (which the photograph itself slices at the image edge)
+    // and above the ROOMS heading, so no panel is cut through.
+    from: "src/projects/smart-home-control/media/v2/A.jpg",
+    to: "src/projects/smart-home-control/media/v2/card-selected-home.webp",
+    rect: { left: 60, top: 170, width: 960, height: 390 },
+    sourceTextPx: 39,
+  },
+  {
     // Plate 03: "one chart panel with readable axis labels — not the
     // two-panel plot".
     //
