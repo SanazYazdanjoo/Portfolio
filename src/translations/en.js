@@ -480,7 +480,7 @@ const en = {
   // "Ask this portfolio" chat widget
   "chat.fab": "Ask AI",
   "chat.title": "Ask this portfolio",
-  "chat.subtitle": "AI · answers from this site's own content",
+  "chat.subtitle": "AI · grounded in this site",
   "chat.intro": "Hi! I answer questions about Sanaz's work — projects, methods, skills, availability. Try one of these:",
   "chat.q1": "What did she build at IBS?",
   "chat.q2": "Which projects used eye-tracking?",
@@ -489,7 +489,7 @@ const en = {
   "chat.send": "Send",
   "chat.close": "Close chat",
   "chat.thinking": "Thinking…",
-  "chat.disclosure": "AI-generated (OpenAI) — may contain mistakes. Verify in the case studies.",
+  "chat.disclosure": "AI via OpenAI — may contain mistakes.",
   "chat.error": "Something went wrong. Please try again — or use the contact page.",
   "chat.errorRate": "Too many questions at once — please wait a minute and try again.",
   "chat.offline": "The assistant isn't configured on this deployment yet.",
