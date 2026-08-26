@@ -38,7 +38,7 @@ describe("AskPortfolio", () => {
     fireEvent.click(screen.getByRole("button", { name: /ask ai/i }));
 
     const dialog = await screen.findByRole("dialog");
-    expect(screen.getByText(/what did she build at ibs/i)).toBeInTheDocument();
+    expect(screen.getByText(/what did you build at ibs/i)).toBeInTheDocument();
 
     fireEvent.keyDown(dialog, { key: "Escape" });
     // AnimatePresence keeps the panel mounted until the exit animation ends.
@@ -56,10 +56,10 @@ describe("AskPortfolio", () => {
 
     renderWithProviders(<AskPortfolio />);
     fireEvent.click(screen.getByRole("button", { name: /ask ai/i }));
-    fireEvent.change(screen.getByPlaceholderText(/ask about her work/i), {
+    fireEvent.change(screen.getByPlaceholderText(/ask me anything/i), {
       target: { value: "What did she do at IBS?" },
     });
-    fireEvent.submit(screen.getByPlaceholderText(/ask about her work/i).closest("form"));
+    fireEvent.submit(screen.getByPlaceholderText(/ask me anything/i).closest("form"));
 
     // The user turn echoes immediately; the reply streams in after.
     expect(await screen.findByText("What did she do at IBS?")).toBeInTheDocument();
@@ -79,8 +79,8 @@ describe("AskPortfolio", () => {
 
     renderWithProviders(<AskPortfolio />);
     fireEvent.click(screen.getByRole("button", { name: /ask ai/i }));
-    fireEvent.click(screen.getByText(/what did she build at ibs/i));
+    fireEvent.click(screen.getByText(/what did you build at ibs/i));
 
-    expect(await screen.findByRole("alert")).toHaveTextContent(/too many questions/i);
+    expect(await screen.findByRole("alert")).toHaveTextContent(/lots of questions/i);
   });
 });
