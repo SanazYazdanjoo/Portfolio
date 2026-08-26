@@ -177,8 +177,23 @@ export default async function handler(req, res) {
 
   if (!upstream.ok) {
     // Never forward OpenAI's error body — it can echo request internals.
-    console.error(`openai ${upstream.status}: ${(await upstream.text()).slice(0, 500)}`);
-    res.statusCode = upstream.status === 429 ? 429 : 502;
+    const errText = (await upstream.text()).slice(0, 500);
+    console.error(`openai ${upstream.status}: ${errText}`);
+    let errCode;
+    try {
+      errCode = JSON.parse(errText)?.error?.code;
+    } catch {
+      // non-JSON error body; errCode stays undefined
+    }
+    // OpenAI signals "no credits / budget cap reached" as a 429, but unlike a
+    // real rate limit it won't pass on retry — surfacing it as "try again in
+    // a minute" would mislead the visitor. 503 shows the widget's offline
+    // notice instead.
+    if (errCode === "insufficient_quota" || errCode === "billing_hard_limit_reached") {
+      res.statusCode = 503;
+    } else {
+      res.statusCode = upstream.status === 429 ? 429 : 502;
+    }
     return res.end(JSON.stringify({ error: "upstream error" }));
   }
 
