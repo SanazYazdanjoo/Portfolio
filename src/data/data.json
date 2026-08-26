@@ -59,7 +59,7 @@
         "derivedFrom": [
           { "id": "gaze-assisted-input", "counts": [30, 20] },
           { "id": "deskbird-hybrid-work", "counts": [57, 6] },
-          { "id": "digitalising-ibs-travel-reimbursements", "counts": [6, 3] }
+          { "id": "digitalising-ibs-travel-reimbursements", "counts": [6, 2, 1] }
         ]
       },
       {
@@ -265,27 +265,32 @@
         },
         "date": "07/2020 – 07/2021",
         "impactMetrics": [
-          { "en": "Founded company's acceptance-test team",   "de": "Abnahmetest-Team im Unternehmen aufgebaut" },
+          { "en": "Co-established the company's first manual-testing group", "de": "Erste manuelle Testgruppe des Unternehmens mit aufgebaut" },
+          { "en": "Trained 4 QA members",                     "de": "4 QA-Mitglieder eingearbeitet" },
           { "en": "Heuristic evaluation across 5+ products",  "de": "Heuristische Evaluation für 5+ Produkte" }
         ],
         "tasks": [
           {
-            "en": "Built the company-wide manual acceptance testing team and introduced agile test management systems for more efficient bug-tracking workflows.",
-            "de": "Aufbau des unternehmensweiten Teams für manuelle Abnahmetests und Einführung agiler Testmanagement-Systeme für effizientere Bug-Tracking-Workflows."
+            "en": "Contributed to establishing the first manual acceptance-testing group at the 500+ employee software group and trained its 4 QA members, introducing agile test management for more efficient bug-tracking workflows.",
+            "de": "Mitaufbau der ersten manuellen Abnahmetest-Gruppe des Softwareunternehmens mit über 500 Mitarbeitenden und Einarbeitung der 4 QA-Mitglieder; Einführung agilen Testmanagements für effizientere Bug-Tracking-Workflows."
           },
           {
-            "en": "Conducted structured heuristic evaluations for 5+ digital products; collaborated closely with development teams to iteratively implement usability improvements.",
-            "de": "Durchführung strukturierter heuristischer Evaluationen für 5+ digitale Produkte; enge Zusammenarbeit mit Entwicklerteams zur iterativen Umsetzung von Usability-Verbesserungen."
+            "en": "Ran acceptance testing across web and mobile app projects — surfacing pain points from the end-user perspective, checking UI against standards, and improving overall product quality.",
+            "de": "Abnahmetests für Web- und Mobile-App-Projekte — Aufdecken von Pain Points aus Endnutzersicht, Prüfung der UI gegen Standards und Verbesserung der Produktqualität insgesamt."
+          },
+          {
+            "en": "Validated APIs with Postman on selected projects and conducted structured heuristic evaluations for 5+ digital products, collaborating closely with development teams to iteratively implement usability improvements.",
+            "de": "API-Validierung mit Postman in ausgewählten Projekten und strukturierte heuristische Evaluationen für 5+ digitale Produkte — in enger Zusammenarbeit mit Entwicklerteams zur iterativen Umsetzung von Usability-Verbesserungen."
           }
         ]
       },
       {
         "company": "Mega-Tech",
         "role": {
-          "en": "Frontend Developer",
-          "de": "Frontend-Entwicklerin"
+          "en": "UI Developer / R&D Developer",
+          "de": "UI-Developerin / R&D-Developerin"
         },
-        "date": "06/2015 – 07/2020",
+        "date": "09/2015 – 07/2020",
         "impactMetrics": [
           { "en": "Page-1 Google rankings, 10+ client sites", "de": "Google-Seite-1-Rankings, 10+ Kundenseiten" },
           { "en": "10+ sites shipped over 5 years",           "de": "10+ Websites in 5 Jahren ausgeliefert" },
@@ -293,12 +298,34 @@
         ],
         "tasks": [
           {
-            "en": "Developed 10+ WordPress websites (corporate, e-commerce, portfolio) including cross-browser and cross-device optimization.",
-            "de": "Umsetzung von 10+ WordPress-Websites (Corporate, E-Commerce, Portfolio) inklusive Cross-Browser- und Cross-Device-Optimierung."
+            "en": "Developed 10+ WordPress and WooCommerce websites (corporate, e-commerce, portfolio) at the web agency, including cross-browser and cross-device optimization.",
+            "de": "Umsetzung von 10+ WordPress- und WooCommerce-Websites (Corporate, E-Commerce, Portfolio) in der Webagentur, inklusive Cross-Browser- und Cross-Device-Optimierung."
           },
           {
             "en": "Applied SEO and performance best practices, leading to page 1 Google search rankings for target keywords across 10+ client sites.",
             "de": "Anwendung von SEO- und Performance-Best-Practices, was bei 10+ Kundenwebsites zu Platzierungen auf Seite 1 der Google-Ergebnisse führte."
+          },
+          {
+            "en": "Moved from WordPress UI development into R&D work across the agency's client web projects — including nopCommerce e-commerce builds and Unity-based projects.",
+            "de": "Wechsel von der WordPress-UI-Entwicklung in die R&D-Arbeit über die Kundenprojekte der Agentur hinweg — darunter nopCommerce-E-Commerce-Umsetzungen und Unity-basierte Projekte."
+          }
+        ]
+      },
+      {
+        "company": "Black Citrus",
+        "role": {
+          "en": "QA Engineer — Outsourced via Mega-Tech (remote)",
+          "de": "QA Engineerin — Outsourcing über Mega-Tech (remote)"
+        },
+        "date": "06/2015 – 09/2015",
+        "impactMetrics": [
+          { "en": "First industry role, straight after the B.E.", "de": "Erste Industrie-Station, direkt nach dem B.E." },
+          { "en": "Remote QA for an Australian team", "de": "Remote-QA für ein australisches Team" }
+        ],
+        "tasks": [
+          {
+            "en": "Worked as an outsourced QA engineer for Black Citrus, an Australian company, manually testing its web application projects remotely under Mega-Tech's supervision — directly after finishing the bachelor thesis.",
+            "de": "Als ausgelagerte QA Engineerin für Black Citrus, ein australisches Unternehmen, tätig — manuelles Testen der Webanwendungs-Projekte, remote unter Anleitung von Mega-Tech, direkt im Anschluss an die Bachelorarbeit."
           }
         ]
       }
@@ -460,7 +487,7 @@
           "en": "M.Sc. Human-Computer Interaction",
           "de": "M.Sc. Human-Computer Interaction"
         },
-        "year": "10/2021 – 05/2026",
+        "year": "2022 – 2026",
         "grade": {
           "en": "Final grade: 1.7",
           "de": "Abschlussnote: 1,7"
@@ -473,7 +500,7 @@
         ]
       },
       {
-        "school": "Khayyam University",
+        "school": "Khayyam Higher Education Centre",
         "degree": {
           "en": "B.E. Software Engineering",
           "de": "B.E. Software-Engineering"
@@ -497,7 +524,11 @@
         "Tailwind CSS",
         "Vite",
         "Web Accessibility",
-        "Figma"
+        "Figma",
+        "WordPress",
+        "WooCommerce",
+        "nopCommerce",
+        "E-Commerce"
       ],
       "UX Research & Testing": [
         "B2B User Research",
@@ -517,7 +548,8 @@
       "Analysis & Tools": [
         "Python",
         "Git & GitHub",
-        "Vercel"
+        "Vercel",
+        "Unity"
       ]
     },
     "languages": [
@@ -905,12 +937,12 @@
       },
       {
         "title": {
-          "en": "Frontend Development Internship",
-          "de": "Frontend-Entwicklungspraktikum"
+          "en": "Frontend Development",
+          "de": "Frontend-Entwicklung"
         },
-        "provider": "Part Software Group",
+        "provider": "Part College",
         "year": "2021",
-        "type": "internship",
+        "type": "course",
         "topic": "engineering",
         "featured": true,
         "skills": ["Frontend Development"],
@@ -918,8 +950,8 @@
         "thumb": "",
         "verifyUrl": "",
         "detail": {
-          "en": "Certified internship in frontend web development.",
-          "de": "Zertifiziertes Praktikum in der Frontend-Webentwicklung."
+          "en": "Frontend development course offered through Part College, completed with certificate while working at Part Software Group.",
+          "de": "Frontend-Entwicklungskurs des Part College, mit Zertifikat abgeschlossen während der Tätigkeit bei der Part Software Group."
         }
       },
       {
