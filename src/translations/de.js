@@ -158,7 +158,7 @@ const de = {
   "hero.meta.location": "Standort",
 
   // These values mirror the English counterpart exactly
-  "hero.meta.backgroundValue": "M.Sc. HCI · B.E. Software-Engineering · QA",
+  "hero.meta.backgroundValue": "M.Sc. HCI · B.E. Software-Engineering · Usability",
   "hero.meta.focusValue": "Frontend-Entwicklung · UI-Architektur · Mixed-Methods",
   "hero.meta.statusValue": "Offen für interdisziplinäre UX- & Tech-Rollen",
   "hero.meta.locationValue": "Weimar, DE · Umzugsbereit",
