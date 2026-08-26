@@ -477,7 +477,7 @@ const de = {
   // "Frag dieses Portfolio" Chat-Widget
   "chat.fab": "KI fragen",
   "chat.title": "Frag dieses Portfolio",
-  "chat.subtitle": "KI · Antworten aus den Inhalten dieser Website",
+  "chat.subtitle": "KI · basiert auf dieser Website",
   "chat.intro": "Hallo! Ich beantworte Fragen zu Sanaz' Arbeit — Projekte, Methoden, Skills, Verfügbarkeit. Zum Beispiel:",
   "chat.q1": "Was hat sie am IBS gebaut?",
   "chat.q2": "Welche Projekte nutzten Eye-Tracking?",
@@ -486,7 +486,7 @@ const de = {
   "chat.send": "Senden",
   "chat.close": "Chat schließen",
   "chat.thinking": "Denkt nach …",
-  "chat.disclosure": "KI-generiert (OpenAI) — kann Fehler enthalten. Details in den Fallstudien prüfen.",
+  "chat.disclosure": "KI via OpenAI — kann Fehler enthalten.",
   "chat.error": "Etwas ist schiefgelaufen. Bitte erneut versuchen — oder die Kontaktseite nutzen.",
   "chat.errorRate": "Zu viele Fragen auf einmal — bitte kurz warten und erneut versuchen.",
   "chat.offline": "Der Assistent ist auf dieser Umgebung noch nicht eingerichtet.",
