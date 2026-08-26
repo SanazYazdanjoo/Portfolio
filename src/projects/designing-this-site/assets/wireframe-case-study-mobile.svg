@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" font-family="ui-monospace, Consolas, Menlo, monospace">
+  <!-- Post-hoc wireframe of the shipped case-study template below md
+       (<768px): one column, a horizontal pill bar instead of the TOC, and
+       no pull-quote rail. Drawn from src/projects/ProjectTemplate.jsx. -->
+  <rect width="1600" height="1000" fill="#ffffff"/>
+
+  <text x="48" y="56" font-size="24" font-weight="700" fill="#211d1c" letter-spacing="2">CASE-STUDY TEMPLATE — ONE COLUMN BELOW 768 PX (MD)</text>
+
+  <defs>
+    <clipPath id="phone-inner">
+      <rect x="520" y="80" width="400" height="860" rx="28"/>
+    </clipPath>
+  </defs>
+
+  <!-- phone frame -->
+  <rect x="520" y="80" width="400" height="860" rx="28" fill="#ffffff" stroke="#211d1c" stroke-width="3"/>
+
+  <g clip-path="url(#phone-inner)">
+    <!-- nav bar -->
+    <rect x="548" y="112" width="120" height="18" fill="#b9b4ad"/>
+    <line x1="856" y1="114" x2="884" y2="114" stroke="#211d1c" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="856" y1="122" x2="884" y2="122" stroke="#211d1c" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="856" y1="130" x2="884" y2="130" stroke="#211d1c" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="520" y1="152" x2="920" y2="152" stroke="#e0ddd2" stroke-width="2"/>
+
+    <!-- sticky pill bar (scrolls sideways — last pill runs off the edge) -->
+    <rect x="548" y="168" width="96" height="36" rx="4" fill="#892107"/>
+    <rect x="652" y="168" width="88" height="36" rx="4" fill="none" stroke="#b9b4ad" stroke-width="2"/>
+    <rect x="748" y="168" width="110" height="36" rx="4" fill="none" stroke="#b9b4ad" stroke-width="2"/>
+    <rect x="866" y="168" width="120" height="36" rx="4" fill="none" stroke="#b9b4ad" stroke-width="2"/>
+    <line x1="520" y1="218" x2="920" y2="218" stroke="#e0ddd2" stroke-width="2"/>
+
+    <!-- section 1: kicker, heading, prose, figure -->
+    <rect x="548" y="248" width="150" height="8" fill="#5e1605"/>
+    <rect x="548" y="266" width="240" height="24" fill="#b9b4ad"/>
+    <path d="M864 270 l10 10 10 -10" fill="none" stroke="#6b6560" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <rect x="548" y="312" width="344" height="10" fill="#e0ddd2"/>
+    <rect x="548" y="330" width="344" height="10" fill="#e0ddd2"/>
+    <rect x="548" y="348" width="344" height="10" fill="#e0ddd2"/>
+    <rect x="548" y="366" width="344" height="10" fill="#e0ddd2"/>
+    <rect x="548" y="384" width="200" height="10" fill="#e0ddd2"/>
+
+    <rect x="548" y="418" width="344" height="190" fill="#ebe9e1" stroke="#b9b4ad" stroke-width="2"/>
+    <line x1="548" y1="418" x2="892" y2="608" stroke="#b9b4ad" stroke-width="1.5"/>
+    <line x1="892" y1="418" x2="548" y2="608" stroke="#b9b4ad" stroke-width="1.5"/>
+    <rect x="548" y="620" width="160" height="8" fill="#e0ddd2"/>
+
+    <!-- section 2 -->
+    <line x1="520" y1="656" x2="920" y2="656" stroke="#e0ddd2" stroke-width="2"/>
+    <rect x="548" y="680" width="130" height="8" fill="#5e1605"/>
+    <rect x="548" y="698" width="200" height="24" fill="#b9b4ad"/>
+    <rect x="548" y="740" width="344" height="10" fill="#e0ddd2"/>
+    <rect x="548" y="758" width="344" height="10" fill="#e0ddd2"/>
+    <rect x="548" y="776" width="160" height="10" fill="#e0ddd2"/>
+
+    <!-- metrics grid: 2 x 2 below sm -->
+    <rect x="548" y="810" width="344" height="104" fill="none" stroke="#b9b4ad" stroke-width="2"/>
+    <line x1="720" y1="810" x2="720" y2="914" stroke="#b9b4ad" stroke-width="2"/>
+    <line x1="548" y1="862" x2="892" y2="862" stroke="#b9b4ad" stroke-width="2"/>
+    <rect x="564" y="822" width="60" height="16" fill="#b9b4ad"/>
+    <rect x="564" y="844" width="90" height="6" fill="#e0ddd2"/>
+    <rect x="736" y="822" width="60" height="16" fill="#b9b4ad"/>
+    <rect x="736" y="844" width="90" height="6" fill="#e0ddd2"/>
+    <rect x="564" y="874" width="70" height="16" fill="#e0ddd2"/>
+    <rect x="564" y="896" width="90" height="6" fill="#e0ddd2"/>
+    <rect x="736" y="874" width="70" height="16" fill="#e0ddd2"/>
+    <rect x="736" y="896" width="90" height="6" fill="#e0ddd2"/>
+  </g>
+
+  <!-- ───────── annotations ───────── -->
+  <line x1="1030" y1="192" x2="912" y2="186" stroke="#b9b4ad" stroke-width="1.5"/>
+  <circle cx="912" cy="186" r="4" fill="#6b6560"/>
+  <text x="1044" y="182" font-size="18" fill="#6b6560">the TOC doesn't render below md —</text>
+  <text x="1044" y="208" font-size="18" fill="#6b6560">a horizontal pill bar owns navigation,</text>
+  <text x="1044" y="234" font-size="18" fill="#6b6560">and the row scrolls sideways</text>
+
+  <line x1="1030" y1="368" x2="912" y2="350" stroke="#b9b4ad" stroke-width="1.5"/>
+  <circle cx="912" cy="350" r="4" fill="#6b6560"/>
+  <text x="1044" y="358" font-size="18" fill="#6b6560">same sections, same order, one column —</text>
+  <text x="1044" y="384" font-size="18" fill="#6b6560">there is no separate mobile layout,</text>
+  <text x="1044" y="410" font-size="18" fill="#6b6560">and print forces every section open</text>
+
+  <line x1="1030" y1="736" x2="912" y2="760" stroke="#b9b4ad" stroke-width="1.5"/>
+  <circle cx="912" cy="760" r="4" fill="#6b6560"/>
+  <text x="1044" y="726" font-size="18" fill="#6b6560">the xl pull-quote rail is gone, and</text>
+  <text x="1044" y="752" font-size="18" fill="#6b6560">nothing is lost — the sentence it lifts</text>
+  <text x="1044" y="778" font-size="18" fill="#6b6560">already lives in the paragraph</text>
+</svg>

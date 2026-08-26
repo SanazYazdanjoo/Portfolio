@@ -33,23 +33,26 @@ describe("section rail — every listed section resolves to a real section", () 
       const { unmount } = renderWithProviders(<ProjectTemplate meta={project} />);
 
       const nav = screen.getByRole("navigation", { name: /page sections/i });
+      // Section links carry the real id in data-section-id; the
+      // expand/collapse-all and hide controls in the same <nav> don't, which
+      // is the filter. Deriving the id from the visible label used to work
+      // by coincidence (label text == id, lowercased) and broke the moment a
+      // section's label diverged from its id ("Design System" → designSystem,
+      // the per-project "Metrics" rename → results).
       const entries = within(nav)
         .getAllByRole("button")
-        .map((b) => b.textContent.trim())
-        // The expand/collapse-all control sits in the same <nav> but is not a
-        // section link — it is the only entry without a leading 01/02 number.
-        .filter((label) => /^\d{2}/.test(label));
+        .filter((b) => b.dataset.sectionId);
 
       expect(entries.length, `${slug} rendered no section links`).toBeGreaterThan(0);
 
-      for (const label of entries) {
+      for (const button of entries) {
         // navigateToSection() does getElementById(id).scrollIntoView() — a
         // missing node is a dead nav entry, which is the bug this catches.
-        const id = label.replace(/^\d{2}\s*/, "").toLowerCase();
+        const id = button.dataset.sectionId;
         const section = document.getElementById(id);
         expect(
           section,
-          `${slug}: sidebar lists "${label}" but no <section id="${id}"> renders`
+          `${slug}: sidebar lists "${button.textContent.trim()}" but no <section id="${id}"> renders`
         ).not.toBeNull();
       }
 

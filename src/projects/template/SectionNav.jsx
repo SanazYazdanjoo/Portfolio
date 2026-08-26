@@ -79,11 +79,14 @@ export function SidebarNav({
       <ul id={listId} className="space-y-0.5">
         {sections.map((section, i) => {
           const isActive = activeId === section.id;
-          const label = t(section.labelKey);
+          // `label` is the per-project override (meta.sectionTitles, already
+          // localized); the translation key is the site-wide default.
+          const label = section.label || t(section.labelKey);
           return (
             <li key={section.id}>
               <button
                 onClick={() => onNavigate(section.id)}
+                data-section-id={section.id}
                 aria-label={collapsed ? label : undefined}
                 title={collapsed ? label : undefined}
                 aria-current={isActive ? "true" : undefined}
@@ -148,6 +151,7 @@ export function MobilePillBar({ sections, activeId, onNavigate }) {
             <button
               key={section.id}
               onClick={() => onNavigate(section.id)}
+              data-section-id={section.id}
               className={`shrink-0 px-3 py-1.5 text-2xs font-black uppercase
                 transition-colors duration-200
                 border rule-frame
@@ -156,7 +160,7 @@ export function MobilePillBar({ sections, activeId, onNavigate }) {
                   : "text-dim hover:text-text"
                 }`}
             >
-              {t(section.labelKey)}
+              {section.label || t(section.labelKey)}
             </button>
           );
         })}
