@@ -108,6 +108,7 @@ const en = {
   "cv.skillCategory.uxResearchDesign": "UX Research & Testing",
   "cv.skillCategory.qaTesting": "QA & Testing",
   "cv.skillCategory.analysisTools": "Analysis & Tools",
+  "cv.skillCategory.backendData": "Backend & Data",
 
   // Contact
   "contact.heading": "Get in Touch",
@@ -475,6 +476,23 @@ const en = {
   "sitemap.sections.skillsEduLang.desc": "Sidebar",
   "sitemap.sections.saveAsPdf.label": "Save as PDF",
   "sitemap.sections.saveAsPdf.desc": "A4 print-optimised",
+
+  // "Ask this portfolio" chat widget
+  "chat.fab": "Ask AI",
+  "chat.title": "Ask this portfolio",
+  "chat.subtitle": "AI · answers from this site's own content",
+  "chat.intro": "Hi! I answer questions about Sanaz's work — projects, methods, skills, availability. Try one of these:",
+  "chat.q1": "What did she build at IBS?",
+  "chat.q2": "Which projects used eye-tracking?",
+  "chat.q3": "Is she open to relocation?",
+  "chat.placeholder": "Ask about her work…",
+  "chat.send": "Send",
+  "chat.close": "Close chat",
+  "chat.thinking": "Thinking…",
+  "chat.disclosure": "AI-generated (OpenAI) — may contain mistakes. Verify in the case studies.",
+  "chat.error": "Something went wrong. Please try again — or use the contact page.",
+  "chat.errorRate": "Too many questions at once — please wait a minute and try again.",
+  "chat.offline": "The assistant isn't configured on this deployment yet.",
 };
 
 export default en;

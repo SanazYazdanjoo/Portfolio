@@ -15,6 +15,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import { Nav } from "./components/Nav";
 import { Footer } from "./components/Footer";
 import { SketchTrail } from "./components/SketchTrail";
+import { AskPortfolio } from "./components/AskPortfolio";
 import { RouteSkeleton } from "./components/RouteSkeleton";
 import { profileData as rawProfile } from "./data/profile";
 import { useLocalizedProfile } from "./hooks/useLocalizedProfile";
@@ -88,6 +89,10 @@ export default function App() {
 
           <SketchTrail />
         </div>
+
+        {/* Fixed-position, so it lives outside the custom scroll container. */}
+        <AskPortfolio />
+
         <Analytics/>
       </div>
     </MotionConfig>

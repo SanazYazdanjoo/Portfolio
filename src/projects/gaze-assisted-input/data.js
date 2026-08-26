@@ -156,8 +156,8 @@ export const projectData = {
       type: { en: "Frontend Engineering", de: "Frontend-Entwicklung" },
       title: { en: "TypeScript Architecture & Real-Time Gaze Pipeline", de: "TypeScript-Architektur & Echtzeit-Blickpipeline" },
       annotation: {
-        en: "Engineered the complete experiment software from scratch in TypeScript. Interfaced with the Pupil Labs Neon head-mounted tracker via its real-time streaming API, using AprilTag-based surface mapping to translate gaze onto each display. Implemented MAGIC (gaze-triggered warp, 20 px landing offset) and a gaze-augmented Ninja variant (one cursor per screen, gaze-based switching, 150 ms guard).",
-        de: "Die komplette Experimentalsoftware von Grund auf in TypeScript entwickelt. Anbindung an den kopfgetragenen Pupil Labs Neon Eyetracker über dessen Echtzeit-Streaming-API, mit AprilTag-basiertem Oberflächen-Mapping zur Übersetzung des Blicks auf jeden Bildschirm. Implementiert wurden MAGIC (blickausgelöster Warp, 20 px Landeversatz) und eine blickunterstützte Ninja-Variante (ein Cursor pro Bildschirm, blickbasiertes Umschalten, 150 ms Sperrzeit).",
+        en: "Engineered the complete experiment software from scratch in TypeScript. Interfaced with the Pupil Labs Neon head-mounted tracker via its real-time streaming API — a Python backend service relays the tracker's stream to the browser frontend — using AprilTag-based surface mapping to translate gaze onto each display. Implemented MAGIC (gaze-triggered warp, 20 px landing offset) and a gaze-augmented Ninja variant (one cursor per screen, gaze-based switching, 150 ms guard).",
+        de: "Die komplette Experimentalsoftware von Grund auf in TypeScript entwickelt. Anbindung an den kopfgetragenen Pupil Labs Neon Eyetracker über dessen Echtzeit-Streaming-API — ein Python-Backend-Dienst leitet den Stream des Trackers an das Browser-Frontend weiter — mit AprilTag-basiertem Oberflächen-Mapping zur Übersetzung des Blicks auf jeden Bildschirm. Implementiert wurden MAGIC (blickausgelöster Warp, 20 px Landeversatz) und eine blickunterstützte Ninja-Variante (ein Cursor pro Bildschirm, blickbasiertes Umschalten, 150 ms Sperrzeit).",
       },
       insight: {
         en: "The two techniques distribute risk differently on a system level: MAGIC couples gaze precision to every landing, while Ninja uses gaze only for the coarse display switch — an architectural difference that later explained the entire results pattern.",
@@ -170,8 +170,8 @@ export const projectData = {
       type: { en: "Quantitative Analysis", de: "Quantitative Analyse" },
       title: { en: "RM-ANOVA: A Distance-Dependent Crossover", de: "RM-ANOVA: ein distanzabhängiger Crossover" },
       annotation: {
-        en: "Repeated-measures ANOVA on log-transformed movement time (n=24 after data-quality exclusions), Greenhouse–Geisser corrected, Tukey post-hoc. Significant technique × distance interaction (η²ₚ = .690, p < .001).",
-        de: "ANOVA mit Messwiederholung auf log-transformierter Bewegungszeit (n=24 nach Ausschluss aufgrund von Datenqualität), Greenhouse-Geisser-korrigiert, Tukey-Post-hoc. Signifikante Interaktion Technik × Distanz (η²ₚ = .690, p < .001).",
+        en: "Repeated-measures ANOVA on log-transformed movement time (n=24 after data-quality exclusions), Greenhouse–Geisser corrected, Tukey post-hoc, run in R. Significant technique × distance interaction (η²ₚ = .690, p < .001).",
+        de: "ANOVA mit Messwiederholung auf log-transformierter Bewegungszeit (n=24 nach Ausschluss aufgrund von Datenqualität), Greenhouse-Geisser-korrigiert, Tukey-Post-hoc, durchgeführt in R. Signifikante Interaktion Technik × Distanz (η²ₚ = .690, p < .001).",
       },
       insight: {
         en: "Mouse won at short distances — but Ninja significantly beat it at the two intermediate cross-screen distances (1684 and 2243 px) and converged at the longest. Gaze assistance pays off precisely where the bezel crossing is the dominant cost.",
@@ -274,7 +274,7 @@ export const projectData = {
   tagEvidence: [
     { tag: "TypeScript", evidence: "process:TypeScript Architecture & Real-Time Gaze Pipeline", status: "evidenced" },
     { tag: "React", evidence: "techStack: [\"TypeScript\", \"Pupil Labs Neon\", \"Real-Time API\", \"AprilTag Marker Mapping\", \"Python\", \"React\"] — rendered as Tech Stack chips under Methodology", status: "evidenced" },
-    { tag: "Python", evidence: "techStack: [\"TypeScript\", \"Pupil Labs Neon\", \"Real-Time API\", \"AprilTag Marker Mapping\", \"Python\", \"React\"] — rendered as Tech Stack chips under Methodology", status: "evidenced" },
+    { tag: "Python", evidence: "process:TypeScript Architecture & Real-Time Gaze Pipeline — a Python backend service relays the tracker's real-time stream to the browser frontend", status: "evidenced" },
     { tag: "Eye-Tracking", evidence: "solution: Pupil Labs Neon head-mounted tracker, AprilTag surface mapping", status: "evidenced" },
     { tag: "Real-Time API Integration", evidence: "process:TypeScript Architecture & Real-Time Gaze Pipeline — Pupil Labs real-time streaming API", status: "evidenced" },
     { tag: "Mixed-Methods Research", evidence: "methodology: \"A two-phase mixed-methods design. Phase I:... Phase II:...\"", status: "evidenced" },

@@ -104,6 +104,7 @@ export const projectData = {
     'Tailwind CSS',
     'Vitest',
     'Node.js Server (Fastify)',
+    'Session Auth (argon2id) · CSRF · Rate Limiting',
     'SQLite',
     'SheetJS / Local Excel Files',
     'Nextcloud WebDAV Integration',

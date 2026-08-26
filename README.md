@@ -80,6 +80,9 @@ build, `generate-meta` after it), and any of them failing stops the build:
 - **`scripts/generate-meta.mjs`** — writes a static HTML file per route with
   its own title and description, so a link shared to LinkedIn or Slack
   unfurls with that page's metadata rather than the site default.
+- **`scripts/generate-chat-knowledge.mjs`** — regenerates the chat
+  assistant's knowledge base (`api/_knowledge.mjs`) from the same modules the
+  site renders from, so the assistant cannot drift from the published content.
 - **ESLint**, then the Vite build.
 
 The Vitest suite (`src/data/projects.test.js`) enforces the data contract:
@@ -104,3 +107,25 @@ scripts/         build-time generators and guards
 `src/pages/Admin.jsx` is a dev-only content editor backed by a local Express
 server (`server/`). It is registered as a route only when `import.meta.env.DEV`
 is true and never ships in a production bundle.
+
+## "Ask this portfolio" (AI chat)
+
+A floating assistant (`src/components/AskPortfolio.jsx`) answers visitor
+questions about the work, grounded strictly in the site's own content and
+powered by the OpenAI API.
+
+- **Grounding**: `scripts/generate-chat-knowledge.mjs` distills
+  `data.json` + every case study's `data.js` into `api/_knowledge.mjs`
+  (committed, and regenerated on every build). The system prompt tells the
+  model to answer only from that JSON and to say "I don't know" otherwise.
+- **Backend**: `api/chat.js` — one handler that runs as a Vercel serverless
+  function in production and mounts on the Express dev server locally. It
+  holds the API key, injects the system prompt server-side, validates the
+  request shape, rate-limits per IP, and streams the reply as plain text.
+- **Setup**: copy `.env.example` to `.env` locally; on Vercel set
+  `OPENAI_API_KEY` (and optionally `OPENAI_MODEL`, default `gpt-5-mini`) in
+  the project's environment variables. Use a dedicated OpenAI project key
+  with a monthly budget cap. Without a key the endpoint returns 503 and the
+  widget shows a "not configured" notice — the site itself is unaffected.
+- **Local dev**: `start.bat` (or `npm run dev` + `node server/server.js`) —
+  Vite proxies `/api/chat` to the Express server on :3001.

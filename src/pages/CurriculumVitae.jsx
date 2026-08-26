@@ -12,6 +12,7 @@ import { useDocumentMeta } from "../hooks/useDocumentMeta";
 // (added later via /admin) falls back to the raw English key.
 const SKILL_CATEGORY_KEYS = {
   "Frontend Engineering & Design": "cv.skillCategory.frontendEngineering",
+  "Backend & Data": "cv.skillCategory.backendData",
   "UX Research & Testing": "cv.skillCategory.uxResearchDesign",
   "QA & Testing": "cv.skillCategory.qaTesting",
   "Analysis & Tools": "cv.skillCategory.analysisTools",
