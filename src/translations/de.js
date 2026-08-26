@@ -105,6 +105,7 @@ const de = {
   "cv.skillCategory.uxResearchDesign": "UX Research & Testing",
   "cv.skillCategory.qaTesting": "QA & Testing",
   "cv.skillCategory.analysisTools": "Analyse & Tools",
+  "cv.skillCategory.backendData": "Backend & Daten",
 
   // Contact
   "contact.heading": "Kontakt aufnehmen",
@@ -472,6 +473,23 @@ const de = {
   "sitemap.sections.skillsEduLang.desc": "Seitenleiste",
   "sitemap.sections.saveAsPdf.label": "Als PDF speichern",
   "sitemap.sections.saveAsPdf.desc": "Für A4-Druck optimiert",
+
+  // "Frag dieses Portfolio" Chat-Widget
+  "chat.fab": "KI fragen",
+  "chat.title": "Frag dieses Portfolio",
+  "chat.subtitle": "KI · Antworten aus den Inhalten dieser Website",
+  "chat.intro": "Hallo! Ich beantworte Fragen zu Sanaz' Arbeit — Projekte, Methoden, Skills, Verfügbarkeit. Zum Beispiel:",
+  "chat.q1": "Was hat sie am IBS gebaut?",
+  "chat.q2": "Welche Projekte nutzten Eye-Tracking?",
+  "chat.q3": "Ist sie umzugsbereit?",
+  "chat.placeholder": "Frage zu ihrer Arbeit …",
+  "chat.send": "Senden",
+  "chat.close": "Chat schließen",
+  "chat.thinking": "Denkt nach …",
+  "chat.disclosure": "KI-generiert (OpenAI) — kann Fehler enthalten. Details in den Fallstudien prüfen.",
+  "chat.error": "Etwas ist schiefgelaufen. Bitte erneut versuchen — oder die Kontaktseite nutzen.",
+  "chat.errorRate": "Zu viele Fragen auf einmal — bitte kurz warten und erneut versuchen.",
+  "chat.offline": "Der Assistent ist auf dieser Umgebung noch nicht eingerichtet.",
 };
 
 export default de;

@@ -158,6 +158,10 @@
             "de": "Aufbau einer strikt DSGVO-konformen Datenhaltung mit lokalen Persistenz-Adaptern und Nextcloud-WebDAV-Integration — Teilnehmendendaten verlassen die internen Institutsserver nicht."
           },
           {
+            "en": "Secured the Fastify (Node.js) backend with session-based authentication (argon2id password hashing), CSRF protection, rate limiting, and server-side role checks, keeping each role view inside its permitted scope.",
+            "de": "Absicherung des Fastify-(Node.js-)Backends mit Session-Authentifizierung (argon2id-Passwort-Hashing), CSRF-Schutz, Rate-Limiting und serverseitigen Rollenprüfungen — jede Rollenansicht bleibt in ihrem erlaubten Bereich."
+          },
+          {
             "en": "Facilitated interdisciplinary communication in German, conducting expert validation interviews and task-based evaluations to refine inclusive features like mobile-first camera capture and guided step-by-step modes.",
             "de": "Interdisziplinäre Projektkommunikation auf Deutsch; Experten-Validierungsinterviews und aufgabenbasierte Evaluationen zur Verfeinerung inklusiver Funktionen wie Mobile-First-Kameraerfassung und geführtem Schritt-für-Schritt-Modus."
           }
@@ -173,20 +177,20 @@
         "impactMetrics": [
           { "en": "Trust > speed: key adoption finding", "de": "Vertrauen vor Tempo: Kernbefund" },
           { "en": "n=30 within-subjects, 3 conditions",   "de": "n=30 Within-Subjects, 3 Bedingungen" },
-          { "en": "Custom TypeScript gaze pipeline",      "de": "Eigene TypeScript-Gaze-Pipeline" }
+          { "en": "TypeScript + Python gaze pipeline",    "de": "TypeScript+Python-Gaze-Pipeline" }
         ],
         "tasks": [
           {
-            "en": "Independently developed the entire experimental software in TypeScript, implementing complex gaze-assisted interaction techniques (MAGIC Pointing, Ninja Cursors), stimulus presentation, and performant data logging.",
-            "de": "Eigenständige Entwicklung der gesamten Experimentalsoftware in TypeScript — Implementierung komplexer blickgestützter Interaktionstechniken (MAGIC Pointing, Ninja Cursors), Stimulus-Präsentation und performantes Datenlogging."
+            "en": "Independently developed the entire experimental platform — a TypeScript frontend with a Python backend bridging the Pupil Labs Neon eye tracker's real-time API — implementing complex gaze-assisted interaction techniques (MAGIC Pointing, Ninja Cursors), stimulus presentation, and performant data logging.",
+            "de": "Eigenständige Entwicklung der gesamten Experimentalplattform — TypeScript-Frontend mit Python-Backend zur Anbindung der Echtzeit-API des Pupil Labs Neon Eyetrackers — Implementierung komplexer blickgestützter Interaktionstechniken (MAGIC Pointing, Ninja Cursors), Stimulus-Präsentation und performantes Datenlogging."
           },
           {
             "en": "Designed and conducted a controlled within-subjects experiment (n=30) comparing the developed input techniques against a mouse baseline in dual-display environments.",
             "de": "Konzeption und Durchführung eines kontrollierten Within-Subjects-Experiments (n=30) zum Vergleich der entwickelten Eingabetechniken mit einer Maus-Baseline in Dual-Display-Umgebungen."
           },
           {
-            "en": "Evaluated performance and user experience using mixed methods; key finding for complex system development: predictability and user trust are more critical for adoption than raw speed.",
-            "de": "Auswertung von Leistung und Nutzererleben mit Mixed Methods; zentrales Ergebnis für die Entwicklung komplexer Systeme: Vorhersagbarkeit und Nutzervertrauen sind für die Akzeptanz wichtiger als reine Geschwindigkeit."
+            "en": "Evaluated performance and user experience using mixed methods, analysing movement time and SUS in R; key finding for complex system development: predictability and user trust are more critical for adoption than raw speed.",
+            "de": "Auswertung von Leistung und Nutzererleben mit Mixed Methods — Analyse von Bewegungszeit und SUS in R; zentrales Ergebnis für die Entwicklung komplexer Systeme: Vorhersagbarkeit und Nutzervertrauen sind für die Akzeptanz wichtiger als reine Geschwindigkeit."
           }
         ]
       },
@@ -271,8 +275,8 @@
         ],
         "tasks": [
           {
-            "en": "Contributed to establishing the first manual acceptance-testing group at the 500+ employee software group and trained its 4 QA members, introducing agile test management for more efficient bug-tracking workflows.",
-            "de": "Mitaufbau der ersten manuellen Abnahmetest-Gruppe des Softwareunternehmens mit über 500 Mitarbeitenden und Einarbeitung der 4 QA-Mitglieder; Einführung agilen Testmanagements für effizientere Bug-Tracking-Workflows."
+            "en": "Contributed to establishing the first manual acceptance-testing group at the 500+ employee software group and trained its 4 QA members, introducing TestLink for test-case management and more efficient bug-tracking workflows.",
+            "de": "Mitaufbau der ersten manuellen Abnahmetest-Gruppe des Softwareunternehmens mit über 500 Mitarbeitenden und Einarbeitung der 4 QA-Mitglieder; Einführung von TestLink für das Testfall-Management und effizientere Bug-Tracking-Workflows."
           },
           {
             "en": "Ran acceptance testing across web and mobile app projects — surfacing pain points from the end-user perspective, checking UI against standards, and improving overall product quality.",
@@ -530,6 +534,12 @@
         "nopCommerce",
         "E-Commerce"
       ],
+      "Backend & Data": [
+        "Node.js (Fastify)",
+        "SQLite",
+        "REST APIs",
+        "Authentication & Security (Argon2id, CSRF)"
+      ],
       "UX Research & Testing": [
         "B2B User Research",
         "Mixed-Methods Research",
@@ -542,11 +552,13 @@
       "QA & Testing": [
         "Unit & Integration Testing (Vitest)",
         "Postman (REST API Validation)",
+        "TestLink",
         "Heuristic Evaluation",
         "Acceptance Testing"
       ],
       "Analysis & Tools": [
         "Python",
+        "R (Statistical Analysis)",
         "Git & GitHub",
         "Vercel",
         "Unity"
