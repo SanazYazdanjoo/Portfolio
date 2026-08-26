@@ -45,6 +45,7 @@ import { Prose } from "./template/Prose";
 import { ProcessGallerySection } from "./template/ProcessGallery";
 import { SidebarNav, MobilePillBar } from "./template/SectionNav";
 import { MetricsStrip } from "./template/MetricsStrip";
+import { DesignTokensPanel } from "./template/DesignTokensPanel";
 import { VerbatimRail, VerbatimInline, VerbatimList } from "./template/Verbatims";
 import { OutcomeBlock } from "./template/OutcomeBlock";
 import { NotBuiltBlock } from "./template/NotBuiltBlock";
@@ -112,9 +113,20 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
           return hasValue || !!meta.outcome?.body || meta.notBuilt?.items?.length > 0;
         }
         return hasValue;
+      }).map((s) => {
+        // Per-project title override (meta.sectionTitles, localized by
+        // useLocalizedProfile) — the sidebar and pill bar read `label`.
+        const label = meta.sectionTitles?.[s.id]?.label;
+        return label ? { ...s, label } : s;
       }),
     [meta]
   );
+
+  // Section kicker/heading: the per-project override wins, the site-wide
+  // translation key is the default. One resolver for every section so the
+  // override mechanism cannot be half-wired for some heading and not another.
+  const kickerFor = (id) => meta.sectionTitles?.[id]?.kicker || t(`project.${id}.kicker`);
+  const headingFor = (id) => meta.sectionTitles?.[id]?.heading || t(`project.${id}.heading`);
 
   const {
     activeId,
@@ -144,6 +156,52 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
   const methods = meta.methods || [];
   const tags = meta.tags || [];
   const hasHeroImage = !!meta.thumbnail;
+
+  // Research Methods + Tech Stack. Home is the Methodology section; when a
+  // project has no methodology prose (the portfolio case study dropped its
+  // own), the block falls back into Prototype rather than silently holding
+  // data nothing renders — `methods` is required by the data contract, so
+  // "no methodology" must not mean "no methods anywhere".
+  const methodsAndStack =
+    ((methods && methods.length > 0) || (meta.techStack && meta.techStack.length > 0)) && (
+      <div className="mt-8 flex flex-col gap-6 border-l-2 rule-l pl-5">
+
+        {/* Research Methods */}
+        {methods && methods.length > 0 && (
+          <div>
+            <span className="block font-mono text-2xs uppercase text-text-meta mb-2">
+              {t("project.meta.methods")}
+            </span>
+            <div className="text-sm text-text-meta leading-relaxed">
+              {methods.map((m, i, arr) => (
+                <span key={m.en || m}>
+                  <span className="font-medium text-text-meta">{m.en || m}</span>
+                  {i < arr.length - 1 && <span className="mx-2 text-text/25">·</span>}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Tech Stack */}
+        {meta.techStack && meta.techStack.length > 0 && (
+          <div>
+            <span className="block font-mono text-2xs uppercase text-text-meta mb-2">
+              {t("project.methodology.techStack")}
+            </span>
+            <div className="text-sm text-text-meta leading-relaxed">
+              {meta.techStack.map((tech, i, arr) => (
+                <span key={tech}>
+                  <span className="font-medium text-text-meta">{tech}</span>
+                  {i < arr.length - 1 && <span className="mx-2 text-text/25">·</span>}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+      </div>
+    );
 
   return (
     <div ref={mainRef} className="min-h-screen bg-bg pt-20 md:pt-24">
@@ -199,7 +257,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                 <ContentSection id="about" number={sectionNumber("about")}
                   isOpen={openSections.has("about")} onToggle={() => toggleSection("about")}
                   staggerDelayMs={staggerDelayFor("about")}
-                  kicker={t("project.about.kicker")} heading={t("project.about.heading")}>
+                  kicker={kickerFor("about")} heading={headingFor("about")}>
                   <ClampedText className="max-w-measure transition-[max-width] duration-300 ease-smooth">
                     <p className="text-lg leading-relaxed about-project text-text">
                       {meta.about}
@@ -241,7 +299,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   <ContentSection key={id} id={id} number={sectionNumber(id)}
                     isOpen={openSections.has(id)} onToggle={() => toggleSection(id)}
                     staggerDelayMs={staggerDelayFor(id)}
-                    kicker={t(`project.${id}.kicker`)} heading={t(`project.${id}.heading`)}>
+                    kicker={kickerFor(id)} heading={headingFor(id)}>
                     <Prose text={meta[textKey]} quote={meta[quoteKey]} rail={rail || !!meta[quoteKey]}>
                       {verbatimsIn(id) && <VerbatimList verbatims={meta.verbatims} />}
                       <SectionMedia items={meta.figures?.[id]} />
@@ -250,11 +308,27 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                 ) : null
               )}
 
+              {/* Design System — an intro paragraph over a compact token
+                  panel whose values resolve from the live stylesheet, not
+                  from a copy (see template/DesignTokensPanel.jsx). Sits
+                  between the prose sections and Prototype to match its
+                  position in SECTIONS. */}
+              {meta.designSystem && (
+                <ContentSection id="designSystem" number={sectionNumber("designSystem")}
+                  isOpen={openSections.has("designSystem")} onToggle={() => toggleSection("designSystem")}
+                  staggerDelayMs={staggerDelayFor("designSystem")}
+                  kicker={kickerFor("designSystem")} heading={headingFor("designSystem")}>
+                  <Prose text={meta.designSystem}>
+                    <DesignTokensPanel />
+                  </Prose>
+                </ContentSection>
+              )}
+
               {(meta.prototype || meta.prototypeUrl || (meta.figures?.prototype?.length > 0)) && (
                 <ContentSection id="prototype" number={sectionNumber("prototype")}
                   isOpen={openSections.has("prototype")} onToggle={() => toggleSection("prototype")}
                   staggerDelayMs={staggerDelayFor("prototype")}
-                  kicker={t("project.prototype.kicker")} heading={t("project.prototype.heading")}>
+                  kicker={kickerFor("prototype")} heading={headingFor("prototype")}>
                   {meta.prototype && (
                     <ClampedText className="max-w-measure transition-[max-width] duration-300 ease-smooth">
                       <p className="text-lg leading-[1.7] text-text">
@@ -271,6 +345,10 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   )}
 
                   <SectionMedia items={meta.figures?.prototype} />
+
+                  {/* Fallback home for Methods + Tech Stack when there is no
+                      Methodology section to carry them (see methodsAndStack). */}
+                  {!meta.methodology && methodsAndStack}
                 </ContentSection>
               )}
 
@@ -278,50 +356,12 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                 <ContentSection id="methodology" number={sectionNumber("methodology")}
                   isOpen={openSections.has("methodology")} onToggle={() => toggleSection("methodology")}
                   staggerDelayMs={staggerDelayFor("methodology")}
-                  kicker={t("project.methodology.kicker")} heading={t("project.methodology.heading")}>
+                  kicker={kickerFor("methodology")} heading={headingFor("methodology")}>
                   <Prose text={meta.methodology} quote={meta.methodologyQuote} rail>
                     <SectionMedia items={meta.figures?.methodology} />
 
                     {/* Research Methods + Tech Stack */}
-                    {((methods && methods.length > 0) || (meta.techStack && meta.techStack.length > 0)) && (
-                      <div className="mt-8 flex flex-col gap-6 border-l-2 rule-l pl-5">
-
-                        {/* Research Methods */}
-                        {methods && methods.length > 0 && (
-                          <div>
-                            <span className="block font-mono text-2xs uppercase text-text-meta mb-2">
-                              {t("project.meta.methods")}
-                            </span>
-                            <div className="text-sm text-text-meta leading-relaxed">
-                              {methods.map((m, i, arr) => (
-                                <span key={m.en || m}>
-                                  <span className="font-medium text-text-meta">{m.en || m}</span>
-                                  {i < arr.length - 1 && <span className="mx-2 text-text/25">·</span>}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Tech Stack */}
-                        {meta.techStack && meta.techStack.length > 0 && (
-                          <div>
-                            <span className="block font-mono text-2xs uppercase text-text-meta mb-2">
-                              {t("project.methodology.techStack")}
-                            </span>
-                            <div className="text-sm text-text-meta leading-relaxed">
-                              {meta.techStack.map((tech, i, arr) => (
-                                <span key={tech}>
-                                  <span className="font-medium text-text-meta">{tech}</span>
-                                  {i < arr.length - 1 && <span className="mx-2 text-text/25">·</span>}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-
-                      </div>
-                    )}
+                    {methodsAndStack}
 
                   </Prose>
                 </ContentSection>
@@ -331,7 +371,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                 <ContentSection id="results" number={sectionNumber("results")}
                   isOpen={openSections.has("results")} onToggle={() => toggleSection("results")}
                   staggerDelayMs={staggerDelayFor("results")}
-                  kicker={t("project.results.kicker")} heading={t("project.results.heading")}>
+                  kicker={kickerFor("results")} heading={headingFor("results")}>
                   {/* `metrics` always stays in the data even when the strip here
                       renders from `resultsAtAGlance` instead — the project card
                       reads `metrics` for its own "Impact at a glance" row. The
@@ -378,7 +418,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                 <ContentSection id="implications" number={sectionNumber("implications")}
                   isOpen={openSections.has("implications")} onToggle={() => toggleSection("implications")}
                   staggerDelayMs={staggerDelayFor("implications")}
-                  kicker={t("project.implications.kicker")} heading={t("project.implications.heading")}>
+                  kicker={kickerFor("implications")} heading={headingFor("implications")}>
                   <ClampedText className="max-w-measure transition-[max-width] duration-300 ease-smooth">
                     <p className="text-lg leading-[1.7] text-text">
                       {meta.implications}
@@ -402,7 +442,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                 <ContentSection id="conclusion" number={sectionNumber("conclusion")}
                   isOpen={openSections.has("conclusion")} onToggle={() => toggleSection("conclusion")}
                   staggerDelayMs={staggerDelayFor("conclusion")}
-                  kicker={t("project.conclusion.kicker")} heading={t("project.conclusion.heading")}>
+                  kicker={kickerFor("conclusion")} heading={headingFor("conclusion")}>
                   <SectionMedia items={meta.conclusion} />
                 </ContentSection>
               )}

@@ -18,6 +18,12 @@ export const SECTIONS = [
   { id: "challenge",    labelKey: "project.sidebar.challenge",    dataKey: "challenge"    },
   { id: "solution",     labelKey: "project.sidebar.solution",     dataKey: "solution"     },
   { id: "design",       labelKey: "project.sidebar.design",       dataKey: "design"       },
+  // Structure before surface: wireframe (layout schematics) reads before
+  // designSystem (the token vocabulary those layouts are painted with).
+  // This order must match the JSX order in ProjectTemplate, or the TOC
+  // numbering and the scroll order disagree.
+  { id: "wireframe",    labelKey: "project.sidebar.wireframe",    dataKey: "wireframe"    },
+  { id: "designSystem", labelKey: "project.sidebar.designSystem", dataKey: "designSystem" },
   { id: "prototype",    labelKey: "project.sidebar.prototype",    dataKey: "prototype"    },
   { id: "methodology",  labelKey: "project.sidebar.methodology",  dataKey: "methodology"  },
   { id: "results",      labelKey: "project.sidebar.results",      dataKey: "results"      },
@@ -58,10 +64,17 @@ export const RENDERED_FIELDS = [
   "year", "context", "cardTags", "cardOutcome", "cardImage",
   // Body sections (see SECTIONS above for the ones with their own heading)
   "about", "process", "challenge", "challengeQuote", "solution", "solutionQuote",
-  "design", "designQuote", "prototype", "prototypeUrl", "prototypeUrlLabel", "methodology",
+  "design", "designQuote", "wireframe", "wireframeQuote", "designSystem",
+  "prototype", "prototypeUrl", "prototypeUrlLabel", "methodology",
   "methodologyQuote", "methods", "techStack", "results", "resultsAtAGlance",
   "metrics", "metricsIntro", "verbatims", "verbatimsIn", "outcome", "notBuilt",
   "implications", "phases", "phasesIntro", "conclusion", "figures",
+  // Per-project heading overrides, keyed by section id. Each entry may carry
+  // `label` (sidebar/pill), `kicker` and `heading` — bilingual objects, since
+  // useLocalizedProfile resolves them like any other field. This exists so a
+  // project whose numbers are not study findings can call its section
+  // "Metrics" without renaming Results for every study that earned the word.
+  "sectionTitles",
 ];
 
 // Sections whose body is a prose block plus an optional figure grid, keyed by
@@ -73,6 +86,7 @@ export const PROSE_SECTIONS = [
   { id: "challenge", textKey: "challenge", quoteKey: "challengeQuote", rail: true  },
   { id: "solution",  textKey: "solution",  quoteKey: "solutionQuote",  rail: true  },
   { id: "design",    textKey: "design",    quoteKey: "designQuote",    rail: false },
+  { id: "wireframe", textKey: "wireframe", quoteKey: "wireframeQuote", rail: false },
 ];
 
 // Where a project's `verbatims` render. Participant quotes are evidence, and
