@@ -8,8 +8,9 @@
     "preview": "vite preview",
     "test": "vitest",
     "test:run": "vitest run",
-    "build": "eslint src && vitest run && node scripts/generate-sitemap.mjs && node scripts/check-needs-input.mjs && vite build && node scripts/generate-meta.mjs",
+    "build": "eslint src && vitest run && node scripts/generate-sitemap.mjs && node scripts/check-needs-input.mjs && node scripts/generate-chat-knowledge.mjs && vite build && node scripts/generate-meta.mjs",
     "generate:sitemap": "node scripts/generate-sitemap.mjs",
+    "generate:knowledge": "node scripts/generate-chat-knowledge.mjs",
     "check:needs-input": "node scripts/check-needs-input.mjs"
   },
   "dependencies": {
