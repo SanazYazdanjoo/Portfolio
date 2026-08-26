@@ -492,7 +492,7 @@ const en = {
   "chat.disclosure": "AI via OpenAI — may contain mistakes.",
   "chat.error": "Oops, something went wrong — mind trying again in a moment?",
   "chat.errorRate": "Whoa, lots of questions at once — give it a minute and try again?",
-  "chat.offline": "I'm not set up on this deployment yet — check back soon!",
+  "chat.offline": "I'm offline right now — check back soon!",
 };
 
 export default en;

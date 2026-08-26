@@ -489,7 +489,7 @@ const de = {
   "chat.disclosure": "KI via OpenAI — kann Fehler enthalten.",
   "chat.error": "Ups, da ist etwas schiefgelaufen — mögen Sie es gleich noch einmal versuchen?",
   "chat.errorRate": "Puh, viele Fragen auf einmal — bitte kurz warten und noch einmal versuchen.",
-  "chat.offline": "Ich bin hier noch nicht eingerichtet — schauen Sie bald wieder vorbei!",
+  "chat.offline": "Ich bin gerade offline — schauen Sie bald wieder vorbei!",
 };
 
 export default de;
