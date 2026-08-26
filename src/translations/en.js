@@ -477,22 +477,22 @@ const en = {
   "sitemap.sections.saveAsPdf.label": "Save as PDF",
   "sitemap.sections.saveAsPdf.desc": "A4 print-optimised",
 
-  // "Ask this portfolio" chat widget
+  // "Chat with Sanaz" widget
   "chat.fab": "Ask AI",
-  "chat.title": "Ask this portfolio",
+  "chat.title": "Chat with Sanaz",
   "chat.subtitle": "AI · grounded in this site",
-  "chat.intro": "Hi! I answer questions about Sanaz's work — projects, methods, skills, availability. Try one of these:",
-  "chat.q1": "What did she build at IBS?",
-  "chat.q2": "Which projects used eye-tracking?",
-  "chat.q3": "Is she open to relocation?",
-  "chat.placeholder": "Ask about her work…",
+  "chat.intro": "Hey! I'm Sanaz — well, the AI version of me. Ask me anything about my work, or start with one of these:",
+  "chat.q1": "What did you build at IBS?",
+  "chat.q2": "Tell me about your eye-tracking thesis",
+  "chat.q3": "Would you relocate for a job?",
+  "chat.placeholder": "Ask me anything…",
   "chat.send": "Send",
   "chat.close": "Close chat",
-  "chat.thinking": "Thinking…",
+  "chat.thinking": "Typing…",
   "chat.disclosure": "AI via OpenAI — may contain mistakes.",
-  "chat.error": "Something went wrong. Please try again — or use the contact page.",
-  "chat.errorRate": "Too many questions at once — please wait a minute and try again.",
-  "chat.offline": "The assistant isn't configured on this deployment yet.",
+  "chat.error": "Oops, something went wrong — mind trying again in a moment?",
+  "chat.errorRate": "Whoa, lots of questions at once — give it a minute and try again?",
+  "chat.offline": "I'm not set up on this deployment yet — check back soon!",
 };
 
 export default en;

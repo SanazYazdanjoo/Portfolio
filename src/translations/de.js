@@ -474,22 +474,22 @@ const de = {
   "sitemap.sections.saveAsPdf.label": "Als PDF speichern",
   "sitemap.sections.saveAsPdf.desc": "Für A4-Druck optimiert",
 
-  // "Frag dieses Portfolio" Chat-Widget
+  // "Chat mit Sanaz" Widget
   "chat.fab": "KI fragen",
-  "chat.title": "Frag dieses Portfolio",
+  "chat.title": "Chat mit Sanaz",
   "chat.subtitle": "KI · basiert auf dieser Website",
-  "chat.intro": "Hallo! Ich beantworte Fragen zu Sanaz' Arbeit — Projekte, Methoden, Skills, Verfügbarkeit. Zum Beispiel:",
-  "chat.q1": "Was hat sie am IBS gebaut?",
-  "chat.q2": "Welche Projekte nutzten Eye-Tracking?",
-  "chat.q3": "Ist sie umzugsbereit?",
-  "chat.placeholder": "Frage zu ihrer Arbeit …",
+  "chat.intro": "Hallo! Ich bin Sanaz — na ja, die KI-Version von mir. Fragen Sie mich gern etwas zu meiner Arbeit, zum Beispiel:",
+  "chat.q1": "Was haben Sie am IBS gebaut?",
+  "chat.q2": "Erzählen Sie von Ihrer Eye-Tracking-Thesis",
+  "chat.q3": "Würden Sie für einen Job umziehen?",
+  "chat.placeholder": "Fragen Sie mich etwas …",
   "chat.send": "Senden",
   "chat.close": "Chat schließen",
-  "chat.thinking": "Denkt nach …",
+  "chat.thinking": "Tippt …",
   "chat.disclosure": "KI via OpenAI — kann Fehler enthalten.",
-  "chat.error": "Etwas ist schiefgelaufen. Bitte erneut versuchen — oder die Kontaktseite nutzen.",
-  "chat.errorRate": "Zu viele Fragen auf einmal — bitte kurz warten und erneut versuchen.",
-  "chat.offline": "Der Assistent ist auf dieser Umgebung noch nicht eingerichtet.",
+  "chat.error": "Ups, da ist etwas schiefgelaufen — mögen Sie es gleich noch einmal versuchen?",
+  "chat.errorRate": "Puh, viele Fragen auf einmal — bitte kurz warten und noch einmal versuchen.",
+  "chat.offline": "Ich bin hier noch nicht eingerichtet — schauen Sie bald wieder vorbei!",
 };
 
 export default de;
