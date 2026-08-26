@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" font-family="ui-monospace, Consolas, Menlo, monospace">
+  <!-- Post-hoc wireframe of the shipped case-study template at xl (>=1280px):
+       three tracks — sticky TOC rail, capped prose column, pull-quote rail.
+       Drawn from src/projects/ProjectTemplate.jsx, not from a design file. -->
+  <rect width="1600" height="1000" fill="#ffffff"/>
+
+  <!-- scroll-progress bar -->
+  <rect x="0" y="0" width="1600" height="6" fill="#e0ddd2"/>
+  <rect x="0" y="0" width="980" height="6" fill="#892107"/>
+
+  <text x="48" y="56" font-size="24" font-weight="700" fill="#211d1c" letter-spacing="2">CASE-STUDY TEMPLATE — THREE TRACKS AT ≥1280 PX (XL)</text>
+
+  <!-- ───────── left track: sticky section TOC ───────── -->
+  <text x="48" y="116" font-size="18" fill="#6b6560" letter-spacing="1">← ALL PROJECTS</text>
+
+  <!-- rows: this page's own section list -->
+  <text x="64" y="166" font-size="18" font-weight="700" fill="#6b6560">01</text>
+  <text x="104" y="166" font-size="18" fill="#6b6560" letter-spacing="1">ABOUT</text>
+
+  <rect x="48" y="190" width="5" height="30" fill="#5e1605"/>
+  <text x="64" y="212" font-size="18" font-weight="700" fill="#5e1605">02</text>
+  <text x="104" y="212" font-size="18" fill="#5e1605" letter-spacing="1">WIREFRAME</text>
+
+  <text x="64" y="258" font-size="18" font-weight="700" fill="#6b6560">03</text>
+  <text x="104" y="258" font-size="18" fill="#6b6560" letter-spacing="1">DESIGN SYSTEM</text>
+
+  <text x="64" y="304" font-size="18" font-weight="700" fill="#6b6560">04</text>
+  <text x="104" y="304" font-size="18" fill="#6b6560" letter-spacing="1">PROTOTYPE</text>
+
+  <text x="64" y="350" font-size="18" font-weight="700" fill="#6b6560">05</text>
+  <text x="104" y="350" font-size="18" fill="#6b6560" letter-spacing="1">METRICS</text>
+
+  <line x1="48" y1="392" x2="240" y2="392" stroke="#e0ddd2" stroke-width="2"/>
+  <text x="48" y="426" font-size="16" fill="#6b6560" letter-spacing="1">⌄ COLLAPSE ALL</text>
+
+  <text x="48" y="500" font-size="16" fill="#6b6560">sticky · collapses to a</text>
+  <text x="48" y="524" font-size="16" fill="#6b6560">56 px numbered rail —</text>
+  <text x="48" y="548" font-size="16" fill="#6b6560">the prose column claims</text>
+  <text x="48" y="572" font-size="16" fill="#6b6560">the freed width back</text>
+
+  <line x1="290" y1="70" x2="290" y2="950" stroke="#e0ddd2" stroke-width="2"/>
+
+  <!-- ───────── middle track: capped prose column ───────── -->
+  <!-- header -->
+  <rect x="330" y="96" width="540" height="40" fill="#b9b4ad"/>
+  <rect x="330" y="150" width="420" height="16" fill="#e0ddd2"/>
+  <rect x="330" y="184" width="120" height="28" rx="4" fill="none" stroke="#b9b4ad" stroke-width="2"/>
+  <rect x="462" y="184" width="140" height="28" rx="4" fill="none" stroke="#b9b4ad" stroke-width="2"/>
+  <rect x="614" y="184" width="110" height="28" rx="4" fill="none" stroke="#b9b4ad" stroke-width="2"/>
+
+  <!-- section head: numbered kicker + collapsible heading -->
+  <rect x="330" y="252" width="200" height="10" fill="#5e1605"/>
+  <rect x="330" y="278" width="380" height="30" fill="#b9b4ad"/>
+  <path d="M1090 286 l12 12 12 -12" fill="none" stroke="#6b6560" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- reading measure bracket -->
+  <text x="670" y="330" font-size="16" fill="#6b6560" text-anchor="middle">reading measure — max-width 68ch (88ch when the rail collapses)</text>
+  <path d="M330 344 v6 M330 347 h680 M1010 344 v6" fill="none" stroke="#6b6560" stroke-width="1.5"/>
+
+  <!-- prose lines -->
+  <rect x="330" y="362" width="680" height="12" fill="#e0ddd2"/>
+  <rect x="330" y="384" width="680" height="12" fill="#e0ddd2"/>
+  <rect x="330" y="406" width="680" height="12" fill="#e0ddd2"/>
+  <rect x="330" y="428" width="680" height="12" fill="#e0ddd2"/>
+  <rect x="330" y="450" width="410" height="12" fill="#e0ddd2"/>
+
+  <!-- figure grid: two 4:3 plates, contain not cover -->
+  <rect x="330" y="500" width="328" height="246" fill="#ebe9e1" stroke="#b9b4ad" stroke-width="2"/>
+  <line x1="330" y1="500" x2="658" y2="746" stroke="#b9b4ad" stroke-width="1.5"/>
+  <line x1="658" y1="500" x2="330" y2="746" stroke="#b9b4ad" stroke-width="1.5"/>
+  <rect x="682" y="500" width="328" height="246" fill="#ebe9e1" stroke="#b9b4ad" stroke-width="2"/>
+  <line x1="682" y1="500" x2="1010" y2="746" stroke="#b9b4ad" stroke-width="1.5"/>
+  <line x1="1010" y1="500" x2="682" y2="746" stroke="#b9b4ad" stroke-width="1.5"/>
+  <rect x="330" y="758" width="180" height="8" fill="#e0ddd2"/>
+  <rect x="682" y="758" width="180" height="8" fill="#e0ddd2"/>
+
+  <!-- metrics strip -->
+  <text x="330" y="806" font-size="16" fill="#6b6560">metrics strip — a pending metric renders as text, never an invented number</text>
+  <rect x="330" y="820" width="680" height="120" fill="none" stroke="#b9b4ad" stroke-width="2"/>
+  <line x1="500" y1="820" x2="500" y2="940" stroke="#b9b4ad" stroke-width="2"/>
+  <line x1="670" y1="820" x2="670" y2="940" stroke="#b9b4ad" stroke-width="2"/>
+  <line x1="840" y1="820" x2="840" y2="940" stroke="#b9b4ad" stroke-width="2"/>
+  <rect x="350" y="846" width="80" height="24" fill="#b9b4ad"/>
+  <rect x="350" y="890" width="110" height="8" fill="#e0ddd2"/>
+  <rect x="520" y="846" width="80" height="24" fill="#b9b4ad"/>
+  <rect x="520" y="890" width="110" height="8" fill="#e0ddd2"/>
+  <rect x="690" y="846" width="100" height="24" fill="#e0ddd2"/>
+  <rect x="690" y="890" width="110" height="8" fill="#e0ddd2"/>
+  <rect x="860" y="846" width="100" height="24" fill="#e0ddd2"/>
+  <rect x="860" y="890" width="110" height="8" fill="#e0ddd2"/>
+
+  <!-- ───────── right track: pull-quote rail ───────── -->
+  <rect x="1190" y="270" width="4" height="110" fill="#5e1605"/>
+  <rect x="1214" y="278" width="300" height="12" fill="#e0ddd2"/>
+  <rect x="1214" y="310" width="300" height="12" fill="#e0ddd2"/>
+  <rect x="1214" y="342" width="210" height="12" fill="#e0ddd2"/>
+
+  <text x="1190" y="440" font-size="16" fill="#6b6560">pull-quote rail — xl only.</text>
+  <text x="1190" y="464" font-size="16" fill="#6b6560">it repeats one sentence from</text>
+  <text x="1190" y="488" font-size="16" fill="#6b6560">the prose beside it; below xl</text>
+  <text x="1190" y="512" font-size="16" fill="#6b6560">it simply doesn't render.</text>
+</svg>

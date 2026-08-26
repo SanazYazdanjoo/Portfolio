@@ -191,6 +191,8 @@ const en = {
   "project.sidebar.challenge": "Challenge",
   "project.sidebar.solution": "Solution",
   "project.sidebar.design": "Design",
+  "project.sidebar.wireframe": "Wireframe",
+  "project.sidebar.designSystem": "Design System",
   "project.sidebar.prototype": "Prototype",
   "project.sidebar.methodology": "Methodology",
   "project.sidebar.results": "Results",
@@ -222,6 +224,17 @@ const en = {
 
   "project.design.kicker": "How It Was Made",
   "project.design.heading": "Design",
+
+  "project.wireframe.kicker": "Structure Before Surface",
+  "project.wireframe.heading": "Wireframes",
+
+  "project.designSystem.kicker": "Tokens, Read Live",
+  "project.designSystem.heading": "Design System",
+  "project.designSystem.liveNote": "Every value in this table is resolved from the live stylesheet at render time — theme.css is the single source, and nothing here is a copied number. The semantic roles re-resolve with your color scheme.",
+  "project.designSystem.groupColors": "Color — primitives",
+  "project.designSystem.groupSemantic": "Semantic roles",
+  "project.designSystem.groupType": "Typography",
+  "project.designSystem.groupShape": "Shape, layout & motion",
 
   "project.prototype.kicker": "See It In Action",
   "project.prototype.heading": "Prototype",

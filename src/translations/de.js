@@ -188,6 +188,8 @@ const de = {
   "project.sidebar.challenge": "Herausforderung",
   "project.sidebar.solution": "Lösung",
   "project.sidebar.design": "Design",
+  "project.sidebar.wireframe": "Wireframe",
+  "project.sidebar.designSystem": "Designsystem",
   "project.sidebar.prototype": "Prototyp",
   "project.sidebar.methodology": "Methodik",
   "project.sidebar.results": "Ergebnisse",
@@ -219,6 +221,17 @@ const de = {
 
   "project.design.kicker": "Wie es entstand",
   "project.design.heading": "Design",
+
+  "project.wireframe.kicker": "Struktur vor Oberfläche",
+  "project.wireframe.heading": "Wireframes",
+
+  "project.designSystem.kicker": "Tokens, live gelesen",
+  "project.designSystem.heading": "Designsystem",
+  "project.designSystem.liveNote": "Jeder Wert in dieser Tabelle wird beim Rendern aus dem lebenden Stylesheet aufgelöst — theme.css ist die einzige Quelle, nichts hier ist eine kopierte Zahl. Die semantischen Rollen lösen sich mit Ihrem Farbschema neu auf.",
+  "project.designSystem.groupColors": "Farbe — Primitives",
+  "project.designSystem.groupSemantic": "Semantische Rollen",
+  "project.designSystem.groupType": "Typografie",
+  "project.designSystem.groupShape": "Form, Layout & Bewegung",
 
   "project.prototype.kicker": "In Aktion sehen",
   "project.prototype.heading": "Prototyp",
