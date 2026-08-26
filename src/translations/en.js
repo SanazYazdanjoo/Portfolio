@@ -161,7 +161,7 @@ const en = {
   "hero.meta.location": "Location",
 
   // These values mirror the length and meaning of the German translation
-  "hero.meta.backgroundValue": "M.Sc. HCI · B.E. Software Engineering · QA",
+  "hero.meta.backgroundValue": "M.Sc. HCI · B.E. Software Engineering · Usability",
   "hero.meta.focusValue": "Frontend Development · UI Architecture · Mixed-methods",
   "hero.meta.statusValue": "Open to interdisciplinary UX & Tech roles",
   "hero.meta.locationValue": "Weimar, DE · Open to relocation",
