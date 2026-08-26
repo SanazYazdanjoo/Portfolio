@@ -538,6 +538,7 @@
         "Node.js (Fastify)",
         "SQLite",
         "REST APIs",
+        "OpenAI API",
         "Authentication & Security (Argon2id, CSRF)"
       ],
       "UX Research & Testing": [
