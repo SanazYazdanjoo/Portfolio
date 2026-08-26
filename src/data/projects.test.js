@@ -354,9 +354,9 @@ describe("data/renderer contract — no field drifts in either direction", () =>
   // Bilingual prose blocks that stand alone as a section body. Same rule as
   // the strip and notBuilt: present-but-empty is worse than absent, because
   // it renders a heading over nothing.
-  it("design and metricsIntro, where present, are non-empty bilingual blocks", () => {
+  it("design, wireframe, designSystem and metricsIntro, where present, are non-empty bilingual blocks", () => {
     for (const p of fullProjects) {
-      for (const key of ["design", "metricsIntro"]) {
+      for (const key of ["design", "wireframe", "designSystem", "metricsIntro"]) {
         if (!(key in p)) continue;
         const v = p[key];
         expect(
@@ -404,6 +404,34 @@ describe("data/renderer contract — no field drifts in either direction", () =>
         `${p.slug}: figures.design exists but \`design\` does not — the section ` +
           `is keyed to the prose, so the figures would render nowhere`
       ).toBeTruthy();
+    }
+  });
+
+  // The per-project heading override. A typo'd section id here would
+  // silently do nothing — the section would keep its default title and the
+  // author would believe it renamed — which is the same silent-drift class
+  // as a figures group under an unknown key.
+  it("sectionTitles, where present, keys real sections and carries bilingual parts", () => {
+    const sectionIds = new Set(SECTIONS.map((s) => s.id));
+    const ALLOWED_PARTS = ["label", "kicker", "heading"];
+    for (const p of fullProjects) {
+      if (!p.sectionTitles) continue;
+      for (const [id, parts] of Object.entries(p.sectionTitles)) {
+        expect(
+          sectionIds.has(id),
+          `${p.slug}: sectionTitles["${id}"] names no section — the override would silently do nothing`
+        ).toBe(true);
+        for (const [part, value] of Object.entries(parts)) {
+          expect(
+            ALLOWED_PARTS,
+            `${p.slug}: sectionTitles.${id}.${part} is not a part any renderer reads`
+          ).toContain(part);
+          expect(
+            (value?.en || "").length > 0,
+            `${p.slug}: sectionTitles.${id}.${part} is present but empty — omit it instead`
+          ).toBe(true);
+        }
+      }
     }
   });
 

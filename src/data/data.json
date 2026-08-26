@@ -128,8 +128,8 @@
       ]
     },
     "profileSummary": {
-      "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar) and experience across user research, UI development, and software usability since 2015. I design user-centric systems that translate complex data structures and business requirements into pragmatic B2B solutions — building performant, accessible UI components in React and TypeScript, and systematically validating design decisions through mixed-methods research. I use AI-assisted development tools productively, while critically reviewing every line of generated code. The case studies below show how that plays out in real projects.",
-      "de": "Ich bin UX Engineer mit einem M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar) und seit 2015 Erfahrung in User Research, UI-Entwicklung und Software-Usability. Ich gestalte nutzerzentrierte Systeme, die komplexe Datenstrukturen und Geschäftsanforderungen in pragmatische B2B-Lösungen übersetzen — mit performanten, barrierefreien UI-Komponenten in React und TypeScript und Designentscheidungen, die ich systematisch mit Mixed-Methods-Research validiere. KI-gestützte Entwicklungswerkzeuge nutze ich produktiv und prüfe generierten Code dabei kritisch. Die Case Studies unten zeigen, wie das in echten Projekten aussieht."
+      "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar), a B.E. in Software Engineering, and experience across user research, UI development, and software usability since 2015. I like working on both ends of a product: running mixed-methods user studies to understand what people actually need — and what's worth building — and then taking those findings all the way into responsive, accessible interfaces in React and TypeScript, backed by lightweight backends. I use AI-assisted development tools productively, while critically reviewing every line of generated code. The case studies below show how that plays out in real projects.",
+      "de": "Ich bin UX Engineer mit einem M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar), einem B.E. in Software Engineering und seit 2015 Erfahrung in User Research, UI-Entwicklung und Software-Usability. Ich arbeite gern an beiden Enden eines Produkts: Mixed-Methods-Studien, um zu verstehen, was Menschen wirklich brauchen — und was es wert ist, gebaut zu werden — und dann diese Erkenntnisse bis in responsive, barrierefreie Interfaces in React und TypeScript zu tragen, gestützt auf schlanke Backends. KI-gestützte Entwicklungswerkzeuge nutze ich produktiv und prüfe generierten Code dabei kritisch. Die Case Studies unten zeigen, wie das in echten Projekten aussieht."
     },
     "experience": [
       {
@@ -291,8 +291,8 @@
       {
         "company": "Mega-Tech",
         "role": {
-          "en": "UI Developer / R&D Developer",
-          "de": "UI-Developerin / R&D-Developerin"
+          "en": "UI Developer / R&D Developer (started as Intern)",
+          "de": "UI-Developerin / R&D-Developerin (Einstieg als Praktikantin)"
         },
         "date": "09/2015 – 07/2020",
         "impactMetrics": [
@@ -318,8 +318,8 @@
       {
         "company": "Black Citrus",
         "role": {
-          "en": "QA Engineer — Outsourced via Mega-Tech (remote)",
-          "de": "QA Engineerin — Outsourcing über Mega-Tech (remote)"
+          "en": "QA Engineer — Internship via Mega-Tech (remote)",
+          "de": "QA Engineerin — Praktikum über Mega-Tech (remote)"
         },
         "date": "06/2015 – 09/2015",
         "impactMetrics": [
@@ -328,8 +328,8 @@
         ],
         "tasks": [
           {
-            "en": "Worked as an outsourced QA engineer for Black Citrus, an Australian company, manually testing its web application projects remotely under Mega-Tech's supervision — directly after finishing the bachelor thesis.",
-            "de": "Als ausgelagerte QA Engineerin für Black Citrus, ein australisches Unternehmen, tätig — manuelles Testen der Webanwendungs-Projekte, remote unter Anleitung von Mega-Tech, direkt im Anschluss an die Bachelorarbeit."
+            "en": "Started as an intern at Mega-Tech, outsourced as a QA engineer to Black Citrus, an Australian company — manually testing its web application projects remotely under Mega-Tech's supervision, directly after finishing the bachelor thesis.",
+            "de": "Einstieg als Praktikantin bei Mega-Tech, ausgelagert als QA Engineerin zu Black Citrus, einem australischen Unternehmen — manuelles Testen der Webanwendungs-Projekte, remote unter Anleitung von Mega-Tech, direkt im Anschluss an die Bachelorarbeit."
           }
         ]
       }
@@ -514,8 +514,8 @@
     ],
     "bioParagraphs": [
       {
-        "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar) and experience across user research, UI development, and software usability since 2015. I design user-centric systems that translate complex data structures and business requirements into pragmatic B2B solutions: performant, accessible UI components in React and TypeScript. That mix is the point — I validate design decisions systematically through mixed-methods research, and my engineering background means I can take the findings all the way to working code. I relocated to Germany in 2021 for the degree and defended in May 2026; the QA, web, and research roles on my CV ran alongside full-time study.",
-        "de": "Ich bin UX Engineer mit einem M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar) und seit 2015 Erfahrung in User Research, UI-Entwicklung und Software-Usability. Ich gestalte nutzerzentrierte Systeme, die komplexe Datenstrukturen und Geschäftsanforderungen in pragmatische B2B-Lösungen übersetzen: performante, barrierefreie UI-Komponenten in React und TypeScript. Genau diese Mischung ist der Punkt — Designentscheidungen validiere ich systematisch mit Mixed-Methods-Research, und mein Engineering-Hintergrund bedeutet, dass ich die Erkenntnisse bis zum funktionierenden Code bringe. 2021 bin ich für das Studium nach Deutschland gezogen und habe die Masterarbeit im Mai 2026 verteidigt; die QA-, Web- und Research-Stationen in meinem Lebenslauf liefen parallel zum Vollzeitstudium."
+        "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar), a B.E. in Software Engineering, and experience across user research, UI development, and software usability since 2015. I like working on both ends of a product: running mixed-methods user studies to understand what people actually need — and what's worth building — and then taking those findings all the way into responsive, accessible interfaces in React and TypeScript, backed by lightweight backends. I work in English and German (both C1), and I'm open to interdisciplinary UX & Tech roles. I relocated to Germany in 2021 for the degree and defended in May 2026; the QA, web, and research roles on my CV ran alongside full-time study.",
+        "de": "Ich bin UX Engineer mit einem M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar), einem B.E. in Software Engineering und seit 2015 Erfahrung in User Research, UI-Entwicklung und Software-Usability. Ich arbeite gern an beiden Enden eines Produkts: Mixed-Methods-Studien, um zu verstehen, was Menschen wirklich brauchen — und was es wert ist, gebaut zu werden — und dann diese Erkenntnisse bis in responsive, barrierefreie Interfaces in React und TypeScript zu tragen, gestützt auf schlanke Backends. Ich arbeite auf Englisch und Deutsch (beide C1) und bin offen für interdisziplinäre UX- & Tech-Rollen. 2021 bin ich für das Studium nach Deutschland gezogen und habe die Masterarbeit im Mai 2026 verteidigt; die QA-, Web- und Research-Stationen in meinem Lebenslauf liefen parallel zum Vollzeitstudium."
       }
     ],
     "skills": {
@@ -985,8 +985,8 @@
       }
     ],
     "bio": {
-      "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction and experience across user research, UI development, and software usability since 2015. I design user-centric systems that translate complex data structures and business requirements into pragmatic B2B solutions — performant, accessible UI components in React and TypeScript, validated through mixed-methods research. I turn findings into recommendations, and recommendations into shipped code. Below is how the two halves came together.",
-      "de": "Ich bin UX Engineer mit einem M.Sc. in Human-Computer Interaction und seit 2015 Erfahrung in User Research, UI-Entwicklung und Software-Usability. Ich gestalte nutzerzentrierte Systeme, die komplexe Datenstrukturen und Geschäftsanforderungen in pragmatische B2B-Lösungen übersetzen — performante, barrierefreie UI-Komponenten in React und TypeScript, validiert mit Mixed-Methods-Research. Ich mache aus Erkenntnissen Empfehlungen — und aus Empfehlungen fertigen Code. Wie beide Seiten zusammenkommen, zeigt sich weiter unten."
+      "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction, a B.E. in Software Engineering, and experience across user research, UI development, and software usability since 2015. I like working on both ends of a product: mixed-methods user studies to understand what people actually need — and what's worth building — then taking those findings all the way into responsive, accessible interfaces in React and TypeScript, backed by lightweight backends. Below is how the two halves came together.",
+      "de": "Ich bin UX Engineer mit einem M.Sc. in Human-Computer Interaction, einem B.E. in Software Engineering und seit 2015 Erfahrung in User Research, UI-Entwicklung und Software-Usability. Ich arbeite gern an beiden Enden eines Produkts: Mixed-Methods-Studien, um zu verstehen, was Menschen wirklich brauchen — und was es wert ist, gebaut zu werden — und trage diese Erkenntnisse dann bis in responsive, barrierefreie Interfaces in React und TypeScript, gestützt auf schlanke Backends. Wie beide Seiten zusammenkommen, zeigt sich weiter unten."
     },
     "aboutImage": "/assets/me.jpg"
   },
