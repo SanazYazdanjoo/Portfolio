@@ -10,8 +10,8 @@ export default {
   status: "published",
   order: 2,
   title: {
-    en: "UCD4UX: Encouraging Social Interactions in Hybrid Work",
-    de: "UCD4UX: Soziale Interaktion im Hybrid Work fördern",
+    en: "Encouraging Social Interactions in Hybrid Work",
+    de: "Soziale Interaktion im Hybrid Work fördern",
   },
   subtitle: {
     en: "Industry UX Research Project with deskbird × Bauhaus-Universität Weimar",
