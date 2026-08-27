@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { useIsMobile } from "../../hooks/useIsMobile";
 import { useTranslation } from "../../context/LanguageContext";
 import { CollapsibleSectionHead } from "./CollapsibleSection";
 import { HandChevron } from "../../components/HandIcons";
@@ -22,13 +23,18 @@ function ProcessStep({ item, index, total }) {
   const [expanded, setExpanded] = useState(false);
   const [imgError, setImgError] = useState(false);
   const reduce = useReducedMotion();
+  // Opacity-only on phones, same reasoning as ContentSection: a y-transform
+  // earns the element an iOS compositing layer, which is what fought the
+  // sticky pill bar and ghosted content on-device.
+  const isMobile = useIsMobile();
+  const noSlide = reduce || isMobile;
   const phase = PHASE_META[item.phase] || PHASE_META.discover;
 
   return (
     <motion.li
       className="relative pl-11 md:pl-12 pb-10 last:pb-0"
-      initial={{ opacity: 0, y: reduce ? 0 : 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={noSlide ? { opacity: 0 } : { opacity: 0, y: 16 }}
+      whileInView={noSlide ? { opacity: 1 } : { opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "0px 0px -60px 0px" }}
       transition={{ delay: Math.min(index, 6) * 0.06, duration: 0.4, ease: EASE }}
     >
