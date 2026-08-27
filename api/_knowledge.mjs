@@ -6,7 +6,7 @@ export default {
   "role": "UX Engineer",
   "tagline": "I speak both ‘user’ and ‘developer’.",
   "positioning": "UX Engineer bridging mixed-methods research and production React.",
-  "profileSummary": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar), a B.E. in Software Engineering, and experience across user research, UI development, and software usability since 2015. I like working on both ends of a product: running mixed-methods user studies to understand what people actually need — and what's worth building — and then taking those findings all the way into responsive, accessible interfaces in React and TypeScript, backed by lightweight backends. I use AI-assisted development tools productively, while critically reviewing every line of generated code. The case studies below show how that plays out in real projects.",
+  "profileSummary": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar), a B.E. in Software Engineering, and experience across user research, UI development, and software usability since 2015. I like working on both ends of a product: running mixed-methods user studies to understand what people actually need — and what's worth building — and then taking those findings all the way into responsive, accessible interfaces in React and TypeScript, backed by lightweight backends. I use AI-assisted development tools productively, while reviewing the generated code critically. The case studies below show how that plays out in real projects.",
   "impactStats": [
    {
     "value": "N=30",
@@ -36,10 +36,10 @@ export default {
     ],
     "tasks": [
      "Engineered a role-based web application (React, TypeScript, Vite, SQLite) to digitalise a 13-step paper reimbursement workflow, replacing manual Excel tracking with an explicit claim state machine backed by 1,234 automated tests.",
-     "Spearheaded empirical UX research (5W1H, UML activity diagrams, stakeholder mapping) across 9 distinct actor roles, translating structural workflow failures into numbered requirements whose citations in code are kept traceable by a build-failing test.",
-     "Architected a strict GDPR/DSGVO-compliant data pipeline by developing local persistence adapters and Nextcloud WebDAV integrations, ensuring participant data never leaves internal institute servers.",
+     "Ran empirical UX research (5W1H, UML activity diagrams, stakeholder mapping) across 9 distinct actor roles, translating structural workflow failures into numbered requirements whose citations in code are kept traceable by a build-failing test.",
+     "Built a strict GDPR/DSGVO-compliant data pipeline with local persistence adapters and Nextcloud WebDAV integrations, ensuring participant data never leaves internal institute servers.",
      "Secured the Fastify (Node.js) backend with session-based authentication (argon2id password hashing), CSRF protection, rate limiting, and server-side role checks, keeping each role view inside its permitted scope.",
-     "Facilitated interdisciplinary communication in German, conducting expert validation interviews and task-based evaluations to refine inclusive features like mobile-first camera capture and guided step-by-step modes."
+     "Worked in German throughout the project, conducting expert validation interviews and task-based evaluations to refine inclusive features like mobile-first camera capture and guided step-by-step modes."
     ]
    },
    {
@@ -47,8 +47,8 @@ export default {
     "role": "UX Engineer / Researcher — Master's Thesis",
     "date": "10/2025 – 05/2026",
     "impactMetrics": [
-     "Trust > speed: key adoption finding",
-     "n=30 within-subjects, 3 conditions",
+     "Key finding: trust beats raw speed",
+     "N=30 within-subjects, 3 conditions",
      "TypeScript + Python gaze pipeline"
     ],
     "tasks": [
@@ -642,11 +642,11 @@ export default {
     },
     {
      "value": "n=6",
-     "label": "survey responses so far (survey open; the in-person Präsenzkurs cohort not yet reached — stated on every figure)"
+     "label": "survey responses so far — the survey is open, and the in-person (Präsenzkurs) cohort is not yet reached"
     },
     {
      "value": "n=2",
-     "label": "expert interviews — project management, accounting — plus one working meeting with the administration team, checking the failure set from the administrative and the financial side"
+     "label": "expert interviews — project management and accounting — plus a working meeting with the administration team"
     },
     {
      "value": ">1 yr",
@@ -665,8 +665,8 @@ export default {
      "label": "days and still unpaid — one claim traced end to end through the paper process: 8 days sitting unseen, 1 day of admin work, the rest downstream and invisible"
     },
     {
-     "value": "NO TRIGGER",
-     "label": "Private-vehicle claims were never prompted for — a PKW claim depends entirely on the participant remembering"
+     "value": "0",
+     "label": "reminders for private-vehicle (PKW) claims in the paper process — submitting depended entirely on the participant remembering"
     },
     {
      "value": "4/6",
@@ -677,25 +677,25 @@ export default {
      "label": "automated tests — including guards that fail the build on an untraced requirement citation or a design-token drift"
     }
    ],
-   "about": "I joined the institute as a project assistant and ran this reimbursement process myself for over a year — long enough to see that it was not just inefficient but a steady source of frustration and avoidable mistakes for everyone in it. With a Master’s in HCI I had the research methods to turn those observations into verified requirements, and as a frontend developer I could carry the same requirements into working code — so I proposed replacing the scattered spreadsheets with one integrated application, and built it. As of 20.08.2026 the prototype is in active development: the team works with the deployed demo and feeds back, the screens are being consolidated through that feedback and instrumented testing before release as the real product, and every claim on this page traces to a survey answer, a process map, or a line of code.",
-   "challenge": "Every month, participants in a state-funded qualification programme claim back their travel costs. On paper it is a form; in practice it was an ecosystem of disconnected spreadsheets held together by one administrative role. Attendance started as paper marks in the classroom, was retyped by lecturers into an attendance-only Excel shared over Teams — often late, often incomplete, always chased — and exported again by the admin. A hasty „A“ for a participant who left early could quietly become an unexcused „U“ if the follow-up excuse never arrived, unfairly costing attendance days and, with them, reimbursement money. Calculating each month’s totals followed rules so error-prone that I built myself a helper spreadsheet just to get them right. Around that sat a master overview file, one prefilled Abrechnung file per participant, and whatever month- or case-specific lists the situation required. Participants, meanwhile, submitted into a void: no visible calculation, no confirmation, no status — four of six survey respondents could not say how long reimbursement takes, and that is not a data gap, it is the finding. The failure was structural, not clerical.",
+   "about": "I joined the institute as a project assistant and ran this reimbursement process myself for over a year — long enough to see that it was not just inefficient but a steady source of frustration and avoidable mistakes for everyone in it. With a Master’s in HCI I had the research methods to turn those observations into verified requirements, and as a frontend developer I could carry the same requirements into working code — so I proposed replacing the scattered spreadsheets with one integrated application, and built it. As of August 2026 the prototype is in active development: the team works with the deployed demo and feeds back, the screens are being consolidated through that feedback and instrumented testing before release as the real product, and every claim on this page traces to a survey answer, a process map, or a line of code.",
+   "challenge": "Every month, participants in a state-funded qualification programme claim back their travel costs. On paper it is a form; in practice it was an ecosystem of disconnected spreadsheets held together by one administrative role. Attendance started as paper marks in the classroom, was retyped by lecturers into an attendance-only Excel shared over Teams — often late, often incomplete, always chased — and exported again by the admin. A hasty „A“ for a participant who left early could quietly become an unexcused „U“ if the follow-up excuse never arrived, unfairly costing attendance days and, with them, reimbursement money. Calculating each month’s totals followed rules so error-prone that I built myself a helper spreadsheet just to get them right. Around that sat a master overview file, one prefilled Abrechnung file per participant, and whatever month- or case-specific lists the situation required. Participants, meanwhile, submitted into a void: no visible calculation, no confirmation, no status — four of six survey respondents could not even say how long reimbursement takes. The failure was structural, not clerical.",
    "solution": "The app is one place where the whole monthly cycle happens: participants photograph and submit their proofs, lecturers keep attendance directly instead of retyping paper into a Teams spreadsheet, the admin sees every claim’s state and calculation, approvers release with one decision, and accounting reads the same numbers as everyone else. Five purpose-built role views replace the spreadsheet ecosystem. Participants get a mobile-first upload path with camera capture and an optional guided step-by-step mode for lower digital fluency, and the claim moves through an explicit state machine — “where is my money” has an on-screen answer for the first time. Amounts make the round trip instead of being stored: the database holds only the typed fields, and the amount is rebuilt from the same pure computation every time any role opens the record, with its full formula trace visible. Persistence sits behind adapters over a local SQLite database, with stored proofs mirrored to the institute’s own Nextcloud; the one named external call is a route lookup to Google Maps when staff check a driving distance, stated in the data-protection documentation rather than hidden.",
    "design": "The design system was extracted before the high-fidelity screens, not after them: brand colours, a nine-colour role palette carried unchanged from the research diagram’s lanes, note states, a type scale, and form-field states — so a lane in the research reads as the same actor as a badge in the app. How the screens themselves took shape, from paper sketch to wireframe to shipped view, is shown in the Wireframes section below.",
    "wireframe": "Before the high-fidelity screens were built, the layouts were drawn as wireframes in Claude Design, based on the numbered requirements from Phase 2. A wireframe fixes the structure of a screen — which elements it contains, in what order, and which rules apply — before colour and typography come in. The strip below shows this for the attendance-month screen: the paper sketch from the process observation, the Phase 2 wireframe, and the screen as it shipped.",
-   "methodology": "The project runs as a user-centred design process in the shape of the double diamond. Discover: insider observation from more than a year inside the process, two expert interviews — project management and accounting — plus a working meeting with the administration team, and the participant survey (n=6 and open), which reversed one of my priorities and added six problems I had not seen from the inside; because I knew the workflow personally, the first research task was strictly about making my own assumptions falsifiable. Define: thematic clustering into a problem register where every entry carries an evidence grade — confirmed, indicative, hypothesis, untested — and counts confirm or reframe a problem, never size it; the clustered problems became numbered requirements, a role-based sitemap, and the IBS-DesignSystem, whose nine role colours are the nine lane colours of the research map. Develop: Phase 3 engineered the calculation rules as pure, unit-tested TypeScript, with a build-failing test that keeps every requirement citation in code traced to its source problem — and states its own limit: it catches a citation without a source, not a problem without an implementation. Deliver: the evaluation is built into the app itself — guided tasks, a pseudonymous local event log, an end-of-session questionnaire — and dogfooding it on my own development traffic already caught three of its own measurement bugs before any reviewer touched it.",
-   "results": "The measured material lives where it belongs — the paper-process baseline in the metrics above, and the evaluation instruments in the methodology.",
+   "methodology": "The project runs as a user-centred design process in the shape of the double diamond. Discover: insider observation from more than a year inside the process, two expert interviews — project management and accounting — plus a working meeting with the administration team, and the participant survey (n=6 and open), which reversed one of my priorities and added six problems I had not seen from the inside; because I knew the workflow personally, the first research task was strictly about making my own assumptions falsifiable. Define: thematic clustering into a problem register where every entry carries an evidence grade — confirmed, indicative, hypothesis, untested — and counts confirm or reframe a problem, never size it; the clustered problems became numbered requirements, a role-based sitemap, and the IBS-DesignSystem, whose nine role colours are the nine lane colours of the research map. Develop: Phase 3 engineered the calculation rules as pure, unit-tested TypeScript, with a build-failing test that keeps every requirement citation in code traced to its source problem — and states its own limit: it catches a citation without a source, not a problem without an implementation. Deliver: the evaluation is built into the app itself — guided tasks, a pseudonymous local event log, an end-of-session questionnaire — and dogfooding it on my own development traffic already caught three of its own measurement bugs.",
+   "results": "The baseline this project will be measured against — the paper process — is in the metrics above; the instruments that will measure the change are described in the methodology.",
    "outcome": {
-    "body": "Deferred by decision (status 20.08.2026): this space reports measured outcomes once the application is published and in daily use. The evaluation is already built into the app — guided tasks, an event log, an end-of-session questionnaire — so when the sessions run, what changed gets recorded here, not estimated beforehand.",
+    "body": "Deferred by decision (status: August 2026): this space reports measured outcomes once the application is published and in daily use. The evaluation is already built into the app — guided tasks, an event log, an end-of-session questionnaire — so when the sessions run, what changed gets recorded here, not estimated beforehand.",
     "adoption": "deferred"
    },
    "verbatims": [
     {
      "quote": "No, I just take the amount as it comes.",
-     "attribution": "Survey respondent, asked whether they check how their reimbursement is calculated — two of six answered in exactly these words (BL cohort; translated from German)"
+     "attribution": "Survey respondent, asked whether they check how their reimbursement is calculated — two of six answered in exactly these words (translated from German)"
     },
     {
      "quote": "The processing time is the hardest part for me.",
-     "attribution": "Survey respondent (n=6, BL cohort) — four of six named processing time as their main difficulty; translated from German"
+     "attribution": "Survey respondent — four of six named processing time as their main difficulty; translated from German"
     },
     {
      "quote": "I don’t check it.",
@@ -705,7 +705,7 @@ export default {
    "cardOutcome": "Rebuilt a 13-step paper reimbursement process as a working application the team now uses as a deployed demo."
   },
   {
-   "title": "UCD4UX: Encouraging Social Interactions in Hybrid Work",
+   "title": "Encouraging Social Interactions in Hybrid Work",
    "page": "/projects/deskbird-hybrid-work",
    "status": "published",
    "subtitle": "Industry UX Research Project with deskbird × Bauhaus-Universität Weimar",
@@ -766,7 +766,7 @@ export default {
    "challenge": "Hybrid work reduced spontaneous social interactions: employees felt less integrated and new joiners struggled to connect. deskbird — a B2B SaaS platform for desk booking and hybrid week planning — wanted evidence, not assumptions, on how a social feature should work before committing it to the product roadmap.",
    "solution": "We designed 'Interest-Based Communities': employees add interests to their profile, see colleagues' interests, and create or get invited to interest-based events. The concept connects both office-based and remote staff and was delivered as a high-fidelity prototype with development recommendations, grounded in every research finding along the way.",
    "methodology": "We followed the full UCD process in an industry setting. A state-of-the-art review of the hybrid-work tool landscape (Microsoft Viva, Workvivo, Donut for Slack, Happeo, and ~25 others) and a heuristic evaluation with user-flow analysis of the existing deskbird app framed the scope. Stakeholder interviews with deskbird defined brand identity, consumer aspirations, and the social-feature scope. An online survey (57 respondents, mainly aged 25–34, IT industry, hybrid workers recruited via convenience and snowball sampling) quantified work conditions, social interaction states, communication channels, and privacy preferences. Six 90-minute remote contextual inquiries — observing product managers, engineers, designers, and analysts in their real hybrid workday — were each paired with a 30-minute semi-structured follow-up interview.",
-   "results": "The research produced clear, actionable requirements: socialisation happens during breaks, and office breaks differ fundamentally from home-office breaks; the office is preferred for real interactions and faster communication while home office wins on convenience and fewer distractions; and nearly three-quarters of survey respondents agreed that knowing personal details about a colleague makes them relate more. Interaction across seniority levels and departments emerged as a persistent barrier. These findings shaped three competing concepts (Chat2Meet, Flows & Breaks, Interest-Based Communities); Interest-Based Communities was selected, refined into the final prototype, and validated in user testing sessions that returned positive feedback on usability and feature understanding.",
+   "results": "Socialisation happens during breaks, and office breaks differ fundamentally from home-office breaks; the office is preferred for real interactions and faster communication while home office wins on convenience and fewer distractions; and nearly three-quarters of survey respondents agreed that knowing personal details about a colleague makes them relate more. Interaction across seniority levels and departments emerged as a persistent barrier. These findings shaped three competing concepts (Chat2Meet, Flows & Breaks, Interest-Based Communities); Interest-Based Communities was selected, refined into the final prototype, and validated in user testing sessions that returned positive feedback on usability and feature understanding.",
    "outcome": {
     "body": "At the final presentation, deskbird's stakeholders said they liked the concept and intended to build it in upcoming sprints. That is a stated intention recorded at handover — not confirmed delivery. The research team had no visibility into deskbird's backlog after the project ended, and I have not since verified whether the feature shipped. It is listed here as unconfirmed rather than claimed as adoption.",
     "adoption": "unknown"
@@ -777,7 +777,7 @@ export default {
      "type": "Stakeholder Interviews",
      "title": "Aligning on Scope with deskbird",
      "annotation": "Interviews with deskbird stakeholders surfaced three insight clusters: brand identity (minimalist, usability-driven UX), consumer aspirations (fewer clicks, no extra browser tabs), and the social-feature mandate — transparent, non-intrusive, attracting people back to the office.",
-     "insight": "The business goal ('attract people back to the office') and the user goal ('meaningful connection') were not the same thing. Framing our requirements around both kept the project honest."
+     "insight": "The business goal ('attract people back to the office') and the user goal ('meaningful connection') were not the same thing — the requirements had to answer both."
     },
     {
      "phase": "discover",
@@ -860,8 +860,8 @@ export default {
    ],
    "metrics": [
     {
-     "value": "TypeScript",
-     "label": "experimental software built"
+     "value": "2",
+     "label": "gaze techniques engineered from scratch in TypeScript"
     },
     {
      "value": "N=30",
@@ -881,7 +881,7 @@ export default {
    "solution": "I engineered the complete technical architecture and evaluation framework. This included building a dual-display eye-tracking apparatus (Pupil Labs Neon, real-time streaming API, AprilTag surface mapping) and developing performant TypeScript implementations of MAGIC Pointing (gaze-triggered cursor warp with manual fine-tuning) and a gaze-augmented Ninja Cursors variant (one persistent cursor per screen, activated by gaze). Both were then evaluated against a standard mouse baseline in reciprocal pointing tasks.",
    "methodology": "A two-phase mixed-methods design. Phase I: a formative pre-study (n=20) using semi-structured interviews and a Figma-based workspace visualisation task, analysed with reflexive thematic analysis, which grounded the lab configuration in real dual-display practice. Phase II: a controlled within-subjects experiment (N=30) with a 3×2×6 factorial design — input method × target size × distance (875–3226 px) — measuring movement time, repeat rate, and SUS, analysed with repeated-measures ANOVA (Greenhouse–Geisser corrected, Tukey post-hoc).",
    "results": "A significant technique × distance interaction (η²ₚ = .690) revealed a crossover: the mouse was fastest for short distances, but Ninja Cursors significantly outperformed it at the two intermediate cross-screen distances (1684 and 2243 px) and converged at the longest (3226 px). MAGIC was consistently slowest — its warp coupled gaze noise directly to landing accuracy, producing the highest repeat rate on small targets (4.69%), while Ninja's small-target repeat rate matched the mouse baseline (3.30%). SUS ranked Mouse (85.2) > Ninja (72.6) > MAGIC (55.9), with MAGIC alone falling below the 68-point acceptability threshold — yet 60% of participants named Ninja their most preferred method, and 63% named MAGIC their least preferred.",
-   "implications": "Gaze assistance should be a context-aware accelerator, not an always-on replacement. Three design directions follow from the data: adaptive activation using the screen boundary itself as the trigger, semantic snapping toward UI elements to fix MAGIC's landing penalty, and stronger visual differentiation of the active cursor in multi-cursor designs. The broader lesson for UI engineers: predictability and system trust — not raw speed alone — determine whether users adopt a novel interaction pattern.",
+   "implications": "Gaze assistance should be a context-aware accelerator, not an always-on replacement. Three design directions follow from the data: adaptive activation using the screen boundary itself as the trigger, semantic snapping toward UI elements to fix MAGIC's landing penalty, and stronger visual differentiation of the active cursor in multi-cursor designs. For UI engineers, predictability and system trust — not raw speed alone — determine whether users adopt a novel interaction pattern.",
    "outcome": {
     "body": "This is a Master's thesis, not a commercially deployed system — adoption in the product sense doesn't apply the way it would for a shipped feature. The three design directions named in the Implications section are the concrete output the completed work delivered.",
     "adoption": "academic"
@@ -947,7 +947,7 @@ export default {
    "page": "/projects/embraceme-soft-robotics",
    "status": "published",
    "subtitle": "A Pneumatic Soft-Robotic Hugging Interface, Exhibited & Evaluated in Public",
-   "tagline": "Engineering a soft-robotic hug — and honestly reporting where it fell short.",
+   "tagline": "Engineering a soft-robotic hug — and reporting where it fell short.",
    "role": "HCI Researcher & Prototyping Engineer (team of 3)",
    "year": "2023",
    "timeline": "Summer semester 2023",
@@ -1001,7 +1001,7 @@ export default {
     }
    ],
    "about": "A soft-robotics project exploring whether a machine can deliver the calming effect of a hug. In a team of three I designed and built EmbraceMe, a standalone hugging robot with inflatable PneuNet foam arms driven by an Arduino and a capacitive touch sensor. We exhibited it publicly and observed real visitors using it — documenting both what delighted them and where the design fell short.",
-   "challenge": "Physical touch like hugging releases oxytocin and measurably reduces stress — but not everyone has access to it: loved ones may be distant, or contact may be unsafe. We set out to build an inflatable soft-robotic interface delivering Deep Pressure Stimulation through a standalone hugging experience, gentle enough for direct human contact where rigid robots fail.",
+   "challenge": "Physical touch like hugging releases oxytocin and measurably reduces stress — but not everyone has access to it: loved ones may be distant, or contact may be unsafe. We set out to build an inflatable soft-robotic interface delivering Deep Pressure Stimulation through a standalone hugging experience, gentle enough for direct human contact.",
    "solution": "A standalone hugging bot built on a mannequin frame with PneuNet bending-actuator arms: foam limbs (80×16 cm) with 45° triangular cuts housing heat-sealed TPU air chambers. A 5-pad capacitive touch sensor on the chest triggers inflation when a user leans in for a hug; a Festo 5/3 solenoid valve and timed Arduino logic (3s inflate, 9s deflate) regulate pressure, with an LED feedback cycle (green: ready, white: hugging, blinking red: resetting) communicating system state.",
    "methodology": "We grounded the design in a literature review of interpersonal touch, Deep Pressure Stimulation, and soft robotics, and a comparative analysis of prior hugging systems (Hug Over a Distance, Huggy Pajama, HugShirt, HuggieBot 3.0, MIT's Huggable, and Bauhaus's own Hugging Suit) to identify their gaps — partial body coverage, static holds, and no emotional context. Two actuation techniques were evaluated (soft-growing vs. PneuNet bending); the standalone form factor decided for inclusivity determined the PneuNet approach. The prototype then went through iterative material testing before public exhibition with observation and user feedback.",
    "results": "At a public university exhibition, visitors described the interaction as fun and surprising — the bot 'waking up' to hug back was the standout moment. The evaluation also surfaced honest design failures: some users read the pink, muscular arms as uncanny and avoided full contact, and without clear signifiers, nobody could guess how to initiate a hug unprompted. My individual follow-up applied Offenhuber's data physicalization framework to propose the next iteration: emotion-recognition data (wearables, mood tracking) mapped to arm extension and hug intensity, turning a binary-triggered mechanism into an emotionally adaptive interface.",
@@ -1031,7 +1031,7 @@ export default {
     {
      "phase": "define",
      "type": "Form & Technique Decision",
-     "title": "Backpack vs. Standalone — and Why It Decided Everything",
+     "title": "Backpack vs. Standalone",
      "annotation": "Two concepts sketched: a portable backpack using soft-growing (vine robot) arms, and a standalone figure using PneuNet bending actuators. Chose standalone after consultation, for inclusivity across body sizes and open access at the exhibition.",
      "insight": "The form-factor decision cascaded into the actuation technique: standalone required PneuNet bending arms that hold their position in space without a skeleton — the project's hardest engineering constraint."
     },
@@ -1052,9 +1052,9 @@ export default {
     {
      "phase": "deliver",
      "type": "Public Exhibition & Observation",
-     "title": "Real Users, Real (Uncomfortable) Findings",
+     "title": "What Visitors Actually Did",
      "annotation": "Exhibited at a university event open to academic and non-academic visitors. Observed interactions and collected impressions: delight at the bot 'waking up,' but also uncanny-valley reactions to its form and confusion about how to initiate contact without our explanation.",
-     "insight": "Two design failures documented honestly: aesthetic choices triggered avoidance in some users, and the interface lacked signifiers — curiosity did not translate into interaction without designer intervention."
+     "insight": "Two design failures: aesthetic choices triggered avoidance in some users, and the interface lacked signifiers — curiosity did not translate into interaction without designer intervention."
     },
     {
      "phase": "deliver",
@@ -1064,7 +1064,7 @@ export default {
      "insight": "The reflection reframed the project's failure as a data problem, not a hardware problem — and defined ethical guardrails: user autonomy over hug intensity, explicit consent, and privacy-first handling of emotional data."
     }
    ],
-   "cardOutcome": "Visitors wanted to control the hug; a binary touch trigger, not the soft hardware, broke the experience."
+   "cardOutcome": "The hug delighted visitors — but without signifiers nobody could start one unprompted; the interaction, not the hardware, fell short."
   },
   {
    "title": "Smart Home Control for Shared Households",
@@ -1119,11 +1119,11 @@ export default {
     }
    ],
    "about": "A four-person course project at Bauhaus-Universität Weimar (summer semester 2023) about what smart-home apps get wrong about shared living. The design problem was never device control — existing apps solve that. It was the social layer of a shared household: who may add a device, who may remove a housemate, who may override someone else mid-use. A questionnaire study (24 responses) framed the territory, a 12-screen paper prototype made a governance model tangible, two think-aloud sessions tested it, and four design changes — each documented as a verbatim participant quote, the change it prompted, and a before/after photograph pair — closed the loop.",
-   "challenge": "Smart-home apps model a home as one owner and a set of devices. A shared flat is neither: residents come and go, devices belong to some people and are used by everyone, and the moment two people want the same lamp at once is a social negotiation, not a technical conflict. The project framed exactly that gap — membership, permissions, and simultaneous use — as the design problem.",
+   "challenge": "Smart-home apps model a home as one owner and a set of devices. A shared flat fits neither assumption: residents come and go, devices belong to some people and are used by everyone, and the moment two people want the same lamp at once is a social negotiation, not a technical conflict. The project framed exactly that gap — membership, permissions, and simultaneous use — as the design problem.",
    "solution": "A 12-screen paper prototype covering four documented task flows, all anchored on one home screen. Onboarding runs scanning → naming → access → confirmation, with a three-step progress indicator that deliberately stops at the confirmation screen. Governance is built into the everyday paths rather than an admin area: who may use a device is chosen at setup, residents are invited by link, and a device in use can be locked while in use — resolving simultaneous access without a queue. The galleries below show the tested v1 version, grouped by flow.",
    "design": "The revision is the most documented part of the project. Both test transcripts were coded into four categories — positive feedback, negative feedback, questions, ideas and suggestions — and four changes were made, each traceable to a verbatim quote from the sessions. They are shown below exactly as they happened: the quote, the change it prompted, and both photographs — the tested v1 screen on the left, the revised v2 screen on the right. The revision also fixed a defect the test itself exposed only indirectly: the resident roster differed across three v1 screens — two residents on one, three on another, five on a third, with the same person written “Drake” on one card and “Jake” on another. The v2 screens normalise the roster everywhere.",
-   "methodology": "Phase 1 — Discovery. A questionnaire (Google Forms) was chosen over interviews, focus groups, and shadowing: it fit the timeline, and it let respondents answer at their own pace, which supported confidentiality and autonomy. It was piloted with a small group before distribution to check for ambiguity and leading questions; consent was obtained and responses were anonymous. Questions were sequenced deliberately — demographics, then habits, then needs — so respondents were not steered toward an attitude about smart homes early. Of 30 people approached, 24 responded. Roughly a third reported difficulty syncing devices; a quarter named remote adjustment of settings as a persistent pain point. Segmentation produced two named groups — students and part-time employees, and full-time employees — plus an “others” bucket, each with a documented attitude toward smart-home apps and a separate attitude toward mobile services generally. The user profile explicitly included cognitive, visual, and mobility impairment: accessibility was scoped at discovery, not bolted on later. Phase 2 — Evaluation. Two think-aloud sessions in a controlled setting, each participant seated individually with a facilitator. Audio was recorded and photographs taken; participants were briefed on recording and anonymity. The facilitator used probing questions when participants went quiet and observed facial expressions; each session ended with a retrospective debrief. Participant A — 31, a junior software developer who lives with a partner. Participant B — 43, single, with a degree in an unrelated field. Both are iOS users; neither had used a smart-home app before. Transcripts were coded into four categories: positive feedback, negative feedback, questions, and ideas/suggestions.",
-   "results": "The findings worth keeping are the ones that did not become quick fixes. A dead end surfaced in a flow we thought was finished: Participant A selected both devices at the scanning step, but only one carried into setup, and the confirmation screen had no way back — she noticed immediately and asked what had happened to the second device. Frames were read as the only tappable things: Participant B tapped only elements with a visible button border, engaging the boxed room selector on the device settings screen and treating the unframed rows beside it as labels. Destructive actions produced anxiety before they produced errors: encountering “delete this room”, Participant A worried aloud about triggering it accidentally and proposed moving room management to a dedicated screen — a structural objection, not a cosmetic one. The method itself was a finding: both participants needed to backtrack, neither could do it while holding the cards, and both ended up laying the prototype out on the floor — A sorting it into order first, B improvising late. And both participants opened every screen by reading its title aloud, which is why the “which home am I in?” gap surfaced on four separate screens. Honestly: two participants is a thin sample, and the original report says so. Revisiting the artifacts, the resident roster inconsistency across three tested screens is a defect a heuristic review would have caught before it reached a participant. The same revisiting surfaced a documentation lesson: most of the report's session photographs turn out to show the revised cards rather than the ones tested — the set was re-photographed after the changes were made. The sessions themselves are evidenced by the transcript and by the four changes that came out of them, but I'd now photograph artifacts at the moment of testing rather than afterwards.",
+   "methodology": "Phase 1 — Discovery. A questionnaire (Google Forms) was chosen over interviews, focus groups, and shadowing: it fit the timeline, and it let respondents answer at their own pace, which supported confidentiality and autonomy. It was piloted with a small group before distribution to check for ambiguity and leading questions; consent was obtained and responses were anonymous. Questions were sequenced deliberately — demographics, then habits, then needs — so respondents were not steered toward an attitude about smart homes early. Of 30 people approached, 24 responded. Roughly a third reported difficulty syncing devices; a quarter named remote adjustment of settings as a persistent pain point. Segmentation produced two named groups — students and part-time employees, and full-time employees — plus an “others” bucket, each with a documented attitude toward smart-home apps and a separate attitude toward mobile services generally. The user profile explicitly included cognitive, visual, and mobility impairment: accessibility was scoped at discovery, not bolted on later. Phase 2 — Evaluation. Two think-aloud sessions in a controlled setting, each participant seated individually with a facilitator. Audio was recorded and photographs taken; participants were briefed on recording and anonymity. The facilitator used probing questions when participants went quiet and observed facial expressions; each session ended with a retrospective debrief. Participant A — 31, a junior software developer. Participant B — 43, with a degree in an unrelated field. Both are iOS users; neither had used a smart-home app before. Transcripts were coded into four categories: positive feedback, negative feedback, questions, and ideas/suggestions.",
+   "results": "The findings worth keeping are the ones that did not become quick fixes. A dead end surfaced in a flow we thought was finished: Participant A selected both devices at the scanning step, but only one carried into setup, and the confirmation screen had no way back — she noticed immediately and asked what had happened to the second device. Frames were read as the only tappable things: Participant B tapped only elements with a visible button border, engaging the boxed room selector on the device settings screen and treating the unframed rows beside it as labels. Destructive actions produced anxiety before they produced errors: encountering “delete this room”, Participant A worried aloud about triggering it accidentally and proposed moving room management to a dedicated screen — a structural objection, not a cosmetic one. The method itself was a finding: both participants needed to backtrack, neither could do it while holding the cards, and both ended up laying the prototype out on the floor — A sorting it into order first, B improvising late. And both participants opened every screen by reading its title aloud, which is why the “which home am I in?” gap surfaced on four separate screens. Two participants is a thin sample, and the original report says so. Revisiting the artifacts, the resident roster inconsistency across three tested screens is a defect a heuristic review would have caught before it reached a participant. The same revisiting surfaced a documentation lesson: most of the report's session photographs turn out to show the revised cards rather than the ones tested — the set was re-photographed after the changes were made. The sessions themselves are evidenced by the transcript and by the four changes that came out of them, but I'd now photograph artifacts at the moment of testing rather than afterwards.",
    "outcome": {
     "body": "A university course project — adoption in the product sense doesn't apply. What the course closed on is the revised v2 prototype: four changes, each documented as a participant quote, the change it prompted, and a before/after photograph pair. The revision itself was never put in front of another participant — re-testing it is where a next session would have to start.",
     "adoption": "academic"
@@ -1148,7 +1148,7 @@ export default {
    "title": "Designing This Portfolio",
    "page": "/projects/designing-this-site",
    "status": "published",
-   "subtitle": "A Case Study in Designing Under Constraint — Researcher, Designer, Engineer, and QA on the Same Artefact",
+   "subtitle": "A Case Study in Designing Under Constraint — One Person as Researcher, Designer, Engineer, and QA",
    "tagline": "The site itself, documented as a case study: one codebase for screen, print, and two languages — every claim measured or marked pending.",
    "role": "Researcher, Designer, Frontend Engineer & QA (solo)",
    "timeline": "Ongoing · continuously iterated",
@@ -1182,8 +1182,6 @@ export default {
     "ESLint"
    ],
    "methods": [
-    "5-Second Test (hero)",
-    "First-Click Test (navigation)",
     "Component Architecture & Design Systems Engineering",
     "Bilingual Content Architecture (EN/DE)",
     "Print-CSS Engineering (screen-to-A4)",
@@ -1223,12 +1221,12 @@ export default {
      "label": "5-second test — time to answer ‘what does she do?’"
     }
    ],
-   "about": "A case study on the portfolio you are reading right now, built solo as researcher, designer, frontend engineer, and QA. It is a React and Tailwind site that has to satisfy three very different readers at once: a recruiter with thirty seconds, an engineer who opens the source, and a printer producing a one-page A4 CV. This case study documents the trade-offs those constraints forced.",
-   "wireframe": "Every case study here — this page included — shares one wireframe: three tracks above the xl breakpoint, one column below it. The left track is a sticky, numbered section rail that collapses to a 56-pixel number strip, handing the freed width to the prose; below md its job passes to a horizontal pill bar under the header. The middle track is the prose column, capped at a 68ch reading measure that widens to 88ch when the rail is collapsed. The right track lifts a single pull-quote sentence out of the long-form sections — documentation, not new information, so below xl it simply doesn't render: the sentence it repeats already lives in the paragraph beside it. The structure is enforced rather than conventional: every case study renders through the same ProjectTemplate({ meta, children }) contract, and a fixed SECTIONS array decides what can appear and in what order — a data key that isn't in that array cannot render, no matter what a project's data file contains. One honest caveat about the figures below: this site was wireframed in the browser, so they are schematics drawn from the shipped layout code, not scans of sketches that preceded it.",
+   "about": "A case study on the portfolio you are reading right now, built solo as researcher, designer, frontend engineer, and QA. It is a React and Tailwind site that has to satisfy three very different readers at once: a recruiter with thirty seconds, an engineer who opens the source, and a hiring manager holding the printed one-page A4 CV. This case study documents the trade-offs those constraints forced.",
+   "wireframe": "Every case study here — this page included — shares one wireframe: three tracks above the xl breakpoint, one column below it. The left track is a sticky, numbered section rail that collapses to a 56-pixel number strip, handing the freed width to the prose; below md its job passes to a horizontal pill bar under the header. The middle track is the prose column, capped at a 68ch reading measure that widens to 88ch when the rail is collapsed. The right track lifts a single pull-quote sentence out of the long-form sections — documentation, not new information, so below xl it simply doesn't render: the sentence it repeats already lives in the paragraph beside it. The structure is enforced rather than conventional: every case study renders through the same ProjectTemplate({ meta, children }) contract, and a fixed SECTIONS array decides what can appear and in what order — a data key that isn't in that array cannot render, no matter what a project's data file contains. One caveat about the figures below: this site was wireframed in the browser, so they are schematics drawn from the shipped layout code, not scans of sketches that preceded it.",
    "designSystem": "Ink & Bloom, in compact form: a warm paper-and-ink palette with one loud coral accent and a gold highlighter used at most once per page, Bricolage Grotesque for display type, DM Sans for body, Caveat for hand-drawn annotations, and Framer Motion draw-ins that all share a single easing curve. The table below is the design system the way an engineer trusts it: every value is resolved from theme.css at render time, not copied into this page — change a token and this case study updates with the site it describes, which is the difference between documentation and a screenshot of documentation. Two rules are worth reading out of the numbers. Each accent splits into a -500 and a -600 step, and the contrast rule lives in the token name a component reaches for: -500 for large text and shapes, -600 for anything small enough that WCAG AA actually bites. And the gold highlighter is excluded from that split entirely — it is a background wash, never a text color, restricted by convention to a single mark per page. The full specimen sheet, with components and the drawn-line rules, is the living style guide linked under Prototype.",
-   "results": "Measured against production with Lighthouse 13.4.0 (emulated desktop, 24 August 2026): Performance 99, Accessibility 100, Best Practices 100, SEO 100. A mobile-emulation run the same day scores 77, held there by a 4.4-second Largest Contentful Paint. Ten days earlier the same tool scored Performance 66, with a 0.261 layout shift, 340 ms of blocking time, and an estimated 733 KiB of unused JavaScript — what closed that gap was engineering, not remeasurement: a route-skeleton fix that removed the layout shift, lazy loading on every case-study figure, dead chunks cut from the bundle, and a card/data split that took all five case studies' full prose off the shared path (the aggregator chunk went from 57 KB to 3.9 KB gzipped). Two further optimisations were considered and rejected, and the rejection is part of the record: migrating Framer Motion to LazyMotion would trade an estimated 20–25 KB gzipped for a 35-file blast radius across the hand-drawn animation system, and splitting the profile data would break the local editor that writes it — neither is worth its risk at the scores above. The remaining honest gap is mobile LCP: a client-rendered hero cannot paint before the JavaScript arrives, and 4.4 seconds on a throttled connection is the price of that architecture. Still pending, unchanged: the manual WCAG 2.1 AA contrast pass across every token pair (this run's automated contrast audit found no failing pair — which is still not a conformance claim), the keyboard-only completion check of the primary path, confirmation the CV prints to exactly one A4 page with no orphaned headings, time-to-answer 'what does she do?' from the planned 5-second test, and the first-click success rate on the navigation. A metric this page can't yet back with a number remains absent, not estimated.",
+   "results": "Measured against production with Lighthouse 13.4.0 (emulated desktop, 24 August 2026): Performance 99, Accessibility 100, Best Practices 100, SEO 100. A mobile-emulation run the same day scores 77, held there by a 4.4-second Largest Contentful Paint. Ten days earlier the same tool scored Performance 66, with a 0.261 layout shift, 340 ms of blocking time, and an estimated 733 KiB of unused JavaScript — what closed that gap was engineering, not remeasurement: a route-skeleton fix that removed the layout shift, lazy loading on every case-study figure, dead chunks cut from the bundle, and a card/data split that took all five case studies' full prose off the shared path (the aggregator chunk went from 57 KB to 3.9 KB gzipped). Two further optimisations were considered and rejected: migrating Framer Motion to LazyMotion would trade an estimated 20–25 KB gzipped for a 35-file blast radius across the hand-drawn animation system, and splitting the profile data would break the local editor that writes it — neither is worth its risk at the scores above. The remaining honest gap is mobile LCP: a client-rendered hero cannot paint before the JavaScript arrives, and 4.4 seconds on a throttled connection is the price of that architecture. Still pending, unchanged: the manual WCAG 2.1 AA contrast pass across every token pair (this run's automated contrast audit found no failing pair — which is still not a conformance claim), the keyboard-only completion check of the primary path, confirmation the CV prints to exactly one A4 page with no orphaned headings, time-to-answer 'what does she do?' from the planned 5-second test, and the first-click success rate on the navigation.",
    "outcome": {
-    "body": "No outcome yet, and none will be invented: once those sessions run, this is where what actually changed gets recorded — a shipped fix, a reprioritised backlog item, or a finding that changed nothing.",
+    "body": "No outcome yet: once those sessions run, this is where what actually changed gets recorded — a shipped fix, a reprioritised backlog item, or a finding that changed nothing.",
     "adoption": "deferred"
    }
   }
@@ -1238,25 +1236,24 @@ export default {
    "title": "Awareness Member",
    "year": "2024 – Present",
    "org": "Bauhaus-Universität Weimar",
-   "desc": "Acted as an active awareness team member, supporting university-wide student initiatives and ensuring safe, inclusive, and accessible environments."
+   "desc": "Awareness team member supporting university-wide student initiatives — helping keep them safe, inclusive, and accessible."
   },
   {
    "title": "Welcome Tutor",
    "year": "2022 – 2024",
    "org": "BUW International Office",
-   "desc": "Guided incoming international students through their initial onboarding phases, cultural adjustments, and critical administrative processes."
+   "desc": "Guided incoming international students through arrival, cultural adjustment, and the administrative processes of their first semesters."
   },
   {
    "title": "Student Volunteer",
    "year": "2024",
-   "org": "Digital Leute",
-   "desc": "Student volunteer at Digital Leute conference."
+   "org": "Digital Leute"
   },
   {
    "title": "Student Volunteer",
    "year": "2022",
    "org": "JCSG & Mensch und Computer",
-   "desc": "Student volunteer at JCSG & Mensch und Computer."
+   "desc": "Session and workshop support at Mensch und Computer (TU Darmstadt) and conference operations at JCSG in Weimar."
   }
  ],
  "pages": {
