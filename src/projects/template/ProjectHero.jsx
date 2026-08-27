@@ -13,7 +13,21 @@
 // mobile GPUs smear and ghost. `visibility: hidden` past the fade drops the
 // layer while leaving layout — and therefore the sticky behaviour on the way
 // back up — untouched.
+//
+// Below md the parallax does not run AT ALL: no sticky pinning, no
+// scroll-driven blur/scale/opacity — the banner is a plain image that
+// scrolls off with the page. The visibility fix above only covers the
+// scroll range PAST the fade; inside the first 600px — the range every
+// phone reader drags through on arrival — the effect still re-blurred a
+// 3×DPR image layer on every scroll event, from a main-thread listener
+// that runs a frame behind the compositor. On a phone that is a pinned,
+// stuttering, constantly re-rasterized filter layer (the visible symptom:
+// the top of the page shakes/shimmers while you scroll); on desktop the
+// same work is imperceptible. The fade only exists so the pinned banner
+// exits gracefully under the content wrapper — an unpinned banner needs
+// no fade, so mobile loses nothing but the jank.
 
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion, useTransform } from "framer-motion";
 import { ProjectPicture } from "../../components/ProjectPicture";
 import { useTranslation } from "../../context/LanguageContext";
@@ -23,9 +37,32 @@ import { EASE } from "./constants";
 // banner stops being painted at all.
 const FADE_PX = 600;
 
+// Tailwind's md breakpoint — below it the pill bar owns the nav width and
+// the banner (here) gives up its parallax.
+const MOBILE_QUERY = "(max-width: 767px)";
+
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(
+    () => window.matchMedia?.(MOBILE_QUERY).matches ?? false
+  );
+  useEffect(() => {
+    const mq = window.matchMedia?.(MOBILE_QUERY);
+    if (!mq) return;
+    const onChange = (e) => setIsMobile(e.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+  return isMobile;
+}
+
 export function ProjectHero({ meta, scrollY }) {
   const prefersReducedMotion = useReducedMotion();
+  const isMobile = useIsMobile();
   const { t } = useTranslation();
+
+  // One flag for both off-switches: motion sensitivity and phones. Static
+  // means static — no pin, no scroll-driven styles (see header comment).
+  const isStatic = prefersReducedMotion || isMobile;
 
   // Parallax overlay transformations. The banner is fully covered by the
   // content wrapper well before FADE_PX, so ending the fade at 0 rather than
@@ -36,16 +73,19 @@ export function ProjectHero({ meta, scrollY }) {
   const bannerVisibility = useTransform(scrollY, (y) => (y > FADE_PX ? "hidden" : "visible"));
 
   return (
-    <div className="sticky top-[80px] md:top-[100px] z-0 w-full px-4 md:px-8 max-w-wide mx-auto mb-10 md:mb-20">
+    <div
+      className={`${isStatic ? "relative" : "sticky top-[80px] md:top-[100px]"}
+                  z-0 w-full px-4 md:px-8 max-w-wide mx-auto mb-10 md:mb-20`}
+    >
       <motion.div
         initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, ease: EASE }}
         style={{
-          opacity: prefersReducedMotion ? 1 : bannerOpacity,
-          filter: prefersReducedMotion ? "none" : bannerBlur,
-          scale: prefersReducedMotion ? 1 : bannerScale,
-          visibility: prefersReducedMotion ? "visible" : bannerVisibility,
+          opacity: isStatic ? 1 : bannerOpacity,
+          filter: isStatic ? "none" : bannerBlur,
+          scale: isStatic ? 1 : bannerScale,
+          visibility: isStatic ? "visible" : bannerVisibility,
         }}
       >
         {/* Dotted paper mat. The photo is object-cover and fills its frame
