@@ -316,7 +316,7 @@ const de = {
   "project.media.whatItShows": "Was das zeigt",
   "project.media.openFullPage": "Ganze Seite öffnen",
   "project.media.opensNewTab": "öffnet das vollständige Dokument in einem neuen Tab",
-  "project.media.heroCredit": "Bild generiert mit Nanobanana.",
+  "project.media.heroCredit": "Illustration mit KI generiert.",
 
   // Zeugnisse & Zertifikate
   "credentials.heading": "Zeugnisse & Zertifikate",
