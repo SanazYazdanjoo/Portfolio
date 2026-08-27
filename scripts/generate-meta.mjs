@@ -159,6 +159,27 @@ async function main() {
     console.log(
       `generate-meta: ${written} routes written (${projectRoutes.length} from projects.js)`
     );
+
+    // Build stamp, readable at /version.json. Exists because mobile-cache
+    // debugging is otherwise blind: a phone can serve a stale cached build
+    // while the laptop shows the new one, and there was no way to tell which
+    // build a device was actually looking at. Vercel provides the commit SHA
+    // in the build env; local builds fall back to asking git.
+    let commit = process.env.VERCEL_GIT_COMMIT_SHA || "";
+    if (!commit) {
+      try {
+        const { execSync } = await import("node:child_process");
+        commit = execSync("git rev-parse HEAD", { cwd: ROOT }).toString().trim();
+      } catch {
+        commit = "unknown";
+      }
+    }
+    await writeFile(
+      join(DIST, "version.json"),
+      JSON.stringify({ commit: commit.slice(0, 7), builtAt: new Date().toISOString() }, null, 2),
+      "utf-8"
+    );
+    console.log(`generate-meta: version.json stamped ${commit.slice(0, 7)}`);
   } finally {
     await server.close();
   }
