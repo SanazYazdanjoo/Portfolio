@@ -1074,6 +1074,64 @@
       --rule-ink-faint: rgba(242, 239, 234, 0.09);
     }
   }
+
+  /* Print is paper, whatever the OS says. Chrome evaluates print CSS with a
+     light preference, but Firefox keeps the OS scheme — and a dark-OS print
+     would put the PALE dark-mode ink (--text #f2efea, --rule-ink-* at white)
+     on a page whose dark background the printer never lays down, i.e. white
+     text and invisible hairlines on white paper. The A4 exports (the CV, the
+     case-study print flow) must not depend on which browser prints them.
+
+     This block sits AFTER both dark :root blocks in this layer on purpose:
+     equal specificity, so source order is what lets it win when both media
+     queries match. It re-pins every semantic token the dark blocks touch. */
+  @media print {
+    :root {
+      --primary: var(--color-coral-500);
+      --primary-rgb: var(--color-coral-500-rgb);
+      --primary-600: var(--color-coral-600);
+      --primary-600-rgb: var(--color-coral-600-rgb);
+      --on-primary-600: #ffffff;
+      --accent: var(--primary);
+      --secondary: var(--color-rose-500);
+      --secondary-rgb: var(--color-rose-500-rgb);
+      --secondary-600: var(--color-rose-600);
+      --secondary-600-rgb: var(--color-rose-600-rgb);
+      --blush-weak: var(--color-blush-100);
+      --highlight: var(--color-gold-500);
+      --highlight-rgb: var(--color-gold-500-rgb);
+      --highlight-weak: var(--color-gold-100);
+      --peach: var(--color-blush-100);
+
+      --bg: var(--color-white);
+      --surface: var(--color-white);
+      --muted: var(--color-paper-100);
+      --muted-rgb: var(--color-paper-100-rgb);
+      --muted-surface: var(--color-paper-100);
+      --line: var(--color-paper-200);
+      --border: var(--color-ink-700);
+
+      --text: var(--color-ink-900);
+      --text-rgb: var(--color-ink-900-rgb);
+      --text-display: var(--color-ink-900);
+      --text-dim: var(--color-ink-600);
+      --text-dim-rgb: var(--color-ink-600-rgb);
+
+      --accent-spine: var(--color-coral-700);
+      --text-meta: var(--color-ink-700);
+      --surface-warm: var(--color-paper-50);
+
+      --rule-h: var(--rule-h-light);
+      --rule-h-soft: var(--rule-h-soft-light);
+      --rule-h-faint: var(--rule-h-faint-light);
+      --rule-v: var(--rule-v-light);
+      --rule-v-soft: var(--rule-v-soft-light);
+      --rule-v-faint: var(--rule-v-faint-light);
+      --rule-h-link: var(--rule-h-link-light);
+      --rule-ink-soft: rgba(33, 29, 28, 0.17);
+      --rule-ink-faint: rgba(33, 29, 28, 0.08);
+    }
+  }
 }
 
 /* Pages that stay a white sheet in both themes: the CV document and

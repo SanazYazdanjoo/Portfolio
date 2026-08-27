@@ -46,7 +46,7 @@ export default function Impressum() {
           <FlowerDoodle className="absolute -bottom-6 -right-6 w-32 h-32 text-accent opacity-20 -rotate-12 pointer-events-none" />
 
           <section>
-            <h2 className="text-xs font-bold uppercase tracking-caps text-primary mb-4">{t("impressum.section1.heading")}</h2>
+            <h2 className="text-xs font-bold uppercase tracking-caps text-primary-600 mb-4">{t("impressum.section1.heading")}</h2>
             <p>
               {profileData.name}<br />
               {t("impressum.address.street")}<br />
@@ -56,7 +56,7 @@ export default function Impressum() {
           </section>
 
           <section>
-            <h2 className="text-xs font-bold uppercase tracking-caps text-primary mb-4">{t("impressum.contact.heading")}</h2>
+            <h2 className="text-xs font-bold uppercase tracking-caps text-primary-600 mb-4">{t("impressum.contact.heading")}</h2>
             <p>
               {t("impressum.contact.phoneLabel")}: {t("impressum.contact.phonePlaceholder")}<br />
               {t("impressum.contact.emailLabel")}: {profileData.contact.email}

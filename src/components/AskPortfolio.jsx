@@ -5,7 +5,7 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "../context/LanguageContext";
 import { HandClose } from "./HandIcons";
 import { EASE } from "../utils/motion";
@@ -91,16 +91,53 @@ const SparkIcon = ({ className = "" }) => (
 
 export function AskPortfolio() {
   const { t, lang } = useTranslation();
+  const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [status, setStatus] = useState("idle"); // idle | streaming | error
   const [errorKey, setErrorKey] = useState(null);
+  // True while an in-content CTA chip (SectionMedia's "[data-corner-cta]",
+  // e.g. "Open the diagram") occupies the bottom-right corner this pill
+  // floats over. The pill parks — fades out and stops taking taps — so two
+  // tap targets are never stacked. Same principle as PrototypeFab parking
+  // while the inline gold CTA is on screen.
+  const [ctaBehind, setCtaBehind] = useState(false);
 
   const fabRef = useRef(null);
   const inputRef = useRef(null);
   const listRef = useRef(null);
   const abortRef = useRef(null);
+
+  // Missing IntersectionObserver, or a page with no corner CTAs: the pill
+  // simply never parks, which degrades to "always available".
+  useEffect(() => {
+    if (typeof IntersectionObserver === "undefined") return undefined;
+    const chips = document.querySelectorAll("[data-corner-cta]");
+    if (!chips.length) return undefined;
+    // rootMargin shrinks the viewport to its bottom-right corner — the
+    // bottom 20% and right 45%, a generous halo around the pill so it steps
+    // aside a moment before a chip actually reaches it. The callback only
+    // reports CHANGED entries, so membership is tracked across calls.
+    const inZone = new Set();
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) inZone.add(e.target);
+          else inZone.delete(e.target);
+        }
+        setCtaBehind(inZone.size > 0);
+      },
+      { rootMargin: "-80% 0px 0px -55%" }
+    );
+    chips.forEach((chip) => io.observe(chip));
+    // The reset lives in the cleanup so a route with no corner CTAs can
+    // never inherit a parked pill from the route before it.
+    return () => {
+      io.disconnect();
+      setCtaBehind(false);
+    };
+  }, [pathname]);
 
   useEffect(() => {
     if (open) inputRef.current?.focus();
@@ -178,6 +215,8 @@ export function AskPortfolio() {
   const streaming = status === "streaming";
   const lastIsEmptyAssistant =
     streaming && messages[messages.length - 1]?.role === "assistant" && !messages[messages.length - 1].content;
+  // Never park an open panel — a reader mid-conversation keeps their pill.
+  const parked = ctaBehind && !open;
 
   return (
     <div className="fixed bottom-s16 right-s16 z-[80] no-print flex flex-col items-end gap-s8">
@@ -289,8 +328,11 @@ export function AskPortfolio() {
         type="button"
         onClick={() => (open ? close() : setOpen(true))}
         aria-expanded={open}
-        className="focus-ring group flex items-center gap-s6 rounded-full border border-border bg-surface
-                   px-s16 py-s8 shadow-md hover:border-primary-600 transition-colors"
+        aria-hidden={parked || undefined}
+        tabIndex={parked ? -1 : undefined}
+        className={`focus-ring group flex items-center gap-s6 rounded-full border border-border bg-surface
+                   px-s16 py-s8 shadow-md hover:border-primary-600 transition-all duration-200
+                   ${parked ? "pointer-events-none opacity-0 translate-y-2" : "opacity-100"}`}
       >
         <SparkIcon className="h-4 w-4 text-primary-600 transition-transform group-hover:rotate-12" />
         <span className="text-label font-mono uppercase text-text group-hover:text-primary-600 transition-colors">
