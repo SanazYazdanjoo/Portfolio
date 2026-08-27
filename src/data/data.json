@@ -128,7 +128,7 @@
       ]
     },
     "profileSummary": {
-      "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar), a B.E. in Software Engineering, and experience across user research, UI development, and software usability since 2015. I like working on both ends of a product: running mixed-methods user studies to understand what people actually need — and what's worth building — and then taking those findings all the way into responsive, accessible interfaces in React and TypeScript, backed by lightweight backends. I use AI-assisted development tools productively, while critically reviewing every line of generated code. The case studies below show how that plays out in real projects.",
+      "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar), a B.E. in Software Engineering, and experience across user research, UI development, and software usability since 2015. I like working on both ends of a product: running mixed-methods user studies to understand what people actually need — and what's worth building — and then taking those findings all the way into responsive, accessible interfaces in React and TypeScript, backed by lightweight backends. I use AI-assisted development tools productively, while reviewing the generated code critically. The case studies below show how that plays out in real projects.",
       "de": "Ich bin UX Engineer mit einem M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar), einem B.E. in Software Engineering und seit 2015 Erfahrung in User Research, UI-Entwicklung und Software-Usability. Ich arbeite gern an beiden Enden eines Produkts: Mixed-Methods-Studien, um zu verstehen, was Menschen wirklich brauchen — und was es wert ist, gebaut zu werden — und dann diese Erkenntnisse bis in responsive, barrierefreie Interfaces in React und TypeScript zu tragen, gestützt auf schlanke Backends. KI-gestützte Entwicklungswerkzeuge nutze ich produktiv und prüfe generierten Code dabei kritisch. Die Case Studies unten zeigen, wie das in echten Projekten aussieht."
     },
     "experience": [
@@ -150,11 +150,11 @@
             "de": "Entwicklung einer rollenbasierten Webanwendung (React, TypeScript, Vite, SQLite) zur Digitalisierung eines 13-stufigen papierbasierten Erstattungsprozesses — die manuelle Excel-Verwaltung wurde durch eine explizite Antrags-Zustandsmaschine mit 1.234 automatisierten Tests ersetzt."
           },
           {
-            "en": "Spearheaded empirical UX research (5W1H, UML activity diagrams, stakeholder mapping) across 9 distinct actor roles, translating structural workflow failures into numbered requirements whose citations in code are kept traceable by a build-failing test.",
+            "en": "Ran empirical UX research (5W1H, UML activity diagrams, stakeholder mapping) across 9 distinct actor roles, translating structural workflow failures into numbered requirements whose citations in code are kept traceable by a build-failing test.",
             "de": "Durchführung empirischer UX-Research (5W1H, UML-Aktivitätsdiagramme, Stakeholder-Mapping) über 9 Akteursrollen; strukturelle Prozessfehler wurden in nummerierte Anforderungen übersetzt, deren Zitationskette im Code ein Build-brechender Test absichert."
           },
           {
-            "en": "Architected a strict GDPR/DSGVO-compliant data pipeline by developing local persistence adapters and Nextcloud WebDAV integrations, ensuring participant data never leaves internal institute servers.",
+            "en": "Built a strict GDPR/DSGVO-compliant data pipeline with local persistence adapters and Nextcloud WebDAV integrations, ensuring participant data never leaves internal institute servers.",
             "de": "Aufbau einer strikt DSGVO-konformen Datenhaltung mit lokalen Persistenz-Adaptern und Nextcloud-WebDAV-Integration — Teilnehmendendaten verlassen die internen Institutsserver nicht."
           },
           {
@@ -162,7 +162,7 @@
             "de": "Absicherung des Fastify-(Node.js-)Backends mit Session-Authentifizierung (argon2id-Passwort-Hashing), CSRF-Schutz, Rate-Limiting und serverseitigen Rollenprüfungen — jede Rollenansicht bleibt in ihrem erlaubten Bereich."
           },
           {
-            "en": "Facilitated interdisciplinary communication in German, conducting expert validation interviews and task-based evaluations to refine inclusive features like mobile-first camera capture and guided step-by-step modes.",
+            "en": "Worked in German throughout the project, conducting expert validation interviews and task-based evaluations to refine inclusive features like mobile-first camera capture and guided step-by-step modes.",
             "de": "Interdisziplinäre Projektkommunikation auf Deutsch; Experten-Validierungsinterviews und aufgabenbasierte Evaluationen zur Verfeinerung inklusiver Funktionen wie Mobile-First-Kameraerfassung und geführtem Schritt-für-Schritt-Modus."
           }
         ]
@@ -175,8 +175,8 @@
         },
         "date": "10/2025 – 05/2026",
         "impactMetrics": [
-          { "en": "Trust > speed: key adoption finding", "de": "Vertrauen vor Tempo: Kernbefund" },
-          { "en": "n=30 within-subjects, 3 conditions",   "de": "n=30 Within-Subjects, 3 Bedingungen" },
+          { "en": "Key finding: trust beats raw speed", "de": "Kernbefund: Vertrauen schlägt reines Tempo" },
+          { "en": "N=30 within-subjects, 3 conditions",   "de": "N=30 Within-Subjects, 3 Bedingungen" },
           { "en": "TypeScript + Python gaze pipeline",    "de": "TypeScript+Python-Gaze-Pipeline" }
         ],
         "tasks": [
@@ -364,14 +364,14 @@
           {
             "value": "43+",
             "label": {
-              "en": "days — one claim traced end to end",
-              "de": "Tage — ein Antrag durchgängig verfolgt"
+              "en": "days for one claim in the old paper process — traced end to end",
+              "de": "Tage für einen Antrag im alten Papierprozess — durchgängig verfolgt"
             }
           }
         ],
         "summary": {
-          "en": "Rebuilt a 13-step paper reimbursement process as one role-based web application — researched from the inside, with every claim traced to a survey answer, a process map, or a line of code. The team works with the deployed demo; instrumented evaluation precedes release.",
-          "de": "Ein 13-stufiger Papierprozess, neu gebaut als eine rollenbasierte Webanwendung — von innen erforscht, mit jeder Aussage rückführbar auf eine Umfrageantwort, eine Prozesskarte oder eine Codezeile. Das Team arbeitet mit der bereitgestellten Demo; die instrumentierte Evaluation geht der Veröffentlichung voraus."
+          "en": "Rebuilt a 13-step paper reimbursement process as one role-based web application, researched from the inside as the person who ran it. The team already works with the deployed demo; evaluation is built into the app and runs once it is in daily use.",
+          "de": "Ein 13-stufiger Papierprozess, neu gebaut als eine rollenbasierte Webanwendung — von innen erforscht, als die Person, die den Prozess selbst betrieben hat. Das Team arbeitet bereits mit der bereitgestellten Demo; die Evaluation ist in die App eingebaut und läuft, sobald sie im Alltag im Einsatz ist."
         }
       },
       {
@@ -403,21 +403,21 @@
           {
             "value": "SUS 85.2",
             "label": {
-              "en": "Mouse baseline",
-              "de": "Maus-Baseline"
+              "en": "the mouse baseline to beat",
+              "de": "die Maus-Baseline als Messlatte"
             }
           }
         ],
         "summary": {
-          "en": "Engineered a real-time custom gaze pipeline architecture (Pupil Labs Neon + TypeScript) and ran a controlled experiment comparing MAGIC Pointing and Ninja Cursors. Key finding: gaze assistance should trigger conditionally for large cross-screen relocations only.",
+          "en": "Built a real-time gaze pipeline (Pupil Labs Neon + TypeScript) and ran a controlled experiment comparing MAGIC Pointing and Ninja Cursors against a mouse baseline. Key finding: gaze assistance should trigger conditionally, for large cross-screen relocations only.",
           "de": "Echtzeit-Blickpipeline-Architektur (Pupil Labs Neon + TypeScript) entwickelt und ein kontrolliertes Experiment durchgeführt, das MAGIC Pointing und Ninja Cursors mit einer Maus-Baseline verglich. Kernerkenntnis: Blickunterstützung sollte nur bei großen bildschirmübergreifenden Verlagerungen bedingt ausgelöst werden."
         }
       },
       {
         "id": "deskbird-hybrid-work",
         "title": {
-          "en": "Hybrid Workplace UX Research — deskbird",
-          "de": "UX-Research für hybride Arbeitswelten — deskbird"
+          "en": "Encouraging Social Interactions in Hybrid Work — deskbird",
+          "de": "Soziale Interaktion im Hybrid Work fördern — deskbird"
         },
         "type": {
           "en": "User-Centered Design · Mixed Methods · Figma",
@@ -464,23 +464,23 @@
         },
         "metrics": [
           {
-            "value": "Public",
+            "value": "3",
             "label": {
-              "en": "exhibition debut",
-              "de": "Ausstellungspremiere"
+              "en": "prototype iterations to a working hug",
+              "de": "Prototyp-Iterationen bis zur funktionierenden Umarmung"
             }
           },
           {
-            "value": "Repeatable",
+            "value": "3s / 9s",
             "label": {
-              "en": "pneumatic actuation",
-              "de": "Pneumatische Aktuierung"
+              "en": "inflate–deflate cycle timing",
+              "de": "Zeittakt Aufblasen–Ablassen"
             }
           }
         ],
         "summary": {
-          "en": "Designed and engineered an inflatable soft-robotic hugging system using Arduino-controlled pneumatic actuators and capacitive sensors, demonstrated publicly with documented positive affective responses.",
-          "de": "Ein aufblasbares Soft-Robotik-Umarmungssystem mit Arduino-gesteuerten pneumatischen Aktoren und kapazitiven Sensoren technisch konzipiert und gebaut, öffentlich demonstriert mit dokumentierten positiven affektiven Reaktionen."
+          "en": "Designed and engineered an inflatable soft-robotic hugging system using Arduino-controlled pneumatic actuators and capacitive sensors, demonstrated publicly — with the visitors' delight and the design's failures both documented.",
+          "de": "Ein aufblasbares Soft-Robotik-Umarmungssystem mit Arduino-gesteuerten pneumatischen Aktoren und kapazitiven Sensoren technisch konzipiert und gebaut, öffentlich demonstriert — die Begeisterung der Besucher:innen wie auch die Designfehler sind dokumentiert."
         }
       }
     ],
@@ -985,8 +985,8 @@
       }
     ],
     "bio": {
-      "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction, a B.E. in Software Engineering, and experience across user research, UI development, and software usability since 2015. I like working on both ends of a product: mixed-methods user studies to understand what people actually need — and what's worth building — then taking those findings all the way into responsive, accessible interfaces in React and TypeScript, backed by lightweight backends. Below is how the two halves came together.",
-      "de": "Ich bin UX Engineer mit einem M.Sc. in Human-Computer Interaction, einem B.E. in Software Engineering und seit 2015 Erfahrung in User Research, UI-Entwicklung und Software-Usability. Ich arbeite gern an beiden Enden eines Produkts: Mixed-Methods-Studien, um zu verstehen, was Menschen wirklich brauchen — und was es wert ist, gebaut zu werden — und trage diese Erkenntnisse dann bis in responsive, barrierefreie Interfaces in React und TypeScript, gestützt auf schlanke Backends. Wie beide Seiten zusammenkommen, zeigt sich weiter unten."
+      "en": "I'm a UX Engineer: M.Sc. in Human-Computer Interaction, B.E. in Software Engineering, and user research, UI, and usability work since 2015. I run the studies that decide what's worth building — then build it, in responsive, accessible React and TypeScript. Below is how the two halves came together.",
+      "de": "Ich bin UX Engineer: M.Sc. in Human-Computer Interaction, B.E. in Software Engineering und seit 2015 in User Research, UI-Entwicklung und Software-Usability zu Hause. Ich mache die Studien, die entscheiden, was es zu bauen lohnt — und baue es dann, in responsivem, barrierefreiem React und TypeScript. Wie beide Seiten zusammenkommen, zeigt sich weiter unten."
     },
     "aboutImage": "/assets/me.jpg"
   },
@@ -1000,8 +1000,8 @@
       "year": "2024 – Present",
       "org": "Bauhaus-Universität Weimar",
       "desc": {
-        "en": "Acted as an active awareness team member, supporting university-wide student initiatives and ensuring safe, inclusive, and accessible environments.",
-        "de": "Aktive Mitwirkung im Awareness-Team zur Unterstützung universitätsweiter Studierendeninitiativen und zur Gewährleistung sicherer, inklusiver und barrierefreier Räume."
+        "en": "Awareness team member supporting university-wide student initiatives — helping keep them safe, inclusive, and accessible.",
+        "de": "Mitglied im Awareness-Team zur Unterstützung universitätsweiter Studierendeninitiativen — für sichere, inklusive und barrierefreie Räume."
       }
     },
     {
@@ -1013,8 +1013,8 @@
       "year": "2022 – 2024",
       "org": "BUW International Office",
       "desc": {
-        "en": "Guided incoming international students through their initial onboarding phases, cultural adjustments, and critical administrative processes.",
-        "de": "Begleitung internationaler Studierender während der ersten Onboarding-Phasen, bei der kulturellen Eingewöhnung und bei wichtigen administrativen Prozessen."
+        "en": "Guided incoming international students through arrival, cultural adjustment, and the administrative processes of their first semesters.",
+        "de": "Begleitung internationaler Studierender bei der Ankunft, der kulturellen Eingewöhnung und den administrativen Prozessen der ersten Semester."
       }
     },
     {
@@ -1024,11 +1024,7 @@
         "de": "Studentische Freiwillige"
       },
       "year": "2024",
-      "org": "Digital Leute",
-      "desc": {
-        "en": "Student volunteer at Digital Leute conference.",
-        "de": "Studentische Freiwillige bei der Digital Leute Konferenz."
-      }
+      "org": "Digital Leute"
     },
     {
       "id": 4,
@@ -1039,8 +1035,8 @@
       "year": "2022",
       "org": "JCSG & Mensch und Computer",
       "desc": {
-        "en": "Student volunteer at JCSG & Mensch und Computer.",
-        "de": "Studentische Freiwillige bei JCSG & Mensch und Computer."
+        "en": "Session and workshop support at Mensch und Computer (TU Darmstadt) and conference operations at JCSG in Weimar.",
+        "de": "Betreuung von Sessions und Workshops bei Mensch und Computer (TU Darmstadt) und Konferenzorganisation bei der JCSG in Weimar."
       }
     }
   ]

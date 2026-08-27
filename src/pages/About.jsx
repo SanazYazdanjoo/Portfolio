@@ -266,7 +266,9 @@ export default function About() {
                   <p className="text-2xs font-bold uppercase text-dim mb-1.5">
                     {item.org}
                   </p>
-                  <p className="text-xs leading-relaxed text-dim">{item.desc}</p>
+                  {item.desc && (
+                    <p className="text-xs leading-relaxed text-dim">{item.desc}</p>
+                  )}
                 </motion.div>
               ))}
             </div>
