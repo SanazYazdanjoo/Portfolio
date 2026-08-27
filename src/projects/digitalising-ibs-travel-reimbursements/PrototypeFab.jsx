@@ -277,7 +277,11 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
       ref={hostRef}
       // pointer-events-none on the wrapper so the empty column above the
       // badge never eats clicks meant for the page underneath it.
-      className="no-print pointer-events-none fixed bottom-4 right-4 md:bottom-8 md:right-8
+      /* bottom-24 on phones, not bottom-4: the AskPortfolio pill owns the
+         bottom-right corner (fixed bottom-s16 right-s16, z-80), and at
+         bottom-4 this badge sat stacked BEHIND it — an amber sliver peeking
+         out from the pill's edge. Desktop has room for both. */
+      className="no-print pointer-events-none fixed bottom-24 right-4 md:bottom-8 md:right-8
                  z-50 flex flex-col items-end gap-1"
       style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
     >
