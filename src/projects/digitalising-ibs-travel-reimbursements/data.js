@@ -18,6 +18,12 @@
 // 20.08.2026: revised against 'for Case study IBS.docx' — multi-Excel before-
 // state, 2 interviews + 1 admin meeting, UCD/double-diamond framing, results deferred until
 // real use (no study eyebrow — see metricsIntro), design section added.
+// 27.08.2026: wireframe section added — prose, the process strip (moved
+// over from figures.design), and a pending figure for the full-size export
+// still owed from the Claude Design project. Decoding the strip's embedded
+// panels to write it showed all three panels are the attendance-month
+// screen (wireframe page 1g), so the "participant screen" wording around
+// the strip was corrected to name the screen.
 // Card-level fields (id/status/title/tags/thumbnails/card*) live in
 // ./card.js — eagerly aggregated site-wide — and are spread here so the
 // detail page sees one object. This file carries only the prose and media
@@ -187,8 +193,21 @@ export const projectData = {
   // Rendered as its own section ("Design") between Solution and Methodology.
   // NOTE for the renderer: `design` text + `figures.design` are new keys.
   design: {
-    en: 'The design system was extracted before the high-fidelity screens, not after them: brand colours, a nine-colour role palette carried unchanged from the research diagram’s lanes, note states, a type scale, and form-field states — so a lane in the research reads as the same actor as a badge in the app. Screens moved from paper sketches through wireframes to the shipped React views, and the strip below shows the same participant screen at all three fidelities, none of them redrawn.',
-    de: 'Das Designsystem wurde vor den High-Fidelity-Screens extrahiert, nicht danach: Markenfarben, eine neunfarbige Rollenpalette, unverändert aus den Spuren des Forschungsdiagramms übernommen, Notizzustände, eine Typo-Skala und Formularfeld-Zustände — eine Spur in der Forschung steht damit für denselben Akteur wie ein Badge in der App. Die Screens gingen von Papierskizzen über Wireframes zu den ausgelieferten React-Ansichten, und der Streifen unten zeigt denselben Teilnehmenden-Screen in allen drei Genauigkeiten — keiner nachgezeichnet.',
+    en: 'The design system was extracted before the high-fidelity screens, not after them: brand colours, a nine-colour role palette carried unchanged from the research diagram’s lanes, note states, a type scale, and form-field states — so a lane in the research reads as the same actor as a badge in the app. How the screens themselves took shape, from paper sketch to wireframe to shipped view, is shown in the Wireframes section below.',
+    de: 'Das Designsystem wurde vor den High-Fidelity-Screens extrahiert, nicht danach: Markenfarben, eine neunfarbige Rollenpalette, unverändert aus den Spuren des Forschungsdiagramms übernommen, Notizzustände, eine Typo-Skala und Formularfeld-Zustände — eine Spur in der Forschung steht damit für denselben Akteur wie ein Badge in der App. Wie die Screens selbst entstanden sind — von der Papierskizze über das Wireframe zur ausgelieferten Ansicht —, zeigt der Wireframe-Abschnitt darunter.',
+  },
+
+  // Rendered as its own section ("Wireframes") between Design and Prototype —
+  // the template's wireframe slot (constants.js: PROSE_SECTIONS), data-gated
+  // like every section, so switching it on here changes no other project.
+  // The process strip anchors this section (moved from figures.design
+  // 27.08.2026 — it documents the wireframe stage, not the token system).
+  // Every claim below is checked against the strip's decoded panels: the
+  // middle panel is wireframe page 1g, Anwesenheit · Monat, and the third
+  // panel shows the deployed screen carrying the same structures.
+  wireframe: {
+    en: 'Before the high-fidelity screens were built, the layouts were drawn as wireframes in Claude Design, based on the numbered requirements from Phase 2. A wireframe fixes the structure of a screen — which elements it contains, in what order, and which rules apply — before colour and typography come in. The strip below shows this for the attendance-month screen: the paper sketch from the process observation, the Phase 2 wireframe, and the screen as it shipped.',
+    de: 'Bevor die High-Fidelity-Screens gebaut wurden, wurden die Layouts als Wireframes in Claude Design gezeichnet, auf Basis der nummerierten Anforderungen aus Phase 2. Ein Wireframe legt die Struktur eines Screens fest — welche Elemente er enthält, in welcher Reihenfolge und nach welchen Regeln —, bevor Farbe und Typografie dazukommen. Der Streifen unten zeigt das am Anwesenheits-Monatsscreen: die Papierskizze aus der Prozessbeobachtung, das Phase-2-Wireframe und der Screen im ausgelieferten Zustand.',
   },
 
   figures: {
@@ -571,13 +590,26 @@ export const projectData = {
           de: 'IBS-DesignSystem — Tokens, Rollenpalette und Komponenten',
         },
       },
-      // ── Process strip: the same screen three times, getting more real.
+      // The sketch → wireframe → shipped strip lived here until 27.08.2026.
+      // It documents the wireframe stage, not the token system, so it moved
+      // to figures.wireframe and anchors that section now.
+    ],
+
+    wireframe: [
+      // ── Process strip: sketch, wireframe and shipped build of one screen.
       // Deliberately glanceable — under forty words on the figure itself;
       // the artefacts are the evidence, so nothing in it is redrawn.
       //
       // Artwork exported 20.08.2026 as SVG — the three slots are a photo, the
       // wireframe export and a screenshot, embedded, so the strip stays sharp
       // at full width. This entry carried the NEEDS_INPUT sentinel until then.
+      //
+      // 27.08.2026: the three embedded panels were decoded and checked while
+      // the wireframe section was written. All three show the attendance-
+      // month screen (the wireframe panel is page 1g, Anwesenheit · Monat;
+      // the shipped panel is the deployed Anwesenheit → Monat view), so the
+      // "participant screen" wording here, in the design prose and in the
+      // SVG's own labels was corrected to name the screen.
       {
         type: 'image',
         src: processStrip,
@@ -585,20 +617,61 @@ export const projectData = {
         className: 'w-full h-auto block',
         label: { en: 'Process · sketch to shipped', de: 'Prozess · Skizze bis Auslieferung' },
         title: {
-          en: 'The same screen, three times, getting more real',
-          de: 'Derselbe Screen, dreimal, zunehmend real',
+          en: 'From sketch to wireframe to shipped screen',
+          de: 'Von der Skizze über das Wireframe zum ausgelieferten Screen',
         },
         description: {
-          en: 'One strip, three panels: the paper sketch from the AS-IS observation, the Phase 2 wireframe drawn against the numbered requirements, and the participant flow as deployed. All three show the same screen, and none of them is redrawn — the sketch is a photograph, the wireframe is the original export, the third is a screenshot of the running build.',
-          de: 'Ein Streifen, drei Felder: die Papierskizze aus der IST-Beobachtung, das Phase-2-Wireframe entlang der nummerierten Anforderungen und der Teilnehmenden-Flow im ausgelieferten Zustand. Alle drei zeigen denselben Screen, und keines ist nachgezeichnet — die Skizze ist ein Foto, das Wireframe der Originalexport, das dritte ein Screenshot des laufenden Builds.',
+          en: 'Three stages of the same screen: the paper sketch from the process observation, the Phase 2 wireframe drawn against the numbered requirements, and the attendance-month view in the deployed app. None of the three is redrawn — the sketch is a photograph, the wireframe is the original export, and the third panel is a screenshot of the running build.',
+          de: 'Drei Stufen desselben Screens: die Papierskizze aus der Prozessbeobachtung, das Phase-2-Wireframe entlang der nummerierten Anforderungen und die Anwesenheits-Monatsansicht in der bereitgestellten App. Keine der drei Stufen ist nachgezeichnet — die Skizze ist ein Foto, das Wireframe der Originalexport, das dritte Feld ein Screenshot des laufenden Builds.',
         },
         alt: {
-          en: 'Three-panel strip labelled Sketch, Wireframe, Shipped, showing the same participant screen as a paper sketch photograph, a wireframe export, and a screenshot of the deployed build, connected by two arrows.',
-          de: 'Dreiteiliger Streifen mit den Feldern Skizze, Wireframe, Ausgeliefert: derselbe Teilnehmenden-Screen als fotografierte Papierskizze, als Wireframe-Export und als Screenshot des ausgelieferten Builds, verbunden durch zwei Pfeile.',
+          en: 'Three-panel strip labelled Sketch, Wireframe, Shipped, showing the same attendance-month screen as a paper sketch photograph, a wireframe export, and a screenshot of the deployed build, connected by two arrows.',
+          de: 'Dreiteiliger Streifen mit den Feldern Skizze, Wireframe, Ausgeliefert: derselbe Anwesenheits-Monatsscreen als fotografierte Papierskizze, als Wireframe-Export und als Screenshot des ausgelieferten Builds, verbunden durch zwei Pfeile.',
         },
         caption: {
-          en: 'From sketch to wireframe to shipped — same screen, increasing fidelity',
-          de: 'Von der Skizze über das Wireframe zur Auslieferung — derselbe Screen, steigende Genauigkeit',
+          en: 'Sketch, wireframe and shipped build of the attendance-month screen',
+          de: 'Skizze, Wireframe und ausgelieferter Build des Anwesenheits-Monatsscreens',
+        },
+      },
+      // ── The Phase 2 wireframe set at reading size. One page of it is
+      // already published on this page — the attendance-month wireframe
+      // embedded in the strip above — but at panel width (453 CSS px) it
+      // can only prove the stage happened. The full-size export from the
+      // Claude Design project is still owed, so this entry carries
+      // `pending: true` and no `src`: the same mechanics, and the same
+      // reasoning, as the traceability pair under `methodology` — the frame
+      // renders and says the artwork is coming, and nothing pretends an
+      // export exists that has not been made. The framing below is written
+      // against the decoded 906×332 panel itself (page number, header
+      // toggle, legend, row counts, margin notes all read off it), so it
+      // stays true when the full-size file lands.
+      //
+      // To publish: export the page from the Claude Design project, drop it
+      // next to this module, add its import at the top of the file
+      //   import wireframeAttendance from './wireframe-1g-attendance.png';
+      // then set `src: wireframeAttendance` and delete the `pending: true`
+      // line. Further pages of the set become sibling entries, same shape.
+      {
+        type: 'image',
+        pending: true,
+        span: 2,
+        className: 'w-full h-auto block',
+        label: { en: 'Wireframes · Phase 2', de: 'Wireframes · Phase 2' },
+        title: {
+          en: 'The attendance-month wireframe at full size',
+          de: 'Das Anwesenheits-Monats-Wireframe in voller Größe',
+        },
+        description: {
+          en: 'Page 1g of the Phase 2 wireframe set — the same file that appears in the strip above, at a size where it can actually be read. The structure of the shipped screen is already in place: the toggle between week bands and whole month, the attendance-code legend, participant rows with per-day cells and an annotation field, and a counter of captured versus open fields. The red margin notes record the rules the layout has to follow: codes are entered through a dropdown with a fixed vocabulary, and every change is written to a change log.',
+          de: 'Seite 1g des Phase-2-Wireframe-Satzes — dieselbe Datei, die im Streifen oben zu sehen ist, in einer Größe, in der sie sich tatsächlich lesen lässt. Die Struktur des ausgelieferten Screens ist bereits angelegt: der Umschalter zwischen Wochenbändern und ganzem Monat, die Legende der Anwesenheitscodes, Teilnehmenden-Zeilen mit Tageszellen und Anmerkungsfeld sowie ein Zähler erfasster gegen offene Felder. Die roten Randnotizen halten die Regeln fest, denen das Layout folgen muss: Codes werden über ein Dropdown mit festem Vokabular eingegeben, und jede Änderung landet im Änderungsprotokoll.',
+        },
+        alt: {
+          en: 'Wireframe of the attendance-month screen, numbered 1g: a header row with month switcher and a week-bands/whole-month toggle, an attendance-code legend, a week grid of participant rows with per-day cells and an annotations column, a collapsed whole-month alternative below, and red margin notes about the code dropdown and the change protocol.',
+          de: 'Wireframe des Anwesenheits-Monatsscreens, nummeriert 1g: eine Kopfzeile mit Monatswechsler und Umschalter Wochenbänder/ganzer Monat, eine Legende der Anwesenheitscodes, ein Wochenraster aus Teilnehmenden-Zeilen mit Tageszellen und Anmerkungsspalte, darunter die eingeklappte Alternative „ganzer Monat“ sowie rote Randnotizen zu Code-Dropdown und Änderungsprotokoll.',
+        },
+        caption: {
+          en: 'Attendance-month wireframe (1g) — Phase 2, Claude Design · full-size export pending',
+          de: 'Anwesenheits-Monats-Wireframe (1g) — Phase 2, Claude Design · Export in voller Größe ausstehend',
         },
       },
     ],
@@ -688,7 +761,7 @@ export const projectData = {
     { tag: 'Requirements Traceability', evidence: "methodology Develop: a build-failing test keeps every requirement citation in code traced to its source problem — and states its own limit: it catches a citation without a source, not a problem without an implementation", status: 'evidenced' },
     { tag: 'Information Architecture', evidence: "methods: information architecture & state modelling; solution: five purpose-built role views replacing the spreadsheet ecosystem", status: 'evidenced' },
     { tag: 'State Machine Modelling', evidence: "solution and prototype: the explicit claim state machine, including the modelled-but-unreachable AUSGEZAHLT status, stated honestly on the page", status: 'evidenced' },
-    { tag: 'Wireframing', evidence: "figures.design: the sketch → wireframe → shipped strip, same participant screen at three fidelities; techStack: Claude Design (wireframes)", status: 'evidenced' },
+    { tag: 'Wireframing', evidence: "wireframe section: the Phase 2 wireframes drawn in Claude Design against the numbered requirements; figures.wireframe: the sketch → wireframe → shipped strip of the attendance-month screen, plus the full-size page-1g export (pending)", status: 'evidenced' },
     { tag: 'Interaction Design', evidence: "the guided Schritt-für-Schritt mode, camera capture, and the visible status chain are interaction decisions traceable to numbered problems; no standalone interaction spec is published", status: 'thin' },
     { tag: 'Design Systems', evidence: "design section: the IBS-DesignSystem sheet with the research diagram's lane colours carried unchanged into the shipped UI; a token guard test fails the build on drift between sheet and code", status: 'evidenced' },
     { tag: 'Prototyping', evidence: "prototype: a deployed demo on Vercel running all five role views entirely in the browser on fictional data, safe to hand to a stranger", status: 'evidenced' },
