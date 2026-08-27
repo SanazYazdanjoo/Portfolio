@@ -4,7 +4,7 @@ export default {
  "profile": {
   "name": "Sanaz Yazdanjoo",
   "role": "UX Engineer",
-  "tagline": "I speak both ‘user’ and ‘developer’ — and this site is the proof.",
+  "tagline": "I speak both ‘user’ and ‘developer’.",
   "positioning": "UX Engineer bridging mixed-methods research and production React.",
   "profileSummary": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar), a B.E. in Software Engineering, and experience across user research, UI development, and software usability since 2015. I like working on both ends of a product: running mixed-methods user studies to understand what people actually need — and what's worth building — and then taking those findings all the way into responsive, accessible interfaces in React and TypeScript, backed by lightweight backends. I use AI-assisted development tools productively, while critically reviewing every line of generated code. The case studies below show how that plays out in real projects.",
   "impactStats": [
