@@ -29,6 +29,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 import { useTranslation } from "../../context/LanguageContext";
 import { useIsMobile } from "../../hooks/useIsMobile";
+import { useCornerOccupied } from "../../hooks/useCornerOccupied";
 import { HandArrow } from "../../components/HandArrow";
 
 // The badge and its two backing shapes are all cut from `.rule-blob`, the
@@ -184,6 +185,14 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
   const eyeRef = useRef(null);
   const [scrolledIn, setScrolledIn] = useState(false);
   const [parked, setParked] = useState(false);
+  // On phones the badge also yields the corner the same way the ASK AI pill
+  // does: while a [data-corner-cta] occupant is there — the pill bar in
+  // transit, a figure's diagram chip, the open menu — the badge parks
+  // rather than being sliced by the bar (z-40 over this z-30) or sitting on
+  // top of a chip's tap target. Desktop keeps the badge up: there it lives
+  // in the page margin and overlaps nothing, and parking it whenever a
+  // figure chip crosses the lower viewport would read as flicker.
+  const cornerOccupied = useCornerOccupied();
 
   // Pupil offset, in SVG user units. Motion values rather than state on
   // purpose: pointermove would otherwise re-render this subtree on every
@@ -270,7 +279,7 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
   const labelText = localize(label);
   const noteText = localize(note);
   const hintText = localize(NEW_TAB_HINT);
-  const visible = scrolledIn && !parked;
+  const visible = scrolledIn && !parked && !(isMobile && cornerOccupied);
 
   return (
     <div

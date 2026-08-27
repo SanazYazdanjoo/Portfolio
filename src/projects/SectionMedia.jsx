@@ -268,9 +268,10 @@ export default function SectionMedia({ items }) {
                     {media}
                     <span
                       aria-hidden="true"
-                      /* AskPortfolio watches this attribute: while a chip like
-                         this occupies the viewport's bottom-right corner, the
-                         fixed ASK-AI pill parks itself so the two never stack
+                      /* useCornerOccupied watches this attribute: while a chip
+                         like this occupies the viewport's bottom-right corner,
+                         the fixed ASK-AI pill (and, on phones, the prototype
+                         badge) parks itself so two tap targets never stack
                          (observed on a reader's recording: pill over "Open the
                          diagram"). */
                       data-corner-cta=""

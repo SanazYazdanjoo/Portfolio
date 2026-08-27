@@ -331,7 +331,7 @@ function CertificateCard({ cert, index, onOpenFile }) {
             target="_blank"
             rel="noopener noreferrer"
             className="mt-1 inline-flex w-fit items-center gap-1 text-2xs font-black uppercase
- text-primary-600 hover:text-primary focus-ring"
+ text-primary-600 hover:text-primary-500 focus-ring"
           >
             {t("credentials.verify")} &#8599;
           </a>

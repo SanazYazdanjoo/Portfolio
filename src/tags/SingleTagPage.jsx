@@ -27,7 +27,7 @@ const SingleTagPage = () => {
       <div className="w-full px-4 md:px-8 max-w-wide mx-auto">
         <Link
           to="/tags"
-          className="inline-flex items-center gap-1 text-sm font-medium text-primary-600 hover:text-primary mb-8"
+          className="inline-flex items-center gap-1 text-sm font-medium text-primary-600 hover:text-primary-500 mb-8"
         >
           &larr; {t("tags.single.backToAll")}
         </Link>

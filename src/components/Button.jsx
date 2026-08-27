@@ -56,7 +56,11 @@ const ArrowIcon = ({ className = "" }) => (
 
 // Plain text/link button, used where the doodle styling of SolidButton isn't wanted.
 export const Button = ({ children, to, href, className = "", ...props }) => {
-  const baseStyles = "inline-block text-text hover:text-primary transition-colors font-medium";
+  // hover:text-primary-500, not hover:text-primary: in dark mode `primary`
+  // is the coral FILL accent, 3.9:1 as text — under AA. The -500 step is
+  // the text-safe hover rung in both themes (identical to `primary` in
+  // light, a lighter coral in dark).
+  const baseStyles = "inline-block text-text hover:text-primary-500 transition-colors font-medium";
   const combinedClasses = `${baseStyles} ${className}`;
 
   if (to) return <Link to={to} className={combinedClasses} {...props}>{children}</Link>;

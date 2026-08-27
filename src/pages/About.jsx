@@ -152,7 +152,7 @@ export default function About() {
             </ul>
             <Link
               to="/credentials"
-              className="mt-6 inline-block text-xs font-black uppercase tracking-caps text-primary-600 hover:text-primary"
+              className="mt-6 inline-block text-xs font-black uppercase tracking-caps text-primary-600 hover:text-primary-500"
             >
               {t("credentials.viewAll")} &rarr;
             </Link>

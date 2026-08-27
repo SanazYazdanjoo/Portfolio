@@ -186,8 +186,19 @@ export function MobilePillBar({ sections, activeId, onNavigate }) {
     // sections could otherwise be composited above this bar by iOS WebKit
     // mid-scroll, whatever z-index says (observed on-device). Giving the
     // bar its own layer hands the compositor an explicit order to honour.
+    //
+    // data-corner-cta: before the bar pins it is IN FLOW, and on its way up
+    // it transits the bottom-right corner where the ASK AI pill floats — at
+    // the natural resting point right before the content sections, the pill
+    // sat exactly on the DESIGN tab and swallowed its taps (observed on a
+    // reader's recording). No z-index here can fix that: the pill lives at
+    // the app shell's level while this bar is inside the scroll container's
+    // own stacking context (see useCornerOccupied). So the bar declares the
+    // corner claimed and the pill parks for the transit; once pinned at
+    // top-0 the bar leaves the corner zone and the pill returns.
     <div className="sticky top-0 z-40 bg-bg border-b rule-b
                      -mx-4 px-4 py-2 md:hidden no-print"
+         data-corner-cta=""
          style={{ transform: "translateZ(0)" }}>
       <div ref={stripRef} className="flex gap-1 overflow-x-auto pr-8">
         {sections.map((section) => {

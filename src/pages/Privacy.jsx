@@ -106,7 +106,7 @@ export default function Privacy() {
               <button
                 type="button"
                 onClick={() => window.Cookiebot?.renew?.()}
-                className="rule-underline font-bold text-primary-600 hover:text-primary transition-colors"
+                className="rule-underline font-bold text-primary-600 hover:text-primary-500 transition-colors"
               >
                 {t("privacy.sectionAnalytics.manage")}
               </button>

@@ -22,6 +22,11 @@ export default {
         ink: "rgb(var(--text-rgb) / <alpha-value>)",
         primary: {
           DEFAULT: "rgb(var(--primary-rgb) / <alpha-value>)",     // #892107 — large text / UI only
+          // Hover step for -600 text links: one rung brighter than -600 in
+          // both themes, AA-safe on bg/surface/muted. A -600 link must hover
+          // to THIS, never to `primary` — in dark, `primary` is the FILL
+          // accent and sits under the 4.5:1 text floor.
+          500: "rgb(var(--primary-500-rgb) / <alpha-value>)",
           600: "rgb(var(--primary-600-rgb) / <alpha-value>)",     // small-text-safe coral
         },
         secondary: {
