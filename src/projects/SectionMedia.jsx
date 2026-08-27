@@ -120,7 +120,10 @@ function ZoomOverlay({ figure, onClose }) {
       aria-modal="true"
       aria-label={figure.alt || t("project.media.enlargedDefault")}
       tabIndex={-1}
-      className="fixed inset-0 z-[100] overflow-auto bg-black/80 backdrop-blur-md
+      /* Blur only from md up: a full-screen backdrop-filter over a scrollable
+         layer is one of iOS Safari's worst repaint paths. A slightly deeper
+         plain scrim does the same job of separating figure from page. */
+      className="fixed inset-0 z-[100] overflow-auto bg-black/85 md:bg-black/80 md:backdrop-blur-md
  print:hidden focus-ring"
       onClick={onClose}
     >
@@ -135,7 +138,7 @@ function ZoomOverlay({ figure, onClose }) {
         className="fixed right-4 top-4 z-10 inline-flex h-11 w-11 items-center justify-center
  rounded-full rule-circle rule-circle-lg [--rule-line-color:rgb(255_255_255/0.25)]
  [--rule-fill-color:rgb(0_0_0/0.7)] text-white shadow-lg
- backdrop-blur-sm transition-colors duration-200
+ transition-colors duration-200
  hover:[--rule-line-color:rgb(255_255_255)] hover:[--rule-fill-color:rgb(0_0_0)] focus-ring-light"
       >
         <HandClose className="h-5 w-5" />
@@ -265,9 +268,14 @@ export default function SectionMedia({ items }) {
                     {media}
                     <span
                       aria-hidden="true"
+                      /* No backdrop-blur here on purpose: the fill is already
+                         opaque, so the blur painted nothing — while costing
+                         iOS a live backdrop re-blur on every scroll frame the
+                         figure was in view, which read as the page dragging
+                         past the sticky pill bar. */
                       className="pointer-events-none absolute right-3 top-3 inline-flex items-center gap-1.5
                                  border rule-frame [--rule-fill-color:var(--bg)] px-2.5 py-1.5 font-mono text-2xs font-bold
-                                 uppercase text-text backdrop-blur-sm no-print
+                                 uppercase text-text no-print
                                  transition-colors duration-200
                                  group-hover:[--rule-line-color:var(--primary-600)] group-hover:text-primary-600"
                     >
