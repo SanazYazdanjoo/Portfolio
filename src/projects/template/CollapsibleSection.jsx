@@ -3,6 +3,7 @@
 // ProcessGallery.jsx renders the same head over a non-prose body.
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useIsMobile } from "../../hooks/useIsMobile";
 import { Chevron } from "./Chevron";
 import { EASE } from "./constants";
 
@@ -46,13 +47,20 @@ export function CollapsibleSectionHead({ id, number, kicker, heading, isOpen, on
 // toggle always stays instant.
 export function ContentSection({ id, number, kicker, heading, isOpen, onToggle, staggerDelayMs = 0, children }) {
   const prefersReducedMotion = useReducedMotion();
+  // No `y` in the entrance on phones — not even y: 0. The transform is what
+  // earns a section its own iOS compositing layer, and those layers are the
+  // root of two observed on-device bugs: mid-scroll they get ordered above
+  // the sticky pill bar (content sliding over the nav), and containing them
+  // forces giant layers that ghost ("two of everything"). A plain opacity
+  // fade keeps the reveal without ever writing a transform.
+  const isMobile = useIsMobile();
 
   return (
     <motion.section
       id={id}
       className="pt-10 mb-14 md:pt-16 md:mb-20 border-t rule-t scroll-mt-32"
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={isMobile ? { opacity: 0 } : { opacity: 0, y: 16 }}
+      whileInView={isMobile ? { opacity: 1 } : { opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0 }}
       transition={{ duration: 0.45, ease: EASE }}
     >

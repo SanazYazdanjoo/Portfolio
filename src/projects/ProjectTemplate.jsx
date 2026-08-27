@@ -252,13 +252,16 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
               {/* Mobile pill bar */}
               <MobilePillBar sections={activeSections} activeId={activeId} onNavigate={navigateToSection} />
 
-              {/* `isolate` pairs with the pill bar's translateZ(0) (see
-                  MobilePillBar): every motion section in here gets its own
-                  compositing layer from its entrance transform, and on iOS
-                  those layers were ordered above the sticky bar mid-scroll.
-                  One isolated stacking context for the whole article means
-                  no section layer can ever leave it and cover the bar. */}
-              <article className="min-w-0 isolate">
+              {/* Deliberately NOT `isolate`: isolating this subtree while it
+                  overlaps the composited pill bar made iOS composite the
+                  ENTIRE article as one layer — a 17k-px tile set that
+                  re-rasterized mid-scroll and showed stale ghost frames
+                  ("two of everything", observed on-device). The layering fix
+                  lives at the source instead: below md the sections animate
+                  nothing that earns them a GPU layer (see ContentSection),
+                  so there is no layer to hoist above the bar and no giant
+                  layer to ghost. */}
+              <article className="min-w-0">
 
               {meta.about && (
                 <ContentSection id="about" number={sectionNumber("about")}
