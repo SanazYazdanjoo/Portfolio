@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { HandClose } from './HandIcons';
 
 const TagChip = ({ name, count, onRemove }) => {
   return (
@@ -17,9 +18,10 @@ const TagChip = ({ name, count, onRemove }) => {
       {onRemove && (
         <button
           onClick={() => onRemove(name)}
+          aria-label={`Remove ${name}`}
           className="pr-3 pl-1 font-bold text-primary-600 transition-colors duration-200 group-hover:text-white hover:!text-danger"
         >
-          ×
+          <HandClose className="w-3 h-3" />
         </button>
       )}
     </div>

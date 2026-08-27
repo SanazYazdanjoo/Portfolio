@@ -426,4 +426,48 @@ describe("reference — the forward arrow is drawn", () => {
     expect(src).toContain("M18.2 1.3c1.8 1.6 3.2 2.8 4.6 3.6-1.6.9-3 1.9-4.4 3.5");
     expect(src).toContain('stroke="currentColor"');
   });
+
+  // The arrow's rule generalises to every glyph: burger, close, chevron,
+  // list/grid, mail. Each of these path signatures is a machine-perfect
+  // Feather-style icon that used to live in the file beside it — h/l/v
+  // line commands where a hand would curve. Their reappearance anywhere in
+  // these files means someone pasted an icon instead of drawing one; use
+  // HandArrow / HandIcons instead. (/admin is the one exempt surface.)
+  it("draws every icon — no machine-perfect paths anywhere", () => {
+    const MACHINE_PATHS = [
+      'd="M6 9l6 6 6-6"',      // chevron-down (Feather)
+      'd="M19 9l-7 7-7-7"',    // chevron-down, alternate
+      'd="M15 19l-7-7 7-7"',   // chevron-left
+      'd="M4 6h16M4 12h16M4 18h16"',          // hamburger / list
+      'd="M10 19l-7-7m0 0l7-7m-7 7h18"',      // arrow-left
+      'd="M14 5l7 7m0 0l-7 7m7-7H3"',         // arrow-right
+      'd="M7 17L17 7M17 7H8M17 7V16"',        // arrow-up-right
+      'd="M6 6l12 12M18 6L6 18"',             // close X
+      '<line x1=',                            // ruled lines are not drawn
+    ];
+    const FILES = [
+      "src/components/Nav.jsx",
+      "src/components/ProjectListRow.jsx",
+      "src/components/TagChip.jsx",
+      "src/components/AskPortfolio.jsx",
+      "src/pages/Projects.jsx",
+      "src/pages/Contact.jsx",
+      "src/projects/ProjectTemplate.jsx",
+      "src/projects/SectionMedia.jsx",
+      "src/projects/template/Chevron.jsx",
+      "src/projects/template/ProcessGallery.jsx",
+      "src/projects/template/ProjectNavCard.jsx",
+      "src/projects/template/PrototypeLink.jsx",
+      "src/projects/template/SectionNav.jsx",
+      "src/projects/digitalising-ibs-travel-reimbursements/PrototypeFab.jsx",
+    ];
+    for (const file of FILES) {
+      const src = read(file);
+      const hits = MACHINE_PATHS.filter((p) => src.includes(p));
+      expect(
+        hits,
+        `${file} rules an icon instead of drawing it: ${hits.join(" | ")}`
+      ).toEqual([]);
+    }
+  });
 });

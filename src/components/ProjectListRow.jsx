@@ -9,6 +9,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
 import { SkillTagRow } from "./SkillTagRow";
 import { ProjectPicture } from "./ProjectPicture";
+import { HandArrow } from "./HandArrow";
 import { EASE } from "../utils/motion";
 
 
@@ -107,13 +108,7 @@ export function ProjectListRow({ project, index }) {
           <SkillTagRow tags={tags} className="mt-2" />
         </div>
 
-        <svg
-          aria-hidden="true"
-          className="hidden sm:block w-5 h-5 text-primary-600 shrink-0 transition-transform duration-200 group-hover:translate-x-1.5"
-          viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-        </svg>
+        <HandArrow className="hidden sm:block w-5 h-5 text-primary-600 shrink-0 transition-transform duration-200 group-hover:translate-x-1.5" />
       </Link>
     </motion.div>
   );
