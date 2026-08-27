@@ -637,8 +637,8 @@ export default function DesignSystem() {
                 </motion.p>
                 <motion.div variants={fadeUp}>
                   <RuleRow name="Doodles" value="assets/icons/*.svg via CSS mask" note="Hand-drawn ink marks, tinted with currentColor." />
-                  <RuleRow name="Inline strokes" value="stroke-width: 2 · currentColor" note="Arrow, chevron, hamburger/close — tiny inline SVGs only." />
-                  <RuleRow name="Unicode" value="↗ · ×" note="External links, separators, close. No emoji, ever." />
+                  <RuleRow name="Glyphs" value="HandArrow · HandIcons · currentColor" note="Arrow, chevron, hamburger/close, list/grid, mail — drawn, never geometric. No Feather paths, no icon font." />
+                  <RuleRow name="Unicode" value="mid-dot separators only" note="Arrows, closes and chevrons are drawn glyphs, not glyphs of the typeface. No emoji, ever." />
                 </motion.div>
               </motion.div>
             </DSSection>

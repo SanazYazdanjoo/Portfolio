@@ -21,6 +21,7 @@ import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { profileData as rawProfile } from "../data/profile";
 import { EASE } from "../utils/motion";
 import { EmptyState } from "../components/EmptyState";
+import { HandList, HandGrid } from "../components/HandIcons";
 
 const VIEW_STORAGE_KEY = "projects.view";
 
@@ -115,21 +116,13 @@ export default function Projects() {
                 active={view === "list"}
                 onClick={() => setView("list")}
                 label={t("projects.view.list")}
-                icon={
-                  <svg className="w-4 h-4 relative" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                  </svg>
-                }
+                icon={<HandList className="w-4 h-4 relative" />}
               />
               <ViewToggleButton
                 active={view === "grid"}
                 onClick={() => setView("grid")}
                 label={t("projects.view.grid")}
-                icon={
-                  <svg className="w-4 h-4 relative" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 5h7v7H4V5zm9 0h7v7h-7V5zM4 14h7v7H4v-7zm9 0h7v7h-7v-7z" />
-                  </svg>
-                }
+                icon={<HandGrid className="w-4 h-4 relative" />}
               />
             </div>
           )}

@@ -27,6 +27,7 @@ import { useMemo, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import SectionMedia from "./SectionMedia";
+import { HandArrow } from "../components/HandArrow";
 import { useTranslation } from "../context/LanguageContext";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
@@ -469,10 +470,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                              text-text-meta hover:text-primary-600
                              transition-colors duration-200 group"
                 >
-                  <svg className="w-3.5 h-3.5 transform group-hover:-translate-x-0.5 transition-transform"
-                    fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                  </svg>
+                  <HandArrow direction="back" className="w-3.5 h-3.5 transform group-hover:-translate-x-0.5 transition-transform" />
                   {t("project.footer.back")}
                 </Link>
               </div>

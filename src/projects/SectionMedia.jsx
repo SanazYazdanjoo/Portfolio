@@ -47,6 +47,8 @@ import { createPortal } from "react-dom";
 import { useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
 import { NeedsInputMarker } from "../components/NeedsInputMarker";
+import { HandArrow } from "../components/HandArrow";
+import { HandClose } from "../components/HandIcons";
 import { isNeedsInput } from "../data/needsInput";
 
 // Zoom overlay. Rendered through a portal to document.body: figures sit
@@ -136,10 +138,7 @@ function ZoomOverlay({ figure, onClose }) {
  backdrop-blur-sm transition-colors duration-200
  hover:[--rule-line-color:rgb(255_255_255)] hover:[--rule-fill-color:rgb(0_0_0)] focus-ring-light"
       >
-        <svg aria-hidden="true" className="h-5 w-5" fill="none" stroke="currentColor"
-             strokeWidth="2.5" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M6 6l12 12M18 6L6 18" />
-        </svg>
+        <HandClose className="h-5 w-5" />
       </button>
 
       <div className="px-4 pb-16 pt-20">
@@ -273,9 +272,7 @@ export default function SectionMedia({ items }) {
                                  group-hover:[--rule-line-color:var(--primary-600)] group-hover:text-primary-600"
                     >
                       {linkLabel}
-                      <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H8M17 7V16" />
-                      </svg>
+                      <HandArrow direction="up-right" className="w-3 h-3" />
                     </span>
                   </a>
                 ) : canZoom ? (

@@ -28,6 +28,8 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 import { useTranslation } from "../../context/LanguageContext";
+import { useIsMobile } from "../../hooks/useIsMobile";
+import { HandArrow } from "../../components/HandArrow";
 
 // The badge and its two backing shapes are all cut from `.rule-blob`, the
 // same hand-torn silhouette the rest of the site is drawn with. It replaced a
@@ -168,6 +170,16 @@ function NudgeArrow() {
 export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
   const { localize } = useTranslation();
   const reduce = useReducedMotion();
+  // On a phone the badge overlaps the reading column (see the sizing note
+  // below), so its idle loops — bob, blob rotation/breath, wiggle — play ON
+  // TOP of the text and read as the page shaking, permanently: measured as
+  // 11/11 differing frame-pairs at rest, and reported by a reader in
+  // exactly those words. Below md the badge holds still and keeps only the
+  // entrance spring and the blink — the one idle sign of life small enough
+  // to stay inside the mark. Desktop, where the badge sits in the margin
+  // and overlaps nothing, keeps the full choreography.
+  const isMobile = useIsMobile();
+  const calm = reduce || isMobile;
   const hostRef = useRef(null);
   const eyeRef = useRef(null);
   const [scrolledIn, setScrolledIn] = useState(false);
@@ -302,7 +314,7 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
                 scale each need a layer of their own or they overwrite each
                 other. */}
             <motion.div
-              animate={reduce ? {} : { y: [0, -7, 0] }}
+              animate={calm ? {} : { y: [0, -7, 0] }}
               transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut" }}
             >
               <motion.a
@@ -335,16 +347,7 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
                                  group-focus-visible:opacity-100"
                     >
                       {labelText}
-                      <svg
-                        className="w-3 h-3"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        viewBox="0 0 24 24"
-                        aria-hidden="true"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H8M17 7V16" />
-                      </svg>
+                      <HandArrow direction="up-right" className="w-3 h-3" />
                     </span>
                   </span>
                 </span>
@@ -372,7 +375,7 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
                       <motion.span
                         aria-hidden="true"
                         className="absolute -inset-1.5 md:-inset-2 bg-highlight rule-blob opacity-25"
-                        animate={{ rotate: -360, scale: [1, 1.07, 1] }}
+                        animate={calm ? {} : { rotate: -360, scale: [1, 1.07, 1] }}
                         transition={{
                           rotate: { duration: 26, repeat: Infinity, ease: "linear" },
                           scale: { duration: 3.8, repeat: Infinity, ease: "easeInOut" },
@@ -400,7 +403,7 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
                   <motion.span
                     className="relative grid h-full w-full place-items-center bg-highlight rule-blob
                                text-highlight-on"
-                    animate={reduce ? {} : { rotate: [0, -9, 7, -4, 0] }}
+                    animate={calm ? {} : { rotate: [0, -9, 7, -4, 0] }}
                     transition={{
                       rotate: { duration: 0.9, repeat: Infinity, repeatDelay: 6, ease: "easeInOut" },
                     }}

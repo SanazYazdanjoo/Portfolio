@@ -7,6 +7,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useTranslation } from "../context/LanguageContext";
+import { HandClose } from "./HandIcons";
 import { EASE } from "../utils/motion";
 
 // Turns sent per request; older history is context the answers don't need.
@@ -205,10 +206,7 @@ export function AskPortfolio() {
                 aria-label={t("chat.close")}
                 className="focus-ring shrink-0 p-s2 text-dim hover:text-text transition-colors"
               >
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-5 w-5">
-                  <path d="M6.4 6.2c3.8 4 7.5 7.8 11.3 11.5M17.5 6.4C13.8 10.2 10 14 6.3 17.7"
-                    stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-                </svg>
+                <HandClose className="h-5 w-5" />
               </button>
             </header>
 

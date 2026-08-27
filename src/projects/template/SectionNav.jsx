@@ -15,6 +15,8 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useTranslation } from "../../context/LanguageContext";
 import { Chevron } from "./Chevron";
+import { HandArrow } from "../../components/HandArrow";
+import { HandChevron, HandList } from "../../components/HandIcons";
 import { EASE } from "./constants";
 
 // Sticky TOC — numbers and labels, active item marked with a layoutId
@@ -48,14 +50,9 @@ export function SidebarNav({
  text-dim transition-colors duration-200
  hover:[--rule-line-color:var(--primary-600)] hover:text-primary-600 focus-ring"
         >
-          <svg aria-hidden="true" className="h-3.5 w-3.5" fill="none" stroke="currentColor"
-               strokeWidth="2.5" viewBox="0 0 24 24">
-            {collapsed ? (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-            )}
-          </svg>
+          {collapsed
+            ? <HandList className="h-3.5 w-3.5" />
+            : <HandChevron className="h-3.5 w-3.5 rotate-90" />}
         </button>
       </div>
 
@@ -65,10 +62,7 @@ export function SidebarNav({
           className="flex items-center gap-2 text-2xs font-black uppercase
                      text-dim hover:text-primary-600 transition-colors duration-200 mb-8 group"
         >
-          <svg className="w-3 h-3 transform group-hover:-translate-x-0.5 transition-transform"
-            fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-          </svg>
+          <HandArrow direction="back" className="w-3 h-3 transform group-hover:-translate-x-0.5 transition-transform" />
           {t("project.sidebar.allProjects")}
         </Link>
       )}

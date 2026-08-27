@@ -8,6 +8,7 @@ import { profileData as rawProfile } from "../data/profile";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { useTranslation } from "../context/LanguageContext";
 import { LanguageToggle } from "./LanguageToggle";
+import { HandMenu, HandClose } from "./HandIcons";
 import { EASE } from "../utils/motion";
 
 // Maps each nav route to its translation key so labels follow the current
@@ -169,12 +170,9 @@ function MobileMenu({ links }) {
         aria-label={open ? t("nav.closeMenu") : t("nav.openMenu")}
         aria-expanded={open}
       >
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-          {open
-            ? <><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></>
-            : <><line x1="4" y1="8" x2="20" y2="8" /><line x1="4" y1="16" x2="20" y2="16" /></>
-          }
-        </svg>
+        {/* Drawn, not ruled — the burger is the first mark a phone visitor
+            sees, so it comes from the same pen as everything else. */}
+        {open ? <HandClose className="w-[22px] h-[22px]" /> : <HandMenu className="w-[22px] h-[22px]" />}
       </button>
 
       <AnimatePresence>

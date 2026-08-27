@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useTranslation } from "../../context/LanguageContext";
 import { CollapsibleSectionHead } from "./CollapsibleSection";
+import { HandChevron } from "../../components/HandIcons";
 import { EASE } from "./constants";
 
 // Phase config. Labels are resolved via t() at render time; only keys live here.
@@ -85,10 +86,7 @@ function ProcessStep({ item, index, total }) {
                   transition={{ duration: 0.2 }}
                   className="text-text-meta group-hover/btn:text-dim transition-colors"
                 >
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor"
-                    strokeWidth="2.5" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
+                  <HandChevron className="w-3 h-3" />
                 </motion.span>
               </button>
               <AnimatePresence>
