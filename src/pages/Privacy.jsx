@@ -46,7 +46,7 @@ export default function Privacy() {
           <FlowerDoodle className="absolute -top-6 -right-6 w-24 h-24 text-accent opacity-30 rotate-45 pointer-events-none" />
 
           <section>
-            <h2 className="text-xs font-bold uppercase tracking-caps text-primary mb-4">{t("privacy.section1.heading")}</h2>
+            <h2 className="text-xs font-bold uppercase tracking-caps text-primary-600 mb-4">{t("privacy.section1.heading")}</h2>
             <h3 className="font-bold text-text mb-2 mt-6">{t("privacy.section1.generalInfo.heading")}</h3>
             <p className="mb-4">
               {t("privacy.section1.generalInfo.body")}
@@ -62,7 +62,7 @@ export default function Privacy() {
           <div className="rule-line w-full my-8"></div>
 
           <section>
-            <h2 className="text-xs font-bold uppercase tracking-caps text-primary mb-4">{t("privacy.section2.heading")}</h2>
+            <h2 className="text-xs font-bold uppercase tracking-caps text-primary-600 mb-4">{t("privacy.section2.heading")}</h2>
             <h3 className="font-bold text-text mb-2 mt-6">{t("privacy.section2.serverLogs.heading")}</h3>
             <p className="mb-4">
               {t("privacy.section2.serverLogs.intro")}
@@ -88,7 +88,7 @@ export default function Privacy() {
           <div className="rule-line w-full my-8"></div>
 
           <section>
-            <h2 className="text-xs font-bold uppercase tracking-caps text-primary mb-4">{t("privacy.sectionAnalytics.heading")}</h2>
+            <h2 className="text-xs font-bold uppercase tracking-caps text-primary-600 mb-4">{t("privacy.sectionAnalytics.heading")}</h2>
             <h3 className="font-bold text-text mb-2 mt-6">{t("privacy.sectionAnalytics.cookiebot.heading")}</h3>
             <p className="mb-4 text-base text-dim">
               {t("privacy.sectionAnalytics.cookiebot.body")}
@@ -116,7 +116,7 @@ export default function Privacy() {
           <div className="rule-line w-full my-8"></div>
 
           <section>
-            <h2 className="text-xs font-bold uppercase tracking-caps text-primary mb-4">{t("privacy.section3.heading")}</h2>
+            <h2 className="text-xs font-bold uppercase tracking-caps text-primary-600 mb-4">{t("privacy.section3.heading")}</h2>
             <p className="text-base text-dim">
               {t("privacy.section3.body")}
             </p>

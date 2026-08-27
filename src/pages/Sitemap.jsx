@@ -110,7 +110,7 @@ function RouteNode({ path, label, description, children, index, isActive }) {
             {/* Path */}
             <Link
               to={path}
-              className="font-black text-xs text-primary hover:text-primary-600 tracking-caps uppercase"
+              className="font-black text-xs text-primary-600 hover:text-text tracking-caps uppercase"
             >
               {path}
             </Link>
@@ -126,8 +126,8 @@ function RouteNode({ path, label, description, children, index, isActive }) {
           {hasChildren && (
             <button
               onClick={() => setOpen(p => !p)}
-              className="mt-2 text-2xs font-black uppercase text-primary/50
-                         hover:text-primary transition-colors flex items-center gap-1"
+              className="mt-2 text-2xs font-black uppercase text-dim
+                         hover:text-primary-600 transition-colors flex items-center gap-1"
             >
               <motion.span animate={{ rotate: open ? 90 : 0 }} transition={{ duration: 0.2 }}>
                 ▶
@@ -234,7 +234,7 @@ export default function Sitemap() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <p className="text-2xs font-black uppercase text-primary mb-2">
+          <p className="text-2xs font-black uppercase text-primary-600 mb-2">
             {t("sitemap.kicker")}
           </p>
           <div className="relative inline-block mb-4">
@@ -267,7 +267,7 @@ export default function Sitemap() {
 
         {/* Main navigation routes */}
         <section className="mb-12">
-          <p className="text-2xs font-black uppercase text-primary/60 mb-6">
+          <p className="text-2xs font-black uppercase text-primary-600 mb-6">
             {t("sitemap.section.mainNav")}
           </p>
           {mainRoutes.map((route, i) => (
@@ -283,7 +283,7 @@ export default function Sitemap() {
 
         {/* Credentials — standalone, not part of primary nav */}
         <section className="mb-12">
-          <p className="text-2xs font-black uppercase text-primary/60 mb-6">
+          <p className="text-2xs font-black uppercase text-primary-600 mb-6">
             {t("sitemap.section.credentials")}
           </p>
           <RouteNode
@@ -296,9 +296,9 @@ export default function Sitemap() {
 
         {/* Project detail routes (dynamic) */}
         <section className="mb-12">
-          <p className="text-2xs font-black uppercase text-primary/60 mb-6">
+          <p className="text-2xs font-black uppercase text-primary-600 mb-6">
             {t("sitemap.section.projectDetail")}{" "}
-            <code className="text-2xs bg-primary/8 rule-fill px-1.5 py-0.5 text-primary">
+            <code className="text-2xs bg-primary/8 rule-fill px-1.5 py-0.5 text-primary-600">
               src/projects/**/data.js
             </code>
           </p>
@@ -316,7 +316,7 @@ export default function Sitemap() {
 
         {/* Legal routes */}
         <section>
-          <p className="text-2xs font-black uppercase text-primary/60 mb-6">
+          <p className="text-2xs font-black uppercase text-primary-600 mb-6">
             {t("sitemap.section.legal")}
           </p>
           {legalRoutes.map((route, i) => (
