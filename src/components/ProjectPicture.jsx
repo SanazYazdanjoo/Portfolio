@@ -13,7 +13,10 @@ import React from "react";
 
 export function ProjectPicture({ webpSrc, src, alt, className, onError, eager = false }) {
   const loadingProps = eager
-    ? { loading: "eager", fetchPriority: "high" }
+    ? // lowercase on purpose: React 18 doesn't know the camelCase prop
+      // (that lands in 19) and drops it with a console error; the lowercase
+      // form passes through as the real HTML attribute.
+      { loading: "eager", fetchpriority: "high" }
     : { loading: "lazy", decoding: "async" };
   if (!webpSrc) {
     return <img src={src} alt={alt} className={className} onError={onError} {...loadingProps} />;

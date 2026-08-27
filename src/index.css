@@ -64,12 +64,24 @@
      a desktop because desktop chrome does not move.
 
      `dvh` tracks the visible area as the URL bar comes and goes, so the
-     shell always fits and there is exactly one scroller. The `vh` line above
-     it stays as the fallback for browsers without `dvh` — do not remove it,
-     and do not "simplify" this back to Tailwind's h-screen. */
+     shell always fits and there is exactly one scroller. The `vh` rule is
+     the fallback for browsers without `dvh` — do not remove it, and do not
+     "simplify" this back to Tailwind's h-screen.
+
+     The fallback lives in an @supports block, NOT as a second declaration
+     in the same rule (`height: 100vh; height: 100dvh;`): the production
+     CSS minifier collapses duplicate properties and shipped `height:100dvh`
+     ALONE (verified in dist/ and on the live site), which left the shell
+     with no height at all on any browser lacking dvh — old iOS, in-app
+     browser WebViews — and brought the double-scroller shake back for
+     exactly those readers. @supports survives minification. */
   .app-shell {
     height: 100vh;
-    height: 100dvh;
+  }
+  @supports (height: 100dvh) {
+    .app-shell {
+      height: 100dvh;
+    }
   }
 }
 /* Helper Utilities */
