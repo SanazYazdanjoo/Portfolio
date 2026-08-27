@@ -14,7 +14,7 @@ export function Badge({ tone = "accent", children, className = "" }) {
   // can't split var(--x) into channels, so e.g. border-primary-600/60 silently
   // generates no rule at all (invisible border). Use solid tones instead.
   const tones = {
-    accent:    "text-primary-600 [--rule-line-color:var(--primary-600)] hover:[--rule-fill-color:var(--primary-600)] hover:text-white",
+    accent:    "text-primary-600 [--rule-line-color:var(--primary-600)] hover:[--rule-fill-color:var(--primary-600)] hover:[color:var(--on-primary-600)]",
     rose:      "text-secondary-600 [--rule-line-color:var(--secondary-600)] hover:[--rule-fill-color:var(--secondary-600)] hover:text-white",
     highlight: "text-text [--rule-line-color:var(--highlight)] hover:[--rule-fill-color:var(--highlight)] hover:text-text",
     success:   "text-success [--rule-line-color:var(--success)] hover:[--rule-fill-color:var(--success)] hover:text-white",

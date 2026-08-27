@@ -87,7 +87,7 @@ export function ClampedText({ children, className = "" }) {
           aria-controls={bodyId}
           className="no-print mt-3 inline-flex items-center gap-1.5 border-0 bg-blush-weak rule-fill
  px-2.5 py-1.5 text-2xs font-black uppercase text-primary-600
- hover:bg-primary-600 hover:text-white transition-colors duration-200 focus-ring"
+ hover:bg-primary-600 hover:[color:var(--on-primary-600)] transition-colors duration-200 focus-ring"
         >
           {expanded ? t("common.readLess") : t("common.readMore")}
           <Chevron isOpen={expanded} className="w-3 h-3" />
