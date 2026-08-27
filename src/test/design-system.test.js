@@ -261,25 +261,19 @@ describe("reference — lines survive any monitor", () => {
     return (hi + 0.05) / (lo + 0.05);
   };
   const WHITE = [255, 255, 255];
-  const over = ([r, g, b], alpha) =>
-    [r, g, b].map((c, i) => WHITE[i] + alpha * (c - WHITE[i]));
   const token = (name) => {
     const m = theme.match(new RegExp(`${name}:\\s*#([0-9a-fA-F]{6})`));
     expect(m, `${name} not found as a hex token in theme.css`).toBeTruthy();
     return [0, 2, 4].map((i) => parseInt(m[1].slice(i, i + 2), 16));
   };
-  const borderAlpha = () => {
-    const m = theme.match(/--border:\s*rgba\(33, 29, 28, (0\.\d+)\)/);
-    expect(m, "--border must stay ink-over-white rgba").toBeTruthy();
-    return m[1];
-  };
 
   // A closed outline bounds a component, so WCAG 1.4.11 applies: 3:1
   // against the page. Every outline class defaults to --text-meta (ink-700)
-  // in one components-layer block rather than falling back to the
-  // decorative hairline — and ink-700 itself must keep clearing the floor.
-  // .btn carries the same default inside its own rule instead, so
-  // .btn-primary's coral, declared later, still wins its cascade tie.
+  // in one components-layer block — explicit, so a wrapper-inherited
+  // --rule-line-color can never repaint a frame — and ink-700 itself must
+  // keep clearing the floor. .btn carries the same default inside its own
+  // rule instead, so .btn-primary's coral, declared later, still wins its
+  // cascade tie.
   it("every closed outline defaults to the 3:1 boundary ink", () => {
     const m = theme.match(/([^{}]*)\{\s*--rule-line-color: var\(--text-meta\);\s*\}/);
     expect(m, "no components-layer default pointing closed outlines at --text-meta").toBeTruthy();
@@ -290,13 +284,17 @@ describe("reference — lines survive any monitor", () => {
     expect(contrast(token("--color-ink-700"), WHITE)).toBeGreaterThanOrEqual(3);
   });
 
-  // .rule-box is the one frame drawn as a background tile, so the boundary
-  // ink is baked into its own strong tiles — the same ink-700 the overlay
-  // frames resolve to, or frames would render at two different strengths.
-  it("the rule-box frame bakes the same boundary ink", () => {
-    expect(theme).toMatch(/\.rule-box \{[^}]*--rule-img-h: var\(--rule-h-strong\)/s);
-    expect(theme).toMatch(/--rule-h-strong-light:[^;]*%2357534a/);
-    expect(theme).toMatch(/--rule-v-strong-light:[^;]*%2357534a/);
+  // ONE INK: the default tiles and the --border token all resolve to the
+  // boundary ink, in both themes, so a section divider, a grid seam and a
+  // frame can never render at two different strengths. Only an explicit
+  // .rule-soft / .rule-faint modifier at a call site may quiet a line.
+  it("dividers, seams and borders draw with the same boundary ink", () => {
+    expect(theme).toMatch(/--rule-h-light:[^;]*fill='%2357534a'/);
+    expect(theme).toMatch(/--rule-v-light:[^;]*fill='%2357534a'/);
+    expect(theme).toMatch(/--rule-h: url\([^;]*fill='%23c4beb6'/);
+    expect(theme).toMatch(/--rule-v: url\([^;]*fill='%23c4beb6'/);
+    expect(theme).toMatch(/--border: var\(--color-ink-700\)/);
+    expect(theme).toMatch(/--border: var\(--color-dark-text-muted\)/);
   });
 
   // The CV stays a white sheet in both themes. Its frames draw with
@@ -307,26 +305,6 @@ describe("reference — lines survive any monitor", () => {
     expect(theme).toMatch(/\.rule-light[^{]*\{[^}]*--text-meta: var\(--color-ink-700\)/s);
   });
 
-  // Decorative hairlines may sit below 3:1 — they separate, they don't
-  // bound a control — but they still have to render. 25% ink (≈1.7:1)
-  // is the measured floor; 12% (1.27:1) is the value that failed.
-  it("the default hairline never drifts back below visibility", () => {
-    const alpha = Number(borderAlpha());
-    expect(contrast(over([33, 29, 28], alpha), WHITE)).toBeGreaterThanOrEqual(1.6);
-  });
-
-  // "Same ink at the same opacity": the heaviest baked SVG tile must carry
-  // exactly the alpha --border declares, or the drawn rules and the crisp
-  // print/fallback borders quietly disagree about how dark a line is.
-  it("the drawn tiles carry the same ink as --border", () => {
-    // Slice past the doodle dot pattern (0.55 ink, decorative marks, not a
-    // line) to the rule system itself.
-    const rules = theme.slice(theme.indexOf("6. Hand-drawn rules"));
-    const tiles = [...rules.matchAll(/fill='%23211d1c' fill-opacity='(0\.\d+)'/g)]
-      .map((m) => Number(m[1]));
-    expect(tiles.length).toBeGreaterThan(0);
-    expect(Math.max(...tiles)).toBe(Number(borderAlpha()));
-  });
 });
 
 // The card assets are cropped by scripts/generate-card-crops.mjs, never by
