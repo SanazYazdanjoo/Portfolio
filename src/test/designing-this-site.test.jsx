@@ -6,6 +6,10 @@
 // contract matters just as much: the mechanisms that make this page an
 // exception are all data-gated, so a study that doesn't opt in renders
 // exactly as before — asserted here against a real unmodified project.
+//
+// Explicit timeouts: each test renders the full ProjectTemplate tree, which
+// under the suite's parallel workers can cross vitest's 5s default and fail
+// as a timeout, not as a violation (same story as the provenance suite).
 
 import { describe, it, expect } from "vitest";
 import ProjectTemplate from "../projects/ProjectTemplate";
@@ -26,7 +30,7 @@ describe("designing-this-site — the exception's own section list", () => {
         `section #${id} should not render for this project`
       ).toBeNull();
     }
-  });
+  }, 30_000);
 
   it("renames Results to Metrics — heading, kicker and sidebar label", () => {
     renderWithProviders(<ProjectTemplate meta={siteData} />);
@@ -34,7 +38,7 @@ describe("designing-this-site — the exception's own section list", () => {
     expect(screen.queryByText("Key Findings & Outcome")).toBeNull();
     // Sidebar + mobile pill bar both carry the overridden label.
     expect(screen.getAllByText("Metrics").length).toBeGreaterThanOrEqual(2);
-  });
+  }, 30_000);
 
   it("renders the Wireframes section with both layout schematics", () => {
     const { container } = renderWithProviders(<ProjectTemplate meta={siteData} />);
@@ -43,7 +47,7 @@ describe("designing-this-site — the exception's own section list", () => {
     for (const figure of siteData.figures.wireframe) {
       expect(screen.getByAltText(figure.alt.en)).toBeInTheDocument();
     }
-  });
+  }, 30_000);
 
   it("renders the Design System section with the live token panel", () => {
     const { container } = renderWithProviders(<ProjectTemplate meta={siteData} />);
@@ -58,7 +62,7 @@ describe("designing-this-site — the exception's own section list", () => {
     expect(screen.getByText("coral-500")).toBeInTheDocument();
     expect(screen.getByText("--primary")).toBeInTheDocument();
     expect(screen.getByText("--font-family-display")).toBeInTheDocument();
-  });
+  }, 30_000);
 
   it("still shows Research Methods + Tech Stack, re-homed under Prototype", () => {
     const { container } = renderWithProviders(<ProjectTemplate meta={siteData} />);
@@ -66,7 +70,7 @@ describe("designing-this-site — the exception's own section list", () => {
     expect(prototype).not.toBeNull();
     expect(prototype.textContent).toContain("Tech Stack");
     expect(prototype.textContent).toContain("Vite");
-  });
+  }, 30_000);
 });
 
 describe("designing-this-site — the exception does not leak", () => {
@@ -88,5 +92,5 @@ describe("designing-this-site — the exception does not leak", () => {
     // Methods/Tech Stack stay in Methodology when methodology exists.
     const methodology = container.querySelector("section#methodology");
     expect(methodology.textContent).toContain("Tech Stack");
-  });
+  }, 30_000);
 });
