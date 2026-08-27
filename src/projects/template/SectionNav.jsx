@@ -11,7 +11,7 @@
 // pill bar owns that width — so the toggle is a wide-screen affordance by
 // construction, and nothing about it needs a media query of its own.
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useTranslation } from "../../context/LanguageContext";
@@ -144,6 +144,25 @@ export function SidebarNav({
 export function MobilePillBar({ sections, activeId, onNavigate }) {
   const { t } = useTranslation();
   const stripRef = useRef(null);
+  // Whether the strip is scrolled to its end. The right-edge fade is a
+  // "more tabs this way" affordance, so it must disappear when that stops
+  // being true — a fade that also veils the LAST pill at full scroll says
+  // "more" exactly when there is none.
+  const [atEnd, setAtEnd] = useState(false);
+
+  useEffect(() => {
+    const strip = stripRef.current;
+    if (!strip) return;
+    const update = () =>
+      setAtEnd(strip.scrollLeft + strip.clientWidth >= strip.scrollWidth - 1);
+    update();
+    strip.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      strip.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [sections]);
 
   // Keep the active pill in view. The strip scrolls horizontally, so a
   // working scroll-spy alone isn't enough — by mid-page the active section's
@@ -196,7 +215,8 @@ export function MobilePillBar({ sections, activeId, onNavigate }) {
           and reads as the end of the list. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 right-0 w-12"
+        className={`pointer-events-none absolute inset-y-0 right-0 w-12
+                    transition-opacity duration-200 ${atEnd ? "opacity-0" : "opacity-100"}`}
         /* Solid for the first quarter, then falls off: a pure 0→1 gradient
            read as video noise on a reader's recording, not as "more tabs
            this way". */

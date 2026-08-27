@@ -268,6 +268,12 @@ export default function SectionMedia({ items }) {
                     {media}
                     <span
                       aria-hidden="true"
+                      /* AskPortfolio watches this attribute: while a chip like
+                         this occupies the viewport's bottom-right corner, the
+                         fixed ASK-AI pill parks itself so the two never stack
+                         (observed on a reader's recording: pill over "Open the
+                         diagram"). */
+                      data-corner-cta=""
                       /* No backdrop-blur here on purpose: the fill is already
                          opaque, so the blur painted nothing — while costing
                          iOS a live backdrop re-blur on every scroll frame the
