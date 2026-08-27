@@ -280,9 +280,14 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
       /* bottom-24 on phones, not bottom-4: the AskPortfolio pill owns the
          bottom-right corner (fixed bottom-s16 right-s16, z-80), and at
          bottom-4 this badge sat stacked BEHIND it — an amber sliver peeking
-         out from the pill's edge. Desktop has room for both. */
+         out from the pill's edge. Desktop has room for both.
+
+         z-30, below the mobile pill bar's z-40: while the bar scrolls up
+         into its pinned position it can pass through this corner, and at
+         z-50 the badge briefly sat ON TOP of a nav tab. Nothing else the
+         badge overlaps carries a z-index, so 30 still clears all content. */
       className="no-print pointer-events-none fixed bottom-24 right-4 md:bottom-8 md:right-8
-                 z-50 flex flex-col items-end gap-1"
+                 z-30 flex flex-col items-end gap-1"
       style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
     >
       <AnimatePresence>
