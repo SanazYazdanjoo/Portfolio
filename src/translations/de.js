@@ -39,7 +39,7 @@ const de = {
 
   "about.howIGotHere": "Wie ich hierher gelangt bin",
   "about.theBridge": "Die Brücke",
-  "about.theBridgeDesc": "Mein Weg war nicht linear — er war bewusst. Jede Phase trug ihr Werkzeug in die nächste.",
+  "about.theBridgeDesc": "Vom Software-Engineering über QA zur UX-Forschung — jede Phase trug ihr Werkzeug in die nächste.",
   "about.methodology": "Methodik",
   "about.howIWork": "Wie ich arbeite",
   "about.beyondTheBrief": "Über den Auftrag hinaus",
@@ -55,10 +55,10 @@ const de = {
   "about.career.phase1.summary": "10+ Websites von Grund auf gebaut und live gebracht. Gelernt, dass Code einfach ist — zu wissen, was man bauen soll, ist schwer.",
   "about.career.phase2.label": "QA-Engineering",
   "about.career.phase2.years": "2020 – 2022",
-  "about.career.phase2.summary": "Vom Bauen zum Brechen gewechselt — und erkannt, dass hinter jedem Bug eine Nutzererkenntnis steckte, die gehört werden wollte.",
+  "about.career.phase2.summary": "Vom Bauen zum Brechen gewechselt — und begonnen, Bugs als Belege dafür zu lesen, wo Software ihre Nutzer:innen im Stich lässt.",
   "about.career.phase3.label": "UX Research & Engineering",
   "about.career.phase3.years": "2022 – heute",
-  "about.career.phase3.summary": "Hier verschmelzen Forschung und Entwicklung. Ich konzipiere methodisch fundierte Studien und setze die Architektur (z. B. in TypeScript) direkt selbst um.",
+  "about.career.phase3.summary": "Hier verschmelzen Forschung und Entwicklung: Ich konzipiere die Studien und baue die Software, die sie ausführt.",
   "about.career.group.research": "Forschung",
   "about.career.group.build": "Umsetzung",
 
@@ -95,7 +95,7 @@ const de = {
   // The one-line replacement for the former AI-Assisted Development chip
   // category — the claim lives with its evidence (the IBS aiAssistance
   // paragraph), not as unbacked chips.
-  "cv.aiAssisted.text": "KI-gestützte Entwicklung — Agenten unter meiner Leitung; die Ablehnungen sind dokumentiert",
+  "cv.aiAssisted.text": "KI-gestützte Entwicklung — Agenten unter meiner Leitung; das Entscheidungslog hält fest, was ich abgelehnt habe",
   "cv.aiAssisted.link": "IBS-Fallstudie",
 
   // Skill-group headings on the CV. "UX Research & Design" and "QA & Testing"
@@ -490,7 +490,7 @@ const de = {
   // "Chat mit Sanaz" Widget
   "chat.fab": "KI fragen",
   "chat.title": "Chat mit Sanaz",
-  "chat.subtitle": "KI · basiert auf dieser Website",
+  "chat.subtitle": "KI · antwortet nur aus dieser Website",
   "chat.intro": "Hallo! Ich bin Sanaz — na ja, die KI-Version von mir. Fragen Sie mich gern etwas zu meiner Arbeit, zum Beispiel:",
   "chat.q1": "Was haben Sie am IBS gebaut?",
   "chat.q2": "Erzählen Sie von Ihrer Eye-Tracking-Thesis",

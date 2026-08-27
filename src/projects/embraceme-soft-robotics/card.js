@@ -23,8 +23,8 @@ export default {
     de: "Ein pneumatisches Soft-Robotik-Umarmungsinterface, öffentlich ausgestellt und evaluiert",
   },
   tagline: {
-    en: "Engineering a soft-robotic hug — and honestly reporting where it fell short.",
-    de: "Eine soft-robotische Umarmung entwickeln — und ehrlich berichten, wo sie an ihre Grenzen stieß.",
+    en: "Engineering a soft-robotic hug — and reporting where it fell short.",
+    de: "Eine soft-robotische Umarmung entwickeln — und berichten, wo sie an ihre Grenzen stieß.",
   },
   role: {
     en: "HCI Researcher & Prototyping Engineer (team of 3)",
@@ -37,8 +37,8 @@ export default {
   },
   cardTags: ["Physical Prototyping", "Exhibition Research", "Arduino", "Human-Robot Interaction"],
   cardOutcome: {
-    en: "Visitors wanted to control the hug; a binary touch trigger, not the soft hardware, broke the experience.",
-    de: "Besucher:innen wollten die Umarmung steuern; ein binärer Berührungsauslöser brach die Erfahrung — nicht die weiche Hardware.",
+    en: "The hug delighted visitors — but without signifiers nobody could start one unprompted; the interaction, not the hardware, fell short.",
+    de: "Die Umarmung begeisterte — doch ohne Signifier konnte niemand sie unaufgefordert beginnen; die Interaktion scheiterte, nicht die Hardware.",
   },
   cardImage: cardFinalBuild,
   thumbnail: thumbnailImg,

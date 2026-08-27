@@ -90,8 +90,8 @@ export const projectData = {
   },
 
   results: {
-    en: "The research produced clear, actionable requirements: socialisation happens during breaks, and office breaks differ fundamentally from home-office breaks; the office is preferred for real interactions and faster communication while home office wins on convenience and fewer distractions; and nearly three-quarters of survey respondents agreed that knowing personal details about a colleague makes them relate more. Interaction across seniority levels and departments emerged as a persistent barrier. These findings shaped three competing concepts (Chat2Meet, Flows & Breaks, Interest-Based Communities); Interest-Based Communities was selected, refined into the final prototype, and validated in user testing sessions that returned positive feedback on usability and feature understanding.",
-    de: "Die Forschung lieferte klare, umsetzbare Anforderungen: Sozialisierung findet in Pausen statt, und Büropausen unterscheiden sich grundlegend von Homeoffice-Pausen; das Büro wird für echte Interaktionen und schnellere Kommunikation bevorzugt, während das Homeoffice bei Bequemlichkeit und weniger Ablenkung punktet; und fast drei Viertel der Umfrageteilnehmenden stimmten zu, dass persönliche Details über Kolleg:innen sie verbundener fühlen lassen. Interaktion über Senioritäts- und Abteilungsgrenzen hinweg erwies sich als hartnäckige Hürde. Diese Erkenntnisse formten drei konkurrierende Konzepte (Chat2Meet, Flows & Breaks, Interest-Based Communities); Interest-Based Communities wurde ausgewählt, zum finalen Prototyp verfeinert und in Usability-Tests validiert, die positives Feedback zu Bedienbarkeit und Verständlichkeit des Features ergaben.",
+    en: "Socialisation happens during breaks, and office breaks differ fundamentally from home-office breaks; the office is preferred for real interactions and faster communication while home office wins on convenience and fewer distractions; and nearly three-quarters of survey respondents agreed that knowing personal details about a colleague makes them relate more. Interaction across seniority levels and departments emerged as a persistent barrier. These findings shaped three competing concepts (Chat2Meet, Flows & Breaks, Interest-Based Communities); Interest-Based Communities was selected, refined into the final prototype, and validated in user testing sessions that returned positive feedback on usability and feature understanding.",
+    de: "Sozialisierung findet in Pausen statt, und Büropausen unterscheiden sich grundlegend von Homeoffice-Pausen; das Büro wird für echte Interaktionen und schnellere Kommunikation bevorzugt, während das Homeoffice bei Bequemlichkeit und weniger Ablenkung punktet; und fast drei Viertel der Umfrageteilnehmenden stimmten zu, dass persönliche Details über Kolleg:innen sie verbundener fühlen lassen. Interaktion über Senioritäts- und Abteilungsgrenzen hinweg erwies sich als hartnäckige Hürde. Diese Erkenntnisse formten drei konkurrierende Konzepte (Chat2Meet, Flows & Breaks, Interest-Based Communities); Interest-Based Communities wurde ausgewählt, zum finalen Prototyp verfeinert und in Usability-Tests validiert, die positives Feedback zu Bedienbarkeit und Verständlichkeit des Features ergaben.",
   },
 
   // Process gallery
@@ -105,8 +105,8 @@ export const projectData = {
         de: "Interviews mit deskbird-Stakeholdern ergaben drei Erkenntnis-Cluster: Markenidentität (minimalistische, usability-getriebene UX), Nutzerwünsche (weniger Klicks, keine zusätzlichen Browser-Tabs) und der Auftrag für das Social Feature — transparent, unaufdringlich, Menschen zurück ins Büro locken.",
       },
       insight: {
-        en: "The business goal ('attract people back to the office') and the user goal ('meaningful connection') were not the same thing. Framing our requirements around both kept the project honest.",
-        de: "Das Geschäftsziel („Menschen zurück ins Büro locken“) und das Nutzerziel („bedeutsame Verbindung“) waren nicht dasselbe. Unsere Anforderungen an beiden auszurichten hielt das Projekt ehrlich.",
+        en: "The business goal ('attract people back to the office') and the user goal ('meaningful connection') were not the same thing — the requirements had to answer both.",
+        de: "Das Geschäftsziel („Menschen zurück ins Büro locken“) und das Nutzerziel („bedeutsame Verbindung“) waren nicht dasselbe — die Anforderungen mussten beide beantworten.",
       },
       imagePath: null,
     },
@@ -186,7 +186,9 @@ export const projectData = {
   // by working agreement, so `shared` carries most of the work — but the
   // concept selection was a discrete, attributable event: three research-derived
   // concepts were illustrated and presented, deskbird's stakeholders voted, and
-  // the winning concept was mine. That is what `owned` records.
+  // the winning concept was mine. That is what `owned` records. `notMine` is
+  // deliberately absent: nothing was another member's exclusive work, and a
+  // "Not Mine" block saying so read as a double negative.
   myContribution: {
     owned: [
       {
@@ -198,12 +200,6 @@ export const projectData = {
       {
         en: "Every research phase was run collectively by the six-person team, by explicit working agreement — competitor research, stakeholder interviews, survey design and analysis, contextual inquiries, affinity diagramming and synthesis, high-fidelity prototyping, usability testing, and the final client presentation. The team's rule was that each phase was completed together rather than split into individual workstreams.",
         de: "Jede Forschungsphase wurde nach ausdrücklicher Absprache gemeinsam vom sechsköpfigen Team durchgeführt — Wettbewerbsanalyse, Stakeholder-Interviews, Konzeption und Auswertung der Umfrage, Contextual Inquiries, Affinity Diagramming und Synthese, High-Fidelity-Prototyping, Usability-Testing sowie die Abschlusspräsentation beim Kunden. Die Teamregel lautete, jede Phase gemeinsam abzuschließen statt sie in individuelle Arbeitspakete aufzuteilen.",
-      },
-    ],
-    notMine: [
-      {
-        en: "No phase was owned exclusively by another team member — the collective working agreement above applied throughout.",
-        de: "Keine Phase lag ausschließlich in der Verantwortung eines anderen Teammitglieds — die oben beschriebene gemeinsame Arbeitsweise galt durchgehend.",
       },
     ],
   },

@@ -18,9 +18,11 @@ export function VoluntaryList({ items = [] }) {
           
           <h3 className="text-sm font-bold uppercase tracking-caps text-dim mb-6">{item.org}</h3>
           
-          <p className="text-lg text-text leading-relaxed">
-            {item.desc}
-          </p>
+          {item.desc && (
+            <p className="text-lg text-text leading-relaxed">
+              {item.desc}
+            </p>
+          )}
         </article>
       ))}
     </div>

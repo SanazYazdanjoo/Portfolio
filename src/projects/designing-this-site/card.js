@@ -16,8 +16,8 @@ export default {
     de: "Dieses Portfolio gestalten",
   },
   subtitle: {
-    en: "A Case Study in Designing Under Constraint — Researcher, Designer, Engineer, and QA on the Same Artefact",
-    de: "Eine Fallstudie über Gestalten unter Beschränkung — Researcherin, Designerin, Entwicklerin und QA am selben Artefakt",
+    en: "A Case Study in Designing Under Constraint — One Person as Researcher, Designer, Engineer, and QA",
+    de: "Eine Fallstudie über Gestalten unter Beschränkung — eine Person als Researcherin, Designerin, Entwicklerin und QA",
   },
   tagline: {
     en: "The site itself, documented as a case study: one codebase for screen, print, and two languages — every claim measured or marked pending.",
