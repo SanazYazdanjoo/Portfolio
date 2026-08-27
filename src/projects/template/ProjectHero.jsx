@@ -27,8 +27,8 @@
 // exits gracefully under the content wrapper — an unpinned banner needs
 // no fade, so mobile loses nothing but the jank.
 
-import { useEffect, useState } from "react";
 import { motion, useReducedMotion, useTransform } from "framer-motion";
+import { useIsMobile } from "../../hooks/useIsMobile";
 import { ProjectPicture } from "../../components/ProjectPicture";
 import { useTranslation } from "../../context/LanguageContext";
 import { EASE } from "./constants";
@@ -36,24 +36,6 @@ import { EASE } from "./constants";
 // Scroll distance the banner fades over — and, past it, the point where the
 // banner stops being painted at all.
 const FADE_PX = 600;
-
-// Tailwind's md breakpoint — below it the pill bar owns the nav width and
-// the banner (here) gives up its parallax.
-const MOBILE_QUERY = "(max-width: 767px)";
-
-function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(
-    () => window.matchMedia?.(MOBILE_QUERY).matches ?? false
-  );
-  useEffect(() => {
-    const mq = window.matchMedia?.(MOBILE_QUERY);
-    if (!mq) return;
-    const onChange = (e) => setIsMobile(e.matches);
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, []);
-  return isMobile;
-}
 
 export function ProjectHero({ meta, scrollY }) {
   const prefersReducedMotion = useReducedMotion();
