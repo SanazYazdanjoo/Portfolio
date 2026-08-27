@@ -5,8 +5,9 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useTranslation } from "../context/LanguageContext";
+import { useCornerOccupied } from "../hooks/useCornerOccupied";
 import { HandClose } from "./HandIcons";
 import { EASE } from "../utils/motion";
 
@@ -91,53 +92,22 @@ const SparkIcon = ({ className = "" }) => (
 
 export function AskPortfolio() {
   const { t, lang } = useTranslation();
-  const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [status, setStatus] = useState("idle"); // idle | streaming | error
   const [errorKey, setErrorKey] = useState(null);
-  // True while an in-content CTA chip (SectionMedia's "[data-corner-cta]",
-  // e.g. "Open the diagram") occupies the bottom-right corner this pill
-  // floats over. The pill parks — fades out and stops taking taps — so two
-  // tap targets are never stacked. Same principle as PrototypeFab parking
-  // while the inline gold CTA is on screen.
-  const [ctaBehind, setCtaBehind] = useState(false);
+  // True while a `[data-corner-cta]` element — a figure's "Open the diagram"
+  // chip, the mobile pill bar in transit, the open hamburger menu — holds
+  // the bottom-right corner this pill floats over. The pill parks — fades
+  // out and stops taking taps — so two tap targets are never stacked. See
+  // useCornerOccupied for why parking, not z-index, is the mechanism.
+  const ctaBehind = useCornerOccupied();
 
   const fabRef = useRef(null);
   const inputRef = useRef(null);
   const listRef = useRef(null);
   const abortRef = useRef(null);
-
-  // Missing IntersectionObserver, or a page with no corner CTAs: the pill
-  // simply never parks, which degrades to "always available".
-  useEffect(() => {
-    if (typeof IntersectionObserver === "undefined") return undefined;
-    const chips = document.querySelectorAll("[data-corner-cta]");
-    if (!chips.length) return undefined;
-    // rootMargin shrinks the viewport to its bottom-right corner — the
-    // bottom 20% and right 45%, a generous halo around the pill so it steps
-    // aside a moment before a chip actually reaches it. The callback only
-    // reports CHANGED entries, so membership is tracked across calls.
-    const inZone = new Set();
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) inZone.add(e.target);
-          else inZone.delete(e.target);
-        }
-        setCtaBehind(inZone.size > 0);
-      },
-      { rootMargin: "-80% 0px 0px -55%" }
-    );
-    chips.forEach((chip) => io.observe(chip));
-    // The reset lives in the cleanup so a route with no corner CTAs can
-    // never inherit a parked pill from the route before it.
-    return () => {
-      io.disconnect();
-      setCtaBehind(false);
-    };
-  }, [pathname]);
 
   useEffect(() => {
     if (open) inputRef.current?.focus();

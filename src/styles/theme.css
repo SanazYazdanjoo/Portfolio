@@ -52,6 +52,13 @@
        --primary (fills) diverge below. */
     --color-coral-300: #f26a3e;
     --color-coral-300-rgb: 242 106 62;
+    /* Dark-mode HOVER step for coral-300 text. A -600 link used to hover to
+       --primary, which in dark is the coral-400 FILL — a step DARKER, and at
+       3.9:1 under the AA floor. Hover must brighten in both themes, so dark
+       gets its own lighter rung: 7.6:1 on the page, 7.1:1 on surface, 6.6:1
+       on muted. (Light hovers to coral-500, its own brighter rung, 9.2:1.) */
+    --color-coral-200: #f68a63;
+    --color-coral-200-rgb: 246 138 99;
     --color-coral-700: #83280f; /* deep coral — case-study spine accent */
 
     /* Ink — meta/method text, AA on white (~5.7:1) without going full ink-900 */
@@ -296,6 +303,14 @@
     --primary-rgb: var(--color-coral-500-rgb);
     --primary-600: var(--color-coral-600);
     --primary-600-rgb: var(--color-coral-600-rgb);
+    /* The hover step for -600 TEXT: one rung brighter than -600 in BOTH
+       themes, and ≥4.5:1 on bg, surface and muted in both. `hover:text-
+       primary` on a -600 link is the pattern this replaces — in dark that
+       resolved to the coral-400 FILL, which dims the link and lands under
+       AA. Never point a text hover at --primary; fills and text diverge in
+       dark mode (see --color-coral-300). */
+    --primary-500: var(--color-coral-500);
+    --primary-500-rgb: var(--color-coral-500-rgb);
     /* Text color for anything FILLED with --primary-600. White in light
        mode; in dark mode the -600 fill is light (see --color-coral-300),
        so the text on it flips to page ink. Never hardcode text-white on a
@@ -369,6 +384,8 @@
       --primary-rgb: var(--color-coral-400-rgb);
       --primary-600: var(--color-coral-300);
       --primary-600-rgb: var(--color-coral-300-rgb);
+      --primary-500: var(--color-coral-200);
+      --primary-500-rgb: var(--color-coral-200-rgb);
       --on-primary-600: var(--color-dark-bg);
       --accent: var(--color-coral-400);
       --secondary: var(--color-rose-400);
@@ -411,6 +428,8 @@
       --primary-rgb: var(--color-coral-500-rgb);
       --primary-600: var(--color-coral-600);
       --primary-600-rgb: var(--color-coral-600-rgb);
+      --primary-500: var(--color-coral-500);
+      --primary-500-rgb: var(--color-coral-500-rgb);
       --on-primary-600: #ffffff;
       --accent: var(--primary);
       --secondary: var(--color-rose-500);
@@ -1091,6 +1110,8 @@
       --primary-rgb: var(--color-coral-500-rgb);
       --primary-600: var(--color-coral-600);
       --primary-600-rgb: var(--color-coral-600-rgb);
+      --primary-500: var(--color-coral-500);
+      --primary-500-rgb: var(--color-coral-500-rgb);
       --on-primary-600: #ffffff;
       --accent: var(--primary);
       --secondary: var(--color-rose-500);

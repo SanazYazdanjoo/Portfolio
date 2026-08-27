@@ -183,6 +183,12 @@ function MobileMenu({ links }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
+            /* data-corner-cta: this overlay's z-[60] only counts INSIDE the
+               header's z-50 stacking context — the ASK AI pill sits at the
+               shell level at z-[80] and would float over the open menu.
+               Declaring the overlay a corner occupant parks the pill (and
+               the prototype badge) instead; see useCornerOccupied. */
+            data-corner-cta=""
             className="fixed inset-0 z-[60] bg-bg flex flex-col justify-center px-s32"
           >
             <ul className="relative flex flex-col gap-s8">
