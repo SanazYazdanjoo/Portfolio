@@ -252,7 +252,13 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
               {/* Mobile pill bar */}
               <MobilePillBar sections={activeSections} activeId={activeId} onNavigate={navigateToSection} />
 
-              <article className="min-w-0">
+              {/* `isolate` pairs with the pill bar's translateZ(0) (see
+                  MobilePillBar): every motion section in here gets its own
+                  compositing layer from its entrance transform, and on iOS
+                  those layers were ordered above the sticky bar mid-scroll.
+                  One isolated stacking context for the whole article means
+                  no section layer can ever leave it and cover the bar. */}
+              <article className="min-w-0 isolate">
 
               {meta.about && (
                 <ContentSection id="about" number={sectionNumber("about")}
