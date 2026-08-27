@@ -241,6 +241,94 @@ describe("reference — drawn, not stroked", () => {
   });
 });
 
+// A line that is only visible on a calibrated laptop panel does not exist
+// for the person reading the page on an office monitor. The site cannot
+// control anyone's display; what it can control is contrast headroom, and
+// these floors are what "survives any screen" means in numbers. The 12%-ink
+// hairline this replaced sat at 1.27:1 and vanished on the first external
+// monitor it met.
+describe("reference — lines survive any monitor", () => {
+  const theme = readFileSync("src/styles/theme.css", "utf8");
+
+  // WCAG 2.x relative luminance and contrast ratio, over sRGB.
+  const lum = ([r, g, b]) => {
+    const lin = (c) =>
+      c / 255 <= 0.04045 ? c / 255 / 12.92 : ((c / 255 + 0.055) / 1.055) ** 2.4;
+    return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
+  };
+  const contrast = (a, b) => {
+    const [hi, lo] = [lum(a), lum(b)].sort((x, y) => y - x);
+    return (hi + 0.05) / (lo + 0.05);
+  };
+  const WHITE = [255, 255, 255];
+  const over = ([r, g, b], alpha) =>
+    [r, g, b].map((c, i) => WHITE[i] + alpha * (c - WHITE[i]));
+  const token = (name) => {
+    const m = theme.match(new RegExp(`${name}:\\s*#([0-9a-fA-F]{6})`));
+    expect(m, `${name} not found as a hex token in theme.css`).toBeTruthy();
+    return [0, 2, 4].map((i) => parseInt(m[1].slice(i, i + 2), 16));
+  };
+  const borderAlpha = () => {
+    const m = theme.match(/--border:\s*rgba\(33, 29, 28, (0\.\d+)\)/);
+    expect(m, "--border must stay ink-over-white rgba").toBeTruthy();
+    return m[1];
+  };
+
+  // A closed outline bounds a component, so WCAG 1.4.11 applies: 3:1
+  // against the page. Every outline class defaults to --text-meta (ink-700)
+  // in one components-layer block rather than falling back to the
+  // decorative hairline — and ink-700 itself must keep clearing the floor.
+  // .btn carries the same default inside its own rule instead, so
+  // .btn-primary's coral, declared later, still wins its cascade tie.
+  it("every closed outline defaults to the 3:1 boundary ink", () => {
+    const m = theme.match(/([^{}]*)\{\s*--rule-line-color: var\(--text-meta\);\s*\}/);
+    expect(m, "no components-layer default pointing closed outlines at --text-meta").toBeTruthy();
+    for (const cls of [".rule-frame", ".rule-frame-in", ".rule-frame-r", ".rule-pill", ".rule-circle", ".card"]) {
+      expect(m[1], `${cls} is missing from the boundary default`).toContain(cls);
+    }
+    expect(theme).toMatch(/\.btn \{[^}]*--rule-line-color: var\(--text-meta\)/s);
+    expect(contrast(token("--color-ink-700"), WHITE)).toBeGreaterThanOrEqual(3);
+  });
+
+  // .rule-box is the one frame drawn as a background tile, so the boundary
+  // ink is baked into its own strong tiles — the same ink-700 the overlay
+  // frames resolve to, or frames would render at two different strengths.
+  it("the rule-box frame bakes the same boundary ink", () => {
+    expect(theme).toMatch(/\.rule-box \{[^}]*--rule-img-h: var\(--rule-h-strong\)/s);
+    expect(theme).toMatch(/--rule-h-strong-light:[^;]*%2357534a/);
+    expect(theme).toMatch(/--rule-v-strong-light:[^;]*%2357534a/);
+  });
+
+  // The CV stays a white sheet in both themes. Its frames draw with
+  // --text-meta, which dark mode repoints at a PALE tone — so .rule-light
+  // must pin it back to ink, or the CV's outlines vanish against the paper
+  // for every dark-mode visitor.
+  it("the white-sheet pages pin the boundary ink against dark mode", () => {
+    expect(theme).toMatch(/\.rule-light[^{]*\{[^}]*--text-meta: var\(--color-ink-700\)/s);
+  });
+
+  // Decorative hairlines may sit below 3:1 — they separate, they don't
+  // bound a control — but they still have to render. 25% ink (≈1.7:1)
+  // is the measured floor; 12% (1.27:1) is the value that failed.
+  it("the default hairline never drifts back below visibility", () => {
+    const alpha = Number(borderAlpha());
+    expect(contrast(over([33, 29, 28], alpha), WHITE)).toBeGreaterThanOrEqual(1.6);
+  });
+
+  // "Same ink at the same opacity": the heaviest baked SVG tile must carry
+  // exactly the alpha --border declares, or the drawn rules and the crisp
+  // print/fallback borders quietly disagree about how dark a line is.
+  it("the drawn tiles carry the same ink as --border", () => {
+    // Slice past the doodle dot pattern (0.55 ink, decorative marks, not a
+    // line) to the rule system itself.
+    const rules = theme.slice(theme.indexOf("6. Hand-drawn rules"));
+    const tiles = [...rules.matchAll(/fill='%23211d1c' fill-opacity='(0\.\d+)'/g)]
+      .map((m) => Number(m[1]));
+    expect(tiles.length).toBeGreaterThan(0);
+    expect(Math.max(...tiles)).toBe(Number(borderAlpha()));
+  });
+});
+
 // The card assets are cropped by scripts/generate-card-crops.mjs, never by
 // CSS. These assert the contract that script upholds, because a hand-edited
 // or re-exported asset that breaks it shows up as a squashed or letterboxed

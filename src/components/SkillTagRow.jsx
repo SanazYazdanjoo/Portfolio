@@ -1,6 +1,10 @@
-// Tag chips: mono 12px at .08em, uppercase, a 1px hairline in the border
-// token, fully rounded. Capitals are legitimate here because this is the
-// label role — the only role in the system allowed them.
+// Tag chips: mono 12px at .08em, uppercase, the outline drawn in --text-meta
+// via the sitewide closed-outline default (theme.css section 6): a chip's
+// line is a UI component boundary, not a decorative hairline, so it carries
+// the same ≥3:1 ink the label text does (WCAG 1.4.11) — the border-token
+// tint it used before disappeared on washed-out monitors, exactly the
+// screens hiring managers read this page on. Capitals are legitimate here
+// because this is the label role — the only role in the system allowed them.
 //
 // Horizontal padding is 6px, not the reference's 12px. Four tags have to sit
 // on one line in a 649px column, and at 12px mono with .08em the text alone
