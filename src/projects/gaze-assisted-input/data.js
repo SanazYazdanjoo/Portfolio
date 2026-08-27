@@ -36,7 +36,7 @@ export const projectData = {
   ],
 
   metrics: [
-    { value: "TypeScript", label: { en: "experimental software built", de: "entwickelte Experimentalsoftware" } },
+    { value: "2", label: { en: "gaze techniques engineered from scratch in TypeScript", de: "blickgestützte Techniken von Grund auf in TypeScript entwickelt" } },
     { value: "N=30", label: { en: "within-subjects experiment", de: "Within-Subjects-Experiment" } },
     { value: "η²ₚ=.690", label: { en: "technique × distance interaction", de: "Interaktion Technik × Distanz" } },
     { value: "60%", label: { en: "preferred the gaze-hybrid (Ninja)", de: "bevorzugten den Blick-Hybrid (Ninja)" } },
@@ -217,8 +217,8 @@ export const projectData = {
     de: "Eine signifikante Interaktion Technik × Distanz (η²ₚ = .690) zeigte einen Crossover: Die Maus war bei kurzen Distanzen am schnellsten, doch Ninja Cursors übertrafen sie signifikant bei den beiden mittleren bildschirmübergreifenden Distanzen (1684 und 2243 px) und glichen sich bei der längsten (3226 px) an. MAGIC war durchgängig am langsamsten — der Warp koppelte Blickrauschen direkt an die Landegenauigkeit und erzeugte die höchste Wiederholungsrate bei kleinen Zielen (4,69 %), während Ninjas Wiederholungsrate bei kleinen Zielen der Maus-Baseline entsprach (3,30 %). Der SUS-Score rangierte Maus (85,2) > Ninja (72,6) > MAGIC (55,9), wobei allein MAGIC unter die Akzeptanzschwelle von 68 Punkten fiel — dennoch nannten 60 % der Teilnehmenden Ninja als bevorzugte Methode und 63 % MAGIC als am wenigsten bevorzugte.",
   },
   implications: {
-    en: "Gaze assistance should be a context-aware accelerator, not an always-on replacement. Three design directions follow from the data: adaptive activation using the screen boundary itself as the trigger, semantic snapping toward UI elements to fix MAGIC's landing penalty, and stronger visual differentiation of the active cursor in multi-cursor designs. The broader lesson for UI engineers: predictability and system trust — not raw speed alone — determine whether users adopt a novel interaction pattern.",
-    de: "Blickunterstützung sollte ein kontextsensitiver Beschleuniger sein, kein dauerhafter Ersatz. Aus den Daten folgen drei Gestaltungsrichtungen: adaptive Aktivierung mit der Bildschirmgrenze selbst als Auslöser, semantisches Einrasten an UI-Elementen zur Behebung von MAGICs Landestrafe, und eine stärkere visuelle Differenzierung des aktiven Cursors bei Multi-Cursor-Designs. Die übergeordnete Lehre für UI-Entwickler:innen: Vorhersagbarkeit und Systemvertrauen — nicht reine Geschwindigkeit — entscheiden darüber, ob Nutzer:innen ein neues Interaktionsmuster annehmen.",
+    en: "Gaze assistance should be a context-aware accelerator, not an always-on replacement. Three design directions follow from the data: adaptive activation using the screen boundary itself as the trigger, semantic snapping toward UI elements to fix MAGIC's landing penalty, and stronger visual differentiation of the active cursor in multi-cursor designs. For UI engineers, predictability and system trust — not raw speed alone — determine whether users adopt a novel interaction pattern.",
+    de: "Blickunterstützung sollte ein kontextsensitiver Beschleuniger sein, kein dauerhafter Ersatz. Aus den Daten folgen drei Gestaltungsrichtungen: adaptive Aktivierung mit der Bildschirmgrenze selbst als Auslöser, semantisches Einrasten an UI-Elementen zur Behebung von MAGICs Landestrafe, und eine stärkere visuelle Differenzierung des aktiven Cursors bei Multi-Cursor-Designs. Für UI-Entwickler:innen entscheiden Vorhersagbarkeit und Systemvertrauen — nicht reine Geschwindigkeit —, ob Nutzer:innen ein neues Interaktionsmuster annehmen.",
   },
   conclusion: [
       {

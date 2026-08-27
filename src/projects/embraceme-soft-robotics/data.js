@@ -208,8 +208,8 @@ export const projectData = {
   },
 
   challenge: {
-    en: "Physical touch like hugging releases oxytocin and measurably reduces stress — but not everyone has access to it: loved ones may be distant, or contact may be unsafe. We set out to build an inflatable soft-robotic interface delivering Deep Pressure Stimulation through a standalone hugging experience, gentle enough for direct human contact where rigid robots fail.",
-    de: "Körperliche Berührung wie Umarmen setzt Oxytocin frei und reduziert nachweislich Stress — doch nicht alle haben Zugang dazu: Nahestehende können weit entfernt sein, oder Kontakt kann unsicher sein. Wir wollten ein aufblasbares Soft-Robotik-Interface bauen, das Deep Pressure Stimulation über eine eigenständige Umarmungserfahrung liefert — sanft genug für direkten menschlichen Kontakt, wo starre Roboter versagen.",
+    en: "Physical touch like hugging releases oxytocin and measurably reduces stress — but not everyone has access to it: loved ones may be distant, or contact may be unsafe. We set out to build an inflatable soft-robotic interface delivering Deep Pressure Stimulation through a standalone hugging experience, gentle enough for direct human contact.",
+    de: "Körperliche Berührung wie Umarmen setzt Oxytocin frei und reduziert nachweislich Stress — doch nicht alle haben Zugang dazu: Nahestehende können weit entfernt sein, oder Kontakt kann unsicher sein. Wir wollten ein aufblasbares Soft-Robotik-Interface bauen, das Deep Pressure Stimulation über eine eigenständige Umarmungserfahrung liefert — sanft genug für direkten menschlichen Kontakt.",
   },
 
   solution: {
@@ -260,7 +260,7 @@ export const projectData = {
     {
       phase: "define",
       type: { en: "Form & Technique Decision", de: "Form- & Technikentscheidung" },
-      title: { en: "Backpack vs. Standalone — and Why It Decided Everything", de: "Rucksack vs. eigenständig — und warum das alles entschied" },
+      title: { en: "Backpack vs. Standalone", de: "Rucksack vs. eigenständig" },
       annotation: {
         en: "Two concepts sketched: a portable backpack using soft-growing (vine robot) arms, and a standalone figure using PneuNet bending actuators. Chose standalone after consultation, for inclusivity across body sizes and open access at the exhibition.",
         de: "Zwei Konzepte skizziert: ein tragbarer Rucksack mit soft-growing (Vine-Robot)-Armen und eine eigenständige Figur mit PneuNet-Biegeaktoren. Nach Rücksprache für die eigenständige Variante entschieden — für Inklusivität über Körpergrößen hinweg und offenen Zugang bei der Ausstellung.",
@@ -302,14 +302,14 @@ export const projectData = {
     {
       phase: "deliver",
       type: { en: "Public Exhibition & Observation", de: "Öffentliche Ausstellung & Beobachtung" },
-      title: { en: "Real Users, Real (Uncomfortable) Findings", de: "Echte Nutzer:innen, echte (unbequeme) Erkenntnisse" },
+      title: { en: "What Visitors Actually Did", de: "Was Besucher:innen wirklich taten" },
       annotation: {
         en: "Exhibited at a university event open to academic and non-academic visitors. Observed interactions and collected impressions: delight at the bot 'waking up,' but also uncanny-valley reactions to its form and confusion about how to initiate contact without our explanation.",
         de: "Ausgestellt bei einer Universitätsveranstaltung, offen für akademisches und nicht-akademisches Publikum. Interaktionen beobachtet und Eindrücke gesammelt: Freude über das „Aufwachen“ des Bots, aber auch Uncanny-Valley-Reaktionen auf seine Form und Verwirrung darüber, wie Kontakt ohne unsere Erklärung eingeleitet wird.",
       },
       insight: {
-        en: "Two design failures documented honestly: aesthetic choices triggered avoidance in some users, and the interface lacked signifiers — curiosity did not translate into interaction without designer intervention.",
-        de: "Zwei Designfehler ehrlich dokumentiert: ästhetische Entscheidungen lösten bei manchen Nutzer:innen Vermeidung aus, und dem Interface fehlten Signifier — Neugier übersetzte sich ohne Eingreifen der Designer:innen nicht in Interaktion.",
+        en: "Two design failures: aesthetic choices triggered avoidance in some users, and the interface lacked signifiers — curiosity did not translate into interaction without designer intervention.",
+        de: "Zwei Designfehler: ästhetische Entscheidungen lösten bei manchen Nutzer:innen Vermeidung aus, und dem Interface fehlten Signifier — Neugier übersetzte sich ohne Eingreifen der Designer:innen nicht in Interaktion.",
       },
       imagePath: finalBuildJpg,
     },
@@ -332,9 +332,10 @@ export const projectData = {
   // Role is "HCI Researcher & Prototyping Engineer (team of 3)" —
   // myContribution is required. `owned` is grounded directly in the results
   // and process-gallery text (the "Individual Report" is a separately
-  // authored deliverable, distinct from the group submission). `notMine`
-  // has no textual basis to derive from — flagged as NEEDS_INPUT rather
-  // than guessed.
+  // authored deliverable, distinct from the group submission). `notMine` is
+  // deliberately absent: no phase was another member's exclusive work, and a
+  // "Not Mine" block saying so read as a double negative — that fact closes
+  // `shared` instead.
   myContribution: {
     owned: [
       {
@@ -344,14 +345,8 @@ export const projectData = {
     ],
     shared: [
       {
-        en: "Physical prototyping, material testing, and the touch-sensing/LED feedback system were built collaboratively across the three-person team.",
-        de: "Physisches Prototyping, Materialtests und das Berührungssensor-/LED-Feedback-System wurden gemeinsam im dreiköpfigen Team gebaut.",
-      },
-    ],
-    notMine: [
-      {
-        en: "No part of the group build was owned exclusively by another team member — the three of us contributed to each stage of the physical prototype together.",
-        de: "Kein Teil des Gruppenbaus lag ausschließlich in der Verantwortung eines anderen Teammitglieds — wir drei haben zu jeder Phase des physischen Prototyps gemeinsam beigetragen.",
+        en: "Physical prototyping, material testing, and the touch-sensing/LED feedback system were built collaboratively across the three-person team — no stage was owned exclusively by any one of us.",
+        de: "Physisches Prototyping, Materialtests und das Berührungssensor-/LED-Feedback-System wurden gemeinsam im dreiköpfigen Team gebaut — keine Phase lag ausschließlich bei einer Person.",
       },
     ],
   },
@@ -391,7 +386,7 @@ export const projectData = {
     { tag: "Sensor Integration", evidence: "process:Touch-Triggered Hugging with an LED Feedback Cycle — 5-pad capacitive touch sensor", status: "evidenced" },
     { tag: "Interaction Design", evidence: "process:Touch-Triggered Hugging with an LED Feedback Cycle — touch as the trigger and a green/white/blinking-red LED cycle communicating readiness, hugging, and reset; results names the missing signifiers that stopped visitors initiating a hug unprompted", status: "evidenced" },
     { tag: "Data Physicalization", evidence: "process:Critical Reflection & Redesign Proposal — Offenhuber's data physicalization framework", status: "evidenced" },
-    { tag: "Exhibition Research", evidence: "process:Real Users, Real (Uncomfortable) Findings", status: "evidenced" },
+    { tag: "Exhibition Research", evidence: "process:What Visitors Actually Did", status: "evidenced" },
   ],
 };
 

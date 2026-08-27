@@ -14,7 +14,7 @@ const en = {
 
   // Hero
   "hero.portfolio": "PORTFOLIO",
-  "hero.tagline": "I speak both 'user' and 'developer'.",
+  "hero.tagline": "I speak both ‘user’ and ‘developer’.",
   "hero.ctaWork": "View my work",
   "hero.ctaCv": "View CV",
 
@@ -42,7 +42,7 @@ const en = {
 
   "about.howIGotHere": "How I Got Here",
   "about.theBridge": "The Bridge",
-  "about.theBridgeDesc": "My path wasn't linear — it was deliberate. Each phase carried its toolkit into the next.",
+  "about.theBridgeDesc": "From software engineering through QA to UX research — each phase carried its toolkit into the next.",
   "about.methodology": "Methodology",
   "about.howIWork": "How I Work",
   "about.beyondTheBrief": "Beyond the Brief",
@@ -58,10 +58,10 @@ const en = {
   "about.career.phase1.summary": "Built 10+ production sites from the ground up. Learned that code is easy; knowing what to build is hard.",
   "about.career.phase2.label": "QA Engineering",
   "about.career.phase2.years": "2020 – 2022",
-  "about.career.phase2.summary": "Shifted from building to breaking — and realised every bug was a user insight waiting to be heard.",
+  "about.career.phase2.summary": "Shifted from building to breaking — and started reading bugs as evidence of where software fails its users.",
   "about.career.phase3.label": "UX Research & Engineering",
   "about.career.phase3.years": "2022 – Present",
-  "about.career.phase3.summary": "This is where research and engineering merge. I design methodologically sound studies and build the architecture (e.g., in TypeScript) to run them.",
+  "about.career.phase3.summary": "This is where research and engineering merge: I design the studies and build the software that runs them.",
   "about.career.group.research": "Research",
   "about.career.group.build": "Build",
 
@@ -98,7 +98,7 @@ const en = {
   // The one-line replacement for the former AI-Assisted Development chip
   // category — the claim lives with its evidence (the IBS aiAssistance
   // paragraph), not as unbacked chips.
-  "cv.aiAssisted.text": "AI-assisted development — agents under my direction; the refusals are on record",
+  "cv.aiAssisted.text": "AI-assisted development — agents under my direction; the decision log records what I rejected",
   "cv.aiAssisted.link": "IBS case study",
 
   // Skill-group headings on the CV. Keyed off the English category name in
@@ -493,7 +493,7 @@ const en = {
   // "Chat with Sanaz" widget
   "chat.fab": "Ask AI",
   "chat.title": "Chat with Sanaz",
-  "chat.subtitle": "AI · grounded in this site",
+  "chat.subtitle": "AI · answers from this site only",
   "chat.intro": "Hey! I'm Sanaz — well, the AI version of me. Ask me anything about my work, or start with one of these:",
   "chat.q1": "What did you build at IBS?",
   "chat.q2": "Tell me about your eye-tracking thesis",
