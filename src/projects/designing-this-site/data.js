@@ -29,6 +29,7 @@ import wireframeMobile from './assets/wireframe-case-study-mobile.svg';
 export const projectData = {
   ...card,
   timeline: { en: "Ongoing · continuously iterated", de: "Laufend · kontinuierlich iteriert" },
+  heroIsGenerated: true, // the hero is a generated illustration — renders the credit
 
   // No moderated-testing chip here: the sessions are planned, not run (the
   // Metrics section says so), and a methods chip claiming them "in progress"

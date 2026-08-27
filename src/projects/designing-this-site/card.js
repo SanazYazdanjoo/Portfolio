@@ -1,6 +1,11 @@
 // Card-level fields ONLY — see gaze-assisted-input/card.js for the contract.
-// No images: the homepage never shows this project (excludeFromHome), and no
-// real artefact asset exists yet — no placeholder is rendered anywhere.
+// The homepage never shows this project (excludeFromHome), so no card fields;
+// the thumbnail drives the detail page's hero banner, the /projects row and
+// the prev/next nav cards. It is a generated illustration, and data.js
+// carries the visible generation credit via heroIsGenerated.
+import thumbnailImg from './Project-5.png';
+import thumbnailWebp from './Project-5.webp';
+
 export default {
   id: "designing-this-site",
   status: "published",
@@ -22,6 +27,8 @@ export default {
     en: "Researcher, Designer, Frontend Engineer & QA (solo)",
     de: "Researcherin, Designerin, Frontend-Entwicklerin & QA (alleinverantwortlich)",
   },
+  thumbnail: thumbnailImg,
+  thumbnailWebp,
   tags: [
     "React",
     "Vite",

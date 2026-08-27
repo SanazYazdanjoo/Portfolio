@@ -34,6 +34,12 @@ const THUMBNAILS = [
   "src/projects/deskbird-hybrid-work/Project-2.png",
   "src/projects/embraceme-soft-robotics/Project-3.png",
   "src/projects/digitalising-ibs-travel-reimbursements/Project-4.png",
+  // 3808x1632: the 2624px illustration extended to exactly 21:9 with a
+  // TRANSPARENT background, so the md+ cover band shows the full art
+  // instead of cropping the figure's feet — and the alpha is the point:
+  // the hero frame is bg-transparent over the dotted paper mat, so the
+  // house dot pattern shows through behind the illustration.
+  "src/projects/designing-this-site/Project-5.png",
   // JPG master (photograph of the v1 paper-prototype flow map) — the .jpg
   // stays as the <picture> fallback, same as the PNG masters above.
   "src/projects/smart-home-control/media/v1/flow-map.jpg",
