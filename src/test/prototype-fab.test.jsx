@@ -39,17 +39,24 @@ function renderFab(props = {}) {
 }
 
 // A controllable IntersectionObserver so a test can say "the prototype
-// section just came into view" without any layout.
-let notifyIntersection;
+// section just came into view" without any layout. The badge now builds TWO
+// observers — its own section-parking one (no rootMargin) and the shared
+// corner hook's (rootMargin shrinks the root to the corner zone) — so the
+// fake routes by that signature instead of trusting construction order.
+let notifyIntersection; // the prototype-section observer
+let notifyCorner; // useCornerOccupied's corner-zone observer
 
 beforeEach(() => {
   notifyIntersection = null;
+  notifyCorner = null;
   vi.stubGlobal(
     "IntersectionObserver",
     class {
-      constructor(callback) {
-        notifyIntersection = (isIntersecting) =>
-          act(() => callback([{ isIntersecting, target: null }]));
+      constructor(callback, opts) {
+        const notify = (isIntersecting, target = null) =>
+          act(() => callback([{ isIntersecting, target }]));
+        if (opts?.rootMargin) notifyCorner = notify;
+        else notifyIntersection = notify;
       }
       observe() {}
       unobserve() {}
@@ -61,6 +68,27 @@ beforeEach(() => {
 afterEach(() => {
   vi.unstubAllGlobals();
 });
+
+// Below md, where the badge shares the corner with the pill bar and the
+// figure chips. framer's useReducedMotion also reads matchMedia, so the stub
+// answers every query as matching — which only makes exits instant.
+function stubMobileViewport() {
+  vi.stubGlobal(
+    "matchMedia",
+    vi.fn().mockImplementation((query) => ({
+      matches: true,
+      media: query,
+      onchange: null,
+      addListener() {},
+      removeListener() {},
+      addEventListener() {},
+      removeEventListener() {},
+      dispatchEvent() {
+        return false;
+      },
+    }))
+  );
+}
 
 describe("Floating prototype badge", () => {
   it("stays out of the way until the reader has scrolled in", () => {
@@ -102,5 +130,33 @@ describe("Floating prototype badge", () => {
     const { scrollDown, container } = renderFab({ href: undefined });
     scrollDown();
     expect(container.querySelector("a")).toBeNull();
+  });
+
+  it("parks on phones while a corner occupant is under it", async () => {
+    // Same yield as the ASK AI pill: the pill bar in transit and the figure
+    // chips pass straight through this corner on a 393px viewport, and the
+    // bar slicing the badge (its z-40 over this z-30) read as broken.
+    stubMobileViewport();
+    const { scrollDown } = renderFab();
+    scrollDown();
+    expect(screen.getByRole("link")).toBeInTheDocument();
+
+    const occupant = document.createElement("div");
+    notifyCorner(true, occupant);
+    await waitFor(() => expect(screen.queryByRole("link")).not.toBeInTheDocument(), {
+      timeout: 3000,
+    });
+
+    notifyCorner(false, occupant);
+    await waitFor(() => expect(screen.getByRole("link")).toBeInTheDocument());
+  });
+
+  it("ignores corner occupants on desktop, where it overlaps nothing", async () => {
+    const { scrollDown } = renderFab();
+    scrollDown();
+
+    const occupant = document.createElement("div");
+    notifyCorner(true, occupant);
+    expect(screen.getByRole("link")).toBeInTheDocument();
   });
 });
