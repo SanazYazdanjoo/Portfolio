@@ -1,4 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
+import { useIsMobile } from "../../hooks/useIsMobile";
 import { useTranslation } from "../../context/LanguageContext";
 import { ContentSection } from "./CollapsibleSection";
 import { ClampedText } from "./ClampedText";
@@ -13,6 +14,11 @@ const PHASE_STATUS = {
 
 export function ResearchPhases({ phases, intro, number, isOpen, onToggle, staggerDelayMs }) {
   const prefersReducedMotion = useReducedMotion();
+  // Opacity-only entrance on phones — same iOS layer story as
+  // ContentSection: a y-transform is a compositing layer, and layers are
+  // what fought the sticky pill bar and ghosted content on-device.
+  const isMobile = useIsMobile();
+  const noSlide = prefersReducedMotion || isMobile;
   const { t } = useTranslation();
 
   return (
@@ -40,8 +46,8 @@ export function ResearchPhases({ phases, intro, number, isOpen, onToggle, stagge
             <motion.li
               key={p.phase}
               className="border-t rule-t py-4 first:border-t-0 first:pt-0 first:rule-off"
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={prefersReducedMotion ? false : noSlide ? { opacity: 0 } : { opacity: 0, y: 8 }}
+              whileInView={noSlide ? { opacity: 1 } : { opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "0px 0px -40px 0px" }}
               transition={{ duration: 0.35, ease: EASE, delay: i * 0.04 }}
             >
