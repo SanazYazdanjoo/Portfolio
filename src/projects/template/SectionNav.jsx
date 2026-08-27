@@ -136,8 +136,20 @@ export function SidebarNav({
 export function MobilePillBar({ sections, activeId, onNavigate }) {
   const { t } = useTranslation();
   return (
+    // translateZ(0) is load-bearing, not an optimization: the content
+    // sections are framer-motion elements whose entrance transforms get
+    // them their own compositing layers, and iOS WebKit mid-scroll orders
+    // those layers ABOVE a sticky bar that has no layer of its own — the
+    // section headings visibly slide over these pills while the finger
+    // moves, then snap back under at rest, whatever z-index says (observed
+    // on-device; z-40 already outranked every section on paper). Forcing
+    // the bar onto its own layer gives the compositor an explicit order to
+    // honour. The article-side half of the fix is `isolate` on
+    // ProjectTemplate's <article>, which caps every section's layer inside
+    // one stacking context that cannot rise above this bar.
     <div className="sticky top-[80px] z-40 bg-bg border-b rule-b
-                     -mx-4 px-4 py-2 md:hidden no-print">
+                     -mx-4 px-4 py-2 md:hidden no-print"
+         style={{ transform: "translateZ(0)" }}>
       <div className="flex gap-1 overflow-x-auto">
         {sections.map((section) => {
           const isActive = activeId === section.id;
