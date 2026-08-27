@@ -89,18 +89,23 @@ export function Hero({ data }) {
 
       </div>
 
-      {/* Portrait — 4:5, black and white, bottom edge on the CTA baseline. */}
+      {/* Portrait — 4:5, in colour, bottom edge on the CTA baseline. The
+          inner wrapper clips the hover scale to the photo well, so the
+          image never rides over the mat or the drawn frame line. */}
       <motion.div
         {...fadeUp(0.18)}
         className="md:col-start-9 md:col-span-4 mt-s48 md:mt-0"
         style={{ marginBottom: "var(--hero-baseline-inset)" }}
       >
-        <div className="w-full aspect-portrait photo-frame rule-frame-in">
-          <img
-            src={data.aboutImage}
-            alt={data.name}
-            className="w-full h-full object-cover object-top grayscale"
-          />
+        <div className="group w-full aspect-portrait photo-frame rule-frame-in">
+          <div className="w-full h-full overflow-hidden">
+            <img
+              src={data.aboutImage}
+              alt={data.name}
+              className="w-full h-full object-cover object-top
+                         transition-transform duration-[250ms] ease-smooth group-hover:scale-[1.04]"
+            />
+          </div>
         </div>
       </motion.div>
 
