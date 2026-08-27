@@ -11,6 +11,7 @@
 // pill bar owns that width — so the toggle is a wide-screen affordance by
 // construction, and nothing about it needs a media query of its own.
 
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useTranslation } from "../../context/LanguageContext";
@@ -127,30 +128,49 @@ export function SidebarNav({
 
 // Mobile pill bar.
 //
-// Opaque `bg-bg`, and no backdrop-blur. This bar pins at the same `top: 80px`
-// as the project hero banner, so its backdrop is a filtered, permanently
-// pinned compositing layer — the one pairing mobile browsers are worst at
+// Opaque `bg-bg`, and no backdrop-blur: a translucent frosted bar over
+// scrolling content is the pairing mobile browsers are worst at
 // invalidating, which leaves stale copies of already-scrolled content baked
 // into the bar. The frosting bought nothing anyway: everything behind this
 // bar is the content wrapper's opaque background.
+//
+// `top-0`, NOT top-[80px]: the site header is a static flex sibling ABOVE
+// the scroll container (App.jsx), so this bar's containing scroller already
+// starts at the header's bottom edge. The old 80px offset was a relic of a
+// long-gone overlay-header design — on a phone it pinned the bar mid-air,
+// with a transparent dead band above it that body text scrolled straight
+// through before being guillotined by the bar's top edge (measured on a
+// reader's recording: whole caption lines swallowed).
 export function MobilePillBar({ sections, activeId, onNavigate }) {
   const { t } = useTranslation();
+  const stripRef = useRef(null);
+
+  // Keep the active pill in view. The strip scrolls horizontally, so a
+  // working scroll-spy alone isn't enough — by mid-page the active section's
+  // pill can be clipped past the right edge, and a bar that highlights
+  // something the reader can't see is as useless as one that never updates.
+  // Manual scrollLeft math rather than scrollIntoView: scrollIntoView
+  // scrolls EVERY scrollable ancestor, and this strip lives inside the
+  // page's one big scroller, which must not move.
+  useEffect(() => {
+    const strip = stripRef.current;
+    if (!strip || !activeId) return;
+    const pill = strip.querySelector(`[data-section-id="${activeId}"]`);
+    if (!pill) return;
+    const target = pill.offsetLeft - (strip.clientWidth - pill.offsetWidth) / 2;
+    // Optional call: jsdom implements neither scrollTo nor scrollLeft writes.
+    strip.scrollTo?.({ left: Math.max(0, target), behavior: "smooth" });
+  }, [activeId]);
+
   return (
     // translateZ(0) is load-bearing, not an optimization: the content
-    // sections are framer-motion elements whose entrance transforms get
-    // them their own compositing layers, and iOS WebKit mid-scroll orders
-    // those layers ABOVE a sticky bar that has no layer of its own — the
-    // section headings visibly slide over these pills while the finger
-    // moves, then snap back under at rest, whatever z-index says (observed
-    // on-device; z-40 already outranked every section on paper). Forcing
-    // the bar onto its own layer gives the compositor an explicit order to
-    // honour. The article-side half of the fix is `isolate` on
-    // ProjectTemplate's <article>, which caps every section's layer inside
-    // one stacking context that cannot rise above this bar.
-    <div className="sticky top-[80px] z-40 bg-bg border-b rule-b
+    // sections could otherwise be composited above this bar by iOS WebKit
+    // mid-scroll, whatever z-index says (observed on-device). Giving the
+    // bar its own layer hands the compositor an explicit order to honour.
+    <div className="sticky top-0 z-40 bg-bg border-b rule-b
                      -mx-4 px-4 py-2 md:hidden no-print"
          style={{ transform: "translateZ(0)" }}>
-      <div className="flex gap-1 overflow-x-auto">
+      <div ref={stripRef} className="flex gap-1 overflow-x-auto pr-8">
         {sections.map((section) => {
           const isActive = activeId === section.id;
           return (
@@ -171,6 +191,14 @@ export function MobilePillBar({ sections, activeId, onNavigate }) {
           );
         })}
       </div>
+      {/* Right-edge fade: the affordance that the strip continues. Without
+          it the last visible pill clips hard mid-word against the viewport
+          and reads as the end of the list. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 right-0 w-10"
+        style={{ background: "linear-gradient(to left, var(--bg), transparent)" }}
+      />
     </div>
   );
 }
