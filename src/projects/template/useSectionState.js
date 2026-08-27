@@ -61,9 +61,17 @@ export function useSectionState(activeSections) {
     activeSections.forEach((section) => {
       const el = document.getElementById(section.id);
       if (!el) return;
+      // Explicit root: the app scrolls inside a container (see App.jsx), and
+      // iOS WebKit does not reliably recompute default-viewport-root
+      // intersections while an INNER scroller moves the content — on-device
+      // the callbacks simply stopped and the active pill froze on the first
+      // section, however far the reader scrolled. Rooting the observer at
+      // the scroller itself is the designed form for subscrollers and fires
+      // from that scroller's own scroll events on every engine.
+      const root = el.closest(".overflow-y-auto") ?? null;
       const observer = new IntersectionObserver(
         ([entry]) => { if (entry.isIntersecting) setActiveId(section.id); },
-        { rootMargin: "-10% 0px -60% 0px", threshold: 0 }
+        { root, rootMargin: "-10% 0px -60% 0px", threshold: 0 }
       );
       observer.observe(el);
       observers.push(observer);
