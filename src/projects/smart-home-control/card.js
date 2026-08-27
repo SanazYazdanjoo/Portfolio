@@ -4,7 +4,7 @@
 // Content is sourced from the SoSe 2023 Bauhaus-Universität Weimar course
 // project documentation (team of 4). Evidence lock: every number on this
 // card exists in that documentation; nothing is extrapolated.
-import thumbnailImg from './media/v1/flow-map.jpg';
+import thumbnailImg from './media/smarthome.png';
 import thumbnailWebp from './media/smarthome.webp';
 import cardSelectedHome from './media/v2/card-selected-home.webp';
 

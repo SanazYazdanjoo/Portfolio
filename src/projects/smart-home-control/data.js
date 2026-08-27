@@ -14,8 +14,14 @@
 // ./card.js — eagerly aggregated site-wide — and are spread here so the
 // detail page sees one object.
 import card from './card';
+import thumbnailImg from './media/smarthome.png';
 
 // v1 — the tested prototype
+// The flow map is the full tested set laid out with torn-paper arrows —
+// the manifest pairs it with v2/00-flow-map.jpg as the closing image. It
+// opens the Solution galleries now that the hero is the generated
+// illustration.
+import v1FlowMap from './media/v1/flow-map.jpg';
 import v1A from './media/v1/A.jpg';
 import v1B from './media/v1/B.jpg';
 import v1C from './media/v1/C.jpg';
@@ -63,6 +69,9 @@ import v2M from './media/v2/M.jpg';
 export const projectData = {
   ...card,
   timeline: "SoSe 2023",
+
+  heroImage: thumbnailImg,
+  heroIsGenerated: true, // the hero is a generated illustration — renders the credit
 
   methods: [
     { en: "Questionnaire study (N=24)",              de: "Fragebogenstudie (N=24)" },
@@ -114,6 +123,18 @@ export const projectData = {
     de: "Die Befunde, die es zu behalten lohnt, sind die, die keine schnellen Fixes wurden. In einem Flow, den wir für fertig hielten, zeigte sich eine Sackgasse: Teilnehmerin A wählte beim Scannen beide Geräte aus, aber nur eines wurde ins Setup übernommen, und der Bestätigungs-Screen bot keinen Weg zurück — sie bemerkte es sofort und fragte, was mit dem zweiten Gerät passiert sei. Rahmen wurden als das einzig Antippbare gelesen: Teilnehmer B tippte nur Elemente mit sichtbarem Button-Rand, nutzte auf dem Geräteeinstellungs-Screen den umrahmten Raumwähler und behandelte die rahmenlosen Zeilen daneben als Beschriftung. Destruktive Aktionen erzeugten Angst, bevor sie Fehler erzeugten: Beim Anblick von „Raum löschen“ sorgte sich Teilnehmerin A laut vor versehentlichem Auslösen und schlug vor, die Raumverwaltung auf einen eigenen Screen zu verlegen — ein struktureller Einwand, kein kosmetischer. Die Methode selbst war ein Befund: Beide Teilnehmenden mussten zurückspringen, keine:r konnte das mit den Karten in der Hand, und beide legten den Prototyp am Ende auf dem Boden aus — A sortierte ihn vorher in Reihenfolge, B improvisierte spät. Und beide Teilnehmenden eröffneten jeden Screen, indem sie seinen Titel laut vorlasen — weshalb die Lücke „In welchem Zuhause bin ich?“ auf vier verschiedenen Screens auftauchte. Ehrlich gesagt: Zwei Teilnehmende sind eine dünne Stichprobe, und der Originalbericht sagt das auch. Beim erneuten Durchsehen der Artefakte ist die inkonsistente Bewohnerliste über drei getestete Screens hinweg ein Defekt, den eine heuristische Prüfung gefunden hätte, bevor er eine:n Teilnehmende:n erreicht. Dasselbe Durchsehen förderte eine Dokumentations-Lektion zutage: Die meisten Sitzungsfotos des Berichts zeigen die überarbeiteten Karten statt der getesteten — das Set wurde nach den Änderungen erneut fotografiert. Die Sitzungen selbst sind durch das Transkript und die vier daraus entstandenen Änderungen belegt; heute würde ich Artefakte im Moment des Testens fotografieren, nicht danach.",
   },
 
+  // "academic", like the other university projects (gaze, embraceme):
+  // adoption in the product sense doesn't apply. The body states only what
+  // the documentation contains — the course ended at the v2 revision; no
+  // second test round exists in the report.
+  outcome: {
+    body: {
+      en: "A university course project — adoption in the product sense doesn't apply. What the course closed on is the revised v2 prototype: four changes, each documented as a participant quote, the change it prompted, and a before/after photograph pair. The revision itself was never put in front of another participant — re-testing it is where a next session would have to start.",
+      de: "Ein universitäres Kursprojekt — Adoption im produktbezogenen Sinne ist hier nicht anwendbar. Der Kurs endete mit dem überarbeiteten v2-Prototyp: vier Änderungen, jede dokumentiert als Teilnehmenden-Zitat, daraus folgende Änderung und Vorher-Nachher-Fotopaar. Die Überarbeitung selbst lag nie wieder einer Testperson vor — ihr erneuter Test wäre der Startpunkt einer nächsten Sitzung.",
+    },
+    adoption: "academic",
+  },
+
   // Verbatim transcript quotes from the two think-aloud sessions — the
   // evidence for findings 1–3 in Results. Sourced from the report's
   // transcript table (section 5.1); wording untouched.
@@ -152,6 +173,22 @@ export const projectData = {
 
   figures: {
     solution: [
+      {
+        type: "image",
+        src: v1FlowMap,
+        span: 2,
+        label: { en: "The tested set", de: "Das getestete Set" },
+        title: { en: "The full v1 prototype, laid out as a flow map", de: "Der vollständige v1-Prototyp, als Flow-Karte ausgelegt" },
+        description: {
+          en: "All 12 screens and both bottom sheets, connected with torn-paper directional arrows — the exact set the two think-aloud sessions tested. The closing image at the end of the page shows the revised v2 counterpart the four changes produced.",
+          de: "Alle 12 Screens und beide Bottom Sheets, verbunden mit Richtungspfeilen aus gerissenem Papier — genau das Set, das die beiden Think-Aloud-Sitzungen getestet haben. Das Schlussbild am Seitenende zeigt das überarbeitete v2-Gegenstück, das die vier Änderungen hervorgebracht haben.",
+        },
+        alt: {
+          en: "The tested v1 paper prototype laid out as a flow map: home, room view, device control, the onboarding screens, profile and both bottom sheets, connected by torn-paper arrows",
+          de: "Der getestete v1-Papierprototyp als ausgelegte Flow-Karte: Home, Raumansicht, Gerätesteuerung, die Onboarding-Screens, Profil und beide Bottom Sheets, verbunden durch Pfeile aus gerissenem Papier",
+        },
+        caption: { en: "v1 · the full tested set — its revised counterpart closes the page", de: "v1 · das vollständige getestete Set — sein überarbeitetes Gegenstück beschließt die Seite" },
+      },
       {
         type: "image",
         src: v1A,
@@ -524,16 +561,16 @@ export const projectData = {
       label: { en: "Closing image", de: "Schlussbild" },
       title: { en: "The revised flow, laid out", de: "Der überarbeitete Flow, ausgelegt" },
       description: {
-        en: "The page opened on the tested v1 set laid out with torn-paper arrows; it closes on the revised v2 set the four changes produced. The selection indicator, the per-resident menu with its overlay, the edit affordance on the avatar, and the promoted view-all are all in place — and the roster reads the same on every card.",
-        de: "Die Seite begann mit dem getesteten v1-Set samt Pfeilen aus gerissenem Papier; sie endet mit dem überarbeiteten v2-Set, das die vier Änderungen hervorgebracht haben. Der Auswahlindikator, das Menü pro Person mit seinem Overlay, die Edit-Affordanz auf dem Avatar und das beförderte View-all sind an ihrem Platz — und die Bewohnerliste liest sich auf jeder Karte gleich.",
+        en: "The Solution galleries opened on the tested v1 set laid out with torn-paper arrows; the page closes on the revised v2 set the four changes produced. The selection indicator, the per-resident menu with its overlay, the edit affordance on the avatar, and the promoted view-all are all in place — and the roster reads the same on every card.",
+        de: "Die Solution-Galerien begannen mit dem getesteten v1-Set samt Pfeilen aus gerissenem Papier; die Seite endet mit dem überarbeiteten v2-Set, das die vier Änderungen hervorgebracht haben. Der Auswahlindikator, das Menü pro Person mit seinem Overlay, die Edit-Affordanz auf dem Avatar und das beförderte View-all sind an ihrem Platz — und die Bewohnerliste liest sich auf jeder Karte gleich.",
       },
       alt: {
         en: "The revised v2 paper prototype laid out as a flow map with torn-paper arrows: home, living room, smart light, device settings and both bottom sheets across the middle; manage residents with the remove-user/make-admin overlay at the top; the onboarding flow with the normalised five-name roster down the left; profile with view-all in the section header at the centre",
         de: "Der überarbeitete v2-Papierprototyp als ausgelegte Flow-Karte mit Pfeilen aus gerissenem Papier: Home, Wohnzimmer, Smart Light, Geräteeinstellungen und beide Bottom Sheets in der Mitte; Manage Residents mit dem Remove-User/Make-Admin-Overlay oben; der Onboarding-Flow mit der normalisierten Fünf-Namen-Liste links; Profil mit View-all im Abschnittskopf in der Mitte",
       },
       caption: {
-        en: "v2 · the full revised set — compare the hero image at the top of the page",
-        de: "v2 · das vollständige überarbeitete Set — zum Vergleich das Hero-Bild am Seitenanfang",
+        en: "v2 · the full revised set — compare the v1 layout that opens the Solution galleries",
+        de: "v2 · das vollständige überarbeitete Set — zum Vergleich die v1-Auslage am Anfang der Solution-Galerien",
       },
     },
   ],
