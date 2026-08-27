@@ -22,14 +22,29 @@
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;  
-    pointer-events: none;  
+    z-index: -1;
+    pointer-events: none;
     background-image: theme('backgroundImage.paper');
     background-repeat: repeat;
-    background-size: 150px;  
-    mix-blend-mode: multiply;  
-    filter: none; 
-    opacity: 0.18;  
+    background-size: 150px;
+    mix-blend-mode: multiply;
+    filter: none;
+    opacity: 0.18;
+  }
+
+  /* No paper-grain overlay on phones. A full-viewport position:fixed layer
+     with mix-blend-mode over an accelerated inner scroller is an iOS WebKit
+     compositor trap: during and just after scroll it blends against a STALE
+     frame of the page, which reads as the whole page ghosting — "I see two
+     of everything" — and shimmering for a few seconds until the compositor
+     catches up (observed on-device; unreproducible in any desktop engine or
+     headless WebKit, which composite it correctly). The grain is invisible
+     on opaque-background pages anyway, and on the transparent-background
+     pages it is a subtlety no phone reader will miss at 0.18 opacity. */
+  @media (max-width: 767px) {
+    body::before {
+      display: none;
+    }
   }
 
   * {
