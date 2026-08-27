@@ -297,7 +297,7 @@ export default function About() {
               <Link
                 to="/projects"
                 className="px-8 py-3 bg-primary rule-fill text-white text-xs font-black uppercase tracking-caps
-                           hover:bg-primary-600 transition-all duration-200"
+                           hover:bg-primary-600 hover:[color:var(--on-primary-600)] transition-all duration-200"
               >
                 {t("about.viewProjects")}
               </Link>

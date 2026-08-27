@@ -93,12 +93,12 @@ function FilterChip({ active, label, count, onClick }) {
  transition-colors duration-200
  ${
  active
- ? "[--rule-line-color:var(--primary-600)] [--rule-fill-color:var(--primary-600)] text-white"
+ ? "[--rule-line-color:var(--primary-600)] [--rule-fill-color:var(--primary-600)] [color:var(--on-primary-600)]"
  : "[--rule-fill-color:var(--bg)] text-text-meta hover:[--rule-line-color:var(--primary-600)] hover:text-primary-600"
  } focus-ring`}
     >
       {label}
-      <span className={active ? "text-white/70" : "text-dim"}>{count}</span>
+      <span className={active ? "[color:var(--on-primary-600)] opacity-70" : "text-dim"}>{count}</span>
     </button>
   );
 }

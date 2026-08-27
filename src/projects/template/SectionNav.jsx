@@ -196,8 +196,11 @@ export function MobilePillBar({ sections, activeId, onNavigate }) {
           and reads as the end of the list. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 right-0 w-10"
-        style={{ background: "linear-gradient(to left, var(--bg), transparent)" }}
+        className="pointer-events-none absolute inset-y-0 right-0 w-12"
+        /* Solid for the first quarter, then falls off: a pure 0→1 gradient
+           read as video noise on a reader's recording, not as "more tabs
+           this way". */
+        style={{ background: "linear-gradient(to left, var(--bg) 25%, transparent)" }}
       />
     </div>
   );

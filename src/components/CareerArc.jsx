@@ -115,7 +115,7 @@ function CareerArcFull({ steps }) {
                         transition-colors duration-200 ease-smooth
                         ${step.highlight
                           ? "[--rule-line-color:rgb(255_255_255/0.4)] text-white hover:[--rule-fill-color:rgb(255_255_255)] hover:[--rule-line-color:rgb(255_255_255)] hover:text-primary"
-                          : "text-dim hover:[--rule-fill-color:var(--primary-600)] hover:[--rule-line-color:var(--primary-600)] hover:text-white"
+                          : "text-dim hover:[--rule-fill-color:var(--primary-600)] hover:[--rule-line-color:var(--primary-600)] hover:[color:var(--on-primary-600)]"
                         }`}
                     >
                       {item}
