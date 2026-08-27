@@ -198,6 +198,8 @@ export const projectData = {
     { tag: "Tailwind CSS", evidence: "about: \"a React and Tailwind site\"; techStack chips rendered under Prototype", status: "evidenced" },
     { tag: "Framer Motion", evidence: "designSystem: \"Framer Motion draw-ins that all share a single easing curve\"; prototype: \"Motion respects prefers-reduced-motion globally\"", status: "evidenced" },
     { tag: "React Router", evidence: "prototype: \"wired once at the router root\"; techStack chips rendered under Prototype", status: "evidenced" },
+    { tag: "OpenAI API", evidence: "prototype: \"an OpenAI-backed 'Ask this portfolio' assistant, live on every page … the OpenAI key and the grounding stay server-side\" — the endpoint is api/chat.js, a serverless function streaming from the Chat Completions API", status: "evidenced" },
+    { tag: "Prompt Engineering", evidence: "prototype: \"the assistant is instructed to answer only from that generated knowledge, never to invent\" — the persona, ground rules and grounding live in a server-side system prompt the client can neither read nor override", status: "evidenced" },
     { tag: "Design Systems", evidence: "designSystem section — the compact token view resolves live from theme.css; prototypeUrl links the living style guide", status: "evidenced" },
     { tag: "Component Architecture", evidence: "wireframe: the ProjectTemplate({ meta, children }) contract and the fixed SECTIONS array; methods: \"Component Architecture & Design Systems Engineering\"", status: "evidenced" },
     { tag: "Information Architecture", evidence: "wireframe: three tracks — a sticky numbered section rail, a capped prose column, a pull-quote rail — with the section order fixed by the SECTIONS array every case study is bound to", status: "evidenced" },
@@ -207,6 +209,8 @@ export const projectData = {
     // (contrast-aware token split, reduced-motion, keyboard path) is real;
     // the conformance claim was not, so the standard came out of the name.
     { tag: "Accessibility", evidence: "designSystem: the -500/-600 token split puts the contrast rule in the token name a component reaches for; prototype: \"Motion respects prefers-reduced-motion globally, wired once at the router root\". Metrics still lists the WCAG 2.1 AA contrast pass and the keyboard-only check as pending, so this is design intent, not an audited result", status: "thin" },
+    { tag: "Performance Optimization", evidence: "results: the Lighthouse 66→99 record — route-skeleton fix removing the 0.261 layout shift, lazy loading on every case-study figure, dead chunks cut, the card/data split (aggregator chunk 57 KB → 3.9 KB gzipped) — plus the two optimisations rejected on the record", status: "evidenced" },
+    { tag: "SEO", evidence: "metrics/results: Lighthouse SEO 100 measured against production (13.4.0, emulated desktop, 2026-08-24), alongside the other three category scores re-run together", status: "evidenced" },
     { tag: "Internationalization (i18n)", evidence: "prototype: \"useLocalizedProfile recursively resolves any { en, de } field\"", status: "evidenced" },
     { tag: "Print CSS", evidence: "prototype: \"@media print and an @page A4 rule, with accordions forced open via a CSS guard on [data-collapsible-body]\"", status: "evidenced" },
     { tag: "Automated Testing (Vitest)", evidence: "prototype: \"an automated invariant test — not a manual review — that now makes that class of bug fail the build instead of shipping\"", status: "evidenced" },
