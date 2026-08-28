@@ -26,6 +26,7 @@
 // coral.
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 import { useTranslation } from "../../context/LanguageContext";
 import { useIsMobile } from "../../hooks/useIsMobile";
@@ -282,8 +283,20 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
   const visible = scrolledIn && !parked && !(isMobile && cornerOccupied);
 
   return (
+    <>
+      {/* In-flow, zero-size anchor. It stays inside the page — and therefore
+          inside the scroll container — purely so the two effects above can
+          resolve that container with .closest(). The visible badge renders
+          through a portal to <body>: a position:fixed subtree INSIDE iOS's
+          async overflow scroller is positioned by the scrolling tree out of
+          step with the content around it, and this badge was the worst
+          possible tenant of that path — filtered (drop-shadow), spring-
+          animated, and mounted/unmounted by AnimatePresence. At body level
+          it is a plain viewport-fixed layer, the same arrangement as the
+          ASK AI pill, which has never misbehaved. */}
+      <span ref={hostRef} aria-hidden="true" />
+      {createPortal(
     <div
-      ref={hostRef}
       // pointer-events-none on the wrapper so the empty column above the
       // badge never eats clicks meant for the page underneath it.
       /* bottom-24 on phones, not bottom-4: the AskPortfolio pill owns the
@@ -291,10 +304,12 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
          bottom-4 this badge sat stacked BEHIND it — an amber sliver peeking
          out from the pill's edge. Desktop has room for both.
 
-         z-30, below the mobile pill bar's z-40: while the bar scrolls up
-         into its pinned position it can pass through this corner, and at
-         z-50 the badge briefly sat ON TOP of a nav tab. Nothing else the
-         badge overlaps carries a z-index, so 30 still clears all content. */
+         z-30: below the ASK AI pill (z-80), above the scroll container
+         (shell-level layer 10). Since the portal move the badge no longer
+         shares a stacking context with the pill bar, so the bar cannot
+         slice it mid-transit — the corner-parking contract handles that
+         overlap instead (the badge steps aside while the bar holds the
+         corner). */
       className="no-print pointer-events-none fixed bottom-24 right-4 md:bottom-8 md:right-8
                  z-30 flex flex-col items-end gap-1"
       style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
@@ -434,6 +449,9 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </div>,
+        document.body
+      )}
+    </>
   );
 }
