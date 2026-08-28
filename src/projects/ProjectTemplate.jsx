@@ -24,6 +24,7 @@
 // template/constants.js for the folder's naming constraints).
 
 import { useMemo, useRef } from "react";
+import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import SectionMedia from "./SectionMedia";
@@ -206,12 +207,24 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
 
   return (
     <div ref={mainRef} className="min-h-screen bg-bg pt-20 md:pt-24">
-      {/* Scroll-progress bar */}
-      <motion.div
-        aria-hidden="true"
-        className="no-print fixed top-0 left-0 right-0 h-[5px] rule-stroke bg-primary origin-left z-[70]"
-        style={{ scaleX: scrollProgress }}
-      />
+      {/* Scroll-progress bar — portaled to <body>, for two reasons that are
+          really one. Rendered here it sat INSIDE the scroll container, and
+          (a) its z-[70] only counted inside that container's own stacking
+          context (`relative z-10` in App.jsx), which at the shell level is
+          layer 10 entire — so the bar painted UNDERNEATH the opaque z-50
+          header and was invisible on device, and (b) a position:fixed node
+          inside iOS's async overflow scroller is exactly the layer type the
+          engine repositions out of step with the content around it. At body
+          level it is a plain viewport-fixed strip and its z-index means
+          what it says. */}
+      {createPortal(
+        <motion.div
+          aria-hidden="true"
+          className="no-print fixed top-0 left-0 right-0 h-[5px] rule-stroke bg-primary origin-left z-[70]"
+          style={{ scaleX: scrollProgress }}
+        />,
+        document.body
+      )}
 
       {/* Hero photo — sticky parallax banner (see template/ProjectHero.jsx) */}
       {hasHeroImage && <ProjectHero meta={meta} scrollY={scrollY} />}

@@ -23,6 +23,21 @@
 //   callback only reports CHANGED entries, so membership is a Set carried
 //   across calls.
 //
+//   ROOTED PER OCCUPANT, not at the viewport. An occupant inside the app's
+//   scroll container must be observed WITH that container as root: iOS
+//   WebKit does not reliably recompute default-viewport-root intersections
+//   while an inner scroller moves the content — the same engine fact the
+//   section scroll-spy learned in 873c759, where viewport-rooted callbacks
+//   simply froze. Here the failure mode was worse than freezing: the stale
+//   viewport-root entries flapped, so `occupied` toggled at frame rate and
+//   the FABs mounted/unmounted every frame — measured on-device as the
+//   floating-button band changing on every frame of a recording, part of
+//   the permanent shake reported on e59c0a0. Shell-level occupants (the
+//   hamburger overlay, which lives in the header, outside any scroller)
+//   keep the viewport root, which is correct for them. The viewport
+//   observer is created eagerly so the hook is live before any occupant
+//   mounts; per-scroller observers are created as occupants appear.
+//
 //   MutationObserver, to keep the watched set current. The routes are
 //   lazy-loaded (App.jsx renders <Outlet/> under Suspense), so a one-shot
 //   querySelectorAll at mount runs against the route's FALLBACK and finds
@@ -46,27 +61,42 @@ export function useCornerOccupied() {
     if (typeof IntersectionObserver === "undefined") return undefined;
 
     const inZone = new Set();
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) inZone.add(e.target);
-          else inZone.delete(e.target);
-        }
-        setOccupied(inZone.size > 0);
-      },
-      { rootMargin: CORNER_ZONE }
-    );
+    const onEntries = (entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) inZone.add(e.target);
+        else inZone.delete(e.target);
+      }
+      setOccupied(inZone.size > 0);
+    };
 
-    const watched = new Set();
+    // One observer per scroll root (see the header comment). All of them
+    // share `onEntries` and the one `inZone` set, so occupancy is a single
+    // fact however many roots are being watched.
+    const observers = new Map();
+    const makeObserver = (root) =>
+      new IntersectionObserver(onEntries, { root, rootMargin: CORNER_ZONE });
+    observers.set(null, makeObserver(null));
+    const observerFor = (el) => {
+      const root = el.closest?.(".overflow-y-auto") ?? null;
+      let io = observers.get(root);
+      if (!io) {
+        io = makeObserver(root);
+        observers.set(root, io);
+      }
+      return io;
+    };
+
+    const watched = new Map(); // occupant -> the observer watching it
     const sync = () => {
       const current = new Set(document.querySelectorAll("[data-corner-cta]"));
       for (const el of current) {
         if (!watched.has(el)) {
-          watched.add(el);
+          const io = observerFor(el);
+          watched.set(el, io);
           io.observe(el);
         }
       }
-      for (const el of watched) {
+      for (const [el, io] of watched) {
         if (!current.has(el)) {
           // An occupant that unmounts never reports a leaving intersection,
           // so prune it here or a removed menu overlay would park the FABs
@@ -85,7 +115,7 @@ export function useCornerOccupied() {
 
     return () => {
       mo?.disconnect();
-      io.disconnect();
+      observers.forEach((io) => io.disconnect());
     };
   }, []);
 

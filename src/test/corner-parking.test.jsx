@@ -22,11 +22,16 @@ import { Nav } from "../components/Nav";
 import { MobilePillBar } from "../projects/template/SectionNav";
 
 // Set-tracking fake: tests can ask what the hook observes and push
-// enter/leave notifications for a specific element.
+// enter/leave notifications for a specific element. `io` is the last
+// observer constructed (the hook's eager viewport-rooted one, for every
+// test that mounts occupants straight under <body>); `ios` keeps them all,
+// for the tests about per-scroller roots.
 let io;
+let ios;
 
 beforeEach(() => {
   io = null;
+  ios = [];
   vi.stubGlobal("fetch", vi.fn());
   vi.stubGlobal(
     "IntersectionObserver",
@@ -36,6 +41,7 @@ beforeEach(() => {
         this.opts = opts;
         this.observed = new Set();
         io = this;
+        ios.push(this);
       }
       observe(el) {
         this.observed.add(el);
@@ -130,6 +136,46 @@ describe("AskPortfolio corner parking", () => {
 
     expect(fab).not.toHaveAttribute("aria-hidden");
     expect(fab.className).not.toContain("pointer-events-none");
+  });
+
+  it("roots an in-scroller occupant's observation at that scroller, not the viewport", async () => {
+    // Viewport-rooted intersections over content inside the app's inner
+    // scroller are unreliable on iOS WebKit — the same engine fact that
+    // froze the section spy in 873c759. Here the stale entries FLAPPED, so
+    // occupancy toggled at frame rate and the FABs strobed (measured
+    // on-device on e59c0a0). The hook must observe such occupants WITH
+    // their scroll container as root, and keep the viewport root for
+    // shell-level occupants like the menu overlay.
+    renderWithProviders(<AskPortfolio />);
+    const fab = screen.getByRole("button", { name: /ask ai/i });
+
+    const scroller = document.createElement("div");
+    scroller.className = "overflow-y-auto";
+    document.body.appendChild(scroller);
+    mounted.push(scroller);
+    const chip = document.createElement("div");
+    chip.setAttribute("data-corner-cta", "");
+    scroller.appendChild(chip);
+
+    let holder;
+    await waitFor(() => {
+      holder = ios.find((o) => o.observed.has(chip));
+      expect(holder?.opts?.root).toBe(scroller);
+    });
+
+    // Parking still flows through the rooted observer — the roots split the
+    // watching, not the occupancy fact.
+    holder.enter(chip);
+    expect(fab).toHaveAttribute("aria-hidden", "true");
+    holder.leave(chip);
+    expect(fab).not.toHaveAttribute("aria-hidden");
+
+    // Shell-level occupants (no scroller ancestor) stay on the viewport root.
+    const overlay = mountOccupant();
+    await waitFor(() => {
+      const viewportHolder = ios.find((o) => o.observed.has(overlay));
+      expect(viewportHolder?.opts?.root ?? null).toBeNull();
+    });
   });
 });
 

@@ -16,6 +16,7 @@ import { Nav } from "./components/Nav";
 import { Footer } from "./components/Footer";
 import { SketchTrail } from "./components/SketchTrail";
 import { AskPortfolio } from "./components/AskPortfolio";
+import { ShakeProbe } from "./components/ShakeProbe";
 import { RouteSkeleton } from "./components/RouteSkeleton";
 import { profileData as rawProfile } from "./data/profile";
 import { useLocalizedProfile } from "./hooks/useLocalizedProfile";
@@ -86,12 +87,21 @@ export default function App() {
           </main>
 
           <Footer data={profileData} />
-
-          <SketchTrail />
         </div>
 
-        {/* Fixed-position, so it lives outside the custom scroll container. */}
+        {/* Both fixed overlays live OUTSIDE the custom scroll container, as
+            shell-level siblings. SketchTrail used to render inside it, which
+            (a) put a position:fixed full-viewport layer into iOS's async
+            scrolling subtree — the layer type WebKit repositions out of step
+            with the scrolled content — and (b) trapped its z-[100] inside
+            the container's own stacking context (layer 10 at shell level),
+            under the chat pill it was meant to draw over. */}
+        <SketchTrail />
         <AskPortfolio />
+
+        {/* On-device oscillation probe, mounted only when the URL carries
+            ?probe. See components/ShakeProbe.jsx. */}
+        {location.search.includes("probe") && <ShakeProbe scrollRef={scrollRef} />}
 
         <Analytics/>
       </div>
