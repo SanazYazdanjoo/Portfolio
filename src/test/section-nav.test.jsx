@@ -36,8 +36,20 @@ function installGeometry(container) {
   const strip = container.querySelector(".overflow-x-auto");
   Object.defineProperty(strip, "clientWidth", { value: CLIENT_WIDTH, configurable: true });
   Object.defineProperty(strip, "scrollWidth", { value: SCROLL_WIDTH, configurable: true });
+  // The mock applies the write, like a real browser: the effect's fixed-point
+  // guard reads scrollLeft back, and against a mock that never moves it would
+  // re-issue the same scroll forever — the exact failure mode it guards.
+  let scrollLeft = 0;
+  Object.defineProperty(strip, "scrollLeft", {
+    get: () => scrollLeft,
+    set: (v) => { scrollLeft = v; },
+    configurable: true,
+  });
   const calls = [];
-  strip.scrollTo = (opts) => calls.push(opts.left);
+  strip.scrollTo = (opts) => {
+    calls.push(opts.left);
+    scrollLeft = opts.left;
+  };
   strip.querySelectorAll("[data-section-id]").forEach((pill, i) => {
     Object.defineProperty(pill, "offsetLeft", { value: i * STEP, configurable: true });
     Object.defineProperty(pill, "offsetWidth", { value: PILL_WIDTH, configurable: true });
@@ -75,11 +87,13 @@ describe("MobilePillBar auto-centring", () => {
     expect(pillRight).toBeLessThanOrEqual(scrollLeft + CLIENT_WIDTH);
   });
 
-  it("clamps to zero near the start instead of scrolling past the track", () => {
-    // Position 1's ideal centre is negative (offsetLeft 100 − 131); the
-    // effect's Math.max(0, …) must hand the browser 0, and the pill is
-    // fully visible there without any scrolling.
+  it("issues no scroll at all near the start — the clamp lands on the fixed point", () => {
+    // Position 1's ideal centre is negative (offsetLeft 100 − 131), which
+    // clamps to 0 — and the strip already sits at 0, so the fixed-point
+    // guard must swallow the write entirely. Re-issuing even a no-op scroll
+    // here is what the guard exists to prevent: an echoed no-op is the seed
+    // of the observer→scroll feedback loop (see section-nav-stability).
     const calls = driveSpyTo("challenge");
-    expect(calls[calls.length - 1]).toBe(0);
+    expect(calls).toHaveLength(0);
   });
 });

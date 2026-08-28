@@ -171,14 +171,38 @@ export function MobilePillBar({ sections, activeId, onNavigate }) {
   // Manual scrollLeft math rather than scrollIntoView: scrollIntoView
   // scrolls EVERY scrollable ancestor, and this strip lives inside the
   // page's one big scroller, which must not move.
+  //
+  // The write is INSTANT and fixed-point — never `behavior: "smooth"`. The
+  // smooth version shipped in 873c759 and produced a permanent 50-CSS-px
+  // page oscillation on iOS: when a section boundary rested in the spy band
+  // the active id flapped every frame, each flap re-issued a smooth scroll
+  // before the previous one had produced a single frame of movement, and
+  // that pile of never-settling animations on a nested async scroller
+  // (inside a sticky, translateZ(0) layer) ended up moving the PAGE
+  // scroller while the strip itself sat frozen at scrollLeft 0 — measured
+  // as a two-position square wave at 60fps. An instant write completes
+  // synchronously: there is no animation left running for the engine to
+  // re-target, so a single centring can never become a feedback loop.
+  //
+  // The fixed-point guard is the other half of the contract (pinned by
+  // section-nav-stability.test.jsx): re-running this effect against an
+  // already-centred strip must issue NO scroll at all, so any
+  // observer → setState → effect chain terminates instead of echoing.
   useEffect(() => {
     const strip = stripRef.current;
     if (!strip || !activeId) return;
     const pill = strip.querySelector(`[data-section-id="${activeId}"]`);
     if (!pill) return;
-    const target = pill.offsetLeft - (strip.clientWidth - pill.offsetWidth) / 2;
+    // offsetLeft measures from the sticky BAR (the nearest positioned
+    // ancestor), not from the strip — subtract the strip's own offset so
+    // the bar's px-4 padding doesn't skew every target to the right.
+    const pillLeft = pill.offsetLeft - strip.offsetLeft;
+    const ideal = pillLeft - (strip.clientWidth - pill.offsetWidth) / 2;
+    const max = Math.max(0, strip.scrollWidth - strip.clientWidth);
+    const target = Math.min(Math.max(0, ideal), max);
+    if (Math.abs((strip.scrollLeft ?? 0) - target) < 1) return;
     // Optional call: jsdom implements neither scrollTo nor scrollLeft writes.
-    strip.scrollTo?.({ left: Math.max(0, target), behavior: "smooth" });
+    strip.scrollTo?.({ left: target, behavior: "instant" });
   }, [activeId]);
 
   return (
