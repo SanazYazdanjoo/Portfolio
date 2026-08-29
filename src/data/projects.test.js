@@ -354,9 +354,9 @@ describe("data/renderer contract — no field drifts in either direction", () =>
   // Bilingual prose blocks that stand alone as a section body. Same rule as
   // the strip and notBuilt: present-but-empty is worse than absent, because
   // it renders a heading over nothing.
-  it("design, wireframe, designSystem and metricsIntro, where present, are non-empty bilingual blocks", () => {
+  it("design, wireframe, designSystem, accessibility and metricsIntro, where present, are non-empty bilingual blocks", () => {
     for (const p of fullProjects) {
-      for (const key of ["design", "wireframe", "designSystem", "metricsIntro"]) {
+      for (const key of ["design", "wireframe", "designSystem", "accessibility", "metricsIntro"]) {
         if (!(key in p)) continue;
         const v = p[key];
         expect(
