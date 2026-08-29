@@ -94,7 +94,50 @@ async function main() {
     // The generated 1200×630 card (scripts/generate-og-image.mjs), not the
     // raw square portrait — unfurlers crop to ~1.91:1.
     const image = `${site}/og-card.png`;
-    const template = await readFile(join(DIST, "index.html"), "utf-8");
+    let template = await readFile(join(DIST, "index.html"), "utf-8");
+
+    // schema.org Person, injected into the template so every generated route
+    // carries it. The og:* tags above solve link unfurls; this one is for name
+    // searches — a crawler that never runs the app sees an empty SPA body, so
+    // the entity Google reconciles against LinkedIn/GitHub must be in the
+    // static head. sameAs picks up contact.xing from data.json if it is ever
+    // added there.
+    const contact = profileData.contact;
+    const [locality, country] = en(contact.location)
+      .split(",")
+      .map((s) => s.trim());
+    const person = {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name,
+      jobTitle: role,
+      url: `${site}/`,
+      image: `${site}/assets/me.jpg`,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: locality,
+        addressCountry: country,
+      },
+      alumniOf: {
+        "@type": "CollegeOrUniversity",
+        name: "Bauhaus-Universität Weimar",
+      },
+      sameAs: [contact.linkedin, contact.github, contact.xing].filter(Boolean),
+    };
+    // <-escape so no JSON value can ever close the script element early.
+    const personJsonLd = JSON.stringify(person).replace(/</g, "\\u003c");
+    if (!template.includes("</head>")) {
+      throw new Error("generate-meta: no </head> in index.html — changed shape?");
+    }
+    // Replace an existing block rather than stacking a second one, so running
+    // this script twice against the same dist (a local rerun without a fresh
+    // `vite build`) stays idempotent — the "/" route writes the injected
+    // template back to index.html.
+    const jsonLdTag = `<script type="application/ld+json">${personJsonLd}</script>`;
+    const existing = /<script type="application\/ld\+json">[\s\S]*?<\/script>/;
+    template = existing.test(template)
+      ? template.replace(existing, () => jsonLdTag)
+      : template.replace("</head>", () => `${jsonLdTag}\n  </head>`);
 
     // Static routes. Hand-written because there is nothing to derive a good
     // page description from — a nav label is not a description.
