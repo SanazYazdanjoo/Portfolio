@@ -8,14 +8,17 @@
 // the case study with no second file to keep in sync, which is the whole
 // claim the section makes.
 //
-// Semantic roles re-resolve when the visitor's color scheme flips (the
-// media listener below), because that is exactly what they do in theme.css;
-// the primitives are scheme-independent and simply don't change. In
-// environments without the stylesheet (jsdom), values resolve empty and
-// render as an em-dash — the token NAMES are still the compact map.
+// Semantic roles re-resolve when the theme flips (the effect below re-reads
+// on ThemeContext's `theme`, which moves for both the manual toggle and —
+// while no manual choice is stored — the OS preference), because that is
+// exactly what they do in theme.css; the primitives are theme-independent
+// and simply don't change. In environments without the stylesheet (jsdom),
+// values resolve empty and render as an em-dash — the token NAMES are still
+// the compact map.
 
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "../../context/LanguageContext";
+import { useTheme } from "../../context/ThemeContext";
 import { Button, SolidButton, InkCtaButton, CoralCtaButton } from "../../components/Button";
 import { Badge } from "../../components/Badge";
 import TagChip from "../../components/TagChip";
@@ -117,23 +120,20 @@ function ValueRow({ name, value, swatch }) {
 export function DesignTokensPanel() {
   const { t } = useTranslation();
   const rootRef = useRef(null);
+  const { theme } = useTheme();
   const [resolved, setResolved] = useState({});
 
+  // The semantic tier re-resolves with the theme; re-read when it flips.
+  // `theme` covers both the manual toggle and, with no stored choice, the
+  // OS — a matchMedia listener alone would miss the toggle.
   useEffect(() => {
-    const read = () => {
-      const el = rootRef.current;
-      if (!el || typeof getComputedStyle !== "function") return;
-      const styles = getComputedStyle(el);
-      const next = {};
-      for (const name of ALL_TOKENS) next[name] = styles.getPropertyValue(name).trim();
-      setResolved(next);
-    };
-    read();
-    // The semantic tier re-resolves with the scheme; re-read when it flips.
-    const mq = window.matchMedia?.("(prefers-color-scheme: dark)");
-    mq?.addEventListener?.("change", read);
-    return () => mq?.removeEventListener?.("change", read);
-  }, []);
+    const el = rootRef.current;
+    if (!el || typeof getComputedStyle !== "function") return;
+    const styles = getComputedStyle(el);
+    const next = {};
+    for (const name of ALL_TOKENS) next[name] = styles.getPropertyValue(name).trim();
+    setResolved(next);
+  }, [theme]);
 
   return (
     <div ref={rootRef} data-design-tokens-panel="" className="mt-8 flex flex-col gap-8">

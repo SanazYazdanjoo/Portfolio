@@ -11,6 +11,8 @@ const en = {
   "nav.contact": "Contact",
   "nav.openMenu": "Open menu",
   "nav.closeMenu": "Close menu",
+  "nav.themeToDark": "Switch to dark mode",
+  "nav.themeToLight": "Switch to light mode",
 
   // Hero
   "hero.portfolio": "PORTFOLIO",
@@ -197,6 +199,7 @@ const en = {
   "project.sidebar.wireframe": "Wireframe",
   "project.sidebar.designSystem": "Design System",
   "project.sidebar.prototype": "Prototype",
+  "project.sidebar.accessibility": "Accessibility",
   "project.sidebar.methodology": "Methodology",
   "project.sidebar.results": "Results",
   "project.sidebar.implications": "Implications",
@@ -247,6 +250,9 @@ const en = {
   "project.prototype.kicker": "See It In Action",
   "project.prototype.heading": "Prototype",
   "project.prototype.openLink": "Open the prototype",
+
+  "project.accessibility.kicker": "Built to WCAG 2.1 AA",
+  "project.accessibility.heading": "Accessibility Statement",
 
   "project.methodology.kicker": "How I Studied It",
   "project.methodology.heading": "Methodology & Approach",

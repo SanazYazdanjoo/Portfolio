@@ -19,6 +19,7 @@ import {
   HandMenu, HandClose, HandChevron, HandList, HandGrid, HandMail,
   HandQuestion, HandBang, HandInfo, HandSearch, HandCheck,
   HandPlus, HandMinus, HandDownload, HandSend, HandSpark,
+  HandSun, HandMoon,
 } from "../components/HandIcons";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { profileData as rawProfile } from "../data/profile";
@@ -95,6 +96,8 @@ const GLYPH_SPECIMENS = [
   { name: "HandDownload", el: <HandDownload className="h-5 w-5" />, job: "Credential download" },
   { name: "HandSend", el: <HandSend className="h-5 w-5" />, job: "Chat composer submit" },
   { name: "HandSpark", el: <HandSpark className="h-5 w-5" />, job: "Chat launcher" },
+  { name: "HandSun", el: <HandSun className="h-5 w-5" />, job: "Theme toggle — shown in dark" },
+  { name: "HandMoon", el: <HandMoon className="h-5 w-5" />, job: "Theme toggle — shown in light" },
   { name: "HandQuestion", el: <HandQuestion className="h-5 w-5" />, job: "The 404 page’s mark" },
   { name: "HandBang", el: <HandBang className="h-5 w-5" />, job: "Error page, dev NEEDS-INPUT marker" },
   { name: "HandSearch", el: <HandSearch className="h-5 w-5" />, job: "Bench — future filter/search" },

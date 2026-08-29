@@ -8,6 +8,7 @@ import { profileData as rawProfile } from "../data/profile";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { useTranslation } from "../context/LanguageContext";
 import { LanguageToggle } from "./LanguageToggle";
+import { ThemeToggle } from "./ThemeToggle";
 import { SiteSearch } from "./SiteSearch";
 import { HandMenu, HandClose } from "./HandIcons";
 import { EASE } from "../utils/motion";
@@ -99,6 +100,8 @@ export const Nav = () => {
           <SiteSearch />
 
           <LanguageToggle />
+
+          <ThemeToggle />
 
           <MobileMenu links={navLinks} />
         </div>

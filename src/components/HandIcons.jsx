@@ -13,6 +13,8 @@
 //   HandDownload the credential lightbox's download button
 //   HandSend     the chat composer's submit arrow
 //   HandSpark    the chat launcher's spark
+//   HandSun      the nav's theme toggle (shown in dark — "go light")
+//   HandMoon     the nav's theme toggle (shown in light — "go dark")
 //   HandSearch   bench — reserved for a future filter/search input
 //   HandInfo     bench — reserved for method notes and hints
 //   HandCheck    bench — reserved for confirmations and done-states
@@ -193,6 +195,33 @@ export function HandSpark({ className = "" }) {
   return (
     <svg {...pen} strokeWidth="1.6" className={className}>
       <path d="M12 3.6c.5 2.9 1.4 5 2.9 6.3 1.2 1 2.9 1.7 5.3 2-2.4.5-4.1 1.2-5.3 2.2-1.4 1.2-2.4 3.2-2.9 6-.6-2.9-1.5-4.9-2.9-6-1.2-1-2.9-1.7-5.2-2.1 2.3-.4 4-1.1 5.2-2.1 1.4-1.3 2.3-3.4 2.9-6.3Z" />
+    </svg>
+  );
+}
+
+/* The theme toggle's pair. The sun's disc doesn't quite close and no two
+   rays share a length; the moon is one crescent stroke whose horns overlap
+   slightly where the pen came back around. */
+export function HandSun({ className = "" }) {
+  return (
+    <svg {...pen} strokeWidth="1.6" className={className}>
+      <path d="M12.1 8.5c1.9.2 3.3 1.7 3.3 3.6 0 1.9-1.6 3.4-3.5 3.4-1.9-.1-3.4-1.6-3.4-3.5 0-1.8 1.4-3.3 3.2-3.5" />
+      <path d="M12.1 3.1c0 .8-.1 1.6-.1 2.4" />
+      <path d="M12 18.6c0 .8 0 1.6.1 2.4" />
+      <path d="M3.2 12.2c.8-.1 1.6-.1 2.4-.1" />
+      <path d="M18.5 12c.8 0 1.6 0 2.4.1" />
+      <path d="M5.6 5.8c.6.5 1.2 1.1 1.7 1.7" />
+      <path d="M16.8 16.9c.6.6 1.2 1.2 1.7 1.8" />
+      <path d="M18.4 5.6c-.6.6-1.2 1.1-1.8 1.7" />
+      <path d="M7.2 16.8c-.6.6-1.1 1.2-1.7 1.9" />
+    </svg>
+  );
+}
+
+export function HandMoon({ className = "" }) {
+  return (
+    <svg {...pen} strokeWidth="1.6" className={className}>
+      <path d="M14.6 4c-2.5 1.4-4 4.1-3.8 7 .2 3 2.2 5.5 5 6.5-1.4.9-3 1.3-4.7 1.2-4-.3-7-3.7-6.8-7.7C4.5 7 7.9 4 11.9 4c.9 0 1.8.1 2.6.4" />
     </svg>
   );
 }

@@ -11,12 +11,15 @@ import React from "react";
 import { render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { LanguageProvider } from "../context/LanguageContext";
+import { ThemeProvider } from "../context/ThemeContext";
 
 export function renderWithProviders(ui, { route = "/", ...renderOptions } = {}) {
   function Wrapper({ children }) {
     return (
       <MemoryRouter initialEntries={[route]}>
-        <LanguageProvider>{children}</LanguageProvider>
+        <ThemeProvider>
+          <LanguageProvider>{children}</LanguageProvider>
+        </ThemeProvider>
       </MemoryRouter>
     );
   }

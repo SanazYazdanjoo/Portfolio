@@ -11,6 +11,7 @@ import ErrorPage from './components/ErrorPage';
 import { lazyWithRetry } from './utils/lazyWithRetry';
 import './index.css';
 import { LanguageProvider } from './context/LanguageContext';
+import { ThemeProvider } from './context/ThemeContext';
 
 // Route-level code splitting: each page ships as its own chunk, loaded on
 // navigation instead of all bundled into the initial download. Wrapped in
@@ -107,9 +108,11 @@ console.log(
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <MotionConfig reducedMotion="user">
-      <LanguageProvider>
-        <RouterProvider router={router} />
-      </LanguageProvider>
+      <ThemeProvider>
+        <LanguageProvider>
+          <RouterProvider router={router} />
+        </LanguageProvider>
+      </ThemeProvider>
     </MotionConfig>
   </React.StrictMode>
 );

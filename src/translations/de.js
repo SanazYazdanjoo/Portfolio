@@ -8,6 +8,8 @@ const de = {
   "nav.contact": "Kontakt",
   "nav.openMenu": "Menü öffnen",
   "nav.closeMenu": "Menü schließen",
+  "nav.themeToDark": "Zum dunklen Design wechseln",
+  "nav.themeToLight": "Zum hellen Design wechseln",
 
   // Hero
   "hero.portfolio": "PORTFOLIO",
@@ -194,6 +196,7 @@ const de = {
   "project.sidebar.wireframe": "Wireframe",
   "project.sidebar.designSystem": "Designsystem",
   "project.sidebar.prototype": "Prototyp",
+  "project.sidebar.accessibility": "Barrierefreiheit",
   "project.sidebar.methodology": "Methodik",
   "project.sidebar.results": "Ergebnisse",
   "project.sidebar.implications": "Implikationen",
@@ -244,6 +247,9 @@ const de = {
   "project.prototype.kicker": "In Aktion sehen",
   "project.prototype.heading": "Prototyp",
   "project.prototype.openLink": "Prototyp öffnen",
+
+  "project.accessibility.kicker": "Gebaut nach WCAG 2.1 AA",
+  "project.accessibility.heading": "Erklärung zur Barrierefreiheit",
 
   "project.methodology.kicker": "Wie ich es untersucht habe",
   "project.methodology.heading": "Methodik & Vorgehen",
