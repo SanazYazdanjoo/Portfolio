@@ -8,7 +8,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useTranslation } from "../context/LanguageContext";
 import { useCornerOccupied } from "../hooks/useCornerOccupied";
-import { HandClose } from "./HandIcons";
+import { HandClose, HandSend, HandSpark } from "./HandIcons";
 import { EASE } from "../utils/motion";
 
 // Turns sent per request; older history is context the answers don't need.
@@ -78,17 +78,6 @@ function AssistantText({ text }) {
     </div>
   );
 }
-
-const SparkIcon = ({ className = "" }) => (
-  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className={className}>
-    <path
-      d="M12 3.6c.5 2.9 1.4 5 2.9 6.3 1.2 1 2.9 1.7 5.3 2-2.4.5-4.1 1.2-5.3 2.2-1.4 1.2-2.4 3.2-2.9 6-.6-2.9-1.5-4.9-2.9-6-1.2-1-2.9-1.7-5.2-2.1 2.3-.4 4-1.1 5.2-2.1 1.4-1.3 2.3-3.4 2.9-6.3Z"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
 
 export function AskPortfolio() {
   const { t, lang } = useTranslation();
@@ -201,9 +190,15 @@ export function AskPortfolio() {
             exit={{ opacity: 0, y: 16, scale: 0.98 }}
             transition={{ duration: 0.22, ease: EASE }}
             onKeyDown={(e) => e.key === "Escape" && close()}
+            /* The frame is drawn (rule-frame-r) and the opaque ground comes
+               from its --rule-fill-color layer, not bg-* — a bg would paint
+               a hard rectangle under the drawn edge. The overlay straddles
+               the border (-2px), so the clipping moves to an inner wrapper:
+               overflow-hidden here would shave the line's outer half. */
             className="w-[min(24rem,calc(100vw-2rem))] h-[min(32rem,calc(100dvh-8rem))]
-                       flex flex-col overflow-hidden rounded-xl border border-border bg-bg shadow-lg"
+                       rounded-xl border rule-frame-r [--rule-fill-color:var(--bg)] shadow-lg"
           >
+            <div className="flex h-full flex-col overflow-hidden rounded-xl">
             <header className="flex items-center justify-between gap-s8 border-b rule-b px-s16 py-s8 bg-surface">
               <div className="min-w-0">
                 <p className="text-label font-mono uppercase text-primary-600">{t("chat.title")}</p>
@@ -229,8 +224,8 @@ export function AskPortfolio() {
                         key={key}
                         type="button"
                         onClick={() => send(t(key))}
-                        className="focus-ring text-tag font-mono text-left border border-border rounded-full px-s12 py-s3
-                                   hover:border-primary-600 hover:text-primary-600 transition-colors"
+                        className="focus-ring text-tag font-mono text-left border rule-pill [--rule-cap:14px] rounded-full px-s12 py-s3
+                                   hover:[--rule-line-color:var(--primary-600)] hover:text-primary-600 transition-colors"
                       >
                         {t(key)}
                       </button>
@@ -242,7 +237,7 @@ export function AskPortfolio() {
               {messages.map((m, i) =>
                 m.role === "user" ? (
                   <div key={i} className="flex justify-end">
-                    <p className="max-w-[85%] rounded-xl border border-border bg-muted-surface px-s12 py-s6 whitespace-pre-wrap">
+                    <p className="max-w-[85%] rounded-xl border rule-frame-r [--rule-fill-color:var(--muted-surface)] px-s12 py-s6 whitespace-pre-wrap">
                       {m.content}
                     </p>
                   </div>
@@ -264,7 +259,7 @@ export function AskPortfolio() {
                 e.preventDefault();
                 send(input);
               }}
-              className="border-t rule-b px-s8 pt-s6 pb-s2 flex items-center gap-s6"
+              className="border-t rule-t px-s8 pt-s6 pb-s2 flex items-center gap-s6"
             >
               <input
                 ref={inputRef}
@@ -282,13 +277,11 @@ export function AskPortfolio() {
                 className="focus-ring shrink-0 p-s6 text-primary-600 disabled:opacity-40 disabled:cursor-not-allowed
                            hover:scale-110 transition-transform"
               >
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-5 w-5">
-                  <path d="M4.8 12.2c4.6-.1 9.2-.1 13.9-.2M13 6.5c2 2 3.9 3.9 5.8 5.6-2 1.9-3.9 3.8-5.7 5.7"
-                    stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <HandSend className="h-5 w-5" />
               </button>
             </form>
             <p className="px-s16 pb-s6 text-plate font-mono text-dim/80">{t("chat.disclosure")}</p>
+            </div>
           </motion.section>
         )}
       </AnimatePresence>
@@ -300,11 +293,16 @@ export function AskPortfolio() {
         aria-expanded={open}
         aria-hidden={parked || undefined}
         tabIndex={parked ? -1 : undefined}
-        className={`focus-ring group flex items-center gap-s6 rounded-full border border-border bg-surface
-                   px-s16 py-s8 shadow-md hover:border-primary-600 transition-all duration-200
+        /* Drawn stadium, same construction as the Badge chips: rule-pill
+           masks the outline, --rule-fill-color keeps the pill opaque over
+           whatever it floats above (bg-* would paint a hard capsule under
+           the drawn one). --rule-cap ≈ half the pill's outer height + 2. */
+        className={`focus-ring group flex items-center gap-s6 rounded-full border rule-pill [--rule-cap:21px]
+                   [--rule-fill-color:var(--surface)] px-s16 py-s8 shadow-md
+                   hover:[--rule-line-color:var(--primary-600)] transition-all duration-200
                    ${parked ? "pointer-events-none opacity-0 translate-y-2" : "opacity-100"}`}
       >
-        <SparkIcon className="h-4 w-4 text-primary-600 transition-transform group-hover:rotate-12" />
+        <HandSpark className="h-4 w-4 text-primary-600 transition-transform group-hover:rotate-12" />
         <span className="text-label font-mono uppercase text-text group-hover:text-primary-600 transition-colors">
           {t("chat.fab")}
         </span>

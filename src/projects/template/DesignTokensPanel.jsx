@@ -16,6 +16,15 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "../../context/LanguageContext";
+import { Button, SolidButton, InkCtaButton, CoralCtaButton } from "../../components/Button";
+import { Badge } from "../../components/Badge";
+import TagChip from "../../components/TagChip";
+import { HandArrow } from "../../components/HandArrow";
+import {
+  HandMenu, HandClose, HandChevron, HandList, HandGrid, HandMail,
+  HandQuestion, HandBang, HandInfo, HandSearch, HandCheck,
+  HandPlus, HandMinus, HandDownload, HandSend, HandSpark,
+} from "../../components/HandIcons";
 
 const COLOR_PRIMITIVES = [
   "--color-coral-500", "--color-coral-600", "--color-rose-500", "--color-rose-600",
@@ -40,6 +49,33 @@ const TYPE_SCALE = [
 
 const SHAPE_MOTION = [
   "--radius-md", "--timing-smooth", "--content-max", "--gutter", "--section-pad",
+];
+
+// The icon tier, rendered from the live components the same way the token
+// cells resolve from the live cascade: HandIcons.jsx is the single source,
+// so a redrawn path updates this panel with the site it describes. Compact
+// view — names and marks only; each glyph's job is documented on
+// /design-system and in the HandIcons.jsx header.
+const GLYPHS = [
+  ["HandArrow", <HandArrow key="a" />],
+  ["…up-right", <HandArrow key="b" direction="up-right" />],
+  ["…back", <HandArrow key="c" direction="back" />],
+  ["HandChevron", <HandChevron key="d" className="h-4 w-4" />],
+  ["HandMenu", <HandMenu key="e" className="h-4 w-4" />],
+  ["HandClose", <HandClose key="f" className="h-4 w-4" />],
+  ["HandList", <HandList key="g" className="h-4 w-4" />],
+  ["HandGrid", <HandGrid key="h" className="h-4 w-4" />],
+  ["HandMail", <HandMail key="i" className="h-4 w-4" />],
+  ["HandDownload", <HandDownload key="j" className="h-4 w-4" />],
+  ["HandSend", <HandSend key="k" className="h-4 w-4" />],
+  ["HandSpark", <HandSpark key="l" className="h-4 w-4" />],
+  ["HandQuestion", <HandQuestion key="m" className="h-4 w-4" />],
+  ["HandBang", <HandBang key="n" className="h-4 w-4" />],
+  ["HandSearch", <HandSearch key="o" className="h-4 w-4" />],
+  ["HandInfo", <HandInfo key="p" className="h-4 w-4" />],
+  ["HandCheck", <HandCheck key="q" className="h-4 w-4" />],
+  ["HandPlus", <HandPlus key="r" className="h-4 w-4" />],
+  ["HandMinus", <HandMinus key="s" className="h-4 w-4" />],
 ];
 
 const ALL_TOKENS = [
@@ -169,6 +205,55 @@ export function DesignTokensPanel() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
           {SHAPE_MOTION.map((name) => (
             <ValueRow key={name} name={name} value={resolved[name]} />
+          ))}
+        </div>
+      </div>
+
+      {/* Components — the shipped Button/Badge/TagChip, imported rather than
+          redrawn, for the same reason the token cells resolve live: there is
+          no second copy to drift. The button labels are the hero's own keys. */}
+      <div>
+        <GroupLabel>{t("project.designSystem.groupComponents")}</GroupLabel>
+        <p className="mt-0 mb-5 text-sm leading-relaxed text-text-meta">
+          {t("project.designSystem.componentsNote")}
+        </p>
+        {/* Labels are each button's real ones: the hero CTA's key, the 404
+            CTA's key, the back link Button actually renders on /privacy. */}
+        <div className="flex flex-wrap items-center gap-x-8 gap-y-5 mb-6">
+          <InkCtaButton type="button">{t("hero.ctaWork")} <HandArrow /></InkCtaButton>
+          <CoralCtaButton type="button">{t("notFound.cta")}</CoralCtaButton>
+          <SolidButton type="button">{t("hero.ctaCv")}</SolidButton>
+          <Button type="button">{t("common.backToPortfolio")}</Button>
+        </div>
+        <div className="flex flex-wrap items-center gap-2 mb-3">
+          <Badge tone="accent">Eye-Tracking</Badge>
+          <Badge tone="rose">N=30</Badge>
+          <Badge tone="highlight">SUS 85.2</Badge>
+          <Badge tone="muted">{t("projects.comingSoon")}</Badge>
+        </div>
+        <div className="flex flex-wrap items-center">
+          <TagChip name="usability-testing" count={4} />
+          <TagChip name="mixed-methods" count={3} />
+        </div>
+      </div>
+
+      {/* Icon glyphs — the drawn set, rendered from the live components */}
+      <div>
+        <GroupLabel>{t("project.designSystem.groupGlyphs")}</GroupLabel>
+        <p className="mt-0 mb-4 text-sm leading-relaxed text-text-meta">
+          {t("project.designSystem.glyphsNote")}
+        </p>
+        <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-2.5">
+          {GLYPHS.map(([name, el]) => (
+            <div
+              key={name}
+              className="flex flex-col items-center gap-1.5 border rule-frame px-2 pt-3.5 pb-2.5 min-w-0"
+            >
+              <span className="flex h-5 items-center text-text">{el}</span>
+              <code className="max-w-full truncate font-mono text-2xs text-dim" title={name}>
+                {name}
+              </code>
+            </div>
           ))}
         </div>
       </div>

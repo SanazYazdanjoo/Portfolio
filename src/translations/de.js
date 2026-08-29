@@ -140,7 +140,7 @@ const de = {
   "voluntary.description": "Gemeinschaftsaufbau, Mentoring und ehrenamtliche Initiativen.",
 
   // Common
-  "common.backToPortfolio": "← Zurück zum Portfolio",
+  "common.backToPortfolio": "Zurück zum Portfolio",
   "common.readMore": "Weiterlesen",
   "common.readLess": "Weniger anzeigen",
   "common.language": "Sprache",
@@ -233,6 +233,10 @@ const de = {
   "project.designSystem.groupSemantic": "Semantische Rollen",
   "project.designSystem.groupType": "Typografie",
   "project.designSystem.groupShape": "Form, Layout & Bewegung",
+  "project.designSystem.groupComponents": "Komponenten — Buttons, Badges & Tags",
+  "project.designSystem.componentsNote": "Live importierte Komponenten aus dem Shipped-Code, keine nachgezeichneten Muster: der gefüllte Tinten-CTA des Heros, der Koralle-CTA der 404- und Fehlerseite, der Doodle-CTA, der beim Hover sein Oval skizziert, und der leise Text-Button — dazu die Notizbuch-Tag-Chips, Tintenkonturen, die sich beim Hover füllen. Jede Füllung und jede Kante ist die gezeichnete Linie. Der goldene Prototyp-Link behält seine Einmal-pro-Seite-Regel und wird hier nicht verdoppelt — der echte steht einen Abschnitt weiter unten.",
+  "project.designSystem.groupGlyphs": "Icon-Glyphen — gezeichnet, nicht konstruiert",
+  "project.designSystem.glyphsNote": "Die Icon-Ebene des UI-Kits: Jede Glyphe der Website ist mit derselben ~1,6–1,8px-Feder gezeichnet wie die Haarlinien — kein Icon-Font, keine Bibliothek. Sie rendern live aus HandIcons.jsx / HandArrow.jsx; das vollständige Musterblatt mit der Aufgabe jeder Glyphe steht im lebenden Styleguide.",
 
   "project.prototype.kicker": "In Aktion sehen",
   "project.prototype.heading": "Prototyp",

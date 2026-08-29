@@ -7,11 +7,13 @@
 // HTTP status is still 200, not 404 — only the content says "not found".
 
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useTranslation } from "../context/LanguageContext";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { profileData as rawProfile } from "../data/profile";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
+import { HandQuestion } from "../components/HandIcons";
+import { CoralCtaButton } from "../components/Button";
 
 export default function NotFound() {
   const { t } = useTranslation();
@@ -26,8 +28,8 @@ export default function NotFound() {
   return (
     <div className="min-h-[60vh] flex items-center">
       <div className="container mx-auto px-4 md:px-8 py-24">
-        <p className="font-hand text-4xl text-blush mb-4 select-none" aria-hidden="true">
-          {t("notFound.kicker")}
+        <p className="flex items-center gap-3 font-hand text-4xl text-blush mb-4 select-none" aria-hidden="true">
+          {t("notFound.kicker")} <HandQuestion className="h-9 w-9 -rotate-6" />
         </p>
         <h1 className="font-display font-extrabold text-display text-text mb-6">
           {t("notFound.title")}
@@ -36,13 +38,7 @@ export default function NotFound() {
         <p className="text-sm text-dim max-w-xl mb-10 font-mono break-all">
           {location.pathname}
         </p>
-        <Link
-          to="/"
-          className="inline-block px-8 py-3 bg-primary rule-fill text-white text-xs font-black uppercase tracking-caps
-                     hover:bg-primary-600 hover:[color:var(--on-primary-600)] transition-all duration-200 focus-ring"
-        >
-          {t("notFound.cta")}
-        </Link>
+        <CoralCtaButton to="/">{t("notFound.cta")}</CoralCtaButton>
       </div>
     </div>
   );

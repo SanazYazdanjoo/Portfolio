@@ -54,6 +54,29 @@ const ArrowIcon = ({ className = "" }) => (
   </svg>
 );
 
+// The hero's primary CTA: a filled ink pill whose fill is cut into the hand
+// shape by rule-fill-r (self-mask — the element's own bg-* is the correct
+// paint there, unlike the overlay classes). Extracted from Hero.jsx so the
+// homepage and both design-system specimen sheets render the same component
+// instead of drifting copies of a class string.
+export const InkCtaButton = ({ children, to, href, className = "", ...props }) => {
+  const cls = `inline-flex items-center gap-s10 bg-text rule-fill-r text-bg text-body font-medium
+               px-s26 py-s15 rounded-sm hover:opacity-90 transition-opacity duration-200 focus-ring ${className}`;
+  if (to) return <Link to={to} className={cls} {...props}>{children}</Link>;
+  if (href) return <a href={href} className={cls} {...props}>{children}</a>;
+  return <button className={cls} {...props}>{children}</button>;
+};
+
+// The coral CTA the 404 and error pages use — drawn fill, square corners,
+// shouting label. Same extraction story as InkCtaButton.
+export const CoralCtaButton = ({ children, to, href, className = "", ...props }) => {
+  const cls = `inline-block px-8 py-3 bg-primary rule-fill text-white text-xs font-black uppercase tracking-caps
+               hover:bg-primary-600 hover:[color:var(--on-primary-600)] transition-all duration-200 focus-ring ${className}`;
+  if (to) return <Link to={to} className={cls} {...props}>{children}</Link>;
+  if (href) return <a href={href} className={cls} {...props}>{children}</a>;
+  return <button className={cls} {...props}>{children}</button>;
+};
+
 // Plain text/link button, used where the doodle styling of SolidButton isn't wanted.
 export const Button = ({ children, to, href, className = "", ...props }) => {
   // hover:text-primary-500, not hover:text-primary: in dark mode `primary`
