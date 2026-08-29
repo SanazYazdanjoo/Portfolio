@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { profileData as rawProfile } from "../data/profile";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { voluntaryItems as rawVoluntary } from "../data/voluntary";
+import { TESTIMONIALS_PUBLISHED, testimonialItems as rawTestimonials } from "../data/testimonials";
 import { useTranslation } from "../context/LanguageContext";
 import CareerArc from "../components/CareerArc";
 import { HandArrow } from "../components/HandArrow";
@@ -48,6 +49,7 @@ function SectionHeader({ eyebrow, title, sub }) {
 export default function About() {
   const profileData = useLocalizedProfile(rawProfile);
   const voluntaryItems = useLocalizedProfile(rawVoluntary);
+  const testimonials = useLocalizedProfile(rawTestimonials);
   const { t } = useTranslation();
 
   useDocumentMeta({
@@ -235,6 +237,58 @@ export default function About() {
           </div>
         </div>
       </section>
+
+      {/* Testimonials — third-party endorsements, double-gated: the publish
+          flag is the owner's explicit "go", the item count keeps an empty
+          section from ever rendering. Quote styling mirrors the case-study
+          Verbatims (font-hand, primary rule edge) so all quoted speech on the
+          site reads as one voice. */}
+      {TESTIMONIALS_PUBLISHED && testimonials.length > 0 && (
+        <section className="py-20 border-t rule-t">
+          <div className="container mx-auto px-4 md:px-8">
+            <SectionHeader
+              eyebrow={t("about.testimonials.eyebrow")}
+              title={t("about.testimonials.heading")}
+            />
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-12">
+              {testimonials.map((item, i) => (
+                <motion.blockquote
+                  key={item.id}
+                  custom={i}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true }}
+                  className="border-l-2 rule-edge-l [--rule-line-color:var(--primary-600)] pl-5 pt-1"
+                >
+                  <p className="font-hand text-quote leading-snug text-text-meta">
+                    “{item.quote}”
+                  </p>
+                  <cite className="block not-italic mt-4">
+                    <span className="block text-sm font-black text-text">
+                      {item.name}
+                    </span>
+                    <span className="block text-2xs font-bold uppercase text-dim mt-1">
+                      {item.role}
+                      {item.company && <> · {item.company}</>}
+                    </span>
+                  </cite>
+                  {item.source && (
+                    <a
+                      href={item.source}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-2 inline-block text-2xs font-bold uppercase tracking-caps text-primary-600 hover:text-primary-500"
+                    >
+                      {t("about.testimonials.source")}
+                    </a>
+                  )}
+                </motion.blockquote>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Voluntary Work — eyebrow only, no h2, dense two-column list so it doesn't compete with The Bridge */}
       {voluntaryItems.length > 0 && (
