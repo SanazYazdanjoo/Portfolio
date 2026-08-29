@@ -5,6 +5,7 @@ import { getProject } from "../data/projects";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { useTranslation } from "../context/LanguageContext";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
+import { HandArrow } from "../components/HandArrow";
 
 // The skill groups are object keys in data.json, so they can't carry an
 // { en, de } pair like every other field. Same shape as credentials.type.*:
@@ -332,9 +333,11 @@ export default function CV() {
                   {t("cv.aiAssisted.text")}{" "}
                   <Link
                     to="/projects/digitalising-ibs-travel-reimbursements"
-                    className="text-primary font-semibold hover:underline"
+                    className="text-primary font-semibold hover:underline inline-flex items-center gap-1.5"
                   >
-                    → {t("cv.aiAssisted.link")}
+                    {/* The arrow is screen furniture; printed, the link is
+                        already plain text, so the mark goes with the styling. */}
+                    <HandArrow className="print:hidden" /> {t("cv.aiAssisted.link")}
                   </Link>
                 </p>
               </div>
@@ -353,9 +356,9 @@ export default function CV() {
                           href={cert.file || cert.verifyUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="no-print ml-2 text-primary-600 rule-underline"
+                          className="no-print ml-2 text-primary-600 rule-underline inline-flex items-center gap-1"
                         >
-                          {t("credentials.viewCredential")} &#8599;
+                          {t("credentials.viewCredential")} <HandArrow direction="up-right" />
                         </a>
                       )}
                     </p>
@@ -364,9 +367,9 @@ export default function CV() {
               </div>
               <Link
                 to="/credentials"
-                className="no-print mt-5 inline-block text-sm font-bold text-primary-600 rule-underline"
+                className="no-print mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-primary-600 rule-underline"
               >
-                {t("credentials.viewAll")} &rarr;
+                {t("credentials.viewAll")} <HandArrow />
               </Link>
             </section>
 
