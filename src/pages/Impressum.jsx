@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '../components/Button';
+import { HandArrow } from '../components/HandArrow';
 import { FlowerDoodle } from '../components/DoodleLibrary';
 import { profileData as rawProfile } from '../data/profile';
 import { useLocalizedProfile } from '../hooks/useLocalizedProfile';
@@ -25,7 +26,9 @@ export default function Impressum() {
         {/* Back Navigation */}
         <div className="mb-16">
           <Button to="/" variant="ghost" className="text-sm uppercase tracking-caps font-bold text-dim">
-            {t("common.backToPortfolio")}
+            <span className="inline-flex items-center gap-1.5">
+              <HandArrow direction="back" /> {t("common.backToPortfolio")}
+            </span>
           </Button>
         </div>
 

@@ -22,6 +22,8 @@ import { Badge } from "../components/Badge";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { EASE } from "../utils/motion";
 import { EmptyState } from "../components/EmptyState";
+import { HandDownload } from "../components/HandIcons";
+import { HandArrow } from "../components/HandArrow";
 
 const TOPIC_PARAM = "topic";
 
@@ -199,10 +201,10 @@ function CertificateLightbox({ cert, onClose }) {
           <a
             href={cert.file}
             download
-            className="border rule-frame [--rule-line-color:rgb(var(--primary-rgb)/0.4)] px-4 py-2 text-2xs font-black uppercase
+            className="inline-flex items-center gap-1.5 border rule-frame [--rule-line-color:rgb(var(--primary-rgb)/0.4)] px-4 py-2 text-2xs font-black uppercase
  text-primary-600 hover:[--rule-fill-color:var(--blush-weak)] focus-ring"
           >
-            {t("credentials.download")} &#8595;
+            {t("credentials.download")} <HandDownload className="h-4 w-4" />
           </a>
         </div>
       </div>
@@ -333,7 +335,7 @@ function CertificateCard({ cert, index, onOpenFile }) {
             className="mt-1 inline-flex w-fit items-center gap-1 text-2xs font-black uppercase
  text-primary-600 hover:text-primary-500 focus-ring"
           >
-            {t("credentials.verify")} &#8599;
+            {t("credentials.verify")} <HandArrow direction="up-right" />
           </a>
         )}
       </div>

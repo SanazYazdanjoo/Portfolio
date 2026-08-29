@@ -2,6 +2,8 @@
 // Production builds never reach this: scripts/check-needs-input.mjs fails the
 // build before `vite build` runs if any NEEDS_INPUT survives. This component
 // exists only so an unfilled field is impossible to miss while iterating locally.
+import { HandBang } from "./HandIcons";
+
 export function NeedsInputMarker({ path }) {
   if (!import.meta.env.DEV) return null;
   return (
@@ -10,6 +12,7 @@ export function NeedsInputMarker({ path }) {
                  font-black uppercase text-white"
       role="note"
     >
+      <HandBang className="h-3 w-3 shrink-0" />
       NEEDS INPUT — {path}
     </span>
   );

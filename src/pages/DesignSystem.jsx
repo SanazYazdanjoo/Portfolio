@@ -7,12 +7,19 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-import { Button, SolidButton } from "../components/Button";
+import { Button, SolidButton, InkCtaButton, CoralCtaButton } from "../components/Button";
+import { PrototypeLink } from "../projects/template/PrototypeLink";
 import { Badge } from "../components/Badge";
 import { ADOPTION_META } from "../projects/template/OutcomeBlock";
 import TagChip from "../components/TagChip";
 import { InkHighlight } from "../components/InkHighlight";
 import { ScribbleDivider } from "../components/ScribbleDivider";
+import { HandArrow } from "../components/HandArrow";
+import {
+  HandMenu, HandClose, HandChevron, HandList, HandGrid, HandMail,
+  HandQuestion, HandBang, HandInfo, HandSearch, HandCheck,
+  HandPlus, HandMinus, HandDownload, HandSend, HandSpark,
+} from "../components/HandIcons";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { profileData as rawProfile } from "../data/profile";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
@@ -69,6 +76,32 @@ const MOTION_RULES = [
   { name: "Links", value: ".rule-underline", note: "Inline prose links carry the drawn hairline in coral. Label and button links use colour alone." },
   { name: "Empty states", value: "<EmptyState>", note: "A drawn panel and a handwritten line. One pattern for every “nothing here”." },
   { name: "Accessibility", value: "prefers-reduced-motion", note: "MotionConfig at the app root + a CSS block. Transform and transition stop; opacity fades stay." },
+];
+
+// The glyph specimens render the real components from HandIcons.jsx /
+// HandArrow.jsx, so a redrawn path updates this sheet automatically. "Job"
+// is where the glyph works today; "bench" glyphs are drawn and waiting so a
+// future control never has to reach for a library icon.
+const GLYPH_SPECIMENS = [
+  { name: "HandArrow", el: <HandArrow />, job: "Hero CTA, every “Read case study”" },
+  { name: "HandArrow up-right", el: <HandArrow direction="up-right" />, job: "External links: LinkedIn, GitHub, CV" },
+  { name: "HandArrow back", el: <HandArrow direction="back" />, job: "“All projects”, back links" },
+  { name: "HandChevron", el: <HandChevron className="h-5 w-5" />, job: "Every disclosure; callers rotate it" },
+  { name: "HandMenu", el: <HandMenu className="h-5 w-5" />, job: "Mobile burger, sidebar toggle" },
+  { name: "HandClose", el: <HandClose className="h-5 w-5" />, job: "Menu, chat & lightbox dismiss" },
+  { name: "HandList", el: <HandList className="h-5 w-5" />, job: "/projects list view" },
+  { name: "HandGrid", el: <HandGrid className="h-5 w-5" />, job: "/projects grid view" },
+  { name: "HandMail", el: <HandMail className="h-5 w-5" />, job: "Contact envelope" },
+  { name: "HandDownload", el: <HandDownload className="h-5 w-5" />, job: "Credential download" },
+  { name: "HandSend", el: <HandSend className="h-5 w-5" />, job: "Chat composer submit" },
+  { name: "HandSpark", el: <HandSpark className="h-5 w-5" />, job: "Chat launcher" },
+  { name: "HandQuestion", el: <HandQuestion className="h-5 w-5" />, job: "The 404 page’s mark" },
+  { name: "HandBang", el: <HandBang className="h-5 w-5" />, job: "Error page, dev NEEDS-INPUT marker" },
+  { name: "HandSearch", el: <HandSearch className="h-5 w-5" />, job: "Bench — future filter/search" },
+  { name: "HandInfo", el: <HandInfo className="h-5 w-5" />, job: "Bench — method notes, hints" },
+  { name: "HandCheck", el: <HandCheck className="h-5 w-5" />, job: "Bench — confirmations" },
+  { name: "HandPlus", el: <HandPlus className="h-5 w-5" />, job: "Bench — expanders, steppers" },
+  { name: "HandMinus", el: <HandMinus className="h-5 w-5" />, job: "Bench — HandPlus’s other half" },
 ];
 
 const DS_SECTIONS = [
@@ -549,14 +582,20 @@ export default function DesignSystem() {
               <motion.div variants={fadeUp} className="mb-10">
                 <h2 className="type-h3 mt-0 mb-1">Buttons</h2>
                 <p className="type-body mt-0 mb-5" style={{ fontSize: "var(--fs-sm)", color: "var(--text-dim)" }}>
-                  The doodle button (Caveat label, coral oval sketches itself on hover) is for hero
-                  CTAs; the .btn system is for denser UI.
+                  Five, each with one home. The filled ink CTA (drawn fill via{" "}
+                  <code style={{ fontFamily: "var(--font-mono)" }}>rule-fill-r</code>) is the hero&rsquo;s;
+                  the coral CTA belongs to the 404 and error pages; the doodle button (Caveat label,
+                  coral oval sketches itself on hover) is the loud variant; the quiet text button
+                  carries back-links; and the gold prototype link is a case study&rsquo;s single gold
+                  mark — one per page, always the live build.
                 </p>
-                <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
-                  <Button href="#projects">See my work</Button>
-                  <SolidButton variant="primary">Download CV</SolidButton>
-                  <SolidButton variant="ghost">Say hello</SolidButton>
+                <div className="flex flex-wrap items-center gap-x-8 gap-y-5">
+                  <InkCtaButton type="button">See my work <HandArrow /></InkCtaButton>
+                  <CoralCtaButton type="button">Back to the homepage</CoralCtaButton>
+                  <SolidButton type="button">Download CV</SolidButton>
+                  <Button type="button">Say hello</Button>
                 </div>
+                <PrototypeLink href="/designsystem" label="View the live prototype" />
               </motion.div>
 
               <motion.div variants={fadeUp} className="mb-10">
@@ -636,12 +675,44 @@ export default function DesignSystem() {
 
             <DSSection id="icons">
               <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
-                <motion.p variants={fadeUp} className="type-body mt-0 mb-4">
-                  No icon fonts, no icon libraries. Three sources only:
+                <motion.p variants={fadeUp} className="type-body mt-0 mb-6">
+                  No icon fonts, no icon libraries — every glyph below is drawn in the
+                  same ~1.6–1.8px nib as the rule-* hairlines: strokes curve where a
+                  machine would rule them, ends overshoot, nothing is symmetric, and the
+                  ? / ! dots are pen taps, not circles. All paint in{" "}
+                  <code style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-sm)" }}>currentColor</code>{" "}
+                  and stay <code style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-sm)" }}>aria-hidden</code> —
+                  the control carrying one already has its own name.
                 </motion.p>
+
+                <motion.div
+                  variants={fadeUp}
+                  className="grid gap-2.5 mb-10"
+                  style={{ gridTemplateColumns: "repeat(auto-fill,minmax(150px,1fr))" }}
+                >
+                  {GLYPH_SPECIMENS.map(({ name, el, job }) => (
+                    <div
+                      key={name}
+                      className="border rule-frame-r flex flex-col items-center text-center px-3 pt-5 pb-4"
+                      style={{ borderRadius: "var(--radius)" }}
+                    >
+                      <span className="flex h-8 items-center text-text">{el}</span>
+                      <code
+                        className="block mt-2 mb-1"
+                        style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-2xs)", color: "var(--primary-600)" }}
+                      >
+                        {name}
+                      </code>
+                      <span className="type-body" style={{ fontSize: "var(--fs-2xs)", color: "var(--text-dim)", lineHeight: 1.5 }}>
+                        {job}
+                      </span>
+                    </div>
+                  ))}
+                </motion.div>
+
                 <motion.div variants={fadeUp}>
                   <RuleRow name="Doodles" value="assets/icons/*.svg via CSS mask" note="Hand-drawn ink marks, tinted with currentColor." />
-                  <RuleRow name="Glyphs" value="HandArrow · HandIcons · currentColor" note="Arrow, chevron, hamburger/close, list/grid, mail — drawn, never geometric. No Feather paths, no icon font." />
+                  <RuleRow name="Glyphs" value="HandArrow · HandIcons · currentColor" note="The set above — one file, one pen. No Feather paths, no icon font; a new control takes a bench glyph or a newly drawn one, never a pasted library path." />
                   <RuleRow name="Unicode" value="mid-dot separators only" note="Arrows, closes and chevrons are drawn glyphs, not glyphs of the typeface. No emoji, ever." />
                 </motion.div>
               </motion.div>
