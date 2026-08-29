@@ -25,6 +25,11 @@ export const SECTIONS = [
   { id: "wireframe",    labelKey: "project.sidebar.wireframe",    dataKey: "wireframe"    },
   { id: "designSystem", labelKey: "project.sidebar.designSystem", dataKey: "designSystem" },
   { id: "prototype",    labelKey: "project.sidebar.prototype",    dataKey: "prototype"    },
+  // Accessibility statement — after Prototype because it states properties
+  // of the shipped artefact, before Results because Results reports which
+  // of those properties have been measured. Data-gated like every section:
+  // only a project that writes the prose renders it.
+  { id: "accessibility", labelKey: "project.sidebar.accessibility", dataKey: "accessibility" },
   { id: "methodology",  labelKey: "project.sidebar.methodology",  dataKey: "methodology"  },
   { id: "results",      labelKey: "project.sidebar.results",      dataKey: "results"      },
   { id: "implications", labelKey: "project.sidebar.implications", dataKey: "implications" },
@@ -65,7 +70,7 @@ export const RENDERED_FIELDS = [
   // Body sections (see SECTIONS above for the ones with their own heading)
   "about", "process", "challenge", "challengeQuote", "solution", "solutionQuote",
   "design", "designQuote", "wireframe", "wireframeQuote", "designSystem",
-  "prototype", "prototypeUrl", "prototypeUrlLabel", "methodology",
+  "prototype", "prototypeUrl", "prototypeUrlLabel", "accessibility", "methodology",
   "methodologyQuote", "methods", "techStack", "results", "resultsAtAGlance",
   "metrics", "metricsIntro", "verbatims", "verbatimsIn", "outcome", "notBuilt",
   "implications", "phases", "phasesIntro", "conclusion", "figures",
