@@ -191,7 +191,9 @@ describe("reference — the card figure", () => {
 describe("reference — drawn, not stroked", () => {
   const EXPECTED = {
     "src/pages/Home.jsx":                       ["rule-t", "rule-b"],
-    "src/components/Hero.jsx":                  ["rule-fill-r", "rule-stroke", "photo-frame", "rule-frame-in", "HandArrow"],
+    // The CTA's rule-fill-r moved into InkCtaButton (components/Button.jsx)
+    // when the design-system panels started rendering the same component.
+    "src/components/Hero.jsx":                  ["InkCtaButton", "rule-stroke", "photo-frame", "rule-frame-in", "HandArrow"],
     "src/components/StackedProjectCard.jsx":    ["rule-t", "rule-frame-in", "rule-frame", "HandArrow"],
     // No figure column here, so no frame — the row rule and the badge.
     "src/components/ComingSoonRow.jsx":         ["rule-t", "rule-frame"],
@@ -425,6 +427,24 @@ describe("reference — the forward arrow is drawn", () => {
     expect(src).toContain("M1 5.3c4.3-.5 11.6-.7 21.8-.5");
     expect(src).toContain("M18.2 1.3c1.8 1.6 3.2 2.8 4.6 3.6-1.6.9-3 1.9-4.4 3.5");
     expect(src).toContain('stroke="currentColor"');
+  });
+
+  // The same pin for the wider kit: each signature is the glyph's wobble,
+  // which IS the spec. A tidied stem or a circular dot in place of the pen
+  // tap is the regression this catches.
+  it("keeps the HandIcons glyph set drawn", () => {
+    const src = read("src/components/HandIcons.jsx");
+    const SIGNATURES = [
+      "M8.5 8.8c.2-2.4 1.9-4 4-3.9",         // HandQuestion — the curled hook
+      "M11.6 18.4c.1.1.2.2.3.3",             // HandQuestion — dot as pen tap
+      "M12.3 4.6c-.3 3.2-.4 6.3-.2 9.5",     // HandBang — the off-plumb stem
+      "M4.9 12.8c1.8 1.5 3.4 3.2 4.9 5.1",   // HandCheck — the swooping tick
+      "M12.2 4.3c-.2 3.4-.3 6.8-.2 10.3",    // HandDownload — the drifting shaft
+      "M4.8 12.2c4.6-.1 9.2-.1 13.9-.2",     // HandSend — as it drew in the chat
+      "M12 3.6c.5 2.9 1.4 5 2.9 6.3",        // HandSpark — as it drew on the FAB
+    ];
+    for (const d of SIGNATURES) expect(src).toContain(d);
+    expect(src).toContain('stroke: "currentColor"');
   });
 
   // The arrow's rule generalises to every glyph: burger, close, chevron,

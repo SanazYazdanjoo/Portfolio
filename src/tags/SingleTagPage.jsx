@@ -6,6 +6,7 @@ import { ProjectTile } from '../components/ProjectTile';
 import { useDocumentMeta } from '../hooks/useDocumentMeta';
 import { profileData as rawProfile } from '../data/profile';
 import { EmptyState } from "../components/EmptyState";
+import { HandArrow } from "../components/HandArrow";
 
 const SingleTagPage = () => {
   const { tagName } = useParams();
@@ -27,9 +28,9 @@ const SingleTagPage = () => {
       <div className="w-full px-4 md:px-8 max-w-wide mx-auto">
         <Link
           to="/tags"
-          className="inline-flex items-center gap-1 text-sm font-medium text-primary-600 hover:text-primary-500 mb-8"
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 hover:text-primary-500 mb-8"
         >
-          &larr; {t("tags.single.backToAll")}
+          <HandArrow direction="back" /> {t("tags.single.backToAll")}
         </Link>
 
         <header className="mb-10 border-t rule-t pt-6">

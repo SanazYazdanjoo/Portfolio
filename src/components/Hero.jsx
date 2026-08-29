@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "../context/LanguageContext";
 import { motion, useReducedMotion } from "framer-motion";
 import { HandArrow } from "./HandArrow";
+import { InkCtaButton } from "./Button";
 import { EASE } from "../utils/motion";
 
 const ENTRANCE_DURATION = 0.4;
@@ -65,13 +66,9 @@ export function Hero({ data }) {
         </motion.p>
 
         <motion.div {...fadeUp(0.32)} className="flex flex-wrap items-center gap-s28 mt-s8">
-          <Link
-            to="/projects"
-            className="inline-flex items-center gap-s10 bg-text rule-fill-r text-bg text-body font-medium
-                       px-s26 py-s15 rounded-sm hover:opacity-90 transition-opacity duration-200 focus-ring"
-          >
+          <InkCtaButton to="/projects">
             {t("hero.ctaWork")} <HandArrow />
-          </Link>
+          </InkCtaButton>
           <Link
             to="/cv"
             className="relative text-body font-medium text-text pb-s2

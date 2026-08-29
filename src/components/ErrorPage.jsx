@@ -4,8 +4,10 @@
 // Unknown URLs never land here any more (the "*" route renders NotFound);
 // this page is for genuine errors only.
 
-import { useRouteError, Link } from "react-router-dom";
+import { useRouteError } from "react-router-dom";
 import { useTranslation } from "../context/LanguageContext";
+import { HandBang } from "./HandIcons";
+import { CoralCtaButton } from "./Button";
 
 export default function ErrorPage() {
   const error = useRouteError();
@@ -17,6 +19,7 @@ export default function ErrorPage() {
   return (
     <div className="min-h-screen bg-bg flex items-center">
       <div className="container mx-auto px-4 md:px-8 py-24 text-center">
+        <HandBang className="mx-auto mb-6 block h-10 w-10 rotate-6 text-primary" />
         <h1 className="font-display font-extrabold text-h2 text-text mb-4">
           {t("error.title")}
         </h1>
@@ -24,13 +27,9 @@ export default function ErrorPage() {
         {detail && (
           <p className="text-sm text-dim font-mono mb-8 break-all">{detail}</p>
         )}
-        <Link
-          to="/"
-          className="inline-block px-8 py-3 bg-primary text-white text-xs font-black uppercase tracking-caps
-                     hover:bg-primary-600 hover:[color:var(--on-primary-600)] transition-all duration-200"
-        >
-          {t("notFound.cta")}
-        </Link>
+        {/* Gains rule-fill and the focus ring the inline copy was missing —
+            the extraction is exactly so this page can't fall behind. */}
+        <CoralCtaButton to="/">{t("notFound.cta")}</CoralCtaButton>
       </div>
     </div>
   );

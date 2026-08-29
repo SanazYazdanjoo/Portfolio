@@ -12,6 +12,7 @@ import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { voluntaryItems as rawVoluntary } from "../data/voluntary";
 import { useTranslation } from "../context/LanguageContext";
 import CareerArc from "../components/CareerArc";
+import { HandArrow } from "../components/HandArrow";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { EASE } from "../utils/motion";
 
@@ -152,9 +153,9 @@ export default function About() {
             </ul>
             <Link
               to="/credentials"
-              className="mt-6 inline-block text-xs font-black uppercase tracking-caps text-primary-600 hover:text-primary-500"
+              className="mt-6 inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-caps text-primary-600 hover:text-primary-500"
             >
-              {t("credentials.viewAll")} &rarr;
+              {t("credentials.viewAll")} <HandArrow />
             </Link>
           </div>
         </section>
