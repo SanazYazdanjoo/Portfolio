@@ -3,6 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Theme stamp — must run before first paint, hence inline in <head>.
+         All dark-mode CSS keys off <html data-theme="dark"> (theme.css reads
+         no media query), so the attribute has to exist before the stylesheet
+         applies or a dark visitor gets a white flash. Resolution order: the
+         visitor's stored manual choice, else the OS preference. The storage
+         key and the "light"|"dark" contract are shared with
+         src/context/ThemeContext.jsx — change them together. -->
+    <script>
+      (function () {
+        var theme = null;
+        try { theme = localStorage.getItem("portfolio-theme"); } catch (e) { /* storage blocked → follow the OS */ }
+        if (theme !== "light" && theme !== "dark") {
+          theme = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
     <!-- Self-hosted fonts (see src/styles/fonts.css). Only the two faces
          needed above the fold (Nav wordmark, Home hero name/tagline) are
          preloaded; Caveat is font-display:optional and deliberately not
