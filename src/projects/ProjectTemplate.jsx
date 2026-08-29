@@ -375,6 +375,18 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                 </ContentSection>
               )}
 
+              {/* Accessibility statement — prose only, same anatomy as the
+                  other sections. Position matches its SECTIONS entry:
+                  after Prototype, before Methodology/Results. */}
+              {meta.accessibility && (
+                <ContentSection id="accessibility" number={sectionNumber("accessibility")}
+                  isOpen={openSections.has("accessibility")} onToggle={() => toggleSection("accessibility")}
+                  staggerDelayMs={staggerDelayFor("accessibility")}
+                  kicker={kickerFor("accessibility")} heading={headingFor("accessibility")}>
+                  <Prose text={meta.accessibility} />
+                </ContentSection>
+              )}
+
               {meta.methodology && (
                 <ContentSection id="methodology" number={sectionNumber("methodology")}
                   isOpen={openSections.has("methodology")} onToggle={() => toggleSection("methodology")}
