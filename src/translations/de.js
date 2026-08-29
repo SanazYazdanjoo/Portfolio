@@ -511,6 +511,23 @@ const de = {
   "chat.error": "Ups, da ist etwas schiefgelaufen — mögen Sie es gleich noch einmal versuchen?",
   "chat.errorRate": "Puh, viele Fragen auf einmal — bitte kurz warten und noch einmal versuchen.",
   "chat.offline": "Ich bin gerade offline — schauen Sie bald wieder vorbei!",
+
+  // Site-Suche (SiteSearch.jsx)
+  "search.open": "Website durchsuchen",
+  "search.title": "Suche",
+  "search.placeholder": "Projekte, Seiten und Tags durchsuchen…",
+  "search.hint": "Mindestens zwei Zeichen eingeben — Fallstudien, Seiten und Skill-Tags werden durchsucht.",
+  "search.empty": "Dazu passt noch nichts.",
+  "search.emptyBody": "Versuchen Sie ein kürzeres Wort — eine Methode, ein Tool oder einen Projektnamen.",
+  "search.groupProjects": "Fallstudien",
+  "search.groupPages": "Seiten",
+  "search.groupTags": "Tags",
+  // {count} wird zur Laufzeit ersetzt (SiteSearch.jsx)
+  "search.tagCount.one": "In 1 Fallstudie verwendet",
+  "search.tagCount.many": "In {count} Fallstudien verwendet",
+  "search.resultCount.one": "1 Treffer",
+  "search.resultCount.many": "{count} Treffer",
+  "search.kbdHint": "↑↓ navigieren · ↵ öffnen · esc schließen",
 };
 
 export default de;
