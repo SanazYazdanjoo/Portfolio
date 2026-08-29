@@ -514,6 +514,23 @@ const en = {
   "chat.error": "Oops, something went wrong — mind trying again in a moment?",
   "chat.errorRate": "Whoa, lots of questions at once — give it a minute and try again?",
   "chat.offline": "I'm offline right now — check back soon!",
+
+  // Site search (SiteSearch.jsx)
+  "search.open": "Search this site",
+  "search.title": "Site search",
+  "search.placeholder": "Search projects, pages, and tags…",
+  "search.hint": "Type at least two characters — case studies, pages, and skill tags all answer.",
+  "search.empty": "Nothing matches that yet.",
+  "search.emptyBody": "Try a shorter word — a method, a tool, or a project name.",
+  "search.groupProjects": "Case Studies",
+  "search.groupPages": "Pages",
+  "search.groupTags": "Tags",
+  // {count} is substituted at render time (SiteSearch.jsx)
+  "search.tagCount.one": "Used in 1 case study",
+  "search.tagCount.many": "Used in {count} case studies",
+  "search.resultCount.one": "1 result",
+  "search.resultCount.many": "{count} results",
+  "search.kbdHint": "↑↓ navigate · ↵ open · esc close",
 };
 
 export default en;
