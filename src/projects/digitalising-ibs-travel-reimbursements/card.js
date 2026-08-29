@@ -27,10 +27,10 @@ export default {
   },
   year: '2026',
   context: {
-    en: 'In-house · public sector',
-    de: 'Intern · öffentlicher Sektor',
+    en: 'In-house project',
+    de: 'Internes Projekt',
   },
-  cardTags: ['Service Design', 'Stakeholder Interviews', 'React', 'Public Sector'],
+  cardTags: ['Service Design', 'Stakeholder Interviews', 'React', 'GDPR / DSGVO'],
   // Worded to match `stage` and `results`: the app is a deployed demo the
   // team works with — NOT yet the system of record. (Evaluation caveat lives
   // in `results`; the cardOutcome tests forbid hedging on the card.)
@@ -69,6 +69,5 @@ export default {
     'Product Instrumentation',
     'Privacy by Design',
     'GDPR / DSGVO',
-    'Public Sector',
   ],
 };

@@ -777,7 +777,6 @@ export const projectData = {
     { tag: 'Product Instrumentation', evidence: "methodology Deliver: pseudonymous local event log with sessionisation; dogfooding collapsed 690 logged records to 45 real sittings and caught three measurement bugs", status: 'evidenced' },
     { tag: 'Privacy by Design', evidence: "pseudonymous salted logging, local-only storage, a no-real-names build test, proofs mirrored only inside the institute, and the single external call (route lookup) named rather than hidden", status: 'evidenced' },
     { tag: 'GDPR / DSGVO', evidence: "solution: adapters over a local SQLite database with Nextcloud mirroring inside the institute; the published prototype runs on fictional data pinned by a test; survey verbatims are anonymous and non-identifying", status: 'evidenced' },
-    { tag: 'Public Sector', evidence: "challenge: participants in a state-funded qualification programme — direct citation of public funding as the programme context", status: 'evidenced' },
   ],
 };
 
