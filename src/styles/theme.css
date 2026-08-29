@@ -378,8 +378,14 @@
     --cursor-pen: var(--cursor-pen-url);
   }
 
-  @media (prefers-color-scheme: dark) {
-    :root {
+  /* Dark mode keys off data-theme, not the media query: a pre-paint script
+     in index.html stamps <html data-theme="light|dark"> before first render
+     (stored manual choice first, OS preference otherwise), and
+     ThemeContext.jsx keeps the attribute live from then on. CSS never reads
+     prefers-color-scheme directly, or a visitor could not choose the
+     OPPOSITE of their OS. This is a JS-required SPA, so the stamp is always
+     there by the time anything renders. */
+  :root[data-theme="dark"] {
       --primary: var(--color-coral-400);
       --primary-rgb: var(--color-coral-400-rgb);
       --primary-600: var(--color-coral-300);
@@ -415,15 +421,17 @@
       --accent-spine: var(--color-coral-400);
       --text-meta: var(--color-dark-text-muted);
       --surface-warm: var(--color-dark-surface-warm);
-    }
+  }
 
-    /* /designsystem is a fixed white "living style guide" page (like the
-       CV's paper look) — but unlike the CV, its specimens render live off
-       these semantic tokens on purpose, so a token edit stays in sync. Pin
-       them back to their light-mode values here rather than hardcoding
-       colors in the page, or dark-mode text/borders go pale-on-white and
-       become unreadable. */
-    .design-system-page {
+  /* /designsystem is a fixed white "living style guide" page (like the
+     CV's paper look) — but unlike the CV, its specimens render live off
+     these semantic tokens on purpose, so a token edit stays in sync. Pin
+     them back to their light-mode values here rather than hardcoding
+     colors in the page, or dark-mode text/borders go pale-on-white and
+     become unreadable. (Proximity, not specificity, is what makes the pin
+     win: the tokens land on the page element itself, nearer to its
+     descendants than the :root values.) */
+  :root[data-theme="dark"] .design-system-page {
       --primary: var(--color-coral-500);
       --primary-rgb: var(--color-coral-500-rgb);
       --primary-600: var(--color-coral-600);
@@ -459,7 +467,6 @@
       --accent-spine: var(--color-coral-700);
       --text-meta: var(--color-ink-700);
       --surface-warm: var(--color-paper-50);
-    }
   }
 }
 
@@ -884,15 +891,13 @@
      touch alpha. Only the transparent variant: .bg-dots-paper exists FOR
      its baked ground, and a dark-mode use that wants paper should reach
      for .bg-dots over --surface instead. */
-  @media (prefers-color-scheme: dark) {
-    .bg-dots { filter: invert(1); }
+  [data-theme="dark"] .bg-dots { filter: invert(1); }
 
-    /* /design-system is a fixed white page in BOTH themes (it pins its
-       tokens back to light values — see .design-system-page above), so the
-       specimen there is ink on white whatever the OS is set to. Inverting
-       it would paint white marks on white and blank the swatch. */
-    .design-system-page .bg-dots { filter: none; }
-  }
+  /* /design-system is a fixed white page in BOTH themes (it pins its
+     tokens back to light values — see .design-system-page above), so the
+     specimen there is ink on white whatever the theme is set to. Inverting
+     it would paint white marks on white and blank the swatch. */
+  [data-theme="dark"] .design-system-page .bg-dots { filter: none; }
 
   /* Ink-colored speckle texture, matching the black doodle illustrations */
   .bg-ink-speckles {
@@ -1080,8 +1085,7 @@
     --rule-ink-faint: rgba(33, 29, 28, 0.08);
   }
 
-  @media (prefers-color-scheme: dark) {
-    :root {
+  :root[data-theme="dark"] {
       --rule-h: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='5' viewBox='0 0 3600 50'%3E%3Cpath d='M0 16C87 16,173 12,260 12C342 12,424 28,506 28C604 28,701 29,799 29C909 29,1019 26,1129 26C1218 26,1308 20,1397 20C1481 20,1566 19,1650 19C1764 19,1878 21,1992 21C2076 21,2159 19,2243 19C2317 19,2390 21,2464 21C2557 21,2649 23,2742 23C2839 23,2936 17,3033 17C3118 17,3202 24,3287 24C3391 24,3496 16,3600 16L3600 26C3496 26,3391 35,3287 35C3202 35,3118 32,3033 32C2936 32,2839 39,2742 39C2649 39,2557 33,2464 33C2390 33,2317 33,2243 33C2159 33,2076 31,1992 31C1878 31,1764 26,1650 26C1566 26,1481 36,1397 36C1308 36,1218 38,1129 38C1019 38,909 37,799 37C701 37,604 37,506 37C424 37,342 28,260 28C173 28,87 26,0 26Z' fill='%23c4beb6'/%3E%3C/svg%3E");
       --rule-h-soft: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='5' viewBox='0 0 3600 50'%3E%3Cpath d='M0 16C87 16,173 12,260 12C342 12,424 28,506 28C604 28,701 29,799 29C909 29,1019 26,1129 26C1218 26,1308 20,1397 20C1481 20,1566 19,1650 19C1764 19,1878 21,1992 21C2076 21,2159 19,2243 19C2317 19,2390 21,2464 21C2557 21,2649 23,2742 23C2839 23,2936 17,3033 17C3118 17,3202 24,3287 24C3391 24,3496 16,3600 16L3600 26C3496 26,3391 35,3287 35C3202 35,3118 32,3033 32C2936 32,2839 39,2742 39C2649 39,2557 33,2464 33C2390 33,2317 33,2243 33C2159 33,2076 31,1992 31C1878 31,1764 26,1650 26C1566 26,1481 36,1397 36C1308 36,1218 38,1129 38C1019 38,909 37,799 37C701 37,604 37,506 37C424 37,342 28,260 28C173 28,87 26,0 26Z' fill='%23f2efea' fill-opacity='0.19'/%3E%3C/svg%3E");
       --rule-h-faint: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='5' viewBox='0 0 3600 50'%3E%3Cpath d='M0 16C87 16,173 12,260 12C342 12,424 28,506 28C604 28,701 29,799 29C909 29,1019 26,1129 26C1218 26,1308 20,1397 20C1481 20,1566 19,1650 19C1764 19,1878 21,1992 21C2076 21,2159 19,2243 19C2317 19,2390 21,2464 21C2557 21,2649 23,2742 23C2839 23,2936 17,3033 17C3118 17,3202 24,3287 24C3391 24,3496 16,3600 16L3600 26C3496 26,3391 35,3287 35C3202 35,3118 32,3033 32C2936 32,2839 39,2742 39C2649 39,2557 33,2464 33C2390 33,2317 33,2243 33C2159 33,2076 31,1992 31C1878 31,1764 26,1650 26C1566 26,1481 36,1397 36C1308 36,1218 38,1129 38C1019 38,909 37,799 37C701 37,604 37,506 37C424 37,342 28,260 28C173 28,87 26,0 26Z' fill='%23f2efea' fill-opacity='0.09'/%3E%3C/svg%3E");
@@ -1091,21 +1095,23 @@
       --rule-h-link: var(--rule-h-link-dark);
       --rule-ink-soft: rgba(242, 239, 234, 0.19);
       --rule-ink-faint: rgba(242, 239, 234, 0.09);
-    }
   }
 
-  /* Print is paper, whatever the OS says. Chrome evaluates print CSS with a
-     light preference, but Firefox keeps the OS scheme — and a dark-OS print
-     would put the PALE dark-mode ink (--text #f2efea, --rule-ink-* at white)
-     on a page whose dark background the printer never lays down, i.e. white
-     text and invisible hairlines on white paper. The A4 exports (the CV, the
-     case-study print flow) must not depend on which browser prints them.
+  /* Print is paper, whatever the theme says. data-theme="dark" survives
+     into the print evaluation (it is a DOM attribute, not a media query) —
+     and a dark-theme print would put the PALE dark-mode ink (--text
+     #f2efea, --rule-ink-* at white) on a page whose dark background the
+     printer never lays down, i.e. white text and invisible hairlines on
+     white paper. The A4 exports (the CV, the case-study print flow) must
+     not depend on the visitor's theme.
 
-     This block sits AFTER both dark :root blocks in this layer on purpose:
-     equal specificity, so source order is what lets it win when both media
-     queries match. It re-pins every semantic token the dark blocks touch. */
+     The second selector matches the dark blocks' :root[data-theme="dark"]
+     specificity exactly, and this block sits AFTER both of them in this
+     layer on purpose — source order is what lets it win the tie. It
+     re-pins every semantic token the dark blocks touch. */
   @media print {
-    :root {
+    :root,
+    :root[data-theme="dark"] {
       --primary: var(--color-coral-500);
       --primary-rgb: var(--color-coral-500-rgb);
       --primary-600: var(--color-coral-600);
