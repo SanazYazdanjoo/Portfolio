@@ -12,8 +12,9 @@ const de = {
   "nav.themeToLight": "Zum hellen Design wechseln",
 
   // Hero
+  "hero.welcome": "Hi, willkommen in meinem",
   "hero.portfolio": "PORTFOLIO",
-  "hero.tagline": "Ich spreche sowohl ‚User‘ als auch ‚Entwickler‘.",
+  "hero.tagline": "Ich spreche sowohl ‚User‘ & ‚Entwickler‘.",
   "hero.ctaWork": "Meine Projekte",
   "hero.ctaCv": "Lebenslauf ansehen",
 
@@ -171,10 +172,9 @@ const de = {
   // Footer
   "footer.openToRoles": "Offen für Rollen als {role}.",
   "footer.available": "Verfügbar",
-  "footer.timezone": "Zeitzone: MEZ (UTC+1)",
   "footer.cookieSettings": "Cookie-Einstellungen",
   "footer.legalAriaLabel": "Rechtliches",
-  "footer.colophon": "Von Grund auf entworfen & entwickelt — React, Tailwind CSS, Framer Motion.",
+  "footer.colophon": "Von Grund auf entworfen & entwickelt.",
   "footer.viewSource": "Quellcode ansehen",
 
   // Scroll indicator

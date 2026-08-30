@@ -15,9 +15,10 @@ const en = {
   "nav.themeToLight": "Switch to light mode",
 
   // Hero
+  "hero.welcome": "Hi, welcome to my",
   "hero.portfolio": "PORTFOLIO",
-  "hero.tagline": "I speak both ‘user’ and ‘developer’.",
-  "hero.ctaWork": "View my work",
+  "hero.tagline": "I speak both ‘user’ & ‘developer’.",
+  "hero.ctaWork": "View my Works",
   "hero.ctaCv": "View CV",
 
   // Projects
@@ -174,10 +175,9 @@ const en = {
   // Footer
   "footer.openToRoles": "Open to {role} roles.",
   "footer.available": "Available",
-  "footer.timezone": "Timezone: CET (UTC+1)",
   "footer.cookieSettings": "Cookie settings",
   "footer.legalAriaLabel": "Legal",
-  "footer.colophon": "Designed & engineered from scratch — React, Tailwind CSS, Framer Motion.",
+  "footer.colophon": "Designed & engineered from scratch.",
   "footer.viewSource": "View source",
 
   // Scroll indicator

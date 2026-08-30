@@ -14,7 +14,7 @@ import { ADOPTION_META } from "../projects/template/OutcomeBlock";
 import TagChip from "../components/TagChip";
 import { InkHighlight } from "../components/InkHighlight";
 import { ScribbleDivider } from "../components/ScribbleDivider";
-import { HandArrow } from "../components/HandArrow";
+import { HandArrow, HandBubbleTail, HandRoleArrow } from "../components/HandArrow";
 import {
   HandMenu, HandClose, HandChevron, HandList, HandGrid, HandMail,
   HandQuestion, HandBang, HandInfo, HandSearch, HandCheck,
@@ -87,6 +87,8 @@ const GLYPH_SPECIMENS = [
   { name: "HandArrow", el: <HandArrow />, job: "Hero CTA, every “Read case study”" },
   { name: "HandArrow up-right", el: <HandArrow direction="up-right" />, job: "External links: LinkedIn, GitHub, CV" },
   { name: "HandArrow back", el: <HandArrow direction="back" />, job: "“All projects”, back links" },
+  { name: "HandBubbleTail", el: <HandBubbleTail />, job: "Hero: the portrait's speech bubble" },
+  { name: "HandRoleArrow", el: <HandRoleArrow />, job: "Hero: the role label under the photo" },
   { name: "HandChevron", el: <HandChevron className="h-5 w-5" />, job: "Every disclosure; callers rotate it" },
   { name: "HandMenu", el: <HandMenu className="h-5 w-5" />, job: "Mobile burger, sidebar toggle" },
   { name: "HandClose", el: <HandClose className="h-5 w-5" />, job: "Menu, chat & lightbox dismiss" },
@@ -553,6 +555,12 @@ export default function DesignSystem() {
                     <div className="border rule-frame-r px-4 py-3 mb-5" style={{ borderRadius: "var(--radius)" }}>
                       <p className="type-body m-0" style={{ fontSize: "var(--fs-sm)", color: "var(--text-dim)" }}>
                         Four corner arcs, four stretched runs. <code style={{ fontFamily: "var(--font-mono)" }}>--rule-r</code> is the radius.
+                      </p>
+                    </div>
+                    <code className="block mb-2" style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-2xs)", color: "var(--primary-600)" }}>.rule-bubble</code>
+                    <div className="mb-5">
+                      <p className="rule-bubble inline-block px-5 py-3 m-0 type-body text-center" style={{ fontSize: "var(--fs-sm)", color: "var(--text-dim)", width: "22ch" }}>
+                        One stretched oval, so keep the box near 2.1:1 or the line thickens on one axis.
                       </p>
                     </div>
                     <code className="block mb-2" style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-2xs)", color: "var(--primary-600)" }}>.rule-circle &middot; .rule-disc &middot; .rule-dot</code>

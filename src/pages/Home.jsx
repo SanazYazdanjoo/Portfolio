@@ -79,7 +79,7 @@ export default function Home() {
           cols 9-12. */}
       <section
         id="AboutMe-Section"
-        className="section-pad scroll-mt-s56 bg-surface-warm border-y rule-t rule-b"
+        className="section-pad scroll-mt-s56 bg-surface-warm border-y rule-tb"
       >
         <div className="grid-12">
           <div className="md:col-span-12 mb-s48">

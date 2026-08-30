@@ -6,7 +6,7 @@ import { Hero } from "../components/Hero";
 const mockData = {
   name: "Jane Doe",
   role: "UX Engineer",
-  tagline: "I speak both ‘user’ and ‘developer’.",
+  tagline: "I speak both ‘user’ & ‘developer’.",
   positioning:
     "UX Engineer bridging mixed-methods research and production React — M.Sc. HCI. Open to UX roles in the EU.",
   aboutImage: "https://example.com/photo.jpg",
@@ -49,20 +49,31 @@ describe("Hero CTA", () => {
     expect(hrefs).not.toContain("/about");
   });
 
-  // The positioning statement is the sentence a recruiter reads after the
-  // name — role, specialism, and what she's looking for, in plain prose.
-  it("renders the positioning statement", () => {
+  // The headline is the word PORTFOLIO under a handwritten greeting; the
+  // positioning sentence that used to sit here is gone from the hero.
+  it("shows the greeting and PORTFOLIO instead of the positioning line", () => {
     renderWithProviders(<Hero data={mockData} />);
-    expect(screen.getByText(mockData.positioning)).toBeInTheDocument();
+    expect(screen.getByText("Hi, welcome to my")).toBeInTheDocument();
+    expect(screen.getByText("PORTFOLIO")).toBeInTheDocument();
+    expect(screen.queryByText(mockData.positioning)).not.toBeInTheDocument();
   });
 
-  // The handwritten role badge duplicated the eyebrow line; the role now
-  // reaches assistive tech through the sr-only span in the <h1> only.
-  it("does not repeat the role as a visible badge on the photo", () => {
+  // The role is labelled once, under the photo, with a drawn arrow pointing
+  // back up at it — not repeated as a badge over the portrait.
+  it("labels the role once, under the photo", () => {
     const { container } = renderWithProviders(<Hero data={mockData} />);
     const visibleRole = [...container.querySelectorAll("span")].filter(
-      (el) => el.textContent.trim() === mockData.role && !el.classList.contains("sr-only")
+      (el) =>
+        el.textContent.trim() === mockData.role &&
+        !el.closest(".sr-only") &&
+        !el.querySelector("span")
     );
-    expect(visibleRole).toHaveLength(0);
+    expect(visibleRole).toHaveLength(1);
+  });
+
+  // The credential and location line moved out of the hero entirely.
+  it("no longer carries the credential line", () => {
+    renderWithProviders(<Hero data={mockData} />);
+    expect(screen.queryByText(/Weimar/)).not.toBeInTheDocument();
   });
 });

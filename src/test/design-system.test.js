@@ -190,10 +190,10 @@ describe("reference — the card figure", () => {
 // restoring the texture never moves a measurement.
 describe("reference — drawn, not stroked", () => {
   const EXPECTED = {
-    "src/pages/Home.jsx":                       ["rule-t", "rule-b"],
+    "src/pages/Home.jsx":                       ["rule-t", "rule-tb"],
     // The CTA's rule-fill-r moved into InkCtaButton (components/Button.jsx)
     // when the design-system panels started rendering the same component.
-    "src/components/Hero.jsx":                  ["InkCtaButton", "rule-stroke", "photo-frame", "rule-frame-in", "HandArrow"],
+    "src/components/Hero.jsx":                  ["InkCtaButton", "rule-stroke", "photo-frame", "rule-frame-in", "rule-bubble", "HandArrow"],
     "src/components/StackedProjectCard.jsx":    ["rule-t", "rule-frame-in", "rule-frame", "HandArrow"],
     // No figure column here, so no frame — the row rule and the badge.
     "src/components/ComingSoonRow.jsx":         ["rule-t", "rule-frame"],
