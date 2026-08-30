@@ -21,6 +21,10 @@ import { createServer } from "vite";
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+// Person enrichment (languages, education, skills, current employer) comes
+// from the chat assistant's knowledge base: already English, already pruned,
+// regenerated earlier in this same build from the same data.json.
+import knowledge from "../api/_knowledge.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
@@ -45,7 +49,7 @@ function clamp(text, max = 200) {
 // English only: og:locale is en, and a crawler gets one shot at the document.
 const en = (v) => (v && typeof v === "object" && "en" in v ? v.en : v);
 
-function render(template, { title, description, url, image }) {
+function render(template, { title, description, url, image, graph }) {
   let html = template;
 
   const set = (pattern, replacement) => {
@@ -74,6 +78,18 @@ function render(template, { title, description, url, image }) {
   );
   set(/(<meta name="twitter:image" content=")[^"]*(")/, `$1${escapeHtml(image)}$2`);
 
+  // One combined ld+json graph per route: the Person entity everywhere, plus
+  // whatever the route adds (WebSite, ProfilePage, Article + breadcrumb).
+  // <-escape so no JSON value can ever close the script element early.
+  const json = JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": graph,
+  }).replace(/</g, "\\u003c");
+  html = html.replace(
+    "</head>",
+    () => `<script type="application/ld+json">${json}</script>\n  </head>`
+  );
+
   return html;
 }
 
@@ -96,48 +112,120 @@ async function main() {
     const image = `${site}/og-card.png`;
     let template = await readFile(join(DIST, "index.html"), "utf-8");
 
-    // schema.org Person, injected into the template so every generated route
-    // carries it. The og:* tags above solve link unfurls; this one is for name
-    // searches — a crawler that never runs the app sees an empty SPA body, so
-    // the entity Google reconciles against LinkedIn/GitHub must be in the
-    // static head. sameAs picks up contact.xing from data.json if it is ever
-    // added there.
+    if (!template.includes("</head>")) {
+      throw new Error("generate-meta: no </head> in index.html — changed shape?");
+    }
+    // Strip any ld+json the template already carries before render() injects
+    // the per-route graph, so a local rerun against the same dist (the "/"
+    // route writes the injected template back to index.html) stays idempotent
+    // instead of stacking a second block.
+    template = template.replace(
+      /<script type="application\/ld\+json">[\s\S]*?<\/script>\n?\s*/g,
+      ""
+    );
+
+    // schema.org Person, carried by every generated route. The og:* tags above
+    // solve link unfurls; this one is for name searches and for answer engines
+    // — a crawler that never runs the app sees an empty SPA body, so the entity
+    // Google reconciles against LinkedIn/GitHub/XING must be in the static
+    // head. It is given an @id so the per-route nodes below can reference the
+    // same entity instead of restating it.
     const contact = profileData.contact;
     const [locality, country] = en(contact.location)
       .split(",")
       .map((s) => s.trim());
+    const PERSON_ID = `${site}/#person`;
+
+    // knowsAbout / hasCredential / worksFor come from the knowledge base
+    // (English, pruned, regenerated earlier in this build) rather than being
+    // restated here — same reason the chat assistant reads from it.
+    const k = knowledge.profile;
+    const knowsAbout = [...new Set(Object.values(k.skills ?? {}).flat())];
+    const current = (k.experience ?? []).find((e) => /present/i.test(e.date));
+    // Degrees and formal language certificates only. Proficiency levels are
+    // deliberately not asserted here: schema.org has no property for them, and
+    // paraphrasing a level is exactly how a C1 drifts upward.
+    const hasCredential = (k.certifications ?? [])
+      .filter((c) => c.type === "degree" || c.type === "language")
+      .map((c) => ({
+        "@type": "EducationalOccupationalCredential",
+        name: c.title,
+        credentialCategory: c.type,
+        recognizedBy: { "@type": "Organization", name: c.provider },
+        ...(c.year ? { dateCreated: c.year } : {}),
+      }));
+
     const person = {
-      "@context": "https://schema.org",
       "@type": "Person",
+      "@id": PERSON_ID,
       name,
       jobTitle: role,
+      description: en(profileData.profileSummary),
       url: `${site}/`,
       image: `${site}/assets/me.jpg`,
+      email: `mailto:${contact.email}`,
       address: {
         "@type": "PostalAddress",
         addressLocality: locality,
         addressCountry: country,
       },
-      alumniOf: {
+      alumniOf: (k.education ?? []).map((e) => ({
         "@type": "CollegeOrUniversity",
-        name: "Bauhaus-Universität Weimar",
-      },
+        name: e.school,
+      })),
+      ...(current
+        ? { worksFor: { "@type": "Organization", name: current.company } }
+        : {}),
+      knowsAbout,
+      knowsLanguage: (k.languages ?? []).map((l) => ({
+        "@type": "Language",
+        name: l.name,
+      })),
+      hasCredential,
       sameAs: [contact.linkedin, contact.github, contact.xing].filter(Boolean),
     };
-    // <-escape so no JSON value can ever close the script element early.
-    const personJsonLd = JSON.stringify(person).replace(/</g, "\\u003c");
-    if (!template.includes("</head>")) {
-      throw new Error("generate-meta: no </head> in index.html — changed shape?");
-    }
-    // Replace an existing block rather than stacking a second one, so running
-    // this script twice against the same dist (a local rerun without a fresh
-    // `vite build`) stays idempotent — the "/" route writes the injected
-    // template back to index.html.
-    const jsonLdTag = `<script type="application/ld+json">${personJsonLd}</script>`;
-    const existing = /<script type="application\/ld\+json">[\s\S]*?<\/script>/;
-    template = existing.test(template)
-      ? template.replace(existing, () => jsonLdTag)
-      : template.replace("</head>", () => `${jsonLdTag}\n  </head>`);
+
+    const website = {
+      "@type": "WebSite",
+      "@id": `${site}/#website`,
+      url: `${site}/`,
+      name: `${name} — ${role}`,
+      inLanguage: "en",
+      author: { "@id": PERSON_ID },
+      publisher: { "@id": PERSON_ID },
+    };
+
+    // Case studies are works authored by the Person, not just pages: it is the
+    // relation that lets an answer engine say "she built X" rather than
+    // "a page mentions X".
+    const projectGraph = (p) => {
+      const full = knowledge.projects.find((kp) => kp.page === p.href) ?? {};
+      const url = `${site}${p.href}`;
+      return [
+        {
+          "@type": "Article",
+          "@id": `${url}#article`,
+          headline: en(p.title),
+          description: clamp(en(p.tagline) || en(p.subtitle) || en(p.challenge), 300),
+          url,
+          inLanguage: "en",
+          author: { "@id": PERSON_ID },
+          publisher: { "@id": PERSON_ID },
+          isPartOf: { "@id": `${site}/#website` },
+          ...(full.year ? { datePublished: String(full.year) } : {}),
+          ...(full.tags?.length ? { keywords: full.tags.join(", ") } : {}),
+          ...(full.about ? { abstract: clamp(full.about, 500) } : {}),
+        },
+        {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: `${site}/` },
+            { "@type": "ListItem", position: 2, name: "Case Studies", item: `${site}/projects` },
+            { "@type": "ListItem", position: 3, name: en(p.title), item: url },
+          ],
+        },
+      ];
+    };
 
     // Static routes. Hand-written because there is nothing to derive a good
     // page description from — a nav label is not a description.
@@ -173,21 +261,39 @@ async function main() {
         p.href,
         `${en(p.title)} — ${name}`,
         en(p.tagline) || en(p.subtitle) || en(p.challenge),
+        projectGraph(p),
       ]);
 
     const routes = [
-      ["/", `${name} — ${role}`, en(profileData.profileSummary)],
+      ["/", `${name} — ${role}`, en(profileData.profileSummary), [website]],
       ...staticRoutes,
       ...projectRoutes,
     ];
 
     let written = 0;
-    for (const [path, title, description] of routes) {
+    for (const [path, title, description, extra = []] of routes) {
+      // The Person is on every route; /about is additionally *about* her, which
+      // is the page Google prefers to attach a knowledge panel to.
+      const graph =
+        path === "/about"
+          ? [
+              person,
+              {
+                "@type": "ProfilePage",
+                url: `${site}/about`,
+                mainEntity: { "@id": PERSON_ID },
+                isPartOf: { "@id": `${site}/#website` },
+              },
+              ...extra,
+            ]
+          : [person, ...extra];
+
       const html = render(template, {
         title,
         description: clamp(description),
         url: `${site}${path}`,
         image,
+        graph,
       });
 
       // "/" is dist/index.html itself; everything else becomes <path>.html,

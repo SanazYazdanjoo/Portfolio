@@ -202,7 +202,6 @@ const de = {
   "project.sidebar.implications": "Implikationen",
   "project.sidebar.status": "Status",
   "project.sidebar.conclusion": "Fazit",
-  "project.sidebar.accessibility": "Barrierefreiheit",
 
   // Project detail — section kickers + headings (long form)
   "project.about.kicker": "Projektübersicht",
@@ -260,8 +259,6 @@ const de = {
   "project.results.glance": "Studie auf einen Blick",
 
   "project.outcome.kicker": "Was sich geändert hat",
-  "project.accessibility.kicker": "Gebaut nach WCAG 2.1 AA",
-  "project.accessibility.heading": "Erklärung zur Barrierefreiheit",
 
   "project.outcome.decisions": "Entscheidungen, die diese Forschung angestoßen hat",
   "project.outcome.adoption.shipped": "Ausgeliefert",

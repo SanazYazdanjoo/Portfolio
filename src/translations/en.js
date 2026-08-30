@@ -205,7 +205,6 @@ const en = {
   "project.sidebar.implications": "Implications",
   "project.sidebar.status": "Status",
   "project.sidebar.conclusion": "Conclusion",
-  "project.sidebar.accessibility": "Accessibility",
 
   // Project detail — section kickers + headings (long form)
   "project.about.kicker": "Project Overview",
@@ -263,8 +262,6 @@ const en = {
   "project.results.glance": "Study at a Glance",
 
   "project.outcome.kicker": "What Changed",
-  "project.accessibility.kicker": "Built to WCAG 2.1 AA",
-  "project.accessibility.heading": "Accessibility Statement",
 
   "project.outcome.decisions": "Decisions this research drove",
   "project.outcome.adoption.shipped": "Shipped",
