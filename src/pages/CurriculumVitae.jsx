@@ -209,15 +209,15 @@ export default function CV() {
                     className={`break-inside-avoid ${i > 0 ? "border-t rule-edge-t rule-faint pt-5" : ""}`}
                   >
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1">
-                      <h3 className="font-black text-xl text-black uppercase tracking-caps print:text-lg">
+                      <h3 className="font-black text-lg text-black uppercase tracking-caps print:text-lg">
                         {job.company}
                       </h3>
-                      <span className="text-sm font-bold text-gray-500 uppercase shrink-0 mt-1 sm:mt-0 sm:ml-4 print:text-xs">
+                      <span className="text-xs font-bold text-gray-500 uppercase shrink-0 mt-1 sm:mt-0 sm:ml-4 print:text-xs">
                         {job.date}
                       </span>
                     </div>
 
-                    <p className="text-lg font-bold text-primary mb-3 print:text-base">
+                    <p className="text-base font-bold text-primary mb-3 print:text-base">
                       {job.role}
                     </p>
 
@@ -240,7 +240,7 @@ export default function CV() {
                       </div>
                     )}
 
-                    <ul className="list-disc list-outside ml-5 space-y-2 text-base leading-relaxed text-gray-700 print:text-sm">
+                    <ul className="list-disc list-outside ml-5 space-y-2 text-sm leading-relaxed text-gray-700 print:text-sm">
                       {job.tasks.map((task, tIndex) => (
                         <li key={tIndex}>{task}</li>
                       ))}
