@@ -490,14 +490,67 @@
     color: var(--color-ink-900);
   }
 
-  /* Minimal scrollbar */
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb {
-    background: var(--color-ink-300);
-    border-radius: 3px;
+  /* Hand-drawn scrollbar. The document scrollbar is hidden outright (see
+     index.css); this dresses the INNER scrollers — code blocks, overflow
+     panels, the design-system tables — so they read as pencil on paper
+     rather than as browser chrome.
+
+     Both pieces are inline SVG strokes, not gradients: a gradient can only
+     ever draw a ruler-straight edge, and the wobble is the whole point. The
+     tiles repeat down the gutter (`repeat-y`), so a long scroller shows a
+     continuously shaky line instead of one stretched squiggle — stretching
+     a single SVG would thin the stroke on tall tracks and fatten it on
+     short ones.
+
+     Colours are baked into the SVGs because a scrollbar pseudo-element
+     cannot read `currentColor` or a CSS variable through a data URI. The
+     graphite tone was picked to sit legibly on both paper and dark ink, so
+     only the coral hover state needs a dark-theme override below. */
+  ::-webkit-scrollbar { width: 12px; height: 12px; }
+
+  /* Track: a dashed pencil rule wandering off the centre line, as if ruled
+     down the margin freehand. */
+  ::-webkit-scrollbar-track {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='27' viewBox='0 0 12 27'%3E%3Cg fill='none' stroke='%23b9b4ad' stroke-width='1' stroke-linecap='round' opacity='.55'%3E%3Cpath d='M6.2 1.5C5.3 4 6.8 6.5 5.9 9.5'/%3E%3Cpath d='M6.4 14C5.6 16.5 6.1 19 5.7 21.8'/%3E%3C/g%3E%3C/svg%3E") repeat-y center;
   }
-  ::-webkit-scrollbar-thumb:hover { background: var(--color-ink-600); }
+  ::-webkit-scrollbar-track:horizontal {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='27' height='12' viewBox='0 0 27 12'%3E%3Cg fill='none' stroke='%23b9b4ad' stroke-width='1' stroke-linecap='round' opacity='.55'%3E%3Cpath d='M1.5 5.8C4 6.7 6.5 5.2 9.5 6.1'/%3E%3Cpath d='M14 5.6C16.5 6.4 19 5.9 21.8 6.3'/%3E%3C/g%3E%3C/svg%3E") repeat-x center;
+  }
+
+  /* Thumb: one wobbling ink stroke with a lighter overshoot line beside it,
+     the way a pen doubles back over a mark it isn't happy with. */
+  ::-webkit-scrollbar-thumb {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='44' viewBox='0 0 12 44'%3E%3Cg fill='none' stroke='%23b9b4ad' stroke-linecap='round'%3E%3Cpath d='M5.9 -2C4.4 6 7.2 12 5.6 20 4.2 28 4.6 34 6 46' stroke-width='4.4'/%3E%3Cpath d='M8.2 3C7.4 10 4.6 18 7 27' stroke-width='1' opacity='.45'/%3E%3C/g%3E%3C/svg%3E") repeat-y center;
+  }
+  ::-webkit-scrollbar-thumb:horizontal {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='12' viewBox='0 0 44 12'%3E%3Cg fill='none' stroke='%23b9b4ad' stroke-linecap='round'%3E%3Cpath d='M-2 6.1C6 4.6 12 7.4 20 5.8 28 4.4 34 4.8 46 6.2' stroke-width='4.4'/%3E%3Cpath d='M3 8.4C10 7.6 18 4.8 27 7.2' stroke-width='1' opacity='.45'/%3E%3C/g%3E%3C/svg%3E") repeat-x center;
+  }
+
+  /* Hover/drag: the stroke is re-inked in coral, and the wobble shifts —
+     a different pass of the same pen, not the same line recoloured. */
+  ::-webkit-scrollbar-thumb:hover,
+  ::-webkit-scrollbar-thumb:active {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='44' viewBox='0 0 12 44'%3E%3Cg fill='none' stroke='%23892107' stroke-linecap='round'%3E%3Cpath d='M6.1 -2C7.4 6 4.6 13 6.4 21 8 29 5.4 35 6 46' stroke-width='4.6'/%3E%3Cpath d='M3.6 4C4.6 11 7.8 19 5 28' stroke-width='1' opacity='.5'/%3E%3C/g%3E%3C/svg%3E") repeat-y center;
+  }
+  ::-webkit-scrollbar-thumb:horizontal:hover,
+  ::-webkit-scrollbar-thumb:horizontal:active {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='12' viewBox='0 0 44 12'%3E%3Cg fill='none' stroke='%23892107' stroke-linecap='round'%3E%3Cpath d='M-2 5.9C6 7.4 13 4.6 21 6.4 29 8 35 5.4 46 6' stroke-width='4.6'/%3E%3Cpath d='M4 8.4C11 7.4 19 4.2 28 7' stroke-width='1' opacity='.5'/%3E%3C/g%3E%3C/svg%3E") repeat-x center;
+  }
+
+  ::-webkit-scrollbar-corner { background: transparent; }
+
+  /* Dark mode: paper coral is too dark to read as ink on a dark ground —
+     same swap the --primary token makes at :root[data-theme="dark"]. */
+  :root[data-theme="dark"] ::-webkit-scrollbar-thumb:hover,
+  :root[data-theme="dark"] ::-webkit-scrollbar-thumb:active {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='44' viewBox='0 0 12 44'%3E%3Cg fill='none' stroke='%23de2b00' stroke-linecap='round'%3E%3Cpath d='M6.1 -2C7.4 6 4.6 13 6.4 21 8 29 5.4 35 6 46' stroke-width='4.6'/%3E%3Cpath d='M3.6 4C4.6 11 7.8 19 5 28' stroke-width='1' opacity='.5'/%3E%3C/g%3E%3C/svg%3E") repeat-y center;
+  }
+  :root[data-theme="dark"] ::-webkit-scrollbar-thumb:horizontal:hover,
+  :root[data-theme="dark"] ::-webkit-scrollbar-thumb:horizontal:active {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='12' viewBox='0 0 44 12'%3E%3Cg fill='none' stroke='%23de2b00' stroke-linecap='round'%3E%3Cpath d='M-2 5.9C6 7.4 13 4.6 21 6.4 29 8 35 5.4 46 6' stroke-width='4.6'/%3E%3Cpath d='M4 8.4C11 7.4 19 4.2 28 7' stroke-width='1' opacity='.5'/%3E%3C/g%3E%3C/svg%3E") repeat-x center;
+  }
+
+  /* Firefox has no thumb shape control at all — give it the palette only. */
   html {
     scrollbar-width: thin;
     scrollbar-color: var(--color-ink-300) transparent;
