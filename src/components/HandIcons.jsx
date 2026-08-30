@@ -15,7 +15,7 @@
 //   HandSpark    the chat launcher's spark
 //   HandSun      the nav's theme toggle (shown in dark — "go light")
 //   HandMoon     the nav's theme toggle (shown in light — "go dark")
-//   HandSearch   bench — reserved for a future filter/search input
+//   HandSearch   the nav's site-search trigger + the search dialog's field
 //   HandInfo     bench — reserved for method notes and hints
 //   HandCheck    bench — reserved for confirmations and done-states
 //   HandPlus     bench — reserved for expanders and steppers
