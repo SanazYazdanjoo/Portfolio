@@ -18,13 +18,10 @@ import { SketchTrail } from "./components/SketchTrail";
 import { AskPortfolio } from "./components/AskPortfolio";
 import { ShakeProbe } from "./components/ShakeProbe";
 import { RouteSkeleton } from "./components/RouteSkeleton";
-import { profileData as rawProfile } from "./data/profile";
-import { useLocalizedProfile } from "./hooks/useLocalizedProfile";
 import { useTranslation } from "./context/LanguageContext";
 import { Analytics } from "@vercel/analytics/react"
 
 export default function App() {
-  const profileData = useLocalizedProfile(rawProfile);
   const { t } = useTranslation();
   const scrollRef = useRef(null);
   const location = useLocation();
