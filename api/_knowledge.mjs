@@ -4,7 +4,7 @@ export default {
  "profile": {
   "name": "Sanaz Yazdanjoo",
   "role": "UX Engineer",
-  "tagline": "I speak both ‘user’ and ‘developer’.",
+  "tagline": "I speak both ‘user’ & ‘developer’.",
   "positioning": "UX Engineer bridging mixed-methods research and production React.",
   "profileSummary": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar), a B.E. in Software Engineering, and experience across user research, UI development, and software usability since 2015. I like working on both ends of a product: running mixed-methods user studies to understand what people actually need — and what's worth building — and then taking those findings all the way into responsive, accessible interfaces in React and TypeScript, backed by lightweight backends. I use AI-assisted development tools productively, while reviewing the generated code critically. The case studies below show how that plays out in real projects.",
   "impactStats": [
@@ -22,7 +22,7 @@ export default {
    }
   ],
   "bioParagraphs": [
-   "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar), a B.E. in Software Engineering, and experience across user research, UI development, and software usability since 2015. I like working on both ends of a product: running mixed-methods user studies to understand what people actually need — and what's worth building — and then taking those findings all the way into responsive, accessible interfaces in React and TypeScript, backed by lightweight backends. I work in English and German (both C1), and I'm open to interdisciplinary UX & Tech roles. I relocated to Germany in 2021 for the degree and defended in May 2026; the QA, web, and research roles on my CV ran alongside full-time study."
+   "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar), a B.E. in Software Engineering, and experience across user research, UI development, and software usability since 2015. I like working on both ends of a product: running mixed-methods user studies to understand what people actually need — and what's worth building — and then taking those findings all the way into responsive, accessible interfaces in React and TypeScript, backed by lightweight backends. I work in English and German (both C1), and I'm open to interdisciplinary UX & Tech roles."
   ],
   "experience": [
    {
@@ -561,7 +561,7 @@ export default {
    "linkedin": "https://www.linkedin.com/in/sanaz-yazdanjoo/",
    "github": "https://github.com/SanazYazdanjoo",
    "website": "https://yazdanjoo.de",
-   "availability": "Currently based in Weimar, Germany. Open to interdisciplinary UX & Tech roles. EU work permit, open to relocate.",
+   "availability": "I currently live in Weimar but open to relocate.",
    "timezone": "CET (UTC+1)"
   }
  },
