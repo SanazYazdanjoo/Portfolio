@@ -412,9 +412,6 @@ function CVSidebarNav({ sections, activeId }) {
 
   return (
     <nav aria-label={t("cv.sectionsAriaLabel")} className="pt-1">
-      <p className="text-2xs font-black uppercase text-gray-500 mb-5 pl-3">
-        {t("cv.onThisPage")}
-      </p>
       <ul className="space-y-0.5">
         {sections.map((section, index) => {
           const isActive = activeId === section.id;
