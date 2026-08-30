@@ -1,7 +1,6 @@
-// The footer, as the reference draws it: one 32px band, one line of mono
-// label text. Copyright and timezone on the left, the four legal
-// destinations on the right. Nothing else — the colophon moved to the
-// contact section, where the reference puts it.
+// The footer: one 32px band of mono label text. Copyright and timezone on
+// the left — copyright, colophon and the source link — and the four legal
+// destinations on the right.
 //
 // The cookie control sits here because this renders on every route:
 // Cookiebot's own floating widget is hidden site-wide (see #CookiebotWidget
@@ -10,11 +9,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "../context/LanguageContext";
+import { REPO_URL } from "../data/site";
+import { HandArrow } from "./HandArrow";
 
 const LEGAL_LINK = "hover:text-primary-600 transition-colors duration-200";
 
-export function Footer({ data }) {
-  const { name } = data;
+export function Footer() {
   const { t } = useTranslation();
   const year = new Date().getFullYear();
 
@@ -25,7 +25,17 @@ export function Footer({ data }) {
         style={{ paddingBlock: "var(--space-32)" }}
       >
         <div className="md:col-span-12 flex flex-wrap items-baseline justify-between gap-s24">
-          <span>&copy; {year} {name} &middot; {t("footer.timezone")}</span>
+          <span>
+            &copy; {year} &middot; {t("footer.colophon")}{" "}
+            <a
+              href={REPO_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-s6 text-primary-600 rule-underline hover:opacity-80 transition-opacity duration-200 focus-ring"
+            >
+              {t("footer.viewSource")} <HandArrow direction="up-right" />
+            </a>
+          </span>
 
           <nav
             className="flex flex-wrap gap-s24 uppercase"

@@ -86,7 +86,7 @@ export default function App() {
             </Suspense>
           </main>
 
-          <Footer data={profileData} />
+          <Footer />
         </div>
 
         {/* Both fixed overlays live OUTSIDE the custom scroll container, as

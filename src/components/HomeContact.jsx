@@ -1,12 +1,10 @@
-// The contact section, matching the reference: availability, the address at
-// its own display size, one row of three links, and the colophon. The
-// colophon lives here — the reference puts it in this section, not in the
-// footer, which carries only legal chrome.
+// The contact section: availability, the address at its own display size,
+// and one row of three links. The colophon lives in the footer, beside the
+// copyright line.
 
 import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "../context/LanguageContext";
-import { REPO_URL } from "../data/site";
 import { HandArrow } from "./HandArrow";
 
 const LINK =
@@ -19,10 +17,7 @@ export function HomeContact({ data }) {
 
   return (
     <div className="flex flex-col gap-s28">
-      <p className="text-outcome text-text flex gap-s10">
-        <span aria-hidden="true" className="text-success">&#9679;</span>
-        <span>{contact.availability}</span>
-      </p>
+      <p className="doodle-text text-aside text-text">{contact.availability}</p>
 
       <a
         href={`mailto:${contact.email}`}
@@ -46,18 +41,6 @@ export function HomeContact({ data }) {
         )}
         <Link to="/cv" className={LINK}>{t("nav.cv")} <HandArrow direction="up-right" /></Link>
       </div>
-
-      <p className="mt-s8 text-small text-text-meta">
-        {t("footer.colophon")}{" "}
-        <a
-          href={REPO_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-s6 text-primary-600 rule-underline hover:opacity-80 transition-opacity duration-200 focus-ring"
-        >
-          {t("footer.viewSource")} <HandArrow direction="up-right" />
-        </a>
-      </p>
     </div>
   );
 }
