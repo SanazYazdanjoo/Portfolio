@@ -143,17 +143,17 @@
         "date": "12/2024 – Present",
         "impactMetrics": [
           { "en": "13-step paper workflow digitised", "de": "13-stufiger Papierprozess digitalisiert" },
-          { "en": "1,234 automated tests, build-enforced requirement traceability", "de": "1.234 automatisierte Tests, Build-erzwungene Anforderungs-Traceability" },
+          { "en": "1,734 automated tests, build-enforced requirement traceability", "de": "1.734 automatisierte Tests, Build-erzwungene Anforderungs-Traceability" },
           { "en": "GDPR-first data pipeline", "de": "DSGVO-konforme Datenhaltung" }
         ],
         "tasks": [
           {
-            "en": "Engineered a role-based web application (React, TypeScript, Vite, SQLite) to digitalise a 13-step paper reimbursement workflow, replacing manual Excel tracking with an explicit claim state machine backed by 1,234 automated tests.",
-            "de": "Entwicklung einer rollenbasierten Webanwendung (React, TypeScript, Vite, SQLite) zur Digitalisierung eines 13-stufigen papierbasierten Erstattungsprozesses — die manuelle Excel-Verwaltung wurde durch eine explizite Antrags-Zustandsmaschine mit 1.234 automatisierten Tests ersetzt."
+            "en": "Engineered a role-based web application (React, TypeScript, Vite, SQLite) to digitalise a 13-step paper reimbursement workflow, replacing manual Excel tracking with an explicit claim state machine backed by 1,734 automated tests.",
+            "de": "Entwicklung einer rollenbasierten Webanwendung (React, TypeScript, Vite, SQLite) zur Digitalisierung eines 13-stufigen papierbasierten Erstattungsprozesses — die manuelle Excel-Verwaltung wurde durch eine explizite Antrags-Zustandsmaschine mit 1.734 automatisierten Tests ersetzt."
           },
           {
-            "en": "Ran empirical UX research (5W1H, UML activity diagrams, stakeholder mapping) across 9 distinct actor roles, translating structural workflow failures into numbered requirements whose citations in code are kept traceable by a build-failing test.",
-            "de": "Durchführung empirischer UX-Research (5W1H, UML-Aktivitätsdiagramme, Stakeholder-Mapping) über 9 Akteursrollen; strukturelle Prozessfehler wurden in nummerierte Anforderungen übersetzt, deren Zitationskette im Code ein Build-brechender Test absichert."
+            "en": "Ran empirical UX research (5W1H, UML activity diagrams, stakeholder mapping) across the 9 actors of the paper process, which the system implements as 5 permission roles; structural workflow failures were translated into numbered requirements whose citations in code are kept traceable by a build-failing test.",
+            "de": "Durchführung empirischer UX-Research (5W1H, UML-Aktivitätsdiagramme, Stakeholder-Mapping) über die 9 Akteure des Papierprozesses, die das System als 5 Berechtigungsrollen abbildet; strukturelle Prozessfehler wurden in nummerierte Anforderungen übersetzt, deren Zitationskette im Code ein Build-brechender Test absichert."
           },
           {
             "en": "Built a strict GDPR/DSGVO-compliant data pipeline with local persistence adapters and Nextcloud WebDAV integrations, ensuring participant data never leaves internal institute servers.",
@@ -350,7 +350,7 @@
         "cvMetric": 2,
         "metrics": [
           {
-            "value": { "en": "1,234", "de": "1.234" },
+            "value": { "en": "1,734", "de": "1.734" },
             "label": {
               "en": "automated tests",
               "de": "automatisierte Tests"
