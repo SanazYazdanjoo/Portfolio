@@ -16,18 +16,29 @@
 
 import { SECTIONS } from "./constants";
 
-// A section id counts as named when it appears followed by a colon and is
-// not part of a longer word — so "design:" matches, "designSystem:" does
-// not match `design`, and "metrics/results:" matches `results`.
-const MATCHERS = SECTIONS.map((s) => ({
-  id: s.id,
-  re: new RegExp(`(?:^|[^A-Za-z])${s.id}\s*:`, "i"),
+// How a pointer is read. `tagEvidence` prose is written as semicolon-
+// separated clauses, each opening with where to look and then quoting what
+// is there: "figures.challenge: the AS-IS swimlane…", "wireframe section:
+// the Phase 2 wireframes…", "solution and prototype: the claim state
+// machine…". The part before a clause's first colon is therefore the
+// pointer, and everything after it is the quotation — so only the pointer
+// is searched. Searching the whole clause would map a tag to any section
+// its quoted sentence happened to name, which is the opposite of what the
+// pointer says.
+const IDS = SECTIONS.map((s) => s.id);
+
+// Word-boundary match, case-insensitive, so "figures.methodology",
+// "metrics/results" and "solution and prototype" all resolve, while
+// "designSystem" never resolves as "design".
+const MATCHERS = IDS.map((id) => ({
+  id,
+  re: new RegExp(`(?:^|[^A-Za-z])${id}(?![A-Za-z])`, "i"),
 }));
 
 /**
  * @param {string[]} tags            the project's tags, in their authored order
  * @param {Array<{tag: string, evidence: string}>} tagEvidence
- * @returns {Record<string, string[]>} section id → tags, in the tags order
+ * @returns {Record<string, string[]>} section id -> tags, in the tags order
  */
 export function deriveTagSections(tags, tagEvidence) {
   const bySection = {};
@@ -38,8 +49,18 @@ export function deriveTagSections(tags, tagEvidence) {
   for (const tag of tags) {
     const evidence = evidenceFor.get(tag);
     if (!evidence) continue;
+
+    const heads = evidence
+      .split(";")
+      .map((clause) => {
+        const colon = clause.indexOf(":");
+        return colon === -1 ? "" : clause.slice(0, colon);
+      })
+      .join(" | ");
+    if (!heads.trim()) continue;
+
     for (const { id, re } of MATCHERS) {
-      if (!re.test(evidence)) continue;
+      if (!re.test(heads)) continue;
       (bySection[id] ||= []).push(tag);
     }
   }
