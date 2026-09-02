@@ -40,6 +40,7 @@ import architectureDiagram from './App-Architecture-Simplified.png';
 import beforeAfterArtefacts from './before-after.webp';
 import architectureGuarantees from './architecture-guarantees.png';
 import processStrip from './process-sketch-wireframe-shipped.svg';
+import wireframeAttendance from './wireframe-attendance-month.png';
 
 // The two research artefacts are full standalone documents — a nine-lane
 // activity diagram and a seven-card persona set — too detailed to read at
@@ -63,7 +64,7 @@ export const projectData = {
   // process gallery, which this one is not — but it pointed at a file that
   // was never authored, so it now names the image that does exist.
   heroImage: thumbnailImg,
-  heroIsGenerated: true, // the hero is a generated illustration — renders the credit
+  heroIsGenerated: true, // hero generated with Google Gemini — renders the credit
 
   methods: [
     { en: 'Insider process observation (AS-IS)',              de: 'Insider-Prozessbeobachtung (IST-Zustand)' },
@@ -115,7 +116,9 @@ export const projectData = {
     'SheetJS / Local Excel Files',
     'Nextcloud WebDAV Integration',
     'SVG (hand-authored diagrams)',
-    'Claude Design (wireframes)',
+    'Claude Design (case-study figures, diagrams, early wireframes)',
+    'Figma Make (clickable low-fidelity wireframe set)',
+    'Claude Code (AI-assisted development)',
   ],
 
   about: {
@@ -235,8 +238,8 @@ export const projectData = {
   // middle panel is wireframe page 1g, Anwesenheit · Monat, and the third
   // panel shows the deployed screen carrying the same structures.
   wireframe: {
-    en: 'Before the high-fidelity screens were built, the layouts were drawn as wireframes in Claude Design, based on the numbered requirements from Phase 2. A wireframe fixes the structure of a screen — which elements it contains, in what order, and which rules apply — before colour and typography come in. The strip below shows this for the attendance-month screen: the paper sketch from the process observation, the Phase 2 wireframe, and the screen as it shipped.',
-    de: 'Bevor die High-Fidelity-Screens gebaut wurden, wurden die Layouts als Wireframes in Claude Design gezeichnet, auf Basis der nummerierten Anforderungen aus Phase 2. Ein Wireframe legt die Struktur eines Screens fest — welche Elemente er enthält, in welcher Reihenfolge und nach welchen Regeln —, bevor Farbe und Typografie dazukommen. Der Streifen unten zeigt das am Anwesenheits-Monatsscreen: die Papierskizze aus der Prozessbeobachtung, das Phase-2-Wireframe und der Screen im ausgelieferten Zustand.',
+    en: 'Before the high-fidelity screens were built, the layouts were drawn as wireframes against the numbered requirements from Phase 2. A wireframe fixes the structure of a screen — which elements it contains, in what order, and which rules apply — before colour and typography come in. The low-fidelity set was built as a clickable prototype in Figma Make, one tab per view, so the navigation between the screens could be walked through and not just imagined. The strip below shows the path for the attendance-month screen: the paper sketch from the process observation, the wireframe, and the screen as it shipped; the wireframe itself follows at full size.',
+    de: 'Bevor die High-Fidelity-Screens gebaut wurden, wurden die Layouts als Wireframes entlang der nummerierten Anforderungen aus Phase 2 gezeichnet. Ein Wireframe legt die Struktur eines Screens fest — welche Elemente er enthält, in welcher Reihenfolge und nach welchen Regeln —, bevor Farbe und Typografie dazukommen. Der Low-Fidelity-Satz entstand als klickbarer Prototyp in Figma Make, ein Tab je Ansicht, sodass sich die Navigation zwischen den Screens durchlaufen und nicht nur vorstellen ließ. Der Streifen unten zeigt den Weg am Anwesenheits-Monatsscreen: die Papierskizze aus der Prozessbeobachtung, das Wireframe und den Screen im ausgelieferten Zustand; das Wireframe selbst folgt darunter in voller Größe.',
   },
 
   figures: {
@@ -662,45 +665,43 @@ export const projectData = {
           de: 'Skizze, Wireframe und ausgelieferter Build des Anwesenheits-Monatsscreens',
         },
       },
-      // ── The Phase 2 wireframe set at reading size. One page of it is
-      // already published on this page — the attendance-month wireframe
-      // embedded in the strip above — but at panel width (453 CSS px) it
-      // can only prove the stage happened. The full-size export from the
-      // Claude Design project is still owed, so this entry carries
-      // `pending: true` and no `src`: the same mechanics, and the same
-      // reasoning, as the traceability pair under `methodology` — the frame
-      // renders and says the artwork is coming, and nothing pretends an
-      // export exists that has not been made. The framing below is written
-      // against the decoded 906×332 panel itself (page number, header
-      // toggle, legend, row counts, margin notes all read off it), so it
-      // stays true when the full-size file lands.
+      // ── The low-fidelity wireframe set at reading size. One page of it is
+      // already on this page — the attendance-month panel inside the strip
+      // above — but at panel width (453 CSS px) it can only prove the stage
+      // happened. This entry publishes the same screen full-width.
       //
-      // To publish: export the page from the Claude Design project, drop it
-      // next to this module, add its import at the top of the file
-      //   import wireframeAttendance from './wireframe-1g-attendance.png';
-      // then set `src: wireframeAttendance` and delete the `pending: true`
-      // line. Further pages of the set become sibling entries, same shape.
+      // Provenance (02.09.2026): the low-fi set is a live, clickable
+      // Figma Make site (IBS-FKTN-LOW-FI) with one tab per screen — Start,
+      // Übersicht as table / pipeline / charts, Anwesenheit by month and by
+      // week, TN Detail, TN Formular, TN-Daten, Kalender & Plan. The file
+      // beside this module is a 2× deterministic capture of the
+      // "Anwes.·Monat" tab, taken at a 1440 px viewport with the wireframe
+      // tab bar hidden and cropped to the content box, so what is published
+      // is the wireframe itself and not a screenshot of a website chrome.
+      // The description below is written against that capture.
+      //
+      // Further screens of the set become sibling entries, same shape.
       {
         type: 'image',
-        pending: true,
+        src: wireframeAttendance,
         span: 2,
         className: 'w-full h-auto block',
-        label: { en: 'Wireframes · Phase 2', de: 'Wireframes · Phase 2' },
+        label: { en: 'Low-fidelity wireframe', de: 'Low-Fidelity-Wireframe' },
         title: {
           en: 'The attendance-month wireframe at full size',
           de: 'Das Anwesenheits-Monats-Wireframe in voller Größe',
         },
         description: {
-          en: 'Page 1g of the Phase 2 wireframe set — the same file that appears in the strip above, at a size where it can actually be read. The structure of the shipped screen is already in place: the toggle between week bands and whole month, the attendance-code legend, participant rows with per-day cells and an annotation field, and a counter of captured versus open fields. The red margin notes record the rules the layout has to follow: codes are entered through a dropdown with a fixed vocabulary, and every change is written to a change log.',
-          de: 'Seite 1g des Phase-2-Wireframe-Satzes — dieselbe Datei, die im Streifen oben zu sehen ist, in einer Größe, in der sie sich tatsächlich lesen lässt. Die Struktur des ausgelieferten Screens ist bereits angelegt: der Umschalter zwischen Wochenbändern und ganzem Monat, die Legende der Anwesenheitscodes, Teilnehmenden-Zeilen mit Tageszellen und Anmerkungsfeld sowie ein Zähler erfasster gegen offene Felder. Die roten Randnotizen halten die Regeln fest, denen das Layout folgen muss: Codes werden über ein Dropdown mit festem Vokabular eingegeben, und jede Änderung landet im Änderungsprotokoll.',
+          en: 'The attendance-month screen from the low-fidelity set, at a size where it can actually be read. Everything that carries meaning is spelled out and everything else stays a grey bar — that is the point of a low-fidelity wireframe: the structure gets decided before colour, wording and typography can distract from it. The structure is already the shipped one: the role navigation on the left, the programme selector in the header, a toggle between the month view and the week view, an attendance-code legend, and one row per participant with a cell for every day of the month. The cells hold the actual vocabulary — X for a day attended, U for an unexcused absence, an em dash for a day that is not a working day — weekends, holidays and school-holiday columns are shaded rather than left to be counted by hand, and the Σ column adds each participant’s attendance days up, which is the number the whole reimbursement calculation hangs on.',
+          de: 'Der Anwesenheits-Monatsscreen aus dem Low-Fidelity-Satz, in einer Größe, in der er sich tatsächlich lesen lässt. Alles, was Bedeutung trägt, ist ausformuliert, alles andere bleibt ein grauer Balken — genau dafür ist ein Low-Fidelity-Wireframe da: Die Struktur wird entschieden, bevor Farbe, Wortlaut und Typografie davon ablenken können. Die Struktur ist bereits die ausgelieferte: die Rollennavigation links, die Maßnahmenauswahl im Kopfbereich, ein Umschalter zwischen Monats- und Wochenansicht, eine Legende der Anwesenheitscodes und je teilnehmender Person eine Zeile mit einer Zelle für jeden Tag des Monats. Die Zellen tragen das echte Vokabular — X für einen besuchten Tag, U für unentschuldigtes Fehlen, ein Gedankenstrich für einen Nicht-Arbeitstag —, Wochenenden, Feiertage und Ferienspalten sind hinterlegt statt von Hand ausgezählt, und die Σ-Spalte summiert die Anwesenheitstage je Person: die Zahl, an der die gesamte Erstattungsberechnung hängt.',
         },
         alt: {
-          en: 'Wireframe of the attendance-month screen, numbered 1g: a header row with month switcher and a week-bands/whole-month toggle, an attendance-code legend, a week grid of participant rows with per-day cells and an annotations column, a collapsed whole-month alternative below, and red margin notes about the code dropdown and the change protocol.',
-          de: 'Wireframe des Anwesenheits-Monatsscreens, nummeriert 1g: eine Kopfzeile mit Monatswechsler und Umschalter Wochenbänder/ganzer Monat, eine Legende der Anwesenheitscodes, ein Wochenraster aus Teilnehmenden-Zeilen mit Tageszellen und Anmerkungsspalte, darunter die eingeklappte Alternative „ganzer Monat“ sowie rote Randnotizen zu Code-Dropdown und Änderungsprotokoll.',
+          en: 'Low-fidelity wireframe of the attendance-month screen: a left sidebar with the sections Start, Übersicht, Anwesenheit, Teilnehmende, Hilfsmittel, Freigaben and Sonstiges, a header with a programme selector, a month/week toggle and an attendance-code legend, and a table with one row per participant and one column per day of the month, cells reading X, U or an em dash, shaded weekend and school-holiday columns, a Σ column of attendance days, and a legend for public holiday/weekend, school holiday and working day.',
+          de: 'Low-Fidelity-Wireframe des Anwesenheits-Monatsscreens: links eine Seitenleiste mit den Bereichen Start, Übersicht, Anwesenheit, Teilnehmende, Hilfsmittel, Freigaben und Sonstiges, im Kopfbereich eine Maßnahmenauswahl, ein Monats-/Wochen-Umschalter und eine Legende der Anwesenheitscodes, darunter eine Tabelle mit je einer Zeile pro teilnehmender Person und einer Spalte pro Tag des Monats, Zellen mit X, U oder Gedankenstrich, hinterlegten Wochenend- und Ferienspalten, einer Σ-Spalte der Anwesenheitstage sowie einer Legende für Feiertag/WE, Schulferien und Arbeitstag.',
         },
         caption: {
-          en: 'Attendance-month wireframe (1g) — Phase 2, Claude Design · full-size export pending',
-          de: 'Anwesenheits-Monats-Wireframe (1g) — Phase 2, Claude Design · Export in voller Größe ausstehend',
+          en: 'Attendance · month — low-fidelity wireframe from the clickable set built in Figma Make',
+          de: 'Anwesenheit · Monat — Low-Fidelity-Wireframe aus dem klickbaren Satz, gebaut in Figma Make',
         },
       },
     ],
@@ -790,7 +791,12 @@ export const projectData = {
     { tag: 'Requirements Traceability', evidence: "methodology Develop: a build-failing test keeps every requirement citation in code traced to its source problem — and states its own limit: it catches a citation without a source, not a problem without an implementation", status: 'evidenced' },
     { tag: 'Information Architecture', evidence: "methods: information architecture & state modelling; solution: five purpose-built role views replacing the spreadsheet ecosystem", status: 'evidenced' },
     { tag: 'State Machine Modelling', evidence: "solution and prototype: the explicit claim state machine, including the modelled-but-unreachable AUSGEZAHLT status, stated honestly on the page", status: 'evidenced' },
-    { tag: 'Wireframing', evidence: "wireframe section: the Phase 2 wireframes drawn in Claude Design against the numbered requirements; figures.wireframe: the sketch → wireframe → shipped strip of the attendance-month screen, plus the full-size page-1g export (pending)", status: 'evidenced' },
+    { tag: 'Wireframing', evidence: "wireframe section: the Phase 2 wireframes drawn against the numbered requirements; figures.wireframe: the sketch → wireframe → shipped strip of the attendance-month screen, plus that screen published full-width", status: 'evidenced' },
+    { tag: 'Low-Fidelity Wireframe', evidence: "figures.wireframe: the attendance-month screen from the low-fidelity set at full size — structure, vocabulary and day grid decided while everything decorative is still a grey bar; the set covers Start, three Übersicht variants, month and week attendance, TN Detail, TN Formular, TN-Daten and Kalender & Plan", status: 'evidenced' },
+    { tag: 'High-Fidelity Wireframe', evidence: "design section: the IBS design system sheet, and figures.prototype: the high-fidelity screens as built — the same attendance-month layout with the role palette, type scale and field states applied; prototype: the deployed demo running all five role views", status: 'evidenced' },
+    { tag: 'Figma Make', evidence: "wireframe section and techStack: the low-fidelity set was built as a clickable Figma Make prototype, one tab per view, so the navigation between screens could be walked through; the published figure is a capture of its attendance-month tab", status: 'evidenced' },
+    { tag: 'Claude Design', evidence: "techStack: the figures that carry this case study were drawn in Claude Design — the 5W1H frame, the stakeholder map, the simplified app architecture and its guarantees, the before/after artefact comparison, and the sketch → wireframe → shipped strip; the earlier wireframes came from there too, before the clickable set moved to Figma Make", status: 'evidenced' },
+    { tag: 'Claude Code', evidence: "techStack: Claude Code was the AI-assisted development environment the React/TypeScript app and its test suite were built in; the case study documents the resulting artefacts, not the tooling, so this tag rests on the stack listing alone", status: 'thin' },
     { tag: 'Interaction Design', evidence: "the guided Schritt-für-Schritt mode, camera capture, and the visible status chain are interaction decisions traceable to numbered problems; no standalone interaction spec is published", status: 'thin' },
     { tag: 'Design Systems', evidence: "design section: the IBS-DesignSystem sheet with the research diagram's lane colours carried unchanged into the shipped UI; a token guard test fails the build on drift between sheet and code", status: 'evidenced' },
     { tag: 'Prototyping', evidence: "prototype: a deployed demo on Vercel running all five role views entirely in the browser on fictional data, safe to hand to a stranger", status: 'evidenced' },
