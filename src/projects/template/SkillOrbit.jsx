@@ -128,6 +128,12 @@ export function SkillOrbitRail({ pills, enabled }) {
   return (
     <aside
       className="no-print shrink-0 w-[200px] pl-8 sticky top-36 self-start"
+      /* No visible caption. The pills carry the same styling as the Skills
+         row they flew out of, and arriving beside the section they belong to
+         is itself the sentence a caption would have written out — a label
+         over four chips reads as instructions for something obvious. The
+         name stays for anyone navigating by landmark, where the arrival
+         cannot be seen. */
       aria-label={t("project.orbit.label")}
     >
       <AnimatePresence mode="popLayout" initial={false}>
@@ -140,9 +146,6 @@ export function SkillOrbitRail({ pills, enabled }) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: EASE }}
           >
-            <span className="font-mono text-2xs uppercase tracking-wide text-text-meta">
-              {t("project.orbit.label")}
-            </span>
             {pills.map((tag, i) => (
               <OrbitPill key={tag} tag={tag} index={i} reduced={reduced} />
             ))}
