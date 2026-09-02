@@ -251,7 +251,7 @@ export const projectData = {
         },
         caption: { en: "v1 · screen E — confirmation; the progress indicator has deliberately ended", de: "v1 · Screen E — Bestätigung; der Fortschrittsindikator ist hier bewusst zu Ende" },
       },
-      // TODO: the v1 device-control screen (G) shows a "Manage Access" row
+      // Note: the v1 device-control screen (G) shows a "Manage Access" row
       // that is absent from the v2 shot, and the report's list of post-test
       // changes does not mention this screen. v1 is treated as canonical
       // here and no iteration story is built on it.
