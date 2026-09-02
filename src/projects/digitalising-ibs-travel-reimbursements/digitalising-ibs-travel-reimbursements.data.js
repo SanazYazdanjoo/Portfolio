@@ -97,7 +97,7 @@ export const projectData = {
     { value: '43+', label: { en: 'days and still unpaid — one claim traced end to end through the paper process: 8 days sitting unseen, 1 day of admin work, the rest downstream and invisible', de: 'Tage und weiter unbezahlt — ein Antrag durchgängig im Papierprozess verfolgt: 8 Tage unbemerkt liegend, 1 Tag Bearbeitung, der Rest nachgelagert und unsichtbar' } },
     { value: '0', label: { en: 'reminders for private-vehicle (PKW) claims in the paper process — submitting depended entirely on the participant remembering', de: 'Erinnerungen an PKW-Anträge im Papierprozess — die Einreichung hing allein am Erinnern der Teilnehmenden' } },
     { value: '4/6', label: { en: 'respondents do not know how their amount is calculated; two have stopped trying', de: 'Befragte wissen nicht, wie ihr Betrag berechnet wird; zwei haben aufgehört, es zu versuchen' } },
-    { value: { en: '1,234', de: '1.234' }, label: { en: 'automated tests — including guards that fail the build on an untraced requirement citation or a design-token drift', de: 'automatisierte Tests — darunter Guards, die den Build bei unbelegten Anforderungszitaten oder Token-Abweichungen scheitern lassen' } },
+    { value: { en: '1,734', de: '1.734' }, label: { en: 'automated tests — including guards that fail the build on an untraced requirement citation or a design-token drift', de: 'automatisierte Tests — darunter Guards, die den Build bei unbelegten Anforderungszitaten oder Token-Abweichungen scheitern lassen' } },
   ],
 
   metricsIntro: {
@@ -838,7 +838,7 @@ export const projectData = {
     { tag: 'Node.js / Fastify', evidence: "techStack: Node.js Server (Fastify); the self-hosted target described in the architecture figure — implemented and tested, deployment pending", status: 'evidenced' },
     { tag: 'SQLite', evidence: "techStack and the architecture figure: local SQLite database holding only typed fields — no amount column, no trace column", status: 'evidenced' },
     { tag: 'Excel Automation (SheetJS)', evidence: "techStack: SheetJS / local Excel files — the adapter that reads the institute's existing workbooks so nothing has to be migrated by hand", status: 'evidenced' },
-    { tag: 'Automated Testing (Vitest)', evidence: "metrics: 1,234 automated tests, including guards that fail the build on an untraced requirement citation or a design-token drift", status: 'evidenced' },
+    { tag: 'Automated Testing (Vitest)', evidence: "metrics: 1,734 automated tests, including guards that fail the build on an untraced requirement citation or a design-token drift", status: 'evidenced' },
     { tag: 'Product Instrumentation', evidence: "methodology Deliver: pseudonymous local event log with sessionisation; dogfooding collapsed 690 logged records to 45 real sittings and caught three measurement bugs", status: 'evidenced' },
     { tag: 'Privacy by Design', evidence: "pseudonymous salted logging, local-only storage, a no-real-names build test, proofs mirrored only inside the institute, and the single external call (route lookup) named rather than hidden", status: 'evidenced' },
     { tag: 'GDPR / DSGVO', evidence: "solution: adapters over a local SQLite database with Nextcloud mirroring inside the institute; the published prototype runs on fictional data pinned by a test; survey verbatims are anonymous and non-identifying", status: 'evidenced' },
