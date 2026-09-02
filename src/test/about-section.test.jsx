@@ -7,7 +7,7 @@ import { screen } from "@testing-library/react";
 import { renderWithProviders } from "./renderWithProviders";
 import ProjectTemplate from "../projects/ProjectTemplate";
 import { fullProjects as projects } from "./fullProjects";
-import { projectData } from "../projects/gaze-assisted-input/data";
+import { projectData } from "../projects/gaze-assisted-input/gaze-assisted-input.data";
 
 describe("About section", () => {
   it("renders the About heading and the project's about copy", () => {

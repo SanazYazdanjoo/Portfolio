@@ -1,5 +1,5 @@
 // Card-level fields ONLY — see gaze-assisted-input/card.js for the contract:
-// the aggregator eagerly globs card.js; the prose stays in data.js, which
+// the aggregator eagerly globs card.js; the prose stays in <slug>.data.js, which
 // spreads this object and loads with the detail route's chunk.
 // Content is sourced from the SoSe 2023 Bauhaus-Universität Weimar course
 // project documentation (team of 4). Evidence lock: every number on this

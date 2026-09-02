@@ -70,7 +70,7 @@ file.
 The mirrors are **derived, never written by hand**: they render from
 `api/_knowledge.mjs`, the same committed knowledge base the "Ask this
 portfolio" assistant answers from, which `generate-chat-knowledge.mjs`
-regenerates from `data.json` and `src/projects/*/data.js` on every build. One
+regenerates from `data.json` and `src/projects/*/<slug>.data.js` on every build. One
 source, three consumers — a content edit reaches the site, the assistant and
 the mirrors together, and they cannot drift apart.
 
