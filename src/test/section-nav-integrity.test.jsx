@@ -1,7 +1,7 @@
 // The section-rail invariant, run against every real case study.
 //
 // ProjectTemplate derives the sidebar TOC and the mobile pill bar from
-// `activeSections` — SECTIONS filtered by whether the project's data.js
+// `activeSections` — SECTIONS filtered by whether the project's <slug>.data.js
 // carries that key. The section bodies, though, are rendered by hand, one
 // JSX block per section. Those are two independent derivations of the same
 // list, and nothing but these tests makes them agree.
@@ -13,7 +13,7 @@
 // keeping the fallback and dropping the gallery. `process` stayed in
 // SECTIONS, so every case study still listed "Research Process" in its rail
 // and still counted it in the section numbering — the entry just scrolled
-// nowhere, and every process entry in every data.js (6 for deskbird, 7 for
+// nowhere, and every process entry in every <slug>.data.js (6 for deskbird, 7 for
 // EmbraceMe, 6 for the thesis) stopped rendering at all. Nothing failed,
 // because no test asserted the two lists agreed.
 //
@@ -72,7 +72,7 @@ describe("section rail — every listed section resolves to a real section", () 
       // Every entry, not just the first — a stepper that renders one item and
       // drops the rest would still satisfy the check above.
       const steps = within(body).getAllByRole("listitem");
-      expect(steps.length, `${slug}: ${project.process.length} entries in data.js`).toBe(
+      expect(steps.length, `${slug}: ${project.process.length} entries in <slug>.data.js`).toBe(
         project.process.length
       );
 

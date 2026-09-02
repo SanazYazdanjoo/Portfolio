@@ -1,7 +1,7 @@
 // Site search, resolved entirely on the client from what every page already
 // ships: the translation maps (where the static pages keep their body copy),
 // the project card files (eagerly globbed by src/data/projects.js), and the
-// tag counts derived from them. Deliberately NOT the full data.js prose —
+// tag counts derived from them. Deliberately NOT the full <slug>.data.js prose —
 // that would undo the card/data bundle split (see src/data/projects.js);
 // a prebuilt index à la generate-chat-knowledge.mjs is the upgrade path if
 // case-study body text ever needs to be searchable.

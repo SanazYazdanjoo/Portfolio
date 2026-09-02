@@ -1,5 +1,5 @@
 // Card-level fields ONLY — see gaze-assisted-input/card.js for the contract:
-// the aggregator eagerly globs card.js; the prose stays in data.js, which
+// the aggregator eagerly globs card.js; the prose stays in <slug>.data.js, which
 // spreads this object and loads with the detail route's chunk.
 import thumbnailImg from './Project-2.png';
 import thumbnailWebp from './Project-2.webp';
