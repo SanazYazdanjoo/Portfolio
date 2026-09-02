@@ -298,7 +298,7 @@ const en = {
   "project.meta.timeline": "Timeline",
   "project.meta.methods": "Research Methods",
   "project.meta.skills": "Skills",
-  "project.orbit.label": "In play here",
+  "project.orbit.label": "Skills used in this section",
   "project.meta.moreSkills": "more",
   "project.meta.fewerSkills": "Show fewer",
   "project.meta.showAllSkills": "Show all {n} skills",
