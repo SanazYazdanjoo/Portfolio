@@ -216,6 +216,35 @@ export const projectData = {
     en: "A significant technique × distance interaction (η²ₚ = .690) revealed a crossover: the mouse was fastest for short distances, but Ninja Cursors significantly outperformed it at the two intermediate cross-screen distances (1684 and 2243 px) and converged at the longest (3226 px). MAGIC was consistently slowest — its warp coupled gaze noise directly to landing accuracy, producing the highest repeat rate on small targets (4.69%), while Ninja's small-target repeat rate matched the mouse baseline (3.30%). SUS ranked Mouse (85.2) > Ninja (72.6) > MAGIC (55.9), with MAGIC alone falling below the 68-point acceptability threshold — yet 60% of participants named Ninja their most preferred method, and 63% named MAGIC their least preferred.",
     de: "Eine signifikante Interaktion Technik × Distanz (η²ₚ = .690) zeigte einen Crossover: Die Maus war bei kurzen Distanzen am schnellsten, doch Ninja Cursors übertrafen sie signifikant bei den beiden mittleren bildschirmübergreifenden Distanzen (1684 und 2243 px) und glichen sich bei der längsten (3226 px) an. MAGIC war durchgängig am langsamsten — der Warp koppelte Blickrauschen direkt an die Landegenauigkeit und erzeugte die höchste Wiederholungsrate bei kleinen Zielen (4,69 %), während Ninjas Wiederholungsrate bei kleinen Zielen der Maus-Baseline entsprach (3,30 %). Der SUS-Score rangierte Maus (85,2) > Ninja (72,6) > MAGIC (55,9), wobei allein MAGIC unter die Akzeptanzschwelle von 68 Punkten fiel — dennoch nannten 60 % der Teilnehmenden Ninja als bevorzugte Methode und 63 % MAGIC als am wenigsten bevorzugte.",
   },
+  // The six limitations stated in the thesis (§5.4), in the order they
+  // appear there — not a re-derivation.
+  limitations: [
+    {
+      en: "Short-term exposure. The study captured first impressions, not long-term adaptation — and the mouse's familiarity is a confound the design could not remove. Whether the coordination overhead 18 of 30 participants described falls away as the gaze techniques are internalised needs a longitudinal design.",
+      de: "Kurzzeitige Exposition. Die Studie erfasste erste Eindrücke, nicht langfristige Anpassung — und die Vertrautheit der Maus ist ein Confounder, den das Design nicht beseitigen konnte. Ob der Koordinationsaufwand, den 18 von 30 Teilnehmenden beschrieben, mit der Verinnerlichung der Blicktechniken verschwindet, müsste ein Längsschnittdesign zeigen.",
+    },
+    {
+      en: "Hardware-related discomfort. Fourteen of thirty participants reported frame pressure, eye fatigue, or degraded tracking as prescription-glasses wearers — all of which likely reflect the apparatus rather than gaze-based interaction as a paradigm.",
+      de: "Hardwarebedingte Beschwerden. Vierzehn von dreißig Teilnehmenden berichteten von Druck des Brillengestells, Augenermüdung oder schlechterem Tracking als Brillenträger:innen — all das dürfte am Apparat liegen, nicht an blickbasierter Interaktion als Paradigma.",
+    },
+    {
+      en: "Laboratory task versus real work. Reciprocal pointing isolates target acquisition; it does not carry window management, context switching, variable target densities, or the periods of cursor disengagement in which the re-acquisition benefit of gaze would show most clearly.",
+      de: "Laboraufgabe statt realer Arbeit. Reziprokes Zeigen isoliert die Zielerfassung; es bildet weder Fensterverwaltung, Kontextwechsel und wechselnde Zieldichten ab noch jene Phasen ohne Cursor-Kontakt, in denen sich der Wiederauffind-Vorteil des Blicks am deutlichsten zeigen würde.",
+    },
+    {
+      en: "Missing endpoint data. Miss/timeout outcomes and trial-level endpoint coordinates were not retained in the cleaned export, so ISO-style effective measures and throughput could not be computed — and repeat rate could not be decomposed into its breakdown types.",
+      de: "Fehlende Endpunktdaten. Miss-/Timeout-Ergebnisse und trial-genaue Endpunktkoordinaten wurden im bereinigten Export nicht aufbewahrt; ISO-konforme effektive Maße und Throughput ließen sich daher nicht berechnen — und die Wiederholungsrate nicht in ihre Fehlertypen zerlegen.",
+    },
+    {
+      en: "Sample characteristics. Participants were largely researchers and professionals in technology-related roles, which limits how far the results generalise to other populations.",
+      de: "Stichprobenmerkmale. Die Teilnehmenden waren überwiegend Forschende und Fachkräfte aus technologienahen Rollen, was die Übertragbarkeit auf andere Gruppen begrenzt.",
+    },
+    {
+      en: "Distance and screen transition are confounded. The six distance levels do not pair within-screen and cross-screen movements at matched amplitudes, so the effect of crossing the bezel cannot be separated from the effect of distance — no claim about the boundary's own contribution is made from these data. The asymmetry was deliberate: the geometry copies a real dual-display workstation rather than an artificially symmetric one. A matched-pairs design would settle it.",
+      de: "Distanz und Bildschirmwechsel sind konfundiert. Die sechs Distanzstufen paaren bildschirminterne und bildschirmübergreifende Bewegungen nicht bei gleichen Amplituden; der Effekt des Rahmenübergangs lässt sich daher nicht vom Effekt der Distanz trennen — eine Aussage über den eigenen Beitrag der Bildschirmgrenze wird aus diesen Daten nicht abgeleitet. Die Asymmetrie war bewusst gewählt: Die Geometrie bildet einen realen Dual-Display-Arbeitsplatz ab, keinen künstlich symmetrischen. Ein Matched-Pairs-Design würde die Frage klären.",
+    },
+  ],
+
   implications: {
     en: "Gaze assistance should be a context-aware accelerator, not an always-on replacement. Three design directions follow from the data: adaptive activation using the screen boundary itself as the trigger, semantic snapping toward UI elements to fix MAGIC's landing penalty, and stronger visual differentiation of the active cursor in multi-cursor designs. For UI engineers, predictability and system trust — not raw speed alone — determine whether users adopt a novel interaction pattern.",
     de: "Blickunterstützung sollte ein kontextsensitiver Beschleuniger sein, kein dauerhafter Ersatz. Aus den Daten folgen drei Gestaltungsrichtungen: adaptive Aktivierung mit der Bildschirmgrenze selbst als Auslöser, semantisches Einrasten an UI-Elementen zur Behebung von MAGICs Landestrafe, und eine stärkere visuelle Differenzierung des aktiven Cursors bei Multi-Cursor-Designs. Für UI-Entwickler:innen entscheiden Vorhersagbarkeit und Systemvertrauen — nicht reine Geschwindigkeit —, ob Nutzer:innen ein neues Interaktionsmuster annehmen.",

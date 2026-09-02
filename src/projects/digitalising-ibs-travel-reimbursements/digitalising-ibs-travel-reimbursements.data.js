@@ -190,6 +190,35 @@ export const projectData = {
     ],
   },
 
+  // Limits on the evidence, distinct from `notBuilt` above: that block is
+  // about scope not yet built, this one about what the research cannot show.
+  limitations: [
+    {
+      en: 'I ran this process myself for more than a year, so the problem framing starts from my own experience. The survey was designed to make those assumptions falsifiable — and reversed one of my priorities — but no independent researcher has reviewed the problem register.',
+      de: 'Ich habe diesen Prozess über ein Jahr selbst betrieben, die Problemrahmung beginnt also bei meiner eigenen Erfahrung. Die Umfrage war darauf angelegt, diese Annahmen falsifizierbar zu machen — und kehrte eine meiner Prioritäten um —, doch kein:e unabhängige:r Forschende:r hat das Problemregister geprüft.',
+    },
+    {
+      en: 'The survey is n=6, self-selected, and so far entirely from the online (BL) cohort. The Präsenzkurs cohort and travel-pass (Abo-Karte) holders are absent, which is why findings are reported as counts: enough to confirm or reframe a problem, never to size it.',
+      de: 'Die Umfrage liegt bei n=6, selbstselektiv und bisher vollständig aus der Online-Kohorte (BL). Die Präsenzkurs-Kohorte und Abo-Karten-Nutzende fehlen — deshalb werden Befunde als Anzahlen berichtet: genug, um ein Problem zu bestätigen oder neu zu rahmen, nie, um es zu beziffern.',
+    },
+    {
+      en: 'Two expert interviews mean one voice per role — project management and accounting. Lecturers, who carry the attendance step the whole chain depends on, were not interviewed; their part of the process is mapped from artefacts and my own observation.',
+      de: 'Zwei Experteninterviews bedeuten eine Stimme je Rolle — Projektleitung und Buchhaltung. Dozierende, die den Anwesenheitsschritt tragen, von dem die gesamte Kette abhängt, wurden nicht interviewt; ihr Prozessteil ist aus Artefakten und eigener Beobachtung kartiert.',
+    },
+    {
+      en: 'The 43+ day figure is one claim traced end to end, and it is right-censored: the claim was still unpaid when the observation stopped. It shows how long the paper process can take — it is not an average and not a distribution.',
+      de: 'Die Angabe von 43+ Tagen ist ein einzelner, durchgängig verfolgter Antrag — und sie ist rechtszensiert: Der Antrag war bei Beobachtungsende weiterhin unbezahlt. Sie zeigt, wie lange der Papierprozess dauern kann — sie ist kein Durchschnitt und keine Verteilung.',
+    },
+    {
+      en: 'No usability evaluation has run. The instruments are built into the app and dogfooded, but every claim about the new system is a claim about a mechanism that exists — not about a measured improvement over the paper process.',
+      de: 'Es ist noch keine Usability-Evaluation gelaufen. Die Instrumente sind in die App eingebaut und im Dogfooding erprobt, doch jede Aussage über das neue System betrifft einen vorhandenen Mechanismus — nicht eine gemessene Verbesserung gegenüber dem Papierprozess.',
+    },
+    {
+      en: 'The traceability test guards citations, not coverage: it fails the build on a requirement citation without a source problem, and stays silent on a source problem with no implementation.',
+      de: 'Der Traceability-Test sichert Zitate, nicht Abdeckung: Er lässt den Build bei einem Anforderungszitat ohne Quellproblem scheitern und schweigt bei einem Quellproblem ohne Umsetzung.',
+    },
+  ],
+
   // Rendered as its own section ("Design") between Solution and Methodology.
   // NOTE for the renderer: `design` text + `figures.design` are new keys.
   design: {
