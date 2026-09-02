@@ -13,15 +13,15 @@
 
 import { describe, it, expect } from "vitest";
 import ProjectTemplate from "../projects/ProjectTemplate";
-import { projectData as siteData } from "../projects/designing-this-site/data";
-import { projectData as gazeData } from "../projects/gaze-assisted-input/data";
+import { projectData as siteData } from "../projects/designing-this-site/designing-this-site.data";
+import { projectData as gazeData } from "../projects/gaze-assisted-input/gaze-assisted-input.data";
 import { renderWithProviders, screen } from "./renderWithProviders";
 
 describe("designing-this-site — the exception's own section list", () => {
   it("drops process, challenge, solution, methodology and implications", () => {
     // The data is the gate: absent fields cannot render (SECTIONS contract).
     for (const key of ["process", "challenge", "solution", "methodology", "implications"]) {
-      expect(siteData[key], `data.js still carries \`${key}\``).toBeUndefined();
+      expect(siteData[key], `<slug>.data.js still carries \`${key}\``).toBeUndefined();
     }
     const { container } = renderWithProviders(<ProjectTemplate meta={siteData} />);
     for (const id of ["process", "challenge", "solution", "methodology", "implications"]) {

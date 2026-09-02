@@ -19,7 +19,7 @@ The hero banner lives one level up, following the site-wide master pattern:
 illustration added 2026-08-27, extended to 21:9 on a TRANSPARENT background
 so the md+ cover band shows the full art and the hero's dotted paper mat
 shows through behind it (owner ruling: keep the dots). It is wired as
-`thumbnail` in `card.js`, with `heroIsGenerated: true` in `data.js`
+`thumbnail` in `card.js`, with `heroIsGenerated: true` in `<slug>.data.js`
 rendering the visible generation credit (an AI image must never pass as
 documentation).
 

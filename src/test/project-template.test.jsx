@@ -2,8 +2,8 @@ import { describe, it, expect, afterEach } from "vitest";
 import { screen, within, fireEvent } from "@testing-library/react";
 import { renderWithProviders } from "./renderWithProviders";
 import ProjectTemplate from "../projects/ProjectTemplate";
-import { projectData } from "../projects/gaze-assisted-input/data";
-import { projectData as ibsData } from "../projects/digitalising-ibs-travel-reimbursements/data";
+import { projectData } from "../projects/gaze-assisted-input/gaze-assisted-input.data";
+import { projectData as ibsData } from "../projects/digitalising-ibs-travel-reimbursements/digitalising-ibs-travel-reimbursements.data";
 
 // Renders the page in German. The provider reads the stored preference on
 // mount, so it has to be set before render, and cleared after — otherwise the

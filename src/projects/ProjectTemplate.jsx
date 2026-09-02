@@ -19,7 +19,7 @@
 // scoped (see template/useSessionState.js).
 //
 // Default export is ProjectTemplate({ meta, children }). All data comes
-// from src/projects/*/data.js. This file is only the composition layer:
+// from src/projects/*/<slug>.data.js. This file is only the composition layer:
 // each building block lives in ./template/ (one concern per file — see
 // template/constants.js for the folder's naming constraints).
 

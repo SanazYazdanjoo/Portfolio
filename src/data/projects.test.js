@@ -1,15 +1,15 @@
 // Data-contract tests for the projects aggregator. These run against the
-// actual src/projects/*/data.js files (import.meta.glob works natively in
+// actual src/projects/*/<slug>.data.js files (import.meta.glob works natively in
 // Vitest since it runs through Vite's transform pipeline) and don't assert
 // specific titles or counts, so adding a new project won't break them, but a
-// malformed data.js will.
+// malformed <slug>.data.js will.
 
 import { describe, it, expect } from "vitest";
 import { execFileSync } from "node:child_process";
 import { projects, sortedProjects, getProject, getTagData } from "./projects";
 // The aggregator carries CARD-level fields only (see the Phase 5 split in
 // projects.js). Content-level suites — bilingual parity, tagEvidence, the
-// renderer registry, metric provenance — verify the FULL data.js modules
+// renderer registry, metric provenance — verify the FULL <slug>.data.js modules
 // through this test-only glob.
 import { fullProjects, getFullProject } from "../test/fullProjects";
 import { profileData } from "./profile";
@@ -37,23 +37,23 @@ describe("projects aggregator — data contract", () => {
     }
   });
 
-  // `methods` renders on the detail page, so it lives in data.js, not the card.
-  it("every full data.js has methods", () => {
+  // `methods` renders on the detail page, so it lives in <slug>.data.js, not the card.
+  it("every full <slug>.data.js has methods", () => {
     for (const p of fullProjects) {
       expect(p.methods, `${p.slug} missing methods`).toBeTruthy();
     }
   });
 
-  // The split's own contract: every card has a data.js spreading it (same
+  // The split's own contract: every card has a <slug>.data.js spreading it (same
   // folder set), and the card's identity fields survive the spread unchanged.
-  it("card.js and data.js folders match one-to-one, and data spreads its card", () => {
+  it("card.js and <slug>.data.js folders match one-to-one, and data spreads its card", () => {
     const cardSlugs = new Set(projects.map((p) => p.slug));
     const fullSlugs = new Set(fullProjects.map((p) => p.slug));
     expect(fullSlugs).toEqual(cardSlugs);
     for (const p of projects) {
       const full = getFullProject(p.slug);
-      expect(full.id, `${p.slug}: data.js id diverges from card.js`).toBe(p.id);
-      expect(full.title.en, `${p.slug}: data.js title diverges from card.js`).toBe(p.title.en);
+      expect(full.id, `${p.slug}: <slug>.data.js id diverges from card.js`).toBe(p.id);
+      expect(full.title.en, `${p.slug}: <slug>.data.js title diverges from card.js`).toBe(p.title.en);
     }
   });
 
@@ -275,7 +275,7 @@ describe("tagEvidence — every skill tag is backed by a pointer into the case s
 
 // The data/renderer contract, in both directions. The tagEvidence suite above
 // exists because pointers once named fields that did not exist; this one
-// exists because the inverse is just as silent — `notBuilt` sat in a data.js
+// exists because the inverse is just as silent — `notBuilt` sat in a <slug>.data.js
 // fully written, fully bilingual, and rendered by nothing, so the author
 // believed a section was published that no reader could reach.
 //
@@ -285,13 +285,13 @@ describe("tagEvidence — every skill tag is backed by a pointer into the case s
 describe("data/renderer contract — no field drifts in either direction", () => {
   const KNOWN = new Set([...RENDERED_FIELDS, ...DATA_ONLY_FIELDS]);
 
-  it("every field in every data.js is either rendered or explicitly data-only", () => {
+  it("every field in every <slug>.data.js is either rendered or explicitly data-only", () => {
     for (const p of fullProjects) {
-      // `href` is synthesized by the aggregator, not authored in data.js.
+      // `href` is synthesized by the aggregator, not authored in <slug>.data.js.
       const unknown = Object.keys(p).filter((k) => k !== "href" && !KNOWN.has(k));
       expect(
         unknown,
-        `${p.slug}: field(s) ${unknown.join(", ")} appear in data.js but are in ` +
+        `${p.slug}: field(s) ${unknown.join(", ")} appear in <slug>.data.js but are in ` +
           `neither RENDERED_FIELDS nor DATA_ONLY_FIELDS. Either wire a renderer ` +
           `to them or list them as deliberately data-only, with a reason.`
       ).toEqual([]);
@@ -645,7 +645,7 @@ describe("excludeFromHome", () => {
 // Mechanism: for every numeric metric in profile.portfolioHighlights, find the
 // case-study sentences that back it (the number, as digits or spelled out,
 // co-occurring with a word from the metric's label), then ask git which commit
-// first introduced each backing fragment into the project's data.js and which
+// first introduced each backing fragment into the project's <slug>.data.js and which
 // first introduced the metric's label into data.json. If every backing
 // fragment was born in the metric's own commit — and that commit did not
 // create the case-study file (a new case study legitimately lands claim and
@@ -685,10 +685,13 @@ describe("metric provenance — evidence may not be born in the metric's own com
       return "";
     }
   };
+  // `file` may be one path or several: each project content file was renamed
+  // data.js -> <slug>.data.js, and `git log -S -- <path>` stops at a rename,
+  // so both names must be passed to see pre-rename history.
   const firstCommitIntroducing = (needle, file) =>
-    git("log", "--reverse", "--format=%H", "-S", needle, "--", file).split("\n")[0] || "";
+    git("log", "--reverse", "--format=%H", "-S", needle, "--", ...[file].flat()).split("\n")[0] || "";
   const firstCommitTouching = (file) =>
-    git("log", "--reverse", "--format=%H", "--", file).split("\n")[0] || "";
+    git("log", "--reverse", "--format=%H", "--", ...[file].flat()).split("\n")[0] || "";
 
   // Explicit timeout: this test shells out to dozens of `git log -S`
   // pickaxe sweeps over the full history. Alone it finishes in ~3s, but
@@ -703,7 +706,10 @@ describe("metric provenance — evidence may not be born in the metric's own com
       // longer carry after the Phase 5 split.
       const project = getFullProject(h.id);
       if (!project) continue; // the id/slug contract is asserted elsewhere
-      const projectFile = `src/projects/${h.id}/data.js`;
+      const projectFile = [
+        `src/projects/${h.id}/${h.id}.data.js`,
+        `src/projects/${h.id}/data.js`, // pre-rename history
+      ];
       const projectStrings = [];
       collectEnglishStrings(project, projectStrings);
 

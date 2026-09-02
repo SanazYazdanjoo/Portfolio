@@ -40,7 +40,7 @@ async function main() {
   });
 
   try {
-    // The FULL data.js modules, not the card-level aggregator — sentinels
+    // The FULL <slug>.data.js modules, not the card-level aggregator — sentinels
     // live in the prose, which src/data/projects.js no longer carries after
     // the Phase 5 card/data split.
     const { fullProjects } = await server.ssrLoadModule("/src/test/fullProjects.js");
@@ -57,7 +57,7 @@ async function main() {
     if (failures.length > 0) {
       console.error("\nBuild refused: unfilled NEEDS_INPUT fields remain.\n");
       for (const { slug, hits } of failures) {
-        console.error(`  src/projects/${slug}/data.js`);
+        console.error(`  src/projects/${slug}/${slug}.data.js`);
         for (const hit of hits) console.error(`    - ${hit}`);
       }
       console.error(

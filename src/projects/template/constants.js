@@ -1,9 +1,9 @@
 // Shared template config. EASE is re-exported from src/utils/motion. SECTIONS is the fixed content model: the ids the sidebar
 // TOC, the mobile pill bar and the section renderers all resolve against.
 //
-// NOTE: this folder must never contain an `index.jsx` or a `data.js` —
+// NOTE: this folder must never contain an `index.jsx` or a `<slug>.data.js` —
 // main.jsx auto-routes `src/projects/*/index.jsx` and src/data/projects.js
-// auto-discovers `src/projects/*/data.js`, so either name would make the
+// auto-discovers `src/projects/*/<slug>.data.js`, so either name would make the
 // template folder register as a project.
 
 // Re-exported so template modules can keep importing it from here; the
@@ -42,11 +42,11 @@ export const SECTIONS = [
 //
 // This portfolio has already shipped one documentation-drift defect: the
 // `tagEvidence` pointers named fields that did not exist. The same class of
-// bug runs in the other direction too — a field sitting in a data.js that no
+// bug runs in the other direction too — a field sitting in a <slug>.data.js that no
 // renderer reads is content the author believes is published and isn't.
 //
-// These two lists are the registry `projects.test.js` checks every data.js
-// against. Adding a field to a data.js without adding it here fails the
+// These two lists are the registry `projects.test.js` checks every <slug>.data.js
+// against. Adding a field to a <slug>.data.js without adding it here fails the
 // suite, which is the point: the failure asks "does anything render this?"
 // at the moment the field is written, not months later.
 //

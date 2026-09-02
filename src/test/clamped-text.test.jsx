@@ -2,7 +2,7 @@ import { describe, it, expect, beforeAll, afterAll, vi } from "vitest";
 import { screen, fireEvent } from "@testing-library/react";
 import { renderWithProviders } from "./renderWithProviders";
 import ProjectTemplate from "../projects/ProjectTemplate";
-import { projectData as project1 } from "../projects/gaze-assisted-input/data";
+import { projectData as project1 } from "../projects/gaze-assisted-input/gaze-assisted-input.data";
 
 // jsdom has no layout engine: every box measures 0, so the clamp would never
 // consider anything overflowing and the toggle would never render. Stubbing

@@ -299,7 +299,7 @@ export default function Sitemap() {
           <p className="text-2xs font-black uppercase text-primary-600 mb-6">
             {t("sitemap.section.projectDetail")}{" "}
             <code className="text-2xs bg-primary/8 rule-fill px-1.5 py-0.5 text-primary-600">
-              src/projects/**/data.js
+              {"src/projects/<slug>/<slug>.data.js"}
             </code>
           </p>
           {projectRoutes.map((route, i) => (

@@ -1,7 +1,7 @@
 import React from 'react';
 import ProjectTemplate from '../ProjectTemplate';
 import { PrototypeFab } from './PrototypeFab';
-import { projectData } from './data';
+import { projectData } from './digitalising-ibs-travel-reimbursements.data';
 
 // The floating prototype badge is mounted here rather than inside
 // ProjectTemplate on purpose: it is a one-project affordance (this is the

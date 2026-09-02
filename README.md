@@ -24,14 +24,14 @@ rather than letting them drift.
 |---|---|
 | Profile, CV, skills, certifications | `src/data/data.json` → `src/data/profile.js` |
 | Voluntary work | `src/data/data.json` → `src/data/voluntary.js` |
-| One case study | `src/projects/<slug>/data.js` |
+| One case study | `src/projects/<slug>/<slug>.data.js` |
 | Career arc ("The Bridge") | `src/data/career.js` (structure) + `src/translations/` (copy) |
 | UI strings (EN/DE) | `src/translations/{en,de}.js` |
 | Design tokens | `src/styles/theme.css`, surfaced at `/designsystem` |
 
 **Adding a case study:** create `src/projects/<slug>/` with a `card.js`
 (card-level fields: id, status, title, tags, thumbnails, card* — everything
-the homepage grid, tag pages, and sitemap read), a `data.js` (the full prose
+the homepage grid, tag pages, and sitemap read), a `<slug>.data.js` (the full prose
 and figures; it imports and spreads its card), and an `index.jsx`. Nothing
 else. `import.meta.glob` discovers the folder at build time, so the route,
 the homepage card, the tag pages, and the sitemap all pick it up with no
@@ -40,7 +40,7 @@ manual registration. The folder name *is* the URL slug.
 The card/data split is a performance contract: the aggregator eagerly globs
 only `card.js`, so case-study prose loads with its own route chunk instead
 of riding every page. Tests and build guards that need the full content glob
-`data.js` through `src/test/fullProjects.js` — never import that helper from
+`<slug>.data.js` through `src/test/fullProjects.js` — never import that helper from
 app code.
 
 **Bilingual fields** are `{ en, de }` objects anywhere in the tree.
@@ -115,7 +115,7 @@ questions about the work, grounded strictly in the site's own content and
 powered by the OpenAI API.
 
 - **Grounding**: `scripts/generate-chat-knowledge.mjs` distills
-  `data.json` + every case study's `data.js` into `api/_knowledge.mjs`
+  `data.json` + every case study's `<slug>.data.js` into `api/_knowledge.mjs`
   (committed, and regenerated on every build). The system prompt tells the
   model to answer only from that JSON and to say "I don't know" otherwise.
 - **Backend**: `api/chat.js` — one handler that runs as a Vercel serverless

@@ -4,13 +4,13 @@
 // card-level fields — so the case-study prose stays out of the shared
 // bundle. The verification suites and check-needs-input.mjs, though, must
 // see EVERYTHING: bilingual parity, tagEvidence, the evidence corpora, and
-// NEEDS_INPUT sentinels all live in the full data.js modules.
+// NEEDS_INPUT sentinels all live in the full <slug>.data.js modules.
 //
 // ⚠️ Never import this from application code. One import from a page or
 // component pulls all five case studies' prose back into a shared chunk
 // and silently undoes the Phase 5 split this file exists to protect.
 
-const modules = import.meta.glob("../projects/*/data.js", { eager: true });
+const modules = import.meta.glob("../projects/*/*.data.js", { eager: true });
 
 /** Full project objects, slug derived from the folder name like the app
  *  aggregator does, sorted by `order` for stable output. */

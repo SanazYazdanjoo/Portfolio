@@ -3,21 +3,21 @@
 // in dev), so any folder is discovered automatically with no manual
 // registration. import.meta.glob is Vite-only.
 //
-// CARD FILES, not data.js: this module reaches every page (homepage grid,
+// CARD FILES, not <slug>.data.js: this module reaches every page (homepage grid,
 // /projects, tag pages, sitemap, CV highlights, the meta/sitemap scripts),
-// so eagerly globbing the full data.js files shipped all five case studies'
+// so eagerly globbing the full <slug>.data.js files shipped all five case studies'
 // complete bilingual prose (~57 KiB gzipped) on the homepage's critical
 // path — 85% of mobile LCP was render delay waiting on exactly this chain.
-// card.js carries only what card surfaces read; each data.js spreads its
+// card.js carries only what card surfaces read; each <slug>.data.js spreads its
 // card and loads with the detail route's own chunk. Full-content consumers
-// (the test suites, check-needs-input) glob data.js themselves via
+// (the test suites, check-needs-input) glob <slug>.data.js themselves via
 // src/test/fullProjects.js — never import that helper from app code, or
 // the split is undone.
 
 const modules = import.meta.glob("../projects/*/card.js", { eager: true });
 
 /**
- * Normalize the status field at the boundary, so data.js files
+ * Normalize the status field at the boundary, so <slug>.data.js files
  * can say "Published", "published", or "Coming Soon" and the rest
  * of the app only ever sees the canonical lowercase-kebab form.
  * (Caught by the invariant tests: "Published" !== "published"
@@ -41,10 +41,10 @@ export const projects = Object.entries(modules)
       return null;
     }
 
-    // Slug = folder name ("../projects/gaze-assisted-input/data.js" →
+    // Slug = folder name ("../projects/gaze-assisted-input/gaze-assisted-input.<slug>.data.js" →
     // "gaze-assisted-input").
     // Same source main.jsx builds routes from — link and route can't drift.
-    // A `slug` field in data.js is deliberately ignored: main.jsx would still
+    // A `slug` field in <slug>.data.js is deliberately ignored: main.jsx would still
     // register the route under the folder name, so a custom slug could only
     // produce links that 404. To change a URL, rename the folder.
     const slug = path.split("/")[2];

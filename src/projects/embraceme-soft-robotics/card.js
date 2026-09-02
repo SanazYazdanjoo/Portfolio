@@ -1,9 +1,9 @@
 // Card-level fields ONLY — see gaze-assisted-input/card.js for the contract:
-// the aggregator eagerly globs card.js; the prose stays in data.js, which
+// the aggregator eagerly globs card.js; the prose stays in <slug>.data.js, which
 // spreads this object and loads with the detail route's chunk.
 // Banner/thumbnail: the AI illustration, restored by owner decision
 // (2026-08-24) after its brief replacement with the build photograph — it
-// carries the visible generation credit via heroIsGenerated in data.js.
+// carries the visible generation credit via heroIsGenerated in <slug>.data.js.
 // The homepage cardImage stays the team's own photograph of the final
 // build (report Fig. 16), per the real-artefact card policy.
 import thumbnailImg from './Project-3.png';
