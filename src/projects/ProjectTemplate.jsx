@@ -343,6 +343,24 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   kicker={kickerFor("designSystem")} heading={headingFor("designSystem")}>
                   <Prose text={meta.designSystem}>
                     <DesignTokensPanel />
+                    {/* Data-gated: only a project that supplies
+                        designSystemUrl gets this link, so the other case
+                        studies' Design System sections are untouched.
+                        Deliberately the inline-link treatment (coral +
+                        drawn hairline), not the gold PrototypeLink — that
+                        mark is once-per-page and the prototype link one
+                        section below already spends it. */}
+                    {meta.designSystemUrl && (
+                      <a
+                        href={meta.designSystemUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-6 inline-flex items-center gap-1.5 text-sm font-bold text-primary-600 rule-underline hover:text-primary-500 transition-colors focus-ring"
+                      >
+                        {t("project.designSystem.figmaLink")}
+                        <HandArrow direction="up-right" className="w-3.5 h-3.5" />
+                      </a>
+                    )}
                   </Prose>
                 </ContentSection>
               )}

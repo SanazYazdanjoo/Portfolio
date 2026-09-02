@@ -63,9 +63,11 @@ export const RENDERED_FIELDS = [
   "title", "subtitle", "tagline", "stage", "status", "role", "myContribution",
   "timeline", "tags", "thumbnail", "thumbnailWebp", "heroImage", "aiAssistance",
   // ProjectHero: true when the hero is an AI-generated illustration, which
-  // renders the visible generation credit. A project whose hero is a real
-  // photograph omits it — a photo must never carry the AI credit, and an
-  // AI image must never pass as documentation (EmbraceMe rule, 2026-08).
+  // renders the visible generation credit. Every generated hero on this site
+  // was made with Google Gemini, and the credit names it — a disclosure that
+  // does not say which tool is barely a disclosure. A project whose hero is a
+  // real photograph omits this — a photo must never carry the AI credit, and
+  // an AI image must never pass as documentation (EmbraceMe rule, 2026-08).
   "heroIsGenerated",
   // Homepage card only (StackedProjectCard.jsx) — `year` and `context` are the
   // metadata row, `cardTags` the capped signal subset of `tags`, `cardOutcome`
@@ -74,6 +76,7 @@ export const RENDERED_FIELDS = [
   // Body sections (see SECTIONS above for the ones with their own heading)
   "about", "process", "challenge", "challengeQuote", "solution", "solutionQuote",
   "design", "designQuote", "wireframe", "wireframeQuote", "designSystem",
+  "designSystemUrl",
   "prototype", "prototypeUrl", "prototypeUrlLabel", "accessibility", "methodology",
   "methodologyQuote", "methods", "techStack", "results", "resultsAtAGlance",
   "metrics", "metricsIntro", "verbatims", "verbatimsIn", "outcome", "notBuilt",

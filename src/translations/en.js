@@ -244,6 +244,7 @@ const en = {
   "project.designSystem.groupShape": "Shape, layout & motion",
   "project.designSystem.groupComponents": "Components — buttons, badges & tags",
   "project.designSystem.componentsNote": "Live imports of the shipped components, not redrawn samples: the hero's filled ink CTA, the coral CTA of the 404 and error pages, the doodle CTA that sketches its oval on hover, and the quiet text button — plus the notebook-tag chips, ink outlines that fill solid on hover. Every fill and edge is the drawn line. The gold prototype link keeps its once-per-page rule, so it isn't duplicated here — the real one is a section below.",
+  "project.designSystem.figmaLink": "Open the Figma Make kit",
   "project.designSystem.groupGlyphs": "Icon glyphs — drawn, not plotted",
   "project.designSystem.glyphsNote": "The UI-kit icon tier: every glyph on the site is drawn in the same ~1.6–1.8px nib as the hairlines — no icon font, no library. These render live from HandIcons.jsx / HandArrow.jsx; the full sheet with each glyph's job is in the living style guide.",
 
@@ -336,7 +337,7 @@ const en = {
   "project.media.whatItShows": "What it shows",
   "project.media.openFullPage": "Open full page",
   "project.media.opensNewTab": "opens the full document in a new tab",
-  "project.media.heroCredit": "Illustration generated with AI.",
+  "project.media.heroCredit": "Illustration generated with Google Gemini.",
 
   // Credentials
   "credentials.heading": "Credentials",
