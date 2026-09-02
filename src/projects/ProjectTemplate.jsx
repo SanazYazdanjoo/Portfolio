@@ -449,6 +449,21 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                 </ContentSection>
               )}
 
+              {meta.limitations?.length > 0 && (
+                <ContentSection id="limitations" number={sectionNumber("limitations")}
+                  isOpen={openSections.has("limitations")} onToggle={() => toggleSection("limitations")}
+                  staggerDelayMs={staggerDelayFor("limitations")}
+                  kicker={kickerFor("limitations")} heading={headingFor("limitations")}>
+                  <ClampedText className="max-w-measure transition-[max-width] duration-300 ease-smooth">
+                    <ul className="flex list-disc flex-col gap-3 pl-5 text-lg leading-[1.7] text-text marker:text-primary-500">
+                      {meta.limitations.map((item, i) => (
+                        <li key={i}>{item}</li>
+                      ))}
+                    </ul>
+                  </ClampedText>
+                </ContentSection>
+              )}
+
               {meta.implications && (
                 <ContentSection id="implications" number={sectionNumber("implications")}
                   isOpen={openSections.has("implications")} onToggle={() => toggleSection("implications")}
