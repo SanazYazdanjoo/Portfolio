@@ -56,6 +56,7 @@ import { PrototypeLink } from "./template/PrototypeLink";
 import { ProjectNavCard } from "./template/ProjectNavCard";
 import { ProjectHeader } from "./template/ProjectHeader";
 import { ProjectHero } from "./template/ProjectHero";
+import { FlownTagsProvider, SkillOrbitRail, useSkillOrbit } from "./template/SkillOrbit";
 import { useSectionState } from "./template/useSectionState";
 import { useScrollProgress } from "./template/useScrollProgress";
 import { useSessionState } from "./template/useSessionState";
@@ -142,6 +143,17 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
   } = useSectionState(activeSections);
 
   const { scrollProgress, scrollY } = useScrollProgress(mainRef);
+
+  // Skill pills that follow the reader into the section they evidence — see
+  // template/SkillOrbit.jsx. Declared here because both ends of the flight
+  // live in this tree: the header row the pills leave, and the rail track
+  // they land in.
+  const orbit = useSkillOrbit({
+    tags: meta.tags,
+    tagEvidence: meta.tagEvidence,
+    activeId,
+    activeSections,
+  });
 
   const orderedProjects = useMemo(
     () => allProjects.filter((p) => p.status !== "coming-soon"),
@@ -260,7 +272,9 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                  as the fallback so the blocks still cap when rendered alone. */
               style={{ "--measure": navCollapsed ? "88ch" : "68ch" }}
             >
-              <ProjectHeader meta={meta} tags={tags} />
+              <FlownTagsProvider value={orbit.flown}>
+                <ProjectHeader meta={meta} tags={tags} />
+              </FlownTagsProvider>
 
               {/* Mobile pill bar */}
               <MobilePillBar sections={activeSections} activeId={activeId} onNavigate={navigateToSection} />
@@ -544,6 +558,12 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
 
               </article>
             </div>
+
+            {/* Third track: the skill orbit. Only above 2xl, where the
+                gutter to the right of the capped prose column is actually
+                free — see template/SkillOrbit.jsx for why it is not an xl
+                feature. */}
+            <SkillOrbitRail pills={orbit.pills} enabled={orbit.enabled} />
           </div>
         </div>
       </div>
