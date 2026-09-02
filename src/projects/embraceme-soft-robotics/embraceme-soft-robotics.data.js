@@ -227,6 +227,35 @@ export const projectData = {
     de: "Bei einer öffentlichen Universitätsausstellung beschrieben Besucher:innen die Interaktion als lustig und überraschend — das „Aufwachen“ des Bots, um die Umarmung zu erwidern, war der Höhepunkt. Die Evaluation zeigte auch ehrliche Designfehler: Manche Nutzer:innen empfanden die pinken, muskulösen Arme als unheimlich und vermieden vollen Kontakt, und ohne klare Signifier konnte niemand ohne Anleitung erraten, wie eine Umarmung eingeleitet wird. Meine individuelle Nachbetrachtung wandte Offenhubers Data-Physicalization-Framework an, um die nächste Iteration vorzuschlagen: Emotionserkennungsdaten (Wearables, Stimmungs-Tracking), die auf Armausdehnung und Umarmungsintensität abgebildet werden — ein binär ausgelöster Mechanismus wird so zu einem emotional adaptiven Interface.",
   },
 
+  // The evaluation was an exhibition, not a study. These are the limits
+  // that puts on every claim above.
+  limitations: [
+    {
+      en: "The exhibition evaluation was open observation and informal feedback, not a protocol: no task set, no structured interview, and no session notes were retained that would let a finding be recounted or a frequency stated.",
+      de: "Die Evaluation bei der Ausstellung war offene Beobachtung und informelles Feedback, kein Protokoll: kein Aufgabenset, kein strukturiertes Interview, und es wurden keine Sitzungsnotizen aufbewahrt, mit denen sich ein Befund nachzählen oder eine Häufigkeit angeben ließe.",
+    },
+    {
+      en: "Nothing about the calming effect was measured. Deep Pressure Stimulation carries that claim in the literature; this prototype produced no physiological data and no self-reports of its own.",
+      de: "Zur beruhigenden Wirkung wurde nichts gemessen. Deep Pressure Stimulation trägt diese Aussage in der Literatur; dieser Prototyp erzeugte keine eigenen physiologischen Daten und keine Selbstauskünfte.",
+    },
+    {
+      en: "Exhibition visitors are self-selecting and were watched in a social, playful setting — close to the opposite of the private moment of distress the concept was written for.",
+      de: "Ausstellungsbesuchende wählen sich selbst aus und wurden in einer sozialen, spielerischen Situation beobachtet — nahezu dem Gegenteil des privaten Belastungsmoments, für den das Konzept gedacht war.",
+    },
+    {
+      en: "There was one build and no comparison condition — no human hug, no static weighted alternative — so the observed reactions cannot be attributed to the soft-robotic actuation rather than to the novelty of the object.",
+      de: "Es gab einen Build und keine Vergleichsbedingung — keine menschliche Umarmung, keine statische Gewichtsalternative —, sodass die beobachteten Reaktionen nicht der soft-robotischen Aktuierung statt der Neuheit des Objekts zugeschrieben werden können.",
+    },
+    {
+      en: "Arm length, cut geometry and the 3s/9s inflation timing were fixed for one body size. Fit, pressure and comfort across different bodies — and for the impaired users the concept names — were never tested.",
+      de: "Armlänge, Schnittgeometrie und das 3s/9s-Timing waren auf eine Körpergröße festgelegt. Passform, Druck und Komfort über verschiedene Körper hinweg — und für die im Konzept genannten beeinträchtigten Nutzer:innen — wurden nie getestet.",
+    },
+    {
+      en: "The redesign proposed in the individual reflection report — emotion-recognition data driving arm extension and hug intensity — was never built or evaluated; it remains an argument, not a result.",
+      de: "Das im individuellen Reflexionsbericht vorgeschlagene Redesign — Emotionserkennungsdaten, die Armausdehnung und Umarmungsintensität steuern — wurde nie gebaut oder evaluiert; es bleibt ein Argument, kein Ergebnis.",
+    },
+  ],
+
   // Process gallery
   process: [
     {
