@@ -182,10 +182,13 @@ export default {
    "UX Research & Testing": [
     "B2B User Research",
     "Mixed-Methods Research",
+    "Requirements Engineering",
     "Usability Testing",
     "Controlled Experiments",
     "Eye-Tracking Evaluation (Pupil Labs)",
     "Contextual Inquiry",
+    "Affinity Diagramming",
+    "Stakeholder Interviews",
     "Questionnaire Design"
    ],
    "QA & Testing": [
@@ -735,11 +738,16 @@ export default {
     "Online Survey Tools"
    ],
    "methods": [
+    "Heuristic Evaluation (admin & end user)",
+    "Competitive & State-of-the-Art Review",
     "Stakeholder Interviews",
     "Online Survey",
     "Remote Contextual Inquiry (90 min)",
     "Semi-structured Follow-up Interviews (30 min)",
+    "Interpretation Sessions & Contextual Design Models",
+    "Affinity Diagramming",
     "Requirements Engineering",
+    "User Story Mapping & Release Planning",
     "Concept Development & Prototyping",
     "Usability Testing & Iteration"
    ],
@@ -758,14 +766,20 @@ export default {
     },
     {
      "value": "3 → 1",
-     "label": "concepts refined into final prototype"
+     "label": "concepts presented to deskbird; one selected by vote"
     }
    ],
    "about": "An industry UX research project with deskbird and Bauhaus-Universität Weimar on why hybrid teams lose their everyday social connection. In a team of six we ran the full user-centred design process — stakeholder interviews, a 57-person survey, and six contextual inquiries — to establish how a social feature should work before it reached the roadmap. The outcome is 'Interest-Based Communities', my concept, selected by deskbird's stakeholders and delivered as a research-backed high-fidelity prototype.",
    "challenge": "Hybrid work reduced spontaneous social interactions: employees felt less integrated and new joiners struggled to connect. deskbird — a B2B SaaS platform for desk booking and hybrid week planning — wanted evidence, not assumptions, on how a social feature should work before committing it to the product roadmap.",
    "solution": "We designed 'Interest-Based Communities': employees add interests to their profile, see colleagues' interests, and create or get invited to interest-based events. The concept connects both office-based and remote staff and was delivered as a high-fidelity prototype with development recommendations, grounded in every research finding along the way.",
-   "methodology": "We followed the full UCD process in an industry setting. A state-of-the-art review of the hybrid-work tool landscape (Microsoft Viva, Workvivo, Donut for Slack, Happeo, and ~25 others) and a heuristic evaluation with user-flow analysis of the existing deskbird app framed the scope. Stakeholder interviews with deskbird defined brand identity, consumer aspirations, and the social-feature scope. An online survey (57 respondents, mainly aged 25–34, IT industry, hybrid workers recruited via convenience and snowball sampling) quantified work conditions, social interaction states, communication channels, and privacy preferences. Six 90-minute remote contextual inquiries — observing product managers, engineers, designers, and analysts in their real hybrid workday — were each paired with a 30-minute semi-structured follow-up interview.",
+   "methodology": "We followed the full UCD process in an industry setting. A state-of-the-art review of the hybrid-work tool landscape (Microsoft Viva, Workvivo, Donut for Slack, Happeo, and ~25 others) and a heuristic evaluation of the existing deskbird app — walked through as both admin and end user, with user-flow analysis — framed the scope. A literature review of social features in workplace systems, working from Lyons and Lessard's distinction between key and supportive social features, gave the concept work a vocabulary. Stakeholder interviews across marketing, product management, product design, and customer support defined brand identity, consumer aspirations, and the social-feature scope. An online survey (57 respondents, mainly aged 25–34, IT industry, hybrid workers recruited via convenience and snowball sampling) quantified work conditions, social interaction states, communication channels, and privacy preferences; its open-ended responses set the focus for what came next. Six 90-minute remote contextual inquiries — observing product managers, engineers, designers, and analysts in their real hybrid workday — were each paired with a 30-minute semi-structured follow-up interview, then worked through in team interpretation sessions.",
    "results": "Socialisation happens during breaks, and office breaks differ fundamentally from home-office breaks; the office is preferred for real interactions and faster communication while home office wins on convenience and fewer distractions; and nearly three-quarters of survey respondents agreed that knowing personal details about a colleague makes them relate more. Interaction across seniority levels and departments emerged as a persistent barrier. These findings shaped three competing concepts (Chat2Meet, Flows & Breaks, Interest-Based Communities); Interest-Based Communities was selected, refined into the final prototype, and validated in user testing sessions that returned positive feedback on usability and feature understanding.",
+   "limitations": [
+    "Survey respondents were recruited by convenience and snowball sampling, which biases the sample toward the team's own networks.",
+    "Roughly three-quarters of respondents were aged 25–34 and about two-thirds worked in technology, so the sample under-represents deskbird's wider enterprise customer base.",
+    "All six contextual inquiry participants worked in the IT industry, so the observed workday patterns are specific to that setting.",
+    "Usability testing validated feature understanding and interaction, not adoption or effect on actual social connection — that would need a longitudinal study after launch."
+   ],
    "outcome": {
     "body": "At the final presentation, deskbird's stakeholders said they liked the concept and intended to build it in upcoming sprints. That is a stated intention recorded at handover — not confirmed delivery. The research team had no visibility into deskbird's backlog after the project ended, and I have not since verified whether the feature shipped. It is listed here as unconfirmed rather than claimed as adoption.",
     "adoption": "unknown"
@@ -773,31 +787,45 @@ export default {
    "process": [
     {
      "phase": "discover",
+     "type": "Heuristic Evaluation & Competitive Review",
+     "title": "Learning the Product and the Landscape",
+     "annotation": "Before talking to anyone we walked the existing deskbird app end to end, once as an admin and once as an end user, mapping its user flows and its existing social surface. In parallel we reviewed the hybrid-work tool landscape — Microsoft Viva Engage, Workvivo, Happeo, Haiilo, Staffbase, Donut for Slack, Sococo, Gather Town and others — feature by feature.",
+     "insight": "The competitors mostly added a social layer on top of work: a feed, a channel, a chat. deskbird's opening was different — it already knew who was in the office on which day, which is a starting point none of the others had."
+    },
+    {
+     "phase": "discover",
      "type": "Stakeholder Interviews",
      "title": "Aligning on Scope with deskbird",
-     "annotation": "Interviews with deskbird stakeholders surfaced three insight clusters: brand identity (minimalist, usability-driven UX), consumer aspirations (fewer clicks, no extra browser tabs), and the social-feature mandate — transparent, non-intrusive, attracting people back to the office.",
+     "annotation": "Interviews across marketing, product management, product design, and customer support surfaced three insight clusters: brand identity (minimalist, usability-driven UX), consumer aspirations (fewer clicks, no extra browser tabs), and the social-feature mandate — transparent, non-intrusive, attracting people back to the office.",
      "insight": "The business goal ('attract people back to the office') and the user goal ('meaningful connection') were not the same thing — the requirements had to answer both."
     },
     {
      "phase": "discover",
      "type": "Online Survey",
      "title": "Quantifying Hybrid Social Life (N=57)",
-     "annotation": "Multiple-choice, rating, and open-ended questions exploring work conditions, current state of social interactions, communication channels, and privacy preferences. Respondents were mainly juniors aged 25–34 in the IT industry, across various company sizes.",
-     "insight": "Nearly three-quarters agreed that knowing personal details about a colleague makes them relate more — the single strongest signal pointing toward interest-based connection."
+     "annotation": "Multiple-choice, rating, and open-ended questions exploring work conditions, current state of social interactions, communication channels, and privacy preferences. Respondents were mainly juniors aged 25–34 in the IT industry, across various company sizes. Participation was screened on currently or recently working in a hybrid setting.",
+     "insight": "Nearly three-quarters agreed that knowing personal details about a colleague makes them relate more — the single strongest signal pointing toward interest-based connection. Respondents were open about gender, relationship status, and birthday, but split on age, hobbies, and personal milestones, which set a boundary for what any profile could ask for."
     },
     {
      "phase": "discover",
      "type": "Remote Contextual Inquiry",
      "title": "Observing the Hybrid Workday in Context (N=6)",
-     "annotation": "Six 90-minute remote observations of hybrid workers in their real workplace — product manager, software engineer, customer success manager, product designer, UX working student, business analyst — followed by 30-minute semi-structured interviews to clarify observations and capture desires for improvement.",
+     "annotation": "Six 90-minute remote observations of hybrid workers in their real workplace — product manager, software engineer, customer success manager, product designer, UX working student, business analyst — followed by 30-minute semi-structured interviews to clarify observations and capture desires for improvement. The open-ended survey answers set what we went looking for: how people decide between home and office, how they feel about office events, how they connect with colleagues.",
      "insight": "Breaks are when socialisation happens — and breaks at the office differ fundamentally from breaks at home. Participants wanted variety and meaningful social breaks — and to be left undisturbed when they needed focus."
     },
     {
      "phase": "define",
+     "type": "Interpretation Sessions & Affinity Diagram",
+     "title": "Six Workdays into One Picture",
+     "annotation": "Each inquiry was worked through in a team interpretation session. Observations became numbered affinity notes tagged to the participant they came from, and each participant's workday was modelled from several angles — sequence, relationship, collaboration, identity, and physical setup. The wall was then built in five passes: gather every note, group by observed pattern, write blue labels, consolidate blue into pink, and read actionable ideas off the top.",
+     "insight": "Six themes came out of the wall: interruption and focus, work breaks, socialising at the workplace, what drives the choice between home and office, communication habits, and bonding at work. Because every note stayed tagged to its participant, any requirement could be walked back to the observation behind it."
+    },
+    {
+     "phase": "define",
      "type": "Requirements Synthesis",
-     "title": "From Findings to Four Requirement Categories",
-     "annotation": "Findings were synthesised into functional, environmental, user, and data requirements: foster interaction across seniority levels and around shared interests, integrate seamlessly on every platform, stay accessible to both remote and on-site staff, stay intuitive for all users, and collect data privacy-first.",
-     "insight": "Interaction between different seniority levels and departments was where connecting stayed hardest — any concept had to lower that threshold, not just add another chat channel."
+     "title": "From Findings to Requirement Categories",
+     "annotation": "Findings were synthesised into functional, environmental, user, and data requirements: foster interaction across seniority levels and around shared interests, integrate seamlessly on every platform, stay accessible to both remote and on-site staff, stay intuitive for all users, and collect data privacy-first. Each entry carried the interview or exploration it came from, and the matrix went through a second pass after critique — one round mixed ideas in with requirements, and those were pulled back out into the ideation phase where they belonged.",
+     "insight": "Interaction between different seniority levels and departments was where connecting stayed hardest — any concept had to lower that threshold, not just add another chat channel. The questions the matrix could not answer became three scoped follow-up studies: social interaction at the workplace, privacy preferences around social data, and communication channels."
     },
     {
      "phase": "design",
@@ -807,10 +835,17 @@ export default {
      "insight": "Interest-Based Communities satisfied the requirements most completely — cross-seniority interaction, access for remote and on-site staff — and directly operationalised the survey's strongest finding on personal connection. deskbird's stakeholders selected it."
     },
     {
+     "phase": "design",
+     "type": "Story Mapping & User Flows",
+     "title": "Slicing the Concept into Three Releases",
+     "annotation": "The selected concept was mapped as a user story map across four epics — customising the profile, managing interests as admin, creating events as admin, and connecting users — sliced into three releases. User flows were drawn for the first release covering three paths: the end user selecting interests, a second user viewing someone's profile, and the admin creating a tagged event with its invitation and notification logic.",
+     "insight": "Privacy was scoped into the first release rather than deferred — interest visibility could be switched off at the profile level from the start, with finer per-interest controls held back for release three. That sequencing came straight out of the survey's split reaction to sharing personal details."
+    },
+    {
      "phase": "deliver",
      "type": "High-Fidelity Prototype",
      "title": "Interest-Based Communities Prototype",
-     "annotation": "Final prototype: add your own interests, see colleagues' interests, get invited to events, and create events for like-minded people — accessible to both remote and on-site staff. Validated in user testing sessions (feature understanding, usability issues), iteratively refined, and delivered to deskbird with documentation and development recommendations.",
+     "annotation": "Final prototype: add your own interests, see colleagues' interests, get invited to events, and create events for like-minded people — accessible to both remote and on-site staff, and extended into the Slack side panel so it did not become another browser tab. Validated in user testing sessions (feature understanding, usability issues), iteratively refined, and delivered to deskbird with documentation and development recommendations.",
      "insight": "Success indicators were defined up front: number of interests created, profiles with interests, interest-based events, and attendees — making the feature's impact measurable post-launch."
     }
    ],
