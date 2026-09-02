@@ -31,12 +31,12 @@ export default {
     "date": "12/2024 – Present",
     "impactMetrics": [
      "13-step paper workflow digitised",
-     "1,234 automated tests, build-enforced requirement traceability",
+     "1,734 automated tests, build-enforced requirement traceability",
      "GDPR-first data pipeline"
     ],
     "tasks": [
-     "Engineered a role-based web application (React, TypeScript, Vite, SQLite) to digitalise a 13-step paper reimbursement workflow, replacing manual Excel tracking with an explicit claim state machine backed by 1,234 automated tests.",
-     "Ran empirical UX research (5W1H, UML activity diagrams, stakeholder mapping) across 9 distinct actor roles, translating structural workflow failures into numbered requirements whose citations in code are kept traceable by a build-failing test.",
+     "Engineered a role-based web application (React, TypeScript, Vite, SQLite) to digitalise a 13-step paper reimbursement workflow, replacing manual Excel tracking with an explicit claim state machine backed by 1,734 automated tests.",
+     "Ran empirical UX research (5W1H, UML activity diagrams, stakeholder mapping) across the 9 actors of the paper process, which the system implements as 5 permission roles; structural workflow failures were translated into numbered requirements whose citations in code are kept traceable by a build-failing test.",
      "Built a strict GDPR/DSGVO-compliant data pipeline with local persistence adapters and Nextcloud WebDAV integrations, ensuring participant data never leaves internal institute servers.",
      "Secured the Fastify (Node.js) backend with session-based authentication (argon2id password hashing), CSRF protection, rate limiting, and server-side role checks, keeping each role view inside its permitted scope.",
      "Worked in German throughout the project, conducting expert validation interviews and task-based evaluations to refine inclusive features like mobile-first camera capture and guided step-by-step modes."
@@ -682,7 +682,7 @@ export default {
      "label": "respondents do not know how their amount is calculated; two have stopped trying"
     },
     {
-     "value": "1,234",
+     "value": "1,734",
      "label": "automated tests — including guards that fail the build on an untraced requirement citation or a design-token drift"
     }
    ],
