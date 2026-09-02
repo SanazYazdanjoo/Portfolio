@@ -544,14 +544,17 @@
         "Authentication & Security (Argon2id, CSRF)"
       ],
       "UX Research & Testing": [
-        "B2B User Research",
-        "Mixed-Methods Research",
-        "Usability Testing",
-        "Controlled Experiments",
-        "Eye-Tracking Evaluation (Pupil Labs)",
-        "Contextual Inquiry",
-        "Questionnaire Design"
-      ],
+  "B2B User Research",
+  "Mixed-Methods Research",
+  "Requirements Engineering",
+  "Usability Testing",
+  "Controlled Experiments",
+  "Eye-Tracking Evaluation (Pupil Labs)",
+  "Contextual Inquiry",
+  "Affinity Diagramming",
+  "Stakeholder Interviews",
+  "Questionnaire Design"
+],
       "QA & Testing": [
         "Unit & Integration Testing (Vitest)",
         "Postman (REST API Validation)",
