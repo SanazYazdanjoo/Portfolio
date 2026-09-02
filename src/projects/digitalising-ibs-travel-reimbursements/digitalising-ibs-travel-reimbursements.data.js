@@ -41,6 +41,7 @@ import beforeAfterArtefacts from './before-after.webp';
 import architectureGuarantees from './architecture-guarantees.png';
 import processStrip from './process-sketch-wireframe-shipped.svg';
 import wireframeAttendance from './wireframe-attendance-month.png';
+import wireframeHiFiAttendance from './wireframe-hifi-attendance-month.png';
 
 // The two research artefacts are full standalone documents — a nine-lane
 // activity diagram and a seven-card persona set — too detailed to read at
@@ -238,8 +239,8 @@ export const projectData = {
   // middle panel is wireframe page 1g, Anwesenheit · Monat, and the third
   // panel shows the deployed screen carrying the same structures.
   wireframe: {
-    en: 'Before the high-fidelity screens were built, the layouts were drawn as wireframes against the numbered requirements from Phase 2. A wireframe fixes the structure of a screen — which elements it contains, in what order, and which rules apply — before colour and typography come in. The low-fidelity set was built as a clickable prototype in Figma Make, one tab per view, so the navigation between the screens could be walked through and not just imagined. The strip below shows the path for the attendance-month screen: the paper sketch from the process observation, the wireframe, and the screen as it shipped; the wireframe itself follows at full size.',
-    de: 'Bevor die High-Fidelity-Screens gebaut wurden, wurden die Layouts als Wireframes entlang der nummerierten Anforderungen aus Phase 2 gezeichnet. Ein Wireframe legt die Struktur eines Screens fest — welche Elemente er enthält, in welcher Reihenfolge und nach welchen Regeln —, bevor Farbe und Typografie dazukommen. Der Low-Fidelity-Satz entstand als klickbarer Prototyp in Figma Make, ein Tab je Ansicht, sodass sich die Navigation zwischen den Screens durchlaufen und nicht nur vorstellen ließ. Der Streifen unten zeigt den Weg am Anwesenheits-Monatsscreen: die Papierskizze aus der Prozessbeobachtung, das Wireframe und den Screen im ausgelieferten Zustand; das Wireframe selbst folgt darunter in voller Größe.',
+    en: 'Before the high-fidelity screens were built, the layouts were drawn as wireframes against the numbered requirements from Phase 2. A wireframe fixes the structure of a screen — which elements it contains, in what order, and which rules apply — before colour and typography come in. Both stages were built as clickable prototypes in Figma Make — a low-fidelity set that decides structure in grey boxes, and a high-fidelity set that runs the same structure with the design system applied — so the navigation between screens could be walked through and not just imagined. The strip below shows the path for the attendance-month screen: the paper sketch from the process observation, the wireframe, and the screen as it shipped. The same screen then follows twice at full size, low fidelity and high fidelity, so the two stages can be held against each other.',
+    de: 'Bevor die High-Fidelity-Screens gebaut wurden, wurden die Layouts als Wireframes entlang der nummerierten Anforderungen aus Phase 2 gezeichnet. Ein Wireframe legt die Struktur eines Screens fest — welche Elemente er enthält, in welcher Reihenfolge und nach welchen Regeln —, bevor Farbe und Typografie dazukommen. Beide Stufen entstanden als klickbare Prototypen in Figma Make — ein Low-Fidelity-Satz, der die Struktur in grauen Kästen entscheidet, und ein High-Fidelity-Satz, der dieselbe Struktur mit angewandtem Designsystem zeigt —, sodass sich die Navigation zwischen den Screens durchlaufen und nicht nur vorstellen ließ. Der Streifen unten zeigt den Weg am Anwesenheits-Monatsscreen: die Papierskizze aus der Prozessbeobachtung, das Wireframe und den Screen im ausgelieferten Zustand. Derselbe Screen folgt danach zweimal in voller Größe, low fidelity und high fidelity, sodass sich beide Stufen gegeneinander halten lassen.',
   },
 
   figures: {
@@ -704,6 +705,35 @@ export const projectData = {
           de: 'Anwesenheit · Monat — Low-Fidelity-Wireframe aus dem klickbaren Satz, gebaut in Figma Make',
         },
       },
+      // ── The same screen once more, from the high-fidelity set: a second
+      // clickable Figma Make prototype (IBS-FKTN High-Fidelity Wireframes)
+      // that runs the low-fi structure with the design system applied.
+      // Captured by the same script — `node scripts/capture-ibs-wireframes.mjs
+      // hifi` — so the pair is the identical viewport and crop rule, which is
+      // what makes the two figures comparable rather than merely adjacent.
+      {
+        type: 'image',
+        src: wireframeHiFiAttendance,
+        span: 2,
+        className: 'w-full h-auto block',
+        label: { en: 'High-fidelity wireframe', de: 'High-Fidelity-Wireframe' },
+        title: {
+          en: 'The same screen with the design system applied',
+          de: 'Derselbe Screen mit angewandtem Designsystem',
+        },
+        description: {
+          en: 'The attendance month from the high-fidelity set. Held against the low-fidelity version above, the structure has not moved — sidebar, month header, view toggle, code legend, one row per participant, a sum column on the right — which is the whole point of deciding structure first. What the high-fidelity stage adds is everything that has to be got right before anyone can use it: the day columns are split into a morning and an afternoon half, because attendance is recorded twice a day; the code vocabulary is spelled out in full (present, late, excused, discretionary, deregistered, unexcused, and open); participants carry their BL or PK course chip; weekends and holidays recede; and the header states how much of the month is actually captured — 566 of 660 fields, 94 still open. Unexcused days are the one thing marked in red, because a day left as an unexcused absence is the failure that quietly costs a participant reimbursement money.',
+          de: 'Der Anwesenheitsmonat aus dem High-Fidelity-Satz. Gegen die Low-Fidelity-Fassung darüber gehalten, hat sich die Struktur nicht verschoben — Seitenleiste, Monatskopf, Ansichtsumschalter, Code-Legende, je teilnehmender Person eine Zeile, rechts eine Summenspalte —, und genau dafür wird die Struktur zuerst entschieden. Hinzu kommt in der High-Fidelity-Stufe alles, was stimmen muss, bevor jemand damit arbeiten kann: Die Tagesspalten sind in Vormittag und Nachmittag geteilt, weil die Anwesenheit zweimal täglich erfasst wird; das Code-Vokabular steht vollständig da (anwesend, verspätet, entschuldigt, Kulanz, abgemeldet, unentschuldigt, offen); Teilnehmende tragen ihren BL- oder PK-Chip; Wochenenden und Feiertage treten zurück; und der Kopf sagt, wie viel des Monats tatsächlich erfasst ist — 566 von 660 Feldern, 94 noch offen. Rot markiert ist einzig das unentschuldigte Fehlen: der Fall, der eine teilnehmende Person stillschweigend Erstattung kostet.',
+        },
+        alt: {
+          en: 'High-fidelity wireframe of the attendance-month screen: a branded app shell with search, programme selector and user menu, a sidebar of Start, Übersicht, Anwesenheit, Teilnehmende, Hilfsmittel, Freigaben and Sonstiges, a header reading MÄRZ 2026 with year/month and whole-month/week-bands toggles and a capture counter, a legend of seven attendance codes, and a table of fifteen participants with course chips and a morning/afternoon cell for every day of the month, unexcused days marked red, open days marked amber, and a monthly attendance total per participant.',
+          de: 'High-Fidelity-Wireframe des Anwesenheits-Monatsscreens: eine gebrandete App-Hülle mit Suche, Maßnahmenauswahl und Benutzermenü, eine Seitenleiste mit Start, Übersicht, Anwesenheit, Teilnehmende, Hilfsmittel, Freigaben und Sonstiges, ein Kopf mit MÄRZ 2026, Umschaltern Jahr/Monat und Ganzer Monat/Wochenbänder sowie einem Erfassungszähler, eine Legende mit sieben Anwesenheitscodes und eine Tabelle mit fünfzehn Teilnehmenden mit Kurs-Chips und je einer Vormittags- und Nachmittagszelle pro Tag, unentschuldigte Tage rot, offene Tage gelb markiert, rechts die Monatssumme je Person.',
+        },
+        caption: {
+          en: 'Attendance · month — high-fidelity wireframe, the same screen with the design system applied (Figma Make)',
+          de: 'Anwesenheit · Monat — High-Fidelity-Wireframe, derselbe Screen mit angewandtem Designsystem (Figma Make)',
+        },
+      },
     ],
   },
 
@@ -793,8 +823,8 @@ export const projectData = {
     { tag: 'State Machine Modelling', evidence: "solution and prototype: the explicit claim state machine, including the modelled-but-unreachable AUSGEZAHLT status, stated honestly on the page", status: 'evidenced' },
     { tag: 'Wireframing', evidence: "wireframe section: the Phase 2 wireframes drawn against the numbered requirements; figures.wireframe: the sketch → wireframe → shipped strip of the attendance-month screen, plus that screen published full-width", status: 'evidenced' },
     { tag: 'Low-Fidelity Wireframe', evidence: "figures.wireframe: the attendance-month screen from the low-fidelity set at full size — structure, vocabulary and day grid decided while everything decorative is still a grey bar; the set covers Start, three Übersicht variants, month and week attendance, TN Detail, TN Formular, TN-Daten and Kalender & Plan", status: 'evidenced' },
-    { tag: 'High-Fidelity Wireframe', evidence: "design section: the IBS design system sheet, and figures.prototype: the high-fidelity screens as built — the same attendance-month layout with the role palette, type scale and field states applied; prototype: the deployed demo running all five role views", status: 'evidenced' },
-    { tag: 'Figma Make', evidence: "wireframe section and techStack: the low-fidelity set was built as a clickable Figma Make prototype, one tab per view, so the navigation between screens could be walked through; the published figure is a capture of its attendance-month tab", status: 'evidenced' },
+    { tag: 'High-Fidelity Wireframe', evidence: "figures.wireframe: the attendance-month screen from the high-fidelity Figma Make set, published directly under its low-fidelity twin — same structure, with the role palette, type scale, full code vocabulary and morning/afternoon cells applied; design section: the design system sheet those decisions come from", status: 'evidenced' },
+    { tag: 'Figma Make', evidence: "wireframe section and techStack: both wireframe stages were built as clickable Figma Make prototypes — a low-fidelity set and a high-fidelity one — so the navigation between screens could be walked through; the two published figures are captures of the same attendance-month screen from each set", status: 'evidenced' },
     { tag: 'Claude Design', evidence: "techStack: the figures that carry this case study were drawn in Claude Design — the 5W1H frame, the stakeholder map, the simplified app architecture and its guarantees, the before/after artefact comparison, and the sketch → wireframe → shipped strip; the earlier wireframes came from there too, before the clickable set moved to Figma Make", status: 'evidenced' },
     { tag: 'Claude Code', evidence: "techStack: Claude Code was the AI-assisted development environment the React/TypeScript app and its test suite were built in; the case study documents the resulting artefacts, not the tooling, so this tag rests on the stack listing alone", status: 'thin' },
     { tag: 'Interaction Design', evidence: "the guided Schritt-für-Schritt mode, camera capture, and the visible status chain are interaction decisions traceable to numbered problems; no standalone interaction spec is published", status: 'thin' },
