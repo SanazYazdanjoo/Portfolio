@@ -1,5 +1,5 @@
-// The homepage, built to the design reference
-// (Claude Design › Ink & Bloom › templates/portfolio-homepage).
+// The homepage, built to the "Ink & Bloom" design reference
+// (templates/portfolio-homepage).
 //
 // Structure, section by section, exactly as the reference lays it out:
 //

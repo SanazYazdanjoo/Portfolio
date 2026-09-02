@@ -110,11 +110,11 @@ document.addEventListener('DOMContentLoaded', async function() {
     // runtime minted, is another publisher document) and only ACCEPTS
     // text from that direct parent; requests from below are honored only
     // for the document's own child frames, and the ROOT never sends
-    // upward at all. That last rule is load-bearing: the artifact host's
-    // frame-ancestors allows claude.ai (and friends) to frame an
-    // artifact, so window.top can be a FOREIGN document — a top-addressed
+    // upward at all. That last rule is load-bearing: the host page's
+    // frame-ancestors policy may allow third-party sites to frame this
+    // document, so window.top can be a FOREIGN document — a top-addressed
     // protocol would hand page uuids to that ancestor and accept forged
-    // "page text" from it, minting attacker HTML as an artifact-origin
+    // "page text" from it, minting attacker HTML as a same-origin
     // blob document. The chain never touches the ancestor: requests stop
     // at the root, replies are origin-addressed per hop (never '*' when
     // an origin exists), and both directions are origin-gated (on https
@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', async function() {
           return;
         }
         if (FONT_MIME.test(entry.mime) && MIME_TOKEN.test(entry.mime)) {
-          // Strict artifact hosts allow font-src data: but not blob:.
+          // Strict hosts allow font-src data: but not blob:.
           blobUrls[uuid] = 'data:' + entry.mime + ';base64,' +
             (entry.compressed ? toBase64(finalBytes) : entry.data);
         } else {
@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', async function() {
       if (blobUrls[entry.uuid]) resourceMap[entry.id] = blobUrls[entry.uuid];
     }
 
-    // Artifact-host CSP (connect-src 'self') refuses fetch() of blob: URLs —
+    // A strict host CSP (connect-src 'self') refuses fetch() of blob: URLs —
     // consumers read these Blobs directly. Survives the swap like the error sink.
     window.__resourceBlobs = resourceBlobs;
 

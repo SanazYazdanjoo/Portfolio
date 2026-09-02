@@ -117,8 +117,8 @@
 --font-family-mono:    ui-monospace, "SF Mono", "Cascadia Code", Menlo, monospace;
 
 /* =====================================================================
-   THE SCALE — taken verbatim from the design reference
-   (Claude Design › Ink & Bloom › templates/portfolio-homepage).
+   THE SCALE — taken verbatim from the "Ink & Bloom" design reference
+   (templates/portfolio-homepage).
 
    Every size and length the homepage uses is below. A value that is not
    here is not a decision, it is a leftover — design-system.test.js fails
