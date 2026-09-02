@@ -10,16 +10,23 @@ import { useEffect, useState } from "react";
 
 const MOBILE_QUERY = "(max-width: 767px)";
 
-export function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(
-    () => window.matchMedia?.(MOBILE_QUERY).matches ?? false
+// The general form. Same JS-gate reason: a component that mounts or unmounts
+// per breakpoint (rather than merely restyling) cannot be expressed as a
+// Tailwind class, because the class only hides what is already rendered.
+export function useMediaQuery(query) {
+  const [matches, setMatches] = useState(
+    () => window.matchMedia?.(query).matches ?? false
   );
   useEffect(() => {
-    const mq = window.matchMedia?.(MOBILE_QUERY);
+    const mq = window.matchMedia?.(query);
     if (!mq) return;
-    const onChange = (e) => setIsMobile(e.matches);
+    const onChange = (e) => setMatches(e.matches);
     mq.addEventListener("change", onChange);
     return () => mq.removeEventListener("change", onChange);
-  }, []);
-  return isMobile;
+  }, [query]);
+  return matches;
+}
+
+export function useIsMobile() {
+  return useMediaQuery(MOBILE_QUERY);
 }

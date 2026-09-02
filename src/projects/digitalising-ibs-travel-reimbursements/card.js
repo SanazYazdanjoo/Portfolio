@@ -66,7 +66,7 @@ export default {
     'TypeScript',
     'Node.js / Fastify',
     'SQLite',
-    'Excel Automation (SheetJS)',
+    'Excel Automation (ExcelJS)',
     'Automated Testing (Vitest)',
     'Claude Code',
     'Claude Design',

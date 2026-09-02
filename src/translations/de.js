@@ -295,6 +295,7 @@ const de = {
   "project.meta.timeline": "Zeitrahmen",
   "project.meta.methods": "Forschungsmethoden",
   "project.meta.skills": "Fähigkeiten",
+  "project.orbit.label": "Hier im Einsatz",
   "project.meta.moreSkills": "weitere",
   "project.meta.fewerSkills": "Weniger anzeigen",
   "project.meta.showAllSkills": "Alle {n} Fähigkeiten anzeigen",

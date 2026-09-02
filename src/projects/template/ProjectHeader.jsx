@@ -10,6 +10,7 @@ import { useTranslation } from "../../context/LanguageContext";
 import { FitTitle } from "./FitTitle";
 import { ContributionRow } from "./ContributionRow";
 import { EASE } from "./constants";
+import { useFlownTags } from "./SkillOrbit";
 
 // How many skill chips a phone shows before the "+N more" disclosure. The
 // cap is a small-screen affordance only — from `sm` up the full list renders
@@ -27,6 +28,9 @@ import { EASE } from "./constants";
 const MOBILE_TAG_CAP = 8;
 
 export function ProjectHeader({ meta, tags }) {
+  // Tags currently orbiting a section below leave a gap here on purpose:
+  // one element per tag, so the pill in the rail IS this pill, moved.
+  const flownTags = useFlownTags();
   const prefersReducedMotion = useReducedMotion();
   const { t } = useTranslation();
   const [allTagsShown, setAllTagsShown] = useState(false);
@@ -106,16 +110,32 @@ export function ProjectHeader({ meta, tags }) {
               </dt>
               <dd className="flex flex-wrap gap-2">
                 {tags.map((tag, i) => (
-                  <Link
+                  /* Hidden with `display: none` rather than clipped, so a
+                     screen reader on a phone reads the same list a sighted
+                     reader sees — the toggle is a real disclosure. The class
+                     sits on the wrapper, not the link: a hidden link inside a
+                     shown flex child would still spend a gap.
+
+                     `flownTags` is the orbit's half of the same rule — a tag
+                     that has flown to the section rail is not rendered twice,
+                     it is rendered there. The shared layoutId is what carries
+                     it between the two places. */
+                  <motion.div
                     key={tag}
-                    to={`/tags/${encodeURIComponent(tag)}`}
-                    /* Hidden with `display: none` rather than clipped, so a
-                       screen reader on a phone reads the same list a sighted
-                       reader sees — the toggle is a real disclosure. */
-                    className={i >= MOBILE_TAG_CAP && !allTagsShown ? "hidden sm:block" : undefined}
+                    layout="position"
+                    layoutId={`skill-pill-${tag}`}
+                    className={
+                      flownTags.has(tag)
+                        ? "hidden"
+                        : i >= MOBILE_TAG_CAP && !allTagsShown
+                          ? "hidden sm:block"
+                          : undefined
+                    }
                   >
-                    <Badge tone="accent">{tag}</Badge>
-                  </Link>
+                    <Link to={`/tags/${encodeURIComponent(tag)}`}>
+                      <Badge tone="accent">{tag}</Badge>
+                    </Link>
+                  </motion.div>
                 ))}
 
                 {hiddenTagCount > 0 && (
