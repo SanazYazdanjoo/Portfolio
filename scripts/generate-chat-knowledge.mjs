@@ -118,6 +118,7 @@ async function main() {
         designSystem: proj.designSystem,
         methodology: proj.methodology,
         results: proj.results,
+        limitations: proj.limitations,
         implications: proj.implications,
         outcome: proj.outcome,
         process: proj.process,

@@ -202,6 +202,7 @@ const en = {
   "project.sidebar.accessibility": "Accessibility",
   "project.sidebar.methodology": "Methodology",
   "project.sidebar.results": "Results",
+  "project.sidebar.limitations": "Limitations",
   "project.sidebar.implications": "Implications",
   "project.sidebar.status": "Status",
   "project.sidebar.conclusion": "Conclusion",
@@ -281,6 +282,8 @@ const en = {
   "project.outcome.def.academic": "Academic work — product adoption does not apply.",
   "project.outcome.def.deferred": "Evaluation designed and pending; the outcome is reported once measured, never estimated.",
 
+  "project.limitations.kicker": "What This Does Not Show",
+  "project.limitations.heading": "Limitations",
   "project.implications.kicker": "So What",
   "project.implications.heading": "Design Implications",
 

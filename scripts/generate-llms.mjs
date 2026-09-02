@@ -97,6 +97,7 @@ const PROJECT_SECTIONS = [
   ["methodology", "Methodology"],
   ["process", "Process"],
   ["results", "Results"],
+  ["limitations", "Limitations"],
   ["implications", "Implications"],
   ["verbatims", "Participant Voices"],
   ["metrics", "Key Numbers"],

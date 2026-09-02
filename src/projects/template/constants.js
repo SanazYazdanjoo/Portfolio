@@ -32,6 +32,10 @@ export const SECTIONS = [
   { id: "accessibility", labelKey: "project.sidebar.accessibility", dataKey: "accessibility" },
   { id: "methodology",  labelKey: "project.sidebar.methodology",  dataKey: "methodology"  },
   { id: "results",      labelKey: "project.sidebar.results",      dataKey: "results"      },
+  // Limitations sit between Results and Implications: they qualify the
+  // findings just reported, and must be read before any implication is drawn
+  // from them. Data-gated like every section.
+  { id: "limitations",  labelKey: "project.sidebar.limitations",  dataKey: "limitations"  },
   { id: "implications", labelKey: "project.sidebar.implications", dataKey: "implications" },
   { id: "phases",       labelKey: "project.sidebar.status",       dataKey: "phases"       },
   { id: "conclusion",   labelKey: "project.sidebar.conclusion",   dataKey: "conclusion"   },
@@ -73,7 +77,7 @@ export const RENDERED_FIELDS = [
   "prototype", "prototypeUrl", "prototypeUrlLabel", "accessibility", "methodology",
   "methodologyQuote", "methods", "techStack", "results", "resultsAtAGlance",
   "metrics", "metricsIntro", "verbatims", "verbatimsIn", "outcome", "notBuilt",
-  "implications", "phases", "phasesIntro", "conclusion", "figures",
+  "implications", "limitations", "phases", "phasesIntro", "conclusion", "figures",
   // Per-project heading overrides, keyed by section id. Each entry may carry
   // `label` (sidebar/pill), `kicker` and `heading` — bilingual objects, since
   // useLocalizedProfile resolves them like any other field. This exists so a
@@ -123,4 +127,11 @@ export const DATA_ONLY_FIELDS = [
   "slug",        // ignored by the aggregator; folder name wins
   "tagEvidence", // consumed by projects.test.js, not by any page — by design
   "excludeFromHome", // read by Home.jsx to keep a project off the homepage list
+  // Authoring provenance for the deskbird study. None of these four are
+  // orphans-by-accident: each is already said on the page in the field that
+  // owns it, and is kept here as the structured record behind that sentence.
+  "partners",     // client + institution; the card's `context` and `title` say both
+  "team",         // size only; card.js `role` already reads "UX Researcher (team of 6)"
+  "contextualDesignModels", // the five models are named in `methods`
+  "requirementSources",     // provenance behind the requirements, for authoring reference
 ];

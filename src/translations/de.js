@@ -199,6 +199,7 @@ const de = {
   "project.sidebar.accessibility": "Barrierefreiheit",
   "project.sidebar.methodology": "Methodik",
   "project.sidebar.results": "Ergebnisse",
+  "project.sidebar.limitations": "Limitationen",
   "project.sidebar.implications": "Implikationen",
   "project.sidebar.status": "Status",
   "project.sidebar.conclusion": "Fazit",
@@ -278,6 +279,8 @@ const de = {
   "project.outcome.def.academic": "Akademische Arbeit — Produkt-Adoption ist hier nicht anwendbar.",
   "project.outcome.def.deferred": "Evaluation konzipiert und ausstehend; das Ergebnis wird erst berichtet, wenn es gemessen ist — nie geschätzt.",
 
+  "project.limitations.kicker": "Was das nicht zeigt",
+  "project.limitations.heading": "Limitationen",
   "project.implications.kicker": "Was das bedeutet",
   "project.implications.heading": "Gestaltungsimplikationen",
 
