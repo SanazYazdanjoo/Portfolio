@@ -1,8 +1,8 @@
 // Card-level fields ONLY — everything the homepage grid, the /projects
 // index, the tag pages, the sitemap, and the meta/sitemap generators need.
 // The aggregator (src/data/projects.js) eagerly globs card.js files, so this
-// module ships to every page; the full case-study prose stays in data.js,
-// which loads with the detail route's own chunk. data.js spreads this object,
+// module ships to every page; the full case-study prose stays in <slug>.data.js,
+// which loads with the detail route's own chunk. <slug>.data.js spreads this object,
 // so a field lives in exactly one of the two files, never both.
 import thumbnailImg from './Project-1.png';
 import thumbnailWebp from './Project-1.webp';

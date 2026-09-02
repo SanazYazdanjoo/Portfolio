@@ -33,7 +33,7 @@ const site = profile.contact.website.replace(/\/$/, "");
 const heading = (level, text) => `${"#".repeat(level)} ${text}\n\n`;
 
 // Renders any knowledge value into markdown, so a new field added to a
-// project's data.js shows up in the mirror without touching this script.
+// project's <slug>.data.js shows up in the mirror without touching this script.
 function md(value, level = 2) {
   if (value == null) return "";
   if (typeof value === "string" || typeof value === "number") {

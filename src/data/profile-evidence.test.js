@@ -36,7 +36,7 @@
 // borrow IBS's "four indirect stakeholders".
 
 import { describe, it, expect } from "vitest";
-// FULL data.js modules (test-only glob): the evidence corpus is the
+// FULL <slug>.data.js modules (test-only glob): the evidence corpus is the
 // case-study prose, which the card-level aggregator no longer carries
 // after the Phase 5 split.
 import { fullProjects, getFullProject } from "../test/fullProjects";
