@@ -189,6 +189,27 @@ export const projectData = {
     de: "Lighthouse 13.4.0 gegen die Produktionsseite (emulierter Desktop, 24. August 2026): Performance 99, Accessibility 100, Best Practices 100, SEO 100. Mobile-Emulation am selben Tag: 77, gebremst von einem Largest Contentful Paint von 4,4 Sekunden. Zehn Tage zuvor lag Performance bei 66, mit 0,261 Layoutverschiebung, 340 ms Total Blocking Time und rund 733 KiB ungenutztem JavaScript. Geschlossen hat die Lücke: eine Route-Skeleton-Korrektur gegen die Layoutverschiebung, Lazy Loading für jede Fallstudien-Abbildung, entfernte tote Chunks und ein Card/Data-Split, der die Prosa aller fünf Fallstudien vom gemeinsamen Pfad nahm (Aggregator-Chunk 57 KB → 3,9 KB gzip). Zwei Optimierungen habe ich geprüft und verworfen: LazyMotion spart geschätzt 20–25 KB gzip, berührt aber 35 Dateien im handgezeichneten Animationssystem, und ein Aufteilen der Profildaten würde den lokalen Editor brechen, der sie schreibt. Beides lohnt bei diesen Werten nicht. Die ehrliche Lücke bleibt der mobile LCP: Ein clientseitig gerenderter Hero kann nicht zeichnen, bevor das JavaScript da ist. Offen bleiben: die manuelle WCAG-2.1-AA-Kontrastprüfung über jedes Token-Paar (der automatisierte Audit fand kein durchfallendes Paar, was nicht dasselbe ist), der reine Tastaturdurchlauf des Hauptpfads, die Bestätigung, dass der Lebenslauf auf genau eine A4-Seite druckt, und die zwei geplanten Tests: Zeit bis zur Antwort auf „Was macht sie?“ und First-Click-Erfolg in der Navigation.",
   },
 
+  // The case study is about my own work, evaluated by me — these are the
+  // limits that puts on everything above.
+  limitations: [
+    {
+      en: "Sole author and sole evaluator. Every judgement here — structure, wording, visual system — is mine and unreviewed; there is no second designer on record who disagreed with any of it.",
+      de: "Alleinige Autorin und alleinige Evaluatorin. Jede Entscheidung hier — Struktur, Formulierung, visuelles System — ist meine und ungeprüft; es gibt keine zweite Design-Stimme im Protokoll, die widersprochen hätte.",
+    },
+    {
+      en: "No user research has run on the site itself. The 5-second test and the first-click test are defined and pending, so every usability claim here describes a mechanism in the source, not an observed effect on a reader.",
+      de: "Auf der Seite selbst ist noch keine Nutzerforschung gelaufen. Der 5-Sekunden-Test und der First-Click-Test sind definiert und stehen aus; jede Usability-Aussage hier beschreibt daher einen Mechanismus im Quellcode, keine beobachtete Wirkung auf Lesende.",
+    },
+    {
+      en: "The Lighthouse numbers are single lab runs under emulation, from one machine and one network. There is no field data from real visitors, and mobile LCP in particular is the metric emulation flatters least.",
+      de: "Die Lighthouse-Werte sind einzelne Labormessungen unter Emulation, von einem Rechner und einem Netz. Es gibt keine Felddaten realer Besucher:innen, und gerade der mobile LCP ist der Wert, den die Emulation am wenigsten trifft.",
+    },
+    {
+      en: "An automated accessibility score of 100 is not conformance. The manual contrast pass across every token pair and the keyboard-only walkthrough are still open, and nobody has run the site with a screen reader or with assistive technology in an actual user's hands.",
+      de: "Ein automatisierter Accessibility-Wert von 100 ist keine Konformität. Die manuelle Kontrastprüfung über jedes Token-Paar und die reine Tastatur-Begehung stehen aus, und niemand hat die Seite mit einem Screenreader oder mit assistiver Technik in den Händen echter Nutzer:innen durchlaufen.",
+    },
+  ],
+
   // The research that would produce an outcome (moderated sessions, 5-second
   // test, first-click test) hasn't run yet — the Metrics prose above lists
   // exactly what is pending, so this body states only what it adds: what

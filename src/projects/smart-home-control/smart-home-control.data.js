@@ -123,6 +123,35 @@ export const projectData = {
     de: "Die Befunde, die es zu behalten lohnt, sind die, die keine schnellen Fixes wurden. In einem Flow, den wir für fertig hielten, zeigte sich eine Sackgasse: Teilnehmerin A wählte beim Scannen beide Geräte aus, aber nur eines wurde ins Setup übernommen, und der Bestätigungs-Screen bot keinen Weg zurück — sie bemerkte es sofort und fragte, was mit dem zweiten Gerät passiert sei. Rahmen wurden als das einzig Antippbare gelesen: Teilnehmer B tippte nur Elemente mit sichtbarem Button-Rand, nutzte auf dem Geräteeinstellungs-Screen den umrahmten Raumwähler und behandelte die rahmenlosen Zeilen daneben als Beschriftung. Destruktive Aktionen erzeugten Angst, bevor sie Fehler erzeugten: Beim Anblick von „Raum löschen“ sorgte sich Teilnehmerin A laut vor versehentlichem Auslösen und schlug vor, die Raumverwaltung auf einen eigenen Screen zu verlegen — ein struktureller Einwand, kein kosmetischer. Die Methode selbst war ein Befund: Beide Teilnehmenden mussten zurückspringen, keine:r konnte das mit den Karten in der Hand, und beide legten den Prototyp am Ende auf dem Boden aus — A sortierte ihn vorher in Reihenfolge, B improvisierte spät. Und beide Teilnehmenden eröffneten jeden Screen, indem sie seinen Titel laut vorlasen — weshalb die Lücke „In welchem Zuhause bin ich?“ auf vier verschiedenen Screens auftauchte. Zwei Teilnehmende sind eine dünne Stichprobe, und der Originalbericht sagt das auch. Beim erneuten Durchsehen der Artefakte ist die inkonsistente Bewohnerliste über drei getestete Screens hinweg ein Defekt, den eine heuristische Prüfung gefunden hätte, bevor er eine:n Teilnehmende:n erreicht. Dasselbe Durchsehen förderte eine Dokumentations-Lektion zutage: Die meisten Sitzungsfotos des Berichts zeigen die überarbeiteten Karten statt der getesteten — das Set wurde nach den Änderungen erneut fotografiert. Die Sitzungen selbst sind durch das Transkript und die vier daraus entstandenen Änderungen belegt; heute würde ich Artefakte im Moment des Testens fotografieren, nicht danach.",
   },
 
+  // What this study cannot support. The thin sample is named in the
+  // original report; the rest follows from the method and the artefacts.
+  limitations: [
+    {
+      en: "Two think-aloud participants is enough to expose a dead end and a misread affordance, not to establish how often either occurs or how severe it is. The original report says so, and no wider round followed.",
+      de: "Zwei Think-Aloud-Teilnehmende genügen, um eine Sackgasse und eine fehlgelesene Affordanz aufzudecken — nicht, um deren Häufigkeit oder Schweregrad zu bestimmen. Der Originalbericht sagt das auch, und eine breitere Runde folgte nicht.",
+    },
+    {
+      en: "Both testers were iOS users who had never used a smart-home app, and neither was tested inside an actual shared household — the social situation the design is about was described to them, not lived during the session.",
+      de: "Beide Testpersonen waren iOS-Nutzer:innen, die noch nie eine Smart-Home-App verwendet hatten, und keine wurde in einem tatsächlich geteilten Haushalt getestet — die soziale Situation, um die es im Design geht, wurde ihnen beschrieben, nicht in der Sitzung erlebt.",
+    },
+    {
+      en: "The questionnaire (24 of 30 people approached) was distributed through the team's own reach, so it framed the territory and named pain points; it was never a representative sample of shared-flat residents.",
+      de: "Der Fragebogen (24 von 30 angefragten Personen) wurde über die Reichweite des Teams verteilt — er steckte das Terrain ab und benannte Schmerzpunkte, war aber nie eine repräsentative Stichprobe von WG-Bewohnenden.",
+    },
+    {
+      en: "A paper prototype cannot produce the conflict the project is about: no device latency, no second resident acting at the same moment. Simultaneous use could only be walked through, never experienced.",
+      de: "Ein Papierprototyp kann den Konflikt, um den es geht, nicht erzeugen: keine Gerätelatenz, keine zweite Person, die im selben Moment handelt. Gleichzeitige Nutzung ließ sich nur durchsprechen, nie erleben.",
+    },
+    {
+      en: "The v2 revision was never put in front of a participant, so the four changes are reasoned responses to observed problems — not changes shown to have fixed them.",
+      de: "Die v2-Überarbeitung lag nie einer Testperson vor; die vier Änderungen sind daher begründete Antworten auf beobachtete Probleme — nicht Änderungen, deren Wirkung belegt ist.",
+    },
+    {
+      en: "The photographic record is weaker than the sessions were: most session photographs in the report show the revised cards, because the set was re-photographed after the changes. What was tested is evidenced by the transcript, not by the photos.",
+      de: "Die fotografische Dokumentation ist schwächer als die Sitzungen selbst: Die meisten Sitzungsfotos im Bericht zeigen die überarbeiteten Karten, weil das Set nach den Änderungen neu fotografiert wurde. Belegt ist das Getestete durch das Transkript, nicht durch die Fotos.",
+    },
+  ],
+
   // "academic", like the other university projects (gaze, embraceme):
   // adoption in the product sense doesn't apply. The body states only what
   // the documentation contains — the course ended at the v2 revision; no
