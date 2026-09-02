@@ -71,11 +71,17 @@ export default function CV() {
     return featured.length > 0 ? featured : certifications || [];
   }, [certifications]);
 
+  // Highlights is conditional on the same test that renders the section, so
+  // the nav can't offer a link to an element that isn't in the document —
+  // the rule volunteerWork already followed. A project losing its `cvMetric`
+  // now removes the nav item with the section, not just the section.
   const cvSections = useMemo(
     () => [
       { id: "about", label: t("nav.about") },
       { id: "experience", label: t("cv.experience") },
-      { id: "highlights", label: t("cv.portfolioHighlights") },
+      ...(highlightRows.length > 0
+        ? [{ id: "highlights", label: t("cv.portfolioHighlights") }]
+        : []),
       { id: "education", label: t("cv.education") },
       { id: "skills", label: t("cv.skills") },
       { id: "certificates", label: t("cv.certificates") },
@@ -84,7 +90,7 @@ export default function CV() {
         ? [{ id: "volunteerWork", label: t("cv.volunteerWork") }]
         : []),
     ],
-    [t, volunteerWork]
+    [t, volunteerWork, highlightRows]
   );
 
   const [activeId, setActiveId] = useState(cvSections[0]?.id ?? null);
@@ -171,6 +177,7 @@ export default function CV() {
                 <button
                   key={section.id}
                   type="button"
+                  aria-current={activeId === section.id ? "true" : undefined}
                   onClick={() => {
                     document.getElementById(section.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
                   }}
@@ -203,7 +210,7 @@ export default function CV() {
             <section id="experience" className="scroll-mt-32">
               <SectionHeading>{t("cv.experience")}</SectionHeading>
               <div className="space-y-5 print:space-y-4">
-                {experience.map((job, i) => (
+                {(experience || []).map((job, i) => (
                   <article
                     key={i}
                     className={`break-inside-avoid ${i > 0 ? "border-t rule-edge-t rule-faint pt-5" : ""}`}
@@ -241,7 +248,7 @@ export default function CV() {
                     )}
 
                     <ul className="list-disc list-outside ml-5 space-y-2 text-sm leading-relaxed text-gray-700 print:text-sm">
-                      {job.tasks.map((task, tIndex) => (
+                      {(job.tasks || []).map((task, tIndex) => (
                         <li key={tIndex}>{task}</li>
                       ))}
                     </ul>
@@ -255,7 +262,14 @@ export default function CV() {
                 visible URL (a printed page can't click, so the address IS
                 the content). Phase 6 has standing authority to cut this to
                 two projects, or drop it, if the one-A4-page print test
-                cannot hold it. */}
+                cannot hold it.
+
+                `cvContext` carries the attribution the case study states in
+                full — team size, and what was mine within it. Without it a
+                row reads as solo work, which for the six-person deskbird
+                study it wasn't; the project page says so and a forwarded PDF
+                has to say so too. Optional: projects that were solo simply
+                omit the field and the row renders as before. */}
             {highlightRows.length > 0 && (
               <section id="highlights" className="mt-12 print:mt-8 scroll-mt-32">
                 <SectionHeading>{t("cv.portfolioHighlights")}</SectionHeading>
@@ -265,12 +279,17 @@ export default function CV() {
                       <Link to={href} className="font-bold text-gray-900 hover:text-primary">
                         {h.title}
                       </Link>
+                      {h.cvContext && (
+                        <span className="text-sm print:text-xs text-gray-500">
+                          {" "}({h.cvContext})
+                        </span>
+                      )}
                       <span className="text-gray-700">
                         {" — "}
                         <span className="font-bold text-primary">{metric.value}</span> {metric.label}
                       </span>{" "}
                       <span className="text-sm print:text-xs text-gray-500 break-all">
-                        · {contact.websiteHandle}
+                        · {contact?.websiteHandle}
                         {href}
                       </span>
                     </li>
@@ -282,7 +301,7 @@ export default function CV() {
             <section id="education" className="mt-12 print:mt-8 scroll-mt-32">
               <SectionHeading>{t("cv.education")}</SectionHeading>
               <div className="space-y-6 print:space-y-5">
-                {education.map((edu, i) => (
+                {(education || []).map((edu, i) => (
                   <div key={i} className="break-inside-avoid">
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1">
                       <p className="font-black text-lg text-black print:text-base">
@@ -311,7 +330,7 @@ export default function CV() {
             <section id="skills" className="scroll-mt-32">
               <SectionHeading sidebar>{t("cv.skills")}</SectionHeading>
               <div className="space-y-5 print:space-y-4">
-                {Object.entries(skills).map(([category, items]) => (
+                {Object.entries(skills || {}).map(([category, items]) => (
                   <div key={category} className="break-inside-avoid">
                     <h3 className="text-sm font-black uppercase text-gray-500 tracking-caps mb-1.5 print:text-xs">
                       {SKILL_CATEGORY_KEYS[category]
@@ -376,7 +395,7 @@ export default function CV() {
             <section id="languages" className="scroll-mt-32">
               <SectionHeading sidebar>{t("cv.languages")}</SectionHeading>
               <div className="space-y-3">
-                {languages.map((lang, i) => (
+                {(languages || []).map((lang, i) => (
                   <div key={i} className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline text-base print:text-sm">
                     <span className="font-bold text-gray-900">{lang.name}</span>
                     <span className="text-gray-500 italic text-sm mt-0.5 sm:mt-0 print:text-xs">{lang.level}</span>
