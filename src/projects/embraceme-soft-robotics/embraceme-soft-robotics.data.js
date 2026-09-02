@@ -31,7 +31,7 @@ export const projectData = {
   // localizes the whole meta object, so { en, de } resolves like any field.
   timeline: { en: "Summer semester 2023", de: "SoSe 2023" },
 
-  // The AI illustration as the hero banner, by owner decision (2026-08-24) —
+  // The Gemini-generated illustration as the hero banner, by owner decision (2026-08-24) —
   // heroIsGenerated renders the visible generation credit, so it never
   // passes as documentation. The real photographs carry the evidence in the
   // figures below and on the homepage card.

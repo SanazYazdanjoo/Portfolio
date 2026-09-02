@@ -29,7 +29,7 @@ import wireframeMobile from './assets/wireframe-case-study-mobile.svg';
 export const projectData = {
   ...card,
   timeline: { en: "Ongoing · continuously iterated", de: "Laufend · kontinuierlich iteriert" },
-  heroIsGenerated: true, // the hero is a generated illustration — renders the credit
+  heroIsGenerated: true, // hero generated with Google Gemini — renders the credit
 
   // No research-method chips here: the 5-second test, first-click test and
   // moderated sessions are planned, not run (the Metrics section says so),
@@ -106,9 +106,17 @@ export const projectData = {
   // The panel resolves every value from theme.css at render time — this
   // prose only names the system and the two rules the numbers can't say.
   designSystem: {
-    en: "Ink & Bloom, in short: a warm paper-and-ink palette, one loud coral accent, and a gold highlighter used at most once per page. Bricolage Grotesque for display type, DM Sans for body, Caveat for handwritten notes, and Framer Motion draw-ins that all share one easing curve. The table below reads its values from theme.css at render time instead of copying them, so it updates with the site rather than drifting from it. Two rules the numbers don't state on their own: each accent has a -500 step for large text and shapes and a -600 step for anything small enough that WCAG AA bites, and the gold sits outside that split — it is a background wash, never a text colour. Every icon in the interface, from arrows and chevrons to the ? and ! marks, is drawn with the same ~1.6–1.8px nib in one component file, so no icon font or library ships in the bundle. The full specimen sheet is the living style guide linked under Prototype.",
-    de: "Ink & Bloom, kurz gefasst: eine warme Papier-und-Tinte-Palette, ein lauter Koralle-Akzent und ein goldener Textmarker, höchstens einmal pro Seite. Bricolage Grotesque für Display, DM Sans für Fließtext, Caveat für handschriftliche Notizen, dazu Framer-Motion-Zeichenanimationen auf einer einzigen Easing-Kurve. Die Tabelle unten liest ihre Werte beim Rendern aus theme.css, statt sie zu kopieren — sie aktualisiert sich also mit der Seite, statt von ihr abzuweichen. Zwei Regeln, die die Zahlen nicht selbst sagen: Jeder Akzent hat eine -500-Stufe für großen Text und Flächen und eine -600-Stufe für alles, was klein genug ist, dass WCAG AA greift. Das Gold steht außerhalb dieser Aufteilung: Hintergrundlasur, nie Textfarbe. Jedes Icon der Oberfläche, von Pfeilen und Chevrons bis zu den ?- und !-Zeichen, ist mit derselben ~1,6–1,8px-Feder gezeichnet und liegt in einer einzigen Komponentendatei; es gibt keinen Icon-Font und keine Icon-Bibliothek im Bundle. Das vollständige Musterblatt ist der lebende Styleguide, verlinkt unter Prototyp.",
+    en: "Ink & Bloom, in short: a warm paper-and-ink palette, one loud coral accent, and a gold highlighter used at most once per page. Bricolage Grotesque for display type, DM Sans for body, Caveat for handwritten notes, and Framer Motion draw-ins that all share one easing curve. The table below reads its values from theme.css at render time instead of copying them, so it updates with the site rather than drifting from it. Two rules the numbers don't state on their own: each accent has a -500 step for large text and shapes and a -600 step for anything small enough that WCAG AA bites, and the gold sits outside that split — it is a background wash, never a text colour. Every icon in the interface, from arrows and chevrons to the ? and ! marks, is drawn with the same ~1.6–1.8px nib in one component file, so no icon font or library ships in the bundle. The full specimen sheet is the living style guide linked under Prototype. The same system is also published as a Figma Make kit — tokens, styles, components and the drawn-line rules, linked below.",
+    de: "Ink & Bloom, kurz gefasst: eine warme Papier-und-Tinte-Palette, ein lauter Koralle-Akzent und ein goldener Textmarker, höchstens einmal pro Seite. Bricolage Grotesque für Display, DM Sans für Fließtext, Caveat für handschriftliche Notizen, dazu Framer-Motion-Zeichenanimationen auf einer einzigen Easing-Kurve. Die Tabelle unten liest ihre Werte beim Rendern aus theme.css, statt sie zu kopieren — sie aktualisiert sich also mit der Seite, statt von ihr abzuweichen. Zwei Regeln, die die Zahlen nicht selbst sagen: Jeder Akzent hat eine -500-Stufe für großen Text und Flächen und eine -600-Stufe für alles, was klein genug ist, dass WCAG AA greift. Das Gold steht außerhalb dieser Aufteilung: Hintergrundlasur, nie Textfarbe. Jedes Icon der Oberfläche, von Pfeilen und Chevrons bis zu den ?- und !-Zeichen, ist mit derselben ~1,6–1,8px-Feder gezeichnet und liegt in einer einzigen Komponentendatei; es gibt keinen Icon-Font und keine Icon-Bibliothek im Bundle. Das vollständige Musterblatt ist der lebende Styleguide, verlinkt unter Prototyp. Dasselbe System ist außerdem als Figma-Make-Kit veröffentlicht — Tokens, Styles, Komponenten und die Regeln der gezeichneten Linie, unten verlinkt.",
   },
+
+  // The Figma Make build of the same system. Data-gated: ProjectTemplate
+  // renders this link only when a project supplies designSystemUrl, so no
+  // other case study's Design System section changes. Deliberately NOT the
+  // gold PrototypeLink treatment — that mark is once-per-page and the real
+  // prototype link one section below already spends it. This is the
+  // system's own inline-link style: coral with the drawn hairline.
+  designSystemUrl: "https://www.figma.com/make/X9ESZoIvrYX8XqT3BOC0pw/Ink---Bloom-Design-System",
 
   figures: {
     wireframe: [

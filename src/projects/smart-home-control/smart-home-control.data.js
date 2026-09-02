@@ -71,7 +71,7 @@ export const projectData = {
   timeline: "SoSe 2023",
 
   heroImage: thumbnailImg,
-  heroIsGenerated: true, // the hero is a generated illustration — renders the credit
+  heroIsGenerated: true, // hero generated with Google Gemini — renders the credit
 
   methods: [
     { en: "Questionnaire study (N=24)",              de: "Fragebogenstudie (N=24)" },

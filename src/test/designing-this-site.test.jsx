@@ -64,6 +64,22 @@ describe("designing-this-site — the exception's own section list", () => {
     expect(screen.getByText("--font-family-display")).toBeInTheDocument();
   }, 30_000);
 
+  // The Figma Make build of the same system, linked at the end of the
+  // section. Two things are pinned: that it opens safely in a new tab, and
+  // that it is NOT the gold PrototypeLink treatment — that mark is
+  // once-per-page and the prototype link one section below already spends
+  // it, so this one carries the inline-link style (coral + drawn hairline).
+  it("links the Figma Make kit at the end of the Design System section", () => {
+    const { container } = renderWithProviders(<ProjectTemplate meta={siteData} />);
+    const section = container.querySelector("section#designSystem");
+    const link = section.querySelector('a[href*="figma.com/make"]');
+    expect(link, "Design System section should link the Figma Make kit").not.toBeNull();
+    expect(link.getAttribute("target")).toBe("_blank");
+    expect(link.getAttribute("rel")).toContain("noopener");
+    expect(link.className).toContain("rule-underline");
+    expect(link.className).not.toContain("bg-highlight");
+  }, 30_000);
+
   it("still shows Research Methods + Tech Stack, re-homed under Prototype", () => {
     const { container } = renderWithProviders(<ProjectTemplate meta={siteData} />);
     const prototype = container.querySelector("section#prototype");
@@ -88,6 +104,9 @@ describe("designing-this-site — the exception does not leak", () => {
     }
     expect(container.querySelector("section#wireframe")).toBeNull();
     expect(container.querySelector("section#designSystem")).toBeNull();
+    // The Figma Make link is data-gated on designSystemUrl the same way.
+    expect(gazeData.designSystemUrl).toBeUndefined();
+    expect(container.querySelector('a[href*="figma.com/make"]')).toBeNull();
     expect(screen.getByText("Key Findings & Outcome")).toBeInTheDocument();
     // Methods/Tech Stack stay in Methodology when methodology exists.
     const methodology = container.querySelector("section#methodology");

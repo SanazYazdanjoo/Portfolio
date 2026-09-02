@@ -24,7 +24,7 @@ export const projectData = {
   timeline: { en: "10/2025 – 04/2026 · defence 05/2026", de: "10/2025 – 04/2026 · Verteidigung 05/2026" },
 
   heroImage: thumbnailImg,
-  heroIsGenerated: true, // the hero is a generated illustration — renders the credit
+  heroIsGenerated: true, // hero generated with Google Gemini — renders the credit
 
   methods: [
     { en: "Custom TypeScript Architecture",       de: "Eigene TypeScript-Architektur" },

@@ -16,7 +16,7 @@ export const projectData = {
   ...card,
   timeline: "10/2023 – 03/2024",
   heroImage: thumbnailImg,
-  heroIsGenerated: true, // the hero is a generated illustration — renders the credit
+  heroIsGenerated: true, // hero generated with Google Gemini — renders the credit
 
   partners: {
     client: "deskbird",
