@@ -24,13 +24,13 @@
 //     Tailwind `hidden` class would leave the pills mounted in the orbit,
 //     hence missing from the header row, on every phone.
 //   • prefers-reduced-motion. The pills still move to the rail — that is
-//     information, not ornament — but they cut rather than fly, and the
-//     idle drift never runs.
+//     information, not ornament — but they cut rather than fly.
 //   • Print: no-print. A printed page has no active section.
 //
-// The idle drift is deliberately tiny (±3px, 6s) and is the only continuous
-// motion here; anything more on an element that sits beside running prose
-// reads as the page shaking, which this codebase has already paid for once.
+// No idle motion. The pills used to bob ±3px on a 6s loop, and even that
+// read as "the page is shaking" to a reader on a Windows laptop (2026-09-05,
+// noticed right after opening a Key insight, which merely drew the eye to
+// the rail). Motion here is reserved for arrivals, departures and flights.
 
 import { createContext, useContext, useMemo } from "react";
 import { Link } from "react-router-dom";
@@ -97,21 +97,9 @@ function OrbitPill({ tag, index, reduced }) {
       exit={{ opacity: 0, x: 12, transition: { duration: 0.18, ease: EASE } }}
       transition={{ duration: 0.5, delay: reduced ? 0 : index * 0.06, ease: EASE }}
     >
-      {/* The drift is a second, independent element so the shared-layout
-          transform above is never fought by an animation writing the same
-          property — the two transforms compose instead of racing. */}
-      <motion.div
-        animate={reduced ? undefined : { y: [0, -3, 0] }}
-        transition={
-          reduced
-            ? undefined
-            : { duration: 6, repeat: Infinity, ease: "easeInOut", delay: index * 0.4 }
-        }
-      >
-        <Link to={`/tags/${encodeURIComponent(tag)}`} className="inline-block focus-ring rounded-full">
-          <Badge tone="accent">{tag}</Badge>
-        </Link>
-      </motion.div>
+      <Link to={`/tags/${encodeURIComponent(tag)}`} className="inline-block focus-ring rounded-full">
+        <Badge tone="accent">{tag}</Badge>
+      </Link>
     </motion.div>
   );
 }
