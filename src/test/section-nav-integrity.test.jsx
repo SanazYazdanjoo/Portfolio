@@ -71,7 +71,10 @@ describe("section rail — every listed section resolves to a real section", () 
 
       // Every entry, not just the first — a stepper that renders one item and
       // drops the rest would still satisfy the check above.
-      const steps = within(body).getAllByRole("listitem");
+      // Scoped to the stepper's own <ol>: the optional milestone rail above
+      // it is a list too, and its entries are dates, not steps.
+      const stepper = within(body).getByRole("list", { name: /research process steps/i });
+      const steps = within(stepper).getAllByRole("listitem");
       expect(steps.length, `${slug}: ${project.process.length} entries in <slug>.data.js`).toBe(
         project.process.length
       );

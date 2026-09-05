@@ -189,16 +189,32 @@ export default function SectionMedia({ items }) {
         {items.map((f, i) => {
           const isVideo = f.type === "video";
           const isLink = !!f.href;
+          // A figure is pending when the data says so (`pending: true`), or
+          // when its file has not been dropped into ./media yet — data files
+          // that resolve media by filename (deskbird) get `src: null` back
+          // from the glob and name the awaited file in `pendingFile`.
           const needsArtwork =
-            f.pending === true || isNeedsInput(f.src) || isNeedsInput(f.poster);
+            f.pending === true ||
+            (!isVideo && !f.src) ||
+            isNeedsInput(f.src) ||
+            isNeedsInput(f.poster);
           const canZoom = !isLink && !isVideo && f.zoom !== false && !!f.src && !needsArtwork;
           const linkLabel = f.linkLabel || t("project.media.openFullPage");
 
           const media = needsArtwork ? (
-            <div className="flex min-h-[160px] flex-col items-center justify-center gap-2 p-8 text-center">
+            <div
+              role="img"
+              aria-label={f.alt}
+              className="flex min-h-[160px] flex-col items-center justify-center gap-2 p-8 text-center"
+            >
               <span className="font-mono text-2xs uppercase text-text-meta">
                 {t("project.media.pending")}
               </span>
+              {f.pendingFile && (
+                <span className="break-all font-mono text-2xs text-text-meta/70">
+                  {f.pendingFile}
+                </span>
+              )}
               {isNeedsInput(f.src) && <NeedsInputMarker path={`figures[${i}].src`} />}
             </div>
           ) : isVideo && !prefersReducedMotion ? (
@@ -229,7 +245,10 @@ export default function SectionMedia({ items }) {
               /* `printHidden: true` keeps a figure on screen but out of the
                  A4 export — how a 12-image flow gallery prints its lead
                  images only instead of blowing up the PDF. */
-              className={`m-0 ${f.span === 2 ? "sm:col-span-2" : ""} ${f.printHidden ? "print:hidden" : ""}`}
+              /* A pending figure is likewise off the paper: a dashed frame
+                 saying "in preparation" is a screen affordance for the
+                 author, not content for the reader of a PDF. */
+              className={`m-0 ${f.span === 2 ? "sm:col-span-2" : ""} ${f.printHidden || needsArtwork ? "print:hidden" : ""}`}
             >
               {/* Optional framing above the image; a figure that omits these
                   renders as a plain image. */}
