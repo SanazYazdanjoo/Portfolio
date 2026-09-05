@@ -205,6 +205,7 @@ const en = {
   "project.sidebar.limitations": "Limitations",
   "project.sidebar.implications": "Implications",
   "project.sidebar.status": "Status",
+  "project.sidebar.concepts": "Concepts",
   "project.sidebar.conclusion": "Conclusion",
 
   // Project detail — section kickers + headings (long form)
@@ -315,6 +316,35 @@ const en = {
   "project.results.verbatim": "Participant quote",
   "project.results.pending": "Measurement pending",
   "project.results.pendingNotice": "The protocol is defined; these numbers are deliberately absent until the sessions run.",
+
+  "project.concepts.kicker": "How the Concept Was Chosen",
+  "project.concepts.heading": "Concept Development",
+  "project.concepts.summary": "{from} directions came out of ideation. {to} went to the client.",
+  "project.concepts.sources": "Out of ideation",
+  "project.concepts.results": "What it became",
+  "project.concepts.carriedForward": "Carried forward",
+  "project.concepts.merged": "Merged",
+  "project.concepts.dropped": "Dropped",
+  "project.concepts.ariaLabel": "Concept lineage",
+  "project.concepts.pack": "What every concept had to carry",
+  "project.owner.self": "Mine",
+  "project.owner.unconfirmed": "Owner unconfirmed",
+
+  "project.voices.kicker": "In Their Words",
+  "project.voices.source": "Verbatims from the contextual inquiries",
+
+  "project.process.timeline": "Timeline",
+
+  "project.study.plan": "Study plan",
+  "project.study.completed": "Completed",
+  "project.study.notRun": "Not run",
+  "project.study.survey": "Survey instrument",
+  "project.study.sections": "{n} sections",
+  "project.study.pilots": "Pilots",
+  "project.study.models": "Models built per participant",
+  "project.study.landscapes": "Competitive landscapes reviewed",
+  "project.study.engagementPlatforms": "Engagement platforms",
+  "project.study.deskBooking": "Desk-booking competitors",
 
   "project.status.complete": "Complete",
   "project.status.inProgress": "In progress",
