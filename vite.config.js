@@ -1,8 +1,12 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { figureDims } from './scripts/vite-plugin-figure-dims.mjs'
 
 export default defineConfig({
-  plugins: [react()],
+  // figureDims: case-study figures get their pixel size registered against
+  // their URL at build time, so SectionMedia can reserve each figure's box
+  // before the lazy image loads (see the plugin's header comment).
+  plugins: [react(), figureDims()],
   server: {
     // In production /api/chat is a Vercel function; in dev the same handler
     // is mounted on the local Express server (server/server.js). Only the

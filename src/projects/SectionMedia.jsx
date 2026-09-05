@@ -46,6 +46,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
+import { imageDims } from "../utils/imageDims";
 import { NeedsInputMarker } from "../components/NeedsInputMarker";
 import { HandArrow } from "../components/HandArrow";
 import { HandClose } from "../components/HandIcons";
@@ -230,11 +231,20 @@ export default function SectionMedia({ items }) {
               className={`w-full h-auto block print:hidden ${f.className || ""}`}
             />
           ) : (
+            /* width/height are the image's pixel size (utils/imageDims —
+               registered at build time, never typed into the data), and
+               they are here for the box, not the size: `w-full h-auto`
+               still decides how big the figure renders, while the
+               attribute pair gives the browser the aspect ratio to reserve
+               that box BEFORE the lazy image arrives. Without them each
+               figure landed at height 0 and shoved the page down as it
+               loaded — 766px over one phone read of this page. */
             <img
               src={isVideo ? f.poster : f.src}
               alt={f.alt}
               loading="lazy"
               decoding="async"
+              {...imageDims(isVideo ? f.poster : f.src)}
               className={`w-full h-auto block ${f.className || ""}`}
             />
           );
@@ -298,7 +308,7 @@ export default function SectionMedia({ items }) {
                          opaque, so the blur painted nothing — while costing
                          iOS a live backdrop re-blur on every scroll frame the
                          figure was in view, which read as the page dragging
-                         past the sticky pill bar. */
+                         past the (then sticky) section bar. */
                       className="pointer-events-none absolute right-3 top-3 inline-flex items-center gap-1.5
                                  border rule-frame [--rule-fill-color:var(--bg)] px-2.5 py-1.5 font-mono text-2xs font-bold
                                  uppercase text-text no-print
