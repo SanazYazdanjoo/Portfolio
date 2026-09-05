@@ -1,7 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" font-family="ui-monospace, Consolas, Menlo, monospace">
   <!-- Post-hoc wireframe of the shipped case-study template below md
-       (<768px): one column, a horizontal pill bar instead of the TOC, and
-       no pull-quote rail. Drawn from src/projects/ProjectTemplate.jsx. -->
+       (<768px): one column, an in-flow section index instead of the TOC,
+       and no pull-quote rail. Nothing is pinned — the index scrolls away
+       with the header. Drawn from src/projects/ProjectTemplate.jsx. -->
   <rect width="1600" height="1000" fill="#ffffff"/>
 
   <text x="48" y="56" font-size="24" font-weight="700" fill="#211d1c" letter-spacing="2">CASE-STUDY TEMPLATE — ONE COLUMN BELOW 768 PX (MD)</text>
@@ -23,12 +24,16 @@
     <line x1="856" y1="130" x2="884" y2="130" stroke="#211d1c" stroke-width="2.5" stroke-linecap="round"/>
     <line x1="520" y1="152" x2="920" y2="152" stroke="#e0ddd2" stroke-width="2"/>
 
-    <!-- sticky pill bar (scrolls sideways — last pill runs off the edge) -->
-    <rect x="548" y="168" width="96" height="36" rx="4" fill="#892107"/>
-    <rect x="652" y="168" width="88" height="36" rx="4" fill="none" stroke="#b9b4ad" stroke-width="2"/>
-    <rect x="748" y="168" width="110" height="36" rx="4" fill="none" stroke="#b9b4ad" stroke-width="2"/>
-    <rect x="866" y="168" width="120" height="36" rx="4" fill="none" stroke="#b9b4ad" stroke-width="2"/>
-    <line x1="520" y1="218" x2="920" y2="218" stroke="#e0ddd2" stroke-width="2"/>
+    <!-- in-flow section index: a kicker and numbered chips that WRAP inside
+         the column (no active chip — there is no scroll-spy on a phone) -->
+    <rect x="548" y="160" width="90" height="6" fill="#5e1605"/>
+    <rect x="548" y="172" width="80" height="24" rx="3" fill="none" stroke="#b9b4ad" stroke-width="2"/>
+    <rect x="636" y="172" width="70" height="24" rx="3" fill="none" stroke="#b9b4ad" stroke-width="2"/>
+    <rect x="714" y="172" width="96" height="24" rx="3" fill="none" stroke="#b9b4ad" stroke-width="2"/>
+    <rect x="818" y="172" width="74" height="24" rx="3" fill="none" stroke="#b9b4ad" stroke-width="2"/>
+    <rect x="548" y="202" width="104" height="24" rx="3" fill="none" stroke="#b9b4ad" stroke-width="2"/>
+    <rect x="660" y="202" width="88" height="24" rx="3" fill="none" stroke="#b9b4ad" stroke-width="2"/>
+    <line x1="520" y1="236" x2="920" y2="236" stroke="#e0ddd2" stroke-width="2"/>
 
     <!-- section 1: kicker, heading, prose, figure -->
     <rect x="548" y="248" width="150" height="8" fill="#5e1605"/>
@@ -72,8 +77,8 @@
   <line x1="1030" y1="192" x2="912" y2="186" stroke="#b9b4ad" stroke-width="1.5"/>
   <circle cx="912" cy="186" r="4" fill="#6b6560"/>
   <text x="1044" y="182" font-size="18" fill="#6b6560">the TOC doesn't render below md —</text>
-  <text x="1044" y="208" font-size="18" fill="#6b6560">a horizontal pill bar owns navigation,</text>
-  <text x="1044" y="234" font-size="18" fill="#6b6560">and the row scrolls sideways</text>
+  <text x="1044" y="208" font-size="18" fill="#6b6560">a plain section index sits under the header</text>
+  <text x="1044" y="234" font-size="18" fill="#6b6560">and scrolls away with it; nothing is pinned</text>
 
   <line x1="1030" y1="368" x2="912" y2="350" stroke="#b9b4ad" stroke-width="1.5"/>
   <circle cx="912" cy="350" r="4" fill="#6b6560"/>

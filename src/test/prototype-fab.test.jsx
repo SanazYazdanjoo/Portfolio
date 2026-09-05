@@ -69,7 +69,7 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-// Below md, where the badge shares the corner with the pill bar and the
+// Below md, where the badge shares the corner with the section index and the
 // figure chips. framer's useReducedMotion also reads matchMedia, so the stub
 // answers every query as matching — which only makes exits instant.
 function stubMobileViewport() {
@@ -133,7 +133,7 @@ describe("Floating prototype badge", () => {
   });
 
   it("parks on phones while a corner occupant is under it", async () => {
-    // Same yield as the ASK AI pill: the pill bar in transit and the figure
+    // Same yield as the ASK AI pill: the section index in transit and the figure
     // chips pass straight through this corner on a 393px viewport, and the
     // bar slicing the badge (its z-40 over this z-30) read as broken.
     stubMobileViewport();

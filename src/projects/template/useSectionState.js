@@ -2,11 +2,19 @@
 // which one the TOC marks active (via IntersectionObserver), expand/collapse
 // all with its brief stagger window, and the numbering helpers the section
 // renderers share.
+//
+// `spy: false` leaves the IntersectionObserver unmounted. Phones pass it:
+// nothing on a phone displays activeId any more (the sticky pill bar is
+// gone — see MobileSectionIndex), so the spy would only be re-rendering the
+// whole template on every band crossing mid-scroll for no reader-visible
+// result. A re-render nobody can see is still a re-render inside an async
+// scroller, and that class of work is what the phone version of this page
+// exists to have none of.
 
 import { useState, useEffect, useRef } from "react";
 import { useReducedMotion } from "framer-motion";
 
-export function useSectionState(activeSections) {
+export function useSectionState(activeSections, { spy = true } = {}) {
   const prefersReducedMotion = useReducedMotion();
   const toggleAllTimeoutRef = useRef(null);
 
@@ -15,7 +23,9 @@ export function useSectionState(activeSections) {
   // destination, so the sections flying past must not fight it, and a
   // programmatic scroll must never re-trigger the observer chain that
   // reacts to activeId (that read/write cycle is how the iOS oscillation
-  // loop closed — see MobilePillBar's centring effect in SectionNav.jsx).
+  // loop closed — the old pill bar's centring effect, removed in the
+  // commit that made phones a plain document; the guard still protects
+  // the desktop sidebar from the same shape of loop).
   const spySuspendedRef = useRef(false);
   const releaseSpyRef = useRef(null);
 
@@ -92,7 +102,7 @@ export function useSectionState(activeSections) {
   const staggerDelayFor = (id) => (staggerAll ? sectionIndex(id) * 40 : 0);
 
   useEffect(() => {
-    if (activeSections.length === 0) return;
+    if (!spy || activeSections.length === 0) return;
 
     const order = new Map(activeSections.map((s, i) => [s.id, i]));
     const els = activeSections
@@ -143,7 +153,7 @@ export function useSectionState(activeSections) {
     );
     els.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-  }, [activeSections]);
+  }, [activeSections, spy]);
 
   return {
     activeId,
