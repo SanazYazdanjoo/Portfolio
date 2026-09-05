@@ -5,8 +5,8 @@
 // cannot arbitrate this collision: the FABs are shell-level fixed elements
 // while the occupants live inside the scroll container's own stacking
 // context, so the layers cannot interleave (observed on a reader's
-// recording: the pill sat exactly on the pill bar's DESIGN tab and
-// swallowed its taps).
+// recording: the pill sat exactly on the then-sticky pill bar's DESIGN tab
+// and swallowed its taps).
 //
 // jsdom has no layout, so "in the corner" is played by a controllable
 // IntersectionObserver; what these tests pin is the machinery around it —
@@ -19,7 +19,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { act, fireEvent, renderWithProviders, screen, waitFor } from "./renderWithProviders";
 import { AskPortfolio } from "../components/AskPortfolio";
 import { Nav } from "../components/Nav";
-import { MobilePillBar } from "../projects/template/SectionNav";
+import { MobileSectionIndex } from "../projects/template/SectionNav";
 
 // Set-tracking fake: tests can ask what the hook observes and push
 // enter/leave notifications for a specific element. `io` is the last
@@ -180,14 +180,16 @@ describe("AskPortfolio corner parking", () => {
 });
 
 describe("the occupants declare themselves", () => {
-  it("the mobile pill bar, for its in-flow transit past the pill", () => {
+  it("the phone section index, for its in-flow transit past the pill", () => {
     const sections = [{ id: "about", label: "ABOUT" }];
     const { container } = renderWithProviders(
-      <MobilePillBar sections={sections} activeId="about" onNavigate={() => {}} />
+      <MobileSectionIndex sections={sections} onNavigate={() => {}} />
     );
-    const bar = container.querySelector("[data-corner-cta]");
-    expect(bar).not.toBeNull();
-    expect(bar.className).toContain("sticky");
+    const index = container.querySelector("[data-corner-cta]");
+    expect(index).not.toBeNull();
+    // In flow, not pinned: the index scrolls through the corner and out
+    // again, which is the only reason it needs to declare itself at all.
+    expect(index.className).not.toContain("sticky");
   });
 
   it("the open hamburger menu, whose z-[60] cannot outrank a shell-level pill", async () => {

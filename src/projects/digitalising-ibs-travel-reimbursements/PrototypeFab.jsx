@@ -187,8 +187,8 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
   const [scrolledIn, setScrolledIn] = useState(false);
   const [parked, setParked] = useState(false);
   // On phones the badge also yields the corner the same way the ASK AI pill
-  // does: while a [data-corner-cta] occupant is there — the pill bar in
-  // transit, a figure's diagram chip, the open menu — the badge parks
+  // does: while a [data-corner-cta] occupant is there — the section index
+  // in transit, a figure's diagram chip, the open menu — the badge parks
   // rather than being sliced by the bar (z-40 over this z-30) or sitting on
   // top of a chip's tap target. Desktop keeps the badge up: there it lives
   // in the page margin and overlaps nothing, and parking it whenever a
