@@ -55,7 +55,7 @@ const CROPS = [
     // left-packed at variable widths and their row ends never line up: every
     // vertical cut narrower than this severs a chip on some row. Rows do
     // align, so the vertical bound is free.
-    from: "src/projects/deskbird-hybrid-work/media/interests-modal.png",
+    from: "src/projects/deskbird-hybrid-work/media/p10_interests-modal.png",
     to: "src/projects/deskbird-hybrid-work/media/card-interest-picker.webp",
     rect: { left: 439, top: 488, width: 545, height: 180 },
     sourceTextPx: 14,

@@ -202,6 +202,7 @@ const de = {
   "project.sidebar.limitations": "Limitationen",
   "project.sidebar.implications": "Implikationen",
   "project.sidebar.status": "Status",
+  "project.sidebar.concepts": "Konzepte",
   "project.sidebar.conclusion": "Fazit",
 
   // Project detail — section kickers + headings (long form)
@@ -312,6 +313,35 @@ const de = {
   "project.results.verbatim": "Teilnehmendenzitat",
   "project.results.pending": "Messung ausstehend",
   "project.results.pendingNotice": "Das Protokoll ist festgelegt; die Zahlen fehlen bewusst, bis die Sessions stattgefunden haben.",
+
+  "project.concepts.kicker": "Wie das Konzept ausgewählt wurde",
+  "project.concepts.heading": "Konzeptentwicklung",
+  "project.concepts.summary": "{from} Richtungen kamen aus der Ideation. {to} gingen zum Kunden.",
+  "project.concepts.sources": "Aus der Ideation",
+  "project.concepts.results": "Was daraus wurde",
+  "project.concepts.carriedForward": "Weitergeführt",
+  "project.concepts.merged": "Zusammengeführt",
+  "project.concepts.dropped": "Verworfen",
+  "project.concepts.ariaLabel": "Konzept-Herkunft",
+  "project.concepts.pack": "Was jedes Konzept enthalten musste",
+  "project.owner.self": "Von mir",
+  "project.owner.unconfirmed": "Zuordnung offen",
+
+  "project.voices.kicker": "In ihren Worten",
+  "project.voices.source": "Zitate aus den Contextual Inquiries",
+
+  "project.process.timeline": "Zeitplan",
+
+  "project.study.plan": "Studienplan",
+  "project.study.completed": "Durchgeführt",
+  "project.study.notRun": "Nicht durchgeführt",
+  "project.study.survey": "Umfrageinstrument",
+  "project.study.sections": "{n} Abschnitte",
+  "project.study.pilots": "Pilotierung",
+  "project.study.models": "Modelle je Teilnehmer:in",
+  "project.study.landscapes": "Betrachtete Wettbewerbsfelder",
+  "project.study.engagementPlatforms": "Engagement-Plattformen",
+  "project.study.deskBooking": "Desk-Booking-Wettbewerber",
 
   "project.status.complete": "Abgeschlossen",
   "project.status.inProgress": "In Bearbeitung",

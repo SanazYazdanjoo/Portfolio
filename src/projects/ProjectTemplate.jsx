@@ -45,6 +45,9 @@ import { ClampedText } from "./template/ClampedText";
 import { ContentSection } from "./template/CollapsibleSection";
 import { Prose } from "./template/Prose";
 import { ProcessGallerySection } from "./template/ProcessGallery";
+import { ParticipantVoices } from "./template/ParticipantVoices";
+import { ConceptLineage, ConceptPack } from "./template/ConceptLineage";
+import { StudyDesign } from "./template/StudyDesign";
 import { SidebarNav, MobilePillBar } from "./template/SectionNav";
 import { MetricsStrip } from "./template/MetricsStrip";
 import { DesignTokensPanel } from "./template/DesignTokensPanel";
@@ -308,7 +311,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   same slot, and splitting them into separate guards is how the
                   gallery branch went missing before. */}
               {meta.process && meta.process.length > 0 ? (
-                <ProcessGallerySection items={meta.process} number={sectionNumber("process")}
+                <ProcessGallerySection items={meta.process} milestones={meta.milestones} number={sectionNumber("process")}
                   isOpen={openSections.has("process")} onToggle={() => toggleSection("process")}
                   staggerDelayMs={staggerDelayFor("process")} />
               ) : meta.heroImage && !hasHeroImage && (
@@ -339,10 +342,28 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                     kicker={kickerFor(id)} heading={headingFor(id)}>
                     <Prose text={meta[textKey]} quote={meta[quoteKey]} rail={rail || !!meta[quoteKey]}>
                       {verbatimsIn(id) && <VerbatimList verbatims={meta.verbatims} />}
+                      {/* Participant voices argue the brief, so they sit
+                          with the Challenge — see template/ParticipantVoices. */}
+                      {id === "challenge" && <ParticipantVoices voices={meta.participantVoices} />}
                       <SectionMedia items={meta.figures?.[id]} />
                     </Prose>
                   </ContentSection>
                 ) : null
+              )}
+
+              {/* Concept development — the lineage from ideation to the
+                  concepts the client saw, the pack each had to carry, and
+                  the concept figures. Sits after the Solution it explains.
+                  Gated on conceptLineage, matching SECTIONS. */}
+              {meta.conceptLineage?.length > 0 && (
+                <ContentSection id="concepts" number={sectionNumber("concepts")}
+                  isOpen={openSections.has("concepts")} onToggle={() => toggleSection("concepts")}
+                  staggerDelayMs={staggerDelayFor("concepts")}
+                  kicker={kickerFor("concepts")} heading={headingFor("concepts")}>
+                  <ConceptLineage lineage={meta.conceptLineage} />
+                  <ConceptPack items={meta.conceptPack} />
+                  <SectionMedia items={meta.figures?.concepts} />
+                </ContentSection>
               )}
 
               {/* Design System — an intro paragraph over a compact token
@@ -426,6 +447,18 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   kicker={kickerFor("methodology")} heading={headingFor("methodology")}>
                   <Prose text={meta.methodology} quote={meta.methodologyQuote} rail>
                     <SectionMedia items={meta.figures?.methodology} />
+
+                    {/* Study design record — plans, instrument, pilots,
+                        models, landscapes. Takes the raw entries for the
+                        two lists that carry status/owner beside their
+                        bilingual text (see template/StudyDesign.jsx). */}
+                    <StudyDesign
+                      studyPlans={rawMeta.studyPlans}
+                      surveySections={meta.surveySections}
+                      pilots={meta.pilots}
+                      models={rawMeta.contextualDesignModels}
+                      competitiveReview={meta.competitiveReview}
+                    />
 
                     {/* Research Methods + Tech Stack */}
                     {methodsAndStack}

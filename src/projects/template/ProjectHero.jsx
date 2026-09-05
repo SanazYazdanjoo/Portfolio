@@ -108,6 +108,14 @@ export function ProjectHero({ meta, scrollY }) {
             {t("project.media.heroCredit")}
           </p>
         )}
+        {/* Asset disclosure — how client artefacts on this page were treated
+            (redactions, anonymisation). Same register and place as the
+            generation credit: a provenance line, read once, at the top. */}
+        {meta.assetDisclosure && (
+          <p className={`${meta.heroIsGenerated ? "mt-1" : "mt-3"} text-right text-2xs font-mono uppercase text-text-meta`}>
+            {meta.assetDisclosure}
+          </p>
+        )}
       </motion.div>
     </div>
   );

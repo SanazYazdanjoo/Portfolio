@@ -5,6 +5,8 @@ import { useTranslation } from "../../context/LanguageContext";
 import { CollapsibleSectionHead } from "./CollapsibleSection";
 import { HandChevron } from "../../components/HandIcons";
 import { EASE } from "./constants";
+import SectionMedia from "../SectionMedia";
+import { MilestoneRail } from "./MilestoneRail";
 
 // Phase config. Labels are resolved via t() at render time; only keys live here.
 const PHASE_META = {
@@ -113,6 +115,17 @@ function ProcessStep({ item, index, total }) {
               </AnimatePresence>
             </div>
           )}
+
+          {/* Step figures — the same grid, frame and caption vocabulary as
+              the Solution / Methodology / Results sections, so a step with
+              one or two full-size figures (deskbird) reads like the rest of
+              the page. `imagePath` above stays as the legacy 150px thumbnail
+              for the data files still using it. */}
+          {item.figures?.length > 0 && (
+            <div className="[&>[data-section-media]]:mt-6">
+              <SectionMedia items={item.figures} />
+            </div>
+          )}
         </div>
       </div>
     </motion.li>
@@ -124,7 +137,7 @@ function ProcessStep({ item, index, total }) {
 // trick) rather than reusing it, because the body is an <ol> of steps
 // rather than prose, and the sidebar/pill nav resolves `process` like any
 // other section id.
-export function ProcessGallerySection({ items, number, isOpen, onToggle, staggerDelayMs = 0 }) {
+export function ProcessGallerySection({ items, milestones, number, isOpen, onToggle, staggerDelayMs = 0 }) {
   const { t } = useTranslation();
   const prefersReducedMotion = useReducedMotion();
   if (!items || items.length === 0) return null;
@@ -148,6 +161,9 @@ export function ProcessGallerySection({ items, number, isOpen, onToggle, stagger
         }}
       >
         <div style={{ overflow: "hidden", minHeight: 0 }}>
+          {/* Dated milestones above the steps: the calendar the stepper
+              below unfolds along. Optional — most studies carry none. */}
+          <MilestoneRail milestones={milestones} />
           <ol className="list-none p-0 m-0 max-w-measure transition-[max-width] duration-300 ease-smooth" role="list" aria-label={t("project.process.ariaLabel")}>
             {items.map((item, i) => (
               <ProcessStep key={`${item.phase}-${i}`} item={item} index={i} total={items.length} />

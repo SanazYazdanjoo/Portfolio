@@ -214,7 +214,10 @@ describe("bilingual parity — every { en, de } field has both languages or neit
 // study without a pointer to the thing that proves it — the same class of
 // contract as "id === slug === folder name" above: a claim that could
 // silently go stale is instead something the suite catches.
-const ALLOWED_EVIDENCE_STATUSES = ["evidenced", "thin", "unevidenced"];
+// "stated-not-shown": the case study describes the activity in its prose but
+// publishes no artifact for it yet (deskbird's usability testing, 2026-09-05).
+// One notch above "unevidenced" — the pointer exists, the exhibit does not.
+const ALLOWED_EVIDENCE_STATUSES = ["evidenced", "thin", "unevidenced", "stated-not-shown"];
 
 describe("tagEvidence — every skill tag is backed by a pointer into the case study", () => {
   it("every project defines tagEvidence when it defines tags", () => {
@@ -378,14 +381,16 @@ describe("data/renderer contract — no field drifts in either direction", () =>
   // already forbids. `pending: true` is the supported way to keep a planned
   // figure visible while its artwork is still being made; it renders a frame
   // that says so and, unlike the NEEDS_INPUT sentinel, does not fail the
-  // build — an absent illustration is not a fabricated claim.
-  it("every figure has a src, an href, or pending: true", () => {
+  // build — an absent illustration is not a fabricated claim. A data file
+  // that resolves media by filename (deskbird) names the awaited file in
+  // `pendingFile` instead, and SectionMedia treats a null src the same way.
+  it("every figure has a src, an href, pending: true, or a pendingFile", () => {
     for (const p of fullProjects) {
       if (!p.figures) continue;
       for (const [group, items] of Object.entries(p.figures)) {
         items.forEach((f, i) => {
           expect(
-            !!f.src || !!f.href || f.pending === true,
+            !!f.src || !!f.href || f.pending === true || typeof f.pendingFile === "string",
             `${p.slug}: figures.${group}[${i}] has no src, no href and is not ` +
               `marked pending — it would render as an empty frame`
           ).toBe(true);

@@ -88,3 +88,35 @@ describe("Figure framing fields", () => {
   });
 
 });
+
+describe("Pending figures (src resolved to null)", () => {
+  const pending = [
+    { src: null, pendingFile: "p06_affinity-wall_full.png", alt: "Affinity wall", caption: "The wall", span: 2 },
+    { src: "/real.png", alt: "Real one", caption: "Shipped", span: 1 },
+  ];
+
+  it("renders a labelled placeholder naming the awaited file, never a broken img", () => {
+    renderWithProviders(<SectionMedia items={pending} />);
+    const placeholder = screen.getByRole("img", { name: "Affinity wall" });
+    expect(placeholder.tagName).not.toBe("IMG");
+    expect(placeholder).toHaveTextContent("Figure in preparation");
+    expect(placeholder).toHaveTextContent("p06_affinity-wall_full.png");
+    expect(screen.queryByAltText("Affinity wall")).not.toBeInTheDocument();
+    expect(screen.getByAltText("Real one")).toBeInTheDocument();
+  });
+
+  it("keeps the caption under a pending figure and hides the figure in print", () => {
+    const { container } = renderWithProviders(<SectionMedia items={pending} />);
+    expect(screen.getByText("The wall")).toBeInTheDocument();
+    const [pendingFigure, realFigure] = container.querySelectorAll("figure");
+    expect(pendingFigure.className).toContain("print:hidden");
+    expect(pendingFigure.className).toContain("sm:col-span-2");
+    expect(realFigure.className).not.toContain("print:hidden");
+  });
+
+  it("does not offer zoom on a pending figure", () => {
+    renderWithProviders(<SectionMedia items={pending} />);
+    expect(screen.queryByRole("button", { name: /enlarge figure: affinity wall/i })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /enlarge figure: real one/i })).toBeInTheDocument();
+  });
+});
