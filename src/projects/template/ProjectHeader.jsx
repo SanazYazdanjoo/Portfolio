@@ -5,6 +5,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
+import { useIsMobile } from "../../hooks/useIsMobile";
 import { Badge } from "../../components/Badge";
 import { useTranslation } from "../../context/LanguageContext";
 import { FitTitle } from "./FitTitle";
@@ -36,13 +37,28 @@ export function ProjectHeader({ meta, tags }) {
   const [allTagsShown, setAllTagsShown] = useState(false);
   const hiddenTagCount = Math.max(0, tags.length - MOBILE_TAG_CAP);
 
+  // Plain elements on a phone. The header's slide-in and the tags'
+  // shared-layout wrappers exist for the desktop page — the orbit the
+  // layoutIds fly to never mounts below 2xl — and on a phone a `layout`
+  // element is a liability: framer re-measures every one on each re-render
+  // and animates a transform to "correct" any position change it sees,
+  // and inside a scroll container it has not been told about (no
+  // `layoutScroll`) a page that merely scrolled between two renders reads
+  // as every pill having moved. Static markup has nothing to correct.
+  const isMobile = useIsMobile();
+  const Header = isMobile ? "header" : motion.header;
+  const headerMotion = isMobile
+    ? {}
+    : {
+        initial: prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 },
+        animate: { opacity: 1, y: 0 },
+        transition: { duration: 0.5, ease: EASE },
+      };
+  const TagWrap = isMobile ? "div" : motion.div;
+  const tagMotion = (tag) => (isMobile ? {} : { layout: "position", layoutId: `skill-pill-${tag}` });
+
   return (
-    <motion.header
-      className="mb-12"
-      initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: EASE }}
-    >
+    <Header className="mb-12" {...headerMotion}>
       {/* Live-stage chip */}
       {meta.stage && (
         <div className="mb-4">
@@ -120,10 +136,9 @@ export function ProjectHeader({ meta, tags }) {
                      that has flown to the section rail is not rendered twice,
                      it is rendered there. The shared layoutId is what carries
                      it between the two places. */
-                  <motion.div
+                  <TagWrap
                     key={tag}
-                    layout="position"
-                    layoutId={`skill-pill-${tag}`}
+                    {...tagMotion(tag)}
                     className={
                       flownTags.has(tag)
                         ? "hidden"
@@ -135,7 +150,7 @@ export function ProjectHeader({ meta, tags }) {
                     <Link to={`/tags/${encodeURIComponent(tag)}`}>
                       <Badge tone="accent">{tag}</Badge>
                     </Link>
-                  </motion.div>
+                  </TagWrap>
                 ))}
 
                 {hiddenTagCount > 0 && (
@@ -184,6 +199,6 @@ export function ProjectHeader({ meta, tags }) {
           )}
         </dl>
       )}
-    </motion.header>
+    </Header>
   );
 }

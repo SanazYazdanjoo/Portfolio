@@ -182,9 +182,10 @@ function MobilePillBar({ sections, activeId }) {
   };
 
   return (
-    // Opaque, no backdrop-blur, own compositing layer — the same treatment
-    // as the project pages' MobilePillBar (see SectionNav.jsx for the iOS
-    // mid-scroll layer-ordering and repaint story).
+    // Opaque, no backdrop-blur, own compositing layer — the treatment the
+    // project pages' pill bar had before phones there went to an in-flow
+    // index (git log: e64998c, 8e6a8c4 for the iOS mid-scroll
+    // layer-ordering and repaint story).
     <div className="sticky top-0 z-40 bg-white border-b rule-edge-b -mx-6 px-6 py-3 no-print md:hidden"
          style={{ transform: "translateZ(0)" }}>
       <div className="flex gap-2 overflow-x-auto pb-1">

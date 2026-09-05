@@ -3,15 +3,21 @@
 // not the window). Returns two motion values: `scrollProgress` (0–1, drives
 // the top progress bar) and `scrollY` (exact pixels, drives the hero
 // parallax).
+//
+// `enabled: false` attaches no listener and leaves both values at 0. Phones
+// pass it: neither consumer renders there (the progress bar is desktop-only
+// and the hero is static below md), so a per-scroll-event main-thread
+// listener would be updating two motion values nothing reads.
 
 import { useEffect } from "react";
 import { useMotionValue } from "framer-motion";
 
-export function useScrollProgress(mainRef) {
+export function useScrollProgress(mainRef, { enabled = true } = {}) {
   const scrollProgress = useMotionValue(0);
   const scrollY = useMotionValue(0);
 
   useEffect(() => {
+    if (!enabled) return;
     const root = mainRef.current?.closest(".overflow-y-auto");
     if (!root) return;
     const update = () => {
@@ -26,7 +32,7 @@ export function useScrollProgress(mainRef) {
       root.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
     };
-  }, [mainRef, scrollProgress, scrollY]);
+  }, [mainRef, scrollProgress, scrollY, enabled]);
 
   return { scrollProgress, scrollY };
 }

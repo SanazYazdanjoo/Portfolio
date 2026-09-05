@@ -6,7 +6,7 @@ Current contents:
   template at ≥1280px (three tracks: TOC rail, prose column, pull-quote
   rail), wired into `figures.wireframe`.
 - `wireframe-case-study-mobile.svg` — the same template below 768px (one
-  column, pill bar, no rails), wired into `figures.wireframe`.
+  column, an in-flow section index, no rails), wired into `figures.wireframe`.
 
 Both are post-hoc schematics drawn from `src/projects/ProjectTemplate.jsx`,
 and the case-study prose says so — they document the shipped layout, they do

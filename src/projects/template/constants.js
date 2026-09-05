@@ -1,5 +1,5 @@
 // Shared template config. EASE is re-exported from src/utils/motion. SECTIONS is the fixed content model: the ids the sidebar
-// TOC, the mobile pill bar and the section renderers all resolve against.
+// TOC, the phone section index and the section renderers all resolve against.
 //
 // NOTE: this folder must never contain an `index.jsx` or a `<slug>.data.js` —
 // main.jsx auto-routes `src/projects/*/index.jsx` and src/data/projects.js

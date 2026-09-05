@@ -25,21 +25,22 @@ function ProcessStep({ item, index, total }) {
   const [expanded, setExpanded] = useState(false);
   const [imgError, setImgError] = useState(false);
   const reduce = useReducedMotion();
-  // Opacity-only on phones, same reasoning as ContentSection: a y-transform
-  // earns the element an iOS compositing layer, which is what fought the
-  // sticky pill bar and ghosted content on-device.
+  // A plain <li> on phones — no reveal-on-scroll, same rule as
+  // ContentSection: the phone page carries no scroll-linked motion.
   const isMobile = useIsMobile();
-  const noSlide = reduce || isMobile;
+  const Step = isMobile ? "li" : motion.li;
+  const stepMotion = isMobile
+    ? {}
+    : {
+        initial: reduce ? { opacity: 0 } : { opacity: 0, y: 16 },
+        whileInView: reduce ? { opacity: 1 } : { opacity: 1, y: 0 },
+        viewport: { once: true, margin: "0px 0px -60px 0px" },
+        transition: { delay: Math.min(index, 6) * 0.06, duration: 0.4, ease: EASE },
+      };
   const phase = PHASE_META[item.phase] || PHASE_META.discover;
 
   return (
-    <motion.li
-      className="relative pl-11 md:pl-12 pb-10 last:pb-0"
-      initial={noSlide ? { opacity: 0 } : { opacity: 0, y: 16 }}
-      whileInView={noSlide ? { opacity: 1 } : { opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px 0px -60px 0px" }}
-      transition={{ delay: Math.min(index, 6) * 0.06, duration: 0.4, ease: EASE }}
-    >
+    <Step className="relative pl-11 md:pl-12 pb-10 last:pb-0" {...stepMotion}>
       {index < total - 1 && (
         <span aria-hidden="true" className="absolute left-[13px] md:left-[15px] top-9 bottom-0 rule-line-v" />
       )}
@@ -128,7 +129,7 @@ function ProcessStep({ item, index, total }) {
           )}
         </div>
       </div>
-    </motion.li>
+    </Step>
   );
 }
 

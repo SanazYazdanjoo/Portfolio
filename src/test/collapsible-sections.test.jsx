@@ -84,7 +84,7 @@ describe("Sidebar navigation opens the target section", () => {
     renderWithProviders(<ProjectTemplate meta={project1} />);
 
     // Sidebar renders inside <nav aria-label="Page sections">, distinct from
-    // the mobile pill bar which uses the same section labels.
+    // the phone section index which uses the same section labels.
     const nav = screen.getByRole("navigation", { name: /page sections/i });
     const link = within(nav).getByRole("button", { name: /challenge/i });
 

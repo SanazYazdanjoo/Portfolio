@@ -18,6 +18,22 @@
 // only reason to collapse a nav in the first place. The state is session-
 // scoped (see template/useSessionState.js).
 //
+// Below md the page is a different, simpler thing: a plain document. No
+// sticky bar, no scroll-spy, no scroll-progress bar, no scroll-linked
+// listener, no reveal-on-scroll entrances, no shared-layout pills, no JS
+// title fitting — an in-flow section index under the header, and then the
+// sections, each a plain <section> (see template/CollapsibleSection.jsx).
+// This is the fifth answer to "the page shakes on my phone", and the first
+// that does not try to make one more piece of scroll-driven machinery
+// behave inside iOS WebKit's async overflow scroller. The earlier four
+// (8e6a8c4, ada7454, 64850e0, 41c1228) each removed a real cause and each
+// left the page still shaking, while every screenshot of it looked fine —
+// which says the trouble was never one broken frame but an alternation
+// between valid ones, and the way to have no alternation is to have
+// nothing on the page that can change between two frames of a scroll.
+// Reader-driven motion (collapsing a section, Read more) stays; it runs
+// when the reader is not scrolling.
+//
 // Default export is ProjectTemplate({ meta, children }). All data comes
 // from src/projects/*/<slug>.data.js. This file is only the composition layer:
 // each building block lives in ./template/ (one concern per file — see
@@ -30,6 +46,7 @@ import { motion } from "framer-motion";
 import SectionMedia from "./SectionMedia";
 import { HandArrow } from "../components/HandArrow";
 import { useTranslation } from "../context/LanguageContext";
+import { useIsMobile } from "../hooks/useIsMobile";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { profileData as rawProfile } from "../data/profile";
@@ -48,7 +65,7 @@ import { ProcessGallerySection } from "./template/ProcessGallery";
 import { ParticipantVoices } from "./template/ParticipantVoices";
 import { ConceptLineage, ConceptPack } from "./template/ConceptLineage";
 import { StudyDesign } from "./template/StudyDesign";
-import { SidebarNav, MobilePillBar } from "./template/SectionNav";
+import { SidebarNav, MobileSectionIndex } from "./template/SectionNav";
 import { MetricsStrip } from "./template/MetricsStrip";
 import { DesignTokensPanel } from "./template/DesignTokensPanel";
 import { VerbatimRail, VerbatimInline, VerbatimList } from "./template/Verbatims";
@@ -67,6 +84,8 @@ import { useSessionState } from "./template/useSessionState";
 export default function ProjectTemplate({ meta: rawMeta, children }) {
   const { t } = useTranslation();
   const mainRef = useRef(null);
+  // The one switch for the phone rendering described in the header comment.
+  const isMobile = useIsMobile();
 
   const meta = useLocalizedProfile(rawMeta);
   const profileData = useLocalizedProfile(rawProfile);
@@ -143,9 +162,9 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
     toggleAllSections,
     sectionNumber,
     staggerDelayFor,
-  } = useSectionState(activeSections);
+  } = useSectionState(activeSections, { spy: !isMobile });
 
-  const { scrollProgress, scrollY } = useScrollProgress(mainRef);
+  const { scrollProgress, scrollY } = useScrollProgress(mainRef, { enabled: !isMobile });
 
   // Skill pills that follow the reader into the section they evidence — see
   // template/SkillOrbit.jsx. Declared here because both ends of the flight
@@ -231,8 +250,12 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
           inside iOS's async overflow scroller is exactly the layer type the
           engine repositions out of step with the content around it. At body
           level it is a plain viewport-fixed strip and its z-index means
-          what it says. */}
-      {createPortal(
+          what it says.
+
+          Not on phones. The bar is driven from a scroll listener a frame
+          behind the compositor, and the phone page has no scroll-driven
+          anything (header comment). */}
+      {!isMobile && createPortal(
         <motion.div
           aria-hidden="true"
           className="no-print fixed top-0 left-0 right-0 h-[5px] rule-stroke bg-primary origin-left z-[70]"
@@ -279,18 +302,18 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                 <ProjectHeader meta={meta} tags={tags} />
               </FlownTagsProvider>
 
-              {/* Mobile pill bar */}
-              <MobilePillBar sections={activeSections} activeId={activeId} onNavigate={navigateToSection} />
+              {/* Phone section index — in flow, scrolls away with the header
+                  (see template/SectionNav.jsx for why it is not a sticky bar). */}
+              <MobileSectionIndex sections={activeSections} onNavigate={navigateToSection} />
 
               {/* Deliberately NOT `isolate`: isolating this subtree while it
-                  overlaps the composited pill bar made iOS composite the
-                  ENTIRE article as one layer — a 17k-px tile set that
+                  overlapped the old composited pill bar made iOS composite
+                  the ENTIRE article as one layer — a 17k-px tile set that
                   re-rasterized mid-scroll and showed stale ghost frames
-                  ("two of everything", observed on-device). The layering fix
-                  lives at the source instead: below md the sections animate
-                  nothing that earns them a GPU layer (see ContentSection),
-                  so there is no layer to hoist above the bar and no giant
-                  layer to ghost. */}
+                  ("two of everything", observed on-device). There is no bar
+                  to overlap now, and below md the sections are plain
+                  elements (see ContentSection), so nothing here earns a GPU
+                  layer at all. */}
               <article className="min-w-0">
 
               {meta.about && (

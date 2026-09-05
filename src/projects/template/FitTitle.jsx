@@ -6,6 +6,14 @@
 // perfectly linear in font-size, and re-runs once webfonts land, since the
 // first measurement is of fallback metrics.
 //
+// On a phone none of this runs: the title wraps at the class-driven size
+// like any heading. A 326px column fits almost no title on one line, so
+// the fit there always ended at the floor and wrapped anyway — three
+// measure-and-shrink passes, a webfont re-run and a ResizeObserver to
+// arrive where plain CSS starts. The phone page is kept free of JS that
+// rewrites layout after paint, and this was the last piece of it above
+// the fold.
+//
 // Where one line is NOT possible, it wraps rather than shrinking without a
 // floor. Unbounded shrinking has a failure mode narrow columns reach easily:
 // a 37-character title in a 326px phone column fitted to 16.8px, i.e. the
@@ -15,6 +23,7 @@
 // the floor size. Two readable lines beat one unreadable one.
 
 import { useLayoutEffect, useRef, useState } from "react";
+import { useIsMobile } from "../../hooks/useIsMobile";
 
 // Never shrink below this fraction of the class-driven size (36px → ~22px on
 // a phone, 60px → ~36px at md), and never below the absolute floor.
@@ -25,8 +34,10 @@ export function FitTitle({ children, className }) {
   const wrapRef = useRef(null);
   const textRef = useRef(null);
   const [wraps, setWraps] = useState(false);
+  const isMobile = useIsMobile();
 
   useLayoutEffect(() => {
+    if (isMobile) return;
     const wrap = wrapRef.current;
     const text = textRef.current;
     if (!wrap || !text) return;
@@ -70,7 +81,7 @@ export function FitTitle({ children, className }) {
       cancelled = true;
       observer.disconnect();
     };
-  }, [children]);
+  }, [children, isMobile]);
 
   // `overflow-x: clip` rather than `hidden`: hidden on one axis forces the
   // other to `auto`, which would both clip tall glyphs and risk a stray
@@ -78,7 +89,11 @@ export function FitTitle({ children, className }) {
   // floor on a narrow phone — normally nothing reaches the edge to clip.
   return (
     <div ref={wrapRef} className="min-w-0" style={{ overflowX: "clip" }}>
-      <h1 ref={textRef} className={className} style={{ whiteSpace: wraps ? "normal" : "nowrap" }}>
+      <h1
+        ref={textRef}
+        className={className}
+        style={isMobile ? undefined : { whiteSpace: wraps ? "normal" : "nowrap" }}
+      >
         {children}
       </h1>
     </div>

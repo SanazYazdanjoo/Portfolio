@@ -1,17 +1,17 @@
-// Section navigation: the sticky sidebar TOC (md+) and the mobile pill bar.
-// Both resolve the same `sections` list and the same activeId, so they stay
-// in one file.
+// Section navigation: the sticky sidebar TOC (md+) and the phone's in-flow
+// section index. Both resolve the same `sections` list, so they stay in one
+// file — but only the sidebar knows about activeId. On a phone there is no
+// active section to mark, by design (see MobileSectionIndex).
 //
 // The sidebar collapses to a numbered icon rail. Collapsing is not just
 // hiding: the content column claims the freed width back (see
 // ProjectTemplate), which is the entire point — a reader who dismisses the
 // nav wants the figures bigger, not a strip of empty page. The rail keeps the
 // numbers and the active-section indicator, so orientation survives the
-// collapse; only the labels go. Below md neither form renders — the mobile
-// pill bar owns that width — so the toggle is a wide-screen affordance by
+// collapse; only the labels go. Below md neither form renders — the section
+// index owns that width — so the toggle is a wide-screen affordance by
 // construction, and nothing about it needs a media query of its own.
 
-import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useTranslation } from "../../context/LanguageContext";
@@ -126,137 +126,68 @@ export function SidebarNav({
   );
 }
 
-// Mobile pill bar.
+// Phone section index.
 //
-// Opaque `bg-bg`, and no backdrop-blur: a translucent frosted bar over
-// scrolling content is the pairing mobile browsers are worst at
-// invalidating, which leaves stale copies of already-scrolled content baked
-// into the bar. The frosting bought nothing anyway: everything behind this
-// bar is the content wrapper's opaque background.
+// A plain, in-flow list of the page's sections, rendered once under the
+// header and scrolled past like any other content. It replaces the sticky
+// pill bar, and the difference is the whole point: the bar was a
+// `position: sticky` layer with its own transform, re-rendered on every
+// scroll-spy change and re-scrolled horizontally to centre the active pill,
+// all inside iOS WebKit's async overflow scroller. Each of those was a
+// separately fixed source of the "page shakes while I scroll" report, and
+// after four rounds of layer surgery the page still shook — while every
+// screenshot of it looked fine, which is the signature of an animation
+// between two valid frames rather than a broken one. A phone gets nothing
+// that can animate between frames at all: this element has no state, no
+// effects, no observers, no sticky pin and no transform. It cannot move
+// unless the reader scrolls it, and then it moves with everything else.
 //
-// `top-0`, NOT top-[80px]: the site header is a static flex sibling ABOVE
-// the scroll container (App.jsx), so this bar's containing scroller already
-// starts at the header's bottom edge. The old 80px offset was a relic of a
-// long-gone overlay-header design — on a phone it pinned the bar mid-air,
-// with a transparent dead band above it that body text scrolled straight
-// through before being guillotined by the bar's top edge (measured on a
-// reader's recording: whole caption lines swallowed).
-export function MobilePillBar({ sections, activeId, onNavigate }) {
+// No active-section marker, deliberately. Marking one needs a scroll-spy,
+// and a spy needs the element it marks to be on screen — a sticky bar,
+// which is what this replaced. The numbers on the section headings carry
+// the orientation instead; a reader mid-page who wants the index scrolls
+// up, the way they would in any document.
+//
+// data-corner-cta: on its way up the list transits the bottom-right corner
+// where the ASK AI pill floats, so it declares the corner claimed for the
+// transit and the pill parks (see hooks/useCornerOccupied.js) — the same
+// contract the bar honoured, kept because two stacked tap targets is a real
+// tap-swallowing bug a reader recorded, and the parking observer is rooted
+// at the scroller and fires only on real band crossings.
+export function MobileSectionIndex({ sections, onNavigate }) {
   const { t } = useTranslation();
-  const stripRef = useRef(null);
-  // Whether the strip is scrolled to its end. The right-edge fade is a
-  // "more tabs this way" affordance, so it must disappear when that stops
-  // being true — a fade that also veils the LAST pill at full scroll says
-  // "more" exactly when there is none.
-  const [atEnd, setAtEnd] = useState(false);
-
-  useEffect(() => {
-    const strip = stripRef.current;
-    if (!strip) return;
-    const update = () =>
-      setAtEnd(strip.scrollLeft + strip.clientWidth >= strip.scrollWidth - 1);
-    update();
-    strip.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    return () => {
-      strip.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
-    };
-  }, [sections]);
-
-  // Keep the active pill in view. The strip scrolls horizontally, so a
-  // working scroll-spy alone isn't enough — by mid-page the active section's
-  // pill can be clipped past the right edge, and a bar that highlights
-  // something the reader can't see is as useless as one that never updates.
-  // Manual scrollLeft math rather than scrollIntoView: scrollIntoView
-  // scrolls EVERY scrollable ancestor, and this strip lives inside the
-  // page's one big scroller, which must not move.
-  //
-  // The write is INSTANT and fixed-point — never `behavior: "smooth"`. The
-  // smooth version shipped in 873c759 and produced a permanent 50-CSS-px
-  // page oscillation on iOS: when a section boundary rested in the spy band
-  // the active id flapped every frame, each flap re-issued a smooth scroll
-  // before the previous one had produced a single frame of movement, and
-  // that pile of never-settling animations on a nested async scroller
-  // (inside a sticky, translateZ(0) layer) ended up moving the PAGE
-  // scroller while the strip itself sat frozen at scrollLeft 0 — measured
-  // as a two-position square wave at 60fps. An instant write completes
-  // synchronously: there is no animation left running for the engine to
-  // re-target, so a single centring can never become a feedback loop.
-  //
-  // The fixed-point guard is the other half of the contract (pinned by
-  // section-nav-stability.test.jsx): re-running this effect against an
-  // already-centred strip must issue NO scroll at all, so any
-  // observer → setState → effect chain terminates instead of echoing.
-  useEffect(() => {
-    const strip = stripRef.current;
-    if (!strip || !activeId) return;
-    const pill = strip.querySelector(`[data-section-id="${activeId}"]`);
-    if (!pill) return;
-    // offsetLeft measures from the sticky BAR (the nearest positioned
-    // ancestor), not from the strip — subtract the strip's own offset so
-    // the bar's px-4 padding doesn't skew every target to the right.
-    const pillLeft = pill.offsetLeft - strip.offsetLeft;
-    const ideal = pillLeft - (strip.clientWidth - pill.offsetWidth) / 2;
-    const max = Math.max(0, strip.scrollWidth - strip.clientWidth);
-    const target = Math.min(Math.max(0, ideal), max);
-    if (Math.abs((strip.scrollLeft ?? 0) - target) < 1) return;
-    // Optional call: jsdom implements neither scrollTo nor scrollLeft writes.
-    strip.scrollTo?.({ left: target, behavior: "instant" });
-  }, [activeId]);
+  if (!sections || sections.length === 0) return null;
 
   return (
-    // translateZ(0) is load-bearing, not an optimization: the content
-    // sections could otherwise be composited above this bar by iOS WebKit
-    // mid-scroll, whatever z-index says (observed on-device). Giving the
-    // bar its own layer hands the compositor an explicit order to honour.
-    //
-    // data-corner-cta: before the bar pins it is IN FLOW, and on its way up
-    // it transits the bottom-right corner where the ASK AI pill floats — at
-    // the natural resting point right before the content sections, the pill
-    // sat exactly on the DESIGN tab and swallowed its taps (observed on a
-    // reader's recording). No z-index here can fix that: the pill lives at
-    // the app shell's level while this bar is inside the scroll container's
-    // own stacking context (see useCornerOccupied). So the bar declares the
-    // corner claimed and the pill parks for the transit; once pinned at
-    // top-0 the bar leaves the corner zone and the pill returns.
-    <div className="sticky top-0 z-40 bg-bg border-b rule-b
-                     -mx-4 px-4 py-2 md:hidden no-print"
-         data-corner-cta=""
-         style={{ transform: "translateZ(0)" }}>
-      <div ref={stripRef} className="flex gap-1 overflow-x-auto pr-8">
-        {sections.map((section) => {
-          const isActive = activeId === section.id;
-          return (
+    <nav
+      /* Its own name, not the sidebar's "Page sections": both navs are in
+         the DOM at every width (the sidebar hides by class), and two
+         landmarks with one name are indistinguishable to a screen reader. */
+      aria-label={t("project.sidebar.onThisPage")}
+      className="md:hidden no-print mb-10 border-t rule-t pt-4"
+      data-corner-cta=""
+    >
+      <p className="mb-3 text-2xs font-black uppercase text-primary-600">
+        {t("project.sidebar.onThisPage")}
+      </p>
+      <ol className="m-0 flex list-none flex-wrap gap-2 p-0">
+        {sections.map((section, i) => (
+          <li key={section.id}>
             <button
-              key={section.id}
+              type="button"
               onClick={() => onNavigate(section.id)}
               data-section-id={section.id}
-              className={`shrink-0 px-3 py-1.5 text-2xs font-black uppercase
-                transition-colors duration-200
-                border rule-frame
-                ${isActive
-                  ? "text-white [--rule-line-color:var(--primary)] [--rule-fill-color:var(--primary)]"
-                  : "text-dim hover:text-text"
-                }`}
+              className="inline-flex items-baseline gap-2 border rule-frame px-3 py-1.5
+                         text-2xs font-black uppercase text-dim focus-ring"
             >
+              <span className="font-mono tabular-nums text-primary-600">
+                {String(i + 1).padStart(2, "0")}
+              </span>
               {section.label || t(section.labelKey)}
             </button>
-          );
-        })}
-      </div>
-      {/* Right-edge fade: the affordance that the strip continues. Without
-          it the last visible pill clips hard mid-word against the viewport
-          and reads as the end of the list. */}
-      <div
-        aria-hidden="true"
-        className={`pointer-events-none absolute inset-y-0 right-0 w-12
-                    transition-opacity duration-200 ${atEnd ? "opacity-0" : "opacity-100"}`}
-        /* Solid for the first quarter, then falls off: a pure 0→1 gradient
-           read as video noise on a reader's recording, not as "more tabs
-           this way". */
-        style={{ background: "linear-gradient(to left, var(--bg) 25%, transparent)" }}
-      />
-    </div>
+          </li>
+        ))}
+      </ol>
+    </nav>
   );
 }
