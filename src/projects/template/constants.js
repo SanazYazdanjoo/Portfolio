@@ -23,6 +23,11 @@ export const SECTIONS = [
   // This order must match the JSX order in ProjectTemplate, or the TOC
   // numbering and the scroll order disagree.
   { id: "wireframe",    labelKey: "project.sidebar.wireframe",    dataKey: "wireframe"    },
+  // Concept development — how the ideation set became the concepts the
+  // client saw (conceptLineage), what each had to carry (conceptPack) and
+  // the concept figures. After the solution it explains, before the
+  // surface work. Gated on conceptLineage.
+  { id: "concepts",     labelKey: "project.sidebar.concepts",     dataKey: "conceptLineage" },
   { id: "designSystem", labelKey: "project.sidebar.designSystem", dataKey: "designSystem" },
   { id: "prototype",    labelKey: "project.sidebar.prototype",    dataKey: "prototype"    },
   // Accessibility statement — after Prototype because it states properties
@@ -87,6 +92,17 @@ export const RENDERED_FIELDS = [
   // project whose numbers are not study findings can call its section
   // "Metrics" without renaming Results for every study that earned the word.
   "sectionTitles",
+  // Study-design record, rendered in Methodology by template/StudyDesign.jsx
+  // and in Process by template/MilestoneRail.jsx (deskbird, 2026-09-05).
+  "milestones", "pilots", "surveySections", "studyPlans", "competitiveReview",
+  "contextualDesignModels",
+  // Participant verbatims from the inquiries — Challenge section,
+  // template/ParticipantVoices.jsx.
+  "participantVoices",
+  // Concept development section — template/ConceptLineage.jsx.
+  "conceptPack", "conceptLineage",
+  // Provenance line under the hero — template/ProjectHero.jsx.
+  "assetDisclosure",
 ];
 
 // Sections whose body is a prose block plus an optional figure grid, keyed by
@@ -117,6 +133,7 @@ export const DEFAULT_VERBATIM_SECTION = "results";
 // file's figure keys against this list.
 export const FIGURE_KEYS = [
   ...PROSE_SECTIONS.map((s) => s.id),
+  "concepts",
   "prototype",
   "methodology",
   "results",
@@ -135,6 +152,6 @@ export const DATA_ONLY_FIELDS = [
   // owns it, and is kept here as the structured record behind that sentence.
   "partners",     // client + institution; the card's `context` and `title` say both
   "team",         // size only; card.js `role` already reads "UX Researcher (team of 6)"
-  "contextualDesignModels", // the five models are named in `methods`
   "requirementSources",     // provenance behind the requirements, for authoring reference
 ];
+
