@@ -176,10 +176,13 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
   // below), so its idle loops — bob, blob rotation/breath, wiggle — play ON
   // TOP of the text and read as the page shaking, permanently: measured as
   // 11/11 differing frame-pairs at rest, and reported by a reader in
-  // exactly those words. Below md the badge holds still and keeps only the
-  // entrance spring and the blink — the one idle sign of life small enough
-  // to stay inside the mark. Desktop, where the badge sits in the margin
-  // and overlaps nothing, keeps the full choreography.
+  // exactly those words. Below md the badge holds still: entrance spring
+  // only, and since the phone project page dropped every idle loop it had,
+  // not even the blink — a transform animating every four seconds on a
+  // fixed element is the same class of motion that read as shaking on a
+  // desktop reader's screen once the orbit pills bobbed (79c22a3). Desktop,
+  // where the badge sits in the margin and overlaps nothing, keeps the
+  // full choreography.
   const isMobile = useIsMobile();
   const calm = reduce || isMobile;
   const hostRef = useRef(null);
@@ -441,7 +444,7 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
                       rotate: { duration: 0.9, repeat: Infinity, repeatDelay: 6, ease: "easeInOut" },
                     }}
                   >
-                    <EyeMark reduce={reduce} pupilX={pupilX} pupilY={pupilY} svgRef={eyeRef} />
+                    <EyeMark reduce={calm} pupilX={pupilX} pupilY={pupilY} svgRef={eyeRef} />
                   </motion.span>
                 </span>
               </motion.a>
