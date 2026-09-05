@@ -426,6 +426,7 @@ const de = {
 
   // Project template — sidebar nav landmark
   "project.sidebar.ariaLabel": "Seitenabschnitte",
+  "project.sidebar.onThisPage": "Auf dieser Seite",
 
   // Home — empty state when there are no projects at all (edge case)
   "home.projects.empty": "Fallstudien werden gerade geschrieben — schauen Sie bald wieder vorbei.",

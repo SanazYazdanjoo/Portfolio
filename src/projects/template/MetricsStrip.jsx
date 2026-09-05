@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useReducedMotion, useInView, animate as animateValue } from "framer-motion";
+import { useIsMobile } from "../../hooks/useIsMobile";
 import { useTranslation } from "../../context/LanguageContext";
 import { EASE } from "../../utils/motion";
 
@@ -19,10 +20,17 @@ function group(n, separator) {
 }
 
 // Counts a metric's numeric part up from 0 once it scrolls into view.
+//
+// Not on phones: there the final number is printed outright. The count-up
+// is a scroll-triggered rAF loop that rewrites text — and so reflows the
+// strip — on every frame for most of a second, and the phone page carries
+// no scroll-linked motion (see ContentSection). Folded into `reduce`, since
+// that is exactly the static rendering reduced-motion already asks for.
 function AnimatedMetricValue({ value }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-10%" });
-  const reduce = useReducedMotion();
+  const isMobile = useIsMobile();
+  const reduce = useReducedMotion() || isMobile;
   const match = String(value).match(LEADING_NUMBER);
   const [display, setDisplay] = useState(0);
 

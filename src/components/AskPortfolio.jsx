@@ -87,7 +87,7 @@ export function AskPortfolio() {
   const [status, setStatus] = useState("idle"); // idle | streaming | error
   const [errorKey, setErrorKey] = useState(null);
   // True while a `[data-corner-cta]` element — a figure's "Open the diagram"
-  // chip, the mobile pill bar in transit, the open hamburger menu — holds
+  // chip, the phone section index in transit, the open hamburger menu — holds
   // the bottom-right corner this pill floats over. The pill parks — fades
   // out and stops taking taps — so two tap targets are never stacked. See
   // useCornerOccupied for why parking, not z-index, is the mechanism.

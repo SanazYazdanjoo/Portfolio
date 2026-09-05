@@ -36,7 +36,7 @@ describe("designing-this-site — the exception's own section list", () => {
     renderWithProviders(<ProjectTemplate meta={siteData} />);
     expect(screen.getByRole("heading", { name: /Metrics/ })).toBeInTheDocument();
     expect(screen.queryByText("Key Findings & Outcome")).toBeNull();
-    // Sidebar + mobile pill bar both carry the overridden label.
+    // Sidebar + phone section index both carry the overridden label.
     expect(screen.getAllByText("Metrics").length).toBeGreaterThanOrEqual(2);
   }, 30_000);
 
