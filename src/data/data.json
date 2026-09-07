@@ -973,19 +973,27 @@
         }
       },
       {
-        "title": "Python Programming",
-        "provider": "Technical & Vocational Training Organization",
-        "year": "2019",
+        "title": {
+          "en": "Python Programming — National Skill Certificate",
+          "de": "Python-Programmierung — Nationales Fähigkeitszertifikat"
+        },
+        "provider": {
+          "en": "Technical & Vocational Training Organization (TVTO), Khorasan Razavi",
+          "de": "Technical & Vocational Training Organization (TVTO), Chorasan-Razavi"
+        },
+        "year": "2020",
+        "date": "2020-10-18",
+        "duration": "80 h",
         "type": "certification",
         "topic": "engineering",
         "featured": true,
         "skills": ["Python"],
-        "file": "",
-        "thumb": "",
-        "verifyUrl": "",
+        "file": "/assets/certificates/python-programming.jpg",
+        "thumb": "/assets/certificates/python-programming.webp",
+        "verifyUrl": "http://certificate.portaltvto.com",
         "detail": {
-          "en": "Certified training in Python programming.",
-          "de": "Zertifizierte Schulung in Python-Programmierung."
+          "en": "80-hour training in Python programming (IT occupational standard), completed with the practical skills assessment on 3 September 2020: score 98/100, level ‘Excellent’. Certificate no. 32621780, issued by Iran's national vocational training body.",
+          "de": "80-stündige Schulung in Python-Programmierung (IT-Berufsstandard), abgeschlossen mit der praktischen Fähigkeitsprüfung am 3. September 2020: 98/100 Punkte, Stufe ‚Ausgezeichnet‘. Zertifikat Nr. 32621780, ausgestellt von der nationalen Berufsbildungsbehörde Irans."
         }
       }
     ],
