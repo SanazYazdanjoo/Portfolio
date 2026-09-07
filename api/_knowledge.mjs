@@ -6,14 +6,14 @@ export default {
   "role": "UX Engineer",
   "tagline": "I speak both ‘user’ & ‘developer’.",
   "positioning": "UX Engineer bridging mixed-methods research and production React.",
-  "profileSummary": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar), a B.E. in Software Engineering, and experience across user research, UI development, and software usability since 2015. I like working on both ends of a product: running mixed-methods user studies to understand what people actually need — and what's worth building — and then taking those findings all the way into responsive, accessible interfaces in React and TypeScript, backed by lightweight backends. I use AI-assisted development tools productively, while reviewing the generated code critically. The case studies below show how that plays out in real projects.",
+  "profileSummary": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar), a B.E. in Software Engineering, and experience across usability evaluation, user research and UI development since 2015. I plan and run formative and summative studies on my own, from the research question through to the statistics — and six years in QA and frontend development mean the recommendations come with a realistic view of what they cost to build. I use AI-assisted development tools productively, while reviewing the generated code critically. The case studies below show how that plays out in real projects.",
   "impactStats": [
    {
     "value": "N=30",
     "label": "Controlled eye-tracking experiment"
    },
    {
-    "value": "110+",
+    "value": "120+",
     "label": "Study participants across projects"
    },
    {
@@ -22,24 +22,25 @@ export default {
    }
   ],
   "bioParagraphs": [
-   "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar), a B.E. in Software Engineering, and experience across user research, UI development, and software usability since 2015. I like working on both ends of a product: running mixed-methods user studies to understand what people actually need — and what's worth building — and then taking those findings all the way into responsive, accessible interfaces in React and TypeScript, backed by lightweight backends. I work in English and German (both C1), and I'm open to interdisciplinary UX & Tech roles."
+   "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar), a B.E. in Software Engineering, and experience across usability evaluation, user research and UI development since 2015. I plan and run formative and summative studies on my own, from the research question through to the statistics — and six years in QA and frontend development mean the recommendations come with a realistic view of what they cost to build. I work in English and German (both C1), and I'm open to interdisciplinary UX & Tech roles."
   ],
   "experience": [
    {
     "company": "Institut für Berufsbildung und Sozialmanagement (IBS)",
-    "role": "Project Assistant & UX Engineer",
+    "role": "UX Engineer & Project Assistant",
     "date": "12/2024 – Present",
     "impactMetrics": [
-     "13-step paper workflow digitised",
+     "13-step paper process, 4 return loops, 9 actors",
      "1,734 automated tests, build-enforced requirement traceability",
-     "GDPR-first data pipeline"
+     "25 problems documented, each evidence-graded"
     ],
     "tasks": [
-     "Engineered a role-based web application (React, TypeScript, Vite, SQLite) to digitalise a 13-step paper reimbursement workflow, replacing manual Excel tracking with an explicit claim state machine backed by 1,734 automated tests.",
-     "Ran empirical UX research (5W1H, UML activity diagrams, stakeholder mapping) across the 9 actors of the paper process, which the system implements as 5 permission roles; structural workflow failures were translated into numbered requirements whose citations in code are kept traceable by a build-failing test.",
-     "Built a strict GDPR/DSGVO-compliant data pipeline with local persistence adapters and Nextcloud WebDAV integrations, ensuring participant data never leaves internal institute servers.",
-     "Secured the Fastify (Node.js) backend with session-based authentication (argon2id password hashing), CSRF protection, rate limiting, and server-side role checks, keeping each role view inside its permitted scope.",
-     "Worked in German throughout the project, conducting expert validation interviews and task-based evaluations to refine inclusive features like mobile-first camera capture and guided step-by-step modes."
+     "Mapped the as-is reimbursement process across 9 actor roles — 13 steps with 4 return loops — using UML swimlane activity diagrams, 5W1H problem framing and stakeholder mapping. Evidence base: more than a year running the process myself, 2 expert interviews (project management, accounting), a working meeting with the administration team, and an open participant survey.",
+     "Clustered the findings into a problem register of 25 documented problems, each carrying an evidence grade — confirmed, indicative, hypothesis, untested — and derived numbered FR/NFR requirements, a role-based sitemap and 7 provenance-labelled personas from it. The survey was designed to falsify my own assumptions: it reversed one of my priorities and added 6 problems I had not seen from the inside.",
+     "Built the replacement application single-handedly (React, TypeScript, Vite, Node.js/Fastify, SQLite, Vitest): 5 role-based interfaces, an explicit claim state machine, and a reimbursement amount that is never stored but recomputed from one pure rule module every time any role opens a record, with its full calculation trace on screen. 1,734 automated tests, including guards that fail the build on an untraced requirement citation or a design-token drift.",
+     "Extracted the design system before the high-fidelity screens: the 9 lane colours of the research activity diagram became the application's role palette unchanged, so an actor in the research reads as the same actor in the app. A token guard test fails the build on drift between the sheet and the code.",
+     "Secured the Fastify (Node.js) backend with session authentication (argon2id), CSRF protection, rate limiting and a default-deny guard under every route; GDPR-compliant data handling via local SQLite persistence and Nextcloud WebDAV mirroring inside the institute, so participant data never leaves its servers.",
+     "Designed the summative usability evaluation and instrumented it into the application itself — guided tasks per role, a pseudonymous local event log, an end-of-session questionnaire. Dogfooding on development traffic caught three bugs in the measurement instruments themselves. Sessions with users are pending deployment for daily use. Project communication, interviews and the administration-team meeting all ran in German."
     ]
    },
    {
@@ -47,19 +48,20 @@ export default {
     "role": "UX Engineer / Researcher — Master's Thesis",
     "date": "10/2025 – 05/2026",
     "impactMetrics": [
-     "Key finding: trust beats raw speed",
-     "N=30 within-subjects, 3 conditions",
-     "TypeScript + Python gaze pipeline"
+     "N=30 within-subjects, 3×2×6, Latin-square",
+     "60% preferred the gaze hybrid; mouse SUS 85.2",
+     "Self-built TypeScript + Python gaze pipeline"
     ],
     "tasks": [
-     "Independently developed the entire experimental platform — a TypeScript frontend with a Python backend bridging the Pupil Labs Neon eye tracker's real-time API — implementing complex gaze-assisted interaction techniques (MAGIC Pointing, Ninja Cursors), stimulus presentation, and performant data logging.",
-     "Designed and conducted a controlled within-subjects experiment (n=30) comparing the developed input techniques against a mouse baseline in dual-display environments.",
-     "Evaluated performance and user experience using mixed methods, analysing movement time and SUS in R; key finding for complex system development: predictability and user trust are more critical for adoption than raw speed."
+     "Built the entire experimental platform independently — a TypeScript frontend with a Python backend on the Pupil Labs Neon eye tracker's real-time API — implementing MAGIC Pointing, a gaze-augmented Ninja Cursors variant, stimulus presentation and trial-level logging.",
+     "Ran a two-stage study: an exploratory pre-study (n=20 interviews, thematic analysis), then a controlled within-subjects experiment in a 3×2×6 design (n=30, Latin-square counterbalanced), comparing both gaze-assisted techniques against a mouse baseline on a physical dual-display workstation.",
+     "Analysed movement time, repeat rate and SUS in R (RM-ANOVA, Friedman). 60% of participants preferred the gaze-supported Ninja Cursors variant although the mouse scored highest on SUS (85.2) — predictability and user trust beat raw speed.",
+     "Concluded with a conditional design recommendation: gaze assistance should trigger only for large cross-screen relocations, not for every pointing movement. Thesis grade 1.5, defence 1.5."
     ]
    },
    {
     "company": "deskbird × Bauhaus-Universität Weimar",
-    "role": "UX Researcher — Research Project",
+    "role": "UX Researcher — University–Industry Research Project",
     "date": "10/2023 – 03/2024",
     "impactMetrics": [
      "My concept won the client vote",
@@ -67,8 +69,8 @@ export default {
      "n=57 survey · n=6 contextual inquiry"
     ],
     "tasks": [
-     "Ran end-to-end user research as part of a six-person team for a B2B SaaS product in the hybrid work sector (surveys, contextual inquiries, stakeholder interviews).",
-     "Synthesised research findings into three competing concepts; client stakeholders selected mine by vote, and it was delivered as a high-fidelity prototype with development recommendations for their upcoming sprints."
+     "Ran end-to-end user research in a six-person team for a B2B SaaS product in the hybrid-work sector: online survey (n=57), six 90-minute remote contextual inquiries, and stakeholder interviews.",
+     "Synthesised the findings into three competing concepts; the deskbird team voted and chose mine, delivered as a high-fidelity prototype with implementation recommendations for their upcoming sprints."
     ]
    },
    {
@@ -81,7 +83,7 @@ export default {
     ],
     "tasks": [
      "Developed responsive frontend components (HTML/CSS) and maintained dynamic content on the university's TYPO3 pages.",
-     "Strictly adhered to corporate design guidelines and validated components against modern web accessibility standards."
+     "Checked components against the corporate design system and web accessibility standards."
     ]
    },
    {
@@ -93,8 +95,8 @@ export default {
      "Heuristic evaluation + REST validation"
     ],
     "tasks": [
-     "Conducted acceptance testing and heuristic evaluations in close collaboration with the frontend development team to prioritise and resolve bugs prior to release.",
-     "Technically validated REST endpoints and backend interfaces using Postman."
+     "Acceptance testing and heuristic evaluations with the frontend development team, prioritising and resolving bugs prior to release.",
+     "Validated REST endpoints and backend interfaces with Postman."
     ]
    },
    {
@@ -107,9 +109,8 @@ export default {
      "Heuristic evaluation across 5+ products"
     ],
     "tasks": [
-     "Contributed to establishing the first manual acceptance-testing group at the 500+ employee software group and trained its 4 QA members, introducing TestLink for test-case management and more efficient bug-tracking workflows.",
-     "Ran acceptance testing across web and mobile app projects — surfacing pain points from the end-user perspective, checking UI against standards, and improving overall product quality.",
-     "Validated APIs with Postman on selected projects and conducted structured heuristic evaluations for 5+ digital products, collaborating closely with development teams to iteratively implement usability improvements."
+     "Helped set up the first structured pre-release testing group at the 500+ employee software group, trained its 4 QA members, and introduced TestLink for test-case management.",
+     "Ran acceptance testing and structured heuristic evaluations across 5+ web and mobile products — checking UI against standards and validating APIs with Postman, catching usability problems before release rather than after."
     ]
    },
    {
@@ -117,14 +118,14 @@ export default {
     "role": "UI Developer / R&D Developer (started as Intern)",
     "date": "09/2015 – 07/2020",
     "impactMetrics": [
-     "Page-1 Google rankings, 10+ client sites",
-     "10+ sites shipped over 5 years",
+     "10+ WordPress & WooCommerce sites shipped",
+     "SEO & performance optimisation across client sites",
      "Cross-browser & cross-device QA"
     ],
     "tasks": [
-     "Developed 10+ WordPress and WooCommerce websites (corporate, e-commerce, portfolio) at the web agency, including cross-browser and cross-device optimization.",
-     "Applied SEO and performance best practices, leading to page 1 Google search rankings for target keywords across 10+ client sites.",
-     "Moved from WordPress UI development into R&D work across the agency's client web projects — including nopCommerce e-commerce builds and Unity-based projects."
+     "Delivered 10+ WordPress and WooCommerce websites (corporate, e-commerce, portfolio), including cross-browser and cross-device optimisation.",
+     "SEO and performance optimisation was a standing part of the delivery brief: getting client sites onto page 1 of Google for their target keywords. The agency's own site ranked there.",
+     "Moved from WordPress UI development into R&D work — nopCommerce e-commerce builds and Unity projects, clarifying requirements directly with clients."
     ]
    },
    {
@@ -136,7 +137,7 @@ export default {
      "Remote QA for an Australian team"
     ],
     "tasks": [
-     "Started as an intern at Mega-Tech, outsourced as a QA engineer to Black Citrus, an Australian company — manually testing its web application projects remotely under Mega-Tech's supervision, directly after finishing the bachelor thesis."
+     "Manually tested the web application projects of Black Citrus, an Australian company, working remotely — placed there as an intern through Mega-Tech directly after finishing the bachelor thesis."
     ]
    }
   ],
@@ -144,10 +145,11 @@ export default {
    {
     "school": "Bauhaus-Universität Weimar",
     "degree": "M.Sc. Human-Computer Interaction",
-    "year": "2022 – 2026",
-    "grade": "Final grade: 1.7",
+    "year": "10/2021 – 05/2026",
+    "grade": "Final grade: 1.7 · Thesis: 1.5 · 120 ECTS",
+    "note": "Continuously enrolled at Bauhaus-Universität Weimar since 10/2021; the first semester ran in the M.Sc. Computer Science for Digital Media before I transferred to Human-Computer Interaction, and its coursework counts toward the HCI degree.",
     "awards": [
-     "Thesis: Gaze-Assisted Input in Dual-Display Environments"
+     "Thesis: Gaze-Assisted Input in Dual-Display Environments — A Comparative Evaluation of MAGIC Pointing, Ninja Cursors, and a Mouse Baseline"
     ]
    },
    {
@@ -157,53 +159,65 @@ export default {
    }
   ],
   "skills": {
-   "Frontend Engineering & Design": [
+   "Usability Engineering & Evaluation": [
+    "Formative & Summative Usability Testing",
+    "Heuristic Evaluation",
+    "Prototype & Hardware/Software Evaluation",
+    "Human-Centred Design Process (ISO 9241-210)",
+    "Usability Metrics (SUS, task success, error rate, time on task)",
+    "Requirements Engineering",
+    "Requirements Traceability (FR/NFR)",
+    "Web Accessibility (WCAG 2.1 AA)"
+   ],
+   "UX Research Methods": [
+    "Mixed-Methods Research",
+    "Controlled Experiments",
+    "Eye-Tracking (Pupil Labs Neon)",
+    "Contextual Inquiry",
+    "Stakeholder & Expert Interviews",
+    "B2B User Research",
+    "Survey Design",
+    "Thematic Analysis",
+    "Affinity Diagramming",
+    "Persona Development",
+    "Process Mapping (UML Swimlanes, 5W1H)",
+    "Inferential Statistics in R"
+   ],
+   "Quality Assurance": [
+    "Acceptance Testing",
+    "Test-Case Management (TestLink)",
+    "Unit & Integration Testing (Vitest)",
+    "REST API Validation (Postman)",
+    "Agile Collaboration"
+   ],
+   "Frontend": [
     "JavaScript (ES6+)",
     "TypeScript",
     "React",
-    "HTML",
-    "CSS",
+    "HTML5",
+    "CSS3",
     "Tailwind CSS",
     "Vite",
-    "Web Accessibility",
+    "Design Systems",
     "Figma",
     "WordPress",
     "WooCommerce",
     "nopCommerce",
     "E-Commerce"
    ],
-   "Backend & Data": [
+   "Backend & Tools": [
     "Node.js (Fastify)",
+    "Python",
     "SQLite",
     "REST APIs",
+    "Real-Time Device APIs (Pupil Labs Neon)",
     "OpenAI API",
-    "Authentication & Security (Argon2id, CSRF)"
-   ],
-   "UX Research & Testing": [
-    "B2B User Research",
-    "Mixed-Methods Research",
-    "Requirements Engineering",
-    "Usability Testing",
-    "Controlled Experiments",
-    "Eye-Tracking Evaluation (Pupil Labs)",
-    "Contextual Inquiry",
-    "Affinity Diagramming",
-    "Stakeholder Interviews",
-    "Questionnaire Design"
-   ],
-   "QA & Testing": [
-    "Unit & Integration Testing (Vitest)",
-    "Postman (REST API Validation)",
-    "TestLink",
-    "Heuristic Evaluation",
-    "Acceptance Testing"
-   ],
-   "Analysis & Tools": [
-    "Python",
-    "R (Statistical Analysis)",
+    "Authentication & Security (argon2id, CSRF)",
     "Git & GitHub",
     "Vercel",
-    "Unity"
+    "Unity",
+    "Physical Prototyping (inflatables, Arduino, pneumatic actuators, capacitive sensors)",
+    "AI-assisted development (Claude Code, GitHub Copilot)"
    ]
   },
   "languages": [
@@ -230,16 +244,18 @@ export default {
     "featured": false,
     "skills": [
      "HCI Research",
-     "Visual Interfaces",
+     "Physiological Computing",
+     "Usability Engineering",
      "Design Theory"
     ],
     "verifyUrl": "",
-    "detail": "Final grade 1.7 (gut), 120 ECTS. Thesis: Gaze-Assisted Input in Dual-Display Environments — a comparative evaluation of MAGIC Pointing, Ninja Cursors, and a mouse baseline. Thesis grade: 1.5."
+    "detail": "Graduated 12 May 2026. Final grade 1.7, 120 ECTS, Faculty of Media. Thesis: Gaze-Assisted Input in Dual-Display Environments — A Comparative Evaluation of MAGIC Pointing, Ninja Cursors, and a Mouse Baseline (1.5, 24 ECTS), defence 1.5 (6 ECTS). Strongest module: HCI Specialisation — Physiological Computing: Determination and Manipulation of User Characteristics (1.0). Two graded research projects: Research Project I — Inflatables for Data Physicalization and Tangible Interaction (1.6, 18 ECTS), and Research Project II — User-Centered Design in Practice: Designing a Digital Product to Encourage Social Interactions in Hybrid Workplaces (1.3, 12 ECTS)."
    },
    {
     "title": "DSH-2 (German Language Proficiency for University Admission)",
     "provider": "Sprachenzentrum, Bauhaus-Universität Weimar",
     "year": "2026",
+    "date": "2026-02-16",
     "type": "language",
     "topic": "academic",
     "featured": true,
@@ -247,7 +263,35 @@ export default {
      "German C1"
     ],
     "verifyUrl": "",
-    "detail": "Unrestricted admission to all German degree programmes."
+    "detail": "Examined 16 February 2026, while writing the Master's thesis. DSH-2 certifies differentiated written and spoken ability and grants unrestricted admission to every degree programme at any German university. Reached from A2 through one institution's own course sequence at the Sprachenzentrum: A2 (2021/22), B1 (2024), B2 intensive (2025), then DSH preparation."
+   },
+   {
+    "title": "German B2 — Intensive Course",
+    "provider": "Sprachenzentrum, Bauhaus-Universität Weimar",
+    "year": "2025",
+    "date": "2025-02-12",
+    "type": "language",
+    "topic": "academic",
+    "featured": false,
+    "skills": [
+     "German B2"
+    ],
+    "verifyUrl": "",
+    "detail": "Intensive course, 1 October 2024 to 12 February 2025, closing with an examination equivalent in form and standard to the Goethe-Zertifikat B2. Passing it is the prerequisite for the Sprachenzentrum's DSH preparation course."
+   },
+   {
+    "title": "German B1 — Grundstufe",
+    "provider": "Sprachenzentrum, Bauhaus-Universität Weimar",
+    "year": "2024",
+    "date": "2024-07-10",
+    "type": "language",
+    "topic": "academic",
+    "featured": false,
+    "skills": [
+     "German B1"
+    ],
+    "verifyUrl": "",
+    "detail": "Around 300 contact hours, 2 April to 10 July 2024, closing with an examination equivalent to the Zertifikat Deutsch als Fremdsprache at CEFR level B1. Result: gut."
    },
    {
     "title": "Figma 101 Workshop",
@@ -264,6 +308,20 @@ export default {
     ],
     "verifyUrl": "",
     "detail": "Auto Layout, wireframe libraries, design systems and prototyping — three assignments, concluding in a mini portfolio."
+   },
+   {
+    "title": "Designing for Human: Design Thinking & Behaviour Science to Solve Any Problem",
+    "provider": "Bauhaus-Universität Weimar",
+    "year": "2024",
+    "type": "course",
+    "topic": "strategy",
+    "featured": false,
+    "skills": [
+     "Design Thinking",
+     "Behavioural Science"
+    ],
+    "verifyUrl": "",
+    "detail": "Graded university module, summer semester 2024 (1.1, 3 ECTS): design thinking combined with behavioural science as a problem-solving method."
    },
    {
     "title": "Designing Accessible Components in Figma",
