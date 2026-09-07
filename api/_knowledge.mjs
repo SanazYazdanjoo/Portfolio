@@ -545,17 +545,19 @@ export default {
     "detail": "Frontend development course offered through Part College, completed with certificate while working at Part Software Group."
    },
    {
-    "title": "Python Programming",
-    "provider": "Technical & Vocational Training Organization",
-    "year": "2019",
+    "title": "Python Programming — National Skill Certificate",
+    "provider": "Technical & Vocational Training Organization (TVTO), Khorasan Razavi",
+    "year": "2020",
+    "date": "2020-10-18",
+    "duration": "80 h",
     "type": "certification",
     "topic": "engineering",
     "featured": true,
     "skills": [
      "Python"
     ],
-    "verifyUrl": "",
-    "detail": "Certified training in Python programming."
+    "verifyUrl": "http://certificate.portaltvto.com",
+    "detail": "80-hour training in Python programming (IT occupational standard), completed with the practical skills assessment on 3 September 2020: score 98/100, level ‘Excellent’. Certificate no. 32621780, issued by Iran's national vocational training body."
    }
   ],
   "contact": {
