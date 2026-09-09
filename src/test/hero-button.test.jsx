@@ -56,21 +56,23 @@ describe("Hero positioning and CTA hierarchy", () => {
   it("shows identity, current workflow and supporting statement instead of PORTFOLIO", () => {
     renderWithProviders(<Hero data={mockData} />);
 
-    expect(screen.getByText("Hi, I'm Jane.")).toBeInTheDocument();
+    expect(screen.getByText("Jane Doe")).toBeInTheDocument();
     expect(screen.getByText("UX Engineer")).toBeInTheDocument();
     expect(screen.getByText(mockData.heroNarrative.workflow)).toBeInTheDocument();
     expect(screen.getByText(mockData.heroNarrative.statement)).toBeInTheDocument();
     expect(screen.queryByText("PORTFOLIO")).not.toBeInTheDocument();
   });
 
-  it("exposes the five-stage career path as one accessible secondary narrative", () => {
+  it("keeps the detailed career progression out of the hero", () => {
     renderWithProviders(<Hero data={mockData} />);
 
-    expect(
-      screen.getByLabelText(
-        "My path: Software Engineering, Frontend, QA / Usability, HCI Research, UX Engineering"
-      )
-    ).toBeInTheDocument();
+    expect(screen.queryByText("Software Engineering")).not.toBeInTheDocument();
+    expect(screen.queryByText("HCI Research")).not.toBeInTheDocument();
+  });
+
+  it("keeps the personal tagline with the portrait", () => {
+    renderWithProviders(<Hero data={mockData} />);
+    expect(screen.getByText(mockData.tagline)).toBeInTheDocument();
   });
 
   it("offers only case studies and CV as hero links", () => {
