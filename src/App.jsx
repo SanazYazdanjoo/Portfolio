@@ -9,13 +9,38 @@
 // on the container is the second half of the same rule: it keeps a flick at
 // either end from chaining out to the document.
 
-import React, { useRef, useEffect, Suspense } from "react";
+import React, { useRef, useEffect, useState, Suspense, lazy } from "react";
 import { MotionConfig } from "framer-motion";
 import { Outlet, useLocation } from "react-router-dom";
 import { Nav } from "./components/Nav";
 import { Footer } from "./components/Footer";
-import { SketchTrail } from "./components/SketchTrail";
-import { AskPortfolio } from "./components/AskPortfolio";
+// The two shell overlays are ornament and assistant, not content: neither
+// is needed for first paint, and on a throttled phone their mount work sat
+// inside the load's long tasks (Lighthouse mobile, Sept 2026: TBT ~1 s).
+// They load in their own chunk once the main thread goes idle.
+const SketchTrail = lazy(() =>
+  import("./components/SketchTrail").then((m) => ({ default: m.SketchTrail }))
+);
+const AskPortfolio = lazy(() =>
+  import("./components/AskPortfolio").then((m) => ({ default: m.AskPortfolio }))
+);
+
+// True once the browser has had an idle moment after mount (or 1.5 s, on
+// engines without requestIdleCallback), so deferred work never races the
+// route's own first render.
+function useAfterIdle() {
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    const ric = window.requestIdleCallback;
+    if (ric) {
+      const id = ric(() => setReady(true), { timeout: 2000 });
+      return () => window.cancelIdleCallback?.(id);
+    }
+    const id = setTimeout(() => setReady(true), 1500);
+    return () => clearTimeout(id);
+  }, []);
+  return ready;
+}
 import { ShakeProbe } from "./components/ShakeProbe";
 import { RouteSkeleton } from "./components/RouteSkeleton";
 import { useTranslation } from "./context/LanguageContext";
@@ -25,6 +50,7 @@ export default function App() {
   const { t } = useTranslation();
   const scrollRef = useRef(null);
   const location = useLocation();
+  const overlaysReady = useAfterIdle();
 
   // The nav no longer changes size on scroll: the reference sets the
   // wordmark at one size, so there is nothing for a scroll listener to do.
@@ -93,8 +119,12 @@ export default function App() {
             with the scrolled content — and (b) trapped its z-[100] inside
             the container's own stacking context (layer 10 at shell level),
             under the chat pill it was meant to draw over. */}
-        <SketchTrail />
-        <AskPortfolio />
+        {overlaysReady && (
+          <Suspense fallback={null}>
+            <SketchTrail />
+            <AskPortfolio />
+          </Suspense>
+        )}
 
         {/* On-device oscillation probe, mounted only when the URL carries
             ?probe. See components/ShakeProbe.jsx. */}
