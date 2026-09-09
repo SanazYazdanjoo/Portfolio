@@ -20,6 +20,8 @@ const en = {
   "hero.tagline": "I speak both ‘user’ & ‘developer’.",
   "hero.ctaWork": "View my Works",
   "hero.ctaCv": "View CV",
+  "hero.ctaContact": "Contact",
+  "hero.credentials": "M.Sc. Human-Computer Interaction · User Research · Prototyping · Frontend",
 
   // Projects
   "projects.heading": "Case Studies",

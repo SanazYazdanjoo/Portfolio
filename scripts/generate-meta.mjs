@@ -78,6 +78,16 @@ function render(template, { title, description, url, image, graph }) {
   );
   set(/(<meta name="twitter:image" content=")[^"]*(")/, `$1${escapeHtml(image)}$2`);
 
+  // A static canonical per route: the app sets one at runtime, but a crawler
+  // that never runs it must still see which URL is the original. Strip any
+  // earlier one first so a rerun against the same dist stays idempotent.
+  html = html.replace(/\s*<link rel="canonical"[^>]*>/g, "");
+  html = html.replace(
+    "</head>",
+    () => `<link rel="canonical" href="${escapeHtml(url)}" />
+  </head>`
+  );
+
   // One combined ld+json graph per route: the Person entity everywhere, plus
   // whatever the route adds (WebSite, ProfilePage, Article + breadcrumb).
   // <-escape so no JSON value can ever close the script element early.
