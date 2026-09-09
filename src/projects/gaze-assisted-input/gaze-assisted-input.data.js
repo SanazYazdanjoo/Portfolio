@@ -23,13 +23,77 @@ export const projectData = {
   // read as a contradiction. (F1, confirmed by the owner 2026-08-24.)
   timeline: { en: "10/2025 – 04/2026 · defence 05/2026", de: "10/2025 – 04/2026 · Verteidigung 05/2026" },
 
+  // Explicit ownership is deliberately visible near the top of the case study.
+  // A recruiter should not have to infer which parts of an academic project
+  // were mine.
+  myContribution: {
+    owned: [
+      { en: "Framed the research question and ran the formative user research", de: "Forschungsfrage formuliert und formative Nutzerforschung durchgeführt" },
+      { en: "Designed the controlled study, tasks, counterbalancing, and measures", de: "Kontrollierte Studie, Aufgaben, Counterbalancing und Messgrößen konzipiert" },
+      { en: "Engineered the TypeScript experiment and real-time gaze pipeline", de: "TypeScript-Experiment und Echtzeit-Blickpipeline entwickelt" },
+      { en: "Conducted participant sessions and managed the study data", de: "Teilnehmenden-Sessions durchgeführt und Studiendaten verwaltet" },
+      { en: "Analysed performance, SUS, and qualitative feedback", de: "Leistung, SUS und qualitatives Feedback analysiert" },
+      { en: "Translated the evidence into interaction-design recommendations", de: "Evidenz in Empfehlungen für das Interaktionsdesign übersetzt" },
+    ],
+  },
+
+  // Recruiter-facing labels keep the academic rigour but make the page read
+  // like a case study rather than a thesis table of contents.
+  sectionTitles: {
+    about: {
+      label: { en: "Research question", de: "Forschungsfrage" },
+      kicker: { en: "Frame", de: "Rahmen" },
+      heading: { en: "The question I set out to answer", de: "Die Frage, die ich beantworten wollte" },
+    },
+    process: {
+      label: { en: "Approach", de: "Vorgehen" },
+      kicker: { en: "Approach", de: "Vorgehen" },
+      heading: { en: "How I approached it", de: "Wie ich vorgegangen bin" },
+    },
+    challenge: {
+      label: { en: "Problem", de: "Problem" },
+      kicker: { en: "Problem", de: "Problem" },
+      heading: { en: "The interaction problem", de: "Das Interaktionsproblem" },
+    },
+    solution: {
+      label: { en: "Built & evaluated", de: "Entwickelt & evaluiert" },
+      kicker: { en: "Build", de: "Entwicklung" },
+      heading: { en: "What I built & evaluated", de: "Was ich entwickelt & evaluiert habe" },
+    },
+    methodology: {
+      label: { en: "Evaluation", de: "Evaluation" },
+      kicker: { en: "Research decisions", de: "Forschungsentscheidungen" },
+      heading: { en: "How I evaluated it", de: "Wie ich es evaluiert habe" },
+    },
+    results: {
+      label: { en: "Findings", de: "Ergebnisse" },
+      kicker: { en: "Evidence", de: "Evidenz" },
+      heading: { en: "What I found", de: "Was ich herausgefunden habe" },
+    },
+    limitations: {
+      label: { en: "Next iteration", de: "Nächste Iteration" },
+      kicker: { en: "Reflection", de: "Reflexion" },
+      heading: { en: "What I'd improve next", de: "Was ich als Nächstes verbessern würde" },
+    },
+    implications: {
+      label: { en: "Design implications", de: "Design-Implikationen" },
+      kicker: { en: "Application", de: "Anwendung" },
+      heading: { en: "Design implications", de: "Implikationen für das Design" },
+    },
+    conclusion: {
+      label: { en: "Demonstrates", de: "Kompetenzen" },
+      kicker: { en: "Research → Usability Engineering → Implementation", de: "Research → Usability Engineering → Implementation" },
+      heading: { en: "What this project demonstrates", de: "Was dieses Projekt zeigt" },
+    },
+  },
+
   heroImage: thumbnailImg,
   heroIsGenerated: true, // hero generated with Google Gemini — renders the credit
 
   methods: [
-    { en: "Custom TypeScript Architecture",       de: "Eigene TypeScript-Architektur" },
+    { en: "Semi-Structured Interviews",             de: "Semi-strukturierte Interviews" },
+    { en: "Workspace Visualisation",                de: "Arbeitsplatz-Visualisierung" },
     { en: "Within-Subjects Experiment (3×2×6)",   de: "Within-Subjects-Experiment (3×2×6)" },
-    { en: "Real-Time Data Logging",                de: "Echtzeit-Datenerfassung" },
     { en: "Repeated-Measures ANOVA",               de: "ANOVA mit Messwiederholung" },
     { en: "SUS Evaluation",                        de: "SUS-Evaluation" },
     { en: "Reflexive Thematic Analysis",           de: "Reflexive thematische Analyse" },
@@ -107,147 +171,128 @@ export const projectData = {
     ],
   },
 
-  // Process gallery
+  // Five recruiter-scannable steps. Detailed methodological choices still live
+  // in the Methodology section, so this rail communicates reasoning rather
+  // than repeating the thesis procedure line by line.
   process: [
     {
       phase: "discover",
-      type: { en: "Semi-structured Interviews", de: "Semi-strukturierte Interviews" },
-      title: { en: "Characterising Real Multi-Display Work", de: "Reale Multi-Display-Arbeit charakterisieren" },
+      type: { en: "Understand", de: "Verstehen" },
+      title: { en: "Understand the Real Workstation Context", de: "Den realen Arbeitsplatzkontext verstehen" },
       annotation: {
-        en: "20 participants (researchers and tech/design professionals) recreated their workstation on a shared Figma canvas, then discussed screen roles, input preferences, and cross-display pain points in ~30-minute sessions. Analysed with reflexive thematic analysis.",
-        de: "20 Teilnehmende (Forschende sowie Tech-/Design-Fachkräfte) bildeten ihren Arbeitsplatz auf einer gemeinsamen Figma-Fläche nach und diskutierten in ~30-minütigen Sessions Bildschirmrollen, Eingabepräferenzen und bildschirmübergreifende Schwachstellen. Ausgewertet mit reflexiver thematischer Analyse.",
+        en: "I interviewed 20 researchers and tech/design professionals and had them recreate their workstation on a shared Figma canvas. We discussed screen roles, input preferences, and cross-display pain points.",
+        de: "Ich interviewte 20 Forschende und Tech-/Design-Fachkräfte und ließ sie ihren Arbeitsplatz auf einer gemeinsamen Figma-Fläche nachbilden. Wir besprachen Bildschirmrollen, Eingabepräferenzen und bildschirmübergreifende Schwachstellen.",
       },
       insight: {
-        en: "Cursor loss was a real, named pain point: participants described 'shaking' the mouse to find the pointer, and 14 of 20 reported neck strain or eye fatigue. This directly motivated the focus on cross-display target acquisition.",
-        de: "Cursor-Verlust war ein real benannter Schwachpunkt: Teilnehmende beschrieben das „Schütteln“ der Maus, um den Zeiger wiederzufinden, und 14 von 20 berichteten Nackenverspannungen oder Augenermüdung. Das motivierte direkt den Fokus auf bildschirmübergreifendes Zielerfassen.",
-      },
-      imagePath: null,
-    },
-    {
-      phase: "discover",
-      type: { en: "Workspace Visualisation", de: "Arbeitsplatz-Visualisierung" },
-      title: { en: "Grounding the Lab Setup in Reality", de: "Den Laboraufbau in der Realität verankern" },
-      annotation: {
-        en: "Participants' recreated configurations revealed dominant patterns: side-by-side dual displays, laptop + external monitor (12/20), and near-universal mouse use (17/20) even on laptops.",
-        de: "Die nachgebildeten Konfigurationen der Teilnehmenden zeigten dominante Muster: nebeneinander angeordnete Dual-Displays, Laptop + externer Monitor (12/20) und nahezu universelle Mausnutzung (17/20) selbst auf Laptops.",
-      },
-      insight: {
-        en: "The lab apparatus copied what people actually use — side-by-side dual displays, mouse as the manual device, and a height-adjustable desk to address the ergonomic strain participants reported.",
-        de: "Der Laboraufbau übernahm, was tatsächlich genutzt wird — nebeneinander angeordnete Dual-Displays, die Maus als manuelles Eingabegerät und ein höhenverstellbarer Tisch gegen die berichtete ergonomische Belastung.",
+        en: "Cursor loss was a real, named pain point; 14 of 20 also reported neck strain or eye fatigue. This grounded the study in an everyday multi-display problem rather than a lab-only hypothesis.",
+        de: "Cursor-Verlust war ein real benannter Schwachpunkt; 14 von 20 berichteten zusätzlich Nackenverspannungen oder Augenermüdung. Damit basierte die Studie auf einem alltäglichen Multi-Display-Problem statt nur auf einer Laborhypothese.",
       },
       imagePath: null,
     },
     {
       phase: "define",
-      type: { en: "Experimental Design", de: "Experimentaldesign" },
-      title: { en: "A 3×2×6 Within-Subjects Protocol", de: "Ein 3×2×6-Within-Subjects-Protokoll" },
+      type: { en: "Define", de: "Definieren" },
+      title: { en: "Turn Pain Points into Measurable Questions", de: "Schwachstellen in messbare Fragen übersetzen" },
       annotation: {
-        en: "Three input methods (Mouse, MAGIC Pointing, gaze-augmented Ninja Cursors) × two target sizes × six distances (875–3226 px); input-method and target-size order counterbalanced with a balanced Latin square. Measures: movement time, repeat rate, and SUS per method block.",
-        de: "Drei Eingabemethoden (Maus, MAGIC Pointing, blickunterstützte Ninja Cursors) × zwei Zielgrößen × sechs Distanzen (875–3226 px); die Reihenfolge von Eingabemethode und Zielgröße balanciert mit einem ausgeglichenen lateinischen Quadrat. Messgrößen: Bewegungszeit, Wiederholungsrate und SUS pro Methodenblock.",
+        en: "I defined a 3×2×6 within-subjects comparison: Mouse, MAGIC Pointing, and gaze-augmented Ninja Cursors × two target sizes × six distances, with method and target-size order counterbalanced.",
+        de: "Ich definierte einen 3×2×6-Within-Subjects-Vergleich: Maus, MAGIC Pointing und blickunterstützte Ninja Cursors × zwei Zielgrößen × sechs Distanzen, mit balancierter Reihenfolge von Methode und Zielgröße.",
       },
       insight: {
-        en: "Treating distance as a categorical factor was deliberate — the six levels mix within-screen and cross-screen movements, which is exactly where the techniques were expected to diverge.",
-        de: "Distanz als kategorialen Faktor zu behandeln war bewusst gewählt — die sechs Stufen mischen bildschirminterne und bildschirmübergreifende Bewegungen, genau dort, wo sich die Techniken erwartungsgemäß unterscheiden sollten.",
+        en: "The protocol paired objective performance with subjective usability so a faster technique could not automatically be mistaken for a better user experience.",
+        de: "Das Protokoll kombinierte objektive Leistung mit subjektiver Usability, damit eine schnellere Technik nicht automatisch mit einer besseren User Experience gleichgesetzt wurde.",
       },
       imagePath: null,
     },
     {
       phase: "design",
-      type: { en: "Frontend Engineering", de: "Frontend-Entwicklung" },
-      title: { en: "TypeScript Architecture & Real-Time Gaze Pipeline", de: "TypeScript-Architektur & Echtzeit-Blickpipeline" },
+      type: { en: "Build", de: "Entwickeln" },
+      title: { en: "Build the Gaze-Assisted System", de: "Das blickgestützte System entwickeln" },
       annotation: {
-        en: "Engineered the complete experiment software from scratch in TypeScript. Interfaced with the Pupil Labs Neon head-mounted tracker via its real-time streaming API — a Python backend service relays the tracker's stream to the browser frontend — using AprilTag-based surface mapping to translate gaze onto each display. Implemented MAGIC (gaze-triggered warp, 20 px landing offset) and a gaze-augmented Ninja variant (one cursor per screen, gaze-based switching, 150 ms guard).",
-        de: "Die komplette Experimentalsoftware von Grund auf in TypeScript entwickelt. Anbindung an den kopfgetragenen Pupil Labs Neon Eyetracker über dessen Echtzeit-Streaming-API — ein Python-Backend-Dienst leitet den Stream des Trackers an das Browser-Frontend weiter — mit AprilTag-basiertem Oberflächen-Mapping zur Übersetzung des Blicks auf jeden Bildschirm. Implementiert wurden MAGIC (blickausgelöster Warp, 20 px Landeversatz) und eine blickunterstützte Ninja-Variante (ein Cursor pro Bildschirm, blickbasiertes Umschalten, 150 ms Sperrzeit).",
+        en: "I engineered the experiment in TypeScript and connected the Pupil Labs Neon eye tracker through a Python real-time service and AprilTag-based surface mapping. I implemented MAGIC and a gaze-augmented Ninja variant for the dual-display setup.",
+        de: "Ich entwickelte das Experiment in TypeScript und verband den Pupil Labs Neon Eyetracker über einen Python-Echtzeitdienst und AprilTag-basiertes Surface Mapping. Für das Dual-Display-Setup implementierte ich MAGIC und eine blickunterstützte Ninja-Variante.",
       },
       insight: {
-        en: "The two techniques distribute risk differently on a system level: MAGIC couples gaze precision to every landing, while Ninja uses gaze only for the coarse display switch — an architectural difference that later explained the entire results pattern.",
-        de: "Die beiden Techniken verteilen das Risiko auf Systemebene unterschiedlich: MAGIC koppelt Blickgenauigkeit an jede Landung, während Ninja den Blick nur für den groben Bildschirmwechsel nutzt — ein architektonischer Unterschied, der später das gesamte Ergebnismuster erklärte.",
+        en: "The techniques distribute gaze uncertainty differently: MAGIC uses gaze for the landing location; Ninja uses it mainly for the coarse display switch. That architectural distinction later explained the results pattern.",
+        de: "Die Techniken verteilen Blickunsicherheit unterschiedlich: MAGIC nutzt den Blick für die Landeposition; Ninja vor allem für den groben Bildschirmwechsel. Dieser Architekturunterschied erklärte später das Ergebnismuster.",
       },
       imagePath: null,
     },
     {
       phase: "deliver",
-      type: { en: "Quantitative Analysis", de: "Quantitative Analyse" },
-      title: { en: "RM-ANOVA: A Distance-Dependent Crossover", de: "RM-ANOVA: ein distanzabhängiger Crossover" },
+      type: { en: "Evaluate", de: "Evaluieren" },
+      title: { en: "Run the Controlled Comparison", de: "Den kontrollierten Vergleich durchführen" },
       annotation: {
-        en: "Repeated-measures ANOVA on log-transformed movement time (n=24 after data-quality exclusions), Greenhouse–Geisser corrected, Tukey post-hoc, run in R. Significant technique × distance interaction (η²ₚ = .690, p < .001).",
-        de: "ANOVA mit Messwiederholung auf log-transformierter Bewegungszeit (n=24 nach Ausschluss aufgrund von Datenqualität), Greenhouse-Geisser-korrigiert, Tukey-Post-hoc, durchgeführt in R. Signifikante Interaktion Technik × Distanz (η²ₚ = .690, p < .001).",
+        en: "Thirty participants used all three methods across the controlled pointing conditions. I collected movement time, repeat rate, SUS after each method block, and open feedback.",
+        de: "Dreißig Teilnehmende nutzten alle drei Methoden in den kontrollierten Zeigebedingungen. Ich erfasste Bewegungszeit, Wiederholungsrate, SUS nach jedem Methodenblock und offenes Feedback.",
       },
       insight: {
-        en: "Mouse won at short distances — but Ninja significantly beat it at the two intermediate cross-screen distances (1684 and 2243 px) and converged at the longest. Gaze assistance pays off precisely where the bezel crossing is the dominant cost.",
-        de: "Die Maus gewann bei kurzen Distanzen — aber Ninja schlug sie signifikant bei den beiden mittleren bildschirmübergreifenden Distanzen (1684 und 2243 px) und glich sich bei der längsten an. Blickunterstützung zahlt sich genau dort aus, wo der Rahmenübergang die dominante Kostenquelle ist.",
+        en: "A within-subjects design let every participant act as their own comparison, reducing the influence of individual differences in pointing performance.",
+        de: "Das Within-Subjects-Design machte jede teilnehmende Person zu ihrem eigenen Vergleich und reduzierte so den Einfluss individueller Unterschiede in der Zeigeleistung.",
       },
       imagePath: null,
     },
     {
       phase: "deliver",
-      type: { en: "SUS + Thematic Analysis", de: "SUS + thematische Analyse" },
-      title: { en: "Trust Beats Speed", de: "Vertrauen schlägt Tempo" },
+      type: { en: "Translate", de: "Übersetzen" },
+      title: { en: "Analyse and Translate the Evidence", de: "Evidenz analysieren und übersetzen" },
       annotation: {
-        en: "SUS after each block (N=30): Mouse 85.2, Ninja 72.6, MAGIC 55.9 (Friedman p < .001) — MAGIC the only technique below the 68-point acceptability threshold. Reflexive thematic analysis of open feedback surfaced seven primary themes, from the 'transport advantage' (23/30) to the 'landing penalty' (22/30).",
-        de: "SUS nach jedem Block (N=30): Maus 85,2, Ninja 72,6, MAGIC 55,9 (Friedman p < .001) — MAGIC als einzige Technik unter der Akzeptanzschwelle von 68 Punkten. Die reflexive thematische Analyse des offenen Feedbacks ergab sieben Hauptthemen, vom „Transportvorteil“ (23/30) bis zur „Landestrafe“ (22/30).",
+        en: "I combined repeated-measures ANOVA, SUS comparison, and reflexive thematic analysis. The central pattern was a distance-dependent performance crossover together with a strong preference for the more predictable gaze hybrid.",
+        de: "Ich kombinierte ANOVA mit Messwiederholung, SUS-Vergleich und reflexive thematische Analyse. Das zentrale Muster war ein distanzabhängiger Performance-Crossover zusammen mit einer starken Präferenz für den vorhersagbareren Blick-Hybrid.",
       },
       insight: {
-        en: "60% preferred Ninja despite the mouse's higher SUS — participants framed it as 'best of both worlds.' Predictability and trust, not raw speed, determined acceptance.",
-        de: "60 % bevorzugten Ninja trotz des höheren SUS-Werts der Maus — Teilnehmende beschrieben es als „das Beste aus beiden Welten“. Vorhersagbarkeit und Vertrauen, nicht reine Geschwindigkeit, entschieden über die Akzeptanz.",
+        en: "The design lesson was not 'gaze is faster.' Gaze helped when it removed the costly part of a cross-screen move while preserving manual control and predictable cursor behaviour.",
+        de: "Die Design-Lektion lautete nicht „Blick ist schneller“. Blicksteuerung half dann, wenn sie den teuren Teil einer bildschirmübergreifenden Bewegung entfernte und gleichzeitig manuelle Kontrolle und vorhersagbares Cursor-Verhalten bewahrte.",
       },
       imagePath: null,
     },
   ],
 
   about: {
-    en: "A Master's thesis asking whether eye gaze can make pointing across two screens faster without costing users their trust in the cursor. I built the entire experiment software in TypeScript, connected it to a head-mounted eye tracker, and compared two gaze-assisted techniques — MAGIC Pointing and Ninja Cursors — against a plain mouse with 30 participants.",
-    de: "Eine Masterarbeit zur Frage, ob Blicksteuerung das Zeigen über zwei Bildschirme hinweg beschleunigen kann, ohne das Vertrauen der Nutzer:innen in den Cursor zu kosten. Ich habe die komplette Experimentalsoftware in TypeScript entwickelt, sie an einen kopfgetragenen Eyetracker angebunden und zwei blickgestützte Techniken — MAGIC Pointing und Ninja Cursors — mit 30 Teilnehmenden gegen eine gewöhnliche Maus verglichen.",
+    en: "People working across two displays repeatedly move the pointer over long distances and can lose track of it after crossing a screen boundary. I asked whether gaze-assisted pointing could reduce that interaction cost without giving up predictability, accuracy, or manual control. I led the project end-to-end: formative interviews, study design, TypeScript/Python implementation, a controlled N=30 experiment, quantitative and qualitative analysis, and design recommendations.",
+    de: "Menschen, die mit zwei Bildschirmen arbeiten, bewegen den Zeiger wiederholt über große Distanzen und können ihn nach einem Bildschirmwechsel aus den Augen verlieren. Ich untersuchte, ob blickgestütztes Zeigen diese Interaktionskosten reduzieren kann, ohne Vorhersagbarkeit, Genauigkeit oder manuelle Kontrolle aufzugeben. Ich verantwortete das Projekt durchgängig: formative Interviews, Studiendesign, TypeScript-/Python-Implementierung, ein kontrolliertes Experiment mit N=30, quantitative und qualitative Analyse sowie Designempfehlungen.",
   },
 
   challenge: {
-    en: "Multi-display workstations are everywhere, yet the mouse alone makes cross-display pointing costly: long pointer transits, cursor re-acquisition after bezel crossings, and attentional switches between screens. Prior work proposed gaze-assisted hybrids, but few controlled studies had compared MAGIC Pointing and Ninja Cursors against a mouse baseline in a dual-display setting — a comparison explicitly called for as future work by Räihä & Špakov (2009).",
-    de: "Multi-Display-Arbeitsplätze sind weit verbreitet, doch allein die Maus macht bildschirmübergreifendes Zeigen teuer: lange Zeigerwege, erneutes Auffinden des Cursors nach Rahmenübergängen und Aufmerksamkeitswechsel zwischen Bildschirmen. Frühere Arbeiten schlugen blickunterstützte Hybride vor, doch nur wenige kontrollierte Studien hatten MAGIC Pointing und Ninja Cursors gegen eine Maus-Baseline in einer Dual-Display-Umgebung verglichen — ein Vergleich, der von Räihä & Špakov (2009) explizit als zukünftige Arbeit gefordert wurde.",
+    en: "The problem was not simply pointer distance. In the formative study, participants described losing the cursor and 'shaking' the mouse to find it again; 14 of 20 also reported neck strain or eye fatigue. Prior work proposed gaze-assisted hybrids, but the open design question was whether gaze could remove cross-display transport cost without introducing a new cost in landing accuracy, attention, or trust.",
+    de: "Das Problem war nicht nur die Zeigerdistanz. In der formativen Studie beschrieben Teilnehmende, den Cursor zu verlieren und die Maus „zu schütteln“, um ihn wiederzufinden; 14 von 20 berichteten außerdem Nackenverspannungen oder Augenermüdung. Frühere Arbeiten schlugen blickunterstützte Hybride vor, doch die offene Designfrage war, ob Blicksteuerung die Transportkosten zwischen Bildschirmen reduzieren kann, ohne neue Kosten bei Landegenauigkeit, Aufmerksamkeit oder Vertrauen zu erzeugen.",
   },
   solution: {
-    en: "I engineered the complete technical architecture and evaluation framework. This included building a dual-display eye-tracking apparatus (Pupil Labs Neon, real-time streaming API, AprilTag surface mapping) and developing performant TypeScript implementations of MAGIC Pointing (gaze-triggered cursor warp with manual fine-tuning) and a gaze-augmented Ninja Cursors variant (one persistent cursor per screen, activated by gaze). Both were then evaluated against a standard mouse baseline in reciprocal pointing tasks.",
-    de: "Ich habe die komplette technische Architektur und das Evaluationsframework entwickelt. Das umfasste den Aufbau eines Dual-Display-Eyetracking-Apparats (Pupil Labs Neon, Echtzeit-Streaming-API, AprilTag-Oberflächen-Mapping) sowie performante TypeScript-Implementierungen von MAGIC Pointing (blickausgelöster Cursor-Warp mit manueller Feinjustierung) und einer blickunterstützten Ninja-Cursors-Variante (ein dauerhafter Cursor pro Bildschirm, per Blick aktiviert). Beide wurden anschließend gegen eine Standard-Maus-Baseline in reziproken Zeigeaufgaben evaluiert.",
+    en: "I built and evaluated three interaction conditions in the same dual-display environment. The mouse provided the baseline. MAGIC Pointing used gaze to warp the cursor toward the viewed location and left fine correction to the mouse. The gaze-augmented Ninja design kept one cursor per screen and used gaze mainly to select the active display. The setup combined Pupil Labs Neon, its real-time API, AprilTag surface mapping, a Python relay service, and a TypeScript experiment frontend.",
+    de: "Ich entwickelte und evaluierte drei Interaktionsbedingungen in derselben Dual-Display-Umgebung. Die Maus diente als Baseline. MAGIC Pointing nutzte den Blick, um den Cursor zur betrachteten Position zu versetzen, und überließ die Feinkorrektur der Maus. Das blickunterstützte Ninja-Design hielt einen Cursor pro Bildschirm bereit und nutzte den Blick hauptsächlich zur Auswahl des aktiven Displays. Das Setup kombinierte Pupil Labs Neon, dessen Echtzeit-API, AprilTag-Surface-Mapping, einen Python-Relay-Service und ein TypeScript-Experiment-Frontend.",
   },
   methodology: {
-    en: "A two-phase mixed-methods design. Phase I: a formative pre-study (n=20) using semi-structured interviews and a Figma-based workspace visualisation task, analysed with reflexive thematic analysis, which grounded the lab configuration in real dual-display practice. Phase II: a controlled within-subjects experiment (N=30) with a 3×2×6 factorial design — input method × target size × distance (875–3226 px) — measuring movement time, repeat rate, and SUS, analysed with repeated-measures ANOVA (Greenhouse–Geisser corrected, Tukey post-hoc).",
-    de: "Ein zweiphasiges Mixed-Methods-Design. Phase I: eine formative Vorstudie (n=20) mit semi-strukturierten Interviews und einer Figma-basierten Arbeitsplatz-Visualisierungsaufgabe, ausgewertet mit reflexiver thematischer Analyse, die die Laborkonfiguration in realer Dual-Display-Praxis verankerte. Phase II: ein kontrolliertes Within-Subjects-Experiment (N=30) mit einem 3×2×6-faktoriellen Design — Eingabemethode × Zielgröße × Distanz (875–3226 px) — mit Messung von Bewegungszeit, Wiederholungsrate und SUS, ausgewertet mit ANOVA mit Messwiederholung (Greenhouse-Geisser-korrigiert, Tukey-Post-hoc).",
+    en: "Three research decisions shaped the evaluation. First, I used a two-phase mixed-methods design so the controlled experiment was grounded in real workstation behaviour rather than assumptions. Second, every participant used every input method, with method and target-size order counterbalanced, so individual pointing ability had less influence on the comparison. Third, I paired movement time and repeat rate with SUS and open feedback because speed alone cannot show whether an interaction feels predictable, controllable, or trustworthy. Performance was analysed with repeated-measures ANOVA (Greenhouse–Geisser corrected, Tukey post-hoc); qualitative feedback was analysed reflexively.",
+    de: "Drei Forschungsentscheidungen prägten die Evaluation. Erstens nutzte ich ein zweiphasiges Mixed-Methods-Design, damit das kontrollierte Experiment auf realem Arbeitsplatzverhalten statt auf Annahmen beruhte. Zweitens nutzte jede teilnehmende Person jede Eingabemethode, wobei Methoden- und Zielgrößenreihenfolge balanciert wurden, sodass individuelle Zeigefähigkeit den Vergleich weniger beeinflusste. Drittens kombinierte ich Bewegungszeit und Wiederholungsrate mit SUS und offenem Feedback, weil Geschwindigkeit allein nicht zeigt, ob eine Interaktion vorhersagbar, kontrollierbar oder vertrauenswürdig wirkt. Die Performance wurde mit ANOVA mit Messwiederholung (Greenhouse–Geisser-korrigiert, Tukey-Post-hoc) analysiert; qualitatives Feedback wurde reflexiv ausgewertet.",
   },
   results: {
-    en: "A significant technique × distance interaction (η²ₚ = .690) revealed a crossover: the mouse was fastest for short distances, but Ninja Cursors significantly outperformed it at the two intermediate cross-screen distances (1684 and 2243 px) and converged at the longest (3226 px). MAGIC was consistently slowest — its warp coupled gaze noise directly to landing accuracy, producing the highest repeat rate on small targets (4.69%), while Ninja's small-target repeat rate matched the mouse baseline (3.30%). SUS ranked Mouse (85.2) > Ninja (72.6) > MAGIC (55.9), with MAGIC alone falling below the 68-point acceptability threshold — yet 60% of participants named Ninja their most preferred method, and 63% named MAGIC their least preferred.",
-    de: "Eine signifikante Interaktion Technik × Distanz (η²ₚ = .690) zeigte einen Crossover: Die Maus war bei kurzen Distanzen am schnellsten, doch Ninja Cursors übertrafen sie signifikant bei den beiden mittleren bildschirmübergreifenden Distanzen (1684 und 2243 px) und glichen sich bei der längsten (3226 px) an. MAGIC war durchgängig am langsamsten — der Warp koppelte Blickrauschen direkt an die Landegenauigkeit und erzeugte die höchste Wiederholungsrate bei kleinen Zielen (4,69 %), während Ninjas Wiederholungsrate bei kleinen Zielen der Maus-Baseline entsprach (3,30 %). Der SUS-Score rangierte Maus (85,2) > Ninja (72,6) > MAGIC (55,9), wobei allein MAGIC unter die Akzeptanzschwelle von 68 Punkten fiel — dennoch nannten 60 % der Teilnehmenden Ninja als bevorzugte Methode und 63 % MAGIC als am wenigsten bevorzugte.",
+    en: "Three findings mattered. 1) Performance depended on distance: the mouse was fastest for short movements, while Ninja significantly outperformed it at the two intermediate cross-screen distances (1684 and 2243 px) and converged at the longest; the technique × distance interaction was large (η²ₚ = .690). 2) How gaze was integrated mattered more than simply adding gaze: MAGIC was consistently slowest and had the highest small-target repeat rate (4.69%), whereas Ninja matched the mouse's 3.30%. 3) Trust shaped acceptance: SUS ranked Mouse 85.2, Ninja 72.6, MAGIC 55.9, yet 60% still preferred Ninja — the hybrid that used gaze for transport while preserving predictable manual control.",
+    de: "Drei Ergebnisse waren entscheidend. 1) Die Performance hing von der Distanz ab: Die Maus war bei kurzen Bewegungen am schnellsten, während Ninja sie bei den beiden mittleren bildschirmübergreifenden Distanzen (1684 und 2243 px) signifikant übertraf und sich bei der längsten anglich; die Interaktion Technik × Distanz war groß (η²ₚ = .690). 2) Wie Blicksteuerung integriert wurde, war wichtiger als Blicksteuerung einfach hinzuzufügen: MAGIC war durchgängig am langsamsten und hatte die höchste Wiederholungsrate bei kleinen Zielen (4,69 %), während Ninja mit 3,30 % der Maus entsprach. 3) Vertrauen prägte die Akzeptanz: Der SUS rangierte Maus 85,2, Ninja 72,6, MAGIC 55,9; dennoch bevorzugten 60 % Ninja — den Hybrid, der Blick für den Transport nutzte und gleichzeitig vorhersagbare manuelle Kontrolle bewahrte.",
   },
-  // The six limitations stated in the thesis (§5.4), in the order they
-  // appear there — not a re-derivation.
+
+  // Portfolio-facing summary of the thesis limitations. Each item states the
+  // boundary of the evidence and the concrete next research move.
   limitations: [
     {
-      en: "Short-term exposure. The study captured first impressions, not long-term adaptation — and the mouse's familiarity is a confound the design could not remove. Whether the coordination overhead 18 of 30 participants described falls away as the gaze techniques are internalised needs a longitudinal design.",
-      de: "Kurzzeitige Exposition. Die Studie erfasste erste Eindrücke, nicht langfristige Anpassung — und die Vertrautheit der Maus ist ein Confounder, den das Design nicht beseitigen konnte. Ob der Koordinationsaufwand, den 18 von 30 Teilnehmenden beschrieben, mit der Verinnerlichung der Blicktechniken verschwindet, müsste ein Längsschnittdesign zeigen.",
+      en: "Long-term learning — The study captured first impressions, while the mouse benefited from years of familiarity. Next: run a longitudinal study to see whether the coordination overhead reported by 18 of 30 participants decreases with practice.",
+      de: "Langfristiges Lernen — Die Studie erfasste erste Eindrücke, während die Maus von jahrelanger Vertrautheit profitierte. Als Nächstes: eine Längsschnittstudie durchführen, um zu prüfen, ob der von 18 von 30 Teilnehmenden berichtete Koordinationsaufwand mit Übung sinkt.",
     },
     {
-      en: "Hardware-related discomfort. Fourteen of thirty participants reported frame pressure, eye fatigue, or degraded tracking as prescription-glasses wearers — all of which likely reflect the apparatus rather than gaze-based interaction as a paradigm.",
-      de: "Hardwarebedingte Beschwerden. Vierzehn von dreißig Teilnehmenden berichteten von Druck des Brillengestells, Augenermüdung oder schlechterem Tracking als Brillenträger:innen — all das dürfte am Apparat liegen, nicht an blickbasierter Interaktion als Paradigma.",
+      en: "Real work versus laboratory pointing — Reciprocal pointing isolates target acquisition but not window management, context switching, or periods of cursor disengagement. Next: evaluate the techniques in realistic productivity workflows.",
+      de: "Reale Arbeit versus Labor-Zeigen — Reziprokes Zeigen isoliert die Zielerfassung, aber nicht Fensterverwaltung, Kontextwechsel oder Phasen ohne Cursor-Kontakt. Als Nächstes: die Techniken in realistischen Produktivitäts-Workflows evaluieren.",
     },
     {
-      en: "Laboratory task versus real work. Reciprocal pointing isolates target acquisition; it does not carry window management, context switching, variable target densities, or the periods of cursor disengagement in which the re-acquisition benefit of gaze would show most clearly.",
-      de: "Laboraufgabe statt realer Arbeit. Reziprokes Zeigen isoliert die Zielerfassung; es bildet weder Fensterverwaltung, Kontextwechsel und wechselnde Zieldichten ab noch jene Phasen ohne Cursor-Kontakt, in denen sich der Wiederauffind-Vorteil des Blicks am deutlichsten zeigen würde.",
+      en: "Endpoint data — The cleaned export did not retain miss/timeout outcomes and trial-level endpoint coordinates, so ISO-style effective throughput could not be computed. Next: retain endpoint-level telemetry by design in the logging schema.",
+      de: "Endpunktdaten — Der bereinigte Export enthielt keine Miss-/Timeout-Ergebnisse und keine trial-genauen Endpunktkoordinaten, sodass ISO-konformer effektiver Throughput nicht berechnet werden konnte. Als Nächstes: Endpunkt-Telemetrie von Anfang an im Logging-Schema vorsehen.",
     },
     {
-      en: "Missing endpoint data. Miss/timeout outcomes and trial-level endpoint coordinates were not retained in the cleaned export, so ISO-style effective measures and throughput could not be computed — and repeat rate could not be decomposed into its breakdown types.",
-      de: "Fehlende Endpunktdaten. Miss-/Timeout-Ergebnisse und trial-genaue Endpunktkoordinaten wurden im bereinigten Export nicht aufbewahrt; ISO-konforme effektive Maße und Throughput ließen sich daher nicht berechnen — und die Wiederholungsrate nicht in ihre Fehlertypen zerlegen.",
-    },
-    {
-      en: "Sample characteristics. Participants were largely researchers and professionals in technology-related roles, which limits how far the results generalise to other populations.",
-      de: "Stichprobenmerkmale. Die Teilnehmenden waren überwiegend Forschende und Fachkräfte aus technologienahen Rollen, was die Übertragbarkeit auf andere Gruppen begrenzt.",
-    },
-    {
-      en: "Distance and screen transition are confounded. The six distance levels do not pair within-screen and cross-screen movements at matched amplitudes, so the effect of crossing the bezel cannot be separated from the effect of distance — no claim about the boundary's own contribution is made from these data. The asymmetry was deliberate: the geometry copies a real dual-display workstation rather than an artificially symmetric one. A matched-pairs design would settle it.",
-      de: "Distanz und Bildschirmwechsel sind konfundiert. Die sechs Distanzstufen paaren bildschirminterne und bildschirmübergreifende Bewegungen nicht bei gleichen Amplituden; der Effekt des Rahmenübergangs lässt sich daher nicht vom Effekt der Distanz trennen — eine Aussage über den eigenen Beitrag der Bildschirmgrenze wird aus diesen Daten nicht abgeleitet. Die Asymmetrie war bewusst gewählt: Die Geometrie bildet einen realen Dual-Display-Arbeitsplatz ab, keinen künstlich symmetrischen. Ein Matched-Pairs-Design würde die Frage klären.",
+      en: "Distance and screen transition — The study intentionally used realistic, asymmetric display geometry, so distance and bezel crossing were not independently matched. Next: add matched within-screen and cross-screen distance pairs to isolate the boundary effect.",
+      de: "Distanz und Bildschirmwechsel — Die Studie nutzte bewusst eine realistische, asymmetrische Display-Geometrie; daher waren Distanz und Rahmenübergang nicht unabhängig gematcht. Als Nächstes: gematchte bildschirminterne und bildschirmübergreifende Distanzpaare ergänzen, um den Grenzeffekt zu isolieren.",
     },
   ],
 
   implications: {
-    en: "Gaze assistance should be a context-aware accelerator, not an always-on replacement. Three design directions follow from the data: adaptive activation using the screen boundary itself as the trigger, semantic snapping toward UI elements to fix MAGIC's landing penalty, and stronger visual differentiation of the active cursor in multi-cursor designs. For UI engineers, predictability and system trust — not raw speed alone — determine whether users adopt a novel interaction pattern.",
-    de: "Blickunterstützung sollte ein kontextsensitiver Beschleuniger sein, kein dauerhafter Ersatz. Aus den Daten folgen drei Gestaltungsrichtungen: adaptive Aktivierung mit der Bildschirmgrenze selbst als Auslöser, semantisches Einrasten an UI-Elementen zur Behebung von MAGICs Landestrafe, und eine stärkere visuelle Differenzierung des aktiven Cursors bei Multi-Cursor-Designs. Für UI-Entwickler:innen entscheiden Vorhersagbarkeit und Systemvertrauen — nicht reine Geschwindigkeit —, ob Nutzer:innen ein neues Interaktionsmuster annehmen.",
+    en: "The evidence points to a specific design direction: use gaze as a context-aware accelerator, not an always-on replacement for manual pointing. First, activate assistance only when the costly event occurs, such as crossing a screen boundary. Second, preserve a predictable manual fine-control loop and consider semantic snapping toward UI targets to reduce landing error. Third, make the active cursor unmistakable in multi-cursor designs. The broader lesson for UX engineering is that performance gains only matter when the system remains understandable and trustworthy.",
+    de: "Die Evidenz weist auf eine klare Designrichtung: Blicksteuerung als kontextsensitiven Beschleuniger nutzen, nicht als dauerhaften Ersatz für manuelles Zeigen. Erstens sollte Unterstützung nur dann aktiviert werden, wenn das kostspielige Ereignis auftritt, etwa beim Überschreiten einer Bildschirmgrenze. Zweitens sollte eine vorhersagbare manuelle Feinkontrolle erhalten bleiben; semantisches Einrasten an UI-Ziele kann Landefehler reduzieren. Drittens muss der aktive Cursor in Multi-Cursor-Designs eindeutig erkennbar sein. Die übergeordnete UX-Engineering-Lektion lautet: Performance-Gewinne zählen nur, wenn das System verständlich und vertrauenswürdig bleibt.",
   },
   conclusion: [
       {
@@ -259,8 +304,8 @@ export const projectData = {
           de: "Zusammenfassungsfolie mit drei Kernaussagen — Leistung: distanzabhängig, Ninja schlägt die Maus bei mittleren bildschirmübergreifenden Distanzen; Akzeptanz: Vertrauen wiegt mehr als reine Geschwindigkeit; Design: Blick als kontextsensitiven Beschleuniger behandeln",
         },
         caption: {
-          en: "Three takeaways: performance is distance-dependent, trust beats raw speed, and gaze belongs in a context-aware accelerator role",
-          de: "Drei Kernaussagen: Leistung ist distanzabhängig, Vertrauen schlägt reine Geschwindigkeit, und Blicksteuerung gehört in die Rolle eines kontextsensitiven Beschleunigers",
+          en: "End-to-end HCI work: user research → experimental design → implementation → usability evaluation → design guidance",
+          de: "End-to-End-HCI-Arbeit: Nutzerforschung → Experimentaldesign → Implementierung → Usability-Evaluation → Designempfehlungen",
         },
         span: 2,
         className: "w-full h-auto block"
@@ -269,8 +314,8 @@ export const projectData = {
 
   outcome: {
     body: {
-      en: "This is a Master's thesis, not a commercially deployed system — adoption in the product sense doesn't apply the way it would for a shipped feature. The three design directions named in the Implications section are the concrete output the completed work delivered.",
-      de: "Dies ist eine Masterarbeit, kein kommerziell ausgeliefertes System — Adoption im produktbezogenen Sinne ist hier nicht in derselben Weise anwendbar wie bei einem ausgelieferten Feature. Die drei im Implikationen-Abschnitt genannten Gestaltungsrichtungen sind der konkrete Ertrag der abgeschlossenen Arbeit.",
+      en: "This was a completed Master's thesis rather than a commercially deployed feature, so its impact is research and design evidence rather than product adoption. The work established where a gaze hybrid can outperform a mouse, why MAGIC's landing behaviour undermined usability, and three concrete interaction directions for future multi-display systems. It also demonstrates the bridge I bring to UX work: I can investigate the user problem, engineer the system needed to test it, and translate the evidence into design decisions.",
+      de: "Dies war eine abgeschlossene Masterarbeit und kein kommerziell ausgeliefertes Feature; die Wirkung liegt daher in Forschungs- und Designevidenz statt in Produktadoption. Die Arbeit zeigte, wo ein Blick-Hybrid eine Maus übertreffen kann, warum MAGICs Landeverhalten die Usability beeinträchtigte, und leitete drei konkrete Interaktionsrichtungen für zukünftige Multi-Display-Systeme ab. Gleichzeitig zeigt sie die Brücke, die ich in UX-Arbeit einbringe: Ich kann das Nutzerproblem untersuchen, das notwendige System zur Prüfung entwickeln und die Evidenz in Designentscheidungen übersetzen.",
     },
     adoption: "academic",
   },
@@ -301,19 +346,19 @@ export const projectData = {
   ],
 
   tagEvidence: [
-    { tag: "TypeScript", evidence: "process:TypeScript Architecture & Real-Time Gaze Pipeline", status: "evidenced" },
-    { tag: "React", evidence: "techStack: [\"TypeScript\", \"Pupil Labs Neon\", \"Real-Time API\", \"AprilTag Marker Mapping\", \"Python\", \"React\"] — rendered as Tech Stack chips under Methodology", status: "evidenced" },
-    { tag: "Python", evidence: "process:TypeScript Architecture & Real-Time Gaze Pipeline — a Python backend service relays the tracker's real-time stream to the browser frontend", status: "evidenced" },
+    { tag: "TypeScript", evidence: "process:Build the Gaze-Assisted System", status: "evidenced" },
+    { tag: "React", evidence: "techStack: [\"TypeScript\", \"Pupil Labs Neon\", \"Real-Time API\", \"AprilTag Marker Mapping\", \"Python\", \"React\"] — rendered as Tech Stack under Methodology", status: "evidenced" },
+    { tag: "Python", evidence: "process:Build the Gaze-Assisted System — Python real-time relay service", status: "evidenced" },
     { tag: "Eye-Tracking", evidence: "solution: Pupil Labs Neon head-mounted tracker, AprilTag surface mapping", status: "evidenced" },
-    { tag: "Real-Time API Integration", evidence: "process:TypeScript Architecture & Real-Time Gaze Pipeline — Pupil Labs real-time streaming API", status: "evidenced" },
-    { tag: "Mixed-Methods Research", evidence: "methodology: \"A two-phase mixed-methods design. Phase I:... Phase II:...\"", status: "evidenced" },
-    { tag: "Experimental Design", evidence: "process:A 3×2×6 Within-Subjects Protocol", status: "evidenced" },
-    { tag: "Semi-Structured Interviews", evidence: "process:Characterising Real Multi-Display Work — 20 participants in ~30-minute semi-structured sessions on screen roles, input preferences, and cross-display pain points", status: "evidenced" },
-    { tag: "Thematic Analysis", evidence: "process:Trust Beats Speed — seven themes coded from open feedback (N=30), from the \"transport advantage\" (23/30) to the \"landing penalty\" (22/30); methods: \"Reflexive Thematic Analysis\"", status: "evidenced" },
-    { tag: "Quantitative UX Research", evidence: "process:RM-ANOVA: A Distance-Dependent Crossover — N=30 within-subjects experiment", status: "evidenced" },
-    { tag: "Statistical Analysis (ANOVA)", evidence: "process:RM-ANOVA: A Distance-Dependent Crossover — repeated-measures ANOVA, η²ₚ=.690", status: "evidenced" },
-    { tag: "SUS Evaluation", evidence: "process:Trust Beats Speed — SUS after each block (N=30)", status: "evidenced" },
-    { tag: "Figma", evidence: "process:Characterising Real Multi-Display Work — participants recreated their workstation on a shared Figma canvas; methodology: \"a Figma-based workspace visualisation task\"", status: "evidenced" },
+    { tag: "Real-Time API Integration", evidence: "process:Build the Gaze-Assisted System — Pupil Labs real-time streaming API", status: "evidenced" },
+    { tag: "Mixed-Methods Research", evidence: "methodology: two-phase mixed-methods design", status: "evidenced" },
+    { tag: "Experimental Design", evidence: "process:Turn Pain Points into Measurable Questions", status: "evidenced" },
+    { tag: "Semi-Structured Interviews", evidence: "process:Understand the Real Workstation Context — 20 formative interviews", status: "evidenced" },
+    { tag: "Thematic Analysis", evidence: "process:Analyse and Translate the Evidence — reflexive thematic analysis of open feedback", status: "evidenced" },
+    { tag: "Quantitative UX Research", evidence: "process:Run the Controlled Comparison — N=30 within-subjects experiment", status: "evidenced" },
+    { tag: "Statistical Analysis (ANOVA)", evidence: "process:Analyse and Translate the Evidence — repeated-measures ANOVA, η²ₚ=.690", status: "evidenced" },
+    { tag: "SUS Evaluation", evidence: "process:Run the Controlled Comparison — SUS after each method block", status: "evidenced" },
+    { tag: "Figma", evidence: "process:Understand the Real Workstation Context — shared Figma workspace recreation", status: "evidenced" },
   ],
 };
 
