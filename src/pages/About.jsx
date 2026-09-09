@@ -284,18 +284,18 @@ export default function About() {
                   initial="hidden"
                   whileInView="show"
                   viewport={{ once: true }}
-                  className={`group border-t bg-bg px-5 py-5 rule-t transition-colors duration-300 hover:bg-blush-weak ${
+                  className={`group border-t bg-bg px-5 py-5 rule-t transition-colors duration-300 hover:bg-blush-weak dark:hover:bg-[var(--color-blush-100)] ${
                     i % 2 === 1 ? "md:border-l md:rule-l" : ""
                   }`}
                 >
                   <div className="mb-1.5 flex items-baseline justify-between">
-                    <h3 className="text-sm font-black text-text">{item.title}</h3>
-                    <span className="ml-4 shrink-0 text-2xs font-semibold uppercase text-secondary-600">
+                    <h3 className="text-sm font-black text-text transition-colors duration-300 dark:group-hover:text-[var(--color-ink-900)]">{item.title}</h3>
+                    <span className="ml-4 shrink-0 text-2xs font-semibold uppercase text-secondary-600 transition-colors duration-300 dark:group-hover:text-[var(--color-rose-600)]">
                       {item.year}
                     </span>
                   </div>
-                  <p className="mb-1.5 text-2xs font-bold uppercase text-dim">{item.org}</p>
-                  {item.desc && <p className="text-xs leading-relaxed text-dim">{item.desc}</p>}
+                  <p className="mb-1.5 text-2xs font-bold uppercase text-dim transition-colors duration-300 dark:group-hover:text-[var(--color-ink-700)]">{item.org}</p>
+                  {item.desc && <p className="text-xs leading-relaxed text-dim transition-colors duration-300 dark:group-hover:text-[var(--color-ink-700)]">{item.desc}</p>}
                 </motion.div>
               ))}
             </div>
