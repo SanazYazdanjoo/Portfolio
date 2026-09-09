@@ -8,7 +8,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { HandArrow, HandBubbleTail, HandRoleArrow } from "./HandArrow";
+import { HandArrow, HandBubbleTail } from "./HandArrow";
 import { InkCtaButton } from "./Button";
 
 export function Hero({ data }) {
@@ -116,16 +116,6 @@ export function Hero({ data }) {
               />
             </div>
           </div>
-
-          <span
-            aria-hidden="true"
-            className="absolute top-full right-s24 mt-s6 flex items-start gap-s6"
-          >
-            <span className="mt-s12 text-date font-mono text-text-meta">
-              {data.role || "UX Engineer"}
-            </span>
-            <HandRoleArrow className="shrink-0 text-text-meta" />
-          </span>
         </div>
 
         {/* Personality, not positioning: this line should remain memorable but
