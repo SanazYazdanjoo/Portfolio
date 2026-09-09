@@ -49,13 +49,23 @@ describe("Hero CTA", () => {
     expect(hrefs).not.toContain("/about");
   });
 
-  // The headline is the word PORTFOLIO under a handwritten greeting; the
-  // positioning sentence that used to sit here is gone from the hero.
-  it("shows the greeting and PORTFOLIO instead of the positioning line", () => {
+  // The headline is the word PORTFOLIO under a handwritten greeting, and the
+  // positioning sentence sits under it: a recruiter reads "why Sanaz" in the
+  // first seconds instead of having to scroll for it (Sept 2026 review).
+  it("shows the greeting, PORTFOLIO and the positioning line", () => {
     renderWithProviders(<Hero data={mockData} />);
     expect(screen.getByText("Hi, welcome to my")).toBeInTheDocument();
     expect(screen.getByText("PORTFOLIO")).toBeInTheDocument();
-    expect(screen.queryByText(mockData.positioning)).not.toBeInTheDocument();
+    expect(screen.getByText(mockData.positioning)).toBeInTheDocument();
+  });
+
+  // The three recruiter actions: view work, CV, contact — nothing else.
+  it("offers work, CV and contact actions", () => {
+    renderWithProviders(<Hero data={mockData} />);
+    const hrefs = screen.getAllByRole("link").map((el) => el.getAttribute("href"));
+    expect(hrefs).toContain("/projects");
+    expect(hrefs).toContain("/cv");
+    expect(hrefs).toContain("/contact");
   });
 
   // The role is labelled once, under the photo, with a drawn arrow pointing
