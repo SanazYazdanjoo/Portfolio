@@ -106,9 +106,9 @@ export function Hero({ data }) {
         <div className="relative">
           <div className="group w-full aspect-portrait photo-frame rule-frame-in">
             <div className="w-full h-full overflow-hidden">
+              {/* heroImage is the optimized 4:5 LCP crop; aboutImage remains
+                  the fallback and the source used by About/CV/social data. */}
               <img
-                /* heroImage is the optimized 4:5 LCP crop; aboutImage remains
-                   the fallback and the source used by About/CV/social data. */
                 src={data.heroImage || data.aboutImage}
                 alt={data.name}
                 fetchPriority="high"
