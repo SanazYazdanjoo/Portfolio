@@ -1,7 +1,8 @@
 // The hero answers three recruiter questions in order: who Sanaz is, what she
-// does now, and how she got here. The portrait and speech bubble keep the
-// existing personality without carrying the burden of explaining the value
-// proposition. All copy comes from profile.js through the localized profile.
+// does now, and how she got here. The composition is deliberately editorial:
+// a dominant process statement, a quieter evidence trail, and a portrait that
+// supports the story instead of competing with it. All copy comes from
+// profile.js through the localized profile.
 //
 // Every entrance is a CSS keyframe (theme.css, "Reveals") so the first paint
 // does not wait on the motion library. Reduced-motion collapses the durations.
@@ -21,21 +22,24 @@ export function Hero({ data }) {
     .filter(Boolean);
 
   return (
-    <div className="grid-12 items-end">
-      <div className="md:col-span-8 flex flex-col gap-s28">
-        <h1 className="flex flex-col gap-s8">
+    <div className="grid-12 items-start">
+      {/* 9/3 on large screens gives the value proposition enough editorial
+          width to resolve as three strong beats instead of four accidental
+          lines. Tablet keeps the roomier 7/4 split. */}
+      <div className="md:col-span-7 lg:col-span-9 flex flex-col gap-s28">
+        <h1 className="flex flex-col gap-s16">
+          {/* Identity is one compact eyebrow row — not two competing lines. */}
           <span
-            className="block text-aside font-hand font-normal text-text-meta enter-up"
+            className="enter-up flex flex-wrap items-baseline gap-x-s16 gap-y-s3"
             style={{ "--enter-delay": "0.06s" }}
           >
-            {narrative.intro || `Hi, I'm ${data.name}.`}
-          </span>
-
-          <span
-            className="block text-label font-mono uppercase text-primary-600 enter-up"
-            style={{ "--enter-delay": "0.1s" }}
-          >
-            {data.role || "UX Engineer"}
+            <span className="text-aside font-hand font-normal text-text-meta">
+              {narrative.intro || `Hi, I'm ${data.name}.`}
+            </span>
+            <span aria-hidden="true" className="text-small text-dim">/</span>
+            <span className="text-label font-mono uppercase text-primary-600">
+              {data.role || "UX Engineer"}
+            </span>
           </span>
 
           <span
@@ -44,8 +48,11 @@ export function Hero({ data }) {
           >
             <span className="sr-only">{workflow}</span>
             <span aria-hidden="true">
-              {workflowSteps.map((step) => (
-                <span key={step} className="block">
+              {workflowSteps.map((step, index) => (
+                <span
+                  key={step}
+                  className={`block ${index === 1 ? "text-primary" : ""}`}
+                >
                   {step}
                 </span>
               ))}
@@ -55,41 +62,45 @@ export function Hero({ data }) {
 
         {narrative.statement && (
           <p
-            className="enter-up text-statement text-text"
+            className="enter-up text-statement text-text lg:pr-s88"
             style={{ "--enter-delay": "0.22s" }}
           >
             {narrative.statement}
           </p>
         )}
 
+        {/* The career story is a provenance strip, not another sentence full
+            of arrows. Number + order already communicates progression while
+            the segmented rules echo the research-notebook visual language. */}
         {careerPath.length > 0 && (
           <div
-            className="enter-up flex flex-col gap-s8"
+            className="enter-up flex flex-col gap-s10"
             style={{ "--enter-delay": "0.27s" }}
             aria-label={`${narrative.careerPathLabel || "My path"}: ${careerPath.map((step) => step.label).join(", ")}`}
           >
             <span className="text-label font-mono uppercase text-primary-600">
               {narrative.careerPathLabel || "My path"}
             </span>
-            <div
-              className="flex flex-wrap items-center gap-x-s8 gap-y-s8 text-small font-mono text-text-meta"
+            <ol
+              className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-s16 gap-y-s12 list-none m-0 p-0"
               aria-hidden="true"
             >
-              <span className={careerPath[0]?.highlight ? "font-medium text-primary-600" : undefined}>
-                {careerPath[0]?.label}
-              </span>
-              {careerPath.slice(1).map((step) => (
-                <span
+              {careerPath.map((step, index) => (
+                <li
                   key={step.id || step.phase || step.label}
-                  className="inline-flex items-center gap-s8"
+                  className={`border-t rule-t pt-s8 ${
+                    step.highlight ? "text-primary-600" : "text-text-meta"
+                  }`}
                 >
-                  <HandArrow className="shrink-0 text-dim" />
-                  <span className={step.highlight ? "font-medium text-primary-600" : undefined}>
+                  <span className="block text-meta font-mono text-dim mb-s3">
+                    {step.phase || String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className={`block text-small ${step.highlight ? "font-medium" : ""}`}>
                     {step.label}
                   </span>
-                </span>
+                </li>
               ))}
-            </div>
+            </ol>
           </div>
         )}
 
@@ -116,17 +127,16 @@ export function Hero({ data }) {
         </div>
       </div>
 
-      {/* Portrait — 4:5, in colour. The bubble now sits above the portrait on
-          wide screens so personality never competes with the headline. */}
+      {/* Portrait — visually enters alongside the second headline beat instead
+          of being pinned to the CTA baseline. That gives the hero one balanced
+          composition rather than a text block with a detached image below it. */}
       <div
-        className="enter-up group/photo relative md:col-start-9 md:col-span-4 mt-s48 md:mt-0"
-        style={{ "--enter-delay": "0.18s", marginBottom: "var(--hero-baseline-inset)" }}
+        className="enter-up group/photo relative md:col-start-9 md:col-span-4 lg:col-start-10 lg:col-span-3 mt-s48 md:mt-s88 lg:mt-s72"
+        style={{ "--enter-delay": "0.18s" }}
       >
         <div className="relative">
           <div className="group w-full aspect-portrait photo-frame rule-frame-in">
             <div className="w-full h-full overflow-hidden">
-              {/* heroImage is the optimized 4:5 LCP crop; aboutImage remains
-                  the fallback and the source used by About/CV/social data. */}
               <img
                 src={data.heroImage || data.aboutImage}
                 alt={data.name}
@@ -137,26 +147,26 @@ export function Hero({ data }) {
               />
             </div>
           </div>
-        </div>
 
-        {/* Personality, not positioning: on desktop this floats above the
-            portrait; on smaller screens it follows the image in normal flow. */}
-        <p
-          className="enter-pop bubble-idle relative mt-s24 mx-auto w-[18ch] rule-bubble
-                     px-s24 py-s16 text-center text-aside font-hand text-text-meta
-                     transition-transform duration-[250ms] ease-smooth
-                     hover:scale-[1.045] hover:-rotate-[1.6deg]
-                     hover:[--rule-line-color:var(--blush)]
-                     group-hover/photo:[--rule-line-color:var(--blush)]
-                     lg:absolute lg:mt-0 lg:bottom-full lg:mb-s16 lg:right-0"
-          style={{ transformOrigin: "50% 80%", "--enter-delay": "0.34s" }}
-        >
-          {data.tagline || "I speak both ‘user’ & ‘developer’."}
-          <HandArrow
-            className="hidden lg:block absolute left-1/2 top-full
-                       -translate-x-1/2 mt-s8 rotate-90 text-dim pointer-events-none"
-          />
-        </p>
+          {/* The personality note behaves like a handwritten photo caption.
+              Desktop parks it below the frame; mobile keeps normal flow. */}
+          <p
+            className="enter-pop bubble-idle relative mt-s20 mx-auto w-[18ch] rule-bubble
+                       px-s24 py-s16 text-center text-aside font-hand text-text-meta
+                       transition-transform duration-[250ms] ease-smooth
+                       hover:scale-[1.045] hover:-rotate-[1.6deg]
+                       hover:[--rule-line-color:var(--blush)]
+                       group-hover/photo:[--rule-line-color:var(--blush)]
+                       lg:absolute lg:top-full lg:right-0 lg:mt-s16"
+            style={{ transformOrigin: "50% 20%", "--enter-delay": "0.34s" }}
+          >
+            {data.tagline || "I speak both ‘user’ & ‘developer’."}
+            <HandArrow
+              className="hidden lg:block absolute left-1/2 bottom-full
+                         -translate-x-1/2 mb-s8 -rotate-90 text-dim pointer-events-none"
+            />
+          </p>
+        </div>
       </div>
     </div>
   );
