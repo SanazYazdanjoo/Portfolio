@@ -1,9 +1,9 @@
-// Career arc data is derived from the canonical path in positioning.js.
+// Career arc data is derived from the canonical path in profile.js.
 // Skill chips stay evidence-backed and are grouped by the phase where they
 // became central to the narrative; the phases are not intended as mutually
 // exclusive employment buckets.
 
-import { careerPath } from './positioning';
+import { careerPath } from './profile';
 
 const skillsByPhase = {
   'software-engineering': [
