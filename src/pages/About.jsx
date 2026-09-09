@@ -125,7 +125,7 @@ export default function About() {
           <SectionHeader
             eyebrow={t("about.howIGotHere")}
             title={t("about.theBridge")}
-            sub={t("about.theBridgeDesc")}
+            sub={profileData.heroNarrative?.bridgeDescription}
           />
           <CareerArc variant="full" />
 
