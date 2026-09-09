@@ -62,7 +62,7 @@ export function Hero({ data }) {
             <span aria-hidden="true">—</span>
             {careerPath.map((step, index) => (
               <React.Fragment key={step.id || step.phase || step.label}>
-                {index > 0 && <span aria-hidden="true">→</span>}
+                {index > 0 && <HandArrow className="shrink-0 text-dim" />}
                 <span
                   aria-hidden="true"
                   className={step.highlight ? "font-medium text-primary-600" : undefined}
