@@ -34,7 +34,7 @@ export function Hero({ data }) {
           </span>
 
           <span
-            className="block text-hero font-display font-extrabold text-text-display enter-up"
+            className="block text-hero text-balance font-display font-extrabold text-text-display enter-up"
             style={{ "--enter-delay": "0.14s" }}
           >
             {narrative.workflow || data.positioning}
@@ -43,7 +43,7 @@ export function Hero({ data }) {
 
         {narrative.statement && (
           <p
-            className="enter-up text-statement text-text max-w-measure"
+            className="enter-up text-statement text-text"
             style={{ "--enter-delay": "0.22s" }}
           >
             {narrative.statement}
