@@ -98,7 +98,10 @@ export function Hero({ data }) {
         <div className="group w-full aspect-portrait photo-frame rule-frame-in">
           <div className="w-full h-full overflow-hidden">
             <img
-              src={data.aboutImage}
+              /* heroImage: the 4:5 WebP crop made for this box (704×880,
+                 ~1/3 of the JPEG) — the homepage's LCP element. The square
+                 JPEG stays for the CV, About, and the social/JSON-LD image. */
+              src={data.heroImage || data.aboutImage}
               alt={data.name}
               fetchPriority="high"
               decoding="async"
