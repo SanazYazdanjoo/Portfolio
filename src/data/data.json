@@ -1260,7 +1260,8 @@
       "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar), a B.E. in Software Engineering, and experience across usability evaluation, user research and UI development since 2015. I plan and run formative and summative studies on my own, from the research question through to the statistics — and six years in QA and frontend development mean the recommendations come with a realistic view of what they cost to build. I work in English and German (both C1), and I'm open to interdisciplinary UX & Tech roles.",
       "de": "Ich bin UX Engineerin mit einem M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar), einem B.E. in Software Engineering und seit 2015 Erfahrung in Usability-Evaluation, User Research und UI-Entwicklung. Formative und summative Studien plane und führe ich eigenständig durch — von der Forschungsfrage bis zur Statistik. Sechs Jahre in QA und Frontend-Entwicklung heißen: Die Empfehlung kommt mit einer realistischen Einschätzung dessen, was sie in der Umsetzung kostet. Ich arbeite auf Englisch und Deutsch (beides C1) und bin offen für interdisziplinäre UX- & Tech-Rollen."
     },
-    "aboutImage": "/assets/me.jpg"
+    "aboutImage": "/assets/me.jpg",
+    "heroImage": "/assets/me-hero.webp"
   },
   "voluntary": [
     {
