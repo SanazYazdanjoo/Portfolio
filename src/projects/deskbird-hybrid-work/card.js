@@ -30,11 +30,19 @@ export default {
     en: "Industry project · deskbird",
     de: "Industrieprojekt · deskbird",
   },
-  cardTags: ["Contextual Inquiry", "Usability Testing", "Figma", "B2B SaaS"],
+  // Keep the homepage signal set focused on the research-to-product bridge:
+  // one field method, one synthesis/requirements skill, one tool, one domain.
+  cardTags: ["Contextual Inquiry", "Requirements Engineering", "Figma", "B2B SaaS"],
   cardOutcome: {
-    en: "Socialising happens in breaks, so the concept connects colleagues by shared interest rather than by shared calendar.",
-    de: "Sozialer Austausch passiert in Pausen — das Konzept verbindet Kolleg:innen über gemeinsame Interessen statt über gemeinsame Kalender.",
+    en: "My Interest-Based Communities concept was selected by deskbird stakeholders and delivered as a research-backed high-fidelity prototype.",
+    de: "Mein Konzept Interest-Based Communities wurde von deskbird-Stakeholdern ausgewählt und als forschungsbasierter High-Fidelity-Prototyp übergeben.",
   },
+  // Recruiter-facing proof points: breadth, depth, and the product decision.
+  cardStats: [
+    { value: "57", label: { en: "survey respondents", de: "Umfrageteilnehmende" } },
+    { value: "6", label: { en: "contextual inquiries + follow-up interviews", de: "Contextual Inquiries + Folgeinterviews" } },
+    { value: "3 → 1", label: { en: "client concepts; mine selected by stakeholder vote", de: "Kundenkonzepte; meines per Stakeholder-Votum ausgewählt" } },
+  ],
   cardImage: cardInterestPicker,
   thumbnail: thumbnailImg,
   thumbnailWebp,
