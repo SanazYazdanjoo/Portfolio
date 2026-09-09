@@ -317,7 +317,11 @@ export default function About() {
                 {t("about.whatsNext")}
               </p>
               <h2 className="type-section">
-                <span className="ink-highlight">{profileData.roleSub}</span>
+                <span
+                  className="ink-highlight dark:[background-size:100%_1em] dark:[background-position:0_50%]"
+                >
+                  {profileData.roleSub}
+                </span>
               </h2>
             </div>
 
