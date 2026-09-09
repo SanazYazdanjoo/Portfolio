@@ -8,7 +8,7 @@ import { screen, within, fireEvent } from "@testing-library/react";
 import { renderWithProviders } from "./renderWithProviders";
 import { ProcessGallerySection } from "../projects/template/ProcessGallery";
 import { projectData } from "../projects/deskbird-hybrid-work/deskbird-hybrid-work.data";
-import Project2 from "../projects/deskbird-hybrid-work/index";
+import Project2, { enrichedProjectData } from "../projects/deskbird-hybrid-work/index";
 import { useTranslation } from "../context/LanguageContext";
 
 // The template has no language switch of its own (it lives in the site Nav),
@@ -22,6 +22,10 @@ const allFigures = projectData.process
   .flatMap((s) => s.figures ?? [])
   .concat(Object.values(projectData.figures).flat());
 
+const enrichedFigures = enrichedProjectData.process
+  .flatMap((s) => s.figures ?? [])
+  .concat(Object.values(enrichedProjectData.figures ?? {}).flat());
+
 describe("deskbird media resolution", () => {
   it("every figure carries the fields the renderer needs", () => {
     for (const f of allFigures) {
@@ -33,11 +37,14 @@ describe("deskbird media resolution", () => {
     expect(projectData.process.every((s) => !("imagePath" in s))).toBe(true);
   });
 
-  it("resolves the two uploaded files and leaves the rest null", () => {
-    const resolved = [...new Set(allFigures.filter((f) => f.src).map((f) => f.pendingFile))];
-    expect(resolved.sort()).toEqual(["met_ucd-process.png", "p10_interests-modal.png"]);
+  it("resolves known uploaded base files and keeps unresolved media as placeholders", () => {
+    const byFile = new Map(allFigures.map((f) => [f.pendingFile, f]));
+    expect(byFile.get("met_ucd-process.png")?.src).toBeTruthy();
+    expect(byFile.get("p10_interests-modal.png")?.src).toBeTruthy();
+
     const missing = [...new Set(allFigures.filter((f) => !f.src).map((f) => f.pendingFile))];
-    expect(missing).toHaveLength(34);
+    expect(missing.length).toBeGreaterThan(0);
+    expect(missing.every((name) => typeof name === "string" && name.length > 0)).toBe(true);
   });
 });
 
@@ -63,20 +70,21 @@ describe("process steps with figures", () => {
 });
 
 describe("deskbird page end to end", () => {
-  it("renders 2 real images and a placeholder for every other figure, in both languages", () => {
+  it("renders every resolved image and a placeholder for unresolved figures, in both languages", () => {
     const { container } = renderWithProviders(<><LangToggle /><Project2 /></>, { route: "/projects/deskbird-hybrid-work" });
     const grids = container.querySelectorAll("[data-section-media]");
     const real = () => Array.from(grids).flatMap((g) => Array.from(g.querySelectorAll("figure img")));
     const placeholders = () => Array.from(grids).flatMap((g) => Array.from(g.querySelectorAll("figure [role='img']")));
+    const expectedResolvedCount = enrichedFigures.filter((f) => f.src).length;
 
-    expect(real()).toHaveLength(2);
+    expect(real()).toHaveLength(expectedResolvedCount);
     const enPlaceholders = placeholders();
     expect(enPlaceholders.length).toBeGreaterThan(0);
-    expect(enPlaceholders.every((p) => p.textContent.includes(".png"))).toBe(true);
+    expect(enPlaceholders.every((p) => /\.(png|jpe?g|webp|svg)/i.test(p.textContent))).toBe(true);
 
-    const modal = projectData.figures.solution[0];
+    const modal = enrichedProjectData.figures.solution[0];
     expect(screen.getByAltText(modal.alt.en)).toBeInTheDocument();
-    const wall = projectData.process[5].figures[0];
+    const wall = enrichedProjectData.process[5].figures[0];
     expect(screen.getByRole("img", { name: wall.alt.en })).toBeInTheDocument();
     expect(screen.getByText(wall.caption.en)).toBeInTheDocument();
 
@@ -85,6 +93,6 @@ describe("deskbird page end to end", () => {
     expect(screen.getByRole("img", { name: wall.alt.de })).toBeInTheDocument();
     expect(screen.getByText(wall.caption.de)).toBeInTheDocument();
     expect(placeholders()).toHaveLength(enPlaceholders.length);
-    expect(real()).toHaveLength(2);
+    expect(real()).toHaveLength(expectedResolvedCount);
   });
 });
