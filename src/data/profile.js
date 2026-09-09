@@ -44,13 +44,12 @@ export const professionalNarrative = {
       de: 'CV ansehen',
     },
   },
-  homeBio: {
+  // One canonical professional bio for the homepage About section, full About
+  // page and CV profile section. Keeping this as a single field prevents the
+  // core narrative from drifting between recruiter touchpoints.
+  bio: {
     en: "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction and a B.E. in Software Engineering. My path through frontend development, QA and HCI research taught me to look at digital products from both sides: what people need and what teams can realistically build. Today I bring those perspectives together in research, usability engineering and implementation.",
     de: 'Ich bin UX Engineerin mit einem M.Sc. in Human-Computer Interaction und einem B.E. in Software Engineering. Mein Weg über Frontend-Entwicklung, QA und HCI-Forschung hat mir gezeigt, digitale Produkte aus beiden Perspektiven zu betrachten: was Menschen brauchen und was Teams realistisch umsetzen können. Heute verbinde ich diese Perspektiven in Research, Usability Engineering und Umsetzung.',
-  },
-  aboutBio: {
-    en: "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar) and a B.E. in Software Engineering. I started on the engineering side of digital products, moved through frontend development and QA/usability, and then into HCI research. Today those perspectives meet in my work: I can investigate a problem, evaluate what matters for users, translate evidence into requirements and design decisions, and understand what it takes to implement them well.",
-    de: 'Ich bin UX Engineerin mit einem M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar) und einem B.E. in Software Engineering. Ich bin auf der Engineering-Seite digitaler Produkte gestartet, habe mich über Frontend-Entwicklung und QA/Usability zur HCI-Forschung weiterentwickelt. Heute kommen diese Perspektiven in meiner Arbeit zusammen: Ich kann ein Problem untersuchen, bewerten, was für Nutzende relevant ist, Evidenz in Anforderungen und Designentscheidungen übersetzen und einschätzen, was für eine gute Umsetzung nötig ist.',
   },
   profileSummary: {
     en: 'UX Engineer bridging research, usability engineering and implementation. With an M.Sc. in Human-Computer Interaction and a Software Engineering background, I move from evidence about user needs to product decisions and working interfaces.',
@@ -136,8 +135,8 @@ export const profileData = {
   heroNarrative: professionalNarrative,
   careerPath,
   profileSummary: professionalNarrative.profileSummary,
-  bio: professionalNarrative.aboutBio,
-  bioParagraphs: [professionalNarrative.homeBio],
+  bio: professionalNarrative.bio,
+  bioParagraphs: [professionalNarrative.bio],
   heroMeta: {
     ...baseProfile.heroMeta,
     focus: professionalNarrative.focus,
