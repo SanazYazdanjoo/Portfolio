@@ -278,7 +278,7 @@ export default function CV() {
                             to={href}
                             className="no-print mt-auto pt-4 text-xs font-bold text-primary underline decoration-primary/40 underline-offset-4"
                           >
-                            {t("projects.readCaseStudy")}
+                            {t("projects.viewProject")}
                           </Link>
                           <span className="hidden pt-2 text-2xs text-gray-500 print:block">
                             {href}
