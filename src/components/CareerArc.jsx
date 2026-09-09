@@ -57,7 +57,7 @@ function CareerArcFull({ steps }) {
           className={`${revealClass(inView)} relative p-s24 group
             ${step.highlight
               ? "bg-primary rule-fill text-white"
-              : "bg-bg rule-fill hover:bg-blush-weak transition-colors duration-300"
+              : "bg-bg rule-fill hover:bg-blush-weak dark:hover:bg-[var(--color-blush-100)] dark:hover:[--text-rgb:var(--color-ink-900-rgb)] dark:hover:[--text-dim-rgb:var(--color-ink-900-rgb)] dark:hover:[--text-meta:var(--color-ink-700)] dark:hover:[--secondary-rgb:var(--color-rose-600-rgb)] dark:hover:[--secondary-600-rgb:var(--color-rose-600-rgb)] transition-colors duration-300"
             }`}
         >
           <span
