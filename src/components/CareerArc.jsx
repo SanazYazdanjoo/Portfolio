@@ -137,7 +137,7 @@ function CareerArcCompact({ steps }) {
       {steps.map((step, i) => (
         <li
           key={step.phase}
-          className={`flex items-baseline gap-s24 py-s12 ${i > 0 ? "border-t rule-t" : ""}`}
+          className={`flex items-baseline gap-s24 py-s16 ${i > 0 ? "border-t rule-t" : ""}`}
         >
           <span
             className={`w-timeline-date shrink-0 whitespace-nowrap text-date font-mono ${
