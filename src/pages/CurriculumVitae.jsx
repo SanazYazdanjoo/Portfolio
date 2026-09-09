@@ -163,33 +163,10 @@ export default function CV() {
               </div>
             </header>
 
-            <div className="flex flex-wrap items-start justify-between gap-6 mb-10 print:mb-8">
+            <div className="mb-10 print:mb-8">
               <h1 className="font-black text-primary uppercase leading-tight tracking-normal text-4xl md:text-5xl print:text-4xl">
                 {role}
               </h1>
-              {/* Recruiters still forward a file. The print stylesheet already
-                  lays the page out for A4, so "download" is print-to-PDF; the
-                  document title during printing is the file name browsers
-                  propose, hence the self-explanatory one. */}
-              <button
-                type="button"
-                onClick={() => {
-                  const previous = document.title;
-                  document.title = "Sanaz-Yazdanjoo-UX-Engineer-CV";
-                  const restore = () => {
-                    document.title = previous;
-                    window.removeEventListener("afterprint", restore);
-                  };
-                  window.addEventListener("afterprint", restore);
-                  window.print();
-                }}
-                className="no-print shrink-0 inline-flex items-center gap-2 px-4 py-2 text-xs font-black uppercase
-                           border rule-frame text-primary hover:text-white
-                           hover:[--rule-line-color:var(--primary)] hover:[--rule-fill-color:var(--primary)]
-                           transition-colors duration-200 focus-ring"
-              >
-                {t("cv.download")} <HandArrow />
-              </button>
             </div>
 
           {/* Opaque, no backdrop-blur, own compositing layer — the treatment
