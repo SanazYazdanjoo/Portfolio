@@ -34,8 +34,8 @@ export default {
   // The project is still a deployed demo rather than the system of record.
   // Describe what was demonstrably built without implying measured adoption.
   cardOutcome: {
-    en: 'Mapped the legacy workflow end to end and rebuilt it as a deployed role-based demo with explicit claim states and traceable calculation rules.',
-    de: 'Den bisherigen Ablauf durchgängig kartiert und als bereitgestellte, rollenbasierte Demo mit expliziten Antragsstatus und nachvollziehbaren Berechnungsregeln neu gebaut.',
+    en: 'Mapped the legacy workflow end to end and rebuilt it as a deployed role-based demo with traceable calculation rules.',
+    de: 'Den bisherigen Ablauf durchgängig kartiert und als bereitgestellte, rollenbasierte Demo mit nachvollziehbaren Berechnungsregeln neu gebaut.',
   },
   // Recruiter-facing proof points: process complexity → evidence → engineering.
   // These are all counts already substantiated in the detail-page source.
