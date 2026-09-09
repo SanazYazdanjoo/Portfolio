@@ -7,25 +7,30 @@ const mockData = {
   name: "Jane Doe",
   role: "UX Engineer",
   tagline: "I speak both ‘user’ & ‘developer’.",
-  positioning:
-    "UX Engineer bridging mixed-methods research and production React — M.Sc. HCI. Open to UX roles in the EU.",
+  positioning: "Research → Usability Engineering → Implementation",
+  heroNarrative: {
+    intro: "Hi, I'm Jane.",
+    workflow: "Research → Usability Engineering → Implementation",
+    statement:
+      "I study how people use technology, turn evidence into product decisions, and build the interfaces that put those decisions into practice.",
+    careerPathLabel: "My path",
+    ctas: {
+      work: "View Case Studies",
+      cv: "View CV",
+    },
+  },
+  careerPath: [
+    { id: "software", label: "Software Engineering" },
+    { id: "frontend", label: "Frontend" },
+    { id: "qa", label: "QA / Usability" },
+    { id: "hci", label: "HCI Research" },
+    { id: "ux", label: "UX Engineering", highlight: true },
+  ],
   aboutImage: "https://example.com/photo.jpg",
-  heroMeta: {
-    location: "Weimar, DE · Open to relocation",
-    background: "M.Sc. HCI · B.E. Software Engineering · QA",
-    focus: "Frontend Development · UI Architecture · Mixed-methods research",
-    status: "Open to interdisciplinary UX & Tech roles",
-  },
-  contact: {
-    location: "Weimar, Germany",
-  },
 };
 
-describe("Hero CTA", () => {
-  // One primary action, one secondary. This asserts the ordering contract,
-  // not just that the links exist: a future refactor that demotes /projects
-  // below /cv should fail here.
-  it("makes the work the first CTA, ahead of the CV", () => {
+describe("Hero positioning and CTA hierarchy", () => {
+  it("makes case studies the first CTA, ahead of the CV", () => {
     renderWithProviders(<Hero data={mockData} />);
 
     const hrefs = screen
@@ -37,9 +42,7 @@ describe("Hero CTA", () => {
     expect(hrefs.indexOf("/projects")).toBeLessThan(hrefs.indexOf("/cv"));
   });
 
-  // "About" lives in the primary nav; repeating it here gave the hero three
-  // competing calls to action and no primary.
-  it("does not repeat the About link the nav already carries", () => {
+  it("does not repeat About or Contact as competing hero actions", () => {
     renderWithProviders(<Hero data={mockData} />);
 
     const hrefs = screen
@@ -47,42 +50,36 @@ describe("Hero CTA", () => {
       .map((el) => el.getAttribute("href"));
 
     expect(hrefs).not.toContain("/about");
+    expect(hrefs).not.toContain("/contact");
   });
 
-  // The headline is the word PORTFOLIO under a handwritten greeting, and the
-  // positioning sentence sits under it: a recruiter reads "why Sanaz" in the
-  // first seconds instead of having to scroll for it (Sept 2026 review).
-  it("shows the greeting, PORTFOLIO and the positioning line", () => {
+  it("shows identity, current workflow and supporting statement instead of PORTFOLIO", () => {
     renderWithProviders(<Hero data={mockData} />);
-    expect(screen.getByText("Hi, welcome to my")).toBeInTheDocument();
-    expect(screen.getByText("PORTFOLIO")).toBeInTheDocument();
-    expect(screen.getByText(mockData.positioning)).toBeInTheDocument();
+
+    expect(screen.getByText("Hi, I'm Jane.")).toBeInTheDocument();
+    expect(screen.getByText("UX Engineer")).toBeInTheDocument();
+    expect(screen.getByText(mockData.heroNarrative.workflow)).toBeInTheDocument();
+    expect(screen.getByText(mockData.heroNarrative.statement)).toBeInTheDocument();
+    expect(screen.queryByText("PORTFOLIO")).not.toBeInTheDocument();
   });
 
-  // The three recruiter actions: view work, CV, contact — nothing else.
-  it("offers work, CV and contact actions", () => {
+  it("exposes the five-stage career path as one accessible secondary narrative", () => {
+    renderWithProviders(<Hero data={mockData} />);
+
+    expect(
+      screen.getByLabelText(
+        "My path: Software Engineering, Frontend, QA / Usability, HCI Research, UX Engineering"
+      )
+    ).toBeInTheDocument();
+  });
+
+  it("offers only case studies and CV as hero links", () => {
     renderWithProviders(<Hero data={mockData} />);
     const hrefs = screen.getAllByRole("link").map((el) => el.getAttribute("href"));
-    expect(hrefs).toContain("/projects");
-    expect(hrefs).toContain("/cv");
-    expect(hrefs).toContain("/contact");
+    expect(hrefs).toEqual(["/projects", "/cv"]);
   });
 
-  // The role is labelled once, under the photo, with a drawn arrow pointing
-  // back up at it — not repeated as a badge over the portrait.
-  it("labels the role once, under the photo", () => {
-    const { container } = renderWithProviders(<Hero data={mockData} />);
-    const visibleRole = [...container.querySelectorAll("span")].filter(
-      (el) =>
-        el.textContent.trim() === mockData.role &&
-        !el.closest(".sr-only") &&
-        !el.querySelector("span")
-    );
-    expect(visibleRole).toHaveLength(1);
-  });
-
-  // The credential and location line moved out of the hero entirely.
-  it("no longer carries the credential line", () => {
+  it("does not carry the old credential/location proof line", () => {
     renderWithProviders(<Hero data={mockData} />);
     expect(screen.queryByText(/Weimar/)).not.toBeInTheDocument();
   });
