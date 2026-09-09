@@ -1,65 +1,92 @@
-// The hero: text cols 1-7, portrait cols 9-12, the grid bottom-aligned so
-// the portrait's bottom edge lands on the CTA row. --hero-baseline-inset
-// lifts it from the button's bottom EDGE to its text baseline; that inset is
-// the button's own bottom padding plus DM Sans's descent, derived in
-// theme.css.
+// The hero answers three recruiter questions in order: who Sanaz is, what she
+// does now, and how she got here. The portrait and speech bubble keep the
+// existing personality without carrying the burden of explaining the value
+// proposition. All copy comes from profile.js through the localized profile.
 //
-// The headline is the word PORTFOLIO under a handwritten "Hi, welcome to my"
-// greeting; the name reaches assistive tech through the sr-only span. Under
-// it, the positioning sentence and a mono credential line answer "why
-// Sanaz" before the three actions: work, CV, contact.
-//
-// Every entrance here is a CSS keyframe (theme.css, "Reveals"): the hero is
-// the first thing painted on the site's most-visited route, and it no
-// longer waits on the motion library to animate in. The reduced-motion
-// block in theme.css collapses every duration to nothing.
+// Every entrance is a CSS keyframe (theme.css, "Reveals") so the first paint
+// does not wait on the motion library. Reduced-motion collapses the durations.
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { useTranslation } from "../context/LanguageContext";
-import { HandArrow, HandBubbleTail, HandRoleArrow } from "./HandArrow";
+import { HandArrow, HandBubbleTail } from "./HandArrow";
 import { InkCtaButton } from "./Button";
 
 export function Hero({ data }) {
-  const { t } = useTranslation();
+  const narrative = data.heroNarrative || {};
+  const careerPath = data.careerPath || [];
 
   return (
     <div className="grid-12 items-end">
       <div className="md:col-span-7 flex flex-col gap-s24">
-        <h1 className="text-hero font-display font-extrabold text-text-display">
+        <h1 className="flex flex-col gap-s8">
           <span
             className="block text-aside font-hand font-normal text-text-meta enter-up"
             style={{ "--enter-delay": "0.06s" }}
           >
-            {t("hero.welcome")}
+            {narrative.intro || `Hi, I'm ${data.name}.`}
           </span>
-          <span className="block enter-up" style={{ "--enter-delay": "0.12s" }}>
-            {t("hero.portfolio")}
+
+          <span
+            className="block text-label font-mono uppercase text-primary-600 enter-up"
+            style={{ "--enter-delay": "0.1s" }}
+          >
+            {data.role || "UX Engineer"}
           </span>
-          <span className="sr-only"> — {data.name}, {data.role || "UX Engineer"}</span>
+
+          <span
+            className="block text-hero text-balance font-display font-extrabold text-text-display enter-up"
+            style={{ "--enter-delay": "0.14s" }}
+          >
+            {narrative.workflow || data.positioning}
+          </span>
         </h1>
 
-        {/* The positioning statement and its proof line. A recruiter should
-            read "why Sanaz" within seconds: the bridge she works across,
-            then the credential and the three capabilities that back it —
-            statement step for the sentence, mono meta for the evidence. */}
-        {data.positioning && (
-          <div className="enter-up flex flex-col gap-s12" style={{ "--enter-delay": "0.2s" }}>
-            <p className="text-statement text-text">{data.positioning}</p>
-            <p className="text-meta font-mono text-text-meta">{t("hero.credentials")}</p>
+        {narrative.statement && (
+          <p
+            className="enter-up text-statement text-text"
+            style={{ "--enter-delay": "0.22s" }}
+          >
+            {narrative.statement}
+          </p>
+        )}
+
+        {careerPath.length > 0 && (
+          <div
+            className="enter-up flex flex-wrap items-center gap-x-s8 gap-y-s6 text-meta font-mono text-text-meta"
+            style={{ "--enter-delay": "0.27s" }}
+            aria-label={`${narrative.careerPathLabel || "My path"}: ${careerPath.map((step) => step.label).join(", ")}`}
+          >
+            <span className="text-primary-600">
+              {narrative.careerPathLabel || "My path"}
+            </span>
+            <span aria-hidden="true">—</span>
+            {careerPath.map((step, index) => (
+              <React.Fragment key={step.id || step.phase || step.label}>
+                {index > 0 && <span aria-hidden="true">→</span>}
+                <span
+                  aria-hidden="true"
+                  className={step.highlight ? "font-medium text-primary-600" : undefined}
+                >
+                  {step.label}
+                </span>
+              </React.Fragment>
+            ))}
           </div>
         )}
 
-        <div className="enter-up flex flex-wrap items-center gap-s28 mt-s8" style={{ "--enter-delay": "0.32s" }}>
+        <div
+          className="enter-up flex flex-wrap items-center gap-s28 mt-s8"
+          style={{ "--enter-delay": "0.32s" }}
+        >
           <InkCtaButton to="/projects">
-            {t("hero.ctaWork")} <HandArrow />
+            {narrative.ctas?.work || "View Case Studies"} <HandArrow />
           </InkCtaButton>
           <Link
             to="/cv"
             className="relative text-body font-medium text-text pb-s2
                        hover:text-primary-600 transition-colors duration-200 focus-ring group/cv"
           >
-            {t("hero.ctaCv")}
+            {narrative.ctas?.cv || "View CV"}
             <span
               aria-hidden="true"
               style={{ height: "var(--rule-w)" }}
@@ -67,77 +94,34 @@ export function Hero({ data }) {
                          transition-colors duration-200 group-hover/cv:bg-primary-600"
             />
           </Link>
-          <Link
-            to="/contact"
-            className="relative text-body font-medium text-text pb-s2
-                       hover:text-primary-600 transition-colors duration-200 focus-ring group/contact"
-          >
-            {t("hero.ctaContact")}
-            <span
-              aria-hidden="true"
-              style={{ height: "var(--rule-w)" }}
-              className="absolute left-0 right-0 bottom-0 bg-text rule-stroke
-                         transition-colors duration-200 group-hover/contact:bg-primary-600"
-            />
-          </Link>
         </div>
-
       </div>
 
-      {/* Portrait — 4:5, in colour, bottom edge on the CTA baseline. The
-          inner wrapper clips the hover scale to the photo well, so the
-          image never rides over the mat or the drawn frame line. */}
+      {/* Portrait — 4:5, in colour. Keeping the CTA as the final item in the
+          left column preserves the original portrait-to-CTA baseline geometry. */}
       <div
         className="enter-up group/photo relative md:col-start-9 md:col-span-4 mt-s48 md:mt-0"
         style={{ "--enter-delay": "0.18s", marginBottom: "var(--hero-baseline-inset)" }}
       >
-        {/* The photo and its role label share a relative box of their own:
-            the label anchors to the PHOTO's bottom edge, not the column's,
-            which below lg also holds the speech bubble under it. */}
         <div className="relative">
-        <div className="group w-full aspect-portrait photo-frame rule-frame-in">
-          <div className="w-full h-full overflow-hidden">
-            <img
-              /* heroImage: the 4:5 WebP crop made for this box (704×880,
-                 ~1/3 of the JPEG) — the homepage's LCP element. The square
-                 JPEG stays for the CV, About, and the social/JSON-LD image. */
-              src={data.heroImage || data.aboutImage}
-              alt={data.name}
-              fetchPriority="high"
-              decoding="async"
-              className="w-full h-full object-cover object-top
-                         transition-transform duration-[250ms] ease-smooth group-hover:scale-[1.04]"
-            />
+          <div className="group w-full aspect-portrait photo-frame rule-frame-in">
+            <div className="w-full h-full overflow-hidden">
+              <img
+                /* heroImage is the optimized 4:5 LCP crop; aboutImage remains
+                   the fallback and the source used by About/CV/social data. */
+                src={data.heroImage || data.aboutImage}
+                alt={data.name}
+                fetchPriority="high"
+                decoding="async"
+                className="w-full h-full object-cover object-top
+                           transition-transform duration-[250ms] ease-smooth group-hover:scale-[1.04]"
+              />
+            </div>
           </div>
         </div>
-        {/* The role, labelled under the photo with a small drawn arrow
-            pointing back up at it. Absolute, so it adds no height to the
-            portrait column and the photo's bottom edge stays on the CTA
-            baseline; below lg the bubble's top margin leaves it room. */}
-        <span
-          aria-hidden="true"
-          className="absolute top-full right-s24 mt-s6 flex items-start gap-s6"
-        >
-          <span className="mt-s12 text-date font-mono text-text-meta">
-            {data.role || "UX Engineer"}
-          </span>
-          <HandRoleArrow className="shrink-0 text-text-meta" />
-        </span>
-        </div>
 
-        {/* The aside, in a hand-drawn speech bubble the portrait is saying.
-            Below lg it simply sits under the photo; from lg up it lifts out
-            of flow and parks off the photo's top-left corner, with the tail
-            running back down onto the frame. `rule-bubble` is a stretched
-            oval, so the box has to stay near its 2.1:1 aspect or the line
-            thickens on one axis — hence the fixed measure and the centred
-            two-line wrap rather than one long line. Absolute at lg, so it
-            never moves the portrait's baseline or the CTA row.
-
-            It arrives like a spoken line — the enter-pop keyframe overshoots
-            from the tail's corner — then breathes on the spot via
-            .bubble-idle, which theme.css enables from md up only: a
-            continuous ornament loop on a phone reads as the page shaking. */}
+        {/* Personality, not positioning: this line should remain memorable but
+            visually secondary to the professional proposition on the left. */}
         <p
           className="enter-pop bubble-idle relative mt-s56 mx-auto w-[18ch] rule-bubble
                      px-s24 py-s16 text-center text-aside font-hand text-text-meta
@@ -150,16 +134,12 @@ export function Hero({ data }) {
         >
           {data.tagline || "I speak both ‘user’ & ‘developer’."}
           <HandBubbleTail
-            /* Inked with the bubble's own line colour — an arbitrary
-               PROPERTY, not a text-* utility, so one hover rule warms the
-               oval and the tail together without hardcoding a type value. */
             className="hidden lg:block absolute left-full top-1/2
                        -translate-y-1/2 -ml-s16 z-10 pointer-events-none
                        [color:var(--rule-line-color)]"
           />
         </p>
       </div>
-
     </div>
   );
 }
