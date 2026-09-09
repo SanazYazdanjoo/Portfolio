@@ -89,7 +89,7 @@ export function ProjectHeader({ meta, tags }) {
           numbers as the project card so the detail page answers “scale, rigour,
           result” before the reader reaches the long-form case study. */}
       {meta.cardStats?.length > 0 && (
-        <div className="mb-8 grid grid-cols-1 sm:grid-cols-3 border-y rule-y">
+        <div className="mb-8 grid grid-cols-1 sm:grid-cols-3 border-y rule-tb">
           {meta.cardStats.map((stat, index) => (
             <div
               key={`${stat.value}-${index}`}
