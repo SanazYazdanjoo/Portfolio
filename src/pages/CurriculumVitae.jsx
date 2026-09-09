@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { profileData as rawProfile } from "../data/profile";
-import { getProject } from "../data/projects";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { useTranslation } from "../context/LanguageContext";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
@@ -31,20 +30,7 @@ export default function CV() {
     languages,
     certifications,
     volunteerWork,
-    portfolioHighlights,
   } = profileData;
-
-  const highlightRows = useMemo(
-    () =>
-      (portfolioHighlights || [])
-        .map((h) => {
-          const metric = Number.isInteger(h.cvMetric) ? h.metrics?.[h.cvMetric] : null;
-          const href = getProject(h.id)?.href;
-          return metric && href ? { h, metric, href } : null;
-        })
-        .filter(Boolean),
-    [portfolioHighlights]
-  );
 
   useDocumentMeta({
     title: `${role} — ${name}`,
@@ -60,9 +46,6 @@ export default function CV() {
     () => [
       { id: "about", label: t("nav.about") },
       { id: "experience", label: t("cv.experience") },
-      ...(highlightRows.length > 0
-        ? [{ id: "highlights", label: t("cv.portfolioHighlights") }]
-        : []),
       { id: "education", label: t("cv.education") },
       { id: "skills", label: t("cv.skills") },
       { id: "certificates", label: t("cv.certificates") },
@@ -71,7 +54,7 @@ export default function CV() {
         ? [{ id: "volunteerWork", label: t("cv.volunteerWork") }]
         : []),
     ],
-    [t, volunteerWork, highlightRows]
+    [t, volunteerWork]
   );
 
   const [activeId, setActiveId] = useState(cvSections[0]?.id ?? null);
@@ -100,12 +83,12 @@ export default function CV() {
   }, [cvSections]);
 
   return (
-    <div className="min-h-screen w-full bg-white text-black print:min-h-0">
+    <div className="rule-light min-h-screen w-full bg-white text-black print:min-h-0">
       <div className="mx-auto w-full max-w-[1320px] px-6 md:px-8 lg:px-12 xl:px-16 print:max-w-none print:px-0">
         <div className="md:grid md:grid-cols-[250px_minmax(0,1fr)] md:gap-12 lg:grid-cols-[270px_minmax(0,1fr)] lg:gap-16 print:block">
           <aside className="hidden md:block no-print">
             <div className="sticky top-20 py-14 lg:py-16">
-              <div className="border-l-2 border-primary pl-6">
+              <div className="border-l rule-edge-l pl-6 [--rule-line-color:var(--primary-600)]">
                 {aboutImage && (
                   <img
                     src={aboutImage}
@@ -144,7 +127,7 @@ export default function CV() {
                 )}
               </div>
 
-              <div className="my-9 h-px bg-gray-200" />
+              <div className="my-9 rule-line rule-soft" />
               <CVSidebarNav sections={cvSections} activeId={activeId} />
             </div>
           </aside>
@@ -153,7 +136,7 @@ export default function CV() {
             id="curriculum-vitae"
             className="min-w-0 py-10 md:py-14 lg:py-16 print:p-0"
           >
-            <header className="cv-header no-print border-b border-gray-200 pb-8 md:hidden">
+            <header className="cv-header no-print border-b rule-b rule-soft pb-8 md:hidden">
               <div className="flex items-center gap-5">
                 {aboutImage && (
                   <img
@@ -198,7 +181,7 @@ export default function CV() {
             </header>
 
             <div
-              className="md:hidden sticky top-0 z-40 -mx-6 border-b border-gray-200 bg-white px-6 py-3 no-print"
+              className="md:hidden sticky top-0 z-40 -mx-6 border-b rule-b rule-soft bg-white px-6 py-3 no-print"
               style={{ transform: "translateZ(0)" }}
             >
               <div className="flex gap-5 overflow-x-auto">
@@ -212,13 +195,19 @@ export default function CV() {
                         .getElementById(section.id)
                         ?.scrollIntoView({ behavior: "smooth", block: "start" })
                     }
-                    className={`shrink-0 border-b-2 py-1.5 text-xs font-bold uppercase tracking-caps transition-colors ${
+                    className={`relative shrink-0 py-1.5 text-xs font-bold uppercase tracking-caps transition-colors ${
                       activeId === section.id
-                        ? "border-primary text-primary"
-                        : "border-transparent text-gray-400 hover:text-black"
+                        ? "text-primary"
+                        : "text-gray-400 hover:text-black"
                     }`}
                   >
                     {section.label}
+                    {activeId === section.id && (
+                      <span
+                        aria-hidden="true"
+                        className="absolute inset-x-0 -bottom-1 h-[5px] bg-primary rule-stroke"
+                      />
+                    )}
                   </button>
                 ))}
               </div>
@@ -228,7 +217,7 @@ export default function CV() {
               <section id="about" className="scroll-mt-28">
                 <SectionHeading>{t("nav.about")}</SectionHeading>
                 {bio && (
-                  <div className="border-l-2 border-primary pl-5 md:pl-7">
+                  <div className="border-l rule-edge-l pl-5 md:pl-7 [--rule-line-color:var(--primary-600)]">
                     <p className="max-w-[70ch] text-[1.05rem] leading-8 text-gray-700 md:text-[1.14rem] md:leading-8 print:max-w-none print:text-sm print:leading-relaxed">
                       {bio}
                     </p>
@@ -238,94 +227,42 @@ export default function CV() {
 
               <section id="experience" className="mt-14 scroll-mt-28 print:mt-8">
                 <SectionHeading>{t("cv.experience")}</SectionHeading>
-                <div className="divide-y divide-gray-200 border-b border-gray-200">
+                <div className="border-b rule-b rule-soft">
                   {(experience || []).map((job, i) => (
-                    <ExperienceEntry key={i} job={job} t={t} />
+                    <ExperienceEntry key={i} job={job} t={t} first={i === 0} />
                   ))}
                 </div>
               </section>
 
-              {highlightRows.length > 0 && (
-                <section id="highlights" className="mt-14 scroll-mt-28 print:mt-8">
-                  <SectionHeading>{t("cv.portfolioHighlights")}</SectionHeading>
-                  <div className="grid gap-4 md:grid-cols-3 print:grid-cols-3 print:gap-3">
-                    {highlightRows.map(({ h, metric, href }) => (
-                      <article
-                        key={h.id}
-                        className="flex min-h-full flex-col border border-gray-200 p-5 transition-colors hover:border-primary/40 print:border-t-2 print:border-x-0 print:border-b-0 print:border-primary print:p-3"
-                      >
-                        <h3 className="font-display text-base font-black leading-snug text-black print:text-sm">
-                          {h.title}
-                        </h3>
-                        <p className="mt-3 text-sm font-semibold leading-5 text-primary print:text-xs">
-                          {metric.value} {metric.label}
+              <section id="education" className="mt-14 scroll-mt-28 print:mt-8">
+                <SectionHeading>{t("cv.education")}</SectionHeading>
+                <div className="grid gap-x-10 gap-y-6 md:grid-cols-2 print:grid-cols-2 print:gap-x-6 print:gap-y-4">
+                  {(education || []).map((edu, i) => (
+                    <article key={i} className="border-t rule-t rule-soft pt-4">
+                      <p className="font-mono text-xs font-semibold uppercase tracking-[0.12em] text-gray-500 print:text-2xs">
+                        {edu.date}
+                      </p>
+                      <h3 className="mt-2 font-display text-base font-black leading-snug text-black">
+                        {edu.degree}
+                      </h3>
+                      <p className="mt-1 text-sm font-bold text-primary">
+                        {edu.institution}
+                      </p>
+                      {edu.details && (
+                        <p className="mt-2 text-sm leading-6 text-gray-600 print:text-xs print:leading-relaxed">
+                          {edu.details}
                         </p>
-                        {h.cvContext && (
-                          <p className="mt-3 text-xs leading-5 text-gray-500 print:text-2xs">
-                            {h.cvContext}
-                          </p>
-                        )}
-                        <Link
-                          to={href}
-                          className="no-print mt-auto pt-5 text-xs font-bold text-primary underline decoration-primary/40 underline-offset-4"
-                        >
-                          {t("projects.viewProject")}
-                        </Link>
-                        <span className="hidden pt-2 text-2xs text-gray-500 print:block">
-                          {href}
-                        </span>
-                      </article>
-                    ))}
-                  </div>
-                </section>
-              )}
-
-              <div className="mt-14 grid gap-x-12 gap-y-14 md:grid-cols-2 print:mt-8 print:grid-cols-2 print:gap-x-6 print:gap-y-8">
-                <section id="education" className="scroll-mt-28">
-                  <SectionHeading compact>{t("cv.education")}</SectionHeading>
-                  <div className="space-y-5">
-                    {(education || []).map((edu, i) => (
-                      <article key={i} className="border-t border-gray-200 pt-4">
-                        <p className="font-mono text-xs font-semibold uppercase tracking-[0.12em] text-gray-500 print:text-2xs">
-                          {edu.date}
-                        </p>
-                        <h3 className="mt-2 font-display text-base font-black leading-snug text-black">
-                          {edu.degree}
-                        </h3>
-                        <p className="mt-1 text-sm font-bold text-primary">
-                          {edu.institution}
-                        </p>
-                        {edu.details && (
-                          <p className="mt-2 text-sm leading-6 text-gray-600 print:text-xs print:leading-relaxed">
-                            {edu.details}
-                          </p>
-                        )}
-                      </article>
-                    ))}
-                  </div>
-                </section>
-
-                <section id="languages" className="scroll-mt-28">
-                  <SectionHeading compact>{t("cv.languages")}</SectionHeading>
-                  <div className="space-y-3">
-                    {(languages || []).map((language, i) => (
-                      <div
-                        key={i}
-                        className="flex items-baseline justify-between gap-4 border-t border-gray-200 pt-3 text-sm"
-                      >
-                        <span className="font-bold text-black">{language.language}</span>
-                        <span className="text-gray-500">{language.level}</span>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              </div>
+                      )}
+                    </article>
+                  ))}
+                </div>
+              </section>
 
               <section id="skills" className="mt-14 scroll-mt-28 print:mt-8">
                 <SectionHeading>{t("cv.skills")}</SectionHeading>
                 <div className="grid gap-x-10 gap-y-7 md:grid-cols-2 print:grid-cols-2 print:gap-x-6 print:gap-y-4">
                   {Object.entries(skills || {}).map(([category, items]) => (
-                    <div key={category} className="border-t border-gray-200 pt-4">
+                    <div key={category} className="border-t rule-t rule-soft pt-4">
                       <h3 className="text-xs font-black uppercase tracking-caps text-primary print:text-2xs">
                         {SKILL_CATEGORY_KEYS[category]
                           ? t(SKILL_CATEGORY_KEYS[category])
@@ -343,7 +280,7 @@ export default function CV() {
                 <SectionHeading>{t("cv.certificates")}</SectionHeading>
                 <div className="grid gap-x-8 gap-y-5 md:grid-cols-2 print:grid-cols-2 print:gap-y-2">
                   {cvCertifications.map((cert, i) => (
-                    <article key={i} className="border-t border-gray-200 pt-4">
+                    <article key={i} className="border-t rule-t rule-soft pt-4">
                       <h3 className="text-sm font-bold leading-5 text-black print:text-xs">
                         {cert.title}
                       </h3>
@@ -363,12 +300,27 @@ export default function CV() {
                 </Link>
               </section>
 
+              <section id="languages" className="mt-14 scroll-mt-28 print:mt-8">
+                <SectionHeading>{t("cv.languages")}</SectionHeading>
+                <div className="grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3 print:grid-cols-3 print:gap-x-5 print:gap-y-2">
+                  {(languages || []).map((language, i) => (
+                    <div
+                      key={i}
+                      className="flex items-baseline justify-between gap-4 border-t rule-t rule-soft pt-4 text-sm print:text-xs"
+                    >
+                      <span className="font-bold text-black">{language.language}</span>
+                      <span className="text-gray-500">{language.level}</span>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
               {volunteerWork && volunteerWork.length > 0 && (
                 <section id="volunteerWork" className="mt-14 scroll-mt-28 print:mt-8">
                   <SectionHeading>{t("cv.volunteerWork")}</SectionHeading>
                   <div className="grid gap-6 md:grid-cols-2 print:grid-cols-2 print:gap-4">
                     {volunteerWork.map((item, i) => (
-                      <article key={i} className="border-t border-gray-200 pt-4">
+                      <article key={i} className="border-t rule-t rule-soft pt-4">
                         <p className="font-mono text-xs font-semibold uppercase tracking-[0.12em] text-gray-500 print:text-2xs">
                           {item.date}
                         </p>
@@ -396,14 +348,18 @@ export default function CV() {
   );
 }
 
-function ExperienceEntry({ job, t }) {
+function ExperienceEntry({ job, t, first = false }) {
   const tasks = job.tasks || [];
   const [expanded, setExpanded] = useState(false);
   const hasMore = tasks.length > 2;
   const visibleTasks = expanded || !hasMore ? tasks : tasks.slice(0, 2);
 
   return (
-    <article className="py-9 first:pt-0 print:py-4">
+    <article
+      className={`py-9 print:py-4 ${
+        first ? "" : "border-t rule-t rule-soft"
+      }`}
+    >
       <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
         <div className="min-w-0">
           <h3 className="font-display text-xl font-black leading-snug text-black md:text-[1.4rem] print:text-base">
@@ -419,7 +375,7 @@ function ExperienceEntry({ job, t }) {
       </div>
 
       {job.impactMetrics && job.impactMetrics.length > 0 && (
-        <div className="mt-4 border-l border-primary/30 pl-4 print:mt-2 print:border-0 print:pl-0">
+        <div className="mt-4 border-l rule-l rule-soft pl-4 print:mt-2 print:border-0 print:pl-0">
           <div className="grid gap-x-6 gap-y-1.5 sm:grid-cols-2 print:flex print:flex-wrap print:gap-x-3">
             {job.impactMetrics.map((metric, metricIndex) => (
               <span
@@ -463,13 +419,13 @@ function ExperienceEntry({ job, t }) {
   );
 }
 
-function SectionHeading({ children, compact = false }) {
+function SectionHeading({ children }) {
   return (
-    <div className={`${compact ? "mb-5" : "mb-7"} flex items-end gap-4`}>
+    <div className="mb-7 flex items-end gap-4 print:mb-4">
       <h2 className="shrink-0 font-display text-[0.78rem] font-black uppercase tracking-[0.17em] text-primary print:text-xs">
         {children}
       </h2>
-      <span aria-hidden="true" className="mb-1 h-px flex-1 bg-gray-200" />
+      <span aria-hidden="true" className="mb-0.5 flex-1 rule-line rule-soft" />
     </div>
   );
 }
@@ -478,31 +434,38 @@ export function CVSidebarNav({ sections, activeId }) {
   return (
     <nav aria-label="CV sections">
       <ul className="space-y-1">
-        {sections.map((section, index) => (
-          <li key={section.id}>
-            <button
-              type="button"
-              onClick={() =>
-                document
-                  .getElementById(section.id)
-                  ?.scrollIntoView({ behavior: "smooth", block: "start" })
-              }
-              aria-current={activeId === section.id ? "true" : undefined}
-              className={`group flex w-full items-baseline gap-3 border-l-2 py-2 pl-3 text-left transition-colors ${
-                activeId === section.id
-                  ? "border-primary text-primary"
-                  : "border-transparent text-gray-400 hover:border-gray-300 hover:text-black"
-              }`}
-            >
-              <span className="font-mono text-2xs tracking-[0.14em] text-gray-300 group-hover:text-gray-400">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <span className="text-xs font-bold uppercase tracking-caps">
-                {section.label}
-              </span>
-            </button>
-          </li>
-        ))}
+        {sections.map((section, index) => {
+          const active = activeId === section.id;
+          return (
+            <li key={section.id}>
+              <button
+                type="button"
+                onClick={() =>
+                  document
+                    .getElementById(section.id)
+                    ?.scrollIntoView({ behavior: "smooth", block: "start" })
+                }
+                aria-current={active ? "true" : undefined}
+                className={`group relative flex w-full items-baseline gap-3 py-2 pl-4 text-left transition-colors ${
+                  active ? "text-primary" : "text-gray-400 hover:text-black"
+                }`}
+              >
+                {active && (
+                  <span
+                    aria-hidden="true"
+                    className="absolute bottom-1 left-0 top-1 w-[5px] bg-primary rule-stroke-v"
+                  />
+                )}
+                <span className="font-mono text-2xs tracking-[0.14em] text-gray-300 group-hover:text-gray-400">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className="text-xs font-bold uppercase tracking-caps">
+                  {section.label}
+                </span>
+              </button>
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );
