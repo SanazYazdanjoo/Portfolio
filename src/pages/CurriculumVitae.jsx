@@ -225,9 +225,9 @@ export default function CV() {
             <section id="about" className="scroll-mt-32">
               <SectionHeading>{t("nav.about")}</SectionHeading>
               <div className="w-full">
-                {(bio || profileSummary) && (
+                {bio && (
                   <p className="text-base md:text-lg leading-relaxed text-gray-700 print:text-sm font-medium w-full">
-                    {bio || profileSummary}
+                    {bio}
                   </p>
                 )}
               </div>
@@ -299,132 +299,87 @@ export default function CV() {
             {highlightRows.length > 0 && (
               <section id="highlights" className="mt-12 print:mt-8 scroll-mt-32">
                 <SectionHeading>{t("cv.portfolioHighlights")}</SectionHeading>
-                <ul className="space-y-3 print:space-y-2">
+                <div className="space-y-4 print:space-y-3">
                   {highlightRows.map(({ h, metric, href }) => (
-                    <li key={h.id} className="text-base print:text-sm leading-relaxed break-inside-avoid">
-                      <Link to={href} className="font-bold text-gray-900 hover:text-primary">
-                        {h.title}
-                      </Link>
-                      {h.cvContext && (
-                        <span className="text-sm print:text-xs text-gray-500">
-                          {" "}({h.cvContext})
+                    <article key={h.id} className="break-inside-avoid">
+                      <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2">
+                        <h3 className="font-black text-base text-black">
+                          {h.title}
+                        </h3>
+                        <span className="text-xs font-bold text-primary uppercase tracking-caps">
+                          {metric.value} {metric.label}
                         </span>
+                      </div>
+                      {h.cvContext && (
+                        <p className="text-xs text-gray-600 mt-1">{h.cvContext}</p>
                       )}
-                      <span className="text-gray-700">
-                        {" — "}
-                        <span className="font-bold text-primary">{metric.value}</span> {metric.label}
-                      </span>{" "}
-                      <span className="text-sm print:text-xs text-gray-500 break-all">
-                        · {contact?.websiteHandle}
+                      <a
+                        href={href}
+                        className="text-xs text-primary underline underline-offset-2 mt-1 inline-block"
+                      >
                         {href}
-                      </span>
-                    </li>
+                      </a>
+                    </article>
                   ))}
-                </ul>
+                </div>
               </section>
             )}
 
-            <section id="education" className="mt-12 print:mt-8 scroll-mt-32">
+            <section id="education" className="scroll-mt-32">
               <SectionHeading>{t("cv.education")}</SectionHeading>
-              <div className="space-y-6 print:space-y-5">
+              <div className="space-y-4 print:space-y-3">
                 {(education || []).map((edu, i) => (
-                  <div key={i} className="break-inside-avoid">
-                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1">
-                      <p className="font-black text-lg text-black print:text-base">
-                        {edu.degree}
-                      </p>
-                      <span className="text-sm text-gray-500 shrink-0 mt-1 sm:mt-0 sm:ml-4 print:text-xs">
-                        {edu.year}
-                      </span>
+                  <article key={i} className="break-inside-avoid">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline">
+                      <div>
+                        <h3 className="font-black text-base text-black uppercase tracking-caps">{edu.degree}</h3>
+                        <p className="text-sm text-primary font-bold mt-1">{edu.institution}</p>
+                      </div>
+                      <span className="text-xs font-bold text-gray-500 uppercase mt-1 sm:mt-0 sm:ml-4 shrink-0">{edu.date}</span>
                     </div>
-                    <p className="text-base text-gray-600 print:text-sm mb-1">
-                      {edu.school}
-                    </p>
-                    {edu.grade && (
-                      <p className="text-sm text-gray-600 print:text-xs">{edu.grade}</p>
-                    )}
-                    {edu.awards?.map((a, ai) => (
-                      <p key={ai} className="text-primary font-semibold text-sm mt-1 print:text-xs">
-                        ★ {a}
-                      </p>
-                    ))}
-                  </div>
+                    {edu.details && <p className="text-sm text-gray-700 mt-2">{edu.details}</p>}
+                  </article>
                 ))}
               </div>
             </section>
 
             <section id="skills" className="scroll-mt-32">
-              <SectionHeading sidebar>{t("cv.skills")}</SectionHeading>
-              <div className="space-y-5 print:space-y-4">
+              <SectionHeading>{t("cv.skills")}</SectionHeading>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 print:grid-cols-2 print:gap-4">
                 {Object.entries(skills || {}).map(([category, items]) => (
                   <div key={category} className="break-inside-avoid">
-                    <h3 className="text-sm font-black uppercase text-gray-500 tracking-caps mb-1.5 print:text-xs">
-                      {SKILL_CATEGORY_KEYS[category]
-                        ? t(SKILL_CATEGORY_KEYS[category], category)
-                        : category}
+                    <h3 className="font-black text-sm uppercase tracking-caps text-primary mb-2">
+                      {SKILL_CATEGORY_KEYS[category] ? t(SKILL_CATEGORY_KEYS[category]) : category}
                     </h3>
-                    <p className="text-base leading-relaxed text-gray-700 print:text-sm">
-                      {Array.isArray(items) ? items.join(", ") : items}
-                    </p>
+                    <p className="text-sm leading-relaxed text-gray-700">{items.join(" · ")}</p>
                   </div>
                 ))}
-                {/* The former "AI-Assisted Development" chip category,
-                    replaced by one evidence-pointing line: the IBS
-                    aiAssistance paragraph is the claim's backing, so the
-                    line links there instead of restating it as chips.
-                    Printed, the link renders as plain text and the sentence
-                    still names where the record lives. */}
-                <p className="text-base leading-relaxed text-gray-700 print:text-sm break-inside-avoid">
-                  {t("cv.aiAssisted.text")}{" "}
-                  <Link
-                    to="/projects/digitalising-ibs-travel-reimbursements"
-                    className="text-primary font-semibold hover:underline inline-flex items-center gap-1.5"
-                  >
-                    {/* The arrow is screen furniture; printed, the link is
-                        already plain text, so the mark goes with the styling. */}
-                    <HandArrow className="print:hidden" /> {t("cv.aiAssisted.link")}
-                  </Link>
-                </p>
               </div>
             </section>
 
             <section id="certificates" className="scroll-mt-32">
-              <SectionHeading sidebar>{t("cv.certificates")}</SectionHeading>
-              <div className="space-y-4 print:space-y-3">
+              <SectionHeading>{t("cv.certificates")}</SectionHeading>
+              <div className="space-y-3">
                 {cvCertifications.map((cert, i) => (
-                  <div key={i} className="text-base leading-snug print:text-sm break-inside-avoid">
-                    <p className="font-bold text-gray-900">{cert.title}</p>
-                    <p className="text-gray-500 text-sm mt-1 print:text-xs">
-                      {cert.provider} ({cert.year})
-                      {(cert.file || cert.verifyUrl) && (
-                        <a
-                          href={cert.file || cert.verifyUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="no-print ml-2 text-primary-600 rule-underline inline-flex items-center gap-1"
-                        >
-                          {t("credentials.viewCredential")} <HandArrow direction="up-right" />
-                        </a>
-                      )}
-                    </p>
-                  </div>
+                  <article key={i} className="break-inside-avoid text-sm text-gray-700">
+                    <span className="font-bold text-black">{cert.title}</span>
+                    {cert.provider && <span> — {cert.provider}</span>}
+                    {cert.year && <span className="text-gray-500"> ({cert.year})</span>}
+                  </article>
                 ))}
               </div>
-              <Link
-                to="/credentials"
-                className="no-print mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-primary-600 rule-underline"
-              >
+              <Link to="/credentials" className="no-print inline-flex items-center gap-1 mt-4 text-xs font-black uppercase tracking-caps text-primary">
                 {t("credentials.viewAll")} <HandArrow />
               </Link>
             </section>
 
             <section id="languages" className="scroll-mt-32">
-              <SectionHeading sidebar>{t("cv.languages")}</SectionHeading>
-              <div className="space-y-3">
-                {(languages || []).map((lang, i) => (
-                  <div key={i} className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline text-base print:text-sm">
-                    <span className="font-bold text-gray-900">{lang.name}</span>
-                    <span className="text-gray-500 italic text-sm mt-0.5 sm:mt-0 print:text-xs">{lang.level}</span>
+              <SectionHeading>{t("cv.languages")}</SectionHeading>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {(languages || []).map((language, i) => (
+                  <div key={i} className="flex justify-between gap-4 text-sm">
+                    <span className="font-bold text-black">{language.language}</span>
+                    <span className="text-gray-600">{language.level}</span>
                   </div>
                 ))}
               </div>
@@ -432,12 +387,19 @@ export default function CV() {
 
             {volunteerWork && volunteerWork.length > 0 && (
               <section id="volunteerWork" className="scroll-mt-32">
-                <SectionHeading sidebar>{t("cv.volunteerWork")}</SectionHeading>
-                <div className="space-y-3">
+                <SectionHeading>{t("cv.volunteerWork")}</SectionHeading>
+                <div className="space-y-4">
                   {volunteerWork.map((item, i) => (
-                    <p key={i} className="text-base leading-snug text-gray-700 print:text-sm break-inside-avoid">
-                      {item}
-                    </p>
+                    <article key={i} className="break-inside-avoid">
+                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline">
+                        <div>
+                          <h3 className="font-black text-base text-black uppercase tracking-caps">{item.role}</h3>
+                          <p className="text-sm text-primary font-bold mt-1">{item.organization}</p>
+                        </div>
+                        <span className="text-xs font-bold text-gray-500 uppercase mt-1 sm:mt-0 sm:ml-4 shrink-0">{item.date}</span>
+                      </div>
+                      {item.description && <p className="text-sm text-gray-700 mt-2">{item.description}</p>}
+                    </article>
                   ))}
                 </div>
               </section>
@@ -449,62 +411,33 @@ export default function CV() {
   );
 }
 
-function CVSidebarNav({ sections, activeId }) {
-  const { t } = useTranslation();
-  const scrollToSection = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
+function SectionHeading({ children }) {
   return (
-    <nav aria-label={t("cv.sectionsAriaLabel")} className="pt-1">
-      <ul className="space-y-0.5">
-        {sections.map((section, index) => {
-          const isActive = activeId === section.id;
-
-          return (
-            <li key={section.id}>
-              <button
-                type="button"
-                onClick={() => scrollToSection(section.id)}
-                aria-current={isActive ? "true" : undefined}
-                className={`w-full text-left flex items-baseline gap-3 px-3 py-2 transition-colors duration-200 relative border-l-2
-                  rule-edge-l ${
-                  isActive
-                    ? "[--rule-line-color:var(--primary)] text-primary"
-                    : "[--rule-line-color:transparent] text-gray-500 hover:text-gray-900 hover:[--rule-line-color:rgb(209_213_219)]"
-                }`}
-              >
-                <span className={`font-mono text-2xs font-bold uppercase tabular-nums shrink-0 ${
-                  isActive ? "text-primary" : "text-gray-500"
-                }`}>
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <span className={`text-2xs font-bold uppercase leading-tight ${
-                  isActive ? "text-primary" : "text-gray-600"
-                }`}>
-                  {section.label}
-                </span>
-              </button>
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
+    <h2 className="font-black uppercase tracking-caps text-sm text-primary mb-4 border-b rule-edge-b pb-2">
+      {children}
+    </h2>
   );
 }
 
-function SectionHeading({ children, sidebar = false }) {
+export function CVSidebarNav({ sections, activeId }) {
   return (
-    <h2
-      className={`
-        font-black uppercase tracking-caps border-b rule-edge-b
-        ${sidebar
-          ? "text-base text-primary pb-2 mb-6 print:text-sm print:mb-4"
-          : "text-2xl text-primary [--rule-line-color:rgb(var(--primary-rgb)/0.3)] pb-3 mb-8 print:text-xl print:mb-6"
-        }
-      `}
-    >
-      {children}
-    </h2>
+    <nav aria-label="CV sections">
+      <ul className="space-y-2">
+        {sections.map((section) => (
+          <li key={section.id}>
+            <button
+              type="button"
+              onClick={() => document.getElementById(section.id)?.scrollIntoView({ behavior: "smooth", block: "start" })}
+              aria-current={activeId === section.id ? "true" : undefined}
+              className={`w-full text-left text-xs font-bold uppercase tracking-caps transition-colors ${
+                activeId === section.id ? "text-primary" : "text-gray-500 hover:text-black"
+              }`}
+            >
+              {section.label}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </nav>
   );
 }
