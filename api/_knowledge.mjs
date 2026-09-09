@@ -31,13 +31,13 @@ export default {
     "date": "12/2024 – Present",
     "impactMetrics": [
      "13-step paper process, 4 return loops, 9 actors",
-     "1,810 automated tests across 128 files, CI-enforced requirement traceability",
+     "1,734 automated tests, CI-enforced requirement traceability",
      "25 problems documented, each evidence-graded"
     ],
     "tasks": [
      "Mapped the as-is reimbursement process across 9 actor roles — 13 steps with 4 return loops — using UML swimlane activity diagrams, 5W1H problem framing and stakeholder mapping. Evidence base: more than a year administering the process as project assistant (collecting receipts, consolidating Excel sheets, calculating participants’ reimbursements), 2 expert interviews (project management, accounting), a working meeting with the administration team, and an open participant survey.",
-     "Clustered the findings into a problem register of 25 documented problems, each carrying an evidence grade — confirmed, indicative, hypothesis, untested — and derived numbered FR/NFR requirements, a role-based sitemap and 7 provenance-labelled personas from it. The survey was designed to falsify my own assumptions: it reversed one of my priorities and added 6 problems I had not seen from the inside.",
-     "Built the replacement application single-handedly (React, TypeScript, Vite, Node.js/Fastify, SQLite, Vitest): five roles with scoped navigation and route guards across four role home screens, a role-keyed status transition table enforced in the repository layer, and a reimbursement amount that is not persisted — every screen that shows it calls the same pure domain package, with the calculation trace on screen. The only stored amount is the figure imported from the old spreadsheet, kept solely to flag a discrepancy. 1,810 automated tests across 128 files, root and server suites, both run in CI.",
+     "Clustered the findings into a problem register of 25 documented problems, each carrying an evidence grade — confirmed, indicative, hypothesis, untested — and derived numbered FR/NFR requirements, a role-based sitemap and seven provenance-labelled personas from it. The survey was designed to falsify my own assumptions: it reversed one of my priorities and added 6 problems I had not seen from the inside.",
+     "Built the replacement application single-handedly (React, TypeScript, Vite, Node.js/Fastify, SQLite, Vitest): five roles with scoped navigation and route guards across four role home screens, a role-keyed status transition table enforced in the repository layer, and a reimbursement amount that is not persisted — every screen that shows it calls the same pure domain package, with the calculation trace on screen. The only stored amount is the figure imported from the old spreadsheet, kept solely to flag a discrepancy. 1,734 automated tests, root and server suites, both run in CI.",
      "Wired requirement traceability into the build: a CI test fails when a requirement or problem id cited in source has no row in the requirements register, so a citation can never quietly lose its source. The guard checks citation to row, not row to implementation, and the register says so.",
      "Extracted the design system before the high-fidelity screens: the 9 lane colours of the research activity diagram became the application's role palette unchanged, so an actor in the research reads as the same actor in the app. A CI test fails the build when a colour token in the CSS token file and the Tailwind config drift apart.",
      "Secured the Fastify (Node.js) backend with session authentication (argon2id), CSRF tokens on every mutating route, global and per-route rate limits, and default-deny access control in the repository layer. Login hashes against a placeholder for unknown accounts so response time cannot leak whether an address exists, and every request re-checks the credential version, so a password change ends other sessions immediately.",
@@ -58,7 +58,7 @@ export default {
      "Built the entire experimental platform independently — a TypeScript frontend with a Python backend on the Pupil Labs Neon eye tracker's real-time API — implementing MAGIC Pointing, a gaze-augmented Ninja Cursors variant, stimulus presentation and trial-level logging.",
      "Ran a two-stage study: an exploratory pre-study (n=20 interviews, thematic analysis), then a controlled within-subjects experiment in a 3×2×6 design (n=30, Latin-square counterbalanced), comparing both gaze-assisted techniques against a mouse baseline on a physical dual-display workstation.",
      "Analysed movement time, repeat rate and SUS in R (RM-ANOVA, Friedman). 60% of participants preferred the gaze-supported Ninja Cursors variant although the mouse scored highest on SUS (85.2) — predictability and user trust beat raw speed.",
-     "Concluded with a conditional design recommendation: gaze assistance should trigger only for large cross-screen relocations, not for every pointing movement. Thesis grade 1.5, defence 1.5."
+     "Concluded with a conditional design recommendation: gaze assistance should trigger only for large cross-screen relocations, not for every pointing movement."
     ]
    },
    {
@@ -165,7 +165,6 @@ export default {
     "Formative & Summative Usability Testing",
     "Heuristic Evaluation",
     "Prototype & Hardware/Software Evaluation",
-    "Human-Centred Design Process (ISO 9241-210)",
     "Usability Metrics (SUS, task success, error rate, time on task)",
     "Requirements Engineering",
     "Requirements Traceability (FR/NFR)",
@@ -183,21 +182,20 @@ export default {
     "Affinity Diagramming",
     "Persona Development",
     "Process Mapping (UML Swimlanes, 5W1H)",
-    "Inferential Statistics in R"
+    "Repeated-Measures ANOVA in R"
    ],
    "Quality Assurance": [
     "Acceptance Testing",
     "Test-Case Management (TestLink)",
     "Unit & Integration Testing (Vitest)",
-    "REST API Validation (Postman)",
-    "Agile Collaboration"
+    "REST API Validation (Postman)"
    ],
    "Frontend": [
     "JavaScript (ES6+)",
     "TypeScript",
     "React",
-    "HTML5",
-    "CSS3",
+    "HTML",
+    "CSS",
     "Tailwind CSS",
     "Vite",
     "Design Systems",

@@ -176,8 +176,8 @@
             "de": "13-stufiger Papierprozess, 4 Rückschleifen, 9 Akteure"
           },
           {
-            "en": "1,810 automated tests across 128 files, CI-enforced requirement traceability",
-            "de": "1.810 automatisierte Tests über 128 Dateien, CI-erzwungene Anforderungs-Traceability"
+            "en": "1,734 automated tests, CI-enforced requirement traceability",
+            "de": "1.734 automatisierte Tests, CI-erzwungene Anforderungs-Traceability"
           },
           {
             "en": "25 problems documented, each evidence-graded",
@@ -190,12 +190,12 @@
             "de": "Den Ist-Erstattungsprozess über 9 Akteursrollen kartiert — 13 Schritte mit 4 Rückschleifen — mit UML-Swimlane-Aktivitätsdiagrammen, 5W1H-Problemrahmung und Stakeholder-Mapping. Evidenzbasis: über ein Jahr Administration des Prozesses als Projektassistentin (Belege sammeln, Excel-Tabellen zusammenführen, Erstattungen der Teilnehmenden berechnen), 2 Experteninterviews (Projektleitung, Buchhaltung), ein Arbeitstreffen mit dem Verwaltungsteam und eine laufende Teilnehmenden-Umfrage."
           },
           {
-            "en": "Clustered the findings into a problem register of 25 documented problems, each carrying an evidence grade — confirmed, indicative, hypothesis, untested — and derived numbered FR/NFR requirements, a role-based sitemap and 7 provenance-labelled personas from it. The survey was designed to falsify my own assumptions: it reversed one of my priorities and added 6 problems I had not seen from the inside.",
-            "de": "Die Befunde zu einem Problemregister mit 25 dokumentierten Problemen geclustert, jedes mit einem Evidenzgrad — bestätigt, indikativ, Hypothese, ungeprüft — und daraus nummerierte FR/NFR-Anforderungen, eine rollenbasierte Sitemap und 7 Personas mit Herkunftskennzeichnung abgeleitet. Die Umfrage war darauf angelegt, meine eigenen Annahmen zu widerlegen: Sie kehrte eine meiner Prioritäten um und ergänzte 6 Probleme, die ich von innen nicht gesehen hatte."
+            "en": "Clustered the findings into a problem register of 25 documented problems, each carrying an evidence grade — confirmed, indicative, hypothesis, untested — and derived numbered FR/NFR requirements, a role-based sitemap and seven provenance-labelled personas from it. The survey was designed to falsify my own assumptions: it reversed one of my priorities and added 6 problems I had not seen from the inside.",
+            "de": "Die Befunde zu einem Problemregister mit 25 dokumentierten Problemen geclustert, jedes mit einem Evidenzgrad — bestätigt, indikativ, Hypothese, ungeprüft — und daraus nummerierte FR/NFR-Anforderungen, eine rollenbasierte Sitemap und sieben Personas mit Herkunftskennzeichnung abgeleitet. Die Umfrage war darauf angelegt, meine eigenen Annahmen zu widerlegen: Sie kehrte eine meiner Prioritäten um und ergänzte 6 Probleme, die ich von innen nicht gesehen hatte."
           },
           {
-            "en": "Built the replacement application single-handedly (React, TypeScript, Vite, Node.js/Fastify, SQLite, Vitest): five roles with scoped navigation and route guards across four role home screens, a role-keyed status transition table enforced in the repository layer, and a reimbursement amount that is not persisted — every screen that shows it calls the same pure domain package, with the calculation trace on screen. The only stored amount is the figure imported from the old spreadsheet, kept solely to flag a discrepancy. 1,810 automated tests across 128 files, root and server suites, both run in CI.",
-            "de": "Die Ersatzanwendung allein gebaut (React, TypeScript, Vite, Node.js/Fastify, SQLite, Vitest): fünf Rollen mit rollenbezogener Navigation und Route Guards über vier Rollen-Startseiten, eine rollenbasierte Statusübergangstabelle, durchgesetzt in der Repository-Schicht, und ein Erstattungsbetrag, der nicht persistiert wird — jeder Screen, der ihn zeigt, ruft dasselbe reine Domain-Paket auf, mit sichtbarem Rechenweg. Der einzige gespeicherte Betrag ist die aus der alten Tabelle importierte Zahl, ausschließlich zum Markieren einer Abweichung. 1.810 automatisierte Tests über 128 Dateien, Root- und Server-Suite, beide laufen in der CI."
+            "en": "Built the replacement application single-handedly (React, TypeScript, Vite, Node.js/Fastify, SQLite, Vitest): five roles with scoped navigation and route guards across four role home screens, a role-keyed status transition table enforced in the repository layer, and a reimbursement amount that is not persisted — every screen that shows it calls the same pure domain package, with the calculation trace on screen. The only stored amount is the figure imported from the old spreadsheet, kept solely to flag a discrepancy. 1,734 automated tests, root and server suites, both run in CI.",
+            "de": "Die Ersatzanwendung allein gebaut (React, TypeScript, Vite, Node.js/Fastify, SQLite, Vitest): fünf Rollen mit rollenbezogener Navigation und Route Guards über vier Rollen-Startseiten, eine rollenbasierte Statusübergangstabelle, durchgesetzt in der Repository-Schicht, und ein Erstattungsbetrag, der nicht persistiert wird — jeder Screen, der ihn zeigt, ruft dasselbe reine Domain-Paket auf, mit sichtbarem Rechenweg. Der einzige gespeicherte Betrag ist die aus der alten Tabelle importierte Zahl, ausschließlich zum Markieren einer Abweichung. 1.734 automatisierte Tests, Root- und Server-Suite, beide laufen in der CI."
           },
           {
             "en": "Wired requirement traceability into the build: a CI test fails when a requirement or problem id cited in source has no row in the requirements register, so a citation can never quietly lose its source. The guard checks citation to row, not row to implementation, and the register says so.",
@@ -254,8 +254,8 @@
             "de": "Bewegungszeit, Wiederholrate und SUS in R ausgewertet (RM-ANOVA, Friedman). 60 % der Teilnehmenden bevorzugten die blickgestützte Ninja-Cursors-Variante, obwohl die Maus den höchsten SUS-Wert erreichte (85,2) — Vorhersagbarkeit und Nutzervertrauen schlagen reine Geschwindigkeit."
           },
           {
-            "en": "Concluded with a conditional design recommendation: gaze assistance should trigger only for large cross-screen relocations, not for every pointing movement. Thesis grade 1.5, defence 1.5.",
-            "de": "Abgeschlossen mit einer bedingten Designempfehlung: Blickunterstützung sollte nur bei großen bildschirmübergreifenden Verlagerungen auslösen, nicht bei jeder Zeigebewegung. Note der Masterarbeit 1,5, Verteidigung 1,5."
+            "en": "Concluded with a conditional design recommendation: gaze assistance should trigger only for large cross-screen relocations, not for every pointing movement.",
+            "de": "Abgeschlossen mit einer bedingten Designempfehlung: Blickunterstützung sollte nur bei großen bildschirmübergreifenden Verlagerungen auslösen, nicht bei jeder Zeigebewegung."
           }
         ]
       },
@@ -455,12 +455,12 @@
         "metrics": [
           {
             "value": {
-              "en": "1,810",
-              "de": "1.810"
+              "en": "1,734",
+              "de": "1.734"
             },
             "label": {
-              "en": "automated tests across 128 files, including build-failing traceability guards",
-              "de": "automatisierte Tests über 128 Dateien, inklusive Build-brechender Traceability-Guards"
+              "en": "automated tests, including build-failing traceability guards",
+              "de": "automatisierte Tests, inklusive Build-brechender Traceability-Guards"
             }
           },
           {
@@ -636,7 +636,6 @@
         "Formative & Summative Usability Testing",
         "Heuristic Evaluation",
         "Prototype & Hardware/Software Evaluation",
-        "Human-Centred Design Process (ISO 9241-210)",
         "Usability Metrics (SUS, task success, error rate, time on task)",
         "Requirements Engineering",
         "Requirements Traceability (FR/NFR)",
@@ -654,21 +653,20 @@
         "Affinity Diagramming",
         "Persona Development",
         "Process Mapping (UML Swimlanes, 5W1H)",
-        "Inferential Statistics in R"
+        "Repeated-Measures ANOVA in R"
       ],
       "Quality Assurance": [
         "Acceptance Testing",
         "Test-Case Management (TestLink)",
         "Unit & Integration Testing (Vitest)",
-        "REST API Validation (Postman)",
-        "Agile Collaboration"
+        "REST API Validation (Postman)"
       ],
       "Frontend": [
         "JavaScript (ES6+)",
         "TypeScript",
         "React",
-        "HTML5",
-        "CSS3",
+        "HTML",
+        "CSS",
         "Tailwind CSS",
         "Vite",
         "Design Systems",
