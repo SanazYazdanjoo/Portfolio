@@ -17,10 +17,14 @@ export default defineConfig({
         // longer invalidates React, and vice versa. Vite 8 bundles with
         // Rolldown, whose grouping API is advancedChunks.
         advancedChunks: {
+          // React first and with the highest priority: framer-motion imports
+          // React, and without the explicit order Rolldown filed react and
+          // its JSX runtime under the motion chunk — which put framer-motion
+          // back on the homepage's critical path by the back door.
           groups: [
-            { name: "motion", test: /node_modules[\/]framer-motion[\/]/ },
-            { name: "react", test: /node_modules[\/](react|react-dom|react-router|react-router-dom|scheduler)[\/]/ },
-            { name: "profile", test: /[\/]src[\/](data[\/]|projects[\/][^\/]+[\/]card\.js$)/ },
+            { name: "react", priority: 30, test: /node_modules[\/](react|react-dom|react-router|react-router-dom|scheduler)[\/]/ },
+            { name: "motion", priority: 20, test: /node_modules[\/](framer-motion|motion-dom|motion-utils)[\/]/ },
+            { name: "profile", priority: 10, test: /[\/]src[\/](data[\/]|projects[\/][^\/]+[\/]card\.js$)/ },
           ],
         },
       },
