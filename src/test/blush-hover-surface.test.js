@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 
 const theme = readFileSync("src/styles/theme.css", "utf8");
 const about = readFileSync("src/pages/About.jsx", "utf8");
+const careerArc = readFileSync("src/components/CareerArc.jsx", "utf8");
 
 const lum = ([r, g, b]) => {
   const linear = (value) => {
@@ -24,7 +25,7 @@ const token = (name) => {
 };
 
 describe("light blush hover surfaces stay readable in dark mode", () => {
-  it("all About-card foreground tiers clear WCAG AA on blush-100", () => {
+  it("all foreground tiers used on blush-100 clear WCAG AA", () => {
     const blush = token("--color-blush-100");
 
     for (const foreground of [
@@ -39,10 +40,19 @@ describe("light blush hover surfaces stay readable in dark mode", () => {
     }
   });
 
-  it("About explicitly switches both the hover surface and its text palette", () => {
+  it("About voluntary cards switch both the hover surface and its text palette", () => {
     expect(about).toContain("dark:hover:bg-[var(--color-blush-100)]");
     expect(about).toContain("dark:group-hover:text-[var(--color-ink-900)]");
     expect(about).toContain("dark:group-hover:text-[var(--color-ink-700)]");
     expect(about).toContain("dark:group-hover:text-[var(--color-rose-600)]");
+  });
+
+  it("CareerArc rebinds semantic text tokens when a dark-mode card turns blush", () => {
+    expect(careerArc).toContain("dark:hover:bg-[var(--color-blush-100)]");
+    expect(careerArc).toContain("dark:hover:[--text-rgb:var(--color-ink-900-rgb)]");
+    expect(careerArc).toContain("dark:hover:[--text-dim-rgb:var(--color-ink-900-rgb)]");
+    expect(careerArc).toContain("dark:hover:[--text-meta:var(--color-ink-700)]");
+    expect(careerArc).toContain("dark:hover:[--secondary-rgb:var(--color-rose-600-rgb)]");
+    expect(careerArc).toContain("dark:hover:[--secondary-600-rgb:var(--color-rose-600-rgb)]");
   });
 });
