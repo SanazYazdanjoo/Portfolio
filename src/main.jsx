@@ -5,7 +5,6 @@
 import React, { Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { MotionConfig } from 'framer-motion';
 import App from './App';
 import ErrorPage from './components/ErrorPage';
 import { lazyWithRetry } from './utils/lazyWithRetry';
@@ -17,17 +16,34 @@ import { ThemeProvider } from './context/ThemeContext';
 // navigation instead of all bundled into the initial download. Wrapped in
 // lazyWithRetry so a stale chunk hash from a previous deploy gets one
 // automatic reload instead of a hard crash (see lazyWithRetry.js).
+//
+// withMotion: pages that still animate with framer-motion get its global
+// config (reduced motion honoured) from MotionRoot, fetched in the same
+// breath as the page chunk. The shell and the homepage do not import the
+// library, so this is the only way it reaches a page — see MotionRoot.jsx.
+const withMotion = (load) => () =>
+  Promise.all([load(), import('./components/MotionRoot')]).then(([page, motion]) => {
+    const Page = page.default;
+    const MotionRoot = motion.default;
+    const Wrapped = (props) => (
+      <MotionRoot>
+        <Page {...props} />
+      </MotionRoot>
+    );
+    return { default: Wrapped };
+  });
+
 const Home = lazyWithRetry(() => import('./pages/Home'));
-const About = lazyWithRetry(() => import('./pages/About'));
-const Privacy = lazyWithRetry(() => import('./pages/Privacy'));
-const Impressum = lazyWithRetry(() => import('./pages/Impressum'));
-const Contact = lazyWithRetry(() => import('./pages/Contact'));
-const Projects = lazyWithRetry(() => import('./pages/Projects'));
-const Voluntary = lazyWithRetry(() => import('./pages/Voluntary'));
+const About = lazyWithRetry(withMotion(() => import('./pages/About')));
+const Privacy = lazyWithRetry(withMotion(() => import('./pages/Privacy')));
+const Impressum = lazyWithRetry(withMotion(() => import('./pages/Impressum')));
+const Contact = lazyWithRetry(withMotion(() => import('./pages/Contact')));
+const Projects = lazyWithRetry(withMotion(() => import('./pages/Projects')));
+const Voluntary = lazyWithRetry(withMotion(() => import('./pages/Voluntary')));
 const CurriculumVitae = lazyWithRetry(() => import('./pages/CurriculumVitae'));
-const Credentials = lazyWithRetry(() => import('./pages/Credentials'));
-const Sitemap = lazyWithRetry(() => import('./pages/Sitemap'));
-const DesignSystem = lazyWithRetry(() => import('./pages/DesignSystem'));
+const Credentials = lazyWithRetry(withMotion(() => import('./pages/Credentials')));
+const Sitemap = lazyWithRetry(withMotion(() => import('./pages/Sitemap')));
+const DesignSystem = lazyWithRetry(withMotion(() => import('./pages/DesignSystem')));
 const TagsDirectory = lazyWithRetry(() => import('./tags/TagsDirectory'));
 const SingleTagPage = lazyWithRetry(() => import('./tags/SingleTagPage'));
 const NotFound = lazyWithRetry(() => import('./pages/NotFound'));
@@ -52,7 +68,7 @@ const projectFiles = import.meta.glob('./projects/*/index.jsx', { eager: false }
 
 const dynamicProjectRoutes = Object.entries(projectFiles).map(([filePath, loadModule]) => {
   const folderName = filePath.split('/')[2];
-  const ProjectComponent = lazyWithRetry(loadModule);
+  const ProjectComponent = lazyWithRetry(withMotion(loadModule));
   return {
     path: `/projects/${folderName}`,
     element: <ProjectComponent />,
@@ -107,12 +123,10 @@ console.log(
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <MotionConfig reducedMotion="user">
-      <ThemeProvider>
-        <LanguageProvider>
-          <RouterProvider router={router} />
-        </LanguageProvider>
-      </ThemeProvider>
-    </MotionConfig>
+    <ThemeProvider>
+      <LanguageProvider>
+        <RouterProvider router={router} />
+      </LanguageProvider>
+    </ThemeProvider>
   </React.StrictMode>
 );

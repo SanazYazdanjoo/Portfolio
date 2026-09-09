@@ -8,10 +8,9 @@
 //                        skill chips.
 
 import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useInViewReveal, revealClass } from "../hooks/useReveal";
 import { useTranslation } from "../context/LanguageContext";
 import { careerPhases } from "../data/career";
-import { EASE } from "../utils/motion";
 
 // Hand-drawn ink arrow — shared by both variants
 function InkArrow({ className = "" }) {
@@ -45,28 +44,17 @@ export function useCareerArc() {
   }));
 }
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
-  show: (i = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.1, duration: 0.5, ease: EASE },
-  }),
-};
 
 // FULL — About page
 function CareerArcFull({ steps }) {
+  const [ref, inView] = useInViewReveal({ amount: 0 });
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border items-stretch">
+    <div ref={ref} className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border items-stretch">
       {steps.map((step, i) => (
-        <motion.div
+        <div
           key={step.phase}
-          custom={i}
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className={`relative p-s32 group
+          style={{ "--reveal-delay": `${i * 0.1}s`, "--reveal-dur": "0.5s" }}
+          className={`${revealClass(inView)} relative p-s32 group
             ${step.highlight
               ? "bg-primary rule-fill text-white"
               : "bg-bg rule-fill hover:bg-blush-weak transition-colors duration-300"
@@ -131,7 +119,7 @@ function CareerArcFull({ steps }) {
               <InkArrow className="text-dim" />
             </div>
           )}
-        </motion.div>
+        </div>
       ))}
     </div>
   );
@@ -151,15 +139,13 @@ function CareerArcFull({ steps }) {
 // resolves to) with nowrap to guarantee it. The current phase takes the
 // accent; the others are dim.
 function CareerArcCompact({ steps }) {
-  const reduce = useReducedMotion();
+  const [ref, inView] = useInViewReveal({ amount: 0.2 });
 
   return (
-    <motion.ol
-      className="flex flex-col list-none m-0 p-0 w-full"
-      initial={reduce ? { opacity: 1 } : { opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: reduce ? 0 : 0.4, ease: EASE }}
+    <ol
+      ref={ref}
+      className={`${revealClass(inView)} flex flex-col list-none m-0 p-0 w-full`}
+      style={{ "--reveal-dur": "0.4s" }}
     >
       {steps.map((step, i) => (
         <li
@@ -176,7 +162,7 @@ function CareerArcCompact({ steps }) {
           <span className="text-body text-text">{step.label}</span>
         </li>
       ))}
-    </motion.ol>
+    </ol>
   );
 }
 

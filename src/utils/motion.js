@@ -10,7 +10,9 @@
 // (the loading spinner, the prototype badge's drifting shapes). An eased loop
 // visibly stutters once per cycle, so those stay `linear` on purpose.
 //
-// Reduced motion is handled globally rather than per-component — see the
-// <MotionConfig reducedMotion="user"> in App.jsx and the
-// `prefers-reduced-motion` block in theme.css.
+// Reduced motion is handled globally rather than per-component — the
+// `prefers-reduced-motion` block in theme.css for CSS reveals (the shell and
+// the homepage animate with CSS only; see hooks/useReveal.js), and
+// <MotionConfig reducedMotion="user"> from components/MotionRoot.jsx for the
+// pages that still use framer-motion.
 export const EASE = [0.22, 0.61, 0.36, 1];

@@ -24,28 +24,22 @@ import { profileData as rawProfile } from "../data/profile";
 import { ComingSoonRow } from "../components/ComingSoonRow";
 import { HomeContact } from "../components/HomeContact";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
-import { motion, useReducedMotion } from "framer-motion";
+import { useInViewReveal, revealClass } from "../hooks/useReveal";
 import { useTranslation } from "../context/LanguageContext";
 import CareerArc from "../components/CareerArc";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
-import { EASE } from "../utils/motion";
 import { EmptyState } from "../components/EmptyState";
 
 // Eyebrow + heading. The eyebrow is the mono label role — the only place
 // capitals appear — and the heading is the section role, 34px, in every
 // section without exception.
 function SectionHeading({ eyebrow, heading }) {
-  const reduce = useReducedMotion();
+  const [ref, inView] = useInViewReveal({ amount: 0.2 });
   return (
-    <motion.div
-      initial={reduce ? { opacity: 1 } : { opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: reduce ? 0 : 0.3, ease: EASE }}
-    >
+    <div ref={ref} className={revealClass(inView)} style={{ "--reveal-dur": "0.3s" }}>
       <p className="text-label font-mono uppercase text-primary-600 mb-s8">{eyebrow}</p>
       <h2 className="text-h2 font-display font-bold text-text-display">{heading}</h2>
-    </motion.div>
+    </div>
   );
 }
 
