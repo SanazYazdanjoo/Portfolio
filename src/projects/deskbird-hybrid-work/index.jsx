@@ -16,6 +16,17 @@ const processStep = (index, figureLimit = 1) => ({
   figures: readyFigures(projectData.process[index]?.figures, figureLimit),
 });
 
+// The final prototype step has one additional ready artefact in the legacy
+// Solution figure group. Reuse it here rather than hiding the strongest real
+// interface evidence simply because the long-form source filed it elsewhere.
+const prototypeStep = {
+  ...processStep(9, 0),
+  figures: readyFigures([
+    ...(projectData.process[9]?.figures ?? []),
+    ...(projectData.figures?.solution ?? []),
+  ], 1),
+};
+
 const recruiterMeta = {
   ...projectData,
 
@@ -38,7 +49,7 @@ const recruiterMeta = {
     processStep(4), // N=6 contextual inquiry
     processStep(6), // requirements synthesis
     processStep(7), // concept development / selection
-    processStep(9), // high-fidelity prototype + testing
+    prototypeStep,  // high-fidelity prototype + testing
   ],
 
   // The milestone rail and detailed instrument inventories made Methodology
