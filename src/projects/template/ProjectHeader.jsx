@@ -85,6 +85,31 @@ export function ProjectHeader({ meta, tags }) {
         </p>
       )}
 
+      {/* Recruiter-first proof points. Reuse the same compact, evidence-backed
+          numbers as the project card so the detail page answers “scale, rigour,
+          result” before the reader reaches the long-form case study. */}
+      {meta.cardStats?.length > 0 && (
+        <div className="mb-8 grid grid-cols-1 sm:grid-cols-3 border-y rule-tb">
+          {meta.cardStats.map((stat, index) => (
+            <div
+              key={`${stat.value}-${index}`}
+              className={`py-4 sm:px-4 first:sm:pl-0 last:sm:pr-0 ${
+                index < meta.cardStats.length - 1
+                  ? "border-b sm:border-b-0 sm:border-r rule-b sm:rule-r"
+                  : ""
+              }`}
+            >
+              <div className="font-display text-2xl md:text-3xl font-extrabold tracking-tight text-text">
+                {stat.value}
+              </div>
+              <div className="mt-1 max-w-[22ch] text-xs leading-relaxed text-text-meta">
+                {stat.label}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* Meta block — Role, Timeline, Skills. Runs the full content
           column rather than the 720px reading measure: its values are
           short labels and chips, and giving the skill tags the whole

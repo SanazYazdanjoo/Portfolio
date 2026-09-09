@@ -22,22 +22,28 @@ export default {
     de: 'Ein Erstattungsprozess, dessen einzige Statusmeldung das eintreffende Geld ist — von innen erforscht, aus der Evidenz neu gebaut.',
   },
   role: {
-    en: 'Solo — UX Research, UI Design, and Frontend Development',
-    de: 'Alleinverantwortlich — UX Research, UI-Design und Frontend-Entwicklung',
+    en: 'Solo UX Researcher & UX Engineer',
+    de: 'Solo UX Researcher & UX Engineer',
   },
   year: '2026',
   context: {
     en: 'In-house project',
     de: 'Internes Projekt',
   },
-  cardTags: ['Service Design', 'Stakeholder Interviews', 'React', 'GDPR / DSGVO'],
-  // Worded to match `stage` and `results`: the app is a deployed demo the
-  // team works with — NOT yet the system of record. (Evaluation caveat lives
-  // in `results`; the cardOutcome tests forbid hedging on the card.)
+  cardTags: ['UX Research', 'Requirements Engineering', 'React', 'Privacy by Design'],
+  // The project is still a deployed demo rather than the system of record.
+  // Describe what was demonstrably built without implying measured adoption.
   cardOutcome: {
-    en: 'Rebuilt a 13-step paper reimbursement process as a working application the team now uses as a deployed demo.',
-    de: 'Ein 13-stufiger Papierprozess, neu gebaut als funktionierende Anwendung — das Team arbeitet bereits mit der bereitgestellten Demo.',
+    en: 'Mapped the legacy workflow end to end and rebuilt it as a deployed role-based demo with traceable calculation rules.',
+    de: 'Den bisherigen Ablauf durchgängig kartiert und als bereitgestellte, rollenbasierte Demo mit nachvollziehbaren Berechnungsregeln neu gebaut.',
   },
+  // Recruiter-facing proof points: process complexity → evidence → engineering.
+  // These are all counts already substantiated in the detail-page source.
+  cardStats: [
+    { value: '13', label: { en: 'paper-process steps mapped across 9 actors and 4 return loops', de: 'Papierprozess-Schritte über 9 Akteure und 4 Rückschleifen kartiert' } },
+    { value: '25', label: { en: 'evidence-linked problems documented', de: 'evidenzverknüpfte Probleme dokumentiert' } },
+    { value: '1,734', label: { en: 'automated tests guarding rules and traceability', de: 'automatisierte Tests für Regeln und Traceability' } },
+  ],
   cardImage: cardClaimTable,
   thumbnail: thumbnailImg,
   thumbnailWebp,

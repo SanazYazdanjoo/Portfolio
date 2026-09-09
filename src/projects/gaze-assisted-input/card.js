@@ -25,8 +25,8 @@ export default {
     de: "Kann Blicksteuerung bildschirmübergreifendes Zeigen beschleunigen — ohne das Vertrauen der Nutzer:innen zu kosten?",
   },
   role: {
-    en: "UX Engineer (Master's Thesis)",
-    de: "UX Engineer (Masterarbeit)",
+    en: "UX Researcher & UX Engineer (Master's Thesis)",
+    de: "UX Researcher & UX Engineer (Masterarbeit)",
   },
   year: "2025–2026",
   context: {
@@ -35,15 +35,15 @@ export default {
   },
   cardTags: ["Experimental Design", "Mixed-Methods Research", "TypeScript", "Eye-Tracking"],
   cardOutcome: {
-    en: "Gaze wins over long cross-screen distances and loses over short ones; trust in the cursor decided preference.",
-    de: "Blicksteuerung gewinnt über große bildschirmübergreifende Distanzen und verliert über kurze; entschieden hat das Vertrauen in den Cursor.",
+    en: "In an N=30 within-subjects study, Ninja beat the mouse at intermediate cross-screen distances; 60% preferred the gaze hybrid.",
+    de: "Im N=30-Within-Subjects-Vergleich übertraf Ninja die Maus bei mittleren Cross-Screen-Distanzen; 60 % bevorzugten den Blick-Hybrid.",
   },
   // Compact proof points for the homepage card — scale, rigour, result.
   // Optional: cards without cardStats render exactly as before.
   cardStats: [
     { value: "N=30", label: { en: "controlled eye-tracking experiment", de: "kontrolliertes Eye-Tracking-Experiment" } },
     { value: "20", label: { en: "formative interviews", de: "formative Interviews" } },
-    { value: "60%", label: { en: "preferred the gaze technique", de: "bevorzugten die Blick-Technik" } },
+    { value: "60%", label: { en: "preferred the gaze-hybrid", de: "bevorzugten den Blick-Hybrid" } },
   ],
   cardImage: cardLargeTargetPanel,
   thumbnail: thumbnailImg,

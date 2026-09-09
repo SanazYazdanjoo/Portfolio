@@ -24,6 +24,9 @@ const MOBILE_QUERY = "(max-width: 767px)";
 // The spy's band — the one rootMargin only useSectionState uses.
 const SPY_MARGIN = "-10% 0px -60% 0px";
 
+const headingFor = (id) => projectData.sectionTitles?.[id]?.heading?.en;
+const labelFor = (id) => projectData.sectionTitles?.[id]?.label?.en;
+
 let observers;
 
 function stubViewport({ mobile }) {
@@ -105,14 +108,14 @@ describe("project page on a phone", () => {
 
   it("the index still opens and scrolls to a section a reader closed", () => {
     renderWithProviders(<ProjectTemplate meta={projectData} />);
-    const heading = screen.getByRole("heading", { name: /solution/i, level: 2 });
+    const heading = screen.getByRole("heading", { name: headingFor("solution"), level: 2 });
     fireEvent.click(within(heading).getByRole("button"));
     expect(within(heading).getByRole("button")).toHaveAttribute("aria-expanded", "false");
 
     const index = screen.getByRole("navigation", { name: /on this page/i });
     const target = document.getElementById("solution");
     target.scrollIntoView = vi.fn();
-    fireEvent.click(within(index).getByRole("button", { name: /solution/i }));
+    fireEvent.click(within(index).getByRole("button", { name: labelFor("solution") }));
 
     expect(within(heading).getByRole("button")).toHaveAttribute("aria-expanded", "true");
     expect(target.scrollIntoView).toHaveBeenCalled();

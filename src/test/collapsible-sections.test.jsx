@@ -11,6 +11,12 @@ function bodyFor(id) {
   return document.getElementById(`${id}-body`);
 }
 
+// The flagship case study now uses per-project recruiter-facing section
+// titles. Tests should follow the data contract rather than pinning the old
+// site-wide words ("Challenge", "Solution") as if those labels were IDs.
+const headingFor = (id) => project1.sectionTitles?.[id]?.heading?.en;
+const labelFor = (id) => project1.sectionTitles?.[id]?.label?.en;
+
 describe("Collapsible sections — open by default", () => {
   it("every section body starts open", () => {
     renderWithProviders(<ProjectTemplate meta={project1} />);
@@ -23,14 +29,14 @@ describe("Collapsible sections — open by default", () => {
 
   it("every section header is an open toggle button", () => {
     renderWithProviders(<ProjectTemplate meta={project1} />);
-    const heading = screen.getByRole("heading", { name: /the challenge|challenge/i, level: 2 });
+    const heading = screen.getByRole("heading", { name: headingFor("challenge"), level: 2 });
     const button = within(heading).getByRole("button");
     expect(button).toHaveAttribute("aria-expanded", "true");
   });
 
   it("clicking an open section header closes it", () => {
     renderWithProviders(<ProjectTemplate meta={project1} />);
-    const heading = screen.getByRole("heading", { name: /solution/i, level: 2 });
+    const heading = screen.getByRole("heading", { name: headingFor("solution"), level: 2 });
     const button = within(heading).getByRole("button");
 
     fireEvent.click(button);
@@ -40,7 +46,7 @@ describe("Collapsible sections — open by default", () => {
 
   it("clicking a closed header opens it again", () => {
     renderWithProviders(<ProjectTemplate meta={project1} />);
-    const heading = screen.getByRole("heading", { name: /solution/i, level: 2 });
+    const heading = screen.getByRole("heading", { name: headingFor("solution"), level: 2 });
     const button = within(heading).getByRole("button");
 
     fireEvent.click(button);
@@ -86,24 +92,23 @@ describe("Sidebar navigation opens the target section", () => {
     // Sidebar renders inside <nav aria-label="Page sections">, distinct from
     // the phone section index which uses the same section labels.
     const nav = screen.getByRole("navigation", { name: /page sections/i });
-    const link = within(nav).getByRole("button", { name: /challenge/i });
+    const link = within(nav).getByRole("button", { name: labelFor("challenge") });
 
     fireEvent.click(link);
 
-    const heading = screen.getAllByRole("heading", { level: 2 })
-      .find((h) => within(h).queryByRole("button", { name: /challenge/i }));
+    const heading = screen.getByRole("heading", { name: headingFor("challenge"), level: 2 });
     expect(within(heading).getByRole("button")).toHaveAttribute("aria-expanded", "true");
   });
 
   it("clicking a sidebar link re-opens that section if the user had closed it", () => {
     renderWithProviders(<ProjectTemplate meta={project1} />);
-    const heading = screen.getByRole("heading", { name: /the challenge|challenge/i, level: 2 });
+    const heading = screen.getByRole("heading", { name: headingFor("challenge"), level: 2 });
 
     fireEvent.click(within(heading).getByRole("button"));
     expect(within(heading).getByRole("button")).toHaveAttribute("aria-expanded", "false");
 
     const nav = screen.getByRole("navigation", { name: /page sections/i });
-    fireEvent.click(within(nav).getByRole("button", { name: /challenge/i }));
+    fireEvent.click(within(nav).getByRole("button", { name: labelFor("challenge") }));
 
     expect(within(heading).getByRole("button")).toHaveAttribute("aria-expanded", "true");
   });
