@@ -8,13 +8,14 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { HandArrow, HandBubbleTail } from "./HandArrow";
+import { HandArrow } from "./HandArrow";
 import { InkCtaButton } from "./Button";
 
 export function Hero({ data }) {
   const narrative = data.heroNarrative || {};
   const careerPath = data.careerPath || [];
-  const workflowSteps = (narrative.workflow || data.positioning || "")
+  const workflow = narrative.workflow || data.positioning || "";
+  const workflowSteps = workflow
     .split("\u2192")
     .map((step) => step.trim())
     .filter(Boolean);
@@ -40,13 +41,15 @@ export function Hero({ data }) {
           <span
             className="block text-hero font-display font-extrabold text-text-display enter-up"
             style={{ "--enter-delay": "0.14s" }}
-            aria-label={narrative.workflow || data.positioning}
           >
-            {workflowSteps.map((step) => (
-              <span key={step} className="block" aria-hidden="true">
-                {step}
-              </span>
-            ))}
+            <span className="sr-only">{workflow}</span>
+            <span aria-hidden="true">
+              {workflowSteps.map((step) => (
+                <span key={step} className="block">
+                  {step}
+                </span>
+              ))}
+            </span>
           </span>
         </h1>
 
@@ -149,10 +152,9 @@ export function Hero({ data }) {
           style={{ transformOrigin: "50% 80%", "--enter-delay": "0.34s" }}
         >
           {data.tagline || "I speak both ‘user’ & ‘developer’."}
-          <HandBubbleTail
+          <HandArrow
             className="hidden lg:block absolute left-1/2 top-full
-                       -translate-x-1/2 -mt-s16 rotate-90 z-10 pointer-events-none
-                       [color:var(--rule-line-color)]"
+                       -translate-x-1/2 mt-s8 rotate-90 text-dim pointer-events-none"
           />
         </p>
       </div>
