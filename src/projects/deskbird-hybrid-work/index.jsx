@@ -88,7 +88,7 @@ const hydrateConceptArtifact = (figure) => {
   return figure;
 };
 
-const enrichedProjectData = {
+export const enrichedProjectData = {
   ...projectData,
   process: projectData.process.map((step, index) => {
     if (index === 0) {
