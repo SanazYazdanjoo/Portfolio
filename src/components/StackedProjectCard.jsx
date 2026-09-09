@@ -96,6 +96,19 @@ export function StackedProjectCard({ project, index }) {
           <p className="text-outcome text-text">{project.cardOutcome}</p>
         )}
 
+        {/* Proof points, data-gated: only a card that declares cardStats
+            grows this row, so the other cards keep their anatomy. */}
+        {Array.isArray(project.cardStats) && project.cardStats.length > 0 && (
+          <dl className="flex flex-wrap gap-x-s24 gap-y-s8">
+            {project.cardStats.map((stat) => (
+              <div key={stat.value} className="flex items-baseline gap-s6">
+                <dt className="text-num font-mono text-primary-600">{stat.value}</dt>
+                <dd className="text-meta font-mono text-dim">{stat.label}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
+
         <SkillTagRow tags={tags} className="mt-s8" />
 
         {/* Visual affordance only — the stretched title link is the control. */}
