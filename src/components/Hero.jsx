@@ -17,7 +17,6 @@ export function Hero({ data }) {
   const reduce = useReducedMotion();
   const isMobile = useIsMobile();
   const narrative = data.heroNarrative || {};
-  const careerPath = narrative.careerPath || data.careerPath || [];
 
   const bubbleHover = reduce
     ? undefined
