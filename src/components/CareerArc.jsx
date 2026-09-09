@@ -1,11 +1,9 @@
-// Renders the career arc ("The Bridge"). Phase data lives in src/data/career.js;
-// this component resolves translation keys and renders. Each phase carries its
-// own chronologically-grouped skill chips instead of a flat skills list.
+// Renders the career arc ("The Bridge"). Phase data lives in src/data/career.js
+// and is derived from the canonical path in positioning.js.
 //
 //   variant="full"    - About page section: numeral, label, years, summary,
-//                        then skill-group chips.
-//   variant="compact" - homepage strip: numeral + label + years only, no
-//                        skill chips.
+//                        then evidence-backed skill-group chips.
+//   variant="compact" - homepage strip: numeral + label + years only.
 
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
@@ -13,7 +11,6 @@ import { useTranslation } from "../context/LanguageContext";
 import { careerPhases } from "../data/career";
 import { EASE } from "../utils/motion";
 
-// Hand-drawn ink arrow — shared by both variants
 function InkArrow({ className = "" }) {
   return (
     <svg
@@ -29,16 +26,15 @@ function InkArrow({ className = "" }) {
   );
 }
 
-// Data — resolved once, translation-driven
 export function useCareerArc() {
-  const { t } = useTranslation();
+  const { t, localize } = useTranslation();
   return careerPhases.map((p) => ({
     phase: p.phase,
-    label: t(p.labelKey),
-    years: t(p.yearsKey),
-    summary: t(p.summaryKey),
+    label: localize(p.label),
+    years: localize(p.years),
+    summary: localize(p.summary),
     highlight: !!p.highlight,
-    skillGroups: p.skillGroups.map((g) => ({
+    skillGroups: (p.skillGroups ?? []).map((g) => ({
       label: g.groupKey ? t(g.groupKey) : null,
       items: g.items,
     })),
@@ -50,14 +46,13 @@ const fadeUp = {
   show: (i = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.1, duration: 0.5, ease: EASE },
+    transition: { delay: i * 0.08, duration: 0.45, ease: EASE },
   }),
 };
 
-// FULL — About page
 function CareerArcFull({ steps }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border items-stretch">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-px bg-border items-stretch">
       {steps.map((step, i) => (
         <motion.div
           key={step.phase}
@@ -127,7 +122,7 @@ function CareerArcFull({ steps }) {
           ))}
 
           {i < steps.length - 1 && (
-            <div className="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2 z-10">
+            <div className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 z-10">
               <InkArrow className="text-dim" />
             </div>
           )}
@@ -137,19 +132,6 @@ function CareerArcFull({ steps }) {
   );
 }
 
-// COMPACT — the homepage timeline, a vertical list rather than three
-// side-by-side columns.
-//
-// Each row is a fixed 88px date column beside the role, separated by the
-// house hairline. That geometry is what permanently retires the wrapping
-// problem the horizontal version had: a role that needs two lines grows its
-// own row downward and moves nothing, because the date sits at the top-left
-// of the same row instead of below a label of unpredictable height.
-//
-// The date is 12px mono with no tracking, in a 108px column wide enough for
-// the longest of them ("2022 – Present", 101px in the widest mono this stack
-// resolves to) with nowrap to guarantee it. The current phase takes the
-// accent; the others are dim.
 function CareerArcCompact({ steps }) {
   const reduce = useReducedMotion();
 
@@ -173,14 +155,15 @@ function CareerArcCompact({ steps }) {
           >
             {step.years}
           </span>
-          <span className="text-body text-text">{step.label}</span>
+          <span className={step.highlight ? "text-body text-primary-600 font-medium" : "text-body text-text"}>
+            {step.label}
+          </span>
         </li>
       ))}
     </motion.ol>
   );
 }
 
-// Public API
 export default function CareerArc({ variant = "full" }) {
   const steps = useCareerArc();
   return variant === "compact"
