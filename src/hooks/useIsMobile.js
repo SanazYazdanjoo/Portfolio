@@ -3,8 +3,8 @@
 // PrototypeFab's idle loops): on a phone, continuous ornament motion reads
 // as the page shaking — Sanaz reported exactly that, on the element this
 // hook was extracted to calm — and costs compositor work besides. This is
-// a JS gate for framer-motion animate props, which Tailwind's responsive
-// classes cannot reach.
+// a JS gate for animate props (framer-motion on the case-study pages),
+// which Tailwind's responsive classes cannot reach.
 
 import { useEffect, useState } from "react";
 

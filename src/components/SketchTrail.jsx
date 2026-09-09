@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useReducedMotion } from 'framer-motion';
+import { useMediaQuery } from '../hooks/useIsMobile';
 
 /**
  * Mouse-following "ink" trail.
@@ -82,7 +82,7 @@ const ribbon = (run) => {
 
 export const SketchTrail = () => {
   const pathRef = useRef(null);
-  const shouldReduce = useReducedMotion();
+  const shouldReduce = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   useEffect(() => {
     if (shouldReduce) return;

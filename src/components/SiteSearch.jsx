@@ -15,17 +15,14 @@
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link, useNavigate } from "react-router-dom";
-import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "../context/LanguageContext";
 import { HandSearch } from "./HandIcons";
 import { EmptyState } from "./EmptyState";
 import { searchSite, MIN_QUERY_LENGTH } from "../utils/searchIndex";
-import { EASE } from "../utils/motion";
 
 export const SiteSearch = () => {
   const { t, lang } = useTranslation();
   const navigate = useNavigate();
-  const prefersReducedMotion = useReducedMotion();
   const baseId = useId();
   const listboxId = `${baseId}-listbox`;
 
@@ -208,16 +205,14 @@ export const SiteSearch = () => {
             className="fixed inset-0 z-[100] no-print flex items-start justify-center
                        bg-text/70 px-s16 pb-s32 pt-s48 md:pt-s88"
           >
-            <motion.div
+            <div
               ref={dialogRef}
               role="dialog"
               aria-modal="true"
               aria-label={t("search.title")}
               onClick={(e) => e.stopPropagation()}
-              initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 12, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: prefersReducedMotion ? 0 : 0.22, ease: EASE }}
-              className="flex max-h-full w-full max-w-xl flex-col rounded-xl border rule-frame-r
+              style={{ "--enter-dur": "0.22s" }}
+              className="enter-up flex max-h-full w-full max-w-xl flex-col rounded-xl border rule-frame-r
                          [--rule-fill-color:var(--bg)] bg-bg shadow-lg"
             >
               {/* The classic box. The drawn frame is the panel's own; inside it
@@ -320,7 +315,7 @@ export const SiteSearch = () => {
                   {countLabel}
                 </span>
               </div>
-            </motion.div>
+            </div>
           </div>,
           document.body
         )}

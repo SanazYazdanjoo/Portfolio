@@ -4,12 +4,10 @@
 // prompt live server-side only. Replies stream in as plain text.
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useTranslation } from "../context/LanguageContext";
 import { useCornerOccupied } from "../hooks/useCornerOccupied";
 import { HandClose, HandSend, HandSpark } from "./HandIcons";
-import { EASE } from "../utils/motion";
 
 // Turns sent per request; older history is context the answers don't need.
 const HISTORY_LIMIT = 12;
@@ -179,23 +177,19 @@ export function AskPortfolio() {
 
   return (
     <div className="fixed bottom-s16 right-s16 z-[80] no-print flex flex-col items-end gap-s8">
-      <AnimatePresence>
-        {open && (
-          <motion.section
+      {open && (
+          <section
             key="panel"
             role="dialog"
             aria-label={t("chat.title")}
-            initial={{ opacity: 0, y: 16, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 16, scale: 0.98 }}
-            transition={{ duration: 0.22, ease: EASE }}
+            style={{ "--enter-dur": "0.22s" }}
             onKeyDown={(e) => e.key === "Escape" && close()}
             /* The frame is drawn (rule-frame-r) and the opaque ground comes
                from its --rule-fill-color layer, not bg-* — a bg would paint
                a hard rectangle under the drawn edge. The overlay straddles
                the border (-2px), so the clipping moves to an inner wrapper:
                overflow-hidden here would shave the line's outer half. */
-            className="w-[min(24rem,calc(100vw-2rem))] h-[min(32rem,calc(100dvh-8rem))]
+            className="enter-up w-[min(24rem,calc(100vw-2rem))] h-[min(32rem,calc(100dvh-8rem))]
                        rounded-xl border rule-frame-r [--rule-fill-color:var(--bg)] shadow-lg"
           >
             <div className="flex h-full flex-col overflow-hidden rounded-xl">
@@ -282,9 +276,8 @@ export function AskPortfolio() {
             </form>
             <p className="px-s16 pb-s6 text-plate font-mono text-dim/80">{t("chat.disclosure")}</p>
             </div>
-          </motion.section>
+          </section>
         )}
-      </AnimatePresence>
 
       <button
         ref={fabRef}
