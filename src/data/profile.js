@@ -1,5 +1,5 @@
 import data from './data.json';
-import { professionalNarrative } from './positioning';
+import { careerPath, professionalNarrative } from './positioning';
 
 const baseProfile = data.profile;
 
@@ -12,7 +12,11 @@ export const profileData = {
   roleSub: professionalNarrative.workflow,
   tagline: professionalNarrative.tagline,
   positioning: professionalNarrative.workflow,
-  heroNarrative: professionalNarrative,
+  heroNarrative: {
+    ...professionalNarrative,
+    careerPath,
+  },
+  careerPath,
   profileSummary: professionalNarrative.profileSummary,
   bio: professionalNarrative.aboutBio,
   bioParagraphs: [professionalNarrative.homeBio],
