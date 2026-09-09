@@ -10,7 +10,6 @@
 // either end from chaining out to the document.
 
 import React, { useRef, useEffect, useState, Suspense, lazy } from "react";
-import { MotionConfig } from "framer-motion";
 import { Outlet, useLocation } from "react-router-dom";
 import { Nav } from "./components/Nav";
 import { Footer } from "./components/Footer";
@@ -79,12 +78,12 @@ export default function App() {
     }
   }, [location.pathname, location.hash]);
 
-  // Reduced motion is answered once, here, for every animation in the app.
-  // Per-component `useReducedMotion` guards still exist and still help, but
-  // they are belt-and-braces now rather than the only thing standing between
-  // a motion-sensitive reader and a page full of entrances.
+  // Reduced motion: the shell and the homepage animate with CSS only, and
+  // theme.css's prefers-reduced-motion block zeroes every duration. Pages
+  // that still use framer-motion get <MotionConfig reducedMotion="user">
+  // from main.jsx's withMotion() wrapper, so the library never loads here.
   return (
-    <MotionConfig reducedMotion="user">
+    <>
       <div className="app-shell flex flex-col bg-bg relative">
         <a
           href="#main-content"
@@ -132,6 +131,6 @@ export default function App() {
 
         <Analytics/>
       </div>
-    </MotionConfig>
+    </>
   );
 }

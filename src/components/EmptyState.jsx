@@ -1,5 +1,3 @@
-import { motion } from "framer-motion";
-import { EASE } from "../utils/motion";
 
 // One "nothing here" pattern.
 //
@@ -14,17 +12,15 @@ import { EASE } from "../utils/motion";
 // it should not be set in the UI label style.
 export function EmptyState({ title, children, action, className = "" }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, ease: EASE }}
-      className={`border rule-box px-8 py-14 text-center ${className}`}
+    <div
+      className={`enter-up border rule-box px-8 py-14 text-center ${className}`}
+      style={{ "--enter-dur": "0.45s" }}
     >
       <p className="doodle-text m-0 text-3xl text-dim">{title}</p>
       {children && (
         <p className="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-dim">{children}</p>
       )}
       {action && <div className="mt-6">{action}</div>}
-    </motion.div>
+    </div>
   );
 }

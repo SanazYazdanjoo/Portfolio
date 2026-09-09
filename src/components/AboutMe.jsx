@@ -4,24 +4,21 @@
 // max-width here.
 
 import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
-import { EASE } from "../utils/motion";
+import { useInViewReveal, revealClass } from "../hooks/useReveal";
 
 export function AboutBio({ data }) {
   const bioParagraphs = data.bioParagraphs || [];
-  const reduce = useReducedMotion();
+  const [ref, inView] = useInViewReveal({ amount: 0.1 });
 
   return (
-    <motion.div
-      className="flex flex-col gap-s24"
-      initial={reduce ? { opacity: 1 } : { opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.1 }}
-      transition={{ duration: reduce ? 0 : 0.4, ease: EASE }}
+    <div
+      ref={ref}
+      className={`${revealClass(inView)} flex flex-col gap-s24`}
+      style={{ "--reveal-dur": "0.4s" }}
     >
       {bioParagraphs.map((para, i) => (
         <p key={i} className="text-statement text-text">{para}</p>
       ))}
-    </motion.div>
+    </div>
   );
 }

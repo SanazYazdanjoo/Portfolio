@@ -1736,6 +1736,68 @@
    Opacity fades survive on purpose. They carry no motion, and removing them
    would leave scroll-revealed content stuck invisible if an observer were
    ever missed. */
+/* 7b. Reveals — the CSS half of src/hooks/useReveal.js.
+   The homepage and the shell used to reach for framer-motion for these;
+   they are class toggles now, so the motion library loads only with the
+   case-study chunks. The reduced-motion block below zeroes every duration
+   and delay here too, so a motion-sensitive reader gets the end state. */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity var(--reveal-dur, 0.35s) var(--timing-smooth) var(--reveal-delay, 0s),
+    transform var(--reveal-dur, 0.35s) var(--timing-smooth) var(--reveal-delay, 0s);
+}
+.reveal.is-in { opacity: 1; transform: none; }
+
+.reveal-swipe {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--reveal-dur, 0.5s) var(--timing-smooth) var(--reveal-delay, 0s);
+}
+.reveal-swipe.is-in { transform: scaleX(1); }
+
+/* Drawn paths carry pathLength="1", so the dash maths is unit-free. */
+.reveal-draw path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.2s var(--timing-smooth), opacity 0.3s;
+  opacity: 0;
+}
+/* `scale`, the individual transform property: design-system.test.js
+   forbids the transform-function form anywhere after the card figure. */
+.reveal-draw circle {
+  scale: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  transition: scale 0.3s var(--timing-smooth) var(--reveal-delay, 0.9s),
+              opacity 0.3s var(--timing-smooth) var(--reveal-delay, 0.9s);
+}
+.reveal-draw.is-in path { stroke-dashoffset: 0; opacity: 1; }
+.reveal-draw.is-in circle { scale: 1; opacity: 1; }
+
+@keyframes enter-up   { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes enter-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes enter-pop  { from { opacity: 0; scale: 0.86; rotate: -2.5deg; }
+                        60%  { opacity: 1; scale: 1.04; rotate: 0.6deg; }
+                        to   { opacity: 1; scale: 1; rotate: 0deg; } }
+@keyframes bob        { 0%, 100% { translate: 0 0; } 30% { translate: 0 -2.5px; } 70% { translate: 0 2px; } }
+@keyframes spin-ring  { to { transform: rotate(360deg); } }
+
+.enter-up   { animation: enter-up   var(--enter-dur, 0.4s)  var(--timing-smooth) var(--enter-delay, 0s) both; }
+.enter-fade { animation: enter-fade var(--enter-dur, 0.25s) var(--timing-smooth) var(--enter-delay, 0s) both; }
+.enter-pop  { animation: enter-pop  var(--enter-dur, 0.45s) var(--timing-smooth) var(--enter-delay, 0s) both; }
+.spin-ring  { animation: spin-ring 0.8s linear infinite; }
+
+/* The hero bubble's idle breath: 2px, 6s, and only from md up — on a phone
+   a continuous ornament loop reads as the page shaking. It runs on
+   `translate`, a separate property from the entrance's `transform`, so the
+   two never fight. */
+@media (min-width: 768px) {
+  .bubble-idle { animation: bob 6s ease-in-out 1.6s infinite; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

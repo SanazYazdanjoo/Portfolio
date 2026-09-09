@@ -3,7 +3,6 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { profileData as rawProfile } from "../data/profile";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { useTranslation } from "../context/LanguageContext";
@@ -11,7 +10,6 @@ import { LanguageToggle } from "./LanguageToggle";
 import { ThemeToggle } from "./ThemeToggle";
 import { SiteSearch } from "./SiteSearch";
 import { HandMenu, HandClose } from "./HandIcons";
-import { EASE } from "../utils/motion";
 
 // Maps each nav route to its translation key so labels follow the current
 // language instead of the raw (English-only) name stored in profile data.
@@ -26,7 +24,6 @@ const NAV_LABEL_KEYS = {
 
 export const Nav = () => {
   const profileData = useLocalizedProfile(rawProfile);
-  const prefersReducedMotion = useReducedMotion();
   const { t } = useTranslation();
   // `secondary: true` in profile.navLinks keeps a destination routed and in
   // the sitemap while taking it out of the primary nav. Two entries use it:
@@ -42,12 +39,13 @@ export const Nav = () => {
     }));
 
   return (
-    <motion.nav
+    <nav
       data-no-sketch="true"
-      className="w-full no-print grid-12 py-s20"
-      initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: prefersReducedMotion ? 0 : 0.4, ease: EASE }}
+      /* enter-fade, never enter-up: an animated transform on this element
+         — even one that ends at `none` — makes it the containing block for
+         the mobile menu's position:fixed overlay, which then clips to the
+         header's height instead of covering the viewport. */
+      className="w-full no-print grid-12 py-s20 enter-fade"
     >
       {/* One row, baseline-aligned, as the reference sets it: the wordmark
           at body size in the display face, the destinations at nav size in
@@ -106,7 +104,7 @@ export const Nav = () => {
           <MobileMenu links={navLinks} />
         </div>
       </div>
-    </motion.nav>
+    </nav>
   );
 };
 
@@ -114,7 +112,6 @@ export const Nav = () => {
 function MobileMenu({ links }) {
   const [open, setOpen] = useState(false);
   const { t } = useTranslation();
-  const prefersReducedMotion = useReducedMotion();
   const triggerRef = useRef(null);
   const panelRef = useRef(null);
 
@@ -181,29 +178,23 @@ function MobileMenu({ links }) {
         {open ? <HandClose className="w-[22px] h-[22px]" /> : <HandMenu className="w-[22px] h-[22px]" />}
       </button>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
+      {open && (
+          <div
             ref={panelRef}
-            initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
             /* data-corner-cta: this overlay's z-[60] only counts INSIDE the
                header's z-50 stacking context — the ASK AI pill sits at the
                shell level at z-[80] and would float over the open menu.
                Declaring the overlay a corner occupant parks the pill (and
                the prototype badge) instead; see useCornerOccupied. */
             data-corner-cta=""
-            className="fixed inset-0 z-[60] bg-bg flex flex-col justify-center px-s32"
+            className="fixed inset-0 z-[60] bg-bg flex flex-col justify-center px-s32 enter-fade"
           >
             <ul className="relative flex flex-col gap-s8">
               {links.map((link, i) => (
-                <motion.li
+                <li
                   key={link.path}
-                  initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 14 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.06 * i, duration: 0.35, ease: EASE }}
+                  className="enter-up"
+                  style={{ "--enter-delay": `${0.06 * i}s`, "--enter-dur": "0.35s" }}
                 >
                   <NavLink
                     to={link.path}
@@ -221,12 +212,11 @@ function MobileMenu({ links }) {
                         : link.name
                     )}
                   </NavLink>
-                </motion.li>
+                </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
     </div>
   );
 }

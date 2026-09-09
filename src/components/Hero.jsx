@@ -8,70 +8,34 @@
 // greeting; the name reaches assistive tech through the sr-only span. Under
 // it, the positioning sentence and a mono credential line answer "why
 // Sanaz" before the three actions: work, CV, contact.
-// The handwritten line under the buttons stays an aside: muted and
-// unhighlighted, rather than a second headline competing with the title.
+//
+// Every entrance here is a CSS keyframe (theme.css, "Reveals"): the hero is
+// the first thing painted on the site's most-visited route, and it no
+// longer waits on the motion library to animate in. The reduced-motion
+// block in theme.css collapses every duration to nothing.
 
 import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "../context/LanguageContext";
-import { motion, useReducedMotion } from "framer-motion";
 import { HandArrow, HandBubbleTail, HandRoleArrow } from "./HandArrow";
 import { InkCtaButton } from "./Button";
-import { EASE } from "../utils/motion";
-import { useIsMobile } from "../hooks/useIsMobile";
-
-const ENTRANCE_DURATION = 0.4;
 
 export function Hero({ data }) {
-  const reduce = useReducedMotion();
-  const isMobile = useIsMobile();
   const { t } = useTranslation();
-
-  // The bubble arrives like a spoken line: it pops from the tail's corner
-  // with a little overshoot, then breathes on the spot. The idle loop is
-  // deliberately tiny (2px, 5s) and OFF on phones — a continuous ornament
-  // loop there reads as the page shaking, which is what calmed the FAB.
-  const bubbleHover = reduce
-    ? undefined
-    : { scale: 1.045, rotate: -1.6, transition: { type: "spring", stiffness: 340, damping: 14 } };
-
-  const bubbleMotion = reduce
-    ? { initial: { opacity: 1 }, animate: { opacity: 1 } }
-    : {
-        initial: { opacity: 0, scale: 0.86, rotate: -2.5 },
-        animate: {
-          opacity: 1,
-          scale: 1,
-          rotate: 0,
-          y: isMobile ? 0 : [0, -2.5, 0, 2, 0],
-        },
-        transition: {
-          opacity: { duration: ENTRANCE_DURATION, delay: 0.34, ease: EASE },
-          scale: { type: "spring", stiffness: 320, damping: 12, delay: 0.34 },
-          rotate: { type: "spring", stiffness: 300, damping: 11, delay: 0.34 },
-          y: isMobile
-            ? { duration: 0 }
-            : { duration: 6, delay: 1.1, repeat: Infinity, ease: "easeInOut" },
-        },
-      };
-
-  const fadeUp = (delay = 0) => ({
-    initial: reduce ? { opacity: 1 } : { opacity: 0, y: 16 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: reduce ? 0 : ENTRANCE_DURATION, delay, ease: EASE },
-  });
 
   return (
     <div className="grid-12 items-end">
       <div className="md:col-span-7 flex flex-col gap-s24">
         <h1 className="text-hero font-display font-extrabold text-text-display">
-          <motion.span
-            {...fadeUp(0.06)}
-            className="block text-aside font-hand font-normal text-text-meta"
+          <span
+            className="block text-aside font-hand font-normal text-text-meta enter-up"
+            style={{ "--enter-delay": "0.06s" }}
           >
             {t("hero.welcome")}
-          </motion.span>
-          <motion.span {...fadeUp(0.12)} className="block">{t("hero.portfolio")}</motion.span>
+          </span>
+          <span className="block enter-up" style={{ "--enter-delay": "0.12s" }}>
+            {t("hero.portfolio")}
+          </span>
           <span className="sr-only"> — {data.name}, {data.role || "UX Engineer"}</span>
         </h1>
 
@@ -80,14 +44,13 @@ export function Hero({ data }) {
             then the credential and the three capabilities that back it —
             statement step for the sentence, mono meta for the evidence. */}
         {data.positioning && (
-          <motion.div {...fadeUp(0.2)} className="flex flex-col gap-s12">
+          <div className="enter-up flex flex-col gap-s12" style={{ "--enter-delay": "0.2s" }}>
             <p className="text-statement text-text">{data.positioning}</p>
             <p className="text-meta font-mono text-text-meta">{t("hero.credentials")}</p>
-          </motion.div>
+          </div>
         )}
 
-
-        <motion.div {...fadeUp(0.32)} className="flex flex-wrap items-center gap-s28 mt-s8">
+        <div className="enter-up flex flex-wrap items-center gap-s28 mt-s8" style={{ "--enter-delay": "0.32s" }}>
           <InkCtaButton to="/projects">
             {t("hero.ctaWork")} <HandArrow />
           </InkCtaButton>
@@ -117,17 +80,16 @@ export function Hero({ data }) {
                          transition-colors duration-200 group-hover/contact:bg-primary-600"
             />
           </Link>
-        </motion.div>
+        </div>
 
       </div>
 
       {/* Portrait — 4:5, in colour, bottom edge on the CTA baseline. The
           inner wrapper clips the hover scale to the photo well, so the
           image never rides over the mat or the drawn frame line. */}
-      <motion.div
-        {...fadeUp(0.18)}
-        className="group/photo relative md:col-start-9 md:col-span-4 mt-s48 md:mt-0"
-        style={{ marginBottom: "var(--hero-baseline-inset)" }}
+      <div
+        className="enter-up group/photo relative md:col-start-9 md:col-span-4 mt-s48 md:mt-0"
+        style={{ "--enter-delay": "0.18s", marginBottom: "var(--hero-baseline-inset)" }}
       >
         {/* The photo and its role label share a relative box of their own:
             the label anchors to the PHOTO's bottom edge, not the column's,
@@ -158,8 +120,6 @@ export function Hero({ data }) {
         </span>
         </div>
 
-
-
         {/* The aside, in a hand-drawn speech bubble the portrait is saying.
             Below lg it simply sits under the photo; from lg up it lifts out
             of flow and parks off the photo's top-left corner, with the tail
@@ -167,16 +127,21 @@ export function Hero({ data }) {
             oval, so the box has to stay near its 2.1:1 aspect or the line
             thickens on one axis — hence the fixed measure and the centred
             two-line wrap rather than one long line. Absolute at lg, so it
-            never moves the portrait's baseline or the CTA row. */}
-        <motion.p
-          {...bubbleMotion}
-          whileHover={bubbleHover}
-          style={{ transformOrigin: "85% 60%" }}
-          className="relative mt-s56 mx-auto w-[18ch] rule-bubble
+            never moves the portrait's baseline or the CTA row.
+
+            It arrives like a spoken line — the enter-pop keyframe overshoots
+            from the tail's corner — then breathes on the spot via
+            .bubble-idle, which theme.css enables from md up only: a
+            continuous ornament loop on a phone reads as the page shaking. */}
+        <p
+          className="enter-pop bubble-idle relative mt-s56 mx-auto w-[18ch] rule-bubble
                      px-s24 py-s16 text-center text-aside font-hand text-text-meta
+                     transition-transform duration-[250ms] ease-smooth
+                     hover:scale-[1.045] hover:-rotate-[1.6deg]
                      hover:[--rule-line-color:var(--blush)]
                      group-hover/photo:[--rule-line-color:var(--blush)]
                      lg:absolute lg:mt-0 lg:top-s24 lg:right-[calc(100%+72px)]"
+          style={{ transformOrigin: "85% 60%", "--enter-delay": "0.34s" }}
         >
           {data.tagline || "I speak both ‘user’ & ‘developer’."}
           <HandBubbleTail
@@ -187,8 +152,8 @@ export function Hero({ data }) {
                        -translate-y-1/2 -ml-s16 z-10 pointer-events-none
                        [color:var(--rule-line-color)]"
           />
-        </motion.p>
-      </motion.div>
+        </p>
+      </div>
 
     </div>
   );

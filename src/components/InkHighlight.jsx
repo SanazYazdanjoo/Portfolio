@@ -9,8 +9,7 @@
 // A zero-JS CSS version is also available: class="ink-highlight" in theme.css.
 
 import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
-import { EASE } from "../utils/motion";
+import { useInViewReveal, useMountReveal, revealClass } from "../hooks/useReveal";
 
 export function InkHighlight({
   children,
@@ -21,28 +20,24 @@ export function InkHighlight({
   duration = 0.5,
   triggerOnLoad = false,
 }) {
-  const prefersReducedMotion = useReducedMotion();
   const color = tone === "rose" ? "var(--blush)" : "var(--highlight)";
-  const shouldAnimate = animate && !prefersReducedMotion;
 
   // triggerOnLoad: fire once on mount (e.g. above-the-fold hero) instead of
   // waiting for the viewport intersection — same visual sweep, different cue.
-  const revealProps = triggerOnLoad
-    ? { animate: { scaleX: 1 } }
-    : { whileInView: { scaleX: 1 }, viewport: { once: true, margin: "-60px" } };
+  const [ref, inView] = useInViewReveal({ amount: 0, margin: "-60px" });
+  const mounted = useMountReveal();
+  const shown = !animate || (triggerOnLoad ? mounted : inView);
 
   return (
     <span className={`relative inline whitespace-normal ${className}`}>
       {/* The swipe — sits behind the text, slightly rotated, hand-drawn edges */}
-      <motion.svg
+      <svg
+        ref={ref}
         aria-hidden="true"
         viewBox="0 0 200 24"
         preserveAspectRatio="none"
-        className="absolute left-[-0.15em] right-[-0.15em] bottom-[-0.06em] h-[0.72em] w-[calc(100%+0.3em)] -z-10 -rotate-[0.6deg]"
-        initial={shouldAnimate ? { scaleX: 0 } : { scaleX: 1 }}
-        {...revealProps}
-        transition={{ duration: shouldAnimate ? duration : 0, ease: EASE, delay }}
-        style={{ transformOrigin: "left center" }}
+        className={`${revealClass(shown, "reveal-swipe")} absolute left-[-0.15em] right-[-0.15em] bottom-[-0.06em] h-[0.72em] w-[calc(100%+0.3em)] -z-10 -rotate-[0.6deg]`}
+        style={{ "--reveal-dur": animate ? `${duration}s` : "0s", "--reveal-delay": `${delay}s` }}
       >
         {/* Wobbly quad path = marker stroke, not a rectangle */}
         <path
@@ -50,7 +45,7 @@ export function InkHighlight({
           fill={color}
           opacity="0.9"
         />
-      </motion.svg>
+      </svg>
       <span className="relative z-10">{children}</span>
     </span>
   );

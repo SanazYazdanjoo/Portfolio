@@ -16,16 +16,15 @@
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { motion, useReducedMotion } from "framer-motion";
+import { useInViewReveal, revealClass } from "../hooks/useReveal";
 import { useTranslation } from "../context/LanguageContext";
 import { SkillTagRow } from "./SkillTagRow";
 import { HandArrow } from "./HandArrow";
-import { EASE } from "../utils/motion";
 
 export function StackedProjectCard({ project, index }) {
   const [imgError, setImgError] = useState(false);
-  const reduce = useReducedMotion();
   const { t } = useTranslation();
+  const [ref, inView] = useInViewReveal({ amount: 0.05 });
 
   if (!project || project.status === "coming-soon" || !project.id) return null;
 
@@ -35,16 +34,10 @@ export function StackedProjectCard({ project, index }) {
   const meta = [project.year, project.context, project.role].filter(Boolean);
 
   return (
-    <motion.article
-      initial={reduce ? { opacity: 1 } : { opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.05 }}
-      transition={{
-        delay: reduce ? 0 : Math.min(index, 2) * 0.05,
-        duration: reduce ? 0 : 0.35,
-        ease: EASE,
-      }}
-      className="grid-12 relative group py-s48 border-t rule-t"
+    <article
+      ref={ref}
+      style={{ "--reveal-delay": `${Math.min(index, 2) * 0.05}s` }}
+      className={`${revealClass(inView)} grid-12 relative group py-s48 border-t rule-t`}
     >
       {/* A card with no asset renders no figure column and no plate. Its text
           takes all twelve columns rather than leaving cols 1-5 standing
@@ -120,6 +113,6 @@ export function StackedProjectCard({ project, index }) {
           <HandArrow />
         </span>
       </div>
-    </motion.article>
+    </article>
   );
 }
