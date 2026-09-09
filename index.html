@@ -26,6 +26,11 @@
          preloaded — it's allowed to arrive late or not at all. -->
     <link rel="preload" as="font" type="font/woff2" href="/fonts/bricolage-grotesque-latin-variable.woff2" crossorigin />
     <link rel="preload" as="font" type="font/woff2" href="/fonts/dm-sans-latin-variable.woff2" crossorigin />
+    <!-- The hero portrait is the homepage's LCP element, and as an <img>
+         inside the React tree the browser only discovers it after the app
+         bundle runs (Lighthouse: "LCP request discovery"). Preloading it
+         lets the fetch start with the HTML. -->
+    <link rel="preload" as="image" href="/assets/me.jpg" fetchpriority="high" />
     <!-- ── Identity ── -->
     <title>Sanaz Yazdanjoo — UX Engineer</title>
     <meta

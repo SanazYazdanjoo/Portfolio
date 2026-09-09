@@ -100,6 +100,8 @@ export function Hero({ data }) {
             <img
               src={data.aboutImage}
               alt={data.name}
+              fetchPriority="high"
+              decoding="async"
               className="w-full h-full object-cover object-top
                          transition-transform duration-[250ms] ease-smooth group-hover:scale-[1.04]"
             />

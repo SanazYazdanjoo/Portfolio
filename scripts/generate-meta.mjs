@@ -78,6 +78,12 @@ function render(template, { title, description, url, image, graph }) {
   );
   set(/(<meta name="twitter:image" content=")[^"]*(")/, `$1${escapeHtml(image)}$2`);
 
+  // The portrait preload in index.html is for the homepage's LCP only;
+  // every other route would fetch 65 KB it never paints.
+  if (!/^https?:\/\/[^/]+\/?$/.test(url)) {
+    html = html.replace(/\s*<!--[^>]*LCP element[\s\S]*?-->\s*<link rel="preload" as="image"[^>]*>/, "");
+  }
+
   // A static canonical per route: the app sets one at runtime, but a crawler
   // that never runs it must still see which URL is the original. Strip any
   // earlier one first so a rerun against the same dist stays idempotent.
