@@ -52,7 +52,7 @@ export function Hero({ data }) {
 
         {careerPath.length > 0 && (
           <div
-            className="enter-up flex flex-wrap items-center gap-x-s8 gap-y-s4 text-meta font-mono text-text-meta"
+            className="enter-up flex flex-wrap items-center gap-x-s8 gap-y-s6 text-meta font-mono text-text-meta"
             style={{ "--enter-delay": "0.27s" }}
             aria-label={`${narrative.careerPathLabel || "My path"}: ${careerPath.map((step) => step.label).join(", ")}`}
           >
