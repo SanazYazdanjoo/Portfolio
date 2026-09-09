@@ -9,10 +9,12 @@ import ProjectTemplate from "../projects/ProjectTemplate";
 import { fullProjects as projects } from "./fullProjects";
 import { projectData } from "../projects/gaze-assisted-input/gaze-assisted-input.data";
 
+const aboutHeading = projectData.sectionTitles?.about?.heading?.en ?? "About the Project";
+
 describe("About section", () => {
-  it("renders the About heading and the project's about copy", () => {
+  it("renders the project's About heading and about copy", () => {
     renderWithProviders(<ProjectTemplate meta={projectData} />);
-    expect(screen.getByText("About the Project")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: aboutHeading, level: 2 })).toBeInTheDocument();
     expect(screen.getByText(projectData.about.en)).toBeInTheDocument();
   });
 
