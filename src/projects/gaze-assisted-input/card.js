@@ -35,8 +35,8 @@ export default {
   },
   cardTags: ["Experimental Design", "Mixed-Methods Research", "TypeScript", "Eye-Tracking"],
   cardOutcome: {
-    en: "Ninja Cursors beat the mouse at intermediate cross-screen distances; predictability and trust shaped preference.",
-    de: "Ninja Cursors übertrafen die Maus bei mittleren bildschirmübergreifenden Distanzen; Vorhersagbarkeit und Vertrauen prägten die Präferenz.",
+    en: "In an N=30 within-subjects study, Ninja beat the mouse at intermediate cross-screen distances; 60% preferred the gaze hybrid.",
+    de: "Im N=30-Within-Subjects-Vergleich übertraf Ninja die Maus bei mittleren Cross-Screen-Distanzen; 60 % bevorzugten den Blick-Hybrid.",
   },
   // Compact proof points for the homepage card — scale, rigour, result.
   // Optional: cards without cardStats render exactly as before.
