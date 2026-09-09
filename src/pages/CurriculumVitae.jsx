@@ -7,10 +7,6 @@ import { useTranslation } from "../context/LanguageContext";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { HandArrow } from "../components/HandArrow";
 
-// The skill groups are object keys in data.json, so they can't carry an
-// { en, de } pair like every other field. Same shape as credentials.type.*:
-// a known category resolves through the translation table, an unknown one
-// (added later via /admin) falls back to the raw English key.
 const SKILL_CATEGORY_KEYS = {
   "Frontend Engineering & Design": "cv.skillCategory.frontendEngineering",
   "Backend & Data": "cv.skillCategory.backendData",
@@ -93,7 +89,7 @@ export default function CV() {
         ([entry]) => {
           if (entry.isIntersecting) setActiveId(section.id);
         },
-        { rootMargin: "-12% 0px -60% 0px", threshold: 0 }
+        { rootMargin: "-14% 0px -64% 0px", threshold: 0 }
       );
 
       observer.observe(el);
@@ -104,203 +100,201 @@ export default function CV() {
   }, [cvSections]);
 
   return (
-    <div className="rule-light min-h-screen w-full bg-white text-black print:min-h-0">
-      <div className="mx-auto w-full max-w-[1240px] px-6 md:px-8 lg:px-12 print:max-w-none print:px-0">
-        <div className="md:grid md:grid-cols-[170px_minmax(0,1fr)] lg:grid-cols-[190px_minmax(0,1fr)] md:gap-8 lg:gap-12 print:block">
+    <div className="min-h-screen w-full bg-white text-black print:min-h-0">
+      <div className="mx-auto w-full max-w-[1280px] px-6 md:px-8 lg:px-12 print:max-w-none print:px-0">
+        <div className="md:grid md:grid-cols-[230px_minmax(0,1fr)] md:gap-10 lg:grid-cols-[250px_minmax(0,1fr)] lg:gap-14 print:block">
           <aside className="hidden md:block no-print">
-            <div className="sticky top-28 pt-16">
-              <p className="mb-5 text-xs font-mono uppercase tracking-caps text-gray-400">
-                CV
+            <div className="sticky top-24 py-14 lg:py-16">
+              <p className="font-mono text-2xs uppercase tracking-[0.22em] text-gray-400">
+                Curriculum Vitae
               </p>
+
+              <div className="mt-8">
+                {aboutImage && (
+                  <img
+                    src={aboutImage}
+                    alt={name}
+                    className="h-20 w-20 rounded-full object-cover grayscale rule-disc lg:h-24 lg:w-24"
+                  />
+                )}
+
+                <h1 className="mt-5 font-display text-2xl font-black leading-tight text-black">
+                  {name}
+                </h1>
+                <p className="mt-1.5 text-sm font-bold text-primary">
+                  {role}
+                </p>
+
+                {contact && (
+                  <div className="mt-6 space-y-2 text-xs leading-5 text-gray-500">
+                    {contact.email && (
+                      <a
+                        href={`mailto:${contact.email}`}
+                        className="block break-all transition-colors hover:text-primary"
+                      >
+                        {contact.email}
+                      </a>
+                    )}
+                    {contact.phone && (
+                      <a
+                        href={`tel:${String(contact.phone).replace(/\s+/g, "")}`}
+                        className="block transition-colors hover:text-primary"
+                      >
+                        {contact.phone}
+                      </a>
+                    )}
+                    {contact.location && <p>{contact.location}</p>}
+                  </div>
+                )}
+              </div>
+
+              <div className="my-8 h-px bg-gray-200" />
               <CVSidebarNav sections={cvSections} activeId={activeId} />
             </div>
           </aside>
 
           <main
             id="curriculum-vitae"
-            className="min-w-0 py-12 md:py-16 lg:py-20 print:p-0"
+            className="min-w-0 py-10 md:py-14 lg:py-16 print:p-0"
           >
-            <div className="max-w-[940px]">
-              <header className="cv-header border-b rule-edge-b pb-9 md:pb-10 print:pb-5">
-                <div className="flex items-center gap-5 md:gap-6">
-                  {aboutImage && (
-                    <img
-                      src={aboutImage}
-                      alt={name}
-                      className="h-16 w-16 shrink-0 rounded-full object-cover grayscale rule-disc md:h-20 md:w-20 print:h-14 print:w-14"
-                    />
-                  )}
-
-                  <div className="min-w-0 flex-1">
-                    <h1 className="font-display text-2xl font-black leading-tight text-black md:text-3xl print:text-2xl">
-                      {name}
-                    </h1>
-                    <p className="mt-1 text-base font-bold text-primary md:text-lg print:text-base">
-                      {role}
+            <header className="cv-header no-print md:hidden border-b border-gray-200 pb-8">
+              <div className="flex items-center gap-5">
+                {aboutImage && (
+                  <img
+                    src={aboutImage}
+                    alt={name}
+                    className="h-16 w-16 shrink-0 rounded-full object-cover grayscale rule-disc"
+                  />
+                )}
+                <div className="min-w-0">
+                  <h1 className="font-display text-2xl font-black leading-tight text-black">
+                    {name}
+                  </h1>
+                  <p className="mt-1 text-sm font-bold text-primary">{role}</p>
+                  {contact && (
+                    <p className="mt-2 text-xs leading-5 text-gray-500">
+                      {[contact.email, contact.phone, contact.location].filter(Boolean).join(" · ")}
                     </p>
-
-                    {contact && (
-                      <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-500 md:text-sm print:mt-2 print:text-xs">
-                        {contact.email && (
-                          <a
-                            href={`mailto:${contact.email}`}
-                            className="no-print-link transition-colors hover:text-primary"
-                          >
-                            {contact.email}
-                          </a>
-                        )}
-                        {contact.email && contact.phone && <span aria-hidden="true">·</span>}
-                        {contact.phone && (
-                          <a
-                            href={`tel:${String(contact.phone).replace(/\s+/g, "")}`}
-                            className="no-print-link transition-colors hover:text-primary"
-                          >
-                            {contact.phone}
-                          </a>
-                        )}
-                        {(contact.email || contact.phone) && contact.location && (
-                          <span aria-hidden="true">·</span>
-                        )}
-                        {contact.location && <span>{contact.location}</span>}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </header>
-
-              <div
-                className="md:hidden sticky top-0 z-40 -mx-6 border-b rule-edge-b bg-white px-6 py-3 no-print"
-                style={{ transform: "translateZ(0)" }}
-              >
-                <div className="flex gap-5 overflow-x-auto">
-                  {cvSections.map((section) => (
-                    <button
-                      key={section.id}
-                      type="button"
-                      aria-current={activeId === section.id ? "true" : undefined}
-                      onClick={() =>
-                        document
-                          .getElementById(section.id)
-                          ?.scrollIntoView({ behavior: "smooth", block: "start" })
-                      }
-                      className={`shrink-0 border-b-2 py-1 text-xs font-bold uppercase tracking-caps transition-colors ${
-                        activeId === section.id
-                          ? "border-primary text-primary"
-                          : "border-transparent text-gray-400 hover:text-black"
-                      }`}
-                    >
-                      {section.label}
-                    </button>
-                  ))}
+                  )}
                 </div>
               </div>
+            </header>
 
-              <div className="space-y-14 pt-10 md:pt-12 print:space-y-8 print:pt-6">
-                <section id="about" className="scroll-mt-28">
-                  <SectionHeading>{t("nav.about")}</SectionHeading>
-                  {bio && (
-                    <p className="max-w-[76ch] text-base leading-7 text-gray-700 md:text-lg md:leading-8 print:max-w-none print:text-sm print:leading-relaxed">
-                      {bio}
-                    </p>
-                  )}
-                </section>
+            <header className="cv-header hidden print:flex print:items-center print:gap-5 print:border-b print:border-gray-300 print:pb-5">
+              {aboutImage && (
+                <img
+                  src={aboutImage}
+                  alt={name}
+                  className="h-14 w-14 rounded-full object-cover grayscale rule-disc"
+                />
+              )}
+              <div>
+                <h1 className="font-display text-2xl font-black leading-tight text-black">
+                  {name}
+                </h1>
+                <p className="mt-1 text-sm font-bold text-primary">{role}</p>
+                {contact && (
+                  <p className="mt-1 text-xs text-gray-500">
+                    {[contact.email, contact.phone, contact.location].filter(Boolean).join(" · ")}
+                  </p>
+                )}
+              </div>
+            </header>
 
-                <section id="experience" className="scroll-mt-28">
-                  <SectionHeading>{t("cv.experience")}</SectionHeading>
-                  <div className="divide-y divide-gray-200">
-                    {(experience || []).map((job, i) => (
+            <div
+              className="md:hidden sticky top-0 z-40 -mx-6 border-b border-gray-200 bg-white px-6 py-3 no-print"
+              style={{ transform: "translateZ(0)" }}
+            >
+              <div className="flex gap-5 overflow-x-auto">
+                {cvSections.map((section) => (
+                  <button
+                    key={section.id}
+                    type="button"
+                    aria-current={activeId === section.id ? "true" : undefined}
+                    onClick={() =>
+                      document
+                        .getElementById(section.id)
+                        ?.scrollIntoView({ behavior: "smooth", block: "start" })
+                    }
+                    className={`shrink-0 border-b-2 py-1.5 text-xs font-bold uppercase tracking-caps transition-colors ${
+                      activeId === section.id
+                        ? "border-primary text-primary"
+                        : "border-transparent text-gray-400 hover:text-black"
+                    }`}
+                  >
+                    {section.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="max-w-[900px] pt-9 md:pt-0 print:max-w-none print:pt-6">
+              <section id="about" className="scroll-mt-28">
+                <SectionHeading>{t("nav.about")}</SectionHeading>
+                {bio && (
+                  <p className="max-w-[72ch] font-display text-[1.15rem] leading-8 text-gray-700 md:text-[1.28rem] md:leading-9 print:max-w-none print:text-sm print:leading-relaxed">
+                    {bio}
+                  </p>
+                )}
+              </section>
+
+              <section id="experience" className="mt-16 scroll-mt-28 print:mt-8">
+                <SectionHeading>{t("cv.experience")}</SectionHeading>
+                <div className="divide-y divide-gray-200 border-b border-gray-200">
+                  {(experience || []).map((job, i) => (
+                    <ExperienceEntry key={i} job={job} t={t} />
+                  ))}
+                </div>
+              </section>
+
+              {highlightRows.length > 0 && (
+                <section id="highlights" className="mt-16 scroll-mt-28 print:mt-8">
+                  <SectionHeading>{t("cv.portfolioHighlights")}</SectionHeading>
+                  <div className="grid gap-5 md:grid-cols-3 print:grid-cols-3 print:gap-3">
+                    {highlightRows.map(({ h, metric, href }) => (
                       <article
-                        key={i}
-                        className="grid gap-3 py-7 first:pt-0 lg:grid-cols-[8.5rem_minmax(0,1fr)] lg:gap-8 print:grid-cols-[7rem_minmax(0,1fr)] print:gap-5 print:py-4"
+                        key={h.id}
+                        className="flex min-h-full flex-col border-t-2 border-primary pt-4"
                       >
-                        <div className="pt-1">
-                          <p className="font-mono text-xs font-semibold uppercase tracking-caps text-gray-400 print:text-2xs">
-                            {job.date}
+                        <p className="font-mono text-2xs font-semibold uppercase tracking-[0.16em] text-primary">
+                          {metric.value} {metric.label}
+                        </p>
+                        <h3 className="mt-2 font-display text-base font-black leading-snug text-black print:text-sm">
+                          {h.title}
+                        </h3>
+                        {h.cvContext && (
+                          <p className="mt-2 text-xs leading-5 text-gray-500 print:text-2xs">
+                            {h.cvContext}
                           </p>
-                        </div>
-
-                        <div className="min-w-0">
-                          <h3 className="font-display text-lg font-black leading-snug text-black md:text-xl print:text-base">
-                            {job.company}
-                          </h3>
-                          <p className="mt-1 text-sm font-bold text-primary md:text-base print:text-sm">
-                            {job.role}
-                          </p>
-
-                          {job.impactMetrics && job.impactMetrics.length > 0 && (
-                            <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 print:mt-2 print:gap-x-3">
-                              {job.impactMetrics.map((metric, metricIndex) => (
-                                <span
-                                  key={metricIndex}
-                                  className="text-xs font-semibold leading-5 text-gray-600 print:text-2xs"
-                                >
-                                  <span aria-hidden="true" className="mr-1.5 text-primary">—</span>
-                                  {metric}
-                                </span>
-                              ))}
-                            </div>
-                          )}
-
-                          <ul className="mt-4 ml-4 list-disc space-y-2 text-sm leading-6 text-gray-700 marker:text-gray-400 print:mt-3 print:space-y-1 print:text-xs print:leading-relaxed">
-                            {(job.tasks || []).map((task, taskIndex) => (
-                              <li key={taskIndex} className="pl-1">
-                                {task}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
+                        )}
+                        <Link
+                          to={href}
+                          className="no-print mt-auto pt-4 text-xs font-bold text-primary underline decoration-primary/40 underline-offset-4"
+                        >
+                          {t("projects.viewProject")}
+                        </Link>
+                        <span className="hidden pt-2 text-2xs text-gray-500 print:block">
+                          {href}
+                        </span>
                       </article>
                     ))}
                   </div>
                 </section>
+              )}
 
-                {highlightRows.length > 0 && (
-                  <section id="highlights" className="scroll-mt-28">
-                    <SectionHeading>{t("cv.portfolioHighlights")}</SectionHeading>
-                    <div className="grid gap-4 md:grid-cols-3 print:grid-cols-3 print:gap-3">
-                      {highlightRows.map(({ h, metric, href }) => (
-                        <article
-                          key={h.id}
-                          className="flex min-h-full flex-col border-t-2 border-primary pt-4 print:pt-3"
-                        >
-                          <p className="font-mono text-xs font-semibold uppercase tracking-caps text-primary print:text-2xs">
-                            {metric.value} {metric.label}
-                          </p>
-                          <h3 className="mt-2 font-display text-base font-black leading-snug text-black print:text-sm">
-                            {h.title}
-                          </h3>
-                          {h.cvContext && (
-                            <p className="mt-2 text-xs leading-5 text-gray-500 print:text-2xs">
-                              {h.cvContext}
-                            </p>
-                          )}
-                          <Link
-                            to={href}
-                            className="no-print mt-auto pt-4 text-xs font-bold text-primary underline decoration-primary/40 underline-offset-4"
-                          >
-                            {t("projects.viewProject")}
-                          </Link>
-                          <span className="hidden pt-2 text-2xs text-gray-500 print:block">
-                            {href}
-                          </span>
-                        </article>
-                      ))}
-                    </div>
-                  </section>
-                )}
-
+              <div className="mt-16 grid gap-x-12 gap-y-16 md:grid-cols-2 print:mt-8 print:grid-cols-2 print:gap-x-6 print:gap-y-8">
                 <section id="education" className="scroll-mt-28">
-                  <SectionHeading>{t("cv.education")}</SectionHeading>
-                  <div className="grid gap-6 md:grid-cols-2 print:grid-cols-2 print:gap-4">
+                  <SectionHeading compact>{t("cv.education")}</SectionHeading>
+                  <div className="space-y-5">
                     {(education || []).map((edu, i) => (
                       <article key={i} className="border-t border-gray-200 pt-4">
-                        <p className="font-mono text-xs font-semibold uppercase tracking-caps text-gray-400 print:text-2xs">
+                        <p className="font-mono text-2xs font-semibold uppercase tracking-[0.14em] text-gray-400">
                           {edu.date}
                         </p>
-                        <h3 className="mt-2 font-display text-base font-black leading-snug text-black print:text-sm">
+                        <h3 className="mt-2 font-display text-base font-black leading-snug text-black">
                           {edu.degree}
                         </h3>
-                        <p className="mt-1 text-sm font-bold text-primary print:text-xs">
+                        <p className="mt-1 text-sm font-bold text-primary">
                           {edu.institution}
                         </p>
                         {edu.details && (
@@ -313,50 +307,13 @@ export default function CV() {
                   </div>
                 </section>
 
-                <section id="skills" className="scroll-mt-28">
-                  <SectionHeading>{t("cv.skills")}</SectionHeading>
-                  <div className="grid gap-x-10 gap-y-7 md:grid-cols-2 print:grid-cols-2 print:gap-x-6 print:gap-y-4">
-                    {Object.entries(skills || {}).map(([category, items]) => (
-                      <div key={category}>
-                        <h3 className="text-xs font-black uppercase tracking-caps text-primary print:text-2xs">
-                          {SKILL_CATEGORY_KEYS[category]
-                            ? t(SKILL_CATEGORY_KEYS[category])
-                            : category}
-                        </h3>
-                        <p className="mt-2 text-sm leading-6 text-gray-600 print:text-xs print:leading-relaxed">
-                          {items.join(" · ")}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-
-                <section id="certificates" className="scroll-mt-28">
-                  <SectionHeading>{t("cv.certificates")}</SectionHeading>
-                  <div className="grid gap-x-8 gap-y-4 md:grid-cols-2 print:grid-cols-2 print:gap-y-2">
-                    {cvCertifications.map((cert, i) => (
-                      <article key={i} className="border-t border-gray-200 pt-3 text-sm text-gray-600 print:text-xs">
-                        <span className="font-bold text-black">{cert.title}</span>
-                        {cert.provider && <span> · {cert.provider}</span>}
-                        {cert.year && <span className="text-gray-400"> · {cert.year}</span>}
-                      </article>
-                    ))}
-                  </div>
-                  <Link
-                    to="/credentials"
-                    className="no-print mt-5 inline-flex items-center gap-1 text-xs font-black uppercase tracking-caps text-primary"
-                  >
-                    {t("credentials.viewAll")} <HandArrow />
-                  </Link>
-                </section>
-
                 <section id="languages" className="scroll-mt-28">
-                  <SectionHeading>{t("cv.languages")}</SectionHeading>
-                  <div className="grid gap-x-8 gap-y-3 sm:grid-cols-2 print:grid-cols-2">
+                  <SectionHeading compact>{t("cv.languages")}</SectionHeading>
+                  <div className="space-y-3">
                     {(languages || []).map((language, i) => (
                       <div
                         key={i}
-                        className="flex items-baseline justify-between gap-4 border-t border-gray-200 pt-3 text-sm print:text-xs"
+                        className="flex items-baseline justify-between gap-4 border-t border-gray-200 pt-3 text-sm"
                       >
                         <span className="font-bold text-black">{language.language}</span>
                         <span className="text-gray-500">{language.level}</span>
@@ -364,33 +321,70 @@ export default function CV() {
                     ))}
                   </div>
                 </section>
-
-                {volunteerWork && volunteerWork.length > 0 && (
-                  <section id="volunteerWork" className="scroll-mt-28">
-                    <SectionHeading>{t("cv.volunteerWork")}</SectionHeading>
-                    <div className="grid gap-6 md:grid-cols-2 print:grid-cols-2 print:gap-4">
-                      {volunteerWork.map((item, i) => (
-                        <article key={i} className="border-t border-gray-200 pt-4">
-                          <p className="font-mono text-xs font-semibold uppercase tracking-caps text-gray-400 print:text-2xs">
-                            {item.date}
-                          </p>
-                          <h3 className="mt-2 font-display text-base font-black text-black print:text-sm">
-                            {item.role}
-                          </h3>
-                          <p className="mt-1 text-sm font-bold text-primary print:text-xs">
-                            {item.organization}
-                          </p>
-                          {item.description && (
-                            <p className="mt-2 text-sm leading-6 text-gray-600 print:text-xs print:leading-relaxed">
-                              {item.description}
-                            </p>
-                          )}
-                        </article>
-                      ))}
-                    </div>
-                  </section>
-                )}
               </div>
+
+              <section id="skills" className="mt-16 scroll-mt-28 print:mt-8">
+                <SectionHeading>{t("cv.skills")}</SectionHeading>
+                <div className="grid gap-x-10 gap-y-7 md:grid-cols-2 print:grid-cols-2 print:gap-x-6 print:gap-y-4">
+                  {Object.entries(skills || {}).map(([category, items]) => (
+                    <div key={category} className="border-t border-gray-200 pt-4">
+                      <h3 className="text-xs font-black uppercase tracking-caps text-primary print:text-2xs">
+                        {SKILL_CATEGORY_KEYS[category]
+                          ? t(SKILL_CATEGORY_KEYS[category])
+                          : category}
+                      </h3>
+                      <p className="mt-2 text-sm leading-6 text-gray-600 print:text-xs print:leading-relaxed">
+                        {items.join(" · ")}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              <section id="certificates" className="mt-16 scroll-mt-28 print:mt-8">
+                <SectionHeading>{t("cv.certificates")}</SectionHeading>
+                <div className="grid gap-x-8 gap-y-4 md:grid-cols-2 print:grid-cols-2 print:gap-y-2">
+                  {cvCertifications.map((cert, i) => (
+                    <article key={i} className="border-t border-gray-200 pt-3 text-sm text-gray-600 print:text-xs">
+                      <span className="font-bold text-black">{cert.title}</span>
+                      {cert.provider && <span> · {cert.provider}</span>}
+                      {cert.year && <span className="text-gray-400"> · {cert.year}</span>}
+                    </article>
+                  ))}
+                </div>
+                <Link
+                  to="/credentials"
+                  className="no-print mt-5 inline-flex items-center gap-1 text-xs font-black uppercase tracking-caps text-primary"
+                >
+                  {t("credentials.viewAll")} <HandArrow />
+                </Link>
+              </section>
+
+              {volunteerWork && volunteerWork.length > 0 && (
+                <section id="volunteerWork" className="mt-16 scroll-mt-28 print:mt-8">
+                  <SectionHeading>{t("cv.volunteerWork")}</SectionHeading>
+                  <div className="grid gap-6 md:grid-cols-2 print:grid-cols-2 print:gap-4">
+                    {volunteerWork.map((item, i) => (
+                      <article key={i} className="border-t border-gray-200 pt-4">
+                        <p className="font-mono text-2xs font-semibold uppercase tracking-[0.14em] text-gray-400">
+                          {item.date}
+                        </p>
+                        <h3 className="mt-2 font-display text-base font-black text-black print:text-sm">
+                          {item.role}
+                        </h3>
+                        <p className="mt-1 text-sm font-bold text-primary print:text-xs">
+                          {item.organization}
+                        </p>
+                        {item.description && (
+                          <p className="mt-2 text-sm leading-6 text-gray-600 print:text-xs print:leading-relaxed">
+                            {item.description}
+                          </p>
+                        )}
+                      </article>
+                    ))}
+                  </div>
+                </section>
+              )}
             </div>
           </main>
         </div>
@@ -399,13 +393,78 @@ export default function CV() {
   );
 }
 
-function SectionHeading({ children }) {
+function ExperienceEntry({ job, t }) {
+  const tasks = job.tasks || [];
+  const [expanded, setExpanded] = useState(false);
+  const visibleTasks = expanded ? tasks : tasks.slice(0, 3);
+
   return (
-    <div className="mb-6 flex items-center gap-4 print:mb-4">
-      <h2 className="shrink-0 text-xs font-black uppercase tracking-[0.18em] text-primary print:text-2xs">
+    <article className="py-8 first:pt-0 print:py-4">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+        <div className="min-w-0">
+          <h3 className="font-display text-xl font-black leading-snug text-black md:text-[1.35rem] print:text-base">
+            {job.company}
+          </h3>
+          <p className="mt-1 text-sm font-bold text-primary md:text-base print:text-sm">
+            {job.role}
+          </p>
+        </div>
+        <p className="shrink-0 font-mono text-2xs font-semibold uppercase tracking-[0.14em] text-gray-400 sm:pt-1 print:text-2xs">
+          {job.date}
+        </p>
+      </div>
+
+      {job.impactMetrics && job.impactMetrics.length > 0 && (
+        <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1.5 print:mt-2 print:gap-x-3">
+          {job.impactMetrics.map((metric, metricIndex) => (
+            <span
+              key={metricIndex}
+              className="text-xs font-semibold leading-5 text-gray-600 print:text-2xs"
+            >
+              <span aria-hidden="true" className="mr-1.5 text-primary">—</span>
+              {metric}
+            </span>
+          ))}
+        </div>
+      )}
+
+      {tasks.length > 0 && (
+        <>
+          <ul className="no-print mt-5 ml-4 max-w-[74ch] list-disc space-y-2 text-sm leading-6 text-gray-700 marker:text-gray-400">
+            {visibleTasks.map((task, taskIndex) => (
+              <li key={taskIndex} className="pl-1">{task}</li>
+            ))}
+          </ul>
+
+          <ul className="hidden mt-3 ml-4 list-disc space-y-1 text-xs leading-relaxed text-gray-700 print:block">
+            {tasks.map((task, taskIndex) => (
+              <li key={taskIndex} className="pl-1">{task}</li>
+            ))}
+          </ul>
+
+          {tasks.length > 3 && (
+            <button
+              type="button"
+              onClick={() => setExpanded((value) => !value)}
+              className="no-print mt-4 text-xs font-bold uppercase tracking-caps text-primary transition-colors hover:text-black focus-ring"
+              aria-expanded={expanded}
+            >
+              {expanded ? t("common.readLess") : t("common.readMore")}
+            </button>
+          )}
+        </>
+      )}
+    </article>
+  );
+}
+
+function SectionHeading({ children, compact = false }) {
+  return (
+    <div className={`${compact ? "mb-5" : "mb-7"} flex items-end gap-4`}>
+      <h2 className="shrink-0 font-display text-sm font-black uppercase tracking-[0.15em] text-primary print:text-xs">
         {children}
       </h2>
-      <span aria-hidden="true" className="h-px flex-1 bg-gray-200" />
+      <span aria-hidden="true" className="mb-1 h-px flex-1 bg-gray-200" />
     </div>
   );
 }
@@ -413,8 +472,8 @@ function SectionHeading({ children }) {
 export function CVSidebarNav({ sections, activeId }) {
   return (
     <nav aria-label="CV sections">
-      <ul className="space-y-1">
-        {sections.map((section) => (
+      <ul className="space-y-1.5">
+        {sections.map((section, index) => (
           <li key={section.id}>
             <button
               type="button"
@@ -424,13 +483,16 @@ export function CVSidebarNav({ sections, activeId }) {
                   ?.scrollIntoView({ behavior: "smooth", block: "start" })
               }
               aria-current={activeId === section.id ? "true" : undefined}
-              className={`w-full border-l-2 py-2 pl-3 text-left text-xs font-bold uppercase tracking-caps transition-colors ${
-                activeId === section.id
-                  ? "border-primary text-primary"
-                  : "border-transparent text-gray-400 hover:border-gray-300 hover:text-black"
+              className={`group flex w-full items-baseline gap-3 py-1.5 text-left transition-colors ${
+                activeId === section.id ? "text-primary" : "text-gray-400 hover:text-black"
               }`}
             >
-              {section.label}
+              <span className="font-mono text-2xs tracking-[0.14em] text-gray-300 group-hover:text-gray-400">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <span className="text-xs font-bold uppercase tracking-caps">
+                {section.label}
+              </span>
             </button>
           </li>
         ))}
