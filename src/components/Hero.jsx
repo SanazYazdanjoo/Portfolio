@@ -96,6 +96,9 @@ export function Hero({ data }) {
           </div>
         </div>
 
+        {/* The old rule-bubble treatment was intentionally removed here: the
+            tagline now behaves as a quiet caption instead of a competing UI
+            object, while the portrait frame retains the hand-drawn signature. */}
         <figcaption
           className="enter-up mt-s16 text-center text-hand font-hand text-text-meta"
           style={{ "--enter-delay": "0.28s" }}
