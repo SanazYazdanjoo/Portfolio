@@ -45,8 +45,8 @@ export const professionalNarrative = {
     },
   },
   homeBio: {
-    en: "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction and a B.E. in Software Engineering. My path through frontend development and QA shaped how I approach UX: research tells me what matters, usability engineering turns that evidence into requirements and design decisions, and my engineering background lets me carry those decisions into working software.",
-    de: 'Ich bin UX Engineerin mit einem M.Sc. in Human-Computer Interaction und einem B.E. in Software Engineering. Mein Weg über Frontend-Entwicklung und QA prägt meine UX-Arbeit: Research zeigt mir, was wirklich relevant ist, Usability Engineering übersetzt diese Evidenz in Anforderungen und Designentscheidungen, und mein Engineering-Hintergrund hilft mir, diese Entscheidungen bis in funktionierende Software zu tragen.',
+    en: "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction and a B.E. in Software Engineering. My path through frontend development, QA and HCI research taught me to look at digital products from both sides: what people need and what teams can realistically build. Today I bring those perspectives together in research, usability engineering and implementation.",
+    de: 'Ich bin UX Engineerin mit einem M.Sc. in Human-Computer Interaction und einem B.E. in Software Engineering. Mein Weg über Frontend-Entwicklung, QA und HCI-Forschung hat mir gezeigt, digitale Produkte aus beiden Perspektiven zu betrachten: was Menschen brauchen und was Teams realistisch umsetzen können. Heute verbinde ich diese Perspektiven in Research, Usability Engineering und Umsetzung.',
   },
   aboutBio: {
     en: "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar) and a B.E. in Software Engineering. I started on the engineering side of digital products, moved through frontend development and QA/usability, and then into HCI research. Today those perspectives meet in my work: I can investigate a problem, evaluate what matters for users, translate evidence into requirements and design decisions, and understand what it takes to implement them well.",
