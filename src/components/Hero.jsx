@@ -1,7 +1,7 @@
 // The hero is intentionally restrained: identity, value proposition, proof
 // statement and actions. The longer career narrative already lives in About,
-// so it is not repeated here. All copy still comes from profile.js through the
-// localized profile.
+// so it is not repeated here. Human-facing content comes from data.json through
+// the localized profile adapter.
 
 import React from "react";
 import { Link } from "react-router-dom";
@@ -10,7 +10,7 @@ import { InkCtaButton } from "./Button";
 
 export function Hero({ data }) {
   const narrative = data.heroNarrative || {};
-  const workflow = narrative.workflow || data.positioning || "";
+  const workflow = narrative.workflow || "";
   const workflowSteps = workflow
     .split("\u2192")
     .map((step) => step.trim())
@@ -26,7 +26,7 @@ export function Hero({ data }) {
           >
             <span className="text-text-meta">{data.name}</span>
             <span aria-hidden="true" className="text-dim">/</span>
-            <span className="text-primary-600">{data.role || "UX Engineer"}</span>
+            <span className="text-primary-600">{data.role}</span>
           </div>
 
           <h1
@@ -61,14 +61,14 @@ export function Hero({ data }) {
           style={{ "--enter-delay": "0.3s" }}
         >
           <InkCtaButton to="/projects">
-            {narrative.ctas?.work || "View Case Studies"} <HandArrow />
+            {narrative.ctas?.work} <HandArrow />
           </InkCtaButton>
           <Link
             to="/cv"
             className="relative text-body font-medium text-text pb-s2
                        hover:text-primary-600 transition-colors duration-200 focus-ring group/cv"
           >
-            {narrative.ctas?.cv || "View CV"}
+            {narrative.ctas?.cv}
             <span
               aria-hidden="true"
               style={{ height: "var(--rule-w)" }}
@@ -103,7 +103,7 @@ export function Hero({ data }) {
           className="enter-up mt-s16 text-center text-hand font-hand text-text-meta"
           style={{ "--enter-delay": "0.28s" }}
         >
-          {data.tagline || "I speak both ‘user’ & ‘developer’."}
+          {data.tagline}
         </figcaption>
       </figure>
     </div>
