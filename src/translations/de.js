@@ -17,6 +17,8 @@ const de = {
   "hero.tagline": "Ich spreche sowohl ‚User‘ & ‚Entwickler‘.",
   "hero.ctaWork": "Meine Projekte",
   "hero.ctaCv": "Lebenslauf ansehen",
+  "hero.ctaContact": "Kontakt",
+  "hero.credentials": "M.Sc. Human-Computer Interaction · User Research · Prototyping · Frontend",
 
   // Projects
   "projects.heading": "Fallstudien",

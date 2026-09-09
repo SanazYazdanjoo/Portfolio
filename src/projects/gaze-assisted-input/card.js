@@ -11,7 +11,7 @@ import cardLargeTargetPanel from './media/card-large-target-panel.webp';
 export default {
   id: "gaze-assisted-input",
   status: "published",
-  order: 3,
+  order: 1, // flagship: leads Selected Work (Sept 2026 recruiter review)
   title: {
     en: "Gaze-Assisted Input in Dual-Display Environments",
     de: "Blickgestützte Eingabe in Dual-Display-Umgebungen",
@@ -38,6 +38,13 @@ export default {
     en: "Gaze wins over long cross-screen distances and loses over short ones; trust in the cursor decided preference.",
     de: "Blicksteuerung gewinnt über große bildschirmübergreifende Distanzen und verliert über kurze; entschieden hat das Vertrauen in den Cursor.",
   },
+  // Compact proof points for the homepage card — scale, rigour, result.
+  // Optional: cards without cardStats render exactly as before.
+  cardStats: [
+    { value: "N=30", label: { en: "controlled eye-tracking experiment", de: "kontrolliertes Eye-Tracking-Experiment" } },
+    { value: "20", label: { en: "formative interviews", de: "formative Interviews" } },
+    { value: "60%", label: { en: "preferred the gaze technique", de: "bevorzugten die Blick-Technik" } },
+  ],
   cardImage: cardLargeTargetPanel,
   thumbnail: thumbnailImg,
   thumbnailWebp,

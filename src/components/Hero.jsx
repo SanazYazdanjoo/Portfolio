@@ -5,8 +5,9 @@
 // theme.css.
 //
 // The headline is the word PORTFOLIO under a handwritten "Hi, welcome to my"
-// greeting — the name and the positioning sentence that used to stand here
-// are gone; the name still reaches assistive tech through the sr-only span.
+// greeting; the name reaches assistive tech through the sr-only span. Under
+// it, the positioning sentence and a mono credential line answer "why
+// Sanaz" before the three actions: work, CV, contact.
 // The handwritten line under the buttons stays an aside: muted and
 // unhighlighted, rather than a second headline competing with the title.
 
@@ -74,6 +75,17 @@ export function Hero({ data }) {
           <span className="sr-only"> — {data.name}, {data.role || "UX Engineer"}</span>
         </h1>
 
+        {/* The positioning statement and its proof line. A recruiter should
+            read "why Sanaz" within seconds: the bridge she works across,
+            then the credential and the three capabilities that back it —
+            statement step for the sentence, mono meta for the evidence. */}
+        {data.positioning && (
+          <motion.div {...fadeUp(0.2)} className="flex flex-col gap-s12">
+            <p className="text-statement text-text">{data.positioning}</p>
+            <p className="text-meta font-mono text-text-meta">{t("hero.credentials")}</p>
+          </motion.div>
+        )}
+
 
         <motion.div {...fadeUp(0.32)} className="flex flex-wrap items-center gap-s28 mt-s8">
           <InkCtaButton to="/projects">
@@ -90,6 +102,19 @@ export function Hero({ data }) {
               style={{ height: "var(--rule-w)" }}
               className="absolute left-0 right-0 bottom-0 bg-text rule-stroke
                          transition-colors duration-200 group-hover/cv:bg-primary-600"
+            />
+          </Link>
+          <Link
+            to="/contact"
+            className="relative text-body font-medium text-text pb-s2
+                       hover:text-primary-600 transition-colors duration-200 focus-ring group/contact"
+          >
+            {t("hero.ctaContact")}
+            <span
+              aria-hidden="true"
+              style={{ height: "var(--rule-w)" }}
+              className="absolute left-0 right-0 bottom-0 bg-text rule-stroke
+                         transition-colors duration-200 group-hover/contact:bg-primary-600"
             />
           </Link>
         </motion.div>
