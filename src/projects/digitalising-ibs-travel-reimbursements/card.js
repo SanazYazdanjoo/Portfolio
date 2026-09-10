@@ -31,8 +31,8 @@ export default {
   },
   cardTags: ['UX Research', 'Requirements Engineering', 'React', 'GDPR / DSGVO'],
   cardOutcome: {
-    en: 'Mapped a 13-step reimbursement process, documented 25 problems, and turned the evidence into a deployed working demo.',
-    de: 'Einen 13-stufigen Erstattungsprozess kartiert, 25 Probleme dokumentiert und die Evidenz in eine bereitgestellte funktionierende Demo übersetzt.',
+    en: 'Research mapped 13 steps, reversed a priority, surfaced 6 missed problems, and carried the 9-actor colour model into the demo.',
+    de: 'Research kartierte 13 Schritte, änderte eine Priorität, ergänzte 6 übersehene Probleme und übertrug das 9-Akteure-Farbmodell in die Demo.',
   },
   cardImage: cardClaimTable,
   thumbnail: thumbnailImg,
