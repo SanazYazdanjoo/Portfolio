@@ -12,10 +12,19 @@ import { EASE } from "./constants";
 // permitted content inside <button>, and this matches the ARIA Authoring
 // Practices accordion example.
 export function CollapsibleSectionHead({ id, number, kicker, heading, isOpen, onToggle }) {
+  // Most sections provide an unnumbered kicker and let the template prepend
+  // the live section number. A project may also provide a deliberately
+  // pre-numbered kicker when its editorial sequence needs custom wording.
+  // Detect that case so the UI never renders "03 — 03 · Evidence".
+  const kickerText = String(kicker ?? "");
+  const displayKicker = /^\d{1,2}\s*[·—-]/.test(kickerText.trim())
+    ? kickerText
+    : `${number} — ${kickerText}`;
+
   return (
     <>
       <p className="text-2xs font-black uppercase text-primary-600 mb-3">
-        {number} — {kicker}
+        {displayKicker}
       </p>
       <h2 className="mb-8">
         <button
