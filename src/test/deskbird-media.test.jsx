@@ -1,8 +1,7 @@
 // The deskbird case study resolves figures by filename through a Vite glob
 // (see deskbird-hybrid-work.data.js, MEDIA RESOLUTION). These tests pin the
-// plumbing: process steps render their `figures` through SectionMedia, a
-// missing file becomes a labelled placeholder, a present one becomes an
-// <img>, and both follow the language toggle.
+// plumbing: unresolved files stay trackable in source data, but the published
+// Deskbird page renders only figures whose image files actually exist.
 import { describe, it, expect } from "vitest";
 import { screen, within, fireEvent } from "@testing-library/react";
 import { renderWithProviders } from "./renderWithProviders";
@@ -37,7 +36,7 @@ describe("deskbird media resolution", () => {
     expect(projectData.process.every((s) => !("imagePath" in s))).toBe(true);
   });
 
-  it("resolves known uploaded base files and keeps unresolved media as placeholders", () => {
+  it("resolves known uploaded base files and keeps unresolved filenames trackable in source data", () => {
     const byFile = new Map(allFigures.map((f) => [f.pendingFile, f]));
     expect(byFile.get("met_ucd-process.png")?.src).toBeTruthy();
     expect(byFile.get("p10_interests-modal.png")?.src).toBeTruthy();
@@ -70,17 +69,16 @@ describe("process steps with figures", () => {
 });
 
 describe("deskbird page end to end", () => {
-  it("renders every resolved image and a placeholder for unresolved figures, in both languages", () => {
+  it("renders resolved images only and hides unresolved placeholders in both languages", () => {
     const { container } = renderWithProviders(<><LangToggle /><Project2 /></>, { route: "/projects/deskbird-hybrid-work" });
     const grids = container.querySelectorAll("[data-section-media]");
     const real = () => Array.from(grids).flatMap((g) => Array.from(g.querySelectorAll("figure img")));
     const placeholders = () => Array.from(grids).flatMap((g) => Array.from(g.querySelectorAll("figure [role='img']")));
-    const expectedResolvedCount = enrichedFigures.filter((f) => f.src).length;
 
-    expect(real()).toHaveLength(expectedResolvedCount);
-    const enPlaceholders = placeholders();
-    expect(enPlaceholders.length).toBeGreaterThan(0);
-    expect(enPlaceholders.every((p) => /\.(png|jpe?g|webp|svg)/i.test(p.textContent))).toBe(true);
+    expect(enrichedFigures.length).toBeGreaterThan(0);
+    expect(enrichedFigures.every((figure) => Boolean(figure.src))).toBe(true);
+    expect(real()).toHaveLength(enrichedFigures.length);
+    expect(placeholders()).toHaveLength(0);
 
     const modal = enrichedProjectData.figures.solution[0];
     expect(screen.getByAltText(modal.alt.en)).toBeInTheDocument();
@@ -92,7 +90,7 @@ describe("deskbird page end to end", () => {
     expect(screen.getByAltText(modal.alt.de)).toBeInTheDocument();
     expect(screen.getByRole("img", { name: wall.alt.de })).toBeInTheDocument();
     expect(screen.getByText(wall.caption.de)).toBeInTheDocument();
-    expect(placeholders()).toHaveLength(enPlaceholders.length);
-    expect(real()).toHaveLength(expectedResolvedCount);
+    expect(placeholders()).toHaveLength(0);
+    expect(real()).toHaveLength(enrichedFigures.length);
   });
 });
