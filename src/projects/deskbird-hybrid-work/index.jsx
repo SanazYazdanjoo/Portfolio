@@ -8,6 +8,15 @@ import targetUsersImg from './media/p08_target-users.webp';
 import conceptBackgroundImg from './media/p08_concept-background-jtbd.webp';
 import conceptStoryboardImg from './media/p08_concept-storyboard.webp';
 import conceptMvpImg from './media/p08_concept-features-mvp.webp';
+import methodologyOverviewImg from './media/met_methodology-overview.avif';
+import stateOfArtImg from './media/p01_state-of-the-art.avif';
+import stakeholderThemesImg from './media/p02_stakeholder-themes.avif';
+import socialFeatureTypesImg from './media/p03_social-feature-types.avif';
+import surveyParticipantsImg from './media/p04_survey-participants.avif';
+import ciParticipantsImg from './media/p05_ci-participants.avif';
+import requirementsScopeImg from './media/p07_requirements-scope.avif';
+import socialPreferencesImg from './media/p08_social-preferences.avif';
+import threeConceptsImg from './media/p08_three-concepts.avif';
 
 const mediaClass = 'w-full h-auto block';
 
@@ -75,7 +84,27 @@ const targetUsersFigure = {
   className: mediaClass,
 };
 
-const hydrateConceptArtifact = (figure) => {
+// These exports directly match evidence slots already defined in the case-study
+// data. We keep the original pendingFile names so the source/provenance notes in
+// the data file remain stable while serving smaller AVIF versions on the web.
+const suppliedEvidenceByPendingFile = {
+  'met_methodology-overview.png': methodologyOverviewImg,
+  'p01_state-of-the-art.png': stateOfArtImg,
+  'p02_stakeholder-themes.png': stakeholderThemesImg,
+  'p03_social-feature-types.png': socialFeatureTypesImg,
+  'p04_survey-participants.png': surveyParticipantsImg,
+  'p05_ci-participants.png': ciParticipantsImg,
+  'p07_requirements-scope.png': requirementsScopeImg,
+  'p08_social-preferences.png': socialPreferencesImg,
+  'p08_three-concepts.png': threeConceptsImg,
+};
+
+const hydrateFigure = (figure) => {
+  if (!figure) return figure;
+
+  const suppliedSrc = suppliedEvidenceByPendingFile[figure.pendingFile];
+  if (suppliedSrc) return { ...figure, src: suppliedSrc };
+
   if (figure.pendingFile === 'p08_concept-background-jtbd.png') {
     return { ...figure, src: conceptBackgroundImg, pendingFile: 'p08_concept-background-jtbd.webp' };
   }
@@ -88,18 +117,27 @@ const hydrateConceptArtifact = (figure) => {
   return figure;
 };
 
+const hydratedTopLevelFigures = Object.fromEntries(
+  Object.entries(projectData.figures ?? {}).map(([key, figures]) => [
+    key,
+    Array.isArray(figures) ? figures.map(hydrateFigure) : figures,
+  ]),
+);
+
 export const enrichedProjectData = {
   ...projectData,
+  figures: hydratedTopLevelFigures,
   process: projectData.process.map((step, index) => {
+    const hydrated = (step.figures ?? []).map(hydrateFigure);
+
     if (index === 0) {
       return {
         ...step,
-        figures: [...(step.figures ?? []), competitorReviewFigure],
+        figures: [...hydrated, competitorReviewFigure],
       };
     }
 
     if (index === 7) {
-      const hydrated = (step.figures ?? []).map(hydrateConceptArtifact);
       return {
         ...step,
         figures: [
@@ -113,7 +151,7 @@ export const enrichedProjectData = {
       };
     }
 
-    return step;
+    return { ...step, figures: hydrated };
   }),
 };
 
