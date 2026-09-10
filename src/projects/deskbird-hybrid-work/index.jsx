@@ -25,12 +25,12 @@ const competitorReviewFigure = {
   src: competitorReviewImg,
   pendingFile: 'p01_competitor-review.webp',
   alt: {
-    en: 'Desk-booking competitor review comparing Flexopus, Condeco, Deskly and Pult, with recurring patterns grouped into colleague interaction, desk and area customisation, data-driven workplace enhancement, and space optimisation',
-    de: 'Wettbewerbsanalyse von Deskbuchungsprodukten mit Flexopus, Condeco, Deskly und Pult sowie wiederkehrenden Mustern zu Kolleg:innen-Interaktion, Arbeitsplatz- und Bereichsanpassung, datenbasierter Arbeitsplatzoptimierung und Flächennutzung',
+    en: 'Competitor evidence board comparing Robin, Officely, Envoy, Kadence and Condeco, with examples of announcements, social events, colleague profiles, friend finding and calendar-based events',
+    de: 'Wettbewerbsanalyse mit Robin, Officely, Envoy, Kadence und Condeco sowie Beispielen für Ankündigungen, Social Events, Kolleg:innen-Profile, Kolleg:innen-Suche und kalenderbasierte Events',
   },
   caption: {
-    en: 'A slice of the direct competitor review — colleague-finding and attendance visibility were already common, so presence data itself was not the differentiator',
-    de: 'Ein Ausschnitt der direkten Wettbewerbsanalyse — Kolleg:innen-Suche und Anwesenheitssichtbarkeit waren bereits verbreitet; Anwesenheitsdaten allein waren daher kein Differenzierungsmerkmal',
+    en: 'Direct competitor examples showed that event coordination and colleague-discovery patterns already existed across the market, helping narrow the opportunity toward interest-based connection rather than duplicating basic presence features',
+    de: 'Konkrete Wettbewerbsbeispiele zeigten, dass Event-Koordination und Kolleg:innen-Suche bereits im Markt vorhanden waren. Dadurch ließ sich die Chance stärker auf interessenbasierte Verbindung statt auf eine weitere Anwesenheitsfunktion fokussieren',
   },
   span: 2,
   className: mediaClass,
