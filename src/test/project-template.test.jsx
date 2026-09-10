@@ -36,10 +36,8 @@ describe("ProjectTemplate — header lead line", () => {
 });
 
 describe("ProjectTemplate — at-a-glance strip renders from present fields, not a flag", () => {
-  // A synthetic fixture, not a real project: `resultsAtAGlance` is optional
-  // and no project currently sets it, but the code path is live and a test
-  // pinned to one project's copy breaks whenever that copy is rewritten —
-  // which is exactly how this test came to fail on main.
+  // Synthetic fixture: this keeps the optional resultsAtAGlance override
+  // independently covered even when a real project's copy or grouping changes.
   const withGlance = {
     ...projectData,
     metricsIntro: undefined,
@@ -83,9 +81,10 @@ describe("ProjectTemplate — metricsIntro", () => {
     expect(intro).toBeInTheDocument();
     expect(screen.queryByText("Study at a Glance")).not.toBeInTheDocument();
 
-    // Above the grid, not below it: the first metric cell must follow it in
-    // document order.
-    const firstMetric = screen.getByText(ibsData.metrics[0].label.en);
+    // Above the grid, not below it: compare against whichever metric source
+    // the template actually renders for this project.
+    const firstMetricData = ibsData.resultsAtAGlance?.items?.[0] ?? ibsData.metrics[0];
+    const firstMetric = screen.getByText(firstMetricData.label.en);
     expect(intro.compareDocumentPosition(firstMetric))
       .toBe(Node.DOCUMENT_POSITION_FOLLOWING);
   });
@@ -109,8 +108,10 @@ describe("ProjectTemplate — design section", () => {
 
     const section = document.getElementById("design");
     expect(section).toBeInTheDocument();
-    expect(within(section).getByText(/How It Was Made/)).toBeInTheDocument();
-    expect(within(section).getByRole("heading", { name: "Design" })).toBeInTheDocument();
+    expect(within(section).getByText(ibsData.sectionTitles.design.kicker.en)).toBeInTheDocument();
+    expect(
+      within(section).getByRole("heading", { name: ibsData.sectionTitles.design.heading.en })
+    ).toBeInTheDocument();
     expect(within(section).getByText(ibsData.design.en)).toBeInTheDocument();
 
     // Every planned figure occupies a slot, whether or not its artwork has
@@ -282,9 +283,15 @@ describe("ProjectTemplate — collapsible section nav", () => {
     const expanded = screen.getByRole("button", { name: "Show section list" });
     expect(expanded).toHaveAttribute("aria-expanded", "false");
 
-    // Labels are gone from view but not from the accessibility tree.
+    // Labels are gone from view but not from the accessibility tree. Use the
+    // project's own section labels so copy refactors do not invalidate this
+    // structural accessibility test.
     const list = document.getElementById(expanded.getAttribute("aria-controls"));
-    expect(within(list).getByRole("button", { name: "Challenge" })).toBeInTheDocument();
-    expect(within(list).getByRole("button", { name: "Design" })).toBeInTheDocument();
+    expect(
+      within(list).getByRole("button", { name: ibsData.sectionTitles.challenge.label.en })
+    ).toBeInTheDocument();
+    expect(
+      within(list).getByRole("button", { name: ibsData.sectionTitles.design.label.en })
+    ).toBeInTheDocument();
   });
 });
