@@ -124,7 +124,7 @@ const hydratedTopLevelFigures = Object.fromEntries(
   ]),
 );
 
-export const enrichedProjectData = {
+const hydratedProjectData = {
   ...projectData,
   figures: hydratedTopLevelFigures,
   process: projectData.process.map((step, index) => {
@@ -155,18 +155,34 @@ export const enrichedProjectData = {
   }),
 };
 
-// Dev-only: list every figure still waiting for its file in ./media. The
-// data file resolves media by filename and returns null for a missing one,
-// so the build never fails on an absent asset — this is the one place that
-// says which are absent. Deduplicated, since a few files appear in two
-// sections. Runs once at module load, like the checks in data/projects.js.
+// Keep pending media in the source data so it is easy to fill later, but do
+// not show labelled placeholder cards to portfolio visitors in the meantime.
+const resolvedFiguresOnly = (figures = []) => figures.filter((figure) => figure?.src);
+
+export const enrichedProjectData = {
+  ...hydratedProjectData,
+  figures: Object.fromEntries(
+    Object.entries(hydratedProjectData.figures ?? {}).map(([key, figures]) => [
+      key,
+      Array.isArray(figures) ? resolvedFiguresOnly(figures) : figures,
+    ]),
+  ),
+  process: hydratedProjectData.process.map((step) => ({
+    ...step,
+    figures: resolvedFiguresOnly(step.figures),
+  })),
+};
+
+// Dev-only: keep reporting the unresolved files to us even though visitors do
+// not see them. This preserves the case study's media checklist while the
+// public page contains only evidence that actually exists.
 if (import.meta.env.DEV) {
   const missing = [
     ...new Set(
-      enrichedProjectData.process
+      hydratedProjectData.process
         .flatMap((s) => s.figures ?? [])
-        .concat(Object.values(enrichedProjectData.figures ?? {}).flat())
-        .filter((f) => !f.src)
+        .concat(Object.values(hydratedProjectData.figures ?? {}).flat())
+        .filter((f) => !f?.src)
         .map((f) => f.pendingFile)
     ),
   ];
