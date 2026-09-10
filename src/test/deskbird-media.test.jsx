@@ -82,14 +82,22 @@ describe("deskbird page end to end", () => {
 
     const modal = enrichedProjectData.figures.solution[0];
     expect(screen.getByAltText(modal.alt.en)).toBeInTheDocument();
-    const wall = enrichedProjectData.process[5].figures[0];
-    expect(screen.getByRole("img", { name: wall.alt.en })).toBeInTheDocument();
-    expect(screen.getByText(wall.caption.en)).toBeInTheDocument();
+
+    // Do not pin this test to a process-array index: hiding unresolved media can
+    // legitimately leave any individual step with zero figures. Instead verify
+    // the first actual resolved process figure that has the expected metadata.
+    const processFigure = enrichedProjectData.process
+      .flatMap((step) => step.figures ?? [])
+      .find((figure) => figure?.src && figure?.alt?.en && figure?.alt?.de && figure?.caption?.en && figure?.caption?.de);
+
+    expect(processFigure).toBeTruthy();
+    expect(screen.getByRole("img", { name: processFigure.alt.en })).toBeInTheDocument();
+    expect(screen.getByText(processFigure.caption.en)).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: "toggle-lang" }));
     expect(screen.getByAltText(modal.alt.de)).toBeInTheDocument();
-    expect(screen.getByRole("img", { name: wall.alt.de })).toBeInTheDocument();
-    expect(screen.getByText(wall.caption.de)).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: processFigure.alt.de })).toBeInTheDocument();
+    expect(screen.getByText(processFigure.caption.de)).toBeInTheDocument();
     expect(placeholders()).toHaveLength(0);
     expect(real()).toHaveLength(enrichedFigures.length);
   });
