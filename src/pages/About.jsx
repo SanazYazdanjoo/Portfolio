@@ -112,7 +112,6 @@ export default function About() {
           <SectionHeader
             eyebrow={t("about.howIGotHere")}
             title={t("about.theBridge")}
-            sub={profileData.heroNarrative?.bridgeDescription}
           />
           <CareerArc variant="full" />
         </div>
@@ -126,7 +125,6 @@ export default function About() {
           <SectionHeader
             eyebrow={t("about.methodology")}
             title={t("about.howIWork")}
-            sub={profileData.roleSub}
           />
 
           <motion.div
@@ -151,7 +149,7 @@ export default function About() {
                     initial="hidden"
                     whileInView="show"
                     viewport={{ once: true }}
-                    className="border-t px-2 py-7 rule-t md:px-6 md:py-9"
+                    className="px-2 py-7 md:px-6 md:py-9"
                   >
                     <span className="mb-5 block font-hand text-4xl font-bold leading-none text-blush" aria-hidden="true">
                       {String(i + 1).padStart(2, "0")}
