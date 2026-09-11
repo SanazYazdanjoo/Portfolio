@@ -10,9 +10,10 @@
 // the reference's own plate in cols 1-5 — the same box, carrying the crop
 // the plate specifies — rather than collapsing the column.
 //
-// The figure never crops. `object-fit: contain` is the rule; the assets are
-// pre-cropped to the named detail and already 4:3 by
-// scripts/generate-card-crops.mjs, so contain fills the box exactly.
+// The figure uses the illustrated project thumbnail as its first impression.
+// On fine-pointer hover, or keyboard focus within the card, it dissolves into
+// the real project artefact with a gentle settling motion. Touch devices never
+// depend on this preview: they keep the illustration and navigate on tap.
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
@@ -22,22 +23,69 @@ import { SkillTagRow } from "./SkillTagRow";
 import { HandArrow } from "./HandArrow";
 
 export function StackedProjectCard({ project, index }) {
-  const [imgError, setImgError] = useState(false);
+  const [illustrationSrc, setIllustrationSrc] = useState(
+    project?.thumbnailWebp || project?.thumbnail || null
+  );
+  const [artefactAvailable, setArtefactAvailable] = useState(Boolean(project?.cardImage));
+  const [pointerPreview, setPointerPreview] = useState(false);
+  const [focusPreview, setFocusPreview] = useState(false);
   const { t } = useTranslation();
   const [ref, inView] = useInViewReveal({ amount: 0.05 });
 
   if (!project || project.status === "coming-soon" || !project.id) return null;
 
   const isInProgress = project.status === "in-progress";
-  const figure = project.cardImage && !imgError ? project.cardImage : null;
+  const artefact = artefactAvailable ? project.cardImage : null;
+  const figure = illustrationSrc || artefact;
+  const canPreviewArtefact = Boolean(illustrationSrc && artefact);
+  const showArtefact = canPreviewArtefact && (pointerPreview || focusPreview);
   const tags = project.cardTags || [];
   const meta = [project.year, project.context, project.role].filter(Boolean);
+  const previewTransition = {
+    transitionProperty: "opacity, transform",
+    transitionDuration: "1400ms",
+    transitionTimingFunction: "var(--timing-smooth)",
+  };
+
+  const supportsFineHover = () =>
+    typeof window !== "undefined" &&
+    Boolean(window.matchMedia?.("(hover: hover) and (pointer: fine)")?.matches);
+
+  const handleMouseEnter = () => {
+    if (canPreviewArtefact && supportsFineHover()) setPointerPreview(true);
+  };
+
+  const handleMouseLeave = () => setPointerPreview(false);
+
+  const handleFocusCapture = () => {
+    if (canPreviewArtefact) setFocusPreview(true);
+  };
+
+  const handleBlurCapture = (event) => {
+    if (!event.currentTarget.contains(event.relatedTarget)) setFocusPreview(false);
+  };
+
+  const handleIllustrationError = () => {
+    if (
+      illustrationSrc === project.thumbnailWebp &&
+      project.thumbnail &&
+      project.thumbnail !== project.thumbnailWebp
+    ) {
+      setIllustrationSrc(project.thumbnail);
+      return;
+    }
+    setIllustrationSrc(null);
+  };
 
   return (
     <article
       ref={ref}
       style={{ "--reveal-delay": `${Math.min(index, 2) * 0.05}s` }}
       className={`${revealClass(inView)} grid-12 relative group py-s48 border-t rule-t`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onFocusCapture={handleFocusCapture}
+      onBlurCapture={handleBlurCapture}
     >
       {/* A card with no asset renders no figure column and no plate. Its text
           takes all twelve columns rather than leaving cols 1-5 standing
@@ -46,14 +94,49 @@ export function StackedProjectCard({ project, index }) {
       {figure && (
         <div className="md:col-span-5">
           <div className="card-figure rule-frame-in">
-            <img
-              src={figure}
-              /* Decorative: the title beside it already names the case study. */
-              alt=""
-              loading="lazy"
-              decoding="async"
-              onError={() => setImgError(true)}
-            />
+            <div className="relative w-full h-full">
+              {illustrationSrc ? (
+                <img
+                  src={illustrationSrc}
+                  /* Decorative: the title beside it already names the case study. */
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  onError={handleIllustrationError}
+                  style={previewTransition}
+                  className={`block w-full h-full object-contain motion-reduce:transform-none ${
+                    showArtefact
+                      ? "opacity-0 scale-[0.97] -translate-y-[4px]"
+                      : "opacity-100 scale-100 translate-y-0"
+                  }`}
+                />
+              ) : (
+                <img
+                  src={artefact}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  onError={() => setArtefactAvailable(false)}
+                  className="block w-full h-full object-contain"
+                />
+              )}
+
+              {canPreviewArtefact && (
+                <img
+                  src={artefact}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  onError={() => setArtefactAvailable(false)}
+                  style={previewTransition}
+                  className={`absolute inset-0 block w-full h-full object-contain pointer-events-none motion-reduce:transform-none ${
+                    showArtefact
+                      ? "opacity-100 scale-100 translate-y-0"
+                      : "opacity-0 scale-[1.03] translate-y-[4px]"
+                  }`}
+                />
+              )}
+            </div>
           </div>
         </div>
       )}

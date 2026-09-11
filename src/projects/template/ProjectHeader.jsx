@@ -8,6 +8,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useIsMobile } from "../../hooks/useIsMobile";
 import { Badge } from "../../components/Badge";
 import { useTranslation } from "../../context/LanguageContext";
+import { getSkillFilterHref } from "../../utils/skillEvidence";
 import { FitTitle } from "./FitTitle";
 import { ContributionRow } from "./ContributionRow";
 import { EASE } from "./constants";
@@ -19,13 +20,13 @@ import { useFlownTags } from "./SkillOrbit";
 // pack into a few rows.
 //
 // A cap and not a cull: every tag is pinned to a `tagEvidence` entry (enforced
-// both ways in data/projects.test.js), feeds the count on /tags, and is what
-// puts this project on its tag page. Eleven of this case study's tags are
-// shared with other projects — React, TypeScript, Thematic Analysis and
-// Stakeholder Interviews among them — so deleting the ones that look like
-// duplicates of `techStack` or `methods` would quietly drop the project out of
-// eight tag pages that genuinely aggregate more than one project. The list
-// being long is editorial; the header being 1,864px tall was the bug.
+// both ways in data/projects.test.js), feeds the count on /tags, and makes this
+// project discoverable through the Projects skill filter. Eleven of this case
+// study's tags are shared with other projects — React, TypeScript, Thematic
+// Analysis and Stakeholder Interviews among them — so deleting the ones that
+// look like duplicates of `techStack` or `methods` would quietly remove real
+// cross-project evidence. The list being long is editorial; the header being
+// 1,864px tall was the bug.
 const MOBILE_TAG_CAP = 8;
 
 export function ProjectHeader({ meta, tags }) {
@@ -125,33 +126,40 @@ export function ProjectHeader({ meta, tags }) {
                 {t("project.meta.skills")}
               </dt>
               <dd className="flex flex-wrap gap-2">
-                {tags.map((tag, i) => (
-                  /* Hidden with `display: none` rather than clipped, so a
-                     screen reader on a phone reads the same list a sighted
-                     reader sees — the toggle is a real disclosure. The class
-                     sits on the wrapper, not the link: a hidden link inside a
-                     shown flex child would still spend a gap.
+                {tags.map((tag, i) => {
+                  const skillHref = getSkillFilterHref(tag);
 
-                     `flownTags` is the orbit's half of the same rule — a tag
-                     that has flown to the section rail is not rendered twice,
-                     it is rendered there. The shared layoutId is what carries
-                     it between the two places. */
-                  <TagWrap
-                    key={tag}
-                    {...tagMotion(tag)}
-                    className={
-                      flownTags.has(tag)
-                        ? "hidden"
-                        : i >= MOBILE_TAG_CAP && !allTagsShown
-                          ? "hidden sm:block"
-                          : undefined
-                    }
-                  >
-                    <Link to={`/tags/${encodeURIComponent(tag)}`}>
-                      <Badge tone="accent">{tag}</Badge>
-                    </Link>
-                  </TagWrap>
-                ))}
+                  return (
+                    /* Hidden with `display: none` rather than clipped, so a
+                       screen reader on a phone reads the same list a sighted
+                       reader sees — the toggle is a real disclosure. The class
+                       sits on the wrapper so a hidden control never spends a gap.
+
+                       `flownTags` is the orbit's half of the same rule — a tag
+                       that has flown to the section rail is not rendered twice,
+                       it is rendered there. The shared layoutId is what carries
+                       it between the two places. */
+                    <TagWrap
+                      key={tag}
+                      {...tagMotion(tag)}
+                      className={
+                        flownTags.has(tag)
+                          ? "hidden"
+                          : i >= MOBILE_TAG_CAP && !allTagsShown
+                            ? "hidden sm:block"
+                            : undefined
+                      }
+                    >
+                      {skillHref ? (
+                        <Link to={skillHref} className="inline-block rounded-full focus-ring">
+                          <Badge tone="accent">{tag}</Badge>
+                        </Link>
+                      ) : (
+                        <Badge tone="accent">{tag}</Badge>
+                      )}
+                    </TagWrap>
+                  );
+                })}
 
                 {hiddenTagCount > 0 && (
                   <button

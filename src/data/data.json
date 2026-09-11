@@ -35,16 +35,16 @@
       "de": "UX Engineerin"
     },
     "roleSub": {
-      "en": "UX Research & Usability Engineering",
-      "de": "UX Research & Usability Engineering"
+      "en": "Research → Design & Usability → Implementation & Validation",
+      "de": "Research → Design & Usability → Umsetzung & Validierung"
     },
     "tagline": {
       "en": "I speak both ‘user’ & ‘developer’.",
-      "de": "Ich spreche sowohl ‚User‘ & ‚Entwickler‘."
+      "de": "Ich spreche sowohl ‚User‘ als auch ‚Entwickler‘."
     },
     "positioning": {
-      "en": "UX Engineer bridging mixed-methods research and production React.",
-      "de": "UX Engineerin an der Schnittstelle von Mixed-Methods-Research und produktivem React."
+      "en": "I study how people use technology, uncover their needs and challenges, turn those findings into product decisions, build the interfaces that put those decisions into practice, and validate whether they work.",
+      "de": "Ich untersuche, wie Menschen Technologie nutzen, decke ihre Bedürfnisse und Herausforderungen auf, übersetze diese Erkenntnisse in Produktentscheidungen, setze die daraus entstehenden Interfaces um und validiere, ob sie funktionieren."
     },
     "impactStats": [
       {
@@ -91,8 +91,8 @@
           "de": "Seit 2015"
         },
         "label": {
-          "en": "Research, UI & usability experience",
-          "de": "Research-, UI- & Usability-Erfahrung"
+          "en": "Digital-product experience across frontend, QA/usability & UX engineering",
+          "de": "Erfahrung mit digitalen Produkten: Frontend, QA/Usability & UX Engineering"
         }
       }
     ],
@@ -114,8 +114,8 @@
         "de": "M.Sc. HCI · B.E. Software-Engineering · Usability"
       },
       "focus": {
-        "en": "Usability Engineering · Mixed-methods research · React & TypeScript",
-        "de": "Usability Engineering · Mixed-Methods-Forschung · React & TypeScript"
+        "en": "Research · Usability Engineering · React & TypeScript",
+        "de": "Research · Usability Engineering · React & TypeScript"
       },
       "status": {
         "en": "Open to interdisciplinary UX & Tech roles",
@@ -159,8 +159,8 @@
       ]
     },
     "profileSummary": {
-      "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar), a B.E. in Software Engineering, and experience across usability evaluation, user research and UI development since 2015. I plan and run formative and summative studies on my own, from the research question through to the statistics — and six years in QA and frontend development mean the recommendations come with a realistic view of what they cost to build. I use AI-assisted development tools productively, while reviewing the generated code critically. The case studies below show how that plays out in real projects.",
-      "de": "Ich bin UX Engineerin mit einem M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar), einem B.E. in Software Engineering und seit 2015 Erfahrung in Usability-Evaluation, User Research und UI-Entwicklung. Formative und summative Studien plane und führe ich eigenständig durch — von der Forschungsfrage bis zur Statistik. Sechs Jahre in QA und Frontend-Entwicklung heißen: Die Empfehlung kommt mit einer realistischen Einschätzung dessen, was sie in der Umsetzung kostet. KI-gestützte Entwicklungswerkzeuge nutze ich produktiv und prüfe generierten Code dabei kritisch. Die Case Studies unten zeigen, wie das in echten Projekten aussieht."
+      "en": "UX Engineer bridging research, design & usability, and implementation & validation. With an M.Sc. in Human-Computer Interaction and a Software Engineering background, I move from evidence about user needs to product decisions, working interfaces, and validated outcomes.",
+      "de": "UX Engineerin an der Schnittstelle von Research, Design & Usability sowie Umsetzung & Validierung. Mit einem M.Sc. in Human-Computer Interaction und einem Hintergrund in Software Engineering verbinde ich Evidenz über Nutzerbedürfnisse mit Produktentscheidungen, funktionierenden Interfaces und überprüfbaren Ergebnissen."
     },
     "experience": [
       {
@@ -627,8 +627,8 @@
     ],
     "bioParagraphs": [
       {
-        "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar), a B.E. in Software Engineering, and experience across usability evaluation, user research and UI development since 2015. I plan and run formative and summative studies on my own, from the research question through to the statistics — and six years in QA and frontend development mean the recommendations come with a realistic view of what they cost to build. I work in English and German (both C1), and I'm open to interdisciplinary UX & Tech roles.",
-        "de": "Ich bin UX Engineerin mit einem M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar), einem B.E. in Software Engineering und seit 2015 Erfahrung in Usability-Evaluation, User Research und UI-Entwicklung. Formative und summative Studien plane und führe ich eigenständig durch — von der Forschungsfrage bis zur Statistik. Sechs Jahre in QA und Frontend-Entwicklung heißen: Die Empfehlung kommt mit einer realistischen Einschätzung dessen, was sie in der Umsetzung kostet. Ich arbeite auf Englisch und Deutsch (beides C1) und bin offen für interdisziplinäre UX- & Tech-Rollen."
+        "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction and a B.E. in Software Engineering. My path through frontend development, QA and HCI research taught me to look at digital products from both sides: what people need and what teams can realistically build. Today I bring those perspectives together in research, design & usability, and implementation & validation.",
+        "de": "Ich bin UX Engineerin mit einem M.Sc. in Human-Computer Interaction und einem B.E. in Software Engineering. Mein Weg über Frontend-Entwicklung, QA und HCI-Forschung hat mir gezeigt, digitale Produkte aus beiden Perspektiven zu betrachten: was Menschen brauchen und was Teams realistisch umsetzen können. Heute verbinde ich diese Perspektiven in Research, Design & Usability sowie Umsetzung & Validierung."
       }
     ],
     "skills": {
@@ -1257,11 +1257,183 @@
       }
     ],
     "bio": {
-      "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar), a B.E. in Software Engineering, and experience across usability evaluation, user research and UI development since 2015. I plan and run formative and summative studies on my own, from the research question through to the statistics — and six years in QA and frontend development mean the recommendations come with a realistic view of what they cost to build. I work in English and German (both C1), and I'm open to interdisciplinary UX & Tech roles.",
-      "de": "Ich bin UX Engineerin mit einem M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar), einem B.E. in Software Engineering und seit 2015 Erfahrung in Usability-Evaluation, User Research und UI-Entwicklung. Formative und summative Studien plane und führe ich eigenständig durch — von der Forschungsfrage bis zur Statistik. Sechs Jahre in QA und Frontend-Entwicklung heißen: Die Empfehlung kommt mit einer realistischen Einschätzung dessen, was sie in der Umsetzung kostet. Ich arbeite auf Englisch und Deutsch (beides C1) und bin offen für interdisziplinäre UX- & Tech-Rollen."
+      "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction and a B.E. in Software Engineering. My path through frontend development, QA and HCI research taught me to look at digital products from both sides: what people need and what teams can realistically build. Today I bring those perspectives together in research, design & usability, and implementation & validation.",
+      "de": "Ich bin UX Engineerin mit einem M.Sc. in Human-Computer Interaction und einem B.E. in Software Engineering. Mein Weg über Frontend-Entwicklung, QA und HCI-Forschung hat mir gezeigt, digitale Produkte aus beiden Perspektiven zu betrachten: was Menschen brauchen und was Teams realistisch umsetzen können. Heute verbinde ich diese Perspektiven in Research, Design & Usability sowie Umsetzung & Validierung."
     },
     "aboutImage": "/assets/me.jpg",
-    "heroImage": "/assets/me-hero.webp"
+    "heroImage": "/assets/me-hero.webp",
+    "heroIntro": {
+      "en": "Hi, I'm Sanaz.",
+      "de": "Hi, ich bin Sanaz."
+    },
+    "careerPathLabel": {
+      "en": "My path",
+      "de": "Mein Weg"
+    },
+    "bridgeDescription": {
+      "en": "Software engineering → frontend → QA/usability → human-computer interaction → UX engineering. Each stage changed the questions I ask and carried its toolkit into the next.",
+      "de": "Software Engineering → Frontend → QA/Usability → Mensch-Computer-Interaktion → UX Engineering. Jede Etappe hat meine Fragen verändert und ihr Werkzeug in die nächste mitgenommen."
+    },
+    "ctas": {
+      "work": {
+        "en": "View Case Studies",
+        "de": "Case Studies ansehen"
+      },
+      "cv": {
+        "en": "View CV",
+        "de": "CV ansehen"
+      }
+    },
+    "careerPath": [
+      {
+        "id": "software-engineering",
+        "phase": "01",
+        "label": {
+          "en": "Software Engineering",
+          "de": "Software Engineering"
+        },
+        "years": {
+          "en": "2010 – 2015",
+          "de": "2010 – 2015"
+        },
+        "summary": {
+          "en": "Built the technical foundation through a B.E. in Software Engineering: systems, software structure and turning requirements into working code.",
+          "de": "Technisches Fundament im B.E. Software Engineering aufgebaut: Systeme, Softwarestruktur und die Übersetzung von Anforderungen in funktionierenden Code."
+        },
+        "skillGroups": [
+          {
+            "groupKey": null,
+            "items": [
+              "Object-Oriented Programming",
+              "Data Structures",
+              "Algorithms",
+              "Software Architecture",
+              "Database Systems"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "frontend-development",
+        "phase": "02",
+        "label": {
+          "en": "Frontend Development",
+          "de": "Frontend-Entwicklung"
+        },
+        "years": {
+          "en": "2015 – 2020",
+          "de": "2015 – 2020"
+        },
+        "summary": {
+          "en": "Moved closer to the human-facing layer of software by shipping interfaces across real client projects.",
+          "de": "Näher an die menschenzugewandte Seite von Software gerückt und Interfaces für reale Kundenprojekte umgesetzt."
+        },
+        "skillGroups": [
+          {
+            "groupKey": null,
+            "items": [
+              "HTML / CSS / JS",
+              "React",
+              "WordPress",
+              "Responsive Design",
+              "Performance Optimization",
+              "RESTful APIs",
+              "Git & GitHub"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "qa-usability",
+        "phase": "03",
+        "label": {
+          "en": "QA & Usability",
+          "de": "QA & Usability"
+        },
+        "years": {
+          "en": "2020 – 2022",
+          "de": "2020 – 2022"
+        },
+        "summary": {
+          "en": "Shifted from only asking “Does it work?” toward “Does it work well for people?” through testing and heuristic evaluation.",
+          "de": "Die Frage verschob sich von „Funktioniert es?“ zu „Funktioniert es gut für Menschen?“ — durch Testing und heuristische Evaluation."
+        },
+        "skillGroups": [
+          {
+            "groupKey": null,
+            "items": [
+              "Acceptance Testing",
+              "Manual Testing",
+              "Test Case Management",
+              "Bug Triage",
+              "API Testing (Postman)",
+              "Heuristic Evaluation"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "hci-research",
+        "phase": "04",
+        "label": {
+          "en": "Human-Computer Interaction",
+          "de": "Mensch-Computer-Interaktion"
+        },
+        "years": {
+          "en": "2021 – 2026",
+          "de": "2021 – 2026"
+        },
+        "summary": {
+          "en": "Learned to answer those questions empirically through qualitative and quantitative research, controlled studies and usability evaluation.",
+          "de": "Gelernt, diese Fragen empirisch zu beantworten — mit qualitativer und quantitativer Forschung, kontrollierten Studien und Usability-Evaluation."
+        },
+        "skillGroups": [
+          {
+            "groupKey": "about.career.group.research",
+            "items": [
+              "Mixed-Methods Research",
+              "Quantitative Research Methods",
+              "Qualitative Research Methods",
+              "Contextual Inquiry",
+              "Usability Testing",
+              "Controlled Experiments",
+              "Eye-Tracking (Pupil Labs Neon)"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ux-engineering",
+        "phase": "05",
+        "label": {
+          "en": "UX Engineering",
+          "de": "UX Engineering"
+        },
+        "years": {
+          "en": "2024 – Present",
+          "de": "2024 – heute"
+        },
+        "summary": {
+          "en": "Research, design, engineering and validation converge: investigate, specify, build, evaluate and iterate within the same product loop.",
+          "de": "Research, Design, Engineering und Validierung laufen zusammen: untersuchen, spezifizieren, umsetzen, evaluieren und im selben Produktzyklus iterieren."
+        },
+        "skillGroups": [
+          {
+            "groupKey": null,
+            "items": [
+              "Requirements Engineering",
+              "Design Systems",
+              "React & TypeScript",
+              "Web Accessibility (WCAG)",
+              "Unit & Integration Testing (Vitest)",
+              "Usability Evaluation",
+              "Requirements Traceability (FR/NFR)"
+            ]
+          }
+        ],
+        "highlight": true
+      }
+    ]
   },
   "voluntary": [
     {
@@ -1283,7 +1455,7 @@
         "en": "Welcome Tutor",
         "de": "Welcome Tutorin"
       },
-      "year": "2022 – 2024",
+      "year": "2022 – 2026",
       "org": "BUW International Office",
       "desc": {
         "en": "Guided incoming international students through arrival, cultural adjustment, and the administrative processes of their first semesters.",
@@ -1312,5 +1484,12 @@
         "de": "Betreuung von Sessions und Workshops bei Mensch und Computer (TU Darmstadt) und Konferenzorganisation bei der JCSG in Weimar."
       }
     }
-  ]
+  ],
+  "site": {
+    "repositoryUrl": "https://github.com/SanazYazdanjoo/Portfolio"
+  },
+  "testimonials": {
+    "published": false,
+    "items": []
+  }
 }

@@ -1,10 +1,7 @@
-// Headings use Bricolage Grotesque (font-display); the rotated "About Me" is
-// roman plus a -2 degree rotation, since Bricolage has no italic and the
-// rotation alone carries that gesture. Skills live inside The Bridge
-// (CareerArc, variant="full") as chronologically-grouped chips rather than a
-// flat list, so each skill carries its era.
+// About is the narrative page: current positioning first, then the career path
+// that produced it, then the way that combination shows up in practice.
+// Human-facing profile copy stays in data.json; this page only composes it.
 
-import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { profileData as rawProfile } from "../data/profile";
@@ -17,7 +14,6 @@ import { HandArrow } from "../components/HandArrow";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { EASE } from "../utils/motion";
 
-// Animation variants
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
   show: (i = 0) => ({
@@ -27,21 +23,20 @@ const fadeUp = {
   }),
 };
 
-/* Shared section eyebrow + title — appears on Career Arc + How I Work.
-   Small text → primary-600 for AA contrast. */
 function SectionHeader({ eyebrow, title, sub }) {
   return (
     <motion.div
       className="mb-12"
-      variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true }}
     >
-      <p className="text-2xs font-extrabold uppercase text-primary-600 mb-2">
+      <p className="mb-2 text-2xs font-extrabold uppercase text-primary-600">
         {eyebrow}
       </p>
-      <h2 className="type-section">
-        {title}
-      </h2>
-      {sub && <p className="text-sm text-dim mt-5 max-w-md">{sub}</p>}
+      <h2 className="type-section">{title}</h2>
+      {sub && <p className="mt-5 max-w-xl text-sm leading-relaxed text-dim">{sub}</p>}
     </motion.div>
   );
 }
@@ -57,90 +52,114 @@ export default function About() {
     description: profileData.bio,
   });
 
-  const processSteps = [
-    { number: "01", title: t("about.process.discover.title"), desc: t("about.process.discover.desc") },
-    { number: "02", title: t("about.process.define.title"),   desc: t("about.process.define.desc") },
-    { number: "03", title: t("about.process.design.title"),   desc: t("about.process.design.desc") },
-    { number: "04", title: t("about.process.deliver.title"),  desc: t("about.process.deliver.desc") },
-  ];
-
   return (
-    <div className="bg-bg min-h-screen relative overflow-hidden">
-
-      {/* Bio & Photo */}
-      <section className="relative w-full px-[6%] md:px-[8%] pb-24 md:pb-32 font-sans text-text">
-        <div className="relative w-full max-w-page mx-auto grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-x-10 items-start">
-
-          {/* Left Column */}
+    <div className="relative min-h-screen overflow-hidden bg-bg">
+      {/* Identity: who I am now. */}
+      <section className="relative w-full px-[6%] pb-24 font-sans text-text md:px-[8%] md:pb-32">
+        <div className="relative mx-auto grid w-full max-w-page grid-cols-1 items-start gap-y-12 md:grid-cols-12 md:gap-x-10">
           <motion.div
-            className="md:col-span-7 flex flex-col pt-12 md:pt-24 z-10"
+            className="z-10 flex flex-col pt-12 md:col-span-7 md:pt-24"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: EASE }}
           >
-            <div className="relative inline-block w-max mb-6 md:mb-10">
-              <h1
-                className="font-display font-extrabold text-text
-                           text-display relative z-10"
-                style={{ fontVariationSettings: "'opsz' 96" }}
-              >
-                {t("about.heading")}
-              </h1>
-            </div>
-
-            <p className="text-lg text-text font-normal max-w-xl">
+            <p className="mb-4 text-2xs font-extrabold uppercase tracking-caps text-primary-600">
+              {profileData.role}
+            </p>
+            <h1
+              className="relative z-10 mb-7 font-display text-display font-extrabold text-text"
+              style={{ fontVariationSettings: "'opsz' 96" }}
+            >
+              {t("about.heading")}
+            </h1>
+            <p className="max-w-[62ch] text-lg font-normal leading-relaxed text-text">
               {profileData.bio}
             </p>
           </motion.div>
 
-          {/* Right Column: Photo */}
           <motion.div
             id="AboutAvatarImg"
-            className="md:col-span-5 relative -mt-10 md:-mt-20 lg:-mt-32 z-20 flex justify-end"
+            className="relative z-20 flex justify-end md:col-span-5 md:-mt-16 lg:-mt-24"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
           >
-            <div className="relative w-full max-w-[400px]">
+            <div className="relative w-full max-w-[360px]">
               <div className="photo-frame rule-frame-in -rotate-1 transition-transform duration-500 hover:rotate-0">
                 <img
                   src={profileData.aboutImage}
                   alt={profileData.name}
-                  className="w-full h-auto object-cover grayscale
-                             transition-all duration-700 hover:grayscale-0"
+                  className="h-auto w-full object-cover grayscale transition-all duration-700 hover:grayscale-0"
                   style={{ aspectRatio: "4/5" }}
                 />
               </div>
             </div>
           </motion.div>
-
         </div>
       </section>
 
-      {/* Career Arc — skills grouped as chips */}
-      <section className="py-20 border-t rule-t relative">
+      {/* Why this profile exists: the career progression behind the current role. */}
+      <section className="relative border-t py-20 rule-t">
         <div className="container mx-auto px-4 md:px-8">
           <SectionHeader
             eyebrow={t("about.howIGotHere")}
             title={t("about.theBridge")}
-            sub={t("about.theBridgeDesc")}
           />
           <CareerArc variant="full" />
-
         </div>
       </section>
 
-      {/* Credentials: compact one-line list, no thumbnails — the full gallery lives at /credentials */}
+      {/* How the positioning works in practice: a familiar Double Diamond
+          expressed through the same research-to-validation narrative. */}
+      <section className="border-t py-20 rule-t">
+        <div className="container mx-auto px-4 md:px-8">
+          <SectionHeader
+            eyebrow={t("about.methodology")}
+            title={t("about.howIWork")}
+          />
+
+          <motion.div
+            className="mb-10 max-w-3xl"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
+            <p className="text-lg leading-[1.8] text-text">
+              {profileData.positioning}
+            </p>
+          </motion.div>
+
+          <motion.figure
+            className="mx-auto w-fit max-w-full overflow-hidden bg-white"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-80px" }}
+          >
+            <img
+              src="/assets/How-I-Work.jpg"
+              alt="Double Diamond workflow: Discover — understand people and context; Define — turn findings into direction; Develop — design usable solutions; Deliver — build, test, and improve."
+              className="mx-auto block h-auto w-auto max-w-full"
+              loading="lazy"
+              decoding="async"
+            />
+          </motion.figure>
+        </div>
+      </section>
+
+      {/* Credentials are supporting proof, not the main narrative, so they sit
+          after the career + working-method story. */}
       {profileData.certifications && profileData.certifications.length > 0 && (
-        <section className="py-20 border-t rule-t">
+        <section className="border-t py-20 rule-t">
           <div className="container mx-auto px-4 md:px-8">
             <SectionHeader
               eyebrow={t("cv.certifications")}
               title={t("credentials.heading")}
             />
-            <ul className="space-y-3 max-w-2xl">
+            <ul className="max-w-2xl space-y-3">
               {profileData.certifications.slice(0, 4).map((cert, i) => (
                 <li
                   key={i}
@@ -163,94 +182,14 @@ export default function About() {
         </section>
       )}
 
-      {/* Research Process */}
-      <section className="py-20 border-t rule-t">
-        <div className="container mx-auto px-4 md:px-8">
-          <SectionHeader
-            eyebrow={t("about.methodology")}
-            title={t("about.howIWork")}
-          />
-
-          {/* Double Diamond: the frame the four steps below sit inside.
-              Reading column for the copy, full width for the diagram. */}
-          <motion.div
-            className="max-w-2xl space-y-5 mb-12"
-            variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}
-          >
-            <p className="text-base leading-[1.85] text-text">
-              {t("about.doubleDiamond.intro")}
-            </p>
-            <p className="text-sm leading-[1.9] text-text-meta">
-              {t("about.doubleDiamond.intro2")}
-            </p>
-          </motion.div>
-
-          <motion.figure
-            className="mb-16"
-            variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}
-          >
-            <div className="photo-frame rule-frame-in">
-              <picture>
-                <source srcSet="/assets/double-diamond.webp" type="image/webp" />
-                <img
-                  src="/assets/double-diamond.png"
-                  alt={t("about.doubleDiamond.alt")}
-                  width="1800"
-                  height="1120"
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-auto"
-                />
-              </picture>
-            </div>
-            <figcaption className="mt-4 text-xs leading-relaxed text-dim max-w-xl">
-              {t("about.doubleDiamond.caption")}
-            </figcaption>
-          </motion.figure>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-px bg-border">
-            {processSteps.map((step, i) => (
-              <motion.div
-                key={step.number}
-                custom={i}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-                className="bg-bg rule-fill px-7 py-8 group hover:bg-blush-weak transition-colors duration-300"
-              >
-                <span
-                  className="block font-hand font-bold text-4xl text-blush mb-3 select-none
-                             group-hover:text-secondary transition-colors duration-300"
-                  aria-hidden="true"
-                >
-                  {step.number}
-                </span>
-                <h3 className="font-black text-base text-text mb-3 uppercase tracking-caps">
-                  {step.title}
-                </h3>
-                <p className="text-xs leading-relaxed text-dim">
-                  {step.desc}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials — third-party endorsements, double-gated: the publish
-          flag is the owner's explicit "go", the item count keeps an empty
-          section from ever rendering. Quote styling mirrors the case-study
-          Verbatims (font-hand, primary rule edge) so all quoted speech on the
-          site reads as one voice. */}
       {TESTIMONIALS_PUBLISHED && testimonials.length > 0 && (
-        <section className="py-20 border-t rule-t">
+        <section className="border-t py-20 rule-t">
           <div className="container mx-auto px-4 md:px-8">
             <SectionHeader
               eyebrow={t("about.testimonials.eyebrow")}
               title={t("about.testimonials.heading")}
             />
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-12">
+            <div className="grid grid-cols-1 gap-x-10 gap-y-12 md:grid-cols-2 xl:grid-cols-3">
               {testimonials.map((item, i) => (
                 <motion.blockquote
                   key={item.id}
@@ -259,16 +198,14 @@ export default function About() {
                   initial="hidden"
                   whileInView="show"
                   viewport={{ once: true }}
-                  className="border-l-2 rule-edge-l [--rule-line-color:var(--primary-600)] pl-5 pt-1"
+                  className="border-l-2 pl-5 pt-1 rule-edge-l [--rule-line-color:var(--primary-600)]"
                 >
                   <p className="font-hand text-quote leading-snug text-text-meta">
                     “{item.quote}”
                   </p>
-                  <cite className="block not-italic mt-4">
-                    <span className="block text-sm font-black text-text">
-                      {item.name}
-                    </span>
-                    <span className="block text-2xs font-bold uppercase text-dim mt-1">
+                  <cite className="mt-4 block not-italic">
+                    <span className="block text-sm font-black text-text">{item.name}</span>
+                    <span className="mt-1 block text-2xs font-bold uppercase text-dim">
                       {item.role}
                       {item.company && <> · {item.company}</>}
                     </span>
@@ -290,18 +227,20 @@ export default function About() {
         </section>
       )}
 
-      {/* Voluntary Work — eyebrow only, no h2, dense two-column list so it doesn't compete with The Bridge */}
       {voluntaryItems.length > 0 && (
-        <section className="py-20 border-t rule-t">
+        <section className="border-t py-20 rule-t">
           <div className="container mx-auto px-4 md:px-8">
             <motion.p
-              className="text-2xs font-extrabold uppercase text-primary-600 mb-8"
-              variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}
+              className="mb-8 text-2xs font-extrabold uppercase text-primary-600"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
             >
               {t("about.beyondTheBrief")}
             </motion.p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border">
+            <div className="grid grid-cols-1 md:grid-cols-2">
               {voluntaryItems.map((item, i) => (
                 <motion.div
                   key={item.id}
@@ -310,20 +249,18 @@ export default function About() {
                   initial="hidden"
                   whileInView="show"
                   viewport={{ once: true }}
-                  className="bg-bg rule-fill px-5 py-4 group hover:bg-blush-weak transition-colors duration-300"
+                  className={`group border-t bg-bg px-5 py-5 rule-t transition-colors duration-300 hover:bg-blush-weak dark:hover:bg-[var(--color-blush-100)] ${
+                    i % 2 === 1 ? "md:border-l md:rule-l" : ""
+                  }`}
                 >
-                  <div className="flex justify-between items-baseline mb-1.5">
-                    <h3 className="font-black text-sm text-text">{item.title}</h3>
-                    <span className="text-2xs font-semibold uppercase text-secondary-600 shrink-0 ml-4">
+                  <div className="mb-1.5 flex items-baseline justify-between">
+                    <h3 className="text-sm font-black text-text transition-colors duration-300 dark:group-hover:text-[var(--color-ink-900)]">{item.title}</h3>
+                    <span className="ml-4 shrink-0 text-2xs font-semibold uppercase text-secondary-600 transition-colors duration-300 dark:group-hover:text-[var(--color-rose-600)]">
                       {item.year}
                     </span>
                   </div>
-                  <p className="text-2xs font-bold uppercase text-dim mb-1.5">
-                    {item.org}
-                  </p>
-                  {item.desc && (
-                    <p className="text-xs leading-relaxed text-dim">{item.desc}</p>
-                  )}
+                  <p className="mb-1.5 text-2xs font-bold uppercase text-dim transition-colors duration-300 dark:group-hover:text-[var(--color-ink-700)]">{item.org}</p>
+                  {item.desc && <p className="text-xs leading-relaxed text-dim transition-colors duration-300 dark:group-hover:text-[var(--color-ink-700)]">{item.desc}</p>}
                 </motion.div>
               ))}
             </div>
@@ -331,35 +268,38 @@ export default function About() {
         </section>
       )}
 
-      {/* CTA */}
-      <section className="py-20 border-t rule-t">
+      <section className="border-t py-20 rule-t">
         <div className="container mx-auto px-4 md:px-8">
           <motion.div
-            className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8"
-            variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}
+            className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
           >
             <div>
-              <p className="text-2xs font-extrabold uppercase text-primary-600 mb-2">
+              <p className="mb-2 text-2xs font-extrabold uppercase text-primary-600">
                 {t("about.whatsNext")}
               </p>
               <h2 className="type-section">
-                {/* Gold highlighter — the page's closing signature */}
-                <span className="ink-highlight">{t("about.seeResearch")}</span>
+                <span
+                  className="ink-highlight dark:[background-size:100%_1em] dark:[background-position:0_50%]"
+                >
+                  {profileData.roleSub}
+                </span>
               </h2>
             </div>
 
             <div className="flex flex-wrap gap-4">
               <Link
                 to="/projects"
-                className="px-8 py-3 bg-primary rule-fill text-white text-xs font-black uppercase tracking-caps
-                           hover:bg-primary-600 hover:[color:var(--on-primary-600)] transition-all duration-200"
+                className="bg-primary px-8 py-3 text-xs font-black uppercase tracking-caps text-white rule-fill transition-all duration-200 hover:bg-primary-600 hover:[color:var(--on-primary-600)]"
               >
                 {t("about.viewProjects")}
               </Link>
               <Link
                 to="/cv"
-                className="px-8 py-3 border rule-frame [--rule-line-color:rgb(var(--text-rgb)/0.3)] text-text text-xs font-black uppercase tracking-caps
-                           hover:border-secondary hover:text-secondary-600 transition-all duration-200"
+                className="border px-8 py-3 text-xs font-black uppercase tracking-caps text-text rule-frame [--rule-line-color:rgb(var(--text-rgb)/0.3)] transition-all duration-200 hover:border-secondary hover:text-secondary-600"
               >
                 {t("about.viewCV")}
               </Link>
@@ -367,7 +307,6 @@ export default function About() {
           </motion.div>
         </div>
       </section>
-
     </div>
   );
 }

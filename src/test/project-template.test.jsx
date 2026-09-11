@@ -1,4 +1,4 @@
-import { describe, it, expect, afterEach } from "vitest";
+import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { screen, within, fireEvent } from "@testing-library/react";
 import { renderWithProviders } from "./renderWithProviders";
 import ProjectTemplate from "../projects/ProjectTemplate";
@@ -13,7 +13,10 @@ function renderInGerman(meta) {
   return renderWithProviders(<ProjectTemplate meta={meta} />);
 }
 
-afterEach(() => window.localStorage.removeItem("portfolio-lang"));
+afterEach(() => {
+  window.localStorage.removeItem("portfolio-lang");
+  window.sessionStorage.removeItem("project-toc-collapsed");
+});
 
 describe("ProjectTemplate", () => {
   it("renders challenge figures when they exist in the project data", () => {
@@ -36,10 +39,8 @@ describe("ProjectTemplate — header lead line", () => {
 });
 
 describe("ProjectTemplate — at-a-glance strip renders from present fields, not a flag", () => {
-  // A synthetic fixture, not a real project: `resultsAtAGlance` is optional
-  // and no project currently sets it, but the code path is live and a test
-  // pinned to one project's copy breaks whenever that copy is rewritten —
-  // which is exactly how this test came to fail on main.
+  // Synthetic fixture: this keeps the optional resultsAtAGlance override
+  // independently covered even when a real project's copy or grouping changes.
   const withGlance = {
     ...projectData,
     metricsIntro: undefined,
@@ -83,9 +84,10 @@ describe("ProjectTemplate — metricsIntro", () => {
     expect(intro).toBeInTheDocument();
     expect(screen.queryByText("Study at a Glance")).not.toBeInTheDocument();
 
-    // Above the grid, not below it: the first metric cell must follow it in
-    // document order.
-    const firstMetric = screen.getByText(ibsData.metrics[0].label.en);
+    // Above the grid, not below it: compare against whichever metric source
+    // the template actually renders for this project.
+    const firstMetricData = ibsData.resultsAtAGlance?.items?.[0] ?? ibsData.metrics[0];
+    const firstMetric = screen.getByText(firstMetricData.label.en);
     expect(intro.compareDocumentPosition(firstMetric))
       .toBe(Node.DOCUMENT_POSITION_FOLLOWING);
   });
@@ -109,8 +111,10 @@ describe("ProjectTemplate — design section", () => {
 
     const section = document.getElementById("design");
     expect(section).toBeInTheDocument();
-    expect(within(section).getByText(/How It Was Made/)).toBeInTheDocument();
-    expect(within(section).getByRole("heading", { name: "Design" })).toBeInTheDocument();
+    expect(within(section).getByText(ibsData.sectionTitles.design.kicker.en)).toBeInTheDocument();
+    expect(
+      within(section).getByRole("heading", { name: ibsData.sectionTitles.design.heading.en })
+    ).toBeInTheDocument();
     expect(within(section).getByText(ibsData.design.en)).toBeInTheDocument();
 
     // Every planned figure occupies a slot, whether or not its artwork has
@@ -262,29 +266,36 @@ describe("ProjectTemplate — AI-assistance disclosure", () => {
 // control is reachable, labelled, and actually points at the list it claims
 // to control.
 describe("ProjectTemplate — collapsible section nav", () => {
-  it("exposes a labelled toggle wired to the list it controls", () => {
+  beforeEach(() => {
+    window.sessionStorage.removeItem("project-toc-collapsed");
+  });
+
+  it("starts collapsed with a labelled toggle wired to the list it controls", () => {
     renderWithProviders(<ProjectTemplate meta={ibsData} />);
 
-    const toggle = screen.getByRole("button", { name: "Hide section list" });
-    expect(toggle).toHaveAttribute("aria-expanded", "true");
+    const toggle = screen.getByRole("button", { name: "Show section list" });
+    expect(toggle).toHaveAttribute("aria-expanded", "false");
 
     const controlledId = toggle.getAttribute("aria-controls");
     expect(controlledId).toBeTruthy();
     expect(document.getElementById(controlledId)).toBeInTheDocument();
   });
 
-  it("keeps every section reachable by name once collapsed", async () => {
+  it("opens the full section list on click", () => {
     renderWithProviders(<ProjectTemplate meta={ibsData} />);
 
-    const toggle = screen.getByRole("button", { name: "Hide section list" });
+    const toggle = screen.getByRole("button", { name: "Show section list" });
     fireEvent.click(toggle);
 
-    const expanded = screen.getByRole("button", { name: "Show section list" });
-    expect(expanded).toHaveAttribute("aria-expanded", "false");
+    const collapse = screen.getByRole("button", { name: "Hide section list" });
+    expect(collapse).toHaveAttribute("aria-expanded", "true");
 
-    // Labels are gone from view but not from the accessibility tree.
-    const list = document.getElementById(expanded.getAttribute("aria-controls"));
-    expect(within(list).getByRole("button", { name: "Challenge" })).toBeInTheDocument();
-    expect(within(list).getByRole("button", { name: "Design" })).toBeInTheDocument();
+    const list = document.getElementById(collapse.getAttribute("aria-controls"));
+    expect(
+      within(list).getByText(ibsData.sectionTitles.challenge.label.en)
+    ).toBeInTheDocument();
+    expect(
+      within(list).getByText(ibsData.sectionTitles.design.label.en)
+    ).toBeInTheDocument();
   });
 });

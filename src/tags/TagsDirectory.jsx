@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { getTagData } from '../data/projects';
+import { getSkillProjectCount } from '../utils/skillEvidence';
 import TagChip from '../components/TagChip';
 import { useTranslation } from '../context/LanguageContext';
 import { useDocumentMeta } from '../hooks/useDocumentMeta';
@@ -18,7 +19,12 @@ const TagsDirectory = () => {
     description: t("tags.directory.subheading"),
   });
 
-  const rawTags = getTagData();
+  // Only expose tags backed by a case study the recruiter can actually open.
+  // Coming-soon cards are not evidence yet, so they do not make a skill
+  // clickable or inflate its project count.
+  const rawTags = getTagData()
+    .map(({ name }) => ({ name, count: getSkillProjectCount(name) }))
+    .filter(({ count }) => count > 0);
 
   const filteredTags = rawTags.filter(tag =>
     tag.name.toLowerCase().includes(searchQuery.toLowerCase())
