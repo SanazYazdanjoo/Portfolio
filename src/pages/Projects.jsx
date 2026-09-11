@@ -15,8 +15,9 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { sortedProjects } from "../data/projects";
+import { skillDirectoryCopy } from "../data/skillDirectory";
 import { projectProvidesSkillEvidence } from "../utils/skillEvidence";
 import { ProjectListRow } from "../components/ProjectListRow";
 import { ProjectTile } from "../components/ProjectTile";
@@ -28,6 +29,7 @@ import { profileData as rawProfile } from "../data/profile";
 import { EASE } from "../utils/motion";
 import { EmptyState } from "../components/EmptyState";
 import { HandList, HandGrid, HandClose } from "../components/HandIcons";
+import { HandArrow } from "../components/HandArrow";
 
 const VIEW_STORAGE_KEY = "projects.view";
 
@@ -66,7 +68,7 @@ function ViewToggleButton({ active, onClick, icon, label }) {
 }
 
 export default function Projects() {
-  const { t } = useTranslation();
+  const { t, localize } = useTranslation();
   const localizedProjects = useLocalizedProfile(sortedProjects);
   const [view, setView] = useState(readStoredView);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -130,7 +132,7 @@ export default function Projects() {
               {t("projects.title")}<span className="text-primary">.</span>
             </h1>
 
-            {activeSkill && (
+            {activeSkill ? (
               <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-3" aria-live="polite">
                 <span className="inline-flex items-center rounded-full border-[1.5px] rule-pill [--rule-line-color:var(--primary-600)] px-3 py-1 text-xs font-semibold tracking-wide text-primary-600">
                   {activeSkill}
@@ -147,6 +149,13 @@ export default function Projects() {
                   {t("projects.allProjects")}
                 </button>
               </div>
+            ) : (
+              <Link
+                to="/tags"
+                className="mt-5 inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-caps text-primary-600 hover:text-primary-500 focus-ring"
+              >
+                {localize(skillDirectoryCopy.links.projects)} <HandArrow />
+              </Link>
             )}
           </div>
 

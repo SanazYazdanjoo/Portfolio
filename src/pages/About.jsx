@@ -6,6 +6,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { profileData as rawProfile } from "../data/profile";
+import { skillDirectoryCopy } from "../data/skillDirectory";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { voluntaryItems as rawVoluntary } from "../data/voluntary";
 import { TESTIMONIALS_PUBLISHED, testimonialItems as rawTestimonials } from "../data/testimonials";
@@ -46,7 +47,7 @@ export default function About() {
   const profileData = useLocalizedProfile(rawProfile);
   const voluntaryItems = useLocalizedProfile(rawVoluntary);
   const testimonials = useLocalizedProfile(rawTestimonials);
-  const { t } = useTranslation();
+  const { t, localize } = useTranslation();
 
   useDocumentMeta({
     title: `${t("about.heading")} — ${profileData.name}`,
@@ -119,8 +120,8 @@ export default function About() {
       </section>
 
       {/* How the positioning works in practice. This intentionally mirrors the
-          canonical Research → Usability Engineering → Implementation narrative
-          instead of presenting a generic design-process framework as the main story. */}
+          canonical Research → Design & Usability → Implementation & Validation
+          narrative instead of presenting a generic design-process framework. */}
       <section className="border-t py-20 rule-t">
         <div className="container mx-auto px-4 md:px-8">
           <SectionHeader
@@ -182,6 +183,21 @@ export default function About() {
               {profileData.tagline}
             </motion.p>
           )}
+
+          <motion.div
+            className="mt-8"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
+            <Link
+              to="/tags"
+              className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-caps text-primary-600 hover:text-primary-500 focus-ring"
+            >
+              {localize(skillDirectoryCopy.links.about)} <HandArrow />
+            </Link>
+          </motion.div>
         </div>
       </section>
 
