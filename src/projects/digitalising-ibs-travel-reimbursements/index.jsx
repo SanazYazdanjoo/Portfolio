@@ -3,6 +3,176 @@ import ProjectTemplate from '../ProjectTemplate';
 import { PrototypeFab } from './PrototypeFab';
 import { projectData } from './digitalising-ibs-travel-reimbursements.data';
 
+const FIGMA_WIREFRAMES = {
+  type: 'embed',
+  src: 'https://embed.figma.com/design/YFlosgDXt11K17RIvVa0bL/IBS-Wireframes-Admin-and-TN?node-id=0-1&embed-host=share',
+  externalHref: 'https://www.figma.com/design/YFlosgDXt11K17RIvVa0bL/IBS-Wireframes-Admin-and-TN?node-id=0-1',
+  externalLabel: {
+    en: 'Open in Figma',
+    de: 'In Figma öffnen',
+  },
+  loadingText: {
+    en: 'Loading interactive prototype…',
+    de: 'Interaktiver Prototyp wird geladen…',
+  },
+  loadingDetail: {
+    en: 'This may take a few seconds.',
+    de: 'Das kann ein paar Sekunden dauern.',
+  },
+  slowLoadingText: {
+    en: 'Still loading the prototype…',
+    de: 'Der Prototyp wird noch geladen…',
+  },
+  slowLoadingDetail: {
+    en: 'Figma embeds can sometimes take a little longer.',
+    de: 'Eingebettete Figma-Inhalte können manchmal etwas länger brauchen.',
+  },
+  span: 2,
+  label: {
+    en: 'Low-fidelity system wireframes',
+    de: 'Low-Fidelity-Systemwireframes',
+  },
+  title: {
+    en: 'One workflow, two role-specific views',
+    de: 'Ein Workflow, zwei rollenspezifische Ansichten',
+  },
+  description: {
+    en: 'The complete wireframe board connects the participant mobile flow with the admin desktop workflow around the same reimbursement lifecycle. Participants are guided by status and next actions; administrators work with cases, attendance, approvals, rates, and exceptions.',
+    de: 'Das vollständige Wireframe-Board verbindet den mobilen Ablauf für Teilnehmende mit dem Desktop-Workflow der Verwaltung entlang desselben Erstattungsprozesses. Teilnehmende werden über Status und nächste Schritte geführt; die Verwaltung arbeitet mit Vorgängen, Anwesenheit, Freigaben, Tarifen und Ausnahmen.',
+  },
+  alt: {
+    en: 'Interactive Figma board containing the IBS participant mobile wireframes and admin desktop wireframes',
+    de: 'Interaktives Figma-Board mit den mobilen IBS-Wireframes für Teilnehmende und den Desktop-Wireframes für die Verwaltung',
+  },
+  caption: {
+    en: 'Interactive Figma wireframes · participant + admin views',
+    de: 'Interaktive Figma-Wireframes · Teilnehmenden- + Verwaltungsansichten',
+  },
+};
+
+const FIGMA_DESIGN_SYSTEM = {
+  type: 'embed',
+  src: 'https://embed.figma.com/design/YFlosgDXt11K17RIvVa0bL/IBS-FKTN?node-id=21-3449&embed-host=share',
+  externalHref: 'https://www.figma.com/design/YFlosgDXt11K17RIvVa0bL/IBS-FKTN?node-id=21-3449',
+  externalLabel: {
+    en: 'Open in Figma',
+    de: 'In Figma öffnen',
+  },
+  loadingText: {
+    en: 'Loading design system…',
+    de: 'Designsystem wird geladen…',
+  },
+  loadingDetail: {
+    en: 'This may take a few seconds.',
+    de: 'Das kann ein paar Sekunden dauern.',
+  },
+  slowLoadingText: {
+    en: 'Still loading the design system…',
+    de: 'Das Designsystem wird noch geladen…',
+  },
+  slowLoadingDetail: {
+    en: 'Figma embeds can sometimes take a little longer.',
+    de: 'Eingebettete Figma-Inhalte können manchmal etwas länger brauchen.',
+  },
+  span: 2,
+  label: {
+    en: 'Design system',
+    de: 'Designsystem',
+  },
+  title: {
+    en: 'The same role cues from map to screen',
+    de: 'Dieselben Rollenhinweise von der Karte bis zum Screen',
+  },
+  description: {
+    en: 'The design system carries the role palette from the AS-IS map into the interface and adds the typography, states, buttons, and form patterns needed for the working application.',
+    de: 'Das Designsystem überträgt die Rollenpalette der IST-Karte in die Oberfläche und ergänzt Typografie, Zustände, Buttons und Formularmuster für die funktionierende Anwendung.',
+  },
+  alt: {
+    en: 'Interactive Figma design system for the IBS travel reimbursement application',
+    de: 'Interaktives Figma-Designsystem für die IBS-Fahrtkostenerstattungsanwendung',
+  },
+  caption: {
+    en: 'Interactive IBS design system',
+    de: 'Interaktives IBS-Designsystem',
+  },
+};
+
+const LIVE_PROTOTYPE = {
+  type: 'embed',
+  src: 'https://ibs-fktn.vercel.app/',
+  externalHref: 'https://ibs-fktn.vercel.app/',
+  externalLabel: {
+    en: 'Open full screen',
+    de: 'Vollbild öffnen',
+  },
+  loadingText: {
+    en: 'Loading live prototype…',
+    de: 'Live-Prototyp wird geladen…',
+  },
+  loadingDetail: {
+    en: 'The interactive demo may take a few seconds to start.',
+    de: 'Die interaktive Demo kann ein paar Sekunden zum Starten brauchen.',
+  },
+  slowLoadingText: {
+    en: 'Still loading the live prototype…',
+    de: 'Der Live-Prototyp wird noch geladen…',
+  },
+  slowLoadingDetail: {
+    en: 'You can open the demo in a new tab if the embedded version is slow.',
+    de: 'Wenn die eingebettete Version langsam lädt, können Sie die Demo in einem neuen Tab öffnen.',
+  },
+  span: 2,
+  label: {
+    en: 'Interactive prototype',
+    de: 'Interaktiver Prototyp',
+  },
+  title: {
+    en: 'IBS travel reimbursement demo',
+    de: 'IBS-Fahrtkostenerstattung · Demo',
+  },
+  description: {
+    en: 'Use the deployed application directly inside the case study. The demo runs on fictional data and exposes the current role-based workflow and claim-state logic.',
+    de: 'Nutzen Sie die bereitgestellte Anwendung direkt in der Fallstudie. Die Demo arbeitet mit fiktiven Daten und zeigt den aktuellen rollenbasierten Workflow sowie die Statuslogik.',
+  },
+  alt: {
+    en: 'IBS travel reimbursement interactive live demo',
+    de: 'Interaktive Live-Demo der IBS-Fahrtkostenerstattung',
+  },
+  caption: {
+    en: 'Live application · fictional demo data',
+    de: 'Live-Anwendung · fiktive Demo-Daten',
+  },
+};
+
+const originalWireframes = projectData.figures?.wireframe || [];
+
+// The deployed application already shows the final visual and operational
+// detail. Keep the low-fidelity evidence here and remove the static high-fi
+// wireframe so the story moves cleanly from structure to working product.
+const visibleWireframes = originalWireframes.filter(
+  (figure) => figure?.label?.en !== 'High-fidelity wireframe'
+);
+
+const hasLegacyLowFi = visibleWireframes.some(
+  (figure) => figure?.label?.en === 'Low-fidelity wireframe'
+);
+
+const wireframeFigures = hasLegacyLowFi
+  ? visibleWireframes.map((figure) =>
+      figure?.label?.en === 'Low-fidelity wireframe' ? FIGMA_WIREFRAMES : figure
+    )
+  : [...visibleWireframes, FIGMA_WIREFRAMES];
+
+const projectDataWithInteractiveMedia = {
+  ...projectData,
+  figures: {
+    ...projectData.figures,
+    design: [FIGMA_DESIGN_SYSTEM],
+    wireframe: wireframeFigures,
+    prototype: [LIVE_PROTOTYPE],
+  },
+};
+
 // The floating prototype badge is mounted here rather than inside
 // ProjectTemplate on purpose: it is a one-project affordance (this is the
 // only case study with a deployed build behind it), and a template that
@@ -12,8 +182,11 @@ import { projectData } from './digitalising-ibs-travel-reimbursements.data';
 export default function Project4() {
   return (
     <>
-      <ProjectTemplate meta={projectData} />
-      <PrototypeFab href={projectData.prototypeUrl} label={projectData.prototypeUrlLabel} />
+      <ProjectTemplate meta={projectDataWithInteractiveMedia} />
+      <PrototypeFab
+        href={projectData.prototypeUrl}
+        label={projectData.prototypeUrlLabel}
+      />
     </>
   );
 }

@@ -1,18 +1,16 @@
-// Renders the career arc ("The Bridge"). Phase data lives in src/data/career.js;
-// this component resolves translation keys and renders. Each phase carries its
-// own chronologically-grouped skill chips instead of a flat skills list.
+// Renders the career arc ("The Bridge"). Phase labels, years and summaries
+// come from the canonical professional narrative in profile.js via career.js.
+// Skill chips remain evidence-backed and grouped by the phase where they became
+// central to the story.
 //
-//   variant="full"    - About page section: numeral, label, years, summary,
-//                        then skill-group chips.
-//   variant="compact" - homepage strip: numeral + label + years only, no
-//                        skill chips.
+//   variant="full"    - About page: numeral, label, years, summary, skills
+//   variant="compact" - homepage: date + label only
 
 import React from "react";
 import { useInViewReveal, revealClass } from "../hooks/useReveal";
 import { useTranslation } from "../context/LanguageContext";
 import { careerPhases } from "../data/career";
 
-// Hand-drawn ink arrow — shared by both variants
 function InkArrow({ className = "" }) {
   return (
     <svg
@@ -28,36 +26,38 @@ function InkArrow({ className = "" }) {
   );
 }
 
-// Data — resolved once, translation-driven
 export function useCareerArc() {
-  const { t } = useTranslation();
-  return careerPhases.map((p) => ({
-    phase: p.phase,
-    label: t(p.labelKey),
-    years: t(p.yearsKey),
-    summary: t(p.summaryKey),
-    highlight: !!p.highlight,
-    skillGroups: p.skillGroups.map((g) => ({
-      label: g.groupKey ? t(g.groupKey) : null,
-      items: g.items,
+  const { t, localize } = useTranslation();
+
+  return careerPhases.map((phase) => ({
+    phase: phase.phase,
+    label: localize(phase.label),
+    years: localize(phase.years),
+    summary: localize(phase.summary),
+    highlight: !!phase.highlight,
+    skillGroups: phase.skillGroups.map((group) => ({
+      label: group.groupKey ? t(group.groupKey) : null,
+      items: group.items,
     })),
   }));
 }
 
-
-// FULL — About page
 function CareerArcFull({ steps }) {
   const [ref, inView] = useInViewReveal({ amount: 0 });
+
   return (
-    <div ref={ref} className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border items-stretch">
+    <div
+      ref={ref}
+      className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-px bg-border items-stretch"
+    >
       {steps.map((step, i) => (
         <div
           key={step.phase}
-          style={{ "--reveal-delay": `${i * 0.1}s`, "--reveal-dur": "0.5s" }}
-          className={`${revealClass(inView)} relative p-s32 group
+          style={{ "--reveal-delay": `${i * 0.08}s`, "--reveal-dur": "0.5s" }}
+          className={`${revealClass(inView)} relative p-s24 group
             ${step.highlight
               ? "bg-primary rule-fill text-white"
-              : "bg-bg rule-fill hover:bg-blush-weak transition-colors duration-300"
+              : "bg-bg rule-fill hover:bg-blush-weak dark:hover:bg-[var(--color-blush-100)] dark:hover:[--text-rgb:var(--color-ink-900-rgb)] dark:hover:[--text-dim-rgb:var(--color-ink-900-rgb)] dark:hover:[--text-meta:var(--color-ink-700)] dark:hover:[--secondary-rgb:var(--color-rose-600-rgb)] dark:hover:[--secondary-600-rgb:var(--color-rose-600-rgb)] transition-colors duration-300"
             }`}
         >
           <span
@@ -115,7 +115,7 @@ function CareerArcFull({ steps }) {
           ))}
 
           {i < steps.length - 1 && (
-            <div className="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2 z-10">
+            <div className="hidden xl:block absolute -right-3 top-1/2 -translate-y-1/2 z-10">
               <InkArrow className="text-dim" />
             </div>
           )}
@@ -125,19 +125,6 @@ function CareerArcFull({ steps }) {
   );
 }
 
-// COMPACT — the homepage timeline, a vertical list rather than three
-// side-by-side columns.
-//
-// Each row is a fixed 88px date column beside the role, separated by the
-// house hairline. That geometry is what permanently retires the wrapping
-// problem the horizontal version had: a role that needs two lines grows its
-// own row downward and moves nothing, because the date sits at the top-left
-// of the same row instead of below a label of unpredictable height.
-//
-// The date is 12px mono with no tracking, in a 108px column wide enough for
-// the longest of them ("2022 – Present", 101px in the widest mono this stack
-// resolves to) with nowrap to guarantee it. The current phase takes the
-// accent; the others are dim.
 function CareerArcCompact({ steps }) {
   const [ref, inView] = useInViewReveal({ amount: 0.2 });
 
@@ -159,14 +146,15 @@ function CareerArcCompact({ steps }) {
           >
             {step.years}
           </span>
-          <span className="text-body text-text">{step.label}</span>
+          <span className={`text-body ${step.highlight ? "font-medium text-primary-600" : "text-text"}`}>
+            {step.label}
+          </span>
         </li>
       ))}
     </ol>
   );
 }
 
-// Public API
 export default function CareerArc({ variant = "full" }) {
   const steps = useCareerArc();
   return variant === "compact"

@@ -8,8 +8,8 @@
 // element per tag on the page at any moment — the header renders a tag only
 // while the orbit does not — so the flight is a shared-layout animation
 // (framer-motion `layoutId`) rather than a crossfade between duplicates,
-// and a screen reader or a keyboard tab order never meets the same link
-// twice.
+// and a screen reader or a keyboard tab order never meets the same skill
+// control twice.
 //
 // Which tags belong to which section is derived from `tagEvidence`, not
 // declared a second time — see ./tagSections.js.
@@ -38,6 +38,7 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Badge } from "../../components/Badge";
 import { useMediaQuery } from "../../hooks/useIsMobile";
 import { useTranslation } from "../../context/LanguageContext";
+import { getSkillFilterHref } from "../../utils/skillEvidence";
 import { deriveTagSections } from "./tagSections";
 import { EASE } from "./constants";
 
@@ -88,6 +89,9 @@ export function useSkillOrbit({ tags, tagEvidence, activeId, activeSections }) {
 }
 
 function OrbitPill({ tag, index, reduced }) {
+  const href = getSkillFilterHref(tag);
+  const badge = <Badge tone="accent">{tag}</Badge>;
+
   return (
     <motion.div
       layoutId={`skill-pill-${tag}`}
@@ -97,9 +101,11 @@ function OrbitPill({ tag, index, reduced }) {
       exit={{ opacity: 0, x: 12, transition: { duration: 0.18, ease: EASE } }}
       transition={{ duration: 0.5, delay: reduced ? 0 : index * 0.06, ease: EASE }}
     >
-      <Link to={`/tags/${encodeURIComponent(tag)}`} className="inline-block focus-ring rounded-full">
-        <Badge tone="accent">{tag}</Badge>
-      </Link>
+      {href ? (
+        <Link to={href} className="inline-block focus-ring rounded-full">
+          {badge}
+        </Link>
+      ) : badge}
     </motion.div>
   );
 }
