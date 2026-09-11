@@ -97,6 +97,53 @@ const FIGMA_DESIGN_SYSTEM = {
   },
 };
 
+const LIVE_PROTOTYPE = {
+  type: 'embed',
+  src: 'https://ibs-fktn.vercel.app/',
+  externalHref: 'https://ibs-fktn.vercel.app/',
+  externalLabel: {
+    en: 'Open full screen',
+    de: 'Vollbild öffnen',
+  },
+  loadingText: {
+    en: 'Loading live prototype…',
+    de: 'Live-Prototyp wird geladen…',
+  },
+  loadingDetail: {
+    en: 'The interactive demo may take a few seconds to start.',
+    de: 'Die interaktive Demo kann ein paar Sekunden zum Starten brauchen.',
+  },
+  slowLoadingText: {
+    en: 'Still loading the live prototype…',
+    de: 'Der Live-Prototyp wird noch geladen…',
+  },
+  slowLoadingDetail: {
+    en: 'You can open the demo in a new tab if the embedded version is slow.',
+    de: 'Wenn die eingebettete Version langsam lädt, können Sie die Demo in einem neuen Tab öffnen.',
+  },
+  span: 2,
+  label: {
+    en: 'Interactive prototype',
+    de: 'Interaktiver Prototyp',
+  },
+  title: {
+    en: 'IBS travel reimbursement demo',
+    de: 'IBS-Fahrtkostenerstattung · Demo',
+  },
+  description: {
+    en: 'Use the deployed application directly inside the case study. The demo runs on fictional data and exposes the current role-based workflow and claim-state logic.',
+    de: 'Nutzen Sie die bereitgestellte Anwendung direkt in der Fallstudie. Die Demo arbeitet mit fiktiven Daten und zeigt den aktuellen rollenbasierten Workflow sowie die Statuslogik.',
+  },
+  alt: {
+    en: 'IBS travel reimbursement interactive live demo',
+    de: 'Interaktive Live-Demo der IBS-Fahrtkostenerstattung',
+  },
+  caption: {
+    en: 'Live application · fictional demo data',
+    de: 'Live-Anwendung · fiktive Demo-Daten',
+  },
+};
+
 const originalWireframes = projectData.figures?.wireframe || [];
 
 // The deployed application already shows the final visual and operational
@@ -116,12 +163,13 @@ const wireframeFigures = hasLegacyLowFi
     )
   : [...visibleWireframes, FIGMA_WIREFRAMES];
 
-const projectDataWithFigmaMedia = {
+const projectDataWithInteractiveMedia = {
   ...projectData,
   figures: {
     ...projectData.figures,
     design: [FIGMA_DESIGN_SYSTEM],
     wireframe: wireframeFigures,
+    prototype: [LIVE_PROTOTYPE],
   },
 };
 
@@ -134,7 +182,7 @@ const projectDataWithFigmaMedia = {
 export default function Project4() {
   return (
     <>
-      <ProjectTemplate meta={projectDataWithFigmaMedia} />
+      <ProjectTemplate meta={projectDataWithInteractiveMedia} />
       <PrototypeFab
         href={projectData.prototypeUrl}
         label={projectData.prototypeUrlLabel}
