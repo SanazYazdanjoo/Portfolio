@@ -98,7 +98,7 @@ export function StackedProjectCard({ project, index }) {
                   loading="lazy"
                   decoding="async"
                   onError={handleIllustrationError}
-                  className={`block w-full h-full object-contain transition-opacity duration-300 ease-out motion-reduce:transition-none ${
+                  className={`block w-full h-full object-contain transition-opacity duration-700 ease-in-out motion-reduce:transition-none ${
                     showArtefact ? "opacity-0" : "opacity-100"
                   }`}
                 />
@@ -120,7 +120,7 @@ export function StackedProjectCard({ project, index }) {
                   loading="lazy"
                   decoding="async"
                   onError={() => setArtefactAvailable(false)}
-                  className={`absolute inset-0 block w-full h-full object-contain pointer-events-none transition-opacity duration-300 ease-out motion-reduce:transition-none ${
+                  className={`absolute inset-0 block w-full h-full object-contain pointer-events-none transition-opacity duration-700 ease-in-out motion-reduce:transition-none ${
                     showArtefact ? "opacity-100" : "opacity-0"
                   }`}
                 />
