@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
-import { screen, fireEvent } from "@testing-library/react";
+import { afterEach, describe, it, expect, vi } from "vitest";
+import { act, screen, fireEvent } from "@testing-library/react";
 import { renderWithProviders } from "./renderWithProviders";
 import SectionMedia from "../projects/SectionMedia";
 
@@ -7,6 +7,10 @@ const figures = [
   { src: "/a.webp", alt: "Diagram A", caption: "Caption A" },
   { src: "/b.webp", alt: "Diagram B", zoom: false },
 ];
+
+afterEach(() => {
+  vi.useRealTimers();
+});
 
 describe("SectionMedia", () => {
   it("renders nothing when there are no items", () => {
@@ -49,6 +53,63 @@ describe("SectionMedia", () => {
     expect(document.body.style.overflow).toBe("hidden");
     fireEvent.keyDown(document, { key: "Escape" });
     expect(document.body.style.overflow).not.toBe("hidden");
+  });
+});
+
+describe("Embedded media loading state", () => {
+  const embed = [{
+    type: "embed",
+    src: "https://embed.figma.com/design/example",
+    alt: "Interactive Figma board",
+    loadingText: "Loading interactive prototype…",
+    loadingDetail: "This may take a few seconds.",
+    slowLoadingText: "Still loading the prototype…",
+    slowLoadingDetail: "Figma embeds can sometimes take a little longer.",
+    externalHref: "https://www.figma.com/design/example",
+    externalLabel: "Open in Figma",
+  }];
+
+  it("keeps an accessible loader visible until the iframe loads", () => {
+    const { container } = renderWithProviders(<SectionMedia items={embed} />);
+    const frame = screen.getByTitle("Interactive Figma board");
+    const wrapper = container.querySelector("[data-embed-state]");
+
+    expect(wrapper).toHaveAttribute("data-embed-state", "loading");
+    expect(wrapper).toHaveAttribute("aria-busy", "true");
+    expect(screen.getByRole("status")).toHaveTextContent("Loading interactive prototype…");
+    expect(screen.getByRole("status")).toHaveTextContent("This may take a few seconds.");
+    expect(frame).toHaveAttribute("tabindex", "-1");
+    expect(frame.className).toContain("opacity-0");
+
+    fireEvent.load(frame);
+
+    expect(wrapper).toHaveAttribute("data-embed-state", "loaded");
+    expect(wrapper).toHaveAttribute("aria-busy", "false");
+    expect(screen.queryByRole("status")).not.toBeInTheDocument();
+    expect(frame).toHaveAttribute("tabindex", "0");
+    expect(frame.className).toContain("opacity-100");
+  });
+
+  it("offers a Figma fallback when an embed is taking a long time", () => {
+    vi.useFakeTimers();
+    const { container } = renderWithProviders(<SectionMedia items={embed} />);
+
+    act(() => {
+      vi.advanceTimersByTime(7000);
+    });
+
+    expect(container.querySelector("[data-embed-state]")).toHaveAttribute(
+      "data-embed-state",
+      "slow"
+    );
+    expect(screen.getByRole("status")).toHaveTextContent("Still loading the prototype…");
+    expect(screen.getByRole("status")).toHaveTextContent(
+      "Figma embeds can sometimes take a little longer."
+    );
+    expect(screen.getByRole("link", { name: /open in figma/i })).toHaveAttribute(
+      "href",
+      "https://www.figma.com/design/example"
+    );
   });
 });
 
