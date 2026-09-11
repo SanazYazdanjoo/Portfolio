@@ -11,9 +11,9 @@
 // the plate specifies — rather than collapsing the column.
 //
 // The figure uses the illustrated project thumbnail as its first impression.
-// On fine-pointer hover, or keyboard focus within the card, it crossfades to
-// the real project artefact already used by the homepage card. Touch devices
-// never depend on this preview: they keep the illustration and navigate on tap.
+// On fine-pointer hover, or keyboard focus within the card, it dissolves into
+// the real project artefact with a gentle settling motion. Touch devices never
+// depend on this preview: they keep the illustration and navigate on tap.
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
@@ -98,8 +98,10 @@ export function StackedProjectCard({ project, index }) {
                   loading="lazy"
                   decoding="async"
                   onError={handleIllustrationError}
-                  className={`block w-full h-full object-contain transition-opacity duration-700 ease-in-out motion-reduce:transition-none ${
-                    showArtefact ? "opacity-0" : "opacity-100"
+                  className={`block w-full h-full object-contain transition-[opacity,transform] duration-[1100ms] ease-in-out motion-reduce:transition-none motion-reduce:transform-none ${
+                    showArtefact
+                      ? "opacity-0 scale-[0.985] -translate-y-[2px]"
+                      : "opacity-100 scale-100 translate-y-0"
                   }`}
                 />
               ) : (
@@ -120,8 +122,10 @@ export function StackedProjectCard({ project, index }) {
                   loading="lazy"
                   decoding="async"
                   onError={() => setArtefactAvailable(false)}
-                  className={`absolute inset-0 block w-full h-full object-contain pointer-events-none transition-opacity duration-700 ease-in-out motion-reduce:transition-none ${
-                    showArtefact ? "opacity-100" : "opacity-0"
+                  className={`absolute inset-0 block w-full h-full object-contain pointer-events-none transition-[opacity,transform] duration-[1100ms] ease-in-out motion-reduce:transition-none motion-reduce:transform-none ${
+                    showArtefact
+                      ? "opacity-100 scale-100 translate-y-0"
+                      : "opacity-0 scale-[1.015] translate-y-[2px]"
                   }`}
                 />
               )}
