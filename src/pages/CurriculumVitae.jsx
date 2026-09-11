@@ -1,18 +1,16 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { profileData as rawProfile } from "../data/profile";
+import {
+  profileData as rawProfile,
+  SKILL_CATEGORY_KEYS,
+  CORE_SKILLS_CATEGORY,
+  ADDITIONAL_SKILLS_CATEGORY,
+} from "../data/profile";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { useTranslation } from "../context/LanguageContext";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { HandArrow } from "../components/HandArrow";
 
-const SKILL_CATEGORY_KEYS = {
-  "Frontend Engineering & Design": "cv.skillCategory.frontendEngineering",
-  "Backend & Data": "cv.skillCategory.backendData",
-  "UX Research & Testing": "cv.skillCategory.uxResearchDesign",
-  "QA & Testing": "cv.skillCategory.qaTesting",
-  "Analysis & Tools": "cv.skillCategory.analysisTools",
-};
 
 export default function CV() {
   const profileData = useLocalizedProfile(rawProfile);
@@ -260,19 +258,57 @@ export default function CV() {
 
               <section id="skills" className="mt-14 scroll-mt-28 print:mt-8">
                 <SectionHeading>{t("cv.skills")}</SectionHeading>
+                {/* The hierarchy is the category order in data.json. The core
+                    category runs full width in bold ink — what to hire her
+                    for — the supporting groups share the two-column grid,
+                    and the last category is the quiet breadth line: still
+                    listed, never competing with the core. */}
                 <div className="grid gap-x-10 gap-y-7 md:grid-cols-2 print:grid-cols-2 print:gap-x-6 print:gap-y-4">
-                  {Object.entries(skills || {}).map(([category, items]) => (
-                    <div key={category} className="border-t rule-t rule-soft pt-4">
-                      <h3 className="text-xs font-black uppercase tracking-caps text-primary print:text-2xs">
-                        {SKILL_CATEGORY_KEYS[category]
-                          ? t(SKILL_CATEGORY_KEYS[category])
-                          : category}
-                      </h3>
-                      <p className="mt-2 text-[0.94rem] leading-6 text-gray-600 print:text-xs print:leading-relaxed">
-                        {items.join(" · ")}
-                      </p>
-                    </div>
-                  ))}
+                  {Object.entries(skills || {}).map(([category, items]) => {
+                    const label = SKILL_CATEGORY_KEYS[category]
+                      ? t(SKILL_CATEGORY_KEYS[category])
+                      : category;
+                    const isCore = category === CORE_SKILLS_CATEGORY;
+                    const isAdditional = category === ADDITIONAL_SKILLS_CATEGORY;
+                    return (
+                      <div
+                        key={category}
+                        className={`border-t rule-t rule-soft pt-4 ${
+                          isCore || isAdditional ? "md:col-span-2 print:col-span-2" : ""
+                        }`}
+                      >
+                        <h3
+                          className={`text-xs font-black uppercase tracking-caps print:text-2xs ${
+                            isAdditional ? "text-gray-500" : "text-primary"
+                          }`}
+                        >
+                          {label}
+                        </h3>
+                        {isCore ? (
+                          <ul className="mt-3 flex flex-wrap gap-2 print:mt-2 print:gap-1.5">
+                            {items.map((item) => (
+                              <li
+                                key={item}
+                                className="border rule-frame px-2.5 py-1 text-sm font-bold text-gray-900 print:px-1.5 print:py-0.5 print:text-xs"
+                              >
+                                {item}
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p
+                            className={`mt-2 leading-6 print:leading-relaxed ${
+                              isAdditional
+                                ? "text-sm text-gray-500 print:text-2xs"
+                                : "text-[0.94rem] text-gray-600 print:text-xs"
+                            }`}
+                          >
+                            {items.join(" · ")}
+                          </p>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               </section>
 
@@ -368,6 +404,15 @@ function ExperienceEntry({ job, t, first = false }) {
           <p className="mt-1 text-sm font-bold text-primary md:text-base print:text-sm">
             {job.role}
           </p>
+          {/* What this stage adds to the UX Engineering profile today — one
+              line, from data.json, so a historical title stays accurate and
+              the reader still sees why it belongs in the arc. */}
+          {job.arcNote && (
+            <p className="mt-1.5 flex items-start gap-1.5 text-sm italic leading-5 text-gray-500 print:text-xs">
+              <HandArrow className="mt-1 shrink-0 print:hidden" />
+              <span>{job.arcNote}</span>
+            </p>
+          )}
         </div>
         <p className="shrink-0 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-gray-500 sm:pt-1 print:text-2xs">
           {job.date}

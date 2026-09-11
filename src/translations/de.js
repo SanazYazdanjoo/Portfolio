@@ -41,6 +41,7 @@ const de = {
   // About
   "about.heading": "Über mich",
   "home.about.kicker": "01 — Wer ich bin",
+  "home.about.coreExpertise": "Kernkompetenzen",
 
   "about.howIGotHere": "Wie ich hierher gelangt bin",
   "about.theBridge": "Die Brücke",
@@ -106,14 +107,19 @@ const de = {
   "cv.aiAssisted.text": "KI-gestützte Entwicklung — Agenten unter meiner Leitung; das Entscheidungslog hält fest, was ich abgelehnt habe",
   "cv.aiAssisted.link": "IBS-Fallstudie",
 
+  // Skill-group headings, shared by the CV and the About page. Keyed off the
+  // English category name in data.json (SKILL_CATEGORY_KEYS in
+  // src/data/profile.js); an unknown category falls back to its raw name.
+  "cv.skillCategory.core": "Kernkompetenzen",
+  "cv.skillCategory.research": "Research & Evaluation",
+  "cv.skillCategory.technical": "Technische Umsetzung",
+  "cv.skillCategory.qa": "Qualitätssicherung",
+  "cv.skillCategory.additional": "Weitere technische Erfahrung",
+  "cv.skillCategory.alsoWorkedWith": "Außerdem gearbeitet mit",
+
   // Skill-group headings on the CV. "UX Research & Design" and "QA & Testing"
   // stay English — they are the established terms in German job ads, and
   // translating them would read as less professional, not more.
-  "cv.skillCategory.frontendEngineering": "Frontend-Entwicklung & Design",
-  "cv.skillCategory.uxResearchDesign": "UX Research & Testing",
-  "cv.skillCategory.qaTesting": "QA & Testing",
-  "cv.skillCategory.analysisTools": "Analyse & Tools",
-  "cv.skillCategory.backendData": "Backend & Daten",
 
   // Contact
   "contact.heading": "Kontakt aufnehmen",
@@ -210,6 +216,10 @@ const de = {
   // Project detail — section kickers + headings (long form)
   "project.about.kicker": "Projektübersicht",
   "project.about.heading": "Über das Projekt",
+  // The evidence chain under the About copy — rendered only by a case study
+  // that supplies `evidenceChain` (template/EvidenceChain.jsx).
+  "project.evidenceChain.label": "Von der Evidenz zur laufenden Software",
+  "project.evidenceChain.pending": "Ausstehend",
 
   "project.process.kicker": "Hinter der Arbeit",
   "project.process.heading": "Forschungsprozess",

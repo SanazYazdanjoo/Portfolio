@@ -20,7 +20,8 @@ import { Hero } from "../components/Hero";
 import { AboutBio } from "../components/AboutMe";
 import { StackedProjectCard } from "../components/StackedProjectCard";
 import { sortedProjects } from "../data/projects";
-import { profileData as rawProfile } from "../data/profile";
+import { profileData as rawProfile, coreExpertise } from "../data/profile";
+import { SkillTagRow } from "../components/SkillTagRow";
 import { ComingSoonRow } from "../components/ComingSoonRow";
 import { HomeContact } from "../components/HomeContact";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
@@ -81,6 +82,18 @@ export default function Home() {
           </div>
           <div className="md:col-span-7">
             <AboutBio data={profileData} />
+            {/* The core expertise row: what she is hired for, read from the
+                first skills category in data.json. Language-neutral labels,
+                the same chip the project cards use, so the vocabulary on
+                the cards below matches this row. */}
+            {coreExpertise.length > 0 && (
+              <div className="mt-s32">
+                <p className="text-label font-mono uppercase text-text-meta mb-s12">
+                  {t("home.about.coreExpertise")}
+                </p>
+                <SkillTagRow tags={coreExpertise} />
+              </div>
+            )}
           </div>
           <div className="md:col-start-9 md:col-span-4 mt-s48 md:mt-0">
             <CareerArc variant="compact" />
