@@ -159,14 +159,72 @@ const hydratedProjectData = {
 // not show labelled placeholder cards to portfolio visitors in the meantime.
 const resolvedFiguresOnly = (figures = []) => figures.filter((figure) => figure?.src);
 
+// High-fidelity prototype board for the Interest-Based Communities concept,
+// embedded live rather than exported as stills so the screens stay in sync
+// with the Figma file. Mirrors the embed contract used by the IBS case study.
+// The copy deliberately does not enumerate individual frames: the board is
+// read-only to us, so any frame list here would drift as the file changes.
+const FIGMA_HIGH_FIDELITY = {
+  type: 'embed',
+  src: 'https://embed.figma.com/design/9abqDxZ6KdHeZlVYMbLlyI/UCD4UX-High-Fidelity-Prototypes?node-id=0-1&embed-host=share',
+  externalHref: 'https://www.figma.com/design/9abqDxZ6KdHeZlVYMbLlyI/UCD4UX-High-Fidelity-Prototypes?node-id=0-1',
+  externalLabel: {
+    en: 'Open in Figma',
+    de: 'In Figma öffnen',
+  },
+  loadingText: {
+    en: 'Loading high-fidelity prototype…',
+    de: 'High-Fidelity-Prototyp wird geladen…',
+  },
+  loadingDetail: {
+    en: 'This may take a few seconds.',
+    de: 'Das kann ein paar Sekunden dauern.',
+  },
+  slowLoadingText: {
+    en: 'Still loading the prototype…',
+    de: 'Der Prototyp wird noch geladen…',
+  },
+  slowLoadingDetail: {
+    en: 'Figma embeds can sometimes take a little longer.',
+    de: 'Eingebettete Figma-Inhalte können manchmal etwas länger brauchen.',
+  },
+  span: 2,
+  label: {
+    en: 'High-fidelity prototype',
+    de: 'High-Fidelity-Prototyp',
+  },
+  title: {
+    en: 'The concept as finished screens',
+    de: 'Das Konzept als fertige Screens',
+  },
+  description: {
+    en: 'The high-fidelity board behind Interest-Based Communities — the screens that went into user testing and were handed to deskbird. Pan and zoom the board to move through the flows.',
+    de: 'Das High-Fidelity-Board hinter Interest-Based Communities — die Screens, die in die Nutzertests gingen und an deskbird übergeben wurden. Das Board lässt sich verschieben und zoomen, um durch die Abläufe zu gehen.',
+  },
+  alt: {
+    en: 'Interactive Figma board holding the high-fidelity prototype screens for Interest-Based Communities in deskbird',
+    de: 'Interaktives Figma-Board mit den High-Fidelity-Prototyp-Screens für Interest-Based Communities in deskbird',
+  },
+  caption: {
+    en: 'Interactive Figma board · high-fidelity prototypes',
+    de: 'Interaktives Figma-Board · High-Fidelity-Prototypen',
+  },
+};
+
 export const enrichedProjectData = {
   ...hydratedProjectData,
-  figures: Object.fromEntries(
-    Object.entries(hydratedProjectData.figures ?? {}).map(([key, figures]) => [
-      key,
-      Array.isArray(figures) ? resolvedFiguresOnly(figures) : figures,
-    ]),
-  ),
+  figures: {
+    ...Object.fromEntries(
+      Object.entries(hydratedProjectData.figures ?? {}).map(([key, figures]) => [
+        key,
+        Array.isArray(figures) ? resolvedFiguresOnly(figures) : figures,
+      ]),
+    ),
+    prototype: [
+      ...resolvedFiguresOnly(hydratedProjectData.figures?.prototype),
+      FIGMA_HIGH_FIDELITY,
+    ],
+  },
   process: hydratedProjectData.process.map((step) => ({
     ...step,
     figures: resolvedFiguresOnly(step.figures),
