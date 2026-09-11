@@ -8,7 +8,12 @@
 //            SKILL NAMES ONLY: a career-era tool (Postman, WordPress) is
 //            evidenced by the job entry that used it. Tier 2 never satisfies
 //            a NUMERIC claim — self-reported numbers don't back themselves.
-//   Tier 0 — named in neither. Deleted, not evidenced after the fact.
+//   Degree-backed career phase — a career-arc phase whose own summary names
+//            a degree in profile.education may carry foundation chips from
+//            that formal education. This applies only to the career arc, not
+//            to the standalone CV skill inventory.
+//   Tier 0 — named in none of the allowed evidence sources. Deleted, not
+//            evidenced after the fact.
 //
 // Numeric-claim scoping, stated where the contract is stated on the site:
 // case-study claims carry evidence; numeric claims inside pre-2021
@@ -69,6 +74,16 @@ const corpusByProject = new Map(
 const tier2Corpus = (profileData.experience ?? []).flatMap((job) => {
   const strings = [];
   collectEnglishStrings({ tasks: job.tasks }, strings);
+  return strings;
+});
+
+// Career-arc education evidence is deliberately narrower than the general
+// profile corpus: only formal degree names may back an education phase. A
+// certificate, workshop, bio sentence, or the career phase itself cannot
+// rescue a chip. The phase summary must explicitly name the degree.
+const educationDegreeCorpus = (profileData.education ?? []).flatMap((education) => {
+  const strings = [];
+  collectEnglishStrings({ degree: education.degree }, strings);
   return strings;
 });
 
@@ -163,7 +178,15 @@ function skillResolves(label) {
   return false;
 }
 
-describe("CV skill chips — every rendered skill resolves to a case study that names it", () => {
+function phaseIsEducationBacked(phase) {
+  const summaryStrings = [];
+  collectEnglishStrings({ summary: phase.summary }, summaryStrings);
+  return educationDegreeCorpus.some((degree) =>
+    wordsMatchCorpus(degree, summaryStrings, { genericOptional: true })
+  );
+}
+
+describe("CV skill chips — every rendered skill carries evidence", () => {
   it("profile.skills has no orphans", () => {
     const orphans = [];
     for (const [category, skills] of Object.entries(profileData.skills ?? {})) {
@@ -180,15 +203,18 @@ describe("CV skill chips — every rendered skill resolves to a case study that 
   it("career-arc chips have no orphans", () => {
     const orphans = [];
     for (const phase of careerPhases) {
+      const educationBacked = phaseIsEducationBacked(phase);
       for (const group of phase.skillGroups ?? []) {
         for (const chip of group.items ?? []) {
-          if (!skillResolves(chip)) orphans.push(`careerPhases[${phase.phase}]: "${chip}"`);
+          if (!skillResolves(chip) && !educationBacked) {
+            orphans.push(`careerPhases[${phase.phase}]: "${chip}"`);
+          }
         }
       }
     }
     expect(
       orphans,
-      `Orphaned career-arc chips (no case study names them):\n${orphans.join("\n")}`
+      `Orphaned career-arc chips (no case-study, experience, or degree evidence):\n${orphans.join("\n")}`
     ).toEqual([]);
   });
 });
