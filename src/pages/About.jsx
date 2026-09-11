@@ -2,7 +2,6 @@
 // that produced it, then the way that combination shows up in practice.
 // Human-facing profile copy stays in data.json; this page only composes it.
 
-import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { profileData as rawProfile } from "../data/profile";
@@ -52,11 +51,6 @@ export default function About() {
     title: `${t("about.heading")} — ${profileData.name}`,
     description: profileData.bio,
   });
-
-  const workflowSteps = (profileData.roleSub || "")
-    .split(/\s*→\s*/)
-    .map((step) => step.trim())
-    .filter(Boolean);
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-bg">
@@ -117,9 +111,8 @@ export default function About() {
         </div>
       </section>
 
-      {/* How the positioning works in practice. This intentionally mirrors the
-          canonical Research → Design & Usability → Implementation & Validation
-          narrative instead of presenting a generic design-process framework. */}
+      {/* How the positioning works in practice: a familiar Double Diamond
+          expressed through the same research-to-validation narrative. */}
       <section className="border-t py-20 rule-t">
         <div className="container mx-auto px-4 md:px-8">
           <SectionHeader
@@ -128,7 +121,7 @@ export default function About() {
           />
 
           <motion.div
-            className="mb-12 max-w-3xl"
+            className="mb-10 max-w-3xl"
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
@@ -139,47 +132,21 @@ export default function About() {
             </p>
           </motion.div>
 
-          {workflowSteps.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr] md:items-stretch">
-              {workflowSteps.map((step, i) => (
-                <React.Fragment key={step}>
-                  <motion.article
-                    custom={i}
-                    variants={fadeUp}
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{ once: true }}
-                    className="px-2 py-7 md:px-6 md:py-9"
-                  >
-                    <span className="mb-5 block font-hand text-4xl font-bold leading-none text-blush" aria-hidden="true">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <h3 className={`font-display text-2xl font-black leading-tight ${i === 1 ? "text-primary-600" : "text-text"}`}>
-                      {step}
-                    </h3>
-                  </motion.article>
-
-                  {i < workflowSteps.length - 1 && (
-                    <div className="hidden items-center justify-center px-2 text-dim md:flex" aria-hidden="true">
-                      <HandArrow className="w-8" />
-                    </div>
-                  )}
-                </React.Fragment>
-              ))}
-            </div>
-          )}
-
-          {profileData.tagline && (
-            <motion.p
-              className="mt-10 max-w-max -rotate-1 font-hand text-hand leading-tight text-primary-600"
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-            >
-              {profileData.tagline}
-            </motion.p>
-          )}
+          <motion.figure
+            className="mx-auto w-full max-w-6xl overflow-hidden bg-white"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-80px" }}
+          >
+            <img
+              src="/assets/How-I-Work.jpg"
+              alt="Double Diamond workflow: Discover — understand people and context; Define — turn findings into direction; Develop — design usable solutions; Deliver — build, test, and improve."
+              className="block h-auto w-full"
+              loading="lazy"
+              decoding="async"
+            />
+          </motion.figure>
         </div>
       </section>
 
