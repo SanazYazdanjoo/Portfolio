@@ -41,6 +41,11 @@ export function StackedProjectCard({ project, index }) {
   const showArtefact = canPreviewArtefact && (pointerPreview || focusPreview);
   const tags = project.cardTags || [];
   const meta = [project.year, project.context, project.role].filter(Boolean);
+  const previewTransition = {
+    transitionProperty: "opacity, transform",
+    transitionDuration: "1400ms",
+    transitionTimingFunction: "var(--timing-smooth)",
+  };
 
   const supportsFineHover = () =>
     typeof window !== "undefined" &&
@@ -98,9 +103,10 @@ export function StackedProjectCard({ project, index }) {
                   loading="lazy"
                   decoding="async"
                   onError={handleIllustrationError}
-                  className={`block w-full h-full object-contain transition-[opacity,transform] duration-[1100ms] ease-in-out motion-reduce:transition-none motion-reduce:transform-none ${
+                  style={previewTransition}
+                  className={`block w-full h-full object-contain motion-reduce:transform-none ${
                     showArtefact
-                      ? "opacity-0 scale-[0.985] -translate-y-[2px]"
+                      ? "opacity-0 scale-[0.97] -translate-y-[4px]"
                       : "opacity-100 scale-100 translate-y-0"
                   }`}
                 />
@@ -122,10 +128,11 @@ export function StackedProjectCard({ project, index }) {
                   loading="lazy"
                   decoding="async"
                   onError={() => setArtefactAvailable(false)}
-                  className={`absolute inset-0 block w-full h-full object-contain pointer-events-none transition-[opacity,transform] duration-[1100ms] ease-in-out motion-reduce:transition-none motion-reduce:transform-none ${
+                  style={previewTransition}
+                  className={`absolute inset-0 block w-full h-full object-contain pointer-events-none motion-reduce:transform-none ${
                     showArtefact
                       ? "opacity-100 scale-100 translate-y-0"
-                      : "opacity-0 scale-[1.015] translate-y-[2px]"
+                      : "opacity-0 scale-[1.03] translate-y-[4px]"
                   }`}
                 />
               )}
