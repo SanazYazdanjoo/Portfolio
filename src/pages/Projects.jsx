@@ -5,13 +5,19 @@
 // the empty state uses the same i18n keys as Home so the two pages stay in
 // sync. The chosen view persists in localStorage across visits.
 //
+// A ?skill= query turns the same index into evidence-first navigation: only
+// published/in-progress case studies carrying that skill stay visible, and
+// the header shows the active skill, evidence count, and a one-click reset.
+//
 // List rows carry their own px-8 md:px-16 inner padding and break out of the
 // page container with negative margins that mirror the container's
 // px-4 md:px-8, so the row edge meets the viewport edge exactly like on Home.
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSearchParams } from "react-router-dom";
 import { sortedProjects } from "../data/projects";
+import { projectProvidesSkillEvidence } from "../utils/skillEvidence";
 import { ProjectListRow } from "../components/ProjectListRow";
 import { ProjectTile } from "../components/ProjectTile";
 import { ComingSoonRow } from "../components/ComingSoonRow";
@@ -21,7 +27,7 @@ import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { profileData as rawProfile } from "../data/profile";
 import { EASE } from "../utils/motion";
 import { EmptyState } from "../components/EmptyState";
-import { HandList, HandGrid } from "../components/HandIcons";
+import { HandList, HandGrid, HandClose } from "../components/HandIcons";
 
 const VIEW_STORAGE_KEY = "projects.view";
 
@@ -63,11 +69,22 @@ export default function Projects() {
   const { t } = useTranslation();
   const localizedProjects = useLocalizedProfile(sortedProjects);
   const [view, setView] = useState(readStoredView);
+  const [searchParams, setSearchParams] = useSearchParams();
   const profileData = useLocalizedProfile(rawProfile);
+  const activeSkill = (searchParams.get("skill") || "").trim();
+
+  const visibleProjects = activeSkill
+    ? localizedProjects.filter((project) => projectProvidesSkillEvidence(project, activeSkill))
+    : localizedProjects;
+
+  const skillResultText = activeSkill
+    ? t(visibleProjects.length === 1 ? "search.tagCount.one" : "search.tagCount.many")
+        .replace("{count}", visibleProjects.length)
+    : "";
 
   useDocumentMeta({
-    title: `${t("projects.title")} — ${profileData.name}`,
-    description: profileData.tagline,
+    title: `${activeSkill ? `${activeSkill} — ` : ""}${t("projects.title")} — ${profileData.name}`,
+    description: activeSkill ? `${activeSkill}. ${skillResultText}` : profileData.tagline,
   });
 
   useEffect(() => {
@@ -78,15 +95,24 @@ export default function Projects() {
     }
   }, [view]);
 
+  const clearSkillFilter = () => {
+    const next = new URLSearchParams(searchParams);
+    next.delete("skill");
+    setSearchParams(next, { replace: true });
+  };
+
   // Same split as Home — one rule, two pages. Order comes from
   // sortedProjects (each project's `order` field), NOT from re-grouping by
   // status here: a live in-progress case study with order:1 must be able to
   // lead the list. Only coming-soon is split out, because it renders a
-  // different row component.
-  const live       = localizedProjects.filter((p) => p.status !== "coming-soon");
-  const comingSoon = localizedProjects.filter((p) => p.status === "coming-soon");
+  // different row component. Skill-filtered views intentionally exclude
+  // coming-soon cards: a placeholder is not evidence for a skill yet.
+  const live       = visibleProjects.filter((p) => p.status !== "coming-soon");
+  const comingSoon = activeSkill
+    ? []
+    : visibleProjects.filter((p) => p.status === "coming-soon");
   const hasAnyProjects = live.length > 0 || comingSoon.length > 0;
-  const allForGrid = localizedProjects; // already ordered, coming-soon last
+  const allForGrid = activeSkill ? live : visibleProjects;
 
   return (
     <div className="min-h-screen pt-20 md:pt-24 pb-8 relative overflow-hidden bg-transparent">
@@ -103,6 +129,25 @@ export default function Projects() {
             <h1 className="font-display text-5xl md:text-8xl tracking-tighter text-text leading-none">
               {t("projects.title")}<span className="text-primary">.</span>
             </h1>
+
+            {activeSkill && (
+              <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-3" aria-live="polite">
+                <span className="inline-flex items-center rounded-full border-[1.5px] rule-pill [--rule-line-color:var(--primary-600)] px-3 py-1 text-xs font-semibold tracking-wide text-primary-600">
+                  {activeSkill}
+                </span>
+                <span className="text-sm text-text-meta">
+                  {skillResultText}
+                </span>
+                <button
+                  type="button"
+                  onClick={clearSkillFilter}
+                  className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-caps text-primary-600 hover:text-primary-700 focus-ring"
+                >
+                  <HandClose className="w-3.5 h-3.5" />
+                  {t("projects.allProjects")}
+                </button>
+              </div>
+            )}
           </div>
 
           {/* View toggle: list vs tile grid */}
@@ -181,8 +226,9 @@ export default function Projects() {
             )}
           </AnimatePresence>
         ) : (
-          /* Empty state — same keys as Home so both pages stay in sync */
-          <EmptyState title={t("projects.wip")}>{t("projects.wipDesc")}</EmptyState>
+          <EmptyState title={activeSkill ? t("tags.single.empty") : t("projects.wip")}>
+            {activeSkill ? t("tags.single.subheading") : t("projects.wipDesc")}
+          </EmptyState>
         )}
 
       </div>
