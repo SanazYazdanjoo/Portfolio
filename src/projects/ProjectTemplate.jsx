@@ -117,7 +117,9 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
     : DEFAULT_VERBATIM_SECTION;
   const verbatimsIn = (id) => hasVerbatims && verbatimSection === id;
 
-  const [navCollapsed, , toggleNav] = useSessionState("project-toc-collapsed", false);
+  // Start each fresh browsing session with the rail compact; once a reader
+  // opens it, their choice still persists while they move between projects.
+  const [navCollapsed, , toggleNav] = useSessionState("project-toc-collapsed", true);
 
   useDocumentMeta({
     title: `${meta.title} — ${profileData.name}`,

@@ -1,4 +1,4 @@
-import { describe, it, expect, afterEach } from "vitest";
+import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { screen, within, fireEvent } from "@testing-library/react";
 import { renderWithProviders } from "./renderWithProviders";
 import ProjectTemplate from "../projects/ProjectTemplate";
@@ -13,7 +13,10 @@ function renderInGerman(meta) {
   return renderWithProviders(<ProjectTemplate meta={meta} />);
 }
 
-afterEach(() => window.localStorage.removeItem("portfolio-lang"));
+afterEach(() => {
+  window.localStorage.removeItem("portfolio-lang");
+  window.sessionStorage.removeItem("project-toc-collapsed");
+});
 
 describe("ProjectTemplate", () => {
   it("renders challenge figures when they exist in the project data", () => {
@@ -263,35 +266,36 @@ describe("ProjectTemplate — AI-assistance disclosure", () => {
 // control is reachable, labelled, and actually points at the list it claims
 // to control.
 describe("ProjectTemplate — collapsible section nav", () => {
-  it("exposes a labelled toggle wired to the list it controls", () => {
+  beforeEach(() => {
+    window.sessionStorage.removeItem("project-toc-collapsed");
+  });
+
+  it("starts collapsed with a labelled toggle wired to the list it controls", () => {
     renderWithProviders(<ProjectTemplate meta={ibsData} />);
 
-    const toggle = screen.getByRole("button", { name: "Hide section list" });
-    expect(toggle).toHaveAttribute("aria-expanded", "true");
+    const toggle = screen.getByRole("button", { name: "Show section list" });
+    expect(toggle).toHaveAttribute("aria-expanded", "false");
 
     const controlledId = toggle.getAttribute("aria-controls");
     expect(controlledId).toBeTruthy();
     expect(document.getElementById(controlledId)).toBeInTheDocument();
   });
 
-  it("keeps every section reachable by name once collapsed", async () => {
+  it("opens the full section list on click", () => {
     renderWithProviders(<ProjectTemplate meta={ibsData} />);
 
-    const toggle = screen.getByRole("button", { name: "Hide section list" });
+    const toggle = screen.getByRole("button", { name: "Show section list" });
     fireEvent.click(toggle);
 
-    const expanded = screen.getByRole("button", { name: "Show section list" });
-    expect(expanded).toHaveAttribute("aria-expanded", "false");
+    const collapse = screen.getByRole("button", { name: "Hide section list" });
+    expect(collapse).toHaveAttribute("aria-expanded", "true");
 
-    // Labels are gone from view but not from the accessibility tree. Use the
-    // project's own section labels so copy refactors do not invalidate this
-    // structural accessibility test.
-    const list = document.getElementById(expanded.getAttribute("aria-controls"));
+    const list = document.getElementById(collapse.getAttribute("aria-controls"));
     expect(
-      within(list).getByRole("button", { name: ibsData.sectionTitles.challenge.label.en })
+      within(list).getByText(ibsData.sectionTitles.challenge.label.en)
     ).toBeInTheDocument();
     expect(
-      within(list).getByRole("button", { name: ibsData.sectionTitles.design.label.en })
+      within(list).getByText(ibsData.sectionTitles.design.label.en)
     ).toBeInTheDocument();
   });
 });

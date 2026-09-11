@@ -17,7 +17,7 @@ import { motion } from "framer-motion";
 import { useTranslation } from "../../context/LanguageContext";
 import { Chevron } from "./Chevron";
 import { HandArrow } from "../../components/HandArrow";
-import { HandChevron, HandList } from "../../components/HandIcons";
+import { HandChevron } from "../../components/HandIcons";
 import { EASE } from "./constants";
 
 // Sticky TOC — numbers and labels, active item marked with a layoutId
@@ -51,9 +51,11 @@ export function SidebarNav({
  text-dim transition-colors duration-200
  hover:[--rule-line-color:var(--primary-600)] hover:text-primary-600 focus-ring"
         >
-          {collapsed
-            ? <HandList className="h-3.5 w-3.5" />
-            : <HandChevron className="h-3.5 w-3.5 rotate-90" />}
+          <HandChevron
+            className={`h-4 w-4 transition-transform duration-200 ${
+              collapsed ? "-rotate-90" : "rotate-90"
+            }`}
+          />
         </button>
       </div>
 
