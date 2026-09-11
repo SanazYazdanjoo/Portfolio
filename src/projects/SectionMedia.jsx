@@ -8,6 +8,89 @@ import { HandArrow } from "../components/HandArrow";
 import { HandClose } from "../components/HandIcons";
 import { isNeedsInput } from "../data/needsInput";
 
+function EmbedMedia({ figure, prefersReducedMotion }) {
+  const { t } = useTranslation();
+  const [loaded, setLoaded] = useState(false);
+  const [slow, setSlow] = useState(false);
+  const slowAfterMs = figure.slowAfterMs ?? 7000;
+
+  useEffect(() => {
+    if (loaded) return undefined;
+
+    const timeoutId = window.setTimeout(() => {
+      setSlow(true);
+    }, slowAfterMs);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [loaded, slowAfterMs]);
+
+  const loadingText = slow
+    ? figure.slowLoadingText || figure.loadingText || t("common.loading")
+    : figure.loadingText || t("common.loading");
+  const loadingDetail = slow
+    ? figure.slowLoadingDetail || figure.loadingDetail
+    : figure.loadingDetail;
+  const iframeTitle = figure.alt || figure.title || "Embedded design";
+  const motionClass = prefersReducedMotion
+    ? ""
+    : "transition-opacity duration-300 ease-smooth";
+
+  return (
+    <div
+      className="relative w-full aspect-[4/3] sm:aspect-video bg-white print:hidden"
+      aria-busy={!loaded}
+      data-embed-state={loaded ? "loaded" : slow ? "slow" : "loading"}
+    >
+      <div
+        role={loaded ? undefined : "status"}
+        aria-live="polite"
+        aria-hidden={loaded ? "true" : undefined}
+        className={`absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 bg-surface px-6 text-center ${motionClass} ${
+          loaded ? "pointer-events-none opacity-0" : "opacity-100"
+        }`}
+      >
+        <span
+          aria-hidden="true"
+          className={`mb-2 h-8 w-8 rounded-full border-2 border-text/15 border-t-primary-600 ${
+            prefersReducedMotion ? "" : "animate-spin"
+          }`}
+        />
+        <strong className="font-display text-base font-bold text-text">
+          {loadingText}
+        </strong>
+        {loadingDetail && (
+          <span className="max-w-md text-sm leading-relaxed text-text-meta">
+            {loadingDetail}
+          </span>
+        )}
+        {slow && figure.externalHref && (
+          <a
+            href={figure.externalHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 inline-flex items-center gap-1.5 font-mono text-2xs font-bold uppercase text-primary-600 underline decoration-transparent underline-offset-4 transition-colors duration-200 hover:text-primary-500 hover:decoration-current focus-ring"
+          >
+            {figure.externalLabel || t("project.media.openFullPage")}
+            <HandArrow direction="up-right" className="h-3 w-3" />
+          </a>
+        )}
+      </div>
+
+      <iframe
+        src={figure.src}
+        title={iframeTitle}
+        loading="lazy"
+        allowFullScreen
+        tabIndex={loaded ? 0 : -1}
+        onLoad={() => setLoaded(true)}
+        className={`absolute inset-0 h-full w-full border-0 bg-white ${motionClass} ${
+          loaded ? "opacity-100" : "opacity-0"
+        }`}
+      />
+    </div>
+  );
+}
+
 function ZoomOverlay({ figure, onClose }) {
   const { t } = useTranslation();
   const dialogRef = useRef(null);
@@ -139,15 +222,7 @@ export default function SectionMedia({ items }) {
               {isNeedsInput(f.src) && <NeedsInputMarker path={`figures[${i}].src`} />}
             </div>
           ) : isEmbed ? (
-            <div className="relative w-full aspect-[4/3] sm:aspect-video bg-white print:hidden">
-              <iframe
-                src={f.src}
-                title={f.alt || f.title || "Embedded design"}
-                loading="lazy"
-                allowFullScreen
-                className="absolute inset-0 h-full w-full border-0"
-              />
-            </div>
+            <EmbedMedia figure={f} prefersReducedMotion={prefersReducedMotion} />
           ) : isVideo && !prefersReducedMotion ? (
             <video
               src={f.src}
