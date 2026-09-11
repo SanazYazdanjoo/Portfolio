@@ -133,7 +133,7 @@ export default function About() {
           </motion.div>
 
           <motion.figure
-            className="mx-auto w-full max-w-6xl overflow-hidden bg-white"
+            className="mx-auto w-fit max-w-full overflow-hidden bg-white"
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
@@ -142,7 +142,7 @@ export default function About() {
             <img
               src="/assets/How-I-Work.jpg"
               alt="Double Diamond workflow: Discover — understand people and context; Define — turn findings into direction; Develop — design usable solutions; Deliver — build, test, and improve."
-              className="block h-auto w-full"
+              className="mx-auto block h-auto w-auto max-w-full"
               loading="lazy"
               decoding="async"
             />
