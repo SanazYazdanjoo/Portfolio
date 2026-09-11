@@ -1305,9 +1305,11 @@
             "groupKey": null,
             "items": [
               "Fundamentals of Programming",
+              "Object-Oriented Programming",
+              "Data Structures",
               "Algorithms",
               "Software Architecture",
-              "Information Technology"
+              "Database Systems"
             ]
           }
         ]
