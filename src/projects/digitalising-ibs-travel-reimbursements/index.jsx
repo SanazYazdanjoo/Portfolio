@@ -6,6 +6,27 @@ import { projectData } from './digitalising-ibs-travel-reimbursements.data';
 const FIGMA_WIREFRAMES = {
   type: 'embed',
   src: 'https://embed.figma.com/design/YFlosgDXt11K17RIvVa0bL/IBS-Wireframes-Admin-and-TN?node-id=0-1&embed-host=share',
+  externalHref: 'https://www.figma.com/design/YFlosgDXt11K17RIvVa0bL/IBS-Wireframes-Admin-and-TN?node-id=0-1',
+  externalLabel: {
+    en: 'Open in Figma',
+    de: 'In Figma öffnen',
+  },
+  loadingText: {
+    en: 'Loading interactive prototype…',
+    de: 'Interaktiver Prototyp wird geladen…',
+  },
+  loadingDetail: {
+    en: 'This may take a few seconds.',
+    de: 'Das kann ein paar Sekunden dauern.',
+  },
+  slowLoadingText: {
+    en: 'Still loading the prototype…',
+    de: 'Der Prototyp wird noch geladen…',
+  },
+  slowLoadingDetail: {
+    en: 'Figma embeds can sometimes take a little longer.',
+    de: 'Eingebettete Figma-Inhalte können manchmal etwas länger brauchen.',
+  },
   span: 2,
   label: {
     en: 'Low-fidelity system wireframes',
