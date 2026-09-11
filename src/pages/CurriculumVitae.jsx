@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { profileData as rawProfile } from "../data/profile";
+import { skillDirectoryCopy } from "../data/skillDirectory";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { useTranslation } from "../context/LanguageContext";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
@@ -16,7 +17,7 @@ const SKILL_CATEGORY_KEYS = {
 
 export default function CV() {
   const profileData = useLocalizedProfile(rawProfile);
-  const { t } = useTranslation();
+  const { t, localize } = useTranslation();
   const {
     name,
     contact,
@@ -274,6 +275,12 @@ export default function CV() {
                     </div>
                   ))}
                 </div>
+                <Link
+                  to="/tags"
+                  className="no-print mt-6 inline-flex items-center gap-1 text-xs font-black uppercase tracking-caps text-primary transition-colors hover:text-black focus-ring"
+                >
+                  {localize(skillDirectoryCopy.links.cv)} <HandArrow />
+                </Link>
               </section>
 
               <section id="certificates" className="mt-14 scroll-mt-28 print:mt-8">
