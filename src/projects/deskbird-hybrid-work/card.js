@@ -31,10 +31,18 @@ export default {
     de: "Industrieprojekt · deskbird",
   },
   cardTags: ["Contextual Inquiry", "Usability Testing", "Figma", "B2B SaaS"],
+  // The card argues research → product direction: the study became three
+  // concepts and the client chose hers. The finding itself (breaks, shared
+  // interests) is the case study's job.
   cardOutcome: {
-    en: "Socialising happens in breaks, so the concept connects colleagues by shared interest rather than by shared calendar.",
-    de: "Sozialer Austausch passiert in Pausen — das Konzept verbindet Kolleg:innen über gemeinsame Interessen statt über gemeinsame Kalender.",
+    en: "A survey and six contextual inquiries became three concepts; deskbird's stakeholders chose mine as the high-fidelity prototype.",
+    de: "Aus Umfrage und sechs Contextual Inquiries wurden drei Konzepte; deskbirds Stakeholder wählten meines als High-Fidelity-Prototyp.",
   },
+  cardStats: [
+    { value: "57", label: { en: "survey respondents", de: "Umfrageteilnehmende" } },
+    { value: "6", label: { en: "contextual inquiries", de: "Contextual Inquiries" } },
+    { value: "1 of 3", label: { en: "concepts chosen by the client — mine", de: "Konzepte vom Kunden gewählt — meines" } },
+  ],
   cardImage: cardInterestPicker,
   thumbnail: thumbnailImg,
   thumbnailWebp,

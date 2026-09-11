@@ -107,6 +107,7 @@ async function main() {
         timeline: proj.timeline,
         context: proj.context,
         tags: proj.tags,
+        evidenceChain: proj.evidenceChain,
         techStack: proj.techStack,
         methods: proj.methods,
         metrics: proj.metrics,

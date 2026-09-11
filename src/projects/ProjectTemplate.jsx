@@ -75,6 +75,7 @@ import { ResearchPhases } from "./template/ResearchPhases";
 import { PrototypeLink } from "./template/PrototypeLink";
 import { ProjectNavCard } from "./template/ProjectNavCard";
 import { ProjectHeader } from "./template/ProjectHeader";
+import { EvidenceChain } from "./template/EvidenceChain";
 import { ProjectHero } from "./template/ProjectHero";
 import { FlownTagsProvider, SkillOrbitRail, useSkillOrbit } from "./template/SkillOrbit";
 import { useSectionState } from "./template/useSectionState";
@@ -328,6 +329,9 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                       {meta.about}
                     </p>
                   </ClampedText>
+                  {/* The research → validation chain, for the case study
+                      that writes one (IBS). Data-gated; see EvidenceChain. */}
+                  <EvidenceChain items={meta.evidenceChain} />
                 </ContentSection>
               )}
 

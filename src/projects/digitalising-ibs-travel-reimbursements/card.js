@@ -29,7 +29,17 @@ export default {
     en: 'In-house project',
     de: 'Internes Projekt',
   },
-  cardTags: ['UX Research', 'Requirements Engineering', 'React', 'GDPR / DSGVO'],
+  // One tag per link of the chain the card argues: research → requirements
+  // → build → quality. Every label is in `tags`, and the four together fit
+  // the one-line width rule in design-system.test.js.
+  cardTags: ['UX Research', 'Requirements Traceability', 'React', 'Automated Testing (Vitest)'],
+  // Proof points the chain rests on — each a metric the case study states:
+  // the evidence base, the map it produced, the tests that guard the build.
+  cardStats: [
+    { value: '25', label: { en: 'evidence-graded problems', de: 'Probleme mit Evidenzgrad' } },
+    { value: '9', label: { en: 'actors · 13 steps · 4 loops', de: 'Akteure · 13 Schritte · 4 Schleifen' } },
+    { value: '1,734', label: { en: 'automated tests', de: 'automatisierte Tests' } },
+  ],
   cardOutcome: {
     en: 'Research mapped 13 steps, reversed a priority, surfaced 6 missed problems, and carried the 9-actor colour model into the demo.',
     de: 'Research kartierte 13 Schritte, änderte eine Priorität, ergänzte 6 übersehene Probleme und übertrug das 9-Akteure-Farbmodell in die Demo.',
