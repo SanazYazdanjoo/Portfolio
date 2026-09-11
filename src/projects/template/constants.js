@@ -78,6 +78,9 @@ export const RENDERED_FIELDS = [
   // metadata row, `cardTags` the capped signal subset of `tags`, `cardOutcome`
   // the one-sentence result line.
   "year", "context", "cardTags", "cardOutcome", "cardStats", "cardImage",
+  // The research → requirements → build → validation chain under About —
+  // template/EvidenceChain.jsx; only a project that writes it renders it.
+  "evidenceChain",
   // Body sections (see SECTIONS above for the ones with their own heading)
   "about", "process", "challenge", "challengeQuote", "solution", "solutionQuote",
   "design", "designQuote", "wireframe", "wireframeQuote", "designSystem",

@@ -217,7 +217,11 @@
             "en": "Designed the summative usability evaluation and instrumented it into the application itself — guided tasks per role, a pseudonymous local event log, an end-of-session questionnaire. Dogfooding on development traffic caught three bugs in the measurement instruments themselves. Sessions with users are pending deployment for daily use. Project communication, interviews and the administration-team meeting all ran in German.",
             "de": "Die summative Usability-Evaluation konzipiert und in die Anwendung selbst instrumentiert — geführte Aufgaben je Rolle, ein pseudonymes lokales Ereignisprotokoll, ein Abschlussfragebogen. Im Dogfooding auf Entwicklungsdaten wurden drei Fehler in den Messinstrumenten selbst gefunden. Sitzungen mit Nutzenden stehen aus, bis die Anwendung im Alltag im Einsatz ist. Projektkommunikation, Interviews und das Verwaltungstreffen liefen auf Deutsch."
           }
-        ]
+        ],
+        "arcNote": {
+          "en": "The full chain in one project: research inside the process, evidence-graded problems, numbered requirements, a working application, and an instrumented evaluation.",
+          "de": "Die ganze Kette in einem Projekt: Research von innen, evidenzgradierte Probleme, nummerierte Anforderungen, eine funktionierende Anwendung und eine instrumentierte Evaluation."
+        }
       },
       {
         "company": "Bauhaus-Universität Weimar",
@@ -257,7 +261,11 @@
             "en": "Concluded with a conditional design recommendation: gaze assistance should trigger only for large cross-screen relocations, not for every pointing movement.",
             "de": "Abgeschlossen mit einer bedingten Designempfehlung: Blickunterstützung sollte nur bei großen bildschirmübergreifenden Verlagerungen auslösen, nicht bei jeder Zeigebewegung."
           }
-        ]
+        ],
+        "arcNote": {
+          "en": "Research rigour plus the engineering to run it: I designed the experiment and built the platform it needed.",
+          "de": "Forschungsstrenge plus die Technik dafür: Ich habe das Experiment entworfen und die Plattform gebaut, die es brauchte."
+        }
       },
       {
         "company": "deskbird × Bauhaus-Universität Weimar",
@@ -289,7 +297,11 @@
             "en": "Synthesised the findings into three competing concepts; the deskbird team voted and chose mine, delivered as a high-fidelity prototype with implementation recommendations for their upcoming sprints.",
             "de": "Die Ergebnisse zu drei konkurrierenden Konzepten synthetisiert; das deskbird-Team stimmte ab und wählte meines — übergeben als High-Fidelity-Prototyp mit Umsetzungsempfehlungen für die kommenden Sprints."
           }
-        ]
+        ],
+        "arcNote": {
+          "en": "Research turned into a product direction the client chose — in a team, with stakeholders.",
+          "de": "Research, das zur Produktrichtung wurde, die der Kunde wählte — im Team, mit Stakeholdern."
+        }
       },
       {
         "company": "Bauhaus-Universität Weimar",
@@ -317,7 +329,11 @@
             "en": "Checked components against the corporate design system and web accessibility standards.",
             "de": "Komponenten gegen das Corporate-Design-System und Barrierefreiheitsstandards geprüft."
           }
-        ]
+        ],
+        "arcNote": {
+          "en": "Accessibility and design-system compliance checked on real components, not in theory.",
+          "de": "Barrierefreiheit und Designsystem-Konformität an echten Komponenten geprüft, nicht in der Theorie."
+        }
       },
       {
         "company": "TDSoftware",
@@ -345,7 +361,11 @@
             "en": "Validated REST endpoints and backend interfaces with Postman.",
             "de": "REST-Endpunkte und Backend-Schnittstellen mit Postman validiert."
           }
-        ]
+        ],
+        "arcNote": {
+          "en": "Validation before release: acceptance tests and heuristic evaluation alongside the frontend team.",
+          "de": "Validierung vor dem Release: Abnahmetests und heuristische Evaluation gemeinsam mit dem Frontend-Team."
+        }
       },
       {
         "company": "Part Software Group",
@@ -377,7 +397,11 @@
             "en": "Ran acceptance testing and structured heuristic evaluations across 5+ web and mobile products — checking UI against standards and validating APIs with Postman, catching usability problems before release rather than after.",
             "de": "Abnahmetests und strukturierte heuristische Evaluationen für 5+ Web- und Mobile-Produkte — UI gegen Standards geprüft, APIs mit Postman validiert; Usability-Probleme vor dem Release gefunden statt danach."
           }
-        ]
+        ],
+        "arcNote": {
+          "en": "Where usability and QA met: structured testing that caught usability problems before release.",
+          "de": "Wo Usability und QA zusammenkamen: strukturiertes Testen, das Usability-Probleme vor dem Release fand."
+        }
       },
       {
         "company": "Mega-Tech",
@@ -413,7 +437,11 @@
             "en": "Moved from WordPress UI development into R&D work — nopCommerce e-commerce builds and Unity projects, clarifying requirements directly with clients.",
             "de": "Wechsel von der WordPress-UI-Entwicklung in die R&D-Arbeit — nopCommerce-E-Commerce-Umsetzungen und Unity-Projekte, mit direkter Anforderungsklärung bei den Kunden."
           }
-        ]
+        ],
+        "arcNote": {
+          "en": "Five years shipping production frontends — the feasibility instinct behind every recommendation I make now.",
+          "de": "Fünf Jahre produktive Frontends ausgeliefert — das Gespür für Machbarkeit hinter jeder Empfehlung, die ich heute gebe."
+        }
       },
       {
         "company": "Black Citrus",
@@ -437,7 +465,11 @@
             "en": "Manually tested the web application projects of Black Citrus, an Australian company, working remotely — placed there as an intern through Mega-Tech directly after finishing the bachelor thesis.",
             "de": "Manuelles Testen der Webanwendungsprojekte von Black Citrus, einem australischen Unternehmen, remote — als Praktikantin über Mega-Tech eingesetzt, direkt im Anschluss an die Bachelorarbeit."
           }
-        ]
+        ],
+        "arcNote": {
+          "en": "First industry role: learning how software fails by testing it.",
+          "de": "Erste Industrie-Station: gelernt, wie Software scheitert, indem ich sie getestet habe."
+        }
       }
     ],
     "portfolioHighlights": [
@@ -632,63 +664,71 @@
       }
     ],
     "skills": {
-      "Usability Engineering & Evaluation": [
-        "Formative & Summative Usability Testing",
-        "Heuristic Evaluation",
-        "Prototype & Hardware/Software Evaluation",
-        "Usability Metrics (SUS, task success, error rate, time on task)",
+      "Core Expertise": [
+        "UX Research",
+        "Usability Engineering",
         "Requirements Engineering",
-        "Requirements Traceability (FR/NFR)",
+        "Interaction Design",
+        "Usability Evaluation",
+        "Mixed-Methods Research",
+        "Information Architecture",
         "Web Accessibility (WCAG 2.1 AA)"
       ],
-      "UX Research Methods": [
-        "Mixed-Methods Research",
+      "Research & Evaluation": [
+        "Stakeholder & Expert Interviews",
+        "Contextual Inquiry",
+        "Survey Design",
         "Controlled Experiments",
         "Eye-Tracking (Pupil Labs Neon)",
-        "Contextual Inquiry",
-        "Stakeholder & Expert Interviews",
-        "B2B User Research",
-        "Survey Design",
         "Thematic Analysis",
         "Affinity Diagramming",
         "Persona Development",
         "Process Mapping (UML Swimlanes, 5W1H)",
-        "Repeated-Measures ANOVA in R"
+        "Heuristic Evaluation",
+        "Formative & Summative Usability Testing",
+        "Prototype & Hardware/Software Evaluation",
+        "Usability Metrics (SUS, task success, error rate, time on task)",
+        "Repeated-Measures ANOVA in R",
+        "B2B User Research"
       ],
-      "Quality Assurance": [
-        "Acceptance Testing",
-        "Test-Case Management (TestLink)",
-        "Unit & Integration Testing (Vitest)",
-        "REST API Validation (Postman)"
-      ],
-      "Frontend": [
-        "JavaScript (ES6+)",
-        "TypeScript",
+      "Technical Implementation": [
         "React",
+        "TypeScript",
+        "JavaScript (ES6+)",
         "HTML",
         "CSS",
         "Tailwind CSS",
         "Vite",
         "Design Systems",
         "Figma",
-        "WordPress",
-        "WooCommerce",
-        "nopCommerce",
-        "E-Commerce"
-      ],
-      "Backend & Tools": [
         "Node.js (Fastify)",
-        "Python",
-        "SQLite",
         "REST APIs",
-        "Real-Time Device APIs (Pupil Labs Neon)",
-        "OpenAI API",
+        "SQLite",
+        "Python",
+        "Unit & Integration Testing (Vitest)",
+        "Requirements Traceability (FR/NFR)",
         "Authentication & Security (argon2id, CSRF)",
         "Git & GitHub",
         "Vercel",
+        "AI-assisted development (Claude Code, GitHub Copilot)"
+      ],
+      "Quality Assurance": [
+        "Acceptance Testing",
+        "Test-Case Management (TestLink)",
+        "REST API Validation (Postman)",
+        "Cross-Browser & Cross-Device QA"
+      ],
+      "Additional Technical Experience": [
+        "WordPress",
+        "WooCommerce",
+        "nopCommerce",
+        "E-Commerce",
+        "TYPO3",
         "Unity",
         "Physical Prototyping (inflatables, Arduino, pneumatic actuators, capacitive sensors)",
-        "AI-assisted development (Claude Code, GitHub Copilot)"
+        "Real-Time Device APIs (Pupil Labs Neon)",
+        "OpenAI API",
+        "SEO & Performance Optimisation"
       ]
     },
     "languages": [

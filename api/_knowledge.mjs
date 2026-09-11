@@ -5,8 +5,8 @@ export default {
   "name": "Sanaz Yazdanjoo",
   "role": "UX Engineer",
   "tagline": "I speak both ‘user’ & ‘developer’.",
-  "positioning": "UX Engineer bridging mixed-methods research and production React.",
-  "profileSummary": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar), a B.E. in Software Engineering, and experience across usability evaluation, user research and UI development since 2015. I plan and run formative and summative studies on my own, from the research question through to the statistics — and six years in QA and frontend development mean the recommendations come with a realistic view of what they cost to build. I use AI-assisted development tools productively, while reviewing the generated code critically. The case studies below show how that plays out in real projects.",
+  "positioning": "I study how people use technology, uncover their needs and challenges, turn those findings into product decisions, build the interfaces that put those decisions into practice, and validate whether they work.",
+  "profileSummary": "UX Engineer bridging research, design & usability, and implementation & validation. With an M.Sc. in Human-Computer Interaction and a Software Engineering background, I move from evidence about user needs to product decisions, working interfaces, and validated outcomes.",
   "impactStats": [
    {
     "value": "N=30",
@@ -18,11 +18,11 @@ export default {
    },
    {
     "value": "Since 2015",
-    "label": "Research, UI & usability experience"
+    "label": "Digital-product experience across frontend, QA/usability & UX engineering"
    }
   ],
   "bioParagraphs": [
-   "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction (Bauhaus-Universität Weimar), a B.E. in Software Engineering, and experience across usability evaluation, user research and UI development since 2015. I plan and run formative and summative studies on my own, from the research question through to the statistics — and six years in QA and frontend development mean the recommendations come with a realistic view of what they cost to build. I work in English and German (both C1), and I'm open to interdisciplinary UX & Tech roles."
+   "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction and a B.E. in Software Engineering. My path through frontend development, QA and HCI research taught me to look at digital products from both sides: what people need and what teams can realistically build. Today I bring those perspectives together in research, design & usability, and implementation & validation."
   ],
   "experience": [
    {
@@ -43,7 +43,8 @@ export default {
      "Secured the Fastify (Node.js) backend with session authentication (argon2id), CSRF tokens on every mutating route, global and per-route rate limits, and default-deny access control in the repository layer. Login hashes against a placeholder for unknown accounts so response time cannot leak whether an address exists, and every request re-checks the credential version, so a password change ends other sessions immediately.",
      "Designed the data handling for privacy: participant data lives in the local SQLite database and is mirrored only to the institute's own Nextcloud, event logging is pseudonymous, and cookies and authorization headers are redacted from server logs. A CI test scans the built bundle for any hostname outside an allowlist; another scans for real participant names. The one third-party request is an optional Google Maps embed for an address a staff member types.",
      "Designed the summative usability evaluation and instrumented it into the application itself — guided tasks per role, a pseudonymous local event log, an end-of-session questionnaire. Dogfooding on development traffic caught three bugs in the measurement instruments themselves. Sessions with users are pending deployment for daily use. Project communication, interviews and the administration-team meeting all ran in German."
-    ]
+    ],
+    "arcNote": "The full chain in one project: research inside the process, evidence-graded problems, numbered requirements, a working application, and an instrumented evaluation."
    },
    {
     "company": "Bauhaus-Universität Weimar",
@@ -59,7 +60,8 @@ export default {
      "Ran a two-stage study: an exploratory pre-study (n=20 interviews, thematic analysis), then a controlled within-subjects experiment in a 3×2×6 design (n=30, Latin-square counterbalanced), comparing both gaze-assisted techniques against a mouse baseline on a physical dual-display workstation.",
      "Analysed movement time, repeat rate and SUS in R (RM-ANOVA, Friedman). 60% of participants preferred the gaze-supported Ninja Cursors variant although the mouse scored highest on SUS (85.2) — predictability and user trust beat raw speed.",
      "Concluded with a conditional design recommendation: gaze assistance should trigger only for large cross-screen relocations, not for every pointing movement."
-    ]
+    ],
+    "arcNote": "Research rigour plus the engineering to run it: I designed the experiment and built the platform it needed."
    },
    {
     "company": "deskbird × Bauhaus-Universität Weimar",
@@ -73,7 +75,8 @@ export default {
     "tasks": [
      "Ran end-to-end user research in a six-person team for a B2B SaaS product in the hybrid-work sector: online survey (n=57), six 90-minute remote contextual inquiries, and stakeholder interviews.",
      "Synthesised the findings into three competing concepts; the deskbird team voted and chose mine, delivered as a high-fidelity prototype with implementation recommendations for their upcoming sprints."
-    ]
+    ],
+    "arcNote": "Research turned into a product direction the client chose — in a team, with stakeholders."
    },
    {
     "company": "Bauhaus-Universität Weimar",
@@ -86,7 +89,8 @@ export default {
     "tasks": [
      "Developed responsive frontend components (HTML/CSS) and maintained dynamic content on the university's TYPO3 pages.",
      "Checked components against the corporate design system and web accessibility standards."
-    ]
+    ],
+    "arcNote": "Accessibility and design-system compliance checked on real components, not in theory."
    },
    {
     "company": "TDSoftware",
@@ -99,7 +103,8 @@ export default {
     "tasks": [
      "Acceptance testing and heuristic evaluations with the frontend development team, prioritising and resolving bugs prior to release.",
      "Validated REST endpoints and backend interfaces with Postman."
-    ]
+    ],
+    "arcNote": "Validation before release: acceptance tests and heuristic evaluation alongside the frontend team."
    },
    {
     "company": "Part Software Group",
@@ -113,7 +118,8 @@ export default {
     "tasks": [
      "Helped set up the first structured pre-release testing group at the 500+ employee software group, trained its 4 QA members, and introduced TestLink for test-case management.",
      "Ran acceptance testing and structured heuristic evaluations across 5+ web and mobile products — checking UI against standards and validating APIs with Postman, catching usability problems before release rather than after."
-    ]
+    ],
+    "arcNote": "Where usability and QA met: structured testing that caught usability problems before release."
    },
    {
     "company": "Mega-Tech",
@@ -128,7 +134,8 @@ export default {
      "Delivered 10+ WordPress and WooCommerce websites (corporate, e-commerce, portfolio), including cross-browser and cross-device optimisation.",
      "SEO and performance optimisation was a standing part of the delivery brief: getting client sites onto page 1 of Google for their target keywords. The agency's own site ranked there.",
      "Moved from WordPress UI development into R&D work — nopCommerce e-commerce builds and Unity projects, clarifying requirements directly with clients."
-    ]
+    ],
+    "arcNote": "Five years shipping production frontends — the feasibility instinct behind every recommendation I make now."
    },
    {
     "company": "Black Citrus",
@@ -140,7 +147,8 @@ export default {
     ],
     "tasks": [
      "Manually tested the web application projects of Black Citrus, an Australian company, working remotely — placed there as an intern through Mega-Tech directly after finishing the bachelor thesis."
-    ]
+    ],
+    "arcNote": "First industry role: learning how software fails by testing it."
    }
   ],
   "education": [
@@ -161,77 +169,88 @@ export default {
    }
   ],
   "skills": {
-   "Usability Engineering & Evaluation": [
-    "Formative & Summative Usability Testing",
-    "Heuristic Evaluation",
-    "Prototype & Hardware/Software Evaluation",
-    "Usability Metrics (SUS, task success, error rate, time on task)",
+   "Core Expertise": [
+    "UX Research",
+    "Usability Engineering",
     "Requirements Engineering",
-    "Requirements Traceability (FR/NFR)",
+    "Interaction Design",
+    "Usability Evaluation",
+    "Mixed-Methods Research",
+    "Information Architecture",
     "Web Accessibility (WCAG 2.1 AA)"
    ],
-   "UX Research Methods": [
-    "Mixed-Methods Research",
+   "Research & Evaluation": [
+    "Stakeholder & Expert Interviews",
+    "Contextual Inquiry",
+    "Survey Design",
     "Controlled Experiments",
     "Eye-Tracking (Pupil Labs Neon)",
-    "Contextual Inquiry",
-    "Stakeholder & Expert Interviews",
-    "B2B User Research",
-    "Survey Design",
     "Thematic Analysis",
     "Affinity Diagramming",
     "Persona Development",
     "Process Mapping (UML Swimlanes, 5W1H)",
-    "Repeated-Measures ANOVA in R"
+    "Heuristic Evaluation",
+    "Formative & Summative Usability Testing",
+    "Prototype & Hardware/Software Evaluation",
+    "Usability Metrics (SUS, task success, error rate, time on task)",
+    "Repeated-Measures ANOVA in R",
+    "B2B User Research"
    ],
-   "Quality Assurance": [
-    "Acceptance Testing",
-    "Test-Case Management (TestLink)",
-    "Unit & Integration Testing (Vitest)",
-    "REST API Validation (Postman)"
-   ],
-   "Frontend": [
-    "JavaScript (ES6+)",
-    "TypeScript",
+   "Technical Implementation": [
     "React",
+    "TypeScript",
+    "JavaScript (ES6+)",
     "HTML",
     "CSS",
     "Tailwind CSS",
     "Vite",
     "Design Systems",
     "Figma",
-    "WordPress",
-    "WooCommerce",
-    "nopCommerce",
-    "E-Commerce"
-   ],
-   "Backend & Tools": [
     "Node.js (Fastify)",
-    "Python",
-    "SQLite",
     "REST APIs",
-    "Real-Time Device APIs (Pupil Labs Neon)",
-    "OpenAI API",
+    "SQLite",
+    "Python",
+    "Unit & Integration Testing (Vitest)",
+    "Requirements Traceability (FR/NFR)",
     "Authentication & Security (argon2id, CSRF)",
     "Git & GitHub",
     "Vercel",
+    "AI-assisted development (Claude Code, GitHub Copilot)"
+   ],
+   "Quality Assurance": [
+    "Acceptance Testing",
+    "Test-Case Management (TestLink)",
+    "REST API Validation (Postman)",
+    "Cross-Browser & Cross-Device QA"
+   ],
+   "Additional Technical Experience": [
+    "WordPress",
+    "WooCommerce",
+    "nopCommerce",
+    "E-Commerce",
+    "TYPO3",
     "Unity",
     "Physical Prototyping (inflatables, Arduino, pneumatic actuators, capacitive sensors)",
-    "AI-assisted development (Claude Code, GitHub Copilot)"
+    "Real-Time Device APIs (Pupil Labs Neon)",
+    "OpenAI API",
+    "SEO & Performance Optimisation"
    ]
   },
   "languages": [
    {
     "name": "English",
-    "level": "C1 (Fluent)"
+    "level": "C1 (Fluent)",
+    "language": "English"
    },
    {
     "name": "German",
-    "level": "C1 (DSH-2)"
+    "level": "C1 (DSH-2)",
+    "language": "German"
    },
    {
     "name": "Persian",
-    "level": "Native"
+    "level": "Native",
+    "language": "Persian"
    }
   ],
   "certifications": [
@@ -764,45 +783,63 @@ export default {
    "title": "Digitalising IBS Travel Reimbursements",
    "page": "/projects/digitalising-ibs-travel-reimbursements",
    "status": "in-progress",
-   "subtitle": "From paper forms and a folder of Excel files to one traceable application",
-   "tagline": "A reimbursement process whose only status update is the money arriving — researched from the inside, rebuilt from the evidence.",
-   "role": "Solo — UX Research, UI Design, and Frontend Development",
+   "subtitle": "From paper forms and scattered Excel files to one traceable reimbursement workflow",
+   "tagline": "A reimbursement process researched from the inside, translated into requirements, and rebuilt as a working application.",
+   "role": "Solo — UX Research, Usability Engineering, UI Design & Frontend Development",
    "year": "2026",
-   "timeline": "2026 · four phases · ongoing",
+   "timeline": "2026 · ongoing",
    "context": "In-house project",
    "tags": [
     "UX Research",
     "Stakeholder Interviews",
     "Survey Design",
     "Thematic Analysis",
-    "Persona Development",
     "Process Mapping (UML)",
-    "Service Design",
     "Requirements Engineering",
     "Requirements Traceability",
     "Information Architecture",
     "State Machine Modelling",
     "Wireframing",
-    "Low-Fidelity Wireframe",
-    "High-Fidelity Wireframe",
-    "Interaction Design",
     "Design Systems",
     "Prototyping",
     "Usability Evaluation (instrumented)",
-    "Accessibility",
-    "Data Visualization",
     "React",
     "TypeScript",
     "Node.js / Fastify",
-    "SQLite",
-    "Excel Automation (ExcelJS)",
     "Automated Testing (Vitest)",
-    "Claude Code",
-    "Claude Design",
-    "Figma Make",
-    "Product Instrumentation",
     "Privacy by Design",
     "GDPR / DSGVO"
+   ],
+   "evidenceChain": [
+    {
+     "stage": "Research",
+     "note": "More than a year administering the process as project assistant, two expert interviews, a working meeting with the administration team, and an open participant survey."
+    },
+    {
+     "stage": "Synthesis",
+     "note": "25 documented problems, each carrying an evidence grade: confirmed, indicative, hypothesis, untested."
+    },
+    {
+     "stage": "Requirements",
+     "note": "Numbered FR/NFR requirements traced to their source problems; a CI test fails the build on a citation without a source."
+    },
+    {
+     "stage": "Design",
+     "note": "A role-based information architecture, an explicit claim state machine, wireframes before high-fidelity screens, and a design system whose role palette is the research diagram’s lane colours."
+    },
+    {
+     "stage": "Implementation",
+     "note": "One React/TypeScript application with a Fastify backend: five role views, and an amount that is recomputed on every screen with its calculation trace visible."
+    },
+    {
+     "stage": "Quality",
+     "note": "1,734 automated tests, session authentication, CSRF and rate limits, local-only participant data, and bundle scans for stray hostnames and real names."
+    },
+    {
+     "stage": "Validation",
+     "pending": true,
+     "note": "A summative usability evaluation is instrumented into the app — guided tasks, a pseudonymous event log, a questionnaire. It runs once the app is deployed for daily use; measured outcomes are not yet available."
+    }
    ],
    "techStack": [
     "React",
@@ -810,107 +847,106 @@ export default {
     "Vite",
     "Tailwind CSS",
     "Vitest",
-    "Node.js Server (Fastify)",
-    "Session Auth (argon2id) · CSRF · Rate Limiting",
+    "Node.js / Fastify",
     "SQLite",
-    "ExcelJS / Local Excel Files",
-    "Nextcloud WebDAV Integration",
-    "SVG (hand-authored diagrams)",
-    "Claude Design (case-study figures, diagrams, early wireframes)",
-    "Figma Make (clickable low-fidelity wireframe set)",
+    "ExcelJS",
+    "Nextcloud WebDAV",
+    "Figma Make",
     "Claude Code (AI-assisted development)"
    ],
    "methods": [
-    "Insider process observation (AS-IS)",
-    "Expert interviews (n=2: project management, accounting) plus one working meeting with the administration team",
-    "Participant survey (n=6 and open, anonymous, BL cohort so far)",
+    "Insider process observation (>1 year)",
+    "Expert interviews (n=2) + administration working meeting",
+    "Ongoing anonymous participant survey (n=6)",
     "Document & artefact analysis",
-    "Thematic analysis / affinity clustering",
-    "Stakeholder mapping",
-    "UML activity diagrams (swimlane)",
-    "5W1H problem framing",
-    "Persona development with provenance labelling",
-    "Requirements traceability (FR / NFR / P-IDs)",
-    "Information architecture & state modelling",
-    "Single-case cycle-time observation (right-censored)",
-    "Built-in usage instrumentation (pseudonymous, local-only)"
+    "Thematic analysis / evidence grading",
+    "Stakeholder & AS-IS process mapping",
+    "Requirements traceability",
+    "Built-in usability evaluation instrumentation"
    ],
    "metrics": [
     {
-     "value": "25",
-     "label": "problems documented — six added by the participant survey"
+     "value": "13",
+     "label": "steps in the AS-IS reimbursement process"
     },
     {
-     "value": "n=6",
-     "label": "survey responses so far — the survey is open, and the in-person (Präsenzkurs) cohort is not yet reached"
-    },
-    {
-     "value": "n=2",
-     "label": "expert interviews — project management and accounting — plus a working meeting with the administration team"
-    },
-    {
-     "value": ">1 yr",
-     "label": "administering the process as project assistant before redesigning it — insider observation as the first evidence source"
-    },
-    {
-     "value": "7",
-     "label": "personas, each with its provenance stated"
+     "value": "4",
+     "label": "return loops in the mapped process"
     },
     {
      "value": "9",
-     "label": "actors mapped across 13 steps and 4 return loops"
+     "label": "actors across the end-to-end service"
     },
     {
      "value": "43+",
-     "label": "days and still unpaid — one claim traced end to end through the paper process: 8 days sitting unseen, 1 day of admin work, the rest downstream and invisible"
-    },
-    {
-     "value": "0",
-     "label": "reminders for private-vehicle (PKW) claims in the paper process — submitting depended entirely on the participant remembering"
-    },
-    {
-     "value": "4/6",
-     "label": "respondents do not know how their amount is calculated; two have stopped trying"
-    },
-    {
-     "value": "1,734",
-     "label": "automated tests — including guards that fail the build on an untraced requirement citation or a design-token drift"
+     "label": "days in one traced claim · minimum for that case, not an average"
     }
    ],
-   "about": "I joined the institute as a project assistant and administered this reimbursement process for over a year — collecting the participants’ paper receipts, consolidating the data across several Excel sheets and calculating the amounts they were reimbursed. Long enough to see that it was not just inefficient but a steady source of frustration and avoidable mistakes for everyone in it. Once my Master’s in HCI was finished I had the research methods to turn those observations into verified requirements, and as a frontend developer I could carry the same requirements into working code — so I proposed replacing the scattered spreadsheets with one integrated application, and built it. As of August 2026 the prototype is in active development: the team works with the deployed demo and feeds back, the screens are being consolidated through that feedback and instrumented testing before release as the real product, and every claim on this page traces to a survey answer, a process map, or a line of code.",
-   "challenge": "Every month, participants in a state-funded qualification programme claim back their travel costs. On paper it is a form; in practice it was an ecosystem of disconnected spreadsheets held together by one administrative role. Attendance started as paper marks in the classroom, was retyped by lecturers into an attendance-only Excel shared over Teams — often late, often incomplete, always chased — and exported again by the admin. A hasty „A“ for a participant who left early could quietly become an unexcused „U“ if the follow-up excuse never arrived, unfairly costing attendance days and, with them, reimbursement money. Calculating each month’s totals followed rules so error-prone that I built myself a helper spreadsheet just to get them right. Around that sat a master overview file, one prefilled Abrechnung file per participant, and whatever month- or case-specific lists the situation required. Participants, meanwhile, submitted into a void: no visible calculation, no confirmation, no status — four of six survey respondents could not even say how long reimbursement takes. The failure was structural, not clerical.",
-   "solution": "The app is one place where the whole monthly cycle happens: participants photograph and submit their proofs, lecturers keep attendance directly instead of retyping paper into a Teams spreadsheet, the admin sees every claim’s state and calculation, approvers release with one decision, and accounting reads the same numbers as everyone else. Five purpose-built role views replace the spreadsheet ecosystem. Participants get a mobile-first upload path with camera capture and an optional guided step-by-step mode for lower digital fluency, and the claim moves through an explicit state machine — “where is my money” has an on-screen answer for the first time. Amounts make the round trip instead of being stored: the database holds only the typed fields, and the amount is rebuilt from the same pure computation every time any role opens the record, with its full formula trace visible. Persistence sits behind adapters over a local SQLite database, with stored proofs mirrored to the institute’s own Nextcloud; the one named external call is a route lookup to Google Maps when staff check a driving distance, stated in the data-protection documentation rather than hidden.",
-   "design": "The design system was extracted before the high-fidelity screens, not after them: brand colours, a nine-colour role palette carried unchanged from the research diagram’s lanes, note states, a type scale, and form-field states — so a lane in the research reads as the same actor as a badge in the app. How the screens themselves took shape, from paper sketch to wireframe to shipped view, is shown in the Wireframes section below.",
-   "wireframe": "Before the high-fidelity screens were built, the layouts were drawn as wireframes against the numbered requirements from Phase 2. A wireframe fixes the structure of a screen — which elements it contains, in what order, and which rules apply — before colour and typography come in. Both stages were built as clickable prototypes in Figma Make — a low-fidelity set that decides structure in grey boxes, and a high-fidelity set that runs the same structure with the design system applied — so the navigation between screens could be walked through and not just imagined. The strip below shows the path for the attendance-month screen: the paper sketch from the process observation, the wireframe, and the screen as it shipped. The same screen then follows twice at full size, low fidelity and high fidelity, so the two stages can be held against each other.",
-   "methodology": "The project runs as a user-centred design process in the shape of the double diamond. Discover: insider observation from more than a year administering the process as project assistant, two expert interviews — project management and accounting — plus a working meeting with the administration team, and the participant survey (n=6 and open), which reversed one of my priorities and added six problems I had not seen from the inside; because I knew the workflow personally, the first research task was strictly about making my own assumptions falsifiable. Define: thematic clustering into a problem register where every entry carries an evidence grade — confirmed, indicative, hypothesis, untested — and counts confirm or reframe a problem, never size it; the clustered problems became numbered requirements, a role-based sitemap, and the IBS-DesignSystem, whose nine role colours are the nine lane colours of the research map. Develop: Phase 3 engineered the calculation rules as pure, unit-tested TypeScript, with a build-failing test that keeps every requirement citation in code traced to its source problem — and states its own limit: it catches a citation without a source, not a problem without an implementation. Deliver: the evaluation is built into the app itself — guided tasks, a pseudonymous local event log, an end-of-session questionnaire — and dogfooding it on my own development traffic already caught three of its own measurement bugs.",
-   "results": "The baseline this project will be measured against — the paper process — is in the metrics above; the instruments that will measure the change are described in the methodology.",
+   "about": "I spent more than a year administering this reimbursement process as a project assistant — collecting paper receipts, consolidating several Excel files, checking attendance, and calculating reimbursements. That gave me deep process knowledge, but I treated it as a set of assumptions to test rather than as research evidence on its own. I combined insider observation with expert interviews, an administration working meeting, an ongoing participant survey, and artefact analysis, then translated the verified problems into requirements and a working application. The demo is deployed for team feedback; formal usability evaluation is still pending.",
+   "challenge": "Travel reimbursement depended on paper attendance records, several Excel files, manual calculations, and hand-offs across nine actors. The same information was copied repeatedly, creating delays and opportunities for mistakes. Participants had no reliable confirmation after submitting documents, no visible calculation, and no claim status. In the ongoing survey, 4/6 respondents did not know how their amount was calculated, 5/6 had no reliable way to know whether their documents had arrived, and 4/6 named processing time as their main difficulty. One traced claim remained unpaid after 43+ days. The failure was structural, not clerical.",
+   "solution": "I replaced the fragmented workflow with one role-based application for attendance, supporting-document submission, reimbursement calculation, approval, and claim tracking. Participants can upload documents and see the state of their claim; staff work from the same attendance and reimbursement data instead of copying information between spreadsheets. Calculations are rebuilt from shared rules and the formula trace remains visible to reviewers. The participant upload flow is designed for phone use, while responsive support across the full authenticated application is still in progress. The current system covers the workflow up to payment; the final accounting payment step remains outside the application.",
+   "design": "I carried the research model into the interface instead of inventing a separate visual language. The role colours from the AS-IS swimlane map became the application role palette, supported by a compact type scale, status chips, note states, buttons, and form states. This keeps the same actor cues visible from research artefact to working screen.",
+   "wireframe": "I used low-fidelity wireframes to resolve information hierarchy and workflow logic against the numbered requirements before applying visual styling. The high-fidelity version kept the same structure and added the final attendance vocabulary, morning/afternoon states, role cues, exception highlighting, and completion feedback. The comparison below shows the same attendance-month screen from sketch to wireframe to deployed view.",
+   "methodology": "The research-to-build chain is explicit. I treated insider observations as hypotheses, checked them through interviews, the administration working session, the ongoing participant survey, and artefact analysis, then clustered the evidence into a 25-problem register with evidence grades. Those problems became numbered requirements, information architecture, state rules, and wireframes. One example closes the loop: 4/6 respondents did not understand the reimbursement calculation → transparent calculation became a requirement → one shared calculation module now produces a visible formula trace → automated tests protect the requirement links. The same traceability also exposes gaps: confirmation after submission is only partially implemented, so the page does not present it as solved.",
+   "results": "The current evidence describes the existing process and the mechanisms implemented in the replacement. The working demo is deployed for team feedback, and internal testing has already exposed three instrumentation bugs. Formal usability sessions have not run, so I do not claim reduced processing time, fewer errors, better usability, or adoption yet. Those outcomes will be reported only after the evaluation is completed.",
    "limitations": [
-    "I administered this process for more than a year — as the project assistant, not as a claimant — so the problem framing starts from my own experience of operating it. The survey was designed to make those assumptions falsifiable — and reversed one of my priorities — but no independent researcher has reviewed the problem register.",
-    "The survey is n=6, self-selected, and so far entirely from the online (BL) cohort. The Präsenzkurs cohort and travel-pass (Abo-Karte) holders are absent, which is why findings are reported as counts: enough to confirm or reframe a problem, never to size it.",
-    "Two expert interviews mean one voice per role — project management and accounting. Lecturers, who carry the attendance step the whole chain depends on, were not interviewed; their part of the process is mapped from artefacts and my own observation.",
-    "The 43+ day figure is one claim traced end to end, and it is right-censored: the claim was still unpaid when the observation stopped. It shows how long the paper process can take — it is not an average and not a distribution.",
-    "No usability evaluation has run. The instruments are built into the app and dogfooded, but every claim about the new system is a claim about a mechanism that exists — not about a measured improvement over the paper process.",
-    "The traceability test guards citations, not coverage: it fails the build on a requirement citation without a source problem, and stays silent on a source problem with no implementation."
+    "The participant survey is currently n=6, self-selected, and so far limited to the blended/online cohort; the in-person cohort and travel-pass holders are not yet represented.",
+    "Two expert interviews represent project management and accounting. Lecturers were not interviewed; their part of the workflow is mapped from artefacts and my own process observation.",
+    "The 43+ day figure is one traced claim. It was still unpaid when observation stopped, so it is a minimum for that case — not an average or a distribution.",
+    "Formal usability evaluation of the new system has not run. The page therefore reports implemented mechanisms and baseline evidence, not measured improvement over the paper process."
    ],
-   "outcome": {
-    "body": "Deferred by decision (status: August 2026): this space reports measured outcomes once the application is published and in daily use. The evaluation is already built into the app — guided tasks, an event log, an end-of-session questionnaire — so when the sessions run, what changed gets recorded here, not estimated beforehand.",
-    "adoption": "deferred"
-   },
+   "process": [
+    {
+     "phase": "discover",
+     "type": "Research",
+     "title": "Turn insider knowledge into testable questions",
+     "annotation": "I combined more than a year of process observation with two expert interviews, one administration working meeting, an ongoing anonymous participant survey (n=6), and document analysis.",
+     "insight": "Because I already knew the workflow, the research goal was to challenge my assumptions, not to confirm them."
+    },
+    {
+     "phase": "define",
+     "type": "Evidence",
+     "title": "Map the failure and grade the evidence",
+     "annotation": "The AS-IS map exposed 13 steps, four return loops, and nine actors. Thematic clustering produced a register of 25 documented problems, each linked to its evidence source.",
+     "insight": "Survey findings also changed the roadmap: I had treated phone-width support as secondary, but participants reported that phone submission mattered. Responsive participant use moved up the priority list; the full signed-in phone layout is still in progress."
+    },
+    {
+     "phase": "design",
+     "type": "Requirements & design",
+     "title": "Translate findings into explicit product rules",
+     "annotation": "The problem register became numbered requirements, a role-based information architecture, an explicit claim state model, and low- and high-fidelity wireframes.",
+     "insight": "The service map covers nine actors. Seven composite, evidence-backed role profiles document the perspectives used during design; five roles directly work through dedicated application views."
+    },
+    {
+     "phase": "deliver",
+     "type": "Implementation",
+     "title": "Carry the same requirements into working code",
+     "annotation": "I built the role-based application in React and TypeScript with shared calculation rules, an explicit claim state machine, access controls, local data adapters, and automated tests.",
+     "insight": "Example: 4/6 survey respondents did not understand the reimbursement calculation. That became a requirement for transparent amounts, implemented as one shared calculation with a visible formula trace and protected by automated checks."
+    },
+    {
+     "phase": "deliver",
+     "type": "Evaluation",
+     "title": "Deploy first, measure the change next",
+     "annotation": "The demo is deployed for stakeholder feedback. Guided tasks, pseudonymous local event logging, and an end-of-session questionnaire are already built into the application for the formal usability evaluation.",
+     "insight": "No post-launch improvement is claimed yet. The evaluation instruments exist; the user sessions have not run."
+    }
+   ],
    "verbatims": [
     {
      "quote": "No, I just take the amount as it comes.",
-     "attribution": "Survey respondent, asked whether they check how their reimbursement is calculated — two of six answered in exactly these words (translated from German)"
+     "attribution": "Survey respondent on checking the reimbursement calculation · translated from German"
     },
     {
      "quote": "The processing time is the hardest part for me.",
-     "attribution": "Survey respondent — four of six named processing time as their main difficulty; translated from German"
+     "attribution": "Survey respondent · four of six named processing time as their main difficulty · translated from German"
     },
     {
      "quote": "I don’t check it.",
-     "attribution": "Survey respondent, asked how they know their documents arrived — five of six have no reliable way of knowing: four wait for the money, one has stopped checking altogether (translated from German)"
+     "attribution": "Survey respondent on knowing whether submitted documents arrived · translated from German"
     }
    ],
-   "cardOutcome": "Rebuilt a 13-step paper reimbursement process as a working application the team now uses as a deployed demo."
+   "cardOutcome": "Research mapped 13 steps, reversed a priority, surfaced 6 missed problems, and carried the 9-actor colour model into the demo."
   },
   {
    "title": "Encouraging Social Interactions in Hybrid Work",
@@ -1064,7 +1100,7 @@ export default {
      "insight": "Success indicators were defined up front and written to fit deskbird's own feature-launch process, which included a metric-definition step: number of interests created, profiles with interests, interest-based events, and attendees — making the feature's impact measurable post-launch."
     }
    ],
-   "cardOutcome": "Socialising happens in breaks, so the concept connects colleagues by shared interest rather than by shared calendar."
+   "cardOutcome": "A survey and six contextual inquiries became three concepts; deskbird's stakeholders chose mine as the high-fidelity prototype."
   },
   {
    "title": "EmbraceMe – An Inflatable Soft Robot for Emotional Care",
@@ -1386,7 +1422,7 @@ export default {
   },
   {
    "title": "Welcome Tutor",
-   "year": "2022 – 2024",
+   "year": "2022 – 2026",
    "org": "BUW International Office",
    "desc": "Guided incoming international students through arrival, cultural adjustment, and the administrative processes of their first semesters."
   },

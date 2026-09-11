@@ -248,12 +248,12 @@ async function main() {
     const staticRoutes = [
       ["/about", `About ${name}`, en(profileData.profileSummary)],
       ["/projects", `Case Studies — ${name}`,
-        "Case studies in UX research and engineering: controlled experiments, mixed-methods studies, and the interfaces built from them."],
+        "Case studies that trace user research through requirements and interaction design into implementation and validation: a controlled eye-tracking experiment, a solo-built reimbursement application, and a B2B research project."],
       // "since 2015", not a year-count: a start year cannot drift stale the
       // way a hand-written span did (this line said "eight years" while the
       // hero said "5+" — F3, reconciled 2026-08-24).
       ["/cv", `CV — ${name}`,
-        `${role} with an M.Sc. in Human-Computer Interaction. Frontend development, UX research, and QA since 2015.`],
+        `${role} with an M.Sc. in Human-Computer Interaction and a B.E. in Software Engineering: research, usability engineering and implementation, with frontend and QA experience since 2015.`],
       ["/contact", `Contact — ${name}`, en(profileData.contact.availability)],
       ["/credentials", `Credentials — ${name}`,
         "Degrees, certifications and workshop credentials, with the source documents attached."],

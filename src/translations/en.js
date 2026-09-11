@@ -44,6 +44,7 @@ const en = {
   // About
   "about.heading": "About Me",
   "home.about.kicker": "01 — Who I Am",
+  "home.about.coreExpertise": "Core expertise",
 
   "about.howIGotHere": "How I Got Here",
   "about.theBridge": "The Bridge",
@@ -109,14 +110,19 @@ const en = {
   "cv.aiAssisted.text": "AI-assisted development — agents under my direction; the decision log records what I rejected",
   "cv.aiAssisted.link": "IBS case study",
 
+  // Skill-group headings, shared by the CV and the About page. Keyed off the
+  // English category name in data.json (SKILL_CATEGORY_KEYS in
+  // src/data/profile.js); an unknown category falls back to its raw name.
+  "cv.skillCategory.core": "Core Expertise",
+  "cv.skillCategory.research": "Research & Evaluation",
+  "cv.skillCategory.technical": "Technical Implementation",
+  "cv.skillCategory.qa": "Quality Assurance",
+  "cv.skillCategory.additional": "Additional Technical Experience",
+  "cv.skillCategory.alsoWorkedWith": "Also worked with",
+
   // Skill-group headings on the CV. Keyed off the English category name in
   // data.json (see SKILL_CATEGORY_KEYS in CurriculumVitae.jsx); a category
   // added later without a key here simply falls back to its raw name.
-  "cv.skillCategory.frontendEngineering": "Frontend Engineering & Design",
-  "cv.skillCategory.uxResearchDesign": "UX Research & Testing",
-  "cv.skillCategory.qaTesting": "QA & Testing",
-  "cv.skillCategory.analysisTools": "Analysis & Tools",
-  "cv.skillCategory.backendData": "Backend & Data",
 
   // Contact
   "contact.heading": "Get in Touch",
@@ -213,6 +219,10 @@ const en = {
   // Project detail — section kickers + headings (long form)
   "project.about.kicker": "Project Overview",
   "project.about.heading": "About the Project",
+  // The evidence chain under the About copy — rendered only by a case study
+  // that supplies `evidenceChain` (template/EvidenceChain.jsx).
+  "project.evidenceChain.label": "From evidence to working software",
+  "project.evidenceChain.pending": "Pending",
 
   "project.process.kicker": "Behind the Work",
   "project.process.heading": "Research Process",

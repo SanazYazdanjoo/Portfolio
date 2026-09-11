@@ -4,7 +4,8 @@
 
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { profileData as rawProfile } from "../data/profile";
+import { profileData as rawProfile, coreExpertise } from "../data/profile";
+import { SkillTagRow } from "../components/SkillTagRow";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { voluntaryItems as rawVoluntary } from "../data/voluntary";
 import { TESTIMONIALS_PUBLISHED, testimonialItems as rawTestimonials } from "../data/testimonials";
@@ -76,6 +77,17 @@ export default function About() {
             <p className="max-w-[62ch] text-lg font-normal leading-relaxed text-text">
               {profileData.bio}
             </p>
+            {/* What to hire her for, before the career story explains why:
+                the first skills category in data.json, as the same chips the
+                project cards use. The supporting breadth stays on the CV. */}
+            {coreExpertise.length > 0 && (
+              <div className="mt-8">
+                <p className="mb-3 text-2xs font-extrabold uppercase tracking-caps text-primary-600">
+                  {t("cv.skillCategory.core")}
+                </p>
+                <SkillTagRow tags={coreExpertise} />
+              </div>
+            )}
           </motion.div>
 
           <motion.div

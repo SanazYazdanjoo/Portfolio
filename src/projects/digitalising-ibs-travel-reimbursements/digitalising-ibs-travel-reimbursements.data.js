@@ -180,6 +180,64 @@ export const projectData = {
     },
   ],
 
+  // The chain the case study exists to show, one line per link, rendered
+  // under the About copy (template/EvidenceChain.jsx). Each line restates
+  // something the sections below evidence in full; nothing here is new.
+  // `pending: true` marks the one link that has not happened yet — the
+  // summative evaluation waits on deployment, and the card says so.
+  evidenceChain: [
+    {
+      stage: { en: 'Research', de: 'Research' },
+      note: {
+        en: 'More than a year administering the process as project assistant, two expert interviews, a working meeting with the administration team, and an open participant survey.',
+        de: 'Über ein Jahr Administration des Prozesses als Projektassistentin, zwei Experteninterviews, ein Arbeitstreffen mit dem Verwaltungsteam und eine laufende Teilnehmenden-Umfrage.',
+      },
+    },
+    {
+      stage: { en: 'Synthesis', de: 'Synthese' },
+      note: {
+        en: '25 documented problems, each carrying an evidence grade: confirmed, indicative, hypothesis, untested.',
+        de: '25 dokumentierte Probleme, jedes mit einem Evidenzgrad: bestätigt, indikativ, Hypothese, ungeprüft.',
+      },
+    },
+    {
+      stage: { en: 'Requirements', de: 'Anforderungen' },
+      note: {
+        en: 'Numbered FR/NFR requirements traced to their source problems; a CI test fails the build on a citation without a source.',
+        de: 'Nummerierte FR/NFR-Anforderungen, auf ihre Quellprobleme zurückgeführt; ein CI-Test lässt den Build bei einem Zitat ohne Quelle scheitern.',
+      },
+    },
+    {
+      stage: { en: 'Design', de: 'Design' },
+      note: {
+        en: 'A role-based information architecture, an explicit claim state machine, wireframes before high-fidelity screens, and a design system whose role palette is the research diagram’s lane colours.',
+        de: 'Eine rollenbasierte Informationsarchitektur, eine explizite Zustandsmaschine für Anträge, Wireframes vor den High-Fidelity-Screens und ein Designsystem, dessen Rollenpalette die Spurfarben des Forschungsdiagramms sind.',
+      },
+    },
+    {
+      stage: { en: 'Implementation', de: 'Implementierung' },
+      note: {
+        en: 'One React/TypeScript application with a Fastify backend: five role views, and an amount that is recomputed on every screen with its calculation trace visible.',
+        de: 'Eine React/TypeScript-Anwendung mit Fastify-Backend: fünf Rollenansichten und ein Betrag, der auf jedem Screen neu berechnet wird, mit sichtbarem Rechenweg.',
+      },
+    },
+    {
+      stage: { en: 'Quality', de: 'Qualität' },
+      note: {
+        en: '1,734 automated tests, session authentication, CSRF and rate limits, local-only participant data, and bundle scans for stray hostnames and real names.',
+        de: '1.734 automatisierte Tests, Session-Authentifizierung, CSRF und Rate-Limits, nur lokal gehaltene Teilnehmendendaten und Bundle-Scans auf fremde Hostnamen und echte Namen.',
+      },
+    },
+    {
+      stage: { en: 'Validation', de: 'Validierung' },
+      pending: true,
+      note: {
+        en: 'A summative usability evaluation is instrumented into the app — guided tasks, a pseudonymous event log, a questionnaire. It runs once the app is deployed for daily use; measured outcomes are not yet available.',
+        de: 'Eine summative Usability-Evaluation ist in die App instrumentiert — geführte Aufgaben, ein pseudonymes Ereignisprotokoll, ein Fragebogen. Sie läuft, sobald die App im Alltag im Einsatz ist; gemessene Ergebnisse liegen noch nicht vor.',
+      },
+    },
+  ],
+
   challengeQuote: {
     en: 'The problem was not the form. It was the fragmented system around it.',
     de: 'Das Problem war nicht das Formular. Es war das fragmentierte System darum herum.',
