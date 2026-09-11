@@ -628,7 +628,7 @@ describe("excludeFromHome", () => {
   it("means the project carries no homepage-card fields", () => {
     for (const p of projects) {
       if (!p.excludeFromHome) continue;
-      for (const field of ["cardTags", "cardOutcome", "cardImage", "year", "context"]) {
+      for (const field of ["cardTags", "cardOutcome", "cardImage", "cardProves", "cardStats", "year", "context"]) {
         expect(
           p[field],
           `${p.slug} is excluded from the homepage but still defines \`${field}\``

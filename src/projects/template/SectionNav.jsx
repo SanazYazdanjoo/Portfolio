@@ -169,7 +169,7 @@ export function MobileSectionIndex({ sections, onNavigate }) {
       className="md:hidden no-print mb-10 border-t rule-t pt-4"
       data-corner-cta=""
     >
-      <p className="mb-3 text-2xs font-black uppercase text-primary-600">
+      <p className="mb-3 font-mono text-label uppercase text-primary-600">
         {t("project.sidebar.onThisPage")}
       </p>
       <ol className="m-0 flex list-none flex-wrap gap-2 p-0">

@@ -89,7 +89,7 @@ export function MetricsStrip({ metrics, title, intro }) {
           {intro}
         </p>
       ) : (
-        <p className="text-2xs font-black uppercase text-dim mb-5">
+        <p className="font-mono text-label uppercase text-dim mb-5">
           {title || t("project.results.glance")}
         </p>
       )}

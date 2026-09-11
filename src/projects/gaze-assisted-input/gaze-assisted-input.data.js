@@ -23,6 +23,31 @@ export const projectData = {
   // read as a contradiction. (F1, confirmed by the owner 2026-08-24.)
   timeline: { en: "10/2025 – 04/2026 · defence 05/2026", de: "10/2025 – 04/2026 · Verteidigung 05/2026" },
 
+  // The recruiter brief under the title (template/ProjectHeader.jsx). Each
+  // line restates a fact the sections below evidence in full.
+  brief: {
+    problem: {
+      en: "Pointing across two screens with a mouse means long pointer transits and a cursor that gets lost at the bezel. Gaze-assisted techniques promise to fix that, but few controlled studies had compared them against a mouse on a real dual-display workstation — or asked whether users would trust them.",
+      de: "Zeigen über zwei Bildschirme mit der Maus bedeutet lange Zeigerwege und einen Cursor, der am Bildschirmrand verloren geht. Blickgestützte Techniken versprechen Abhilfe, doch nur wenige kontrollierte Studien hatten sie an einem realen Dual-Display-Arbeitsplatz mit der Maus verglichen — oder gefragt, ob Nutzer:innen ihnen vertrauen.",
+    },
+    context: {
+      en: "M.Sc. thesis in Human-Computer Interaction, Bauhaus-Universität Weimar · a physical dual-display lab with a head-mounted eye tracker",
+      de: "Masterarbeit in Human-Computer Interaction, Bauhaus-Universität Weimar · physischer Dual-Display-Laboraufbau mit kopfgetragenem Eyetracker",
+    },
+    methods: {
+      en: "Formative interviews (n=20) with thematic analysis · controlled within-subjects experiment · eye tracking · repeated-measures ANOVA and SUS in R",
+      de: "Formative Interviews (n=20) mit thematischer Analyse · kontrolliertes Within-Subjects-Experiment · Eye-Tracking · ANOVA mit Messwiederholung und SUS in R",
+    },
+    scale: {
+      en: "N=30 participants · 3×2×6 design · two gaze techniques implemented from scratch in TypeScript on a Python gaze pipeline",
+      de: "N=30 Teilnehmende · 3×2×6-Design · zwei Blicktechniken von Grund auf in TypeScript auf einer Python-Blickpipeline implementiert",
+    },
+    outcome: {
+      en: "Gaze wins at the intermediate cross-screen distances and loses at short ones; 60% preferred the gaze hybrid although the mouse scored highest on SUS. Recommendation: trigger gaze assistance only for large cross-screen moves.",
+      de: "Blick gewinnt bei den mittleren bildschirmübergreifenden Distanzen und verliert bei kurzen; 60 % bevorzugten den Blick-Hybrid, obwohl die Maus den höchsten SUS-Wert erzielte. Empfehlung: Blickunterstützung nur bei großen bildschirmübergreifenden Bewegungen auslösen.",
+    },
+  },
+
   heroImage: thumbnailImg,
   heroIsGenerated: true, // hero generated with Google Gemini — renders the credit
 

@@ -25,7 +25,7 @@ rather than letting them drift.
 | Profile, CV, skills, certifications | `src/data/data.json` → `src/data/profile.js` |
 | Voluntary work | `src/data/data.json` → `src/data/voluntary.js` |
 | One case study | `src/projects/<slug>/<slug>.data.js` |
-| Career arc ("The Bridge") | `src/data/career.js` (structure) + `src/translations/` (copy) |
+| Career arc ("The Bridge") | `src/data/data.json` (`profile.careerPath`) → `src/data/career.js` |
 | UI strings (EN/DE) | `src/translations/{en,de}.js` |
 | Design tokens | `src/styles/theme.css`, surfaced at `/designsystem` |
 

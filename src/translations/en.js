@@ -22,10 +22,12 @@ const en = {
   "hero.ctaCv": "View CV",
   "hero.ctaContact": "Contact",
   "hero.credentials": "M.Sc. Human-Computer Interaction · User Research · Prototyping · Frontend",
+  // The proof-point row under the positioning sentence (impactStats in data.json)
+  "hero.proofLabel": "Proof points",
 
   // Projects
   "projects.heading": "Case Studies",
-  "home.projects.kicker": "02 — Selected Work",
+  "home.projects.kicker": "01 — Selected Work",
   "home.contact.kicker": "03 — Get in touch",
   "projects.title": "Projects",
   "projects.viewProject": "View Case Study",
@@ -43,7 +45,7 @@ const en = {
 
   // About
   "about.heading": "About Me",
-  "home.about.kicker": "01 — Who I Am",
+  "home.about.kicker": "02 — Who I Am",
   "home.about.coreExpertise": "Core expertise",
 
   "about.howIGotHere": "How I Got Here",
@@ -316,6 +318,12 @@ const en = {
   "project.meta.fewerSkills": "Show fewer",
   "project.meta.showAllSkills": "Show all {n} skills",
   "project.meta.context": "Context",
+  // The recruiter brief under a case-study title (template/ProjectHeader.jsx)
+  "project.brief.label": "At a glance",
+  "project.meta.problem": "Problem",
+  "project.meta.keyMethods": "Key methods",
+  "project.meta.scale": "Scale",
+  "project.meta.outcome": "Outcome",
   "project.meta.furtherImpact": "Further impact",
   "project.meta.impactAtGlance": "Impact at a glance",
   "project.meta.contribution": "My Contribution",
@@ -530,17 +538,17 @@ const en = {
   "sitemap.credentials.lightbox.label": "Lightbox",
   "sitemap.credentials.lightbox.desc": "Full document preview + download",
   "sitemap.sections.hero.label": "Hero",
-  "sitemap.sections.hero.desc": "Name, role, year",
+  "sitemap.sections.hero.desc": "Identity, process, positioning, proof points",
   "sitemap.sections.aboutMe.label": "About Me",
-  "sitemap.sections.aboutMe.desc": "Bio, photo, skills",
+  "sitemap.sections.aboutMe.desc": "Bio, core expertise, career timeline",
   "sitemap.sections.projectsIndex.label": "Projects",
-  "sitemap.sections.projectsIndex.desc": "Snap-scroll project index",
+  "sitemap.sections.projectsIndex.desc": "Case-study list with outcome and proof points",
   "sitemap.sections.bio.label": "Bio",
   "sitemap.sections.bio.desc": "Photo & intro",
   "sitemap.sections.bridge.label": "The Bridge",
-  "sitemap.sections.bridge.desc": "Career arc: SE → QA → UX, skills grouped by era",
+  "sitemap.sections.bridge.desc": "Career arc: software engineering → frontend → QA/usability → HCI → UX engineering",
   "sitemap.sections.howIWork.label": "How I Work",
-  "sitemap.sections.howIWork.desc": "4-step research process",
+  "sitemap.sections.howIWork.desc": "The Double Diamond as a working method",
   "sitemap.sections.voluntaryWork.label": "Voluntary Work",
   "sitemap.sections.voluntaryWork.desc": "Mentorship & workshops",
   "sitemap.sections.workExperience.label": "Work Experience",

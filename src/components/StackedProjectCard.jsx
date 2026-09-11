@@ -41,9 +41,12 @@ export function StackedProjectCard({ project, index }) {
   const showArtefact = canPreviewArtefact && (pointerPreview || focusPreview);
   const tags = project.cardTags || [];
   const meta = [project.year, project.context, project.role].filter(Boolean);
+  // Long enough to read as a dissolve rather than a swap, short enough that
+  // a reader scanning down the list is never waiting on it. The earlier
+  // 1400ms looked like lag on a fast pointer sweep.
   const previewTransition = {
     transitionProperty: "opacity, transform",
-    transitionDuration: "1400ms",
+    transitionDuration: "550ms",
     transitionTimingFunction: "var(--timing-smooth)",
   };
 
@@ -146,7 +149,7 @@ export function StackedProjectCard({ project, index }) {
           figure ? "md:col-start-6 md:col-span-7 mt-s24 md:mt-0" : "md:col-span-12"
         }`}
       >
-        <div className="flex items-center gap-s12">
+        <div className="flex flex-wrap items-center gap-s12">
           <span className="text-num font-mono text-primary-600">
             {String(index + 1).padStart(2, "0")}
           </span>
@@ -154,6 +157,15 @@ export function StackedProjectCard({ project, index }) {
             <span className="text-badge font-mono uppercase text-primary-600 border rule-frame px-s8 py-s3"
               style={{ "--rule-line-color": "var(--primary-600)" }}>
               {t("projects.inProgress")}
+            </span>
+          )}
+          {/* What this project proves, data-gated: the three flagship
+              cards each name the part of the positioning they carry, so
+              the list reads as one argument in three parts rather than
+              three unrelated projects. */}
+          {project.cardProves && (
+            <span className="text-label font-mono uppercase text-text-meta">
+              {project.cardProves}
             </span>
           )}
         </div>

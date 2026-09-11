@@ -64,6 +64,33 @@ const media = (filename) => mediaFiles[`./media/${filename}`] ?? null;
 export const projectData = {
   ...card,
   timeline: "10/2023 – 03/2024",
+
+  // The recruiter brief under the title (template/ProjectHeader.jsx). Each
+  // line restates a fact the sections below evidence in full; the outcome
+  // line keeps adoption unverified, as the outcome block does.
+  brief: {
+    problem: {
+      en: "Hybrid work had thinned out the spontaneous contact office life used to create: employees felt less integrated and new joiners struggled to connect. deskbird wanted evidence, not assumptions, on how a social feature should work before committing it to the roadmap.",
+      de: "Hybrides Arbeiten hatte den spontanen Kontakt ausgedünnt, den das Büro früher erzeugt hat: Mitarbeitende fühlten sich weniger integriert, neue Kolleg:innen fanden schwer Anschluss. deskbird wollte Evidenz statt Annahmen darüber, wie ein Social Feature funktionieren sollte, bevor es auf die Roadmap kommt.",
+    },
+    context: {
+      en: "University–industry research project with deskbird, a B2B SaaS platform for desk booking and hybrid week planning · team of six at Bauhaus-Universität Weimar",
+      de: "Forschungsprojekt zwischen Universität und Industrie mit deskbird, einer B2B-SaaS-Plattform für Deskbuchung und hybride Wochenplanung · sechsköpfiges Team an der Bauhaus-Universität Weimar",
+    },
+    methods: {
+      en: "Stakeholder interviews · online survey · remote contextual inquiries with follow-up interviews · affinity diagramming · requirements engineering · concept development · usability testing of the prototype",
+      de: "Stakeholder-Interviews · Online-Umfrage · Remote Contextual Inquiries mit Folgeinterviews · Affinity Diagramming · Anforderungsanalyse · Konzeptentwicklung · Usability-Tests des Prototyps",
+    },
+    scale: {
+      en: "57 survey respondents · 6 contextual inquiries · 3 concepts presented to the client, 1 selected",
+      de: "57 Umfrageteilnehmende · 6 Contextual Inquiries · 3 Konzepte dem Kunden präsentiert, 1 ausgewählt",
+    },
+    outcome: {
+      en: "deskbird's stakeholders chose my concept, Interest-Based Communities, delivered as a high-fidelity Figma prototype with implementation recommendations. Whether it shipped was never verified.",
+      de: "deskbirds Stakeholder wählten mein Konzept, Interest-Based Communities, übergeben als High-Fidelity-Figma-Prototyp mit Umsetzungsempfehlungen. Ob es ausgeliefert wurde, wurde nie verifiziert.",
+    },
+  },
+
   heroImage: thumbnailImg,
   heroIsGenerated: true, // hero generated with Google Gemini — renders the credit
 

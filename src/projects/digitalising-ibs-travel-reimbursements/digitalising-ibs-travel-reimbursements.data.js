@@ -36,6 +36,34 @@ export const projectData = {
     en: '2026 · ongoing',
     de: '2026 · laufend',
   },
+
+  // The recruiter brief under the title (template/ProjectHeader.jsx). Every
+  // line restates a fact the sections below evidence in full; the outcome
+  // line keeps the evaluation visibly pending, as the card and the results
+  // section do.
+  brief: {
+    problem: {
+      en: 'A 13-step paper reimbursement process spread across nine actors: receipts, attendance and amounts copied between spreadsheets, no confirmation and no claim status for participants, and one traced claim still unpaid after 43+ days.',
+      de: 'Ein 13-stufiger Papier-Erstattungsprozess, verteilt über neun Akteure: Belege, Anwesenheiten und Beträge zwischen Tabellen kopiert, keine Bestätigung und kein Antragsstatus für Teilnehmende, ein nachverfolgter Antrag nach 43+ Tagen noch unbezahlt.',
+    },
+    context: {
+      en: 'In-house project at IBS, researched from the inside: I administered the process for more than a year as project assistant before rebuilding it.',
+      de: 'Internes Projekt am IBS, von innen erforscht: Ich habe den Prozess über ein Jahr als Projektassistentin administriert, bevor ich ihn neu gebaut habe.',
+    },
+    methods: {
+      en: 'Insider process observation · expert interviews and an administration working meeting · participant survey · artefact analysis · UML process mapping · evidence-graded problem register · FR/NFR requirements with traceability',
+      de: 'Insider-Prozessbeobachtung · Experteninterviews und ein Arbeitstreffen mit der Verwaltung · Teilnehmenden-Umfrage · Artefaktanalyse · UML-Prozessmapping · Problemregister mit Evidenzgrad · FR/NFR-Anforderungen mit Traceability',
+    },
+    scale: {
+      en: '9 actors · 13 steps · 25 evidence-graded problems · 5 role views in one React/TypeScript application · 1,734 automated tests',
+      de: '9 Akteure · 13 Schritte · 25 Probleme mit Evidenzgrad · 5 Rollenansichten in einer React/TypeScript-Anwendung · 1.734 automatisierte Tests',
+    },
+    outcome: {
+      en: 'One role-based application, deployed as a demo the team works with. The summative usability evaluation is instrumented into the app and waits for daily use — no post-launch improvement is claimed yet.',
+      de: 'Eine rollenbasierte Anwendung, als Demo bereitgestellt, mit der das Team arbeitet. Die summative Usability-Evaluation ist in die App instrumentiert und wartet auf den Alltagseinsatz — noch wird keine Verbesserung nach der Einführung behauptet.',
+    },
+  },
+
   aiAssistance: {
     en: 'AI-assisted implementation: AI coding tools supported development. Research, requirements, design decisions, architecture, and final verification were my responsibility.',
     de: 'KI-unterstützte Umsetzung: KI-Coding-Tools unterstützten die Entwicklung. Forschung, Anforderungen, Designentscheidungen, Architektur und finale Prüfung lagen in meiner Verantwortung.',
@@ -703,6 +731,7 @@ export const projectData = {
     { tag: 'Wireframing', evidence: 'wireframe + figures.wireframe: sketch, low-fidelity and high-fidelity versions of the attendance-month screen', status: 'evidenced' },
     { tag: 'Design Systems', evidence: 'design + figures.design: AS-IS role palette carried into the UI design system', status: 'evidenced' },
     { tag: 'Prototyping', evidence: 'prototype + prototypeUrl: deployed browser demo on fictional data', status: 'evidenced' },
+    { tag: 'Usability Engineering', evidence: 'process + methodology + prototype: survey findings became numbered usability requirements (transparent calculation, visible claim status), wireframes resolved structure before styling, and the summative usability evaluation is instrumented into the application itself', status: 'evidenced' },
     { tag: 'Usability Evaluation (instrumented)', evidence: 'process/prototype/results: guided tasks, local pseudonymous event log and end-of-session questionnaire are implemented; formal sessions pending', status: 'evidenced' },
     { tag: 'React', evidence: 'techStack + solution: working role-based application', status: 'evidenced' },
     { tag: 'TypeScript', evidence: 'techStack + methodology: shared calculation rules and state logic', status: 'evidenced' },

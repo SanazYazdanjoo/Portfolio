@@ -67,7 +67,10 @@ export function ProjectTile({ project, index }) {
           <ProjectPicture
             src={project.thumbnail}
             webpSrc={project.thumbnailWebp}
-            alt={project.title}
+            /* Decorative: the illustration repeats nothing the heading below
+               it does not already say, and a screen reader would otherwise
+               hear the title twice per tile. */
+            alt=""
             onError={() => setImgError(true)}
             className={`relative h-full w-full object-cover transition-transform duration-[250ms] ease-smooth group-hover:scale-[1.04] ${
               isComingSoon ? "grayscale" : ""

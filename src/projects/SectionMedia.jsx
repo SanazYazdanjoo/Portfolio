@@ -49,10 +49,13 @@ function EmbedMedia({ figure, prefersReducedMotion }) {
           loaded ? "pointer-events-none opacity-0" : "opacity-100"
         }`}
       >
+        {/* The same drawn ring the route skeleton spins (RouteSkeleton.jsx),
+            so an embed that is still loading looks like the rest of the
+            site waiting, not like a stock spinner. */}
         <span
           aria-hidden="true"
-          className={`mb-2 h-8 w-8 rounded-full border-2 border-text/15 border-t-primary-600 ${
-            prefersReducedMotion ? "" : "animate-spin"
+          className={`relative mb-2 h-8 w-8 rule-circle [--rule-line-color:var(--primary-600)] ${
+            prefersReducedMotion ? "" : "spin-ring"
           }`}
         />
         <strong className="font-display text-base font-bold text-text">

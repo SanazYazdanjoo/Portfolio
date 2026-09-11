@@ -30,7 +30,12 @@ export default {
     en: "Industry project · deskbird",
     de: "Industrieprojekt · deskbird",
   },
-  cardTags: ["Contextual Inquiry", "Usability Testing", "Figma", "B2B SaaS"],
+  // The card argues research in an industry setting, so the tags are the
+  // methods and the context — the tool (Figma) stays in the case study.
+  cardTags: ["Stakeholder Interviews", "Contextual Inquiry", "Usability Testing", "B2B SaaS"],
+  // The part of the positioning this card carries: research that became a
+  // product direction a client chose.
+  cardProves: { en: "Industry product UX research", de: "Produkt-UX-Research in der Industrie" },
   // The card argues research → product direction: the study became three
   // concepts and the client chose hers. The finding itself (breaks, shared
   // interests) is the case study's job.

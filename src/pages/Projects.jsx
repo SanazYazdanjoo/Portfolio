@@ -84,7 +84,9 @@ export default function Projects() {
 
   useDocumentMeta({
     title: `${activeSkill ? `${activeSkill} — ` : ""}${t("projects.title")} — ${profileData.name}`,
-    description: activeSkill ? `${activeSkill}. ${skillResultText}` : profileData.tagline,
+    // The positioning summary, not the handwritten tagline: this is the
+    // description a crawler or a link unfurl shows for the index.
+    description: activeSkill ? `${activeSkill}. ${skillResultText}` : profileData.profileSummary,
   });
 
   useEffect(() => {

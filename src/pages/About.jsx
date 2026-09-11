@@ -1,5 +1,8 @@
-// About is the narrative page: current positioning first, then the career path
-// that produced it, then the way that combination shows up in practice.
+// About is the narrative page: who she is now, the career path that produced
+// that position (and why each stage led to the next), how the combination
+// works in practice, then the supporting proof. It does not repeat the
+// homepage: the bio opens it once, the career arc carries the story, and
+// the working-method section has its own copy rather than the hero's.
 // Human-facing profile copy stays in data.json; this page only composes it.
 
 import { motion } from "framer-motion";
@@ -24,6 +27,9 @@ const fadeUp = {
   }),
 };
 
+// The one label role, sitewide: 12px mono caps (see theme.css --fs-label).
+const EYEBROW = "font-mono text-label uppercase text-primary-600";
+
 function SectionHeader({ eyebrow, title, sub }) {
   return (
     <motion.div
@@ -33,11 +39,9 @@ function SectionHeader({ eyebrow, title, sub }) {
       whileInView="show"
       viewport={{ once: true }}
     >
-      <p className="mb-2 text-2xs font-extrabold uppercase text-primary-600">
-        {eyebrow}
-      </p>
+      <p className={`mb-2 ${EYEBROW}`}>{eyebrow}</p>
       <h2 className="type-section">{title}</h2>
-      {sub && <p className="mt-5 max-w-xl text-sm leading-relaxed text-dim">{sub}</p>}
+      {sub && <p className="mt-5 max-w-2xl text-base leading-relaxed text-text-meta">{sub}</p>}
     </motion.div>
   );
 }
@@ -65,9 +69,7 @@ export default function About() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: EASE }}
           >
-            <p className="mb-4 text-2xs font-extrabold uppercase tracking-caps text-primary-600">
-              {profileData.role}
-            </p>
+            <p className={`mb-4 ${EYEBROW}`}>{profileData.role}</p>
             <h1
               className="relative z-10 mb-7 font-display text-display font-extrabold text-text"
               style={{ fontVariationSettings: "'opsz' 96" }}
@@ -82,7 +84,7 @@ export default function About() {
                 project cards use. The supporting breadth stays on the CV. */}
             {coreExpertise.length > 0 && (
               <div className="mt-8">
-                <p className="mb-3 text-2xs font-extrabold uppercase tracking-caps text-primary-600">
+                <p className="mb-3 font-mono text-label uppercase text-text-meta">
                   {t("cv.skillCategory.core")}
                 </p>
                 <SkillTagRow tags={coreExpertise} />
@@ -99,10 +101,14 @@ export default function About() {
             transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
           >
             <div className="relative w-full max-w-[360px]">
+              {/* The portrait keeps its one gesture — the print straightens
+                  and colours in under the pointer. Decorative, not a control. */}
               <div className="photo-frame rule-frame-in -rotate-1 transition-transform duration-500 hover:rotate-0">
                 <img
                   src={profileData.aboutImage}
                   alt={profileData.name}
+                  width="880"
+                  height="880"
                   className="h-auto w-full object-cover grayscale transition-all duration-700 hover:grayscale-0"
                   style={{ aspectRatio: "4/5" }}
                 />
@@ -112,19 +118,22 @@ export default function About() {
         </div>
       </section>
 
-      {/* Why this profile exists: the career progression behind the current role. */}
+      {/* Why this profile exists: the career progression behind the current
+          role. The sub-line is the causal thread the five cards then
+          unfold — each stage changed the question, and kept the toolkit. */}
       <section className="relative border-t py-20 rule-t">
         <div className="container mx-auto px-4 md:px-8">
           <SectionHeader
             eyebrow={t("about.howIGotHere")}
             title={t("about.theBridge")}
+            sub={profileData.bridgeDescription}
           />
           <CareerArc variant="full" />
         </div>
       </section>
 
-      {/* How the positioning works in practice: a familiar Double Diamond
-          expressed through the same research-to-validation narrative. */}
+      {/* How the positioning works in practice: the Double Diamond, in her
+          own words — not the hero's positioning sentence again. */}
       <section className="border-t py-20 rule-t">
         <div className="container mx-auto px-4 md:px-8">
           <SectionHeader
@@ -133,31 +142,39 @@ export default function About() {
           />
 
           <motion.div
-            className="mb-10 max-w-3xl"
+            className="mb-10 max-w-3xl space-y-5"
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
           >
-            <p className="text-lg leading-[1.8] text-text">
-              {profileData.positioning}
-            </p>
+            <p className="text-lg leading-[1.8] text-text">{t("about.doubleDiamond.intro")}</p>
+            <p className="text-base leading-[1.8] text-text-meta">{t("about.doubleDiamond.intro2")}</p>
           </motion.div>
 
           <motion.figure
-            className="mx-auto w-fit max-w-full overflow-hidden bg-white"
+            className="mx-auto w-fit max-w-full"
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-80px" }}
           >
-            <img
-              src="/assets/How-I-Work.jpg"
-              alt="Double Diamond workflow: Discover — understand people and context; Define — turn findings into direction; Develop — design usable solutions; Deliver — build, test, and improve."
-              className="mx-auto block h-auto w-auto max-w-full"
-              loading="lazy"
-              decoding="async"
-            />
+            {/* White mat in both themes: the drawing is ink on white paper,
+                and inverting it would invert the coral annotations too. */}
+            <div className="border rule-frame-in bg-white p-3 md:p-5">
+              <img
+                src="/assets/How-I-Work.jpg"
+                alt={t("about.doubleDiamond.alt")}
+                width="1672"
+                height="652"
+                className="mx-auto block h-auto w-auto max-w-full"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <figcaption className="mt-3 font-mono text-label uppercase leading-relaxed text-text-meta">
+              {t("about.doubleDiamond.caption")}
+            </figcaption>
           </motion.figure>
         </div>
       </section>
@@ -186,7 +203,7 @@ export default function About() {
             </ul>
             <Link
               to="/credentials"
-              className="mt-6 inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-caps text-primary-600 hover:text-primary-500"
+              className={`mt-6 inline-flex items-center gap-1.5 ${EYEBROW} hover:text-primary-500 focus-ring`}
             >
               {t("credentials.viewAll")} <HandArrow />
             </Link>
@@ -217,7 +234,7 @@ export default function About() {
                   </p>
                   <cite className="mt-4 block not-italic">
                     <span className="block text-sm font-black text-text">{item.name}</span>
-                    <span className="mt-1 block text-2xs font-bold uppercase text-dim">
+                    <span className="mt-1 block font-mono text-label uppercase text-dim">
                       {item.role}
                       {item.company && <> · {item.company}</>}
                     </span>
@@ -227,7 +244,7 @@ export default function About() {
                       href={item.source}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-2 inline-block text-2xs font-bold uppercase tracking-caps text-primary-600 hover:text-primary-500"
+                      className={`mt-2 inline-block ${EYEBROW} hover:text-primary-500`}
                     >
                       {t("about.testimonials.source")}
                     </a>
@@ -243,7 +260,7 @@ export default function About() {
         <section className="border-t py-20 rule-t">
           <div className="container mx-auto px-4 md:px-8">
             <motion.p
-              className="mb-8 text-2xs font-extrabold uppercase text-primary-600"
+              className={`mb-8 ${EYEBROW}`}
               variants={fadeUp}
               initial="hidden"
               whileInView="show"
@@ -252,30 +269,32 @@ export default function About() {
               {t("about.beyondTheBrief")}
             </motion.p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2">
+            {/* Plain ruled rows. These are not links, so they carry no
+                hover surface — nothing here changes under the pointer. */}
+            <ul className="grid grid-cols-1 list-none m-0 p-0 md:grid-cols-2">
               {voluntaryItems.map((item, i) => (
-                <motion.div
+                <motion.li
                   key={item.id}
                   custom={i}
                   variants={fadeUp}
                   initial="hidden"
                   whileInView="show"
                   viewport={{ once: true }}
-                  className={`group border-t bg-bg px-5 py-5 rule-t transition-colors duration-300 hover:bg-blush-weak dark:hover:bg-[var(--color-blush-100)] ${
+                  className={`border-t px-5 py-5 rule-t ${
                     i % 2 === 1 ? "md:border-l md:rule-l" : ""
                   }`}
                 >
                   <div className="mb-1.5 flex items-baseline justify-between">
-                    <h3 className="text-sm font-black text-text transition-colors duration-300 dark:group-hover:text-[var(--color-ink-900)]">{item.title}</h3>
-                    <span className="ml-4 shrink-0 text-2xs font-semibold uppercase text-secondary-600 transition-colors duration-300 dark:group-hover:text-[var(--color-rose-600)]">
+                    <h3 className="text-sm font-black text-text">{item.title}</h3>
+                    <span className="ml-4 shrink-0 font-mono text-label uppercase text-secondary-600">
                       {item.year}
                     </span>
                   </div>
-                  <p className="mb-1.5 text-2xs font-bold uppercase text-dim transition-colors duration-300 dark:group-hover:text-[var(--color-ink-700)]">{item.org}</p>
-                  {item.desc && <p className="text-xs leading-relaxed text-dim transition-colors duration-300 dark:group-hover:text-[var(--color-ink-700)]">{item.desc}</p>}
-                </motion.div>
+                  <p className="mb-1.5 font-mono text-label uppercase text-dim">{item.org}</p>
+                  {item.desc && <p className="text-xs leading-relaxed text-dim">{item.desc}</p>}
+                </motion.li>
               ))}
-            </div>
+            </ul>
           </div>
         </section>
       )}
@@ -290,9 +309,7 @@ export default function About() {
             viewport={{ once: true }}
           >
             <div>
-              <p className="mb-2 text-2xs font-extrabold uppercase text-primary-600">
-                {t("about.whatsNext")}
-              </p>
+              <p className={`mb-2 ${EYEBROW}`}>{t("about.whatsNext")}</p>
               <h2 className="type-section">
                 <span
                   className="ink-highlight dark:[background-size:100%_1em] dark:[background-position:0_50%]"
@@ -302,16 +319,19 @@ export default function About() {
               </h2>
             </div>
 
-            <div className="flex flex-wrap gap-4">
+            {/* One primary action, one quiet one — the same pair the hero
+                offers, so the site never asks a reader to choose between
+                two equally loud buttons. */}
+            <div className="flex flex-wrap items-center gap-6">
               <Link
                 to="/projects"
-                className="bg-primary px-8 py-3 text-xs font-black uppercase tracking-caps text-white rule-fill transition-all duration-200 hover:bg-primary-600 hover:[color:var(--on-primary-600)]"
+                className="inline-flex items-center gap-2 bg-text rule-fill-r text-bg px-6 py-3 rounded-sm text-base font-medium hover:opacity-90 transition-opacity duration-200 focus-ring"
               >
-                {t("about.viewProjects")}
+                {t("about.viewProjects")} <HandArrow />
               </Link>
               <Link
                 to="/cv"
-                className="border px-8 py-3 text-xs font-black uppercase tracking-caps text-text rule-frame [--rule-line-color:rgb(var(--text-rgb)/0.3)] transition-all duration-200 hover:border-secondary hover:text-secondary-600"
+                className="relative text-base font-medium text-text pb-0.5 rule-underline hover:text-primary-600 transition-colors duration-200 focus-ring"
               >
                 {t("about.viewCV")}
               </Link>

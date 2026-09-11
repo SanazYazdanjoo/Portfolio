@@ -5,6 +5,11 @@
 //
 //   variant="full"    - About page: numeral, label, years, summary, skills
 //   variant="compact" - homepage: date + label only
+//
+// Nothing in either variant is interactive, so nothing in either variant
+// has a hover state: the cards used to tint blush and the chips used to
+// fill coral under the pointer, which promised a click that went nowhere.
+// The current phase is marked once, by its coral fill, at rest.
 
 import React from "react";
 import { useInViewReveal, revealClass } from "../hooks/useReveal";
@@ -46,26 +51,20 @@ function CareerArcFull({ steps }) {
   const [ref, inView] = useInViewReveal({ amount: 0 });
 
   return (
-    <div
+    <ol
       ref={ref}
-      className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-px bg-border items-stretch"
+      className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-px bg-border items-stretch list-none m-0 p-0"
     >
       {steps.map((step, i) => (
-        <div
+        <li
           key={step.phase}
           style={{ "--reveal-delay": `${i * 0.08}s`, "--reveal-dur": "0.5s" }}
-          className={`${revealClass(inView)} relative p-s24 group
-            ${step.highlight
-              ? "bg-primary rule-fill text-white"
-              : "bg-bg rule-fill hover:bg-blush-weak dark:hover:bg-[var(--color-blush-100)] dark:hover:[--text-rgb:var(--color-ink-900-rgb)] dark:hover:[--text-dim-rgb:var(--color-ink-900-rgb)] dark:hover:[--text-meta:var(--color-ink-700)] dark:hover:[--secondary-rgb:var(--color-rose-600-rgb)] dark:hover:[--secondary-600-rgb:var(--color-rose-600-rgb)] transition-colors duration-300"
-            }`}
+          className={`${revealClass(inView)} relative p-s24
+            ${step.highlight ? "bg-primary rule-fill text-white" : "bg-bg rule-fill"}`}
         >
           <span
             className={`block font-display font-extrabold text-h1 leading-none mb-s16 select-none
-              ${step.highlight
-                ? "text-white/40"
-                : "text-blush group-hover:text-secondary transition-colors duration-300"
-              }`}
+              ${step.highlight ? "text-white/40" : "text-blush"}`}
             aria-hidden="true"
           >
             {step.phase}
@@ -74,10 +73,15 @@ function CareerArcFull({ steps }) {
           <h3 className={`font-display font-bold text-h3 leading-tight mb-s4 ${step.highlight ? "text-white" : "text-text"}`}>
             {step.label}
           </h3>
-          <p className={`type-label mb-s16 ${step.highlight ? "text-white/60" : "text-secondary-600"}`}>
+          {/* Solid white on the coral fill, never an alpha: white on
+              --primary holds 9.2:1 in light and 4.7:1 in dark, but white at
+              70% blended into the dark coral-400 fill measured ~2.9:1 —
+              under AA for 12px text. Only the ghost numeral, which is
+              decorative and aria-hidden, keeps its alpha. */}
+          <p className={`font-mono text-label uppercase mb-s16 ${step.highlight ? "text-white" : "text-secondary-600"}`}>
             {step.years}
           </p>
-          <p className={`text-small mb-s24 ${step.highlight ? "text-white/85" : "text-text-meta"}`}>
+          <p className={`text-small mb-s24 ${step.highlight ? "text-white" : "text-text-meta"}`}>
             {step.summary}
           </p>
 
@@ -85,7 +89,7 @@ function CareerArcFull({ steps }) {
             <div key={group.label ?? `group-${gi}`} className={gi > 0 ? "mt-s24" : ""}>
               {group.label && (
                 <p
-                  className={`type-label mb-s8
+                  className={`font-mono text-label uppercase mb-s8
                     ${step.highlight ? "text-white" : "text-secondary-600"}`}
                 >
                   {group.label}
@@ -100,10 +104,9 @@ function CareerArcFull({ steps }) {
                     <span
                       className={`inline-block type-label px-s12 py-s4 rounded-full border
                         rule-pill [--rule-cap:14px]
-                        transition-colors duration-200 ease-smooth
                         ${step.highlight
-                          ? "[--rule-line-color:rgb(255_255_255/0.4)] text-white hover:[--rule-fill-color:rgb(255_255_255)] hover:[--rule-line-color:rgb(255_255_255)] hover:text-primary"
-                          : "text-dim hover:[--rule-fill-color:var(--primary-600)] hover:[--rule-line-color:var(--primary-600)] hover:[color:var(--on-primary-600)]"
+                          ? "[--rule-line-color:rgb(255_255_255/0.5)] text-white"
+                          : "text-dim"
                         }`}
                     >
                       {item}
@@ -119,9 +122,9 @@ function CareerArcFull({ steps }) {
               <InkArrow className="text-dim" />
             </div>
           )}
-        </div>
+        </li>
       ))}
-    </div>
+    </ol>
   );
 }
 

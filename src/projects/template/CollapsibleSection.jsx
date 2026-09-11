@@ -23,7 +23,9 @@ export function CollapsibleSectionHead({ id, number, kicker, heading, isOpen, on
 
   return (
     <>
-      <p className="text-2xs font-black uppercase text-primary-600 mb-3">
+      {/* The mono label role — the same eyebrow the homepage sections and
+          the header's metadata labels use, so the page has one label style. */}
+      <p className="font-mono text-label uppercase text-primary-600 mb-3">
         {displayKicker}
       </p>
       <h2 className="mb-8">

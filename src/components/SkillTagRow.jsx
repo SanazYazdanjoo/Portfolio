@@ -18,11 +18,15 @@ import React from "react";
 // curvature of the drawn cap to this chip's radius. The box is the
 // reference's: 12px/5px padding, fully rounded, 1px border — transparent,
 // because the visible line is painted over it.
+//
+// No hover state, on purpose: these chips are readable metadata, not
+// controls. A chip that recolours under the pointer promises a click that
+// goes nowhere — the one place a skill label IS a link (the case-study
+// header, which filters /projects by that skill) uses Badge inside a Link
+// and carries its own hover fill there.
 const CHIP =
   "inline-block text-tag font-mono uppercase text-text-meta " +
-  "border rule-pill [--rule-cap:14px] rounded-full px-s6 py-s5 " +
-  "transition-colors duration-200 ease-smooth " +
-  "hover:[--rule-line-color:var(--primary-600)] hover:text-primary-600";
+  "border rule-pill [--rule-cap:14px] rounded-full px-s6 py-s5";
 
 export function SkillTagRow({ tags, className = "" }) {
   if (!tags || tags.length === 0) return null;

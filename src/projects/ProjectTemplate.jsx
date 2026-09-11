@@ -243,7 +243,11 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
     );
 
   return (
-    <div ref={mainRef} className="min-h-screen bg-bg pt-20 md:pt-24">
+    /* pt-10/pt-14, not pt-20/pt-24: the header is a static sibling above
+       this page, not an overlay, so the old padding was ~100px of empty
+       paper above the banner — and on a 1280×720 laptop it was the
+       difference between the title starting on the first screen or not. */
+    <div ref={mainRef} className="min-h-screen bg-bg pt-10 md:pt-14">
       {/* Scroll-progress bar — portaled to <body>, for two reasons that are
           really one. Rendered here it sat INSIDE the scroll container, and
           (a) its z-[70] only counted inside that container's own stacking
@@ -271,7 +275,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
       {hasHeroImage && <ProjectHero meta={meta} scrollY={scrollY} />}
 
       {/* Content wrapper — solid bg + z-10 so it slides over the sticky banner */}
-      <div className="relative z-10 w-full bg-bg pb-16 pt-8 md:pt-12">
+      <div className="relative z-10 w-full bg-bg pb-16 pt-8">
         <div className="w-full px-4 md:px-8 max-w-wide mx-auto">
           <div className="flex items-start">
             {/* Widths are the collapse: the aside drops to a 56px rail and

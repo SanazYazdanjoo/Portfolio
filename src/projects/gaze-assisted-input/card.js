@@ -34,9 +34,14 @@ export default {
     de: "Masterarbeit",
   },
   cardTags: ["Experimental Design", "Mixed-Methods Research", "TypeScript", "Eye-Tracking"],
+  // The part of the positioning this card carries: the science, and the
+  // engineering it took to run it.
+  cardProves: { en: "Research depth · Technical HCI", de: "Forschungstiefe · Technisches HCI" },
+  // "Intermediate", as the results say: Ninja beat the mouse at 1684 and
+  // 2243 px and converged with it at the longest distance.
   cardOutcome: {
-    en: "Gaze wins over long cross-screen distances and loses over short ones; trust in the cursor decided preference.",
-    de: "Blicksteuerung gewinnt über große bildschirmübergreifende Distanzen und verliert über kurze; entschieden hat das Vertrauen in den Cursor.",
+    en: "Gaze beat the mouse at the intermediate cross-screen distances and lost at short ones; trust in the cursor decided preference.",
+    de: "Blick schlug die Maus bei mittleren bildschirmübergreifenden Distanzen und verlor bei kurzen; entschieden hat das Vertrauen in den Cursor.",
   },
   // Compact proof points for the homepage card — scale, rigour, result.
   // Optional: cards without cardStats render exactly as before.

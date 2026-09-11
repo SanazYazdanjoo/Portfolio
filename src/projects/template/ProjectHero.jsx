@@ -55,9 +55,16 @@ export function ProjectHero({ meta, scrollY }) {
   const bannerVisibility = useTransform(scrollY, (y) => (y > FADE_PX ? "hidden" : "visible"));
 
   return (
+    /* 3:1 from md up, not 21:9: at 21:9 the banner, its mat and its credit
+       filled a 1440×900 first screen entirely and the case-study title
+       landed at ~985px — a reader's first screen was decoration and no
+       words. At 3:1 the title and the brief under it start inside the first
+       viewport on a 900px display and on a 720px laptop; the illustration
+       loses a strip of margin top and bottom (object-cover, centred), never
+       its subject. */
     <div
       className={`${isStatic ? "relative" : "sticky top-[80px] md:top-[100px]"}
-                  z-0 w-full px-4 md:px-8 max-w-wide mx-auto mb-10 md:mb-20`}
+                  z-0 w-full px-4 md:px-8 max-w-wide mx-auto mb-8 md:mb-10`}
     >
       <motion.div
         initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0 }}
@@ -90,7 +97,7 @@ export function ProjectHero({ meta, scrollY }) {
                The utility keeps the card's default for everyone else. */
             style={{ "--dots-size": "130px" }}
           />
-          <div className="photo-frame rule-frame-in relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden bg-transparent shadow-sm">
+          <div className="photo-frame rule-frame-in relative w-full aspect-[16/9] md:aspect-[3/1] overflow-hidden bg-transparent shadow-sm">
             <ProjectPicture
               src={meta.thumbnail}
               webpSrc={meta.thumbnailWebp}
