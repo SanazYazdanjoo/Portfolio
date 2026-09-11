@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { screen, fireEvent, within } from "@testing-library/react";
 import { renderWithProviders } from "./renderWithProviders";
 import ProjectTemplate from "../projects/ProjectTemplate";
@@ -10,6 +10,18 @@ import { projectData as project1 } from "../projects/gaze-assisted-input/gaze-as
 function bodyFor(id) {
   return document.getElementById(`${id}-body`);
 }
+
+function openSectionNav() {
+  fireEvent.click(screen.getByRole("button", { name: /show section list/i }));
+}
+
+beforeEach(() => {
+  window.sessionStorage.removeItem("project-toc-collapsed");
+});
+
+afterEach(() => {
+  window.sessionStorage.removeItem("project-toc-collapsed");
+});
 
 describe("Collapsible sections — open by default", () => {
   it("every section body starts open", () => {
@@ -51,13 +63,15 @@ describe("Collapsible sections — open by default", () => {
 });
 
 describe("Expand all / Collapse all", () => {
-  it("starts in the collapse-all state since every section opens by default", () => {
+  it("starts in the collapse-all state once the section list is opened", () => {
     renderWithProviders(<ProjectTemplate meta={project1} />);
+    openSectionNav();
     expect(screen.getByRole("button", { name: /collapse all/i })).toBeInTheDocument();
   });
 
   it("collapse all closes every section and flips its own label", () => {
     renderWithProviders(<ProjectTemplate meta={project1} />);
+    openSectionNav();
     fireEvent.click(screen.getByRole("button", { name: /collapse all/i }));
 
     expect(screen.getByRole("button", { name: /expand all/i })).toBeInTheDocument();
@@ -69,6 +83,7 @@ describe("Expand all / Collapse all", () => {
 
   it("expand all returns every section to open", () => {
     renderWithProviders(<ProjectTemplate meta={project1} />);
+    openSectionNav();
     fireEvent.click(screen.getByRole("button", { name: /collapse all/i }));
     fireEvent.click(screen.getByRole("button", { name: /expand all/i }));
 
