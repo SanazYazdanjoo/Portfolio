@@ -119,8 +119,8 @@ export default function About() {
       </section>
 
       {/* How the positioning works in practice. This intentionally mirrors the
-          canonical Research → Usability Engineering → Implementation narrative
-          instead of presenting a generic design-process framework as the main story. */}
+          canonical Research → Design & Usability → Implementation & Validation
+          narrative instead of presenting a generic design-process framework. */}
       <section className="border-t py-20 rule-t">
         <div className="container mx-auto px-4 md:px-8">
           <SectionHeader
