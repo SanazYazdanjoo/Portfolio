@@ -51,15 +51,23 @@ const FIGMA_WIREFRAMES = {
 };
 
 const originalWireframes = projectData.figures?.wireframe || [];
-const hasLegacyLowFi = originalWireframes.some(
+
+// The deployed application already shows the final visual and operational
+// detail. Keep the low-fidelity evidence here and remove the static high-fi
+// wireframe so the story moves cleanly from structure to working product.
+const visibleWireframes = originalWireframes.filter(
+  (figure) => figure?.label?.en !== 'High-fidelity wireframe'
+);
+
+const hasLegacyLowFi = visibleWireframes.some(
   (figure) => figure?.label?.en === 'Low-fidelity wireframe'
 );
 
 const wireframeFigures = hasLegacyLowFi
-  ? originalWireframes.map((figure) =>
+  ? visibleWireframes.map((figure) =>
       figure?.label?.en === 'Low-fidelity wireframe' ? FIGMA_WIREFRAMES : figure
     )
-  : [...originalWireframes, FIGMA_WIREFRAMES];
+  : [...visibleWireframes, FIGMA_WIREFRAMES];
 
 const projectDataWithFigmaWireframes = {
   ...projectData,
