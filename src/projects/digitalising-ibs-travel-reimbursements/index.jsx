@@ -50,6 +50,53 @@ const FIGMA_WIREFRAMES = {
   },
 };
 
+const FIGMA_DESIGN_SYSTEM = {
+  type: 'embed',
+  src: 'https://embed.figma.com/design/YFlosgDXt11K17RIvVa0bL/IBS-FKTN?node-id=21-3449&embed-host=share',
+  externalHref: 'https://www.figma.com/design/YFlosgDXt11K17RIvVa0bL/IBS-FKTN?node-id=21-3449',
+  externalLabel: {
+    en: 'Open in Figma',
+    de: 'In Figma öffnen',
+  },
+  loadingText: {
+    en: 'Loading design system…',
+    de: 'Designsystem wird geladen…',
+  },
+  loadingDetail: {
+    en: 'This may take a few seconds.',
+    de: 'Das kann ein paar Sekunden dauern.',
+  },
+  slowLoadingText: {
+    en: 'Still loading the design system…',
+    de: 'Das Designsystem wird noch geladen…',
+  },
+  slowLoadingDetail: {
+    en: 'Figma embeds can sometimes take a little longer.',
+    de: 'Eingebettete Figma-Inhalte können manchmal etwas länger brauchen.',
+  },
+  span: 2,
+  label: {
+    en: 'Design system',
+    de: 'Designsystem',
+  },
+  title: {
+    en: 'The same role cues from map to screen',
+    de: 'Dieselben Rollenhinweise von der Karte bis zum Screen',
+  },
+  description: {
+    en: 'The design system carries the role palette from the AS-IS map into the interface and adds the typography, states, buttons, and form patterns needed for the working application.',
+    de: 'Das Designsystem überträgt die Rollenpalette der IST-Karte in die Oberfläche und ergänzt Typografie, Zustände, Buttons und Formularmuster für die funktionierende Anwendung.',
+  },
+  alt: {
+    en: 'Interactive Figma design system for the IBS travel reimbursement application',
+    de: 'Interaktives Figma-Designsystem für die IBS-Fahrtkostenerstattungsanwendung',
+  },
+  caption: {
+    en: 'Interactive IBS design system',
+    de: 'Interaktives IBS-Designsystem',
+  },
+};
+
 const originalWireframes = projectData.figures?.wireframe || [];
 
 // The deployed application already shows the final visual and operational
@@ -69,10 +116,11 @@ const wireframeFigures = hasLegacyLowFi
     )
   : [...visibleWireframes, FIGMA_WIREFRAMES];
 
-const projectDataWithFigmaWireframes = {
+const projectDataWithFigmaMedia = {
   ...projectData,
   figures: {
     ...projectData.figures,
+    design: [FIGMA_DESIGN_SYSTEM],
     wireframe: wireframeFigures,
   },
 };
@@ -86,7 +134,7 @@ const projectDataWithFigmaWireframes = {
 export default function Project4() {
   return (
     <>
-      <ProjectTemplate meta={projectDataWithFigmaWireframes} />
+      <ProjectTemplate meta={projectDataWithFigmaMedia} />
       <PrototypeFab
         href={projectData.prototypeUrl}
         label={projectData.prototypeUrlLabel}
