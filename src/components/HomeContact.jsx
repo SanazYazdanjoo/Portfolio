@@ -19,9 +19,13 @@ export function HomeContact({ data }) {
     <div className="flex flex-col gap-s28">
       <p className="doodle-text text-aside text-text">{contact.availability}</p>
 
+      {/* overflow-wrap: anywhere, not break-words: an address has no break
+          opportunity, so as a shrink-to-fit flex item it kept its full
+          width and ran 34px past a 375px screen. `anywhere` lets the item's
+          minimum size shrink, so it wraps instead. */}
       <a
         href={`mailto:${contact.email}`}
-        className="text-email font-display font-bold text-text break-words self-start
+        className="text-email font-display font-bold text-text max-w-full [overflow-wrap:anywhere] self-start
                    rule-underline pb-s8
                    hover:text-primary-600 transition-colors duration-200 focus-ring"
       >

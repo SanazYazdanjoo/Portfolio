@@ -184,6 +184,18 @@
 --fs-email:        clamp(28px, 3.2vw, 44px);
 --fs-hero:         clamp(56px, 7vw, 104px);
 
+/* The two heading steps the reference does not set but the inner pages
+   use: h1 for a page title below the hero step (the About/Contact titles,
+   the phone menu, the career arc's ghost numerals) and h3 for a card or
+   phase heading one step above body. Both sit on existing rungs — h1
+   between email and hero, h3 at the statement step — so the scale gains
+   no size that is not already a step. Before these were declared, the
+   `text-h1`/`text-h3` utilities and the `.type-h1`/`.type-h3` roles
+   resolved to nothing, and the phone menu rendered its links at body size. */
+--fs-h1:           clamp(36px, 4vw, 48px);
+--fs-h3:           var(--fs-statement);
+--fs-body-lg:      var(--fs-lead);
+
 /* Line heights, by value */
 --lh-94:  .94;  --lh-100: 1;    --lh-110: 1.1;  --lh-118: 1.18;
 --lh-125: 1.25; --lh-130: 1.3;  --lh-140: 1.4;  --lh-150: 1.5;
@@ -240,6 +252,18 @@
 --leading-display: var(--lh-94);
 --leading-heading: var(--lh-110);
 --leading-body:    var(--lh-160);
+/* The leadings the .type-* roles below read. They were never declared, so
+   every role fell back to `line-height: normal` — the section titles on
+   About and Contact ran looser than the homepage's. Each is pinned to a
+   value above. */
+--lh-display: var(--lh-94);
+--lh-h1:      var(--lh-100);
+--lh-h2:      var(--lh-110);
+--lh-h3:      var(--lh-125);
+--lh-body-lg: var(--lh-150);
+--lh-body:    var(--lh-160);
+--lh-small:   var(--lh-160);
+--lh-label:   var(--lh-140);
 --tracking-display: var(--ls-hero);
 --tracking-heading: var(--ls-h2);
 --tracking-label:   var(--ls-08);
@@ -741,6 +765,10 @@
      352px of a 390px screen), so the grid collapses to one column and each
      child becomes a full-width row. That is the only responsive rule.
      ───────────────────────────────────────────────────────────────────── */
+  /* Two responsive rules, then: the collapse to one column, and a 20px side
+     gutter below md. The reference's 32px gutter is a twelfth of a 1200px
+     grid; on a 375px phone it was a sixth of the screen, and the header's
+     controls no longer fit beside the wordmark inside it. */
   .grid-12 {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
@@ -749,12 +777,13 @@
     width: 100%;
     max-width: var(--content-max);
     margin-inline: auto;
-    padding-inline: var(--gutter);
+    padding-inline: var(--space-20);
   }
   @media (min-width: 768px) {
     .grid-12 {
       grid-template-columns: repeat(12, minmax(0, 1fr));
       column-gap: var(--gutter);
+      padding-inline: var(--gutter);
     }
   }
 

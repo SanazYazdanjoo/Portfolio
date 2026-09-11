@@ -30,9 +30,13 @@ export default {
     de: 'Internes Projekt',
   },
   // One tag per link of the chain the card argues: research → requirements
-  // → build → quality. Every label is in `tags`, and the four together fit
-  // the one-line width rule in design-system.test.js.
-  cardTags: ['UX Research', 'Requirements Traceability', 'React', 'Automated Testing (Vitest)'],
+  // → usability → build. Every label is in `tags`, and the four together fit
+  // the one-line width rule in design-system.test.js (TypeScript and the
+  // test suite are named in the stats and the case study, not the tags).
+  cardTags: ['UX Research', 'Requirements Engineering', 'Usability Engineering', 'React'],
+  // The part of the positioning this card carries: the whole chain, one
+  // project, one person.
+  cardProves: { en: 'End-to-end UX Engineering', de: 'End-to-End UX Engineering' },
   // Proof points the chain rests on — each a metric the case study states:
   // the evidence base, the map it produced, the tests that guard the build.
   cardStats: [
@@ -60,6 +64,7 @@ export default {
     'Wireframing',
     'Design Systems',
     'Prototyping',
+    'Usability Engineering',
     'Usability Evaluation (instrumented)',
     'React',
     'TypeScript',

@@ -82,7 +82,9 @@ export function ProjectListRow({ project, index }) {
             <ProjectPicture
               src={project.thumbnail}
               webpSrc={project.thumbnailWebp}
-              alt={project.title}
+              /* Decorative — the row's heading names the case study; a
+                 second announcement of the title helps nobody. */
+              alt=""
               onError={() => setImgError(true)}
               className="relative w-full h-full object-cover transition-transform duration-200 ease-smooth group-hover:scale-[1.04]"
             />

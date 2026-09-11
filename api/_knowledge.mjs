@@ -18,7 +18,7 @@ export default {
    },
    {
     "value": "Since 2015",
-    "label": "Digital-product experience across frontend, QA/usability & UX engineering"
+    "label": "Digital-product experience: frontend, QA/usability, UX engineering"
    }
   ],
   "bioParagraphs": [
@@ -777,7 +777,15 @@ export default {
      "attribution": "P21 on Ninja Cursors, Phase II study (N=30) — 60% preferred it despite the mouse scoring higher on SUS"
     }
    ],
-   "cardOutcome": "Gaze wins over long cross-screen distances and loses over short ones; trust in the cursor decided preference."
+   "cardOutcome": "Gaze beat the mouse at the intermediate cross-screen distances and lost at short ones; trust in the cursor decided preference.",
+   "cardProves": "Research depth · Technical HCI",
+   "brief": {
+    "problem": "Pointing across two screens with a mouse means long pointer transits and a cursor that gets lost at the bezel. Gaze-assisted techniques promise to fix that, but few controlled studies had compared them against a mouse on a real dual-display workstation — or asked whether users would trust them.",
+    "context": "M.Sc. thesis in Human-Computer Interaction, Bauhaus-Universität Weimar · a physical dual-display lab with a head-mounted eye tracker",
+    "methods": "Formative interviews (n=20) with thematic analysis · controlled within-subjects experiment · eye tracking · repeated-measures ANOVA and SUS in R",
+    "scale": "N=30 participants · 3×2×6 design · two gaze techniques implemented from scratch in TypeScript on a Python gaze pipeline",
+    "outcome": "Gaze wins at the intermediate cross-screen distances and loses at short ones; 60% preferred the gaze hybrid although the mouse scored highest on SUS. Recommendation: trigger gaze assistance only for large cross-screen moves."
+   }
   },
   {
    "title": "Digitalising IBS Travel Reimbursements",
@@ -802,6 +810,7 @@ export default {
     "Wireframing",
     "Design Systems",
     "Prototyping",
+    "Usability Engineering",
     "Usability Evaluation (instrumented)",
     "React",
     "TypeScript",
@@ -946,7 +955,15 @@ export default {
      "attribution": "Survey respondent on knowing whether submitted documents arrived · translated from German"
     }
    ],
-   "cardOutcome": "Research mapped 13 steps, reversed a priority, surfaced 6 missed problems, and carried the 9-actor colour model into the demo."
+   "cardOutcome": "Research mapped 13 steps, reversed a priority, surfaced 6 missed problems, and carried the 9-actor colour model into the demo.",
+   "cardProves": "End-to-end UX Engineering",
+   "brief": {
+    "problem": "A 13-step paper reimbursement process spread across nine actors: receipts, attendance and amounts copied between spreadsheets, no confirmation and no claim status for participants, and one traced claim still unpaid after 43+ days.",
+    "context": "In-house project at IBS, researched from the inside: I administered the process for more than a year as project assistant before rebuilding it.",
+    "methods": "Insider process observation · expert interviews and an administration working meeting · participant survey · artefact analysis · UML process mapping · evidence-graded problem register · FR/NFR requirements with traceability",
+    "scale": "9 actors · 13 steps · 25 evidence-graded problems · 5 role views in one React/TypeScript application · 1,734 automated tests",
+    "outcome": "One role-based application, deployed as a demo the team works with. The summative usability evaluation is instrumented into the app and waits for daily use — no post-launch improvement is claimed yet."
+   }
   },
   {
    "title": "Encouraging Social Interactions in Hybrid Work",
@@ -1100,7 +1117,15 @@ export default {
      "insight": "Success indicators were defined up front and written to fit deskbird's own feature-launch process, which included a metric-definition step: number of interests created, profiles with interests, interest-based events, and attendees — making the feature's impact measurable post-launch."
     }
    ],
-   "cardOutcome": "A survey and six contextual inquiries became three concepts; deskbird's stakeholders chose mine as the high-fidelity prototype."
+   "cardOutcome": "A survey and six contextual inquiries became three concepts; deskbird's stakeholders chose mine as the high-fidelity prototype.",
+   "cardProves": "Industry product UX research",
+   "brief": {
+    "problem": "Hybrid work had thinned out the spontaneous contact office life used to create: employees felt less integrated and new joiners struggled to connect. deskbird wanted evidence, not assumptions, on how a social feature should work before committing it to the roadmap.",
+    "context": "University–industry research project with deskbird, a B2B SaaS platform for desk booking and hybrid week planning · team of six at Bauhaus-Universität Weimar",
+    "methods": "Stakeholder interviews · online survey · remote contextual inquiries with follow-up interviews · affinity diagramming · requirements engineering · concept development · usability testing of the prototype",
+    "scale": "57 survey respondents · 6 contextual inquiries · 3 concepts presented to the client, 1 selected",
+    "outcome": "deskbird's stakeholders chose my concept, Interest-Based Communities, delivered as a high-fidelity Figma prototype with implementation recommendations. Whether it shipped was never verified."
+   }
   },
   {
    "title": "EmbraceMe – An Inflatable Soft Robot for Emotional Care",

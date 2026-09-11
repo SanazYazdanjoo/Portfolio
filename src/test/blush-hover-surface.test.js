@@ -1,9 +1,22 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 
+// The blush hover surface contract.
+//
+// A light blush wash (--color-blush-100) under a hover is fine in light mode
+// and unreadable in dark mode unless every text tier on it is rebound to an
+// ink that clears AA on blush. So the rule has two halves:
+//
+//   1. the blush-100 primitive stays readable under the three inks that may
+//      ever sit on it (token contract, computed from theme.css — never from
+//      a screenshot, where subpixel glyphs understate contrast);
+//   2. any component that tints a surface blush on hover ALSO rebinds its
+//      text tiers for dark mode — or, simpler, does not tint on hover at all.
+//      Non-interactive surfaces (the career arc cards, the voluntary cards)
+//      took the second route: a hover that promises a click going nowhere is
+//      not worth the dark-mode plumbing it needs.
+
 const theme = readFileSync("src/styles/theme.css", "utf8");
-const about = readFileSync("src/pages/About.jsx", "utf8");
-const careerArc = readFileSync("src/components/CareerArc.jsx", "utf8");
 
 const lum = ([r, g, b]) => {
   const linear = (value) => {
@@ -24,6 +37,9 @@ const token = (name) => {
   return [0, 2, 4].map((i) => parseInt(match[1].slice(i, i + 2), 16));
 };
 
+// Strip comments so prose about a class is not read as a use of it.
+const code = (src) => src.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/[^\n]*/g, "");
+
 describe("light blush hover surfaces stay readable in dark mode", () => {
   it("all foreground tiers used on blush-100 clear WCAG AA", () => {
     const blush = token("--color-blush-100");
@@ -40,19 +56,29 @@ describe("light blush hover surfaces stay readable in dark mode", () => {
     }
   });
 
-  it("About voluntary cards switch both the hover surface and its text palette", () => {
-    expect(about).toContain("dark:hover:bg-[var(--color-blush-100)]");
-    expect(about).toContain("dark:group-hover:text-[var(--color-ink-900)]");
-    expect(about).toContain("dark:group-hover:text-[var(--color-ink-700)]");
-    expect(about).toContain("dark:group-hover:text-[var(--color-rose-600)]");
+  // Every file that may paint the blush wash under a hover. A file that does
+  // must rebind its dark-mode text tiers; a file that does not is exempt —
+  // and the two that used to (About's voluntary cards, CareerArc's cards)
+  // are asserted NOT to, because those surfaces are not interactive.
+  const HOVER_BLUSH = /hover:bg-blush-weak|hover:\[--rule-fill-color:var\(--blush-weak\)\]/;
+
+  it("a component that tints blush on hover also rebinds its dark-mode text", () => {
+    for (const file of ["src/pages/About.jsx", "src/components/CareerArc.jsx", "src/pages/Contact.jsx"]) {
+      const src = code(readFileSync(file, "utf8"));
+      if (!HOVER_BLUSH.test(src)) continue;
+      expect(src, `${file} tints blush on hover without a dark-mode surface`).toContain(
+        "dark:hover:bg-[var(--color-blush-100)]"
+      );
+      expect(src, `${file} tints blush on hover without rebinding its text tiers`).toMatch(
+        /dark:(?:group-)?hover:(?:text-\[var\(--color-ink-900\)\]|\[--text-rgb:var\(--color-ink-900-rgb\)\])/
+      );
+    }
   });
 
-  it("CareerArc rebinds semantic text tokens when a dark-mode card turns blush", () => {
-    expect(careerArc).toContain("dark:hover:bg-[var(--color-blush-100)]");
-    expect(careerArc).toContain("dark:hover:[--text-rgb:var(--color-ink-900-rgb)]");
-    expect(careerArc).toContain("dark:hover:[--text-dim-rgb:var(--color-ink-900-rgb)]");
-    expect(careerArc).toContain("dark:hover:[--text-meta:var(--color-ink-700)]");
-    expect(careerArc).toContain("dark:hover:[--secondary-rgb:var(--color-rose-600-rgb)]");
-    expect(careerArc).toContain("dark:hover:[--secondary-600-rgb:var(--color-rose-600-rgb)]");
+  it("non-interactive About surfaces carry no hover tint at all", () => {
+    for (const file of ["src/pages/About.jsx", "src/components/CareerArc.jsx"]) {
+      const src = code(readFileSync(file, "utf8"));
+      expect(src, `${file} tints a non-interactive surface on hover`).not.toMatch(HOVER_BLUSH);
+    }
   });
 });

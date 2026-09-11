@@ -1,15 +1,17 @@
 // The homepage, built to the "Ink & Bloom" design reference
 // (templates/portfolio-homepage).
 //
-// Structure, section by section, exactly as the reference lays it out:
+// Section order is the evidence hierarchy a recruiter reads it in:
 //
 //   hero      72px top / 88px bottom · text cols 1-7 · portrait cols 9-12
+//             identity, process, positioning, proof points, actions
+//   work      88px · heading cols 1-7, 56px below it, then the card list —
+//             the proof, directly after the claim
 //   about     88px · warm band, ruled top and bottom
-//             heading full width · bio cols 1-7 · timeline cols 9-12
-//   work      88px · heading cols 1-7, 56px below it, then the card list
+//             heading full width · bio + core expertise cols 1-7 ·
+//             career timeline cols 9-12 — the context behind the proof
 //   contact   88px · warm band, ruled top
-//             heading full width · availability, email, links, colophon
-//             cols 1-7, on the heading's own axis
+//             heading full width · availability, email, links cols 1-7
 //
 // No component on this page sets a size or a length of its own: every value
 // is a token from the reference's scale (see theme.css) reached through a
@@ -67,41 +69,9 @@ export default function Home() {
         <Hero data={profileData} />
       </section>
 
-      {/* About — the heading runs the full width above the content rather
-          than sitting in a sidebar beside it. Below it the bio takes cols
-          1-7 (about 55ch at the statement step, so the measure comes from
-          the columns and not from a max-width) and the timeline takes
-          cols 9-12. */}
-      <section
-        id="AboutMe-Section"
-        className="section-pad scroll-mt-s56 bg-surface-warm border-y rule-tb"
-      >
-        <div className="grid-12">
-          <div className="md:col-span-12 mb-s48">
-            <SectionHeading eyebrow={t("home.about.kicker")} heading={t("about.heading")} />
-          </div>
-          <div className="md:col-span-7">
-            <AboutBio data={profileData} />
-            {/* The core expertise row: what she is hired for, read from the
-                first skills category in data.json. Language-neutral labels,
-                the same chip the project cards use, so the vocabulary on
-                the cards below matches this row. */}
-            {coreExpertise.length > 0 && (
-              <div className="mt-s32">
-                <p className="text-label font-mono uppercase text-text-meta mb-s12">
-                  {t("home.about.coreExpertise")}
-                </p>
-                <SkillTagRow tags={coreExpertise} />
-              </div>
-            )}
-          </div>
-          <div className="md:col-start-9 md:col-span-4 mt-s48 md:mt-0">
-            <CareerArc variant="compact" />
-          </div>
-        </div>
-      </section>
-
-      <section id="projects" className="section-pad scroll-mt-s56">
+      {/* Selected Work — directly under the hero, so the first scroll lands
+          on the evidence for the claim above it rather than on more claim. */}
+      <section id="projects" className="section-pad scroll-mt-s56 border-t rule-t">
         <div className="grid-12 mb-s56">
           <div className="md:col-span-7">
             <SectionHeading
@@ -127,6 +97,41 @@ export default function Home() {
             </div>
           </div>
         )}
+      </section>
+
+      {/* About — the context behind the work: the bio, the core expertise
+          row, and the career timeline. The heading runs the full width
+          above the content rather than sitting in a sidebar beside it.
+          Below it the bio takes cols 1-7 (about 55ch at the statement step,
+          so the measure comes from the columns and not from a max-width)
+          and the timeline takes cols 9-12. */}
+      <section
+        id="AboutMe-Section"
+        className="section-pad scroll-mt-s56 bg-surface-warm border-y rule-tb"
+      >
+        <div className="grid-12">
+          <div className="md:col-span-12 mb-s48">
+            <SectionHeading eyebrow={t("home.about.kicker")} heading={t("about.heading")} />
+          </div>
+          <div className="md:col-span-7">
+            <AboutBio data={profileData} />
+            {/* The core expertise row: what she is hired for, read from the
+                first skills category in data.json. Language-neutral labels,
+                the same chip the project cards use, so the vocabulary on
+                the cards above matches this row. */}
+            {coreExpertise.length > 0 && (
+              <div className="mt-s32">
+                <p className="text-label font-mono uppercase text-text-meta mb-s12">
+                  {t("home.about.coreExpertise")}
+                </p>
+                <SkillTagRow tags={coreExpertise} />
+              </div>
+            )}
+          </div>
+          <div className="md:col-start-9 md:col-span-4 mt-s48 md:mt-0">
+            <CareerArc variant="compact" />
+          </div>
+        </div>
       </section>
 
       <section

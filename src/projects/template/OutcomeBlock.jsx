@@ -55,7 +55,7 @@ export function OutcomeBlock({ outcome }) {
 
   return (
     <div className="mt-12 border-t rule-t pt-8 max-w-measure transition-[max-width] duration-300 ease-smooth">
-      <p className="text-2xs font-black uppercase text-dim mb-5">
+      <p className="font-mono text-label uppercase text-dim mb-5">
         {t("project.outcome.kicker")}
       </p>
 
@@ -76,7 +76,7 @@ export function OutcomeBlock({ outcome }) {
 
       {decisions.length > 0 && (
         <div className="mt-8">
-          <p className="text-2xs font-black uppercase text-dim mb-3">
+          <p className="font-mono text-label uppercase text-dim mb-3">
             {t("project.outcome.decisions")}
           </p>
           <ul className="border-t rule-t">

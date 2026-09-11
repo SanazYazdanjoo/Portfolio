@@ -78,9 +78,18 @@ export const RENDERED_FIELDS = [
   // metadata row, `cardTags` the capped signal subset of `tags`, `cardOutcome`
   // the one-sentence result line.
   "year", "context", "cardTags", "cardOutcome", "cardStats", "cardImage",
+  // `cardProves` — the one-line capability the card argues for ("Research
+  // depth · Technical HCI"), the mono label beside the card number. Only
+  // the flagship cards write it; the list reads as one argument in parts.
+  "cardProves",
   // The research → requirements → build → validation chain under About —
   // template/EvidenceChain.jsx; only a project that writes it renders it.
   "evidenceChain",
+  // The recruiter brief under the title — template/ProjectHeader.jsx:
+  // { problem, context, methods, scale, outcome }, each a bilingual string.
+  // Answers what/why/who/how/how big/what happened before any section
+  // opens. Data-gated: a project without it keeps the plain header.
+  "brief",
   // Body sections (see SECTIONS above for the ones with their own heading)
   "about", "process", "challenge", "challengeQuote", "solution", "solutionQuote",
   "design", "designQuote", "wireframe", "wireframeQuote", "designSystem",

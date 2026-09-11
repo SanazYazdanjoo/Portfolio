@@ -130,6 +130,11 @@ fontSize: {
   "card-title": ["var(--fs-card-title)", { lineHeight: "var(--lh-118)", letterSpacing: "var(--ls-card-title)" }],
   numeral:      ["var(--fs-numeral)", { lineHeight: "var(--lh-100)" }],
   h2:           ["var(--fs-h2)", { lineHeight: "var(--lh-110)", letterSpacing: "var(--ls-h2)" }],
+  // The two inner-page heading steps (see theme.css beside --fs-h1): a page
+  // title under the hero step, and a card/phase heading above body. Both
+  // were referenced as utilities before they existed here.
+  h1:           ["var(--fs-h1)", { lineHeight: "var(--lh-100)", letterSpacing: "var(--ls-hero)" }],
+  h3:           ["var(--fs-h3)", { lineHeight: "var(--lh-125)", letterSpacing: "var(--ls-card-title)" }],
   email:        ["var(--fs-email)", { lineHeight: "var(--lh-110)", letterSpacing: "var(--ls-h2)" }],
   hero:         ["var(--fs-hero)", { lineHeight: "var(--lh-94)", letterSpacing: "var(--ls-hero)" }],
 

@@ -29,6 +29,11 @@ import { useFlownTags } from "./SkillOrbit";
 // 1,864px tall was the bug.
 const MOBILE_TAG_CAP = 8;
 
+// The metadata label role — the same mono eyebrow the homepage and the
+// section kickers use, so one label style runs from the hero to the last
+// case-study row.
+const DT = "font-mono text-label uppercase text-primary-600";
+
 export function ProjectHeader({ meta, tags }) {
   // Tags currently orbiting a section below leave a gap here on purpose:
   // one element per tag, so the pill in the rail IS this pill, moved.
@@ -58,6 +63,21 @@ export function ProjectHeader({ meta, tags }) {
   const TagWrap = isMobile ? "div" : motion.div;
   const tagMotion = (tag) => (isMobile ? {} : { layout: "position", layoutId: `skill-pill-${tag}` });
 
+  // The recruiter brief (constants.js RENDERED_FIELDS: `brief`). When a
+  // project writes one, Role moves up into it; otherwise the metadata list
+  // below keeps its Role row and nothing else changes.
+  const brief = meta.brief;
+  const hasBrief = !!brief;
+  const briefCells = hasBrief
+    ? [
+        [t("project.meta.role"), meta.role],
+        [t("project.meta.context"), brief.context],
+        [t("project.meta.keyMethods"), brief.methods],
+        [t("project.meta.scale"), brief.scale],
+        [t("project.meta.outcome"), brief.outcome],
+      ].filter(([, value]) => value)
+    : [];
+
   return (
     <Header className="mb-12" {...headerMotion}>
       {/* Live-stage chip */}
@@ -86,6 +106,31 @@ export function ProjectHeader({ meta, tags }) {
         </p>
       )}
 
+      {/* The brief: the problem at reading size, then role, context, key
+          methods, scale and outcome as a grid — what, who, how, how big and
+          what happened, answered before any section opens. Data-gated: the
+          projects that do not write a brief keep the plain header. */}
+      {hasBrief && (
+        <dl aria-label={t("project.brief.label")} className="border-t rule-t">
+          {brief.problem && (
+            <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-[140px_1fr] sm:gap-4 py-4 border-b rule-b">
+              <dt className={`${DT} pt-0.5`}>{t("project.meta.problem")}</dt>
+              <dd className="max-w-[720px] text-base leading-relaxed text-text">{brief.problem}</dd>
+            </div>
+          )}
+          {briefCells.length > 0 && (
+            <div className="grid grid-cols-1 gap-x-8 gap-y-5 py-5 sm:grid-cols-2 lg:grid-cols-3 border-b rule-b">
+              {briefCells.map(([label, value]) => (
+                <div key={label}>
+                  <dt className={`${DT} mb-1`}>{label}</dt>
+                  <dd className="text-sm leading-relaxed text-text">{value}</dd>
+                </div>
+              ))}
+            </div>
+          )}
+        </dl>
+      )}
+
       {/* Meta block — Role, Timeline, Skills. Runs the full content
           column rather than the 720px reading measure: its values are
           short labels and chips, and giving the skill tags the whole
@@ -102,10 +147,10 @@ export function ProjectHeader({ meta, tags }) {
           there are is an editorial question, and each one is pinned to a
           `tagEvidence` entry (enforced in data/projects.test.js). */}
       {(meta.role || meta.timeline || tags.length > 0 || meta.aiAssistance) && (
-        <dl className="border-t rule-t">
-          {meta.role && (
+        <dl className={hasBrief ? "" : "border-t rule-t"}>
+          {meta.role && !hasBrief && (
             <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-[140px_1fr] sm:gap-4 py-4 border-b rule-b">
-              <dt className="text-2xs font-black uppercase text-primary-600 pt-0.5">
+              <dt className={`${DT} pt-0.5`}>
                 {t("project.meta.role")}
               </dt>
               <dd className="text-sm text-text font-medium">{meta.role}</dd>
@@ -114,7 +159,7 @@ export function ProjectHeader({ meta, tags }) {
           {meta.myContribution && <ContributionRow contribution={meta.myContribution} />}
           {meta.timeline && (
             <div className={`grid grid-cols-1 gap-1.5 sm:grid-cols-[140px_1fr] sm:gap-4 py-4 ${tags.length > 0 ? "border-b rule-b" : ""}`}>
-              <dt className="text-2xs font-black uppercase text-primary-600 pt-0.5">
+              <dt className={`${DT} pt-0.5`}>
                 {t("project.meta.timeline")}
               </dt>
               <dd className="font-mono text-sm text-text">{meta.timeline}</dd>
@@ -122,7 +167,7 @@ export function ProjectHeader({ meta, tags }) {
           )}
           {tags.length > 0 && (
             <div className={`grid grid-cols-1 gap-1.5 sm:grid-cols-[140px_1fr] sm:gap-4 py-4 ${meta.aiAssistance ? "border-b rule-b" : ""}`}>
-              <dt className="text-2xs font-black uppercase text-primary-600 pt-0.5">
+              <dt className={`${DT} pt-0.5`}>
                 {t("project.meta.skills")}
               </dt>
               <dd className="flex flex-wrap gap-2">
@@ -197,7 +242,7 @@ export function ProjectHeader({ meta, tags }) {
           {meta.aiAssistance && (
             <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-[140px_1fr] sm:gap-4 py-4"
                  style={{ breakInside: "avoid" }}>
-              <dt className="text-2xs font-black uppercase text-primary-600 pt-0.5">
+              <dt className={`${DT} pt-0.5`}>
                 {t("project.meta.aiAssistance")}
               </dt>
               <dd className="max-w-measure transition-[max-width] duration-300 ease-smooth text-sm leading-relaxed text-text-meta">

@@ -50,7 +50,12 @@ export const Nav = () => {
       {/* One row, baseline-aligned, as the reference sets it: the wordmark
           at body size in the display face, the destinations at nav size in
           dim ink, and the active one carrying a 1.5px rule in the accent. */}
-      <div className="md:col-span-12 flex items-baseline justify-between w-full gap-s32">
+      {/* Phone gaps are tighter than the reference's 32/28px: at 375px the
+          wordmark plus four controls at the desktop gaps ran 42px past the
+          viewport edge, and the burger — the first control a phone visitor
+          needs — was the part that fell off. Search steps out below 360px
+          for the same reason; the menu, language and theme controls stay. */}
+      <div className="md:col-span-12 flex items-baseline justify-between w-full gap-s16 md:gap-s32">
 
         <NavLink to="/" aria-label={profileData.name} className="shrink-0">
           <span className="text-wordmark font-display font-bold text-text whitespace-nowrap">
@@ -58,7 +63,7 @@ export const Nav = () => {
           </span>
         </NavLink>
 
-        <div className="flex items-baseline gap-s28">
+        <div className="flex items-baseline gap-s12 md:gap-s28">
           <ul className="hidden md:flex items-baseline gap-s28 list-none m-0 p-0">
             {navLinks.map((link) => (
               <li key={link.path}>
@@ -95,7 +100,9 @@ export const Nav = () => {
             ))}
           </ul>
 
-          <SiteSearch />
+          <span className="max-[359px]:hidden contents">
+            <SiteSearch />
+          </span>
 
           <LanguageToggle />
 

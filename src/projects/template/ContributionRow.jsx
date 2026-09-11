@@ -14,7 +14,7 @@ export function ContributionRow({ contribution }) {
   return (
     <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-[140px_1fr] sm:gap-4 py-4 border-b rule-b"
          style={{ breakInside: "avoid" }}>
-      <dt className="text-2xs font-black uppercase text-primary-600 pt-0.5">
+      <dt className="font-mono text-label uppercase text-primary-600 pt-0.5">
         {t("project.meta.contribution")}
       </dt>
       <dd className="space-y-3 max-w-measure transition-[max-width] duration-300 ease-smooth">

@@ -125,6 +125,8 @@ async function main() {
         process: proj.process,
         verbatims: proj.verbatims,
         cardOutcome: proj.cardOutcome,
+        cardProves: proj.cardProves,
+        brief: proj.brief,
       }))
     );
 

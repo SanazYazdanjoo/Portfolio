@@ -73,11 +73,19 @@ describe("deskbird page end to end", () => {
     const { container } = renderWithProviders(<><LangToggle /><Project2 /></>, { route: "/projects/deskbird-hybrid-work" });
     const grids = container.querySelectorAll("[data-section-media]");
     const real = () => Array.from(grids).flatMap((g) => Array.from(g.querySelectorAll("figure img")));
+    const embeds = () => Array.from(grids).flatMap((g) => Array.from(g.querySelectorAll("figure iframe")));
     const placeholders = () => Array.from(grids).flatMap((g) => Array.from(g.querySelectorAll("figure [role='img']")));
+
+    // An embed (the Figma board) is a resolved figure that renders an
+    // <iframe>, not an <img>: it counts as a figure and as an embed, never
+    // as a missing image.
+    const imageFigures = enrichedFigures.filter((figure) => figure.type !== "embed");
+    const embedFigures = enrichedFigures.filter((figure) => figure.type === "embed");
 
     expect(enrichedFigures.length).toBeGreaterThan(0);
     expect(enrichedFigures.every((figure) => Boolean(figure.src))).toBe(true);
-    expect(real()).toHaveLength(enrichedFigures.length);
+    expect(real()).toHaveLength(imageFigures.length);
+    expect(embeds()).toHaveLength(embedFigures.length);
     expect(placeholders()).toHaveLength(0);
 
     const modal = enrichedProjectData.figures.solution[0];
@@ -99,6 +107,6 @@ describe("deskbird page end to end", () => {
     expect(screen.getByRole("img", { name: processFigure.alt.de })).toBeInTheDocument();
     expect(screen.getByText(processFigure.caption.de)).toBeInTheDocument();
     expect(placeholders()).toHaveLength(0);
-    expect(real()).toHaveLength(enrichedFigures.length);
+    expect(real()).toHaveLength(imageFigures.length);
   });
 });
