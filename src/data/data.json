@@ -1304,7 +1304,6 @@
           {
             "groupKey": null,
             "items": [
-              "Fundamentals of Programming",
               "Object-Oriented Programming",
               "Data Structures",
               "Algorithms",
@@ -1339,8 +1338,7 @@
               "Responsive Design",
               "Performance Optimization",
               "RESTful APIs",
-              "Git & GitHub",
-              "Figma"
+              "Git & GitHub"
             ]
           }
         ]
@@ -1365,7 +1363,10 @@
             "groupKey": null,
             "items": [
               "Acceptance Testing",
-              "Postman",
+              "Manual Testing",
+              "Test Case Management",
+              "Bug Triage",
+              "API Testing (Postman)",
               "Heuristic Evaluation"
             ]
           }
@@ -1383,8 +1384,8 @@
           "de": "2021 – 2026"
         },
         "summary": {
-          "en": "Learned to answer those questions empirically through mixed-methods research, controlled studies and quantitative analysis.",
-          "de": "Gelernt, diese Fragen empirisch zu beantworten — mit Mixed-Methods-Research, kontrollierten Studien und quantitativer Analyse."
+          "en": "Learned to answer those questions empirically through qualitative and quantitative research, controlled studies and usability evaluation.",
+          "de": "Gelernt, diese Fragen empirisch zu beantworten — mit qualitativer und quantitativer Forschung, kontrollierten Studien und Usability-Evaluation."
         },
         "skillGroups": [
           {
@@ -1393,13 +1394,10 @@
               "Mixed-Methods Research",
               "Quantitative Research Methods",
               "Qualitative Research Methods",
-              "UI/UX",
               "Contextual Inquiry",
               "Usability Testing",
               "Controlled Experiments",
-              "Eye-Tracking (Pupil Labs Neon)",
-              "Questionnaire Design",
-              "Python"
+              "Eye-Tracking (Pupil Labs Neon)"
             ]
           }
         ]
@@ -1416,18 +1414,20 @@
           "de": "2024 – heute"
         },
         "summary": {
-          "en": "Research and engineering converge: investigate, evaluate, specify and implement within the same product loop.",
-          "de": "Research und Engineering laufen zusammen: untersuchen, evaluieren, spezifizieren und im selben Produktzyklus umsetzen."
+          "en": "Research, design, engineering and validation converge: investigate, specify, build, evaluate and iterate within the same product loop.",
+          "de": "Research, Design, Engineering und Validierung laufen zusammen: untersuchen, spezifizieren, umsetzen, evaluieren und im selben Produktzyklus iterieren."
         },
         "skillGroups": [
           {
-            "groupKey": "about.career.group.build",
+            "groupKey": null,
             "items": [
+              "Requirements Engineering",
+              "Design Systems",
+              "React & TypeScript",
+              "Web Accessibility (WCAG)",
               "Unit & Integration Testing (Vitest)",
-              "TypeScript",
-              "Tailwind CSS",
-              "Framer Motion",
-              "Web Accessibility (WCAG)"
+              "Usability Evaluation",
+              "Requirements Traceability (FR/NFR)"
             ]
           }
         ],
