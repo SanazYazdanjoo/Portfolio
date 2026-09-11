@@ -4,10 +4,10 @@
 // gap that rule left open. The contract is TIERED (owner ruling, 2026-08-24):
 //
 //   Tier 1 — named in a case study. The full-strength claim.
-//   Tier 2 — named in a CV experience entry's own task text. Valid for
-//            SKILL NAMES ONLY: a career-era tool (Postman, WordPress) is
-//            evidenced by the job entry that used it. Tier 2 never satisfies
-//            a NUMERIC claim — self-reported numbers don't back themselves.
+//   Tier 2 — named in a CV experience entry's own task or impact text. Valid
+//            for SKILL NAMES ONLY: a career-era tool or practice is evidenced
+//            by the job entry that used it. Tier 2 never satisfies a NUMERIC
+//            claim — self-reported numbers don't back themselves.
 //   Degree-backed career phase — a career-arc phase whose own summary names
 //            a degree in profile.education may carry foundation chips from
 //            that formal education. This applies only to the career arc, not
@@ -70,10 +70,10 @@ const corpusByProject = new Map(
   })
 );
 
-// Tier 2 corpus: the CV experience entries' own task text (EN side).
+// Tier 2 corpus: the CV experience entries' task + impact text (EN side).
 const tier2Corpus = (profileData.experience ?? []).flatMap((job) => {
   const strings = [];
-  collectEnglishStrings({ tasks: job.tasks }, strings);
+  collectEnglishStrings({ tasks: job.tasks, impactMetrics: job.impactMetrics }, strings);
   return strings;
 });
 
@@ -172,7 +172,7 @@ function skillResolves(label) {
     if (keys.some((k) => keyMatchesCorpus(k, strings))) return true;
     if (wordsMatchCorpus(base, strings)) return true;
   }
-  // Tier 2: a CV experience entry's task text names it (skill names only).
+  // Tier 2: a CV experience entry's task/impact text names it (skill names only).
   if (keys.some((k) => keyMatchesCorpus(k, tier2Corpus))) return true;
   if (wordsMatchCorpus(base, tier2Corpus, { genericOptional: true })) return true;
   return false;
@@ -390,6 +390,7 @@ describe("CV numeric claims — every scale/volume/count number resolves to a ca
           sum += count;
         }
       }
+
       expect(
         sum,
         `impactStats[${i}]: claimed "${value}" but the backed counts sum to ${sum}`
