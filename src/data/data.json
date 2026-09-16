@@ -373,7 +373,7 @@
           "en": "Usability & QA Engineer",
           "de": "Usability- & QA-Engineerin"
         },
-        "date": "07/2020 – 07/2021",
+        "date": "07/2020 – 04/2021",
         "impactMetrics": [
           {
             "en": "Co-established the company's first manual-testing group",
@@ -409,7 +409,7 @@
           "en": "UI Developer / R&D Developer (started as Intern)",
           "de": "UI-Developerin / R&D-Developerin (Einstieg als Praktikantin)"
         },
-        "date": "09/2015 – 07/2020",
+        "date": "08/2015 – 08/2019",
         "impactMetrics": [
           {
             "en": "10+ WordPress & WooCommerce sites shipped",
@@ -439,8 +439,8 @@
           }
         ],
         "arcNote": {
-          "en": "Five years shipping production frontends — the feasibility instinct behind every recommendation I make now.",
-          "de": "Fünf Jahre produktive Frontends ausgeliefert — das Gespür für Machbarkeit hinter jeder Empfehlung, die ich heute gebe."
+          "en": "Four years shipping production frontends — the feasibility instinct behind every recommendation I make now.",
+          "de": "Vier Jahre produktive Frontends ausgeliefert — das Gespür für Machbarkeit hinter jeder Empfehlung, die ich heute gebe."
         }
       },
       {
@@ -452,8 +452,8 @@
         "date": "06/2015 – 09/2015",
         "impactMetrics": [
           {
-            "en": "First industry role, straight after the B.E.",
-            "de": "Erste Industrie-Station, direkt nach dem B.E."
+            "en": "First industry role, during the final B.E. phase",
+            "de": "Erste Industrie-Station in der Abschlussphase des B.E."
           },
           {
             "en": "Remote QA for an Australian team",
@@ -654,7 +654,7 @@
           "en": "B.E. Software Engineering",
           "de": "B.E. Software-Engineering"
         },
-        "year": "10/2010 – 06/2015"
+        "year": "10/2010 – 09/2015"
       }
     ],
     "bioParagraphs": [
@@ -806,8 +806,8 @@
         "thumb": "",
         "verifyUrl": "",
         "detail": {
-          "en": "Examined 16 February 2026, while writing the Master's thesis. DSH-2 certifies differentiated written and spoken ability and grants unrestricted admission to every degree programme at any German university. Reached from A2 through one institution's own course sequence at the Sprachenzentrum: A2 (2021/22), B1 (2024), B2 intensive (2025), then DSH preparation.",
-          "de": "Prüfung am 16. Februar 2026, parallel zur Masterarbeit. DSH-2 weist differenzierte schriftliche und mündliche Fähigkeiten nach und berechtigt zur uneingeschränkten Zulassung zu allen Studiengängen an allen deutschen Hochschulen. Erreicht ab A2 über die Kursfolge eines Hauses, des Sprachenzentrums: A2 (2021/22), B1 (2024), B2-Intensivkurs (2025), danach DSH-Vorbereitung."
+          "en": "Certificate dated 16 February 2026, while writing the Master's thesis. DSH-2 certifies differentiated written and spoken ability and grants unrestricted admission to every degree programme at any German university. Reached from A2 through one institution's own course sequence at the Sprachenzentrum: A2 (2021/22), B1 (2024), B2 intensive (2025), then DSH preparation.",
+          "de": "Zertifikat vom 16. Februar 2026, parallel zur Masterarbeit. DSH-2 weist differenzierte schriftliche und mündliche Fähigkeiten nach und berechtigt zur uneingeschränkten Zulassung zu allen Studiengängen an allen deutschen Hochschulen. Erreicht ab A2 über die Kursfolge eines Hauses, des Sprachenzentrums: A2 (2021/22), B1 (2024), B2-Intensivkurs (2025), danach DSH-Vorbereitung."
         }
       },
       {
@@ -1361,8 +1361,8 @@
           "de": "Frontend-Entwicklung"
         },
         "years": {
-          "en": "2015 – 2020",
-          "de": "2015 – 2020"
+          "en": "2015 – 2019",
+          "de": "2015 – 2019"
         },
         "summary": {
           "en": "Moved closer to the human-facing layer of software by shipping interfaces across real client projects.",
