@@ -21,7 +21,7 @@ const { mockProfile } = vi.hoisted(() => ({
       {
         title: "Python Programming",
         provider: "TVTO",
-        year: "2019",
+        year: "2020",
         type: "course",
         topic: "engineering",
         skills: ["Python"],

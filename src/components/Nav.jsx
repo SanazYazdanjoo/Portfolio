@@ -26,11 +26,7 @@ export const Nav = () => {
   const profileData = useLocalizedProfile(rawProfile);
   const { t } = useTranslation();
   // `secondary: true` in profile.navLinks keeps a destination routed and in
-  // the sitemap while taking it out of the primary nav. Two entries use it:
-  // Home, because the wordmark to the left is already the home link, and
-  // Design System, a reference page for one reader in a hundred that was
-  // sitting at the same weight as Work and Contact. What is left is the four
-  // things a visitor actually chooses between.
+  // the sitemap while taking it out of the primary nav, as with Design System.
   const navLinks = profileData.navLinks
     .filter((link) => !link.secondary)
     .map((link) => ({

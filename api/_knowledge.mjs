@@ -624,7 +624,7 @@ export default {
    {
     "title": "Python Programming",
     "provider": "Technical & Vocational Training Organization",
-    "year": "2019",
+    "year": "2020",
     "type": "certification",
     "topic": "engineering",
     "featured": true,
