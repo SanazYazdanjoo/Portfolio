@@ -248,20 +248,6 @@ describe("ProjectTemplate — deliberately-not-built block", () => {
   });
 });
 
-describe("ProjectTemplate — AI-assistance disclosure", () => {
-  it("renders the disclosure as a labelled metadata row when present", () => {
-    renderWithProviders(<ProjectTemplate meta={ibsData} />);
-    expect(screen.getByText("AI Assistance")).toBeInTheDocument();
-    expect(screen.getByText(ibsData.aiAssistance.en)).toBeInTheDocument();
-  });
-
-  it("renders nothing — not an empty row — for a project without the field", () => {
-    expect(projectData.aiAssistance).toBeUndefined();
-    renderWithProviders(<ProjectTemplate meta={projectData} />);
-    expect(screen.queryByText("AI Assistance")).not.toBeInTheDocument();
-  });
-});
-
 // The sidebar toggle. Not a screenshot test — what matters here is that the
 // control is reachable, labelled, and actually points at the list it claims
 // to control.

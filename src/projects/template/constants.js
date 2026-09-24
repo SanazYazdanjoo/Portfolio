@@ -66,7 +66,7 @@ export const SECTIONS = [
 export const RENDERED_FIELDS = [
   // Header / card metadata
   "title", "subtitle", "tagline", "stage", "status", "role", "myContribution",
-  "timeline", "tags", "thumbnail", "thumbnailWebp", "heroImage", "aiAssistance",
+  "timeline", "tags", "thumbnail", "thumbnailWebp", "heroImage",
   // ProjectHero: true when the hero is an AI-generated illustration, which
   // renders the visible generation credit. Every generated hero on this site
   // was made with Google Gemini, and the credit names it — a disclosure that

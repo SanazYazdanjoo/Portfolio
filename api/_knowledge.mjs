@@ -109,7 +109,7 @@ export default {
    {
     "company": "Part Software Group",
     "role": "Usability & QA Engineer",
-    "date": "07/2020 – 07/2021",
+    "date": "07/2020 – 04/2021",
     "impactMetrics": [
      "Co-established the company's first manual-testing group",
      "Trained 4 QA members",
@@ -124,7 +124,7 @@ export default {
    {
     "company": "Mega-Tech",
     "role": "UI Developer / R&D Developer (started as Intern)",
-    "date": "09/2015 – 07/2020",
+    "date": "08/2015 – 08/2019",
     "impactMetrics": [
      "10+ WordPress & WooCommerce sites shipped",
      "SEO & performance optimisation across client sites",
@@ -135,14 +135,14 @@ export default {
      "SEO and performance optimisation was a standing part of the delivery brief: getting client sites onto page 1 of Google for their target keywords. The agency's own site ranked there.",
      "Moved from WordPress UI development into R&D work — nopCommerce e-commerce builds and Unity projects, clarifying requirements directly with clients."
     ],
-    "arcNote": "Five years shipping production frontends — the feasibility instinct behind every recommendation I make now."
+    "arcNote": "Four years shipping production frontends — the feasibility instinct behind every recommendation I make now."
    },
    {
     "company": "Black Citrus",
     "role": "QA Engineer — Internship via Mega-Tech (remote)",
     "date": "06/2015 – 09/2015",
     "impactMetrics": [
-     "First industry role, straight after the B.E.",
+     "First industry role, during the final B.E. phase",
      "Remote QA for an Australian team"
     ],
     "tasks": [
@@ -165,7 +165,7 @@ export default {
    {
     "school": "Khayyam Higher Education Centre",
     "degree": "B.E. Software Engineering",
-    "year": "10/2010 – 06/2015"
+    "year": "10/2010 – 09/2015"
    }
   ],
   "skills": {
@@ -214,8 +214,7 @@ export default {
     "Requirements Traceability (FR/NFR)",
     "Authentication & Security (argon2id, CSRF)",
     "Git & GitHub",
-    "Vercel",
-    "AI-assisted development (Claude Code, GitHub Copilot)"
+    "Vercel"
    ],
    "Quality Assurance": [
     "Acceptance Testing",
@@ -282,7 +281,7 @@ export default {
      "German C1"
     ],
     "verifyUrl": "",
-    "detail": "Examined 16 February 2026, while writing the Master's thesis. DSH-2 certifies differentiated written and spoken ability and grants unrestricted admission to every degree programme at any German university. Reached from A2 through one institution's own course sequence at the Sprachenzentrum: A2 (2021/22), B1 (2024), B2 intensive (2025), then DSH preparation."
+    "detail": "Certificate dated 16 February 2026, while writing the Master's thesis. DSH-2 certifies differentiated written and spoken ability and grants unrestricted admission to every degree programme at any German university. Reached from A2 through one institution's own course sequence at the Sprachenzentrum: A2 (2021/22), B1 (2024), B2 intensive (2025), then DSH preparation."
    },
    {
     "title": "German B2 — Intensive Course",
@@ -860,8 +859,7 @@ export default {
     "SQLite",
     "ExcelJS",
     "Nextcloud WebDAV",
-    "Figma Make",
-    "Claude Code (AI-assisted development)"
+    "Figma Make"
    ],
    "methods": [
     "Insider process observation (>1 year)",

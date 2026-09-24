@@ -525,26 +525,6 @@ describe("data/renderer contract — no field drifts in either direction", () =>
       ).toBe(true);
     }
   });
-
-  // Optional by contract: the renderer must stay silent, not render an empty
-  // row, for every project that has not written its disclosure.
-  it("aiAssistance is optional, and a bilingual object wherever it is present", () => {
-    for (const p of fullProjects) {
-      if (!("aiAssistance" in p)) continue;
-      const v = p.aiAssistance;
-      expect(
-        v !== null && typeof v === "object" && !Array.isArray(v),
-        `${p.slug}: aiAssistance must be an { en, de } object, not a bare string ` +
-          `— useLocalizedProfile resolves it per language`
-      ).toBe(true);
-      // Both languages non-empty; one-sided gaps are caught by the bilingual
-      // parity suite above, so this only guards the all-empty case.
-      expect(
-        (v.en || "").length > 0,
-        `${p.slug}: aiAssistance is present but empty — omit the field instead`
-      ).toBe(true);
-    }
-  });
 });
 
 // The homepage card shows a capped, curated slice of a project's tags. That

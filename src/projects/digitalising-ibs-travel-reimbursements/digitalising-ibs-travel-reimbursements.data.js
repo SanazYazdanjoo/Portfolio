@@ -64,10 +64,6 @@ export const projectData = {
     },
   },
 
-  aiAssistance: {
-    en: 'AI-assisted implementation: AI coding tools supported development. Research, requirements, design decisions, architecture, and final verification were my responsibility.',
-    de: 'KI-unterstützte Umsetzung: KI-Coding-Tools unterstützten die Entwicklung. Forschung, Anforderungen, Designentscheidungen, Architektur und finale Prüfung lagen in meiner Verantwortung.',
-  },
   heroImage: thumbnailImg,
   heroIsGenerated: true,
 
@@ -325,7 +321,6 @@ export const projectData = {
     'ExcelJS',
     'Nextcloud WebDAV',
     'Figma Make',
-    'Claude Code (AI-assisted development)',
   ],
 
   prototype: {

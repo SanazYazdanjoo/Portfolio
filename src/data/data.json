@@ -708,8 +708,7 @@
         "Requirements Traceability (FR/NFR)",
         "Authentication & Security (argon2id, CSRF)",
         "Git & GitHub",
-        "Vercel",
-        "AI-assisted development (Claude Code, GitHub Copilot)"
+        "Vercel"
       ],
       "Quality Assurance": [
         "Acceptance Testing",

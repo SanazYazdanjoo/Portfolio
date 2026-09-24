@@ -1,7 +1,7 @@
 // The design reference, enforced.
 //
 // The homepage is built to a specific reference
-// (Claude Design › Ink & Bloom › templates/portfolio-homepage). This suite
+// (Ink & Bloom › templates/portfolio-homepage). This suite
 // reads the homepage's own source and fails on the four ways every previous
 // pass drifted away from it:
 //

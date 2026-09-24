@@ -102,12 +102,6 @@ const de = {
   "cv.saveAsPdf": "Als PDF speichern",
   "cv.sectionsAriaLabel": "Lebenslauf-Abschnitte",
 
-  // The one-line replacement for the former AI-Assisted Development chip
-  // category — the claim lives with its evidence (the IBS aiAssistance
-  // paragraph), not as unbacked chips.
-  "cv.aiAssisted.text": "KI-gestützte Entwicklung — Agenten unter meiner Leitung; das Entscheidungslog hält fest, was ich abgelehnt habe",
-  "cv.aiAssisted.link": "IBS-Fallstudie",
-
   // Skill-group headings, shared by the CV and the About page. Keyed off the
   // English category name in data.json (SKILL_CATEGORY_KEYS in
   // src/data/profile.js); an unknown category falls back to its raw name.
@@ -322,7 +316,6 @@ const de = {
   "project.meta.furtherImpact": "Weitere Wirkung",
   "project.meta.impactAtGlance": "Wirkung auf einen Blick",
   "project.meta.contribution": "Mein Beitrag",
-  "project.meta.aiAssistance": "KI-Unterstützung",
 
   "project.contribution.owned": "Verantwortet",
   "project.contribution.shared": "Gemeinsam getragen",

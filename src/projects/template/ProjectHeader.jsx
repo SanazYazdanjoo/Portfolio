@@ -146,7 +146,7 @@ export function ProjectHeader({ meta, tags }) {
           get the full column. Note this is a layout fix only — how many tags
           there are is an editorial question, and each one is pinned to a
           `tagEvidence` entry (enforced in data/projects.test.js). */}
-      {(meta.role || meta.timeline || tags.length > 0 || meta.aiAssistance) && (
+      {(meta.role || meta.timeline || tags.length > 0) && (
         <dl className={hasBrief ? "" : "border-t rule-t"}>
           {meta.role && !hasBrief && (
             <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-[140px_1fr] sm:gap-4 py-4 border-b rule-b">
@@ -166,7 +166,7 @@ export function ProjectHeader({ meta, tags }) {
             </div>
           )}
           {tags.length > 0 && (
-            <div className={`grid grid-cols-1 gap-1.5 sm:grid-cols-[140px_1fr] sm:gap-4 py-4 ${meta.aiAssistance ? "border-b rule-b" : ""}`}>
+            <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-[140px_1fr] sm:gap-4 py-4">
               <dt className={`${DT} pt-0.5`}>
                 {t("project.meta.skills")}
               </dt>
@@ -226,27 +226,6 @@ export function ProjectHeader({ meta, tags }) {
                       : `+${hiddenTagCount} ${t("project.meta.moreSkills")}`}
                   </button>
                 )}
-              </dd>
-            </div>
-          )}
-
-          {/* AI-assistance disclosure. Last row of the metadata block rather
-              than a footer note: a disclosure that has to be scrolled past the
-              prev/next cards to be found is not a disclosure. It is deliberately
-              styled as metadata — same <dt> as Role and Timeline, no warning
-              colour, no icon, no toggle — because it states how the work was
-              made, which is the same kind of fact as who made it and when. The
-              long-form value keeps its own reading measure, following the
-              ContributionRow precedent in this same list. Optional: projects
-              without the field render nothing and get no empty row. */}
-          {meta.aiAssistance && (
-            <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-[140px_1fr] sm:gap-4 py-4"
-                 style={{ breakInside: "avoid" }}>
-              <dt className={`${DT} pt-0.5`}>
-                {t("project.meta.aiAssistance")}
-              </dt>
-              <dd className="max-w-measure transition-[max-width] duration-300 ease-smooth text-sm leading-relaxed text-text-meta">
-                {meta.aiAssistance}
               </dd>
             </div>
           )}
