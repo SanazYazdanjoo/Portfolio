@@ -131,8 +131,8 @@ const LIVE_PROTOTYPE = {
     de: 'IBS-Fahrtkostenerstattung · Demo',
   },
   description: {
-    en: 'Use the deployed application directly inside the case study. The demo runs on fictional data and exposes the current role-based workflow and claim-state logic.',
-    de: 'Nutzen Sie die bereitgestellte Anwendung direkt in der Fallstudie. Die Demo arbeitet mit fiktiven Daten und zeigt den aktuellen rollenbasierten Workflow sowie die Statuslogik.',
+    en: 'Try the same application directly inside the case study. The demo runs in the browser on fictional data, with a demo banner and the guided tasks prepared for reviewers.',
+    de: 'Probieren Sie dieselbe Anwendung direkt in der Fallstudie aus. Die Demo läuft im Browser mit fiktiven Daten, mit Demo-Banner und den für Reviewer:innen vorbereiteten geführten Aufgaben.',
   },
   alt: {
     en: 'IBS travel reimbursement interactive live demo',
@@ -169,7 +169,9 @@ const projectDataWithInteractiveMedia = {
     ...projectData.figures,
     design: [FIGMA_DESIGN_SYSTEM],
     wireframe: wireframeFigures,
-    prototype: [LIVE_PROTOTYPE],
+    // The product screenshots lead; the live demo follows them as the
+    // interactive, secondary way into the same application.
+    prototype: [...(projectData.figures?.prototype || []), LIVE_PROTOTYPE],
   },
 };
 

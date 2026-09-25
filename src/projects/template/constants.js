@@ -115,6 +115,19 @@ export const RENDERED_FIELDS = [
   "conceptPack", "conceptLineage",
   // Provenance line under the hero — template/ProjectHero.jsx.
   "assetDisclosure",
+  // Traceability case study blocks (IBS), each data-gated:
+  // researchEvidence — findings with their sources, under Challenge
+  //   (template/ResearchEvidence.jsx);
+  // traceChains — evidence → requirement → decision → implementation, under
+  //   Solution (template/TraceChains.jsx);
+  // qualityChecks — internal checks and their last run, in Methodology
+  //   (template/QualityChecks.jsx);
+  // statusTiers — implemented / internally tested / not validated with
+  //   users, in Results (template/StatusTiers.jsx);
+  // supportingFigures — secondary figures per section behind one
+  //   disclosure, keyed by section id (template/SupportingFigures.jsx).
+  "researchEvidence", "traceChains", "qualityChecks", "statusTiers",
+  "supportingFigures",
 ];
 
 // Sections whose body is a prose block plus an optional figure grid, keyed by

@@ -31,13 +31,13 @@ export default {
     "date": "12/2024 – Present",
     "impactMetrics": [
      "13-step paper process, 4 return loops, 9 actors",
-     "1,734 automated tests, CI-enforced requirement traceability",
+     "1,810 automated tests, CI-enforced requirement traceability",
      "25 problems documented, each evidence-graded"
     ],
     "tasks": [
      "Mapped the as-is reimbursement process across 9 actor roles — 13 steps with 4 return loops — using UML swimlane activity diagrams, 5W1H problem framing and stakeholder mapping. Evidence base: more than a year administering the process as project assistant (collecting receipts, consolidating Excel sheets, calculating participants’ reimbursements), 2 expert interviews (project management, accounting), a working meeting with the administration team, and an open participant survey.",
      "Clustered the findings into a problem register of 25 documented problems, each carrying an evidence grade — confirmed, indicative, hypothesis, untested — and derived numbered FR/NFR requirements, a role-based sitemap and seven provenance-labelled personas from it. The survey was designed to falsify my own assumptions: it reversed one of my priorities and added 6 problems I had not seen from the inside.",
-     "Built the replacement application single-handedly (React, TypeScript, Vite, Node.js/Fastify, SQLite, Vitest): five roles with scoped navigation and route guards across four role home screens, a role-keyed status transition table enforced in the repository layer, and a reimbursement amount that is not persisted — every screen that shows it calls the same pure domain package, with the calculation trace on screen. The only stored amount is the figure imported from the old spreadsheet, kept solely to flag a discrepancy. 1,734 automated tests, root and server suites, both run in CI.",
+     "Built the replacement application single-handedly (React, TypeScript, Vite, Node.js/Fastify, SQLite, Vitest): five roles with scoped navigation and route guards across four role home screens, a role-keyed status transition table enforced in the repository layer, and a reimbursement amount that is not persisted — every screen that shows it calls the same pure domain package, with the calculation trace on screen. The only stored amount is the figure imported from the old spreadsheet, kept solely to flag a discrepancy. 1,810 automated tests, root and server suites, both run in CI.",
      "Wired requirement traceability into the build: a CI test fails when a requirement or problem id cited in source has no row in the requirements register, so a citation can never quietly lose its source. The guard checks citation to row, not row to implementation, and the register says so.",
      "Extracted the design system before the high-fidelity screens: the 9 lane colours of the research activity diagram became the application's role palette unchanged, so an actor in the research reads as the same actor in the app. A CI test fails the build when a colour token in the CSS token file and the Tailwind config drift apart.",
      "Secured the Fastify (Node.js) backend with session authentication (argon2id), CSRF tokens on every mutating route, global and per-route rate limits, and default-deny access control in the repository layer. Login hashes against a placeholder for unknown accounts so response time cannot leak whether an address exists, and every request re-checks the credential version, so a password change ends other sessions immediately.",
@@ -829,7 +829,7 @@ export default {
     },
     {
      "stage": "Requirements",
-     "note": "Numbered FR/NFR requirements traced to their source problems; a CI test fails the build on a citation without a source."
+     "note": "Numbered FR/NFR requirements traced to their source problems; a test fails the build when code cites a requirement that has no row."
     },
     {
      "stage": "Design",
@@ -837,16 +837,16 @@ export default {
     },
     {
      "stage": "Implementation",
-     "note": "One React/TypeScript application with a Fastify backend: five role views, and an amount that is recomputed on every screen with its calculation trace visible."
+     "note": "One React/TypeScript application with a Fastify backend: five role views, and every amount calculated by one shared rule module with its formula visible."
     },
     {
      "stage": "Quality",
-     "note": "1,734 automated tests, session authentication, CSRF and rate limits, local-only participant data, and bundle scans for stray hostnames and real names."
+     "note": "1,810 automated tests across two suites, run in CI on every push; boundary and privacy tests that plant a violation to prove they can fail."
     },
     {
      "stage": "Validation",
      "pending": true,
-     "note": "A summative usability evaluation is instrumented into the app — guided tasks, a pseudonymous event log, a questionnaire. It runs once the app is deployed for daily use; measured outcomes are not yet available."
+     "note": "A usability evaluation is instrumented into the app — scripted tasks, a pseudonymous event log, a questionnaire. No session with real users has run; measured outcomes are not yet available."
     }
    ],
    "techStack": [
@@ -889,55 +889,19 @@ export default {
      "label": "days in one traced claim · minimum for that case, not an average"
     }
    ],
-   "about": "I spent more than a year administering this reimbursement process as a project assistant — collecting paper receipts, consolidating several Excel files, checking attendance, and calculating reimbursements. That gave me deep process knowledge, but I treated it as a set of assumptions to test rather than as research evidence on its own. I combined insider observation with expert interviews, an administration working meeting, an ongoing participant survey, and artefact analysis, then translated the verified problems into requirements and a working application. The demo is deployed for team feedback; formal usability evaluation is still pending.",
-   "challenge": "Travel reimbursement depended on paper attendance records, several Excel files, manual calculations, and hand-offs across nine actors. The same information was copied repeatedly, creating delays and opportunities for mistakes. Participants had no reliable confirmation after submitting documents, no visible calculation, and no claim status. In the ongoing survey, 4/6 respondents did not know how their amount was calculated, 5/6 had no reliable way to know whether their documents had arrived, and 4/6 named processing time as their main difficulty. One traced claim remained unpaid after 43+ days. The failure was structural, not clerical.",
-   "solution": "I replaced the fragmented workflow with one role-based application for attendance, supporting-document submission, reimbursement calculation, approval, and claim tracking. Participants can upload documents and see the state of their claim; staff work from the same attendance and reimbursement data instead of copying information between spreadsheets. Calculations are rebuilt from shared rules and the formula trace remains visible to reviewers. The participant upload flow is designed for phone use, while responsive support across the full authenticated application is still in progress. The current system covers the workflow up to payment; the final accounting payment step remains outside the application.",
+   "about": "I spent more than a year administering this reimbursement process as a project assistant — collecting paper receipts, consolidating several Excel files, checking attendance, and calculating reimbursements. That gave me deep process knowledge, but I treated it as a set of assumptions to test rather than as research evidence on its own. I checked it against expert interviews, an administration working meeting, an ongoing participant survey and artefact analysis, turned the verified problems into numbered requirements, and built one application that carries those requirements into code. What follows traces that chain link by link, and marks where it stops.",
+   "challenge": "Each month, a claim moved through paper attendance lists, several Excel files, a handwritten form, manual calculation and signatures, handed between nine actors in 13 steps with four return loops. The same information was copied repeatedly, and administration was the one point holding the pieces together. Participants had no confirmation that their documents had arrived, no visible calculation, and no claim status. The survey and interviews confirmed what I had seen from the inside, and added problems I had not noticed.",
+   "solution": "The problem register became numbered requirements (FR/NFR), and each requirement names the problem it answers, the files that implement it, and how to check that it still holds. A test in the codebase fails the build when code cites a requirement that has no row. Below are the chains that matter most, each read left to right: the evidence, the requirement it became, the interaction decision, and what the code does. Where a chain stops short of the problem, it says so.",
    "design": "I carried the research model into the interface instead of inventing a separate visual language. The role colours from the AS-IS swimlane map became the application role palette, supported by a compact type scale, status chips, note states, buttons, and form states. This keeps the same actor cues visible from research artefact to working screen.",
    "wireframe": "I used low-fidelity wireframes to resolve information hierarchy and workflow logic against the numbered requirements before applying visual styling. The high-fidelity version kept the same structure and added the final attendance vocabulary, morning/afternoon states, role cues, exception highlighting, and completion feedback. The comparison below shows the same attendance-month screen from sketch to wireframe to deployed view.",
-   "methodology": "The research-to-build chain is explicit. I treated insider observations as hypotheses, checked them through interviews, the administration working session, the ongoing participant survey, and artefact analysis, then clustered the evidence into a 25-problem register with evidence grades. Those problems became numbered requirements, information architecture, state rules, and wireframes. One example closes the loop: 4/6 respondents did not understand the reimbursement calculation → transparent calculation became a requirement → one shared calculation module now produces a visible formula trace → automated tests protect the requirement links. The same traceability also exposes gaps: confirmation after submission is only partially implemented, so the page does not present it as solved.",
-   "results": "The current evidence describes the existing process and the mechanisms implemented in the replacement. The working demo is deployed for team feedback, and internal testing has already exposed three instrumentation bugs. Formal usability sessions have not run, so I do not claim reduced processing time, fewer errors, better usability, or adoption yet. Those outcomes will be reported only after the evaluation is completed.",
+   "methodology": "Three technical decisions carry the design. The calculation rules live in one pure package that every screen reads, so a participant, an administrator and a manager can never see different amounts. Access control sits in the data layer rather than in hidden buttons, and the same isolation tests run against every storage implementation and over real HTTP. A Fastify and SQLite server adds real accounts, sessions, CSRF protection and an append-only audit trail; it runs locally on demo data and has not been deployed at the institute. The checks below say what guards each of these, and what their last run found.",
+   "results": "Everything above describes the existing process and what the replacement implements. The working demo is shared with the team for feedback, and internal use has already exposed three bugs in the evaluation instrumentation. Formal usability sessions have not run, so I do not claim shorter processing time, fewer errors, better usability or adoption. Those outcomes will be reported only once the evaluation has run.",
    "limitations": [
-    "The participant survey is currently n=6, self-selected, and so far limited to the blended/online cohort; the in-person cohort and travel-pass holders are not yet represented.",
+    "The participant survey is currently n=6, self-selected, and so far limited to the blended/online cohort; the in-person cohort and travel-pass holders are not yet represented. Counts confirm that a problem is real; they cannot say how common it is.",
     "Two expert interviews represent project management and accounting. Lecturers were not interviewed; their part of the workflow is mapped from artefacts and my own process observation.",
     "The 43+ day figure is one traced claim. It was still unpaid when observation stopped, so it is a minimum for that case — not an average or a distribution.",
-    "Formal usability evaluation of the new system has not run. The page therefore reports implemented mechanisms and baseline evidence, not measured improvement over the paper process."
-   ],
-   "process": [
-    {
-     "phase": "discover",
-     "type": "Research",
-     "title": "Turn insider knowledge into testable questions",
-     "annotation": "I combined more than a year of process observation with two expert interviews, one administration working meeting, an ongoing anonymous participant survey (n=6), and document analysis.",
-     "insight": "Because I already knew the workflow, the research goal was to challenge my assumptions, not to confirm them."
-    },
-    {
-     "phase": "define",
-     "type": "Evidence",
-     "title": "Map the failure and grade the evidence",
-     "annotation": "The AS-IS map exposed 13 steps, four return loops, and nine actors. Thematic clustering produced a register of 25 documented problems, each linked to its evidence source.",
-     "insight": "Survey findings also changed the roadmap: I had treated phone-width support as secondary, but participants reported that phone submission mattered. Responsive participant use moved up the priority list; the full signed-in phone layout is still in progress."
-    },
-    {
-     "phase": "design",
-     "type": "Requirements & design",
-     "title": "Translate findings into explicit product rules",
-     "annotation": "The problem register became numbered requirements, a role-based information architecture, an explicit claim state model, and low- and high-fidelity wireframes.",
-     "insight": "The service map covers nine actors. Seven composite, evidence-backed role profiles document the perspectives used during design; five roles directly work through dedicated application views."
-    },
-    {
-     "phase": "deliver",
-     "type": "Implementation",
-     "title": "Carry the same requirements into working code",
-     "annotation": "I built the role-based application in React and TypeScript with shared calculation rules, an explicit claim state machine, access controls, local data adapters, and automated tests.",
-     "insight": "Example: 4/6 survey respondents did not understand the reimbursement calculation. That became a requirement for transparent amounts, implemented as one shared calculation with a visible formula trace and protected by automated checks."
-    },
-    {
-     "phase": "deliver",
-     "type": "Evaluation",
-     "title": "Deploy first, measure the change next",
-     "annotation": "The demo is deployed for stakeholder feedback. Guided tasks, pseudonymous local event logging, and an end-of-session questionnaire are already built into the application for the formal usability evaluation.",
-     "insight": "No post-launch improvement is claimed yet. The evaluation instruments exist; the user sessions have not run."
-    }
+    "The traceability test proves that every cited requirement has a row, not that the row is right, and not that every documented problem has a requirement: processing time, the problem most respondents named, has none yet.",
+    "Formal usability evaluation of the new system has not run. The page therefore reports implemented mechanisms, internal checks and baseline evidence, not measured improvement over the paper process."
    ],
    "verbatims": [
     {
@@ -959,8 +923,8 @@ export default {
     "problem": "A 13-step paper reimbursement process spread across nine actors: receipts, attendance and amounts copied between spreadsheets, no confirmation and no claim status for participants, and one traced claim still unpaid after 43+ days.",
     "context": "In-house project at IBS, researched from the inside: I administered the process for more than a year as project assistant before rebuilding it.",
     "methods": "Insider process observation · expert interviews and an administration working meeting · participant survey · artefact analysis · UML process mapping · evidence-graded problem register · FR/NFR requirements with traceability",
-    "scale": "9 actors · 13 steps · 25 evidence-graded problems · 5 role views in one React/TypeScript application · 1,734 automated tests",
-    "outcome": "One role-based application, deployed as a demo the team works with. The summative usability evaluation is instrumented into the app and waits for daily use — no post-launch improvement is claimed yet."
+    "scale": "9 actors · 13 steps · 25 evidence-graded problems · 5 role views in one React/TypeScript application · 1,810 automated tests",
+    "outcome": "One role-based application, built and internally tested, with a public demo on fictional data. Usability evaluation with real users is instrumented into the app but has not run — no improvement is claimed yet."
    }
   },
   {

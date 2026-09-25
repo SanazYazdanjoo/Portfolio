@@ -175,8 +175,8 @@
             "de": "13-stufiger Papierprozess, 4 Rückschleifen, 9 Akteure"
           },
           {
-            "en": "1,734 automated tests, CI-enforced requirement traceability",
-            "de": "1.734 automatisierte Tests, CI-erzwungene Anforderungs-Traceability"
+            "en": "1,810 automated tests, CI-enforced requirement traceability",
+            "de": "1.810 automatisierte Tests, CI-erzwungene Anforderungs-Traceability"
           },
           {
             "en": "25 problems documented, each evidence-graded",
@@ -193,8 +193,8 @@
             "de": "Die Befunde zu einem Problemregister mit 25 dokumentierten Problemen geclustert, jedes mit einem Evidenzgrad — bestätigt, indikativ, Hypothese, ungeprüft — und daraus nummerierte FR/NFR-Anforderungen, eine rollenbasierte Sitemap und sieben Personas mit Herkunftskennzeichnung abgeleitet. Die Umfrage war darauf angelegt, meine eigenen Annahmen zu widerlegen: Sie kehrte eine meiner Prioritäten um und ergänzte 6 Probleme, die ich von innen nicht gesehen hatte."
           },
           {
-            "en": "Built the replacement application single-handedly (React, TypeScript, Vite, Node.js/Fastify, SQLite, Vitest): five roles with scoped navigation and route guards across four role home screens, a role-keyed status transition table enforced in the repository layer, and a reimbursement amount that is not persisted — every screen that shows it calls the same pure domain package, with the calculation trace on screen. The only stored amount is the figure imported from the old spreadsheet, kept solely to flag a discrepancy. 1,734 automated tests, root and server suites, both run in CI.",
-            "de": "Die Ersatzanwendung allein gebaut (React, TypeScript, Vite, Node.js/Fastify, SQLite, Vitest): fünf Rollen mit rollenbezogener Navigation und Route Guards über vier Rollen-Startseiten, eine rollenbasierte Statusübergangstabelle, durchgesetzt in der Repository-Schicht, und ein Erstattungsbetrag, der nicht persistiert wird — jeder Screen, der ihn zeigt, ruft dasselbe reine Domain-Paket auf, mit sichtbarem Rechenweg. Der einzige gespeicherte Betrag ist die aus der alten Tabelle importierte Zahl, ausschließlich zum Markieren einer Abweichung. 1.734 automatisierte Tests, Root- und Server-Suite, beide laufen in der CI."
+            "en": "Built the replacement application single-handedly (React, TypeScript, Vite, Node.js/Fastify, SQLite, Vitest): five roles with scoped navigation and route guards across four role home screens, a role-keyed status transition table enforced in the repository layer, and a reimbursement amount that is not persisted — every screen that shows it calls the same pure domain package, with the calculation trace on screen. The only stored amount is the figure imported from the old spreadsheet, kept solely to flag a discrepancy. 1,810 automated tests, root and server suites, both run in CI.",
+            "de": "Die Ersatzanwendung allein gebaut (React, TypeScript, Vite, Node.js/Fastify, SQLite, Vitest): fünf Rollen mit rollenbezogener Navigation und Route Guards über vier Rollen-Startseiten, eine rollenbasierte Statusübergangstabelle, durchgesetzt in der Repository-Schicht, und ein Erstattungsbetrag, der nicht persistiert wird — jeder Screen, der ihn zeigt, ruft dasselbe reine Domain-Paket auf, mit sichtbarem Rechenweg. Der einzige gespeicherte Betrag ist die aus der alten Tabelle importierte Zahl, ausschließlich zum Markieren einer Abweichung. 1.810 automatisierte Tests, Root- und Server-Suite, beide laufen in der CI."
           },
           {
             "en": "Wired requirement traceability into the build: a CI test fails when a requirement or problem id cited in source has no row in the requirements register, so a citation can never quietly lose its source. The guard checks citation to row, not row to implementation, and the register says so.",
@@ -486,8 +486,8 @@
         "metrics": [
           {
             "value": {
-              "en": "1,734",
-              "de": "1.734"
+              "en": "1,810",
+              "de": "1.810"
             },
             "label": {
               "en": "automated tests, including build-failing traceability guards",

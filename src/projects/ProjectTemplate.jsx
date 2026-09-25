@@ -76,6 +76,11 @@ import { PrototypeLink } from "./template/PrototypeLink";
 import { ProjectNavCard } from "./template/ProjectNavCard";
 import { ProjectHeader } from "./template/ProjectHeader";
 import { EvidenceChain } from "./template/EvidenceChain";
+import { TraceChains } from "./template/TraceChains";
+import { ResearchEvidence } from "./template/ResearchEvidence";
+import { SupportingFigures } from "./template/SupportingFigures";
+import { QualityChecks } from "./template/QualityChecks";
+import { StatusTiers } from "./template/StatusTiers";
 import { ProjectHero } from "./template/ProjectHero";
 import { FlownTagsProvider, SkillOrbitRail, useSkillOrbit } from "./template/SkillOrbit";
 import { useSectionState } from "./template/useSectionState";
@@ -380,6 +385,13 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                       {id === "challenge" && <ParticipantVoices voices={meta.participantVoices} />}
                       <SectionMedia items={meta.figures?.[id]} />
                     </Prose>
+                    {/* Full-width blocks after the prose, all data-gated:
+                        the research base argues the Challenge, the traced
+                        chains are the Solution, and any supporting figures
+                        close the section behind one disclosure. */}
+                    {id === "challenge" && <ResearchEvidence evidence={meta.researchEvidence} />}
+                    {id === "solution" && <TraceChains chains={meta.traceChains} />}
+                    <SupportingFigures group={meta.supportingFigures?.[id]} />
                   </ContentSection>
                 ) : null
               )}
@@ -480,6 +492,8 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   kicker={kickerFor("methodology")} heading={headingFor("methodology")}>
                   <Prose text={meta.methodology} quote={meta.methodologyQuote} rail>
                     <SectionMedia items={meta.figures?.methodology} />
+                    <QualityChecks checks={meta.qualityChecks} />
+                    <SupportingFigures group={meta.supportingFigures?.methodology} />
 
                     {/* Study design record — plans, instrument, pilots,
                         models, landscapes. Takes the raw entries for the
@@ -536,6 +550,11 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                     </div>
                     {verbatimsIn("results") && <VerbatimRail verbatims={meta.verbatims} />}
                   </div>
+
+                  {/* Implemented / tested / not validated — full width, so
+                      it sits outside the measure-capped column above.
+                      Data-gated; only IBS writes it. */}
+                  <StatusTiers tiers={meta.statusTiers} />
 
                   {/* Limits first, then outcome: what was deliberately not
                       built qualifies the results above it, and reads as a
