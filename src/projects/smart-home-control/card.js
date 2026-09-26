@@ -11,7 +11,7 @@ import cardSelectedHome from './media/v2/card-selected-home.webp';
 export default {
   id: "smart-home-control",
   status: "published",
-  order: 5,
+  order: 6,
   title: {
     en: "Smart Home Control for Shared Households",
     de: "Smart-Home-Steuerung für den geteilten Haushalt",

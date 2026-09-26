@@ -13,7 +13,7 @@ import cardFinalBuild from './media/card-final-build.webp';
 export default {
   id: "embraceme-soft-robotics",
   status: "published",
-  order: 4,
+  order: 5,
   title: {
     en: "EmbraceMe – An Inflatable Soft Robot for Emotional Care",
     de: "EmbraceMe – ein aufblasbarer Soft-Roboter für emotionale Fürsorge",

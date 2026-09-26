@@ -928,6 +928,138 @@ export default {
    }
   },
   {
+   "title": "Welcome Lounge Companion",
+   "page": "/projects/welcome-lounge-companion",
+   "status": "in-progress",
+   "subtitle": "A student journey and a staff workspace built around the spreadsheet the team already trusted",
+   "tagline": "Arrival information and team coordination broke down at the desk I work at. I turned what I saw into requirements and built both front doors to one workbook.",
+   "role": "Solo — research, interaction design, front-end and back-end · also a tutor on the team",
+   "year": "2026",
+   "timeline": "July – September 2026",
+   "context": "Operational pilot · Bauhaus-Universität Weimar",
+   "tags": [
+    "UX Research",
+    "Requirements Engineering",
+    "Requirements Traceability",
+    "Interaction Design",
+    "Information Architecture",
+    "Iterative Design",
+    "Responsive Design",
+    "Privacy by Design",
+    "Role-Based Access Control",
+    "React",
+    "Vite",
+    "Node.js"
+   ],
+   "evidenceChain": [
+    {
+     "stage": "Research",
+     "note": "My own shifts at the desk from July 2026, a tutor survey in September 2026 (four responses), and requests from the team during the pilot."
+    },
+    {
+     "stage": "Requirements",
+     "note": "Four traced rows, each running from what I saw or was told to the problem, the requirement and the design response."
+    },
+    {
+     "stage": "Design",
+     "note": "Two front doors to one workbook: a calm, read-only student journey and a staff workspace whose screens answer the team’s daily questions."
+    },
+    {
+     "stage": "Implementation",
+     "note": "React and Vite in front of a small Node API that reads and writes the team’s Excel workbook in the university’s Nextcloud, with four roles checked on the server."
+    },
+    {
+     "stage": "Pilot",
+     "note": "Used by the team, with changes shipped in small loops, usually within hours. 108 automated tests; two production failures traced and fixed."
+    },
+    {
+     "stage": "Validation",
+     "pending": true,
+     "note": "No task-based testing with tutors or students so far, and no comparison with the old workflow. Whether it makes the work easier is not measured yet."
+    }
+   ],
+   "techStack": [
+    "React",
+    "Vite",
+    "JavaScript",
+    "Node.js",
+    "ExcelJS",
+    "Nextcloud WebDAV",
+    "scrypt",
+    "Vercel"
+   ],
+   "methods": [
+    "Own observation at the desk (from July 2026)",
+    "Tutor survey (n=4)",
+    "Requests and in-app feedback during the pilot",
+    "Evidence → requirement tracing",
+    "Interaction design",
+    "Iterative releases with the team"
+   ],
+   "metrics": [
+    {
+     "value": "4/4",
+     "label": "tutors: information spread across too many places"
+    },
+    {
+     "value": "3/4",
+     "label": "tutors: hard to know who changed information"
+    },
+    {
+     "value": "108",
+     "label": "automated tests"
+    },
+    {
+     "value": "2",
+     "label": "production failures traced and fixed"
+    }
+   ],
+   "about": "Every semester, international students arrive in Weimar and work through the same list: health insurance, a room, the semester fee, enrolment, city registration, a bank account, a residence permit. The university publishes all of it, across many pages, PDFs and a WhatsApp group. The Welcome Lounge tutors fill the gaps in person, while keeping their own work in an Excel file, a shift sheet and chat. I work at that desk as a tutor. From there I saw where arrival information and the team’s own coordination broke down, turned what I saw into requirements, and built a student journey and a staff workspace around the spreadsheet the team already trusted. Students need to know the next step and reach the official answer quickly, on a phone, with no account and no tracking. The team needs one current, shared picture of students, shifts and handovers, at spreadsheet speed, with clear attribution and a semester handover that needs no developer.",
+   "challenge": "The project started from my own shifts at the desk: repeated arrival questions, student notes in Excel, shifts in a separate sheet, handovers in chat messages. That gave me direct access, but it was one person’s view. Once the first version was running, I sent a survey to the other tutors. It confirmed some decisions and reordered others. During the pilot, the team’s requests while using the tool, later also sent through the in-app Feedback button, became the third source. The evidence is directional, not representative: it shaped priorities; it does not prove outcomes.",
+   "solution": "Each row below runs from what I saw or was told, to the requirement it became, to the design response and what the code does to hold it. Sources are marked. The rows explain why the interface looks the way it does: one ordered journey instead of a dashboard, a change log instead of trust, the old workbook instead of a new database, and buttons instead of free-text shift cells.",
+   "design": "Three ways in, one source of truth: students open the journey without an account, the team signs in to the workspace by role, and anyone can still open the workbook in Excel or the Nextcloud editor as before. For students I first explored a home page with recommendations and event promotions, then cut it back to the journey alone, because every extra panel competed with the next step. For staff, each screen answers one daily question: Today (who’s on duty, who needs attention, what’s coming up), Students (what do we know about this student), Shifts (when am I working, and am I doing my share) and Statistics for coordinators (is the work spread evenly). Tutors don’t see the Today summary cards; they only answered questions tutors never ask. There is no IT department to manage accounts, so every permission follows from one ladder — Tutor, Coordinator, Admin, and exactly one Super Admin — and nobody can give anyone, including themselves, a role above their own. I found that gap while designing the ladder: a coordinator could have raised their own role and then set a personal login.",
+   "methodology": "The easy story would be “the old tools are bad, replace them.” The evidence said the team trusted its Excel file, so I kept it: one workbook in the university’s Nextcloud stays the source of truth, Excel and the web workspace read and write the same file, and the workbook doubles as backup and semester handover document. That had costs. Two ways to edit means conflicts, so every write is version-checked. Hand-edited rows can be invalid. The workbook lives on a server I don’t run: when it is unreachable, tutors keep working from the last loaded data with a banner showing when it was loaded, and everyday edits queue and replay through the same conflict checks. A queued edit that clashes with a newer change is not forced; it is dropped and shown to the tutor to enter again. The browser never talks to Nextcloud directly — a small Node API reads and writes the workbook and checks every staff request against the signed-in role, with a signed session cookie, CSRF protection, and passwords salted and hashed with scrypt, never stored in the workbook. It runs on Vercel, with daily and before-major-change backups in Nextcloud. The checks below include the two production failures from the pilot, and what each one changed.",
+   "results": "Building something is not the same as showing that it helps. What exists: the ten-step student journey; a staff workspace with Today, Students, Shifts, Handover, Events, Statistics and Change log; four roles enforced on the server; 28 written design decisions. What I checked: 108 automated tests, sideways scroll on every page from 390 to 1920 px, and use by the team during the pilot, in which two production failures were fixed. What is not measured: there has been no task-based testing with tutors or students, so I can’t yet say whether the tool makes their work easier, and no comparison with the old spreadsheet and chat workflow exists, so there is no evidence of time saved or fewer repeated questions.",
+   "limitations": [
+    "The tutor survey has four responses, all from Welcome Lounge tutors. It is directional, not representative: it shaped priorities; it does not prove outcomes.",
+    "The survey was sent once the first version was running, so some early decisions rested on my own view of the work as a member of the team.",
+    "Students were not surveyed or tested. The student journey rests on the tutors’ view of students’ questions.",
+    "No task-based testing and no comparison with the old workflow exist, so the page reports what is built and checked, not measured improvement."
+   ],
+   "implications": "Keep: the most useful decision was not a screen. It was keeping Excel as the source of truth. It lowered the risk for the team, gave them a way out, and turned each new feature into a question of presentation instead of migration. Keep: letting real use drive removals — “we don’t need this” was worth more than any feature request. Change: I would run the tutor survey before building the staff workspace, not after. Being on the team gave me a head start, but some early decisions rested on my own view of the work. The main lesson: the hardest calls were about what not to build — no new database, no student accounts, no replacement for the Excel file the team already trusted. The engineering went into making that one file safe to share, and the design into making its state readable to the people who rely on it.",
+   "outcome": {
+    "body": "The Welcome Lounge team uses the tool as an operational pilot. I shipped the team’s requests in small loops, usually within hours, and most changes removed things. A Feedback button on every workspace page now closes the loop inside the tool: one click, three choices, one message, arriving in the change log with the sender’s name and page.",
+    "adoption": "deferred",
+    "decisions": [
+     "“We don’t need check-in.” → Removed it everywhere, and kept old records readable.",
+     "“Each student should be one row, edited right there.” → Inline editing with autosave and short headers.",
+     "“I don’t want horizontal scroll anywhere.” → Tables fit their container and become cards on narrow screens.",
+     "“This looks like an error.” → The red fair-share box became an informational blue note.",
+     "“Who added this student?” → A read-only “Added by” column, back-filled from the activity history.",
+     "“People should be able to report problems.” → A Feedback button on every workspace page; messages land in the change log with name and page."
+    ]
+   },
+   "verbatims": [
+    {
+     "quote": "Having a big WhatsApp group is good.",
+     "attribution": "Tutor survey, open answer"
+    },
+    {
+     "quote": "As a tutor I should only be able to put in my own name.",
+     "attribution": "Team request during the pilot"
+    }
+   ],
+   "cardOutcome": "Four traced requirements became a student journey and a staff workspace, used by the Welcome Lounge team.",
+   "cardProves": "UX Engineering in live operation",
+   "brief": {
+    "problem": "Arrival information for international students was spread across university pages, PDFs and WhatsApp. Tutors kept students, shifts and handovers in separate sheets and chats.",
+    "context": "International Office Welcome Lounge, Bauhaus-Universität Weimar, Winter Semester 2026/27. I work there as a tutor, so the research started from my own shifts at the desk.",
+    "methods": "Own observation at the desk · tutor survey (n=4) · requests during the pilot · evidence → requirement tracing · interaction design · full-stack implementation",
+    "scale": "2 audiences · a ten-step student journey · 7 staff views · 4 server-enforced roles · 1 shared Excel workbook · 108 automated tests",
+    "outcome": "In use by the Welcome Lounge team as an operational pilot; two production failures traced and fixed. No task-based testing yet, so no effect on users is claimed."
+   }
+  },
+  {
    "title": "Encouraging Social Interactions in Hybrid Work",
    "page": "/projects/deskbird-hybrid-work",
    "status": "published",
