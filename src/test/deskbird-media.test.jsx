@@ -75,9 +75,16 @@ describe("deskbird page end to end", () => {
     const real = () => Array.from(grids).flatMap((g) => Array.from(g.querySelectorAll("figure img")));
     const placeholders = () => Array.from(grids).flatMap((g) => Array.from(g.querySelectorAll("figure [role='img']")));
 
+    // Embeds (the live Figma prototype) render as an <iframe>, not an <img>,
+    // so they are counted separately from image figures.
+    const embedFigures = enrichedFigures.filter((figure) => figure.type === "embed");
+    const imageFigures = enrichedFigures.filter((figure) => figure.type !== "embed" && figure.type !== "video");
+    const embeds = () => Array.from(grids).flatMap((g) => Array.from(g.querySelectorAll("figure iframe")));
+
     expect(enrichedFigures.length).toBeGreaterThan(0);
     expect(enrichedFigures.every((figure) => Boolean(figure.src))).toBe(true);
-    expect(real()).toHaveLength(enrichedFigures.length);
+    expect(real()).toHaveLength(imageFigures.length);
+    expect(embeds()).toHaveLength(embedFigures.length);
     expect(placeholders()).toHaveLength(0);
 
     const modal = enrichedProjectData.figures.solution[0];
@@ -99,6 +106,7 @@ describe("deskbird page end to end", () => {
     expect(screen.getByRole("img", { name: processFigure.alt.de })).toBeInTheDocument();
     expect(screen.getByText(processFigure.caption.de)).toBeInTheDocument();
     expect(placeholders()).toHaveLength(0);
-    expect(real()).toHaveLength(enrichedFigures.length);
+    expect(real()).toHaveLength(imageFigures.length);
+    expect(embeds()).toHaveLength(embedFigures.length);
   });
 });
