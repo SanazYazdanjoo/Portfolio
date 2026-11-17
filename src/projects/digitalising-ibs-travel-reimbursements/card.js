@@ -38,7 +38,7 @@ export default {
   cardStats: [
     { value: '25', label: { en: 'evidence-graded problems', de: 'Probleme mit Evidenzgrad' } },
     { value: '9', label: { en: 'actors · 13 steps · 4 loops', de: 'Akteure · 13 Schritte · 4 Schleifen' } },
-    { value: '1,734', label: { en: 'automated tests', de: 'automatisierte Tests' } },
+    { value: '1,810', label: { en: 'automated tests', de: 'automatisierte Tests' } },
   ],
   cardOutcome: {
     en: 'Research mapped 13 steps, reversed a priority, surfaced 6 missed problems, and carried the 9-actor colour model into the demo.',

@@ -60,7 +60,7 @@ const de = {
 
   // Career arc
   "about.career.phase1.label": "Software-Engineering",
-  "about.career.phase1.years": "2015 – 2020",
+  "about.career.phase1.years": "2015 – 2019",
   "about.career.phase1.summary": "10+ Websites von Grund auf gebaut und live gebracht. Gelernt, dass Code einfach ist — zu wissen, was man bauen soll, ist schwer.",
   "about.career.phase2.label": "QA-Engineering",
   "about.career.phase2.years": "2020 – 2022",
@@ -172,7 +172,7 @@ const de = {
   "hero.meta.location": "Standort",
 
   // These values mirror the English counterpart exactly
-  "hero.meta.backgroundValue": "M.Sc. HCI · B.E. Software-Engineering · Usability",
+  "hero.meta.backgroundValue": "M.Sc. HCI · B.E. Computer Engineering (Software) · Usability",
   "hero.meta.focusValue": "Frontend-Entwicklung · UI-Architektur · Mixed-Methods",
   "hero.meta.statusValue": "Offen für interdisziplinäre UX- & Tech-Rollen",
   "hero.meta.locationValue": "Weimar, DE · Umzugsbereit",

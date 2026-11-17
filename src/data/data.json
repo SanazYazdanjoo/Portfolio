@@ -110,8 +110,8 @@
         "de": "Weimar, DE · Umzugsbereit"
       },
       "background": {
-        "en": "M.Sc. HCI · B.E. Software Engineering · Usability",
-        "de": "M.Sc. HCI · B.E. Software-Engineering · Usability"
+        "en": "M.Sc. HCI · B.E. Computer Engineering (Software) · Usability",
+        "de": "M.Sc. HCI · B.E. Computer Engineering (Software) · Usability"
       },
       "focus": {
         "en": "Research · Usability Engineering · React & TypeScript",
@@ -176,8 +176,8 @@
             "de": "13-stufiger Papierprozess, 4 Rückschleifen, 9 Akteure"
           },
           {
-            "en": "1,734 automated tests, CI-enforced requirement traceability",
-            "de": "1.734 automatisierte Tests, CI-erzwungene Anforderungs-Traceability"
+            "en": "1,810 automated tests, CI-enforced requirement traceability",
+            "de": "1.810 automatisierte Tests, CI-erzwungene Anforderungs-Traceability"
           },
           {
             "en": "25 problems documented, each evidence-graded",
@@ -186,16 +186,16 @@
         ],
         "tasks": [
           {
-            "en": "Mapped the as-is reimbursement process across 9 actor roles — 13 steps with 4 return loops — using UML swimlane activity diagrams, 5W1H problem framing and stakeholder mapping. Evidence base: more than a year administering the process as project assistant (collecting receipts, consolidating Excel sheets, calculating participants’ reimbursements), 2 expert interviews (project management, accounting), a working meeting with the administration team, and an open participant survey.",
-            "de": "Den Ist-Erstattungsprozess über 9 Akteursrollen kartiert — 13 Schritte mit 4 Rückschleifen — mit UML-Swimlane-Aktivitätsdiagrammen, 5W1H-Problemrahmung und Stakeholder-Mapping. Evidenzbasis: über ein Jahr Administration des Prozesses als Projektassistentin (Belege sammeln, Excel-Tabellen zusammenführen, Erstattungen der Teilnehmenden berechnen), 2 Experteninterviews (Projektleitung, Buchhaltung), ein Arbeitstreffen mit dem Verwaltungsteam und eine laufende Teilnehmenden-Umfrage."
+            "en": "Mapped the as-is reimbursement process across 9 actor roles — 13 steps with 4 return loops — using UML swimlane activity diagrams, 5W1H problem framing and stakeholder mapping. Evidence base: more than a year administering the process as project assistant (collecting receipts, consolidating Excel sheets, calculating participants’ reimbursements), 2 expert interviews (project management, accounting), a working meeting with the administration team, and an open participant survey (n=6, self-selected).",
+            "de": "Den Ist-Erstattungsprozess über 9 Akteursrollen kartiert — 13 Schritte mit 4 Rückschleifen — mit UML-Swimlane-Aktivitätsdiagrammen, 5W1H-Problemrahmung und Stakeholder-Mapping. Evidenzbasis: über ein Jahr Administration des Prozesses als Projektassistentin (Belege sammeln, Excel-Tabellen zusammenführen, Erstattungen der Teilnehmenden berechnen), 2 Experteninterviews (Projektleitung, Buchhaltung), ein Arbeitstreffen mit dem Verwaltungsteam und eine offene Teilnehmenden-Umfrage (n=6, selbstselektiert)."
           },
           {
             "en": "Clustered the findings into a problem register of 25 documented problems, each carrying an evidence grade — confirmed, indicative, hypothesis, untested — and derived numbered FR/NFR requirements, a role-based sitemap and seven provenance-labelled personas from it. The survey was designed to falsify my own assumptions: it reversed one of my priorities and added 6 problems I had not seen from the inside.",
             "de": "Die Befunde zu einem Problemregister mit 25 dokumentierten Problemen geclustert, jedes mit einem Evidenzgrad — bestätigt, indikativ, Hypothese, ungeprüft — und daraus nummerierte FR/NFR-Anforderungen, eine rollenbasierte Sitemap und sieben Personas mit Herkunftskennzeichnung abgeleitet. Die Umfrage war darauf angelegt, meine eigenen Annahmen zu widerlegen: Sie kehrte eine meiner Prioritäten um und ergänzte 6 Probleme, die ich von innen nicht gesehen hatte."
           },
           {
-            "en": "Built the replacement application single-handedly (React, TypeScript, Vite, Node.js/Fastify, SQLite, Vitest): five roles with scoped navigation and route guards across four role home screens, a role-keyed status transition table enforced in the repository layer, and a reimbursement amount that is not persisted — every screen that shows it calls the same pure domain package, with the calculation trace on screen. The only stored amount is the figure imported from the old spreadsheet, kept solely to flag a discrepancy. 1,734 automated tests, root and server suites, both run in CI.",
-            "de": "Die Ersatzanwendung allein gebaut (React, TypeScript, Vite, Node.js/Fastify, SQLite, Vitest): fünf Rollen mit rollenbezogener Navigation und Route Guards über vier Rollen-Startseiten, eine rollenbasierte Statusübergangstabelle, durchgesetzt in der Repository-Schicht, und ein Erstattungsbetrag, der nicht persistiert wird — jeder Screen, der ihn zeigt, ruft dasselbe reine Domain-Paket auf, mit sichtbarem Rechenweg. Der einzige gespeicherte Betrag ist die aus der alten Tabelle importierte Zahl, ausschließlich zum Markieren einer Abweichung. 1.734 automatisierte Tests, Root- und Server-Suite, beide laufen in der CI."
+            "en": "Built the replacement application single-handedly (React, TypeScript, Vite, Node.js/Fastify, SQLite, Vitest): five roles with scoped navigation and route guards across four role home screens, a role-keyed status transition table enforced in the repository layer, and a reimbursement amount that is not persisted — every screen that shows it calls the same pure domain package, with the calculation trace on screen. The only stored amount is the figure imported from the old spreadsheet, kept solely to flag a discrepancy. 1,810 automated tests, root and server suites, both run in CI.",
+            "de": "Die Ersatzanwendung allein gebaut (React, TypeScript, Vite, Node.js/Fastify, SQLite, Vitest): fünf Rollen mit rollenbezogener Navigation und Route Guards über vier Rollen-Startseiten, eine rollenbasierte Statusübergangstabelle, durchgesetzt in der Repository-Schicht, und ein Erstattungsbetrag, der nicht persistiert wird — jeder Screen, der ihn zeigt, ruft dasselbe reine Domain-Paket auf, mit sichtbarem Rechenweg. Der einzige gespeicherte Betrag ist die aus der alten Tabelle importierte Zahl, ausschließlich zum Markieren einer Abweichung. 1.810 automatisierte Tests, Root- und Server-Suite, beide laufen in der CI."
           },
           {
             "en": "Wired requirement traceability into the build: a CI test fails when a requirement or problem id cited in source has no row in the requirements register, so a citation can never quietly lose its source. The guard checks citation to row, not row to implementation, and the register says so.",
@@ -210,8 +210,8 @@
             "de": "Das Fastify-(Node.js-)Backend abgesichert mit Session-Authentifizierung (argon2id), CSRF-Token auf jeder verändernden Route, globalen und routenbezogenen Rate-Limits sowie Default-Deny-Zugriffskontrolle in der Repository-Schicht. Der Login hasht auch bei unbekannten Konten gegen einen Platzhalter, damit die Antwortzeit nicht verrät, ob eine Adresse existiert; jede Anfrage prüft die Credential-Version erneut, sodass eine Passwortänderung andere Sitzungen sofort beendet."
           },
           {
-            "en": "Designed the data handling for privacy: participant data lives in the local SQLite database and is mirrored only to the institute's own Nextcloud, event logging is pseudonymous, and cookies and authorization headers are redacted from server logs. A CI test scans the built bundle for any hostname outside an allowlist; another scans for real participant names. The one third-party request is an optional Google Maps embed for an address a staff member types.",
-            "de": "Die Datenhaltung datenschutzfreundlich ausgelegt: Teilnehmendendaten liegen in der lokalen SQLite-Datenbank und werden ausschließlich in die institutseigene Nextcloud gespiegelt, das Ereignisprotokoll ist pseudonym, und Cookies sowie Authorization-Header werden aus den Server-Logs entfernt. Ein CI-Test durchsucht das gebaute Bundle nach Hostnamen außerhalb einer Allowlist, ein weiterer nach echten Teilnehmendennamen. Die einzige Drittanbieter-Anfrage ist ein optionales Google-Maps-Embed für eine von Mitarbeitenden eingegebene Adresse."
+            "en": "Designed the data handling for privacy: participant data stays in the local SQLite database, event logging is pseudonymous, and cookies and authorization headers are redacted from server logs. A CI test scans the built bundle for any hostname outside an allowlist; another scans for real participant names. The one third-party request is an optional Google Maps embed for an address a staff member types.",
+            "de": "Die Datenhaltung datenschutzfreundlich ausgelegt: Teilnehmendendaten bleiben in der lokalen SQLite-Datenbank, das Ereignisprotokoll ist pseudonym, und Cookies sowie Authorization-Header werden aus den Server-Logs entfernt. Ein CI-Test durchsucht das gebaute Bundle nach Hostnamen außerhalb einer Allowlist, ein weiterer nach echten Teilnehmendennamen. Die einzige Drittanbieter-Anfrage ist ein optionales Google-Maps-Embed für eine von Mitarbeitenden eingegebene Adresse."
           },
           {
             "en": "Designed the summative usability evaluation and instrumented it into the application itself — guided tasks per role, a pseudonymous local event log, an end-of-session questionnaire. Dogfooding on development traffic caught three bugs in the measurement instruments themselves. Sessions with users are pending deployment for daily use. Project communication, interviews and the administration-team meeting all ran in German.",
@@ -254,8 +254,8 @@
             "de": "Eine zweistufige Studie durchgeführt: explorative Vorstudie (n=20 Interviews, thematische Analyse), danach ein kontrolliertes Within-Subjects-Experiment im 3×2×6-Design (n=30, Latin-Square-ausbalanciert), das beide blickgestützten Techniken mit einer Maus-Baseline an einem physischen Dual-Display-Arbeitsplatz verglich."
           },
           {
-            "en": "Analysed movement time, repeat rate and SUS in R (RM-ANOVA, Friedman). 60% of participants preferred the gaze-supported Ninja Cursors variant although the mouse scored highest on SUS (85.2) — predictability and user trust beat raw speed.",
-            "de": "Bewegungszeit, Wiederholrate und SUS in R ausgewertet (RM-ANOVA, Friedman). 60 % der Teilnehmenden bevorzugten die blickgestützte Ninja-Cursors-Variante, obwohl die Maus den höchsten SUS-Wert erreichte (85,2) — Vorhersagbarkeit und Nutzervertrauen schlagen reine Geschwindigkeit."
+            "en": "Analysed movement time, repeat rate and SUS in R (RM-ANOVA, Friedman). 60% of participants preferred the gaze-supported Ninja Cursors variant although the mouse scored highest on SUS (85.2).",
+            "de": "Bewegungszeit, Wiederholrate und SUS in R ausgewertet (RM-ANOVA, Friedman). 60 % der Teilnehmenden bevorzugten die blickgestützte Ninja-Cursors-Variante, obwohl die Maus den höchsten SUS-Wert erreichte (85,2)."
           },
           {
             "en": "Concluded with a conditional design recommendation: gaze assistance should trigger only for large cross-screen relocations, not for every pointing movement.",
@@ -370,10 +370,10 @@
       {
         "company": "Part Software Group",
         "role": {
-          "en": "Usability & QA Engineer",
-          "de": "Usability- & QA-Engineerin"
+          "en": "Software Testing & Support Specialist",
+          "de": "Expertin für Softwaretest & -Support"
         },
-        "date": "07/2020 – 07/2021",
+        "date": "07/2020 – 04/2021",
         "impactMetrics": [
           {
             "en": "Co-established the company's first manual-testing group",
@@ -404,20 +404,20 @@
         }
       },
       {
-        "company": "Mega-Tech",
+        "company": "Mega-Tech (Mahd Ertebat Gohar Aria)",
         "role": {
           "en": "UI Developer / R&D Developer (started as Intern)",
           "de": "UI-Developerin / R&D-Developerin (Einstieg als Praktikantin)"
         },
-        "date": "09/2015 – 07/2020",
+        "date": "08/2015 – 08/2019",
         "impactMetrics": [
           {
             "en": "10+ WordPress & WooCommerce sites shipped",
             "de": "10+ WordPress- & WooCommerce-Sites ausgeliefert"
           },
           {
-            "en": "SEO & performance optimisation across client sites",
-            "de": "SEO- & Performance-Optimierung über Kundenwebsites"
+            "en": "Agency's own site on Google page 1 for its target keywords",
+            "de": "Agentur-Website auf Google-Seite 1 für ihre Ziel-Keywords"
           },
           {
             "en": "Cross-browser & cross-device QA",
@@ -430,8 +430,8 @@
             "de": "10+ WordPress- und WooCommerce-Websites umgesetzt (Corporate, E-Commerce, Portfolio), inklusive Cross-Browser- und Cross-Device-Optimierung."
           },
           {
-            "en": "SEO and performance optimisation was a standing part of the delivery brief: getting client sites onto page 1 of Google for their target keywords. The agency's own site ranked there.",
-            "de": "SEO- und Performance-Optimierung gehörte fest zum Leistungsumfang: Kundenwebsites für ihre Ziel-Keywords auf Seite 1 der Google-Ergebnisse zu bringen. Die Website der Agentur selbst rankte dort."
+            "en": "Cross-browser, cross-device and SEO work was part of every delivery brief. The agency's own site ranked on page 1 of Google for its target keywords.",
+            "de": "Cross-Browser-, Cross-Device- und SEO-Arbeit gehörte zu jedem Auftrag. Die Website der Agentur selbst stand für ihre Ziel-Keywords auf Seite 1 bei Google."
           },
           {
             "en": "Moved from WordPress UI development into R&D work — nopCommerce e-commerce builds and Unity projects, clarifying requirements directly with clients.",
@@ -439,8 +439,8 @@
           }
         ],
         "arcNote": {
-          "en": "Five years shipping production frontends — the feasibility instinct behind every recommendation I make now.",
-          "de": "Fünf Jahre produktive Frontends ausgeliefert — das Gespür für Machbarkeit hinter jeder Empfehlung, die ich heute gebe."
+          "en": "Four years shipping production frontends — the feasibility instinct behind every recommendation I make now.",
+          "de": "Vier Jahre produktive Frontends ausgeliefert — das Gespür für Machbarkeit hinter jeder Empfehlung, die ich heute gebe."
         }
       },
       {
@@ -487,8 +487,8 @@
         "metrics": [
           {
             "value": {
-              "en": "1,734",
-              "de": "1.734"
+              "en": "1,810",
+              "de": "1.810"
             },
             "label": {
               "en": "automated tests, including build-failing traceability guards",
@@ -651,16 +651,16 @@
       {
         "school": "Khayyam Higher Education Centre",
         "degree": {
-          "en": "B.E. Software Engineering",
-          "de": "B.E. Software-Engineering"
+          "en": "B.E. Computer Engineering (Software)",
+          "de": "B.E. Computer Engineering (Software)"
         },
-        "year": "10/2010 – 06/2015"
+        "year": "10/2010 – 09/2015"
       }
     ],
     "bioParagraphs": [
       {
-        "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction and a B.E. in Software Engineering. My path through frontend development, QA and HCI research taught me to look at digital products from both sides: what people need and what teams can realistically build. Today I bring those perspectives together in research, design & usability, and implementation & validation.",
-        "de": "Ich bin UX Engineerin mit einem M.Sc. in Human-Computer Interaction und einem B.E. in Software Engineering. Mein Weg über Frontend-Entwicklung, QA und HCI-Forschung hat mir gezeigt, digitale Produkte aus beiden Perspektiven zu betrachten: was Menschen brauchen und was Teams realistisch umsetzen können. Heute verbinde ich diese Perspektiven in Research, Design & Usability sowie Umsetzung & Validierung."
+        "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction and a B.E. in Computer Engineering (Software). My path through frontend development, QA and HCI research taught me to look at digital products from both sides: what people need and what teams can realistically build. Today I bring those perspectives together in research, design & usability, and implementation & validation.",
+        "de": "Ich bin UX Engineerin mit einem M.Sc. in Human-Computer Interaction und einem B.E. in Computer Engineering (Software). Mein Weg über Frontend-Entwicklung, QA und HCI-Forschung hat mir gezeigt, digitale Produkte aus beiden Perspektiven zu betrachten: was Menschen brauchen und was Teams realistisch umsetzen können. Heute verbinde ich diese Perspektiven in Research, Design & Usability sowie Umsetzung & Validierung."
       }
     ],
     "skills": {
@@ -1280,7 +1280,7 @@
       {
         "title": "Python Programming",
         "provider": "Technical & Vocational Training Organization",
-        "year": "2019",
+        "year": "2020",
         "type": "certification",
         "topic": "engineering",
         "featured": true,
@@ -1297,8 +1297,8 @@
       }
     ],
     "bio": {
-      "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction and a B.E. in Software Engineering. My path through frontend development, QA and HCI research taught me to look at digital products from both sides: what people need and what teams can realistically build. Today I bring those perspectives together in research, design & usability, and implementation & validation.",
-      "de": "Ich bin UX Engineerin mit einem M.Sc. in Human-Computer Interaction und einem B.E. in Software Engineering. Mein Weg über Frontend-Entwicklung, QA und HCI-Forschung hat mir gezeigt, digitale Produkte aus beiden Perspektiven zu betrachten: was Menschen brauchen und was Teams realistisch umsetzen können. Heute verbinde ich diese Perspektiven in Research, Design & Usability sowie Umsetzung & Validierung."
+      "en": "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction and a B.E. in Computer Engineering (Software). My path through frontend development, QA and HCI research taught me to look at digital products from both sides: what people need and what teams can realistically build. Today I bring those perspectives together in research, design & usability, and implementation & validation.",
+      "de": "Ich bin UX Engineerin mit einem M.Sc. in Human-Computer Interaction und einem B.E. in Computer Engineering (Software). Mein Weg über Frontend-Entwicklung, QA und HCI-Forschung hat mir gezeigt, digitale Produkte aus beiden Perspektiven zu betrachten: was Menschen brauchen und was Teams realistisch umsetzen können. Heute verbinde ich diese Perspektiven in Research, Design & Usability sowie Umsetzung & Validierung."
     },
     "aboutImage": "/assets/me.jpg",
     "heroImage": "/assets/me-hero.webp",
@@ -1337,8 +1337,8 @@
           "de": "2010 – 2015"
         },
         "summary": {
-          "en": "Built the technical foundation through a B.E. in Software Engineering: systems, software structure and turning requirements into working code.",
-          "de": "Technisches Fundament im B.E. Software Engineering aufgebaut: Systeme, Softwarestruktur und die Übersetzung von Anforderungen in funktionierenden Code."
+          "en": "Built the technical foundation through a B.E. in Computer Engineering (Software): systems, software structure and turning requirements into working code.",
+          "de": "Technisches Fundament im B.E. Computer Engineering (Software) aufgebaut: Systeme, Softwarestruktur und die Übersetzung von Anforderungen in funktionierenden Code."
         },
         "skillGroups": [
           {
@@ -1361,8 +1361,8 @@
           "de": "Frontend-Entwicklung"
         },
         "years": {
-          "en": "2015 – 2020",
-          "de": "2015 – 2020"
+          "en": "2015 – 2019",
+          "de": "2015 – 2019"
         },
         "summary": {
           "en": "Moved closer to the human-facing layer of software by shipping interfaces across real client projects.",

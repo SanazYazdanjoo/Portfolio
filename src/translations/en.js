@@ -63,7 +63,7 @@ const en = {
 
   // Career arc
   "about.career.phase1.label": "Software Engineering",
-  "about.career.phase1.years": "2015 – 2020",
+  "about.career.phase1.years": "2015 – 2019",
   "about.career.phase1.summary": "Built 10+ production sites from the ground up. Learned that code is easy; knowing what to build is hard.",
   "about.career.phase2.label": "QA Engineering",
   "about.career.phase2.years": "2020 – 2022",
@@ -175,7 +175,7 @@ const en = {
   "hero.meta.location": "Location",
 
   // These values mirror the length and meaning of the German translation
-  "hero.meta.backgroundValue": "M.Sc. HCI · B.E. Software Engineering · Usability",
+  "hero.meta.backgroundValue": "M.Sc. HCI · B.E. Computer Engineering (Software) · Usability",
   "hero.meta.focusValue": "Frontend Development · UI Architecture · Mixed-methods",
   "hero.meta.statusValue": "Open to interdisciplinary UX & Tech roles",
   "hero.meta.locationValue": "Weimar, DE · Open to relocation",
