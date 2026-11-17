@@ -22,7 +22,7 @@ export default {
    }
   ],
   "bioParagraphs": [
-   "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction and a B.E. in Software Engineering. My path through frontend development, QA and HCI research taught me to look at digital products from both sides: what people need and what teams can realistically build. Today I bring those perspectives together in research, design & usability, and implementation & validation."
+   "I'm a UX Engineer with an M.Sc. in Human-Computer Interaction and a B.E. in Computer Engineering (Software). My path through frontend development, QA and HCI research taught me to look at digital products from both sides: what people need and what teams can realistically build. Today I bring those perspectives together in research, design & usability, and implementation & validation."
   ],
   "experience": [
    {
@@ -31,17 +31,17 @@ export default {
     "date": "12/2024 – Present",
     "impactMetrics": [
      "13-step paper process, 4 return loops, 9 actors",
-     "1,734 automated tests, CI-enforced requirement traceability",
+     "1,810 automated tests, CI-enforced requirement traceability",
      "25 problems documented, each evidence-graded"
     ],
     "tasks": [
-     "Mapped the as-is reimbursement process across 9 actor roles — 13 steps with 4 return loops — using UML swimlane activity diagrams, 5W1H problem framing and stakeholder mapping. Evidence base: more than a year administering the process as project assistant (collecting receipts, consolidating Excel sheets, calculating participants’ reimbursements), 2 expert interviews (project management, accounting), a working meeting with the administration team, and an open participant survey.",
+     "Mapped the as-is reimbursement process across 9 actor roles — 13 steps with 4 return loops — using UML swimlane activity diagrams, 5W1H problem framing and stakeholder mapping. Evidence base: more than a year administering the process as project assistant (collecting receipts, consolidating Excel sheets, calculating participants’ reimbursements), 2 expert interviews (project management, accounting), a working meeting with the administration team, and an open participant survey (n=6, self-selected).",
      "Clustered the findings into a problem register of 25 documented problems, each carrying an evidence grade — confirmed, indicative, hypothesis, untested — and derived numbered FR/NFR requirements, a role-based sitemap and seven provenance-labelled personas from it. The survey was designed to falsify my own assumptions: it reversed one of my priorities and added 6 problems I had not seen from the inside.",
-     "Built the replacement application single-handedly (React, TypeScript, Vite, Node.js/Fastify, SQLite, Vitest): five roles with scoped navigation and route guards across four role home screens, a role-keyed status transition table enforced in the repository layer, and a reimbursement amount that is not persisted — every screen that shows it calls the same pure domain package, with the calculation trace on screen. The only stored amount is the figure imported from the old spreadsheet, kept solely to flag a discrepancy. 1,734 automated tests, root and server suites, both run in CI.",
+     "Built the replacement application single-handedly (React, TypeScript, Vite, Node.js/Fastify, SQLite, Vitest): five roles with scoped navigation and route guards across four role home screens, a role-keyed status transition table enforced in the repository layer, and a reimbursement amount that is not persisted — every screen that shows it calls the same pure domain package, with the calculation trace on screen. The only stored amount is the figure imported from the old spreadsheet, kept solely to flag a discrepancy. 1,810 automated tests, root and server suites, both run in CI.",
      "Wired requirement traceability into the build: a CI test fails when a requirement or problem id cited in source has no row in the requirements register, so a citation can never quietly lose its source. The guard checks citation to row, not row to implementation, and the register says so.",
      "Extracted the design system before the high-fidelity screens: the 9 lane colours of the research activity diagram became the application's role palette unchanged, so an actor in the research reads as the same actor in the app. A CI test fails the build when a colour token in the CSS token file and the Tailwind config drift apart.",
      "Secured the Fastify (Node.js) backend with session authentication (argon2id), CSRF tokens on every mutating route, global and per-route rate limits, and default-deny access control in the repository layer. Login hashes against a placeholder for unknown accounts so response time cannot leak whether an address exists, and every request re-checks the credential version, so a password change ends other sessions immediately.",
-     "Designed the data handling for privacy: participant data lives in the local SQLite database and is mirrored only to the institute's own Nextcloud, event logging is pseudonymous, and cookies and authorization headers are redacted from server logs. A CI test scans the built bundle for any hostname outside an allowlist; another scans for real participant names. The one third-party request is an optional Google Maps embed for an address a staff member types.",
+     "Designed the data handling for privacy: participant data stays in the local SQLite database, event logging is pseudonymous, and cookies and authorization headers are redacted from server logs. A CI test scans the built bundle for any hostname outside an allowlist; another scans for real participant names. The one third-party request is an optional Google Maps embed for an address a staff member types.",
      "Designed the summative usability evaluation and instrumented it into the application itself — guided tasks per role, a pseudonymous local event log, an end-of-session questionnaire. Dogfooding on development traffic caught three bugs in the measurement instruments themselves. Sessions with users are pending deployment for daily use. Project communication, interviews and the administration-team meeting all ran in German."
     ],
     "arcNote": "The full chain in one project: research inside the process, evidence-graded problems, numbered requirements, a working application, and an instrumented evaluation."
@@ -58,7 +58,7 @@ export default {
     "tasks": [
      "Built the entire experimental platform independently — a TypeScript frontend with a Python backend on the Pupil Labs Neon eye tracker's real-time API — implementing MAGIC Pointing, a gaze-augmented Ninja Cursors variant, stimulus presentation and trial-level logging.",
      "Ran a two-stage study: an exploratory pre-study (n=20 interviews, thematic analysis), then a controlled within-subjects experiment in a 3×2×6 design (n=30, Latin-square counterbalanced), comparing both gaze-assisted techniques against a mouse baseline on a physical dual-display workstation.",
-     "Analysed movement time, repeat rate and SUS in R (RM-ANOVA, Friedman). 60% of participants preferred the gaze-supported Ninja Cursors variant although the mouse scored highest on SUS (85.2) — predictability and user trust beat raw speed.",
+     "Analysed movement time, repeat rate and SUS in R (RM-ANOVA, Friedman). 60% of participants preferred the gaze-supported Ninja Cursors variant although the mouse scored highest on SUS (85.2).",
      "Concluded with a conditional design recommendation: gaze assistance should trigger only for large cross-screen relocations, not for every pointing movement."
     ],
     "arcNote": "Research rigour plus the engineering to run it: I designed the experiment and built the platform it needed."
@@ -108,8 +108,8 @@ export default {
    },
    {
     "company": "Part Software Group",
-    "role": "Usability & QA Engineer",
-    "date": "07/2020 – 07/2021",
+    "role": "Software Testing & Support Specialist",
+    "date": "07/2020 – 04/2021",
     "impactMetrics": [
      "Co-established the company's first manual-testing group",
      "Trained 4 QA members",
@@ -122,20 +122,20 @@ export default {
     "arcNote": "Where usability and QA met: structured testing that caught usability problems before release."
    },
    {
-    "company": "Mega-Tech",
+    "company": "Mega-Tech (Mahd Ertebat Gohar Aria)",
     "role": "UI Developer / R&D Developer (started as Intern)",
-    "date": "09/2015 – 07/2020",
+    "date": "08/2015 – 08/2019",
     "impactMetrics": [
      "10+ WordPress & WooCommerce sites shipped",
-     "SEO & performance optimisation across client sites",
+     "Agency's own site on Google page 1 for its target keywords",
      "Cross-browser & cross-device QA"
     ],
     "tasks": [
      "Delivered 10+ WordPress and WooCommerce websites (corporate, e-commerce, portfolio), including cross-browser and cross-device optimisation.",
-     "SEO and performance optimisation was a standing part of the delivery brief: getting client sites onto page 1 of Google for their target keywords. The agency's own site ranked there.",
+     "Cross-browser, cross-device and SEO work was part of every delivery brief. The agency's own site ranked on page 1 of Google for its target keywords.",
      "Moved from WordPress UI development into R&D work — nopCommerce e-commerce builds and Unity projects, clarifying requirements directly with clients."
     ],
-    "arcNote": "Five years shipping production frontends — the feasibility instinct behind every recommendation I make now."
+    "arcNote": "Four years shipping production frontends — the feasibility instinct behind every recommendation I make now."
    },
    {
     "company": "Black Citrus",
@@ -164,8 +164,8 @@ export default {
    },
    {
     "school": "Khayyam Higher Education Centre",
-    "degree": "B.E. Software Engineering",
-    "year": "10/2010 – 06/2015"
+    "degree": "B.E. Computer Engineering (Software)",
+    "year": "10/2010 – 09/2015"
    }
   ],
   "skills": {
@@ -624,7 +624,7 @@ export default {
    {
     "title": "Python Programming",
     "provider": "Technical & Vocational Training Organization",
-    "year": "2019",
+    "year": "2020",
     "type": "certification",
     "topic": "engineering",
     "featured": true,
@@ -833,7 +833,7 @@ export default {
     },
     {
      "stage": "Quality",
-     "note": "1,734 automated tests, session authentication, CSRF and rate limits, local-only participant data, and bundle scans for stray hostnames and real names."
+     "note": "1,810 automated tests, session authentication, CSRF and rate limits, local-only participant data, and bundle scans for stray hostnames and real names."
     },
     {
      "stage": "Validation",
@@ -850,7 +850,6 @@ export default {
     "Node.js / Fastify",
     "SQLite",
     "ExcelJS",
-    "Nextcloud WebDAV",
     "Figma Make",
     "Claude Code (AI-assisted development)"
    ],
