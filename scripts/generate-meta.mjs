@@ -253,7 +253,7 @@ async function main() {
       // way a hand-written span did (this line said "eight years" while the
       // hero said "5+" — F3, reconciled 2026-08-24).
       ["/cv", `CV — ${name}`,
-        `${role} with an M.Sc. in Human-Computer Interaction and a B.E. in Software Engineering: research, usability engineering and implementation, with frontend and QA experience since 2015.`],
+        `${role} with an M.Sc. in Human-Computer Interaction and a B.E. in Computer Engineering (Software): research, usability engineering and implementation, with frontend and QA experience since 2015.`],
       ["/contact", `Contact — ${name}`, en(profileData.contact.availability)],
       ["/credentials", `Credentials — ${name}`,
         "Degrees, certifications and workshop credentials, with the source documents attached."],
