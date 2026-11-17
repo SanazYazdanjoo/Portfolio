@@ -224,8 +224,8 @@ export const projectData = {
     {
       stage: { en: 'Quality', de: 'Qualität' },
       note: {
-        en: '1,734 automated tests, session authentication, CSRF and rate limits, local-only participant data, and bundle scans for stray hostnames and real names.',
-        de: '1.734 automatisierte Tests, Session-Authentifizierung, CSRF und Rate-Limits, nur lokal gehaltene Teilnehmendendaten und Bundle-Scans auf fremde Hostnamen und echte Namen.',
+        en: '1,810 automated tests, session authentication, CSRF and rate limits, local-only participant data, and bundle scans for stray hostnames and real names.',
+        de: '1.810 automatisierte Tests, Session-Authentifizierung, CSRF und Rate-Limits, nur lokal gehaltene Teilnehmendendaten und Bundle-Scans auf fremde Hostnamen und echte Namen.',
       },
     },
     {
@@ -295,7 +295,6 @@ export const projectData = {
     'Node.js / Fastify',
     'SQLite',
     'ExcelJS',
-    'Nextcloud WebDAV',
     'Figma Make',
     'Claude Code (AI-assisted development)',
   ],
@@ -582,8 +581,8 @@ export const projectData = {
         label: { en: 'Engineering quality', de: 'Engineering-Qualität' },
         title: { en: 'Which boundaries are enforced by tests', de: 'Welche Grenzen durch Tests abgesichert sind' },
         description: {
-          en: 'The implementation has 1,734 automated tests/checks across business rules and architecture constraints. The enforcement table distinguishes boundaries that fail the build when crossed from conventions that still rely on developer discipline.',
-          de: 'Die Umsetzung verfügt über 1.734 automatisierte Tests/Prüfungen für Geschäftsregeln und Architekturgrenzen. Die Tabelle unterscheidet Grenzen, bei deren Verletzung der Build fehlschlägt, von Konventionen, die weiterhin Entwicklerdisziplin erfordern.',
+          en: 'The implementation has 1,810 automated tests/checks across business rules and architecture constraints. The enforcement table distinguishes boundaries that fail the build when crossed from conventions that still rely on developer discipline.',
+          de: 'Die Umsetzung verfügt über 1.810 automatisierte Tests/Prüfungen für Geschäftsregeln und Architekturgrenzen. Die Tabelle unterscheidet Grenzen, bei deren Verletzung der Build fehlschlägt, von Konventionen, die weiterhin Entwicklerdisziplin erfordern.',
         },
         alt: {
           en: 'Engineering enforcement table listing tested architecture boundaries and one convention-only boundary',
@@ -707,7 +706,7 @@ export const projectData = {
     { tag: 'React', evidence: 'techStack + solution: working role-based application', status: 'evidenced' },
     { tag: 'TypeScript', evidence: 'techStack + methodology: shared calculation rules and state logic', status: 'evidenced' },
     { tag: 'Node.js / Fastify', evidence: 'techStack + figures.solution architecture: implemented server target', status: 'evidenced' },
-    { tag: 'Automated Testing (Vitest)', evidence: 'techStack + figures.solution engineering-quality table: 1,734 automated tests/checks', status: 'evidenced' },
+    { tag: 'Automated Testing (Vitest)', evidence: 'techStack + figures.solution engineering-quality table: 1,810 automated tests/checks', status: 'evidenced' },
     { tag: 'Privacy by Design', evidence: 'solution/prototype/architecture: fictional public demo data, access controls, pseudonymous local evaluation logging, institute-controlled storage', status: 'evidenced' },
     { tag: 'GDPR / DSGVO', evidence: 'solution/notBuilt/architecture: institute-controlled storage and explicit data-protection dependency for digital signature', status: 'evidenced' },
   ],
