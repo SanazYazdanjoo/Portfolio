@@ -18,8 +18,14 @@
           theme = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
         }
         document.documentElement.dataset.theme = theme;
+        // JS is running: hide the build-time snapshot (scripts/prerender.mjs).
+        // React replaces it on first render; until then this visitor sees the
+        // same empty shell as always. Clients without JS — AI fetchers,
+        // link-preview scrapers, reader modes — never get here and read it.
+        document.documentElement.setAttribute("data-js", "");
       })();
     </script>
+    <style>html[data-js] [data-prerendered]{display:none}</style>
     <!-- Self-hosted fonts (see src/styles/fonts.css). Only the two faces
          needed above the fold (Nav wordmark, Home hero name/tagline) are
          preloaded; Caveat is font-display:optional and deliberately not

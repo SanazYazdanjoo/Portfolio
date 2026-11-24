@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { useState, useId } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { useIsMobile } from "../../hooks/useIsMobile";
 import { useTranslation } from "../../context/LanguageContext";
 import { CollapsibleSectionHead } from "./CollapsibleSection";
@@ -23,6 +23,7 @@ const PHASE_META = {
 function ProcessStep({ item, index, total }) {
   const { t } = useTranslation();
   const [expanded, setExpanded] = useState(false);
+  const insightId = useId();
   const [imgError, setImgError] = useState(false);
   const reduce = useReducedMotion();
   // A plain <li> on phones — no reveal-on-scroll, same rule as
@@ -85,6 +86,7 @@ function ProcessStep({ item, index, total }) {
               <button
                 onClick={() => setExpanded((p) => !p)}
                 aria-expanded={expanded}
+                aria-controls={insightId}
                 className="flex items-center gap-2 group/btn"
               >
                 <span className="text-2xs font-extrabold uppercase text-primary-600">
@@ -98,22 +100,29 @@ function ProcessStep({ item, index, total }) {
                   <HandChevron className="w-3 h-3" />
                 </motion.span>
               </button>
-              <AnimatePresence>
-                {expanded && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.22 }}
-                    className="overflow-hidden"
-                  >
-                    <p className="text-sm leading-relaxed text-text-meta
-                                  border-l-2 rule-edge-l [--rule-line-color:rgb(var(--primary-rgb)/0.4)] pl-3 mt-3">
-                      {item.insight}
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              {/* Always mounted, collapsed with the same grid 0fr/1fr trick
+                  as ContentSection: the insight stays in the DOM (and in the
+                  build-time snapshot crawlers read), hidden from sight and
+                  from assistive tech until opened. */}
+              <div
+                id={insightId}
+                data-insight-body
+                aria-hidden={!expanded}
+                {...(!expanded ? { inert: "" } : {})}
+                style={{
+                  display: "grid",
+                  gridTemplateRows: expanded ? "1fr" : "0fr",
+                  opacity: expanded ? 1 : 0,
+                  transition: reduce ? "none" : "grid-template-rows 220ms ease, opacity 220ms ease",
+                }}
+              >
+                <div style={{ overflow: "hidden", minHeight: 0 }}>
+                  <p className="text-sm leading-relaxed text-text-meta
+                                border-l-2 rule-edge-l [--rule-line-color:rgb(var(--primary-rgb)/0.4)] pl-3 mt-3">
+                    {item.insight}
+                  </p>
+                </div>
+              </div>
             </div>
           )}
 
