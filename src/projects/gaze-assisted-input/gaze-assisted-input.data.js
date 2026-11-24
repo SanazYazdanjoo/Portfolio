@@ -65,7 +65,10 @@ export const projectData = {
       {
         type: "image",
         src: threeInputMethods,
-        alt: { en: "Three input methods compared in the study", de: "Drei in der Studie verglichene Eingabemethoden" },
+        alt: {
+          en: "Three columns comparing the input methods. Mouse (baseline): manual control by physical transit, right click confirms. MAGIC (gaze warp + manual): the cursor jumps to the gaze point with a 20 px landing offset, the mouse fine-tunes, right click confirms. Ninja (gaze switch + manual): two cursors, one per screen, both always visible but only one active; gaze activates the screen and its cursor, right click confirms",
+          de: "Drei Spalten vergleichen die Eingabemethoden. Maus (Baseline): manuelle Steuerung durch physischen Weg, Rechtsklick bestätigt. MAGIC (Blick-Warp + manuell): Der Cursor springt mit 20 px Landeversatz zum Blickpunkt, die Maus justiert nach, Rechtsklick bestätigt. Ninja (Blick-Wechsel + manuell): zwei Cursor, einer pro Bildschirm, beide stets sichtbar, aber nur einer aktiv; der Blick aktiviert den Bildschirm und seinen Cursor, Rechtsklick bestätigt",
+        },
         caption: { en: "Three input methods in the evaluation", de: "Drei Eingabemethoden in der Evaluation" },
         span: 2,
         className: "w-full h-auto block",
@@ -74,14 +77,14 @@ export const projectData = {
         type: "video",
         src: magicDemo,
         poster: thumbnailImg,
-        alt: { en: "MAGIC pointing demo in a dual-display experiment", de: "MAGIC-Pointing-Demo in einem Dual-Display-Experiment" },
+        alt: { en: "Screen recording of MAGIC Pointing on the dual-display setup: the cursor warps to where the participant looks, then the mouse fine-tunes it onto the target", de: "Bildschirmaufnahme von MAGIC Pointing am Dual-Display-Aufbau: Der Cursor springt dorthin, wohin die Person blickt, dann justiert die Maus ihn aufs Ziel" },
         caption: { en: "MAGIC Pointing demo", de: "MAGIC-Pointing-Demo" },
       },
       {
         type: "video",
         src: ninjaDemo,
         poster: thumbnailImg,
-        alt: { en: "Ninja cursors demo in a dual-display experiment", de: "Ninja-Cursors-Demo in einem Dual-Display-Experiment" },
+        alt: { en: "Screen recording of Ninja Cursors on the dual-display setup: one cursor per screen, and looking at a screen makes its cursor the active one", de: "Bildschirmaufnahme von Ninja Cursors am Dual-Display-Aufbau: ein Cursor pro Bildschirm, und der Blick auf einen Bildschirm macht dessen Cursor aktiv" },
         caption: { en: "Ninja Cursors demo", de: "Ninja-Cursors-Demo" },
       }
     ],
@@ -89,7 +92,10 @@ export const projectData = {
       {
         type: "image",
         src: experimentalDesign,
-        alt: { en: "Experimental design overview for the study", de: "Übersicht des Studiendesigns" },
+        alt: {
+          en: "Study design diagram: a 3 × 2 × 6 within-subjects design with n = 30, counterbalanced by Latin square. Factors: three input methods (Mouse, MAGIC, Ninja), two target sizes (small, large) and six distances (875, 1020, 1621, 1684, 2243 and 3226 px). Measures: movement time in ms, repeat rate (interaction breakdowns), System Usability Scale (0–100) and reflexive thematic analysis",
+          de: "Diagramm des Studiendesigns: ein 3 × 2 × 6-Within-Subjects-Design mit n = 30, per Lateinischem Quadrat ausbalanciert. Faktoren: drei Eingabemethoden (Maus, MAGIC, Ninja), zwei Zielgrößen (klein, groß) und sechs Distanzen (875, 1020, 1621, 1684, 2243 und 3226 px). Messgrößen: Bewegungszeit in ms, Wiederholungsrate (Interaktionsabbrüche), System Usability Scale (0–100) und reflexive thematische Analyse",
+        },
         caption: { en: "Experimental design overview", de: "Übersicht des experimentellen Designs" },
         span: 2,
         className: "w-full h-auto block",
@@ -99,7 +105,10 @@ export const projectData = {
       {
         type: "image",
         src: SUS,
-        alt: { en: "SUS score comparison for mouse, Ninja Cursors, and MAGIC Pointing", de: "SUS-Score-Vergleich für Maus, Ninja Cursors und MAGIC Pointing" },
+        alt: {
+          en: "Chart of mean System Usability Scale scores with ranges, placed on the 0–100 SUS scale: Mouse 85.2 and Ninja 72.6 sit above the acceptability threshold of 68, while MAGIC at 55.9 falls in the marginal band below it",
+          de: "Diagramm der mittleren System-Usability-Scale-Werte mit Streubereichen auf der SUS-Skala von 0–100: Maus 85,2 und Ninja 72,6 liegen über der Akzeptanzschwelle von 68, MAGIC liegt mit 55,9 darunter im marginalen Bereich",
+        },
         caption: { en: "SUS results across input methods", de: "SUS-Ergebnisse über alle Eingabemethoden" },
         span: 2,
         className: "w-full h-auto block",
@@ -216,32 +225,22 @@ export const projectData = {
     en: "A significant technique × distance interaction (η²ₚ = .690) revealed a crossover: the mouse was fastest for short distances, but Ninja Cursors significantly outperformed it at the two intermediate cross-screen distances (1684 and 2243 px) and converged at the longest (3226 px). MAGIC was consistently slowest — its warp coupled gaze noise directly to landing accuracy, producing the highest repeat rate on small targets (4.69%), while Ninja's small-target repeat rate matched the mouse baseline (3.30%). SUS ranked Mouse (85.2) > Ninja (72.6) > MAGIC (55.9), with MAGIC alone falling below the 68-point acceptability threshold — yet 60% of participants named Ninja their most preferred method, and 63% named MAGIC their least preferred.",
     de: "Eine signifikante Interaktion Technik × Distanz (η²ₚ = .690) zeigte einen Crossover: Die Maus war bei kurzen Distanzen am schnellsten, doch Ninja Cursors übertrafen sie signifikant bei den beiden mittleren bildschirmübergreifenden Distanzen (1684 und 2243 px) und glichen sich bei der längsten (3226 px) an. MAGIC war durchgängig am langsamsten — der Warp koppelte Blickrauschen direkt an die Landegenauigkeit und erzeugte die höchste Wiederholungsrate bei kleinen Zielen (4,69 %), während Ninjas Wiederholungsrate bei kleinen Zielen der Maus-Baseline entsprach (3,30 %). Der SUS-Score rangierte Maus (85,2) > Ninja (72,6) > MAGIC (55,9), wobei allein MAGIC unter die Akzeptanzschwelle von 68 Punkten fiel — dennoch nannten 60 % der Teilnehmenden Ninja als bevorzugte Methode und 63 % MAGIC als am wenigsten bevorzugte.",
   },
-  // The six limitations stated in the thesis (§5.4), in the order they
-  // appear there — not a re-derivation.
+  // The six limitations stated in the thesis (§5.4), condensed to three
+  // groups (scope, apparatus, analysis) so the page closes on the findings
+  // rather than a list of caveats. None of the six is dropped; the full
+  // wording stays in the thesis.
   limitations: [
     {
-      en: "Short-term exposure. The study captured first impressions, not long-term adaptation — and the mouse's familiarity is a confound the design could not remove. Whether the coordination overhead 18 of 30 participants described falls away as the gaze techniques are internalised needs a longitudinal design.",
-      de: "Kurzzeitige Exposition. Die Studie erfasste erste Eindrücke, nicht langfristige Anpassung — und die Vertrautheit der Maus ist ein Confounder, den das Design nicht beseitigen konnte. Ob der Koordinationsaufwand, den 18 von 30 Teilnehmenden beschrieben, mit der Verinnerlichung der Blicktechniken verschwindet, müsste ein Längsschnittdesign zeigen.",
+      en: "Scope: a first-exposure lab study of reciprocal pointing, with participants mostly from technology roles — long-term adaptation and real multi-window work are not covered.",
+      de: "Umfang: eine Laborstudie zum ersten Kontakt mit reziprokem Zeigen, mit Teilnehmenden überwiegend aus technologienahen Rollen — langfristige Gewöhnung und reale Multi-Fenster-Arbeit sind nicht abgedeckt.",
     },
     {
-      en: "Hardware-related discomfort. Fourteen of thirty participants reported frame pressure, eye fatigue, or degraded tracking as prescription-glasses wearers — all of which likely reflect the apparatus rather than gaze-based interaction as a paradigm.",
-      de: "Hardwarebedingte Beschwerden. Vierzehn von dreißig Teilnehmenden berichteten von Druck des Brillengestells, Augenermüdung oder schlechterem Tracking als Brillenträger:innen — all das dürfte am Apparat liegen, nicht an blickbasierter Interaktion als Paradigma.",
+      en: "Apparatus: fourteen of thirty participants reported frame pressure, eye fatigue or degraded tracking with the eye-tracking glasses, which likely reflects the hardware rather than gaze interaction itself.",
+      de: "Apparat: Vierzehn von dreißig Teilnehmenden berichteten von Druck des Gestells, Augenermüdung oder schlechterem Tracking mit der Eye-Tracking-Brille — das dürfte an der Hardware liegen, nicht an blickbasierter Interaktion an sich.",
     },
     {
-      en: "Laboratory task versus real work. Reciprocal pointing isolates target acquisition; it does not carry window management, context switching, variable target densities, or the periods of cursor disengagement in which the re-acquisition benefit of gaze would show most clearly.",
-      de: "Laboraufgabe statt realer Arbeit. Reziprokes Zeigen isoliert die Zielerfassung; es bildet weder Fensterverwaltung, Kontextwechsel und wechselnde Zieldichten ab noch jene Phasen ohne Cursor-Kontakt, in denen sich der Wiederauffind-Vorteil des Blicks am deutlichsten zeigen würde.",
-    },
-    {
-      en: "Missing endpoint data. Miss/timeout outcomes and trial-level endpoint coordinates were not retained in the cleaned export, so ISO-style effective measures and throughput could not be computed — and repeat rate could not be decomposed into its breakdown types.",
-      de: "Fehlende Endpunktdaten. Miss-/Timeout-Ergebnisse und trial-genaue Endpunktkoordinaten wurden im bereinigten Export nicht aufbewahrt; ISO-konforme effektive Maße und Throughput ließen sich daher nicht berechnen — und die Wiederholungsrate nicht in ihre Fehlertypen zerlegen.",
-    },
-    {
-      en: "Sample characteristics. Participants were largely researchers and professionals in technology-related roles, which limits how far the results generalise to other populations.",
-      de: "Stichprobenmerkmale. Die Teilnehmenden waren überwiegend Forschende und Fachkräfte aus technologienahen Rollen, was die Übertragbarkeit auf andere Gruppen begrenzt.",
-    },
-    {
-      en: "Distance and screen transition are confounded. The six distance levels do not pair within-screen and cross-screen movements at matched amplitudes, so the effect of crossing the bezel cannot be separated from the effect of distance — no claim about the boundary's own contribution is made from these data. The asymmetry was deliberate: the geometry copies a real dual-display workstation rather than an artificially symmetric one. A matched-pairs design would settle it.",
-      de: "Distanz und Bildschirmwechsel sind konfundiert. Die sechs Distanzstufen paaren bildschirminterne und bildschirmübergreifende Bewegungen nicht bei gleichen Amplituden; der Effekt des Rahmenübergangs lässt sich daher nicht vom Effekt der Distanz trennen — eine Aussage über den eigenen Beitrag der Bildschirmgrenze wird aus diesen Daten nicht abgeleitet. Die Asymmetrie war bewusst gewählt: Die Geometrie bildet einen realen Dual-Display-Arbeitsplatz ab, keinen künstlich symmetrischen. Ein Matched-Pairs-Design würde die Frage klären.",
+      en: "Analysis: distance and screen crossing are confounded, and missing endpoint data ruled out ISO throughput — a matched-pairs, longitudinal design is the next step.",
+      de: "Analyse: Distanz und Bildschirmwechsel sind konfundiert, und fehlende Endpunktdaten schlossen ISO-Throughput aus — ein Matched-Pairs- und Längsschnittdesign ist der nächste Schritt.",
     },
   ],
 
@@ -269,8 +268,8 @@ export const projectData = {
 
   outcome: {
     body: {
-      en: "This is a Master's thesis, not a commercially deployed system — adoption in the product sense doesn't apply the way it would for a shipped feature. The three design directions named in the Implications section are the concrete output the completed work delivered.",
-      de: "Dies ist eine Masterarbeit, kein kommerziell ausgeliefertes System — Adoption im produktbezogenen Sinne ist hier nicht in derselben Weise anwendbar wie bei einem ausgelieferten Feature. Die drei im Implikationen-Abschnitt genannten Gestaltungsrichtungen sind der konkrete Ertrag der abgeschlossenen Arbeit.",
+      en: "The thesis delivered three evidence-based design directions for gaze-assisted pointing, set out under Implications: trigger gaze at the screen boundary, snap to UI targets, and make the active cursor unmistakable.",
+      de: "Die Masterarbeit lieferte drei evidenzbasierte Gestaltungsrichtungen für blickgestütztes Zeigen, ausgeführt unter Implikationen: Blick an der Bildschirmgrenze auslösen, an UI-Ziele einrasten und den aktiven Cursor unverwechselbar machen.",
     },
     adoption: "academic",
   },

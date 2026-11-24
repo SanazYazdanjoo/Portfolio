@@ -7,7 +7,7 @@ import cardClaimTable from './card-claim-table.webp';
 export default {
   id: 'digitalising-ibs-travel-reimbursements',
   status: 'in-progress',
-  order: 2,
+  order: 1, // leads Selected Work: applied, real-world product work first (2026-11-24)
   title: {
     en: 'Digitalising IBS Travel Reimbursements',
     de: 'Digitalisierung der IBS Fahrtkostenerstattung',
@@ -66,6 +66,5 @@ export default {
     'Node.js / Fastify',
     'Automated Testing (Vitest)',
     'Privacy by Design',
-    'GDPR / DSGVO',
   ],
 };

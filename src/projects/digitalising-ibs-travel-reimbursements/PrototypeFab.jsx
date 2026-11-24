@@ -305,7 +305,10 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
       /* bottom-24 on phones, not bottom-4: the AskPortfolio pill owns the
          bottom-right corner (fixed bottom-s16 right-s16, z-80), and at
          bottom-4 this badge sat stacked BEHIND it — an amber sliver peeking
-         out from the pill's edge. Desktop has room for both.
+         out from the pill's edge. The same holds on desktop: at md:bottom-8
+         the gold blob sat behind the pill and peeked out around it (reported
+         2026-11-24). The pill is 16px off the bottom and ~36px tall, so the
+         badge clears it from bottom-24 at every width.
 
          z-30: below the ASK AI pill (z-80), above the scroll container
          (shell-level layer 10). Since the portal move the badge no longer
@@ -313,7 +316,7 @@ export function PrototypeFab({ href, label, note = DEFAULT_NOTE }) {
          slice it mid-transit — the corner-parking contract handles that
          overlap instead (the badge steps aside while the bar holds the
          corner). */
-      className="no-print pointer-events-none fixed bottom-24 right-4 md:bottom-8 md:right-8
+      className="no-print pointer-events-none fixed bottom-24 right-4 md:right-8
                  z-30 flex flex-col items-end gap-1"
       style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
     >
