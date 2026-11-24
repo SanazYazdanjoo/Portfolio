@@ -341,6 +341,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   gallery branch went missing before. */}
               {meta.process && meta.process.length > 0 ? (
                 <ProcessGallerySection items={meta.process} milestones={meta.milestones} number={sectionNumber("process")}
+                  kicker={kickerFor("process")} heading={headingFor("process")}
                   isOpen={openSections.has("process")} onToggle={() => toggleSection("process")}
                   staggerDelayMs={staggerDelayFor("process")} />
               ) : meta.heroImage && !hasHeroImage && (

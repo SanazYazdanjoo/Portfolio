@@ -138,7 +138,16 @@ function ProcessStep({ item, index, total }) {
 // trick) rather than reusing it, because the body is an <ol> of steps
 // rather than prose, and the sidebar/pill nav resolves `process` like any
 // other section id.
-export function ProcessGallerySection({ items, milestones, number, isOpen, onToggle, staggerDelayMs = 0 }) {
+export function ProcessGallerySection({
+  items,
+  milestones,
+  number,
+  isOpen,
+  onToggle,
+  staggerDelayMs = 0,
+  kicker,
+  heading,
+}) {
   const { t } = useTranslation();
   const prefersReducedMotion = useReducedMotion();
   if (!items || items.length === 0) return null;
@@ -146,8 +155,12 @@ export function ProcessGallerySection({ items, milestones, number, isOpen, onTog
   return (
     <section id="process" className="pt-10 mb-14 md:pt-16 md:mb-20 border-t rule-t scroll-mt-32">
       <CollapsibleSectionHead
-        id="process" number={number} kicker={t("project.process.kicker")} heading={t("project.process.heading")}
-        isOpen={isOpen} onToggle={onToggle}
+        id="process"
+        number={number}
+        kicker={kicker || t("project.process.kicker")}
+        heading={heading || t("project.process.heading")}
+        isOpen={isOpen}
+        onToggle={onToggle}
       />
 
       <div
