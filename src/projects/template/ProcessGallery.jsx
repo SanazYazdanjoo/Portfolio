@@ -57,7 +57,9 @@ function ProcessStep({ item, index, total }) {
           <div className="w-full sm:w-[150px] aspect-[4/3] shrink-0 overflow-hidden border rule-frame-in [--rule-fill-color:rgb(var(--muted-rgb)/0.4)]">
             <img
               src={item.imagePath}
-              alt={item.title}
+              /* A step title ("Backpack vs. Standalone") names the decision,
+                 not the picture; imageAlt describes what the image shows. */
+              alt={item.imageAlt || item.title}
               loading="lazy"
               decoding="async"
               onError={() => setImgError(true)}

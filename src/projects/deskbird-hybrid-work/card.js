@@ -8,7 +8,7 @@ import cardInterestPicker from './media/card-interest-picker.webp';
 export default {
   id: "deskbird-hybrid-work",
   status: "published",
-  order: 3,
+  order: 2, // B2B SaaS industry research, ahead of the thesis (2026-11-24)
   title: {
     en: "Encouraging Social Interactions in Hybrid Work",
     de: "Soziale Interaktion im Hybrid Work fördern",

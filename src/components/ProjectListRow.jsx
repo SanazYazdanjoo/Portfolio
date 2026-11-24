@@ -30,7 +30,11 @@ export function ProjectListRow({ project, index }) {
   const isInProgress = project.status === "in-progress";
   const spine = DOMAIN_SPINES[project.domain] || DOMAIN_SPINES._default;
   const hasImage = project.thumbnail && !imgError;
-  const tags = project.tags || [];
+  // The curated card subset (3–5 per project, the same chips the homepage
+  // card shows), not the full skill list: 12–19 chips per tile read as noise
+  // on the overview. The full `tags` still drive the skill filter, the tags
+  // directory and the case-study header.
+  const tags = project.cardTags?.length ? project.cardTags : (project.tags || []).slice(0, 5);
 
   return (
     <motion.div

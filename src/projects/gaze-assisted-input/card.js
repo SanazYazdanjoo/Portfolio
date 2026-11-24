@@ -11,7 +11,7 @@ import cardLargeTargetPanel from './media/card-large-target-panel.webp';
 export default {
   id: "gaze-assisted-input",
   status: "published",
-  order: 1, // flagship: leads Selected Work (Sept 2026 recruiter review)
+  order: 3, // research depth; follows the two applied projects (2026-11-24)
   title: {
     en: "Gaze-Assisted Input in Dual-Display Environments",
     de: "Blickgestützte Eingabe in Dual-Display-Umgebungen",
