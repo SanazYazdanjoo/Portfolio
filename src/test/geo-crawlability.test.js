@@ -84,4 +84,41 @@ describe("build wiring", () => {
       build.indexOf("generate-llms.mjs")
     );
   });
+
+  it("snapshots route bodies last, after every step that rewrites the HTML", () => {
+    const build = pkg.scripts.build;
+    expect(build).toContain("prerender.mjs");
+    // generate-meta rewrites each route file from index.html, and
+    // generate-llms edits their <head>; a snapshot taken before either would
+    // be overwritten or stale.
+    expect(build.indexOf("generate-meta.mjs")).toBeLessThan(build.indexOf("prerender.mjs"));
+    expect(build.indexOf("generate-llms.mjs")).toBeLessThan(build.indexOf("prerender.mjs"));
+  });
+
+  it("snapshots every static route generate-meta writes a file for", () => {
+    // Both scripts list the static routes by hand; this keeps the lists equal.
+    const routesIn = (src) =>
+      new Set([...src.matchAll(/"(\/[a-z]+)"/g)].map((m) => m[1]));
+    const meta = read("scripts/generate-meta.mjs");
+    const staticBlock = meta.slice(meta.indexOf("const staticRoutes"), meta.indexOf("const projectRoutes"));
+    const prerender = read("scripts/prerender.mjs");
+    const prerenderBlock = prerender.slice(prerender.indexOf("const staticPaths"), prerender.indexOf("const projectPaths"));
+    const metaRoutes = [...routesIn(staticBlock)].filter((r) => !r.startsWith("/projects/"));
+    expect([...routesIn(prerenderBlock)].sort()).toEqual(metaRoutes.sort());
+  });
+
+  it("hides the snapshot from visitors who run JavaScript", () => {
+    const html = read("index.html");
+    expect(html).toContain('setAttribute("data-js"');
+    expect(html).toMatch(/html\[data-js\] \[data-prerendered\]\{display:none\}/);
+  });
+});
+
+describe("vercel.json", () => {
+  const vercel = JSON.parse(read("vercel.json"));
+
+  it("falls back to the text-free shell, not the homepage snapshot", () => {
+    const catchAll = vercel.rewrites.find((r) => r.source === "/(.*)");
+    expect(catchAll?.destination).toBe("/spa.html");
+  });
 });
