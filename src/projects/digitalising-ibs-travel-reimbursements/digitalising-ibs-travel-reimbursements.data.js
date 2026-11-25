@@ -310,8 +310,8 @@ export const projectData = {
   },
 
   results: {
-    en: 'The current evidence describes the existing process and the mechanisms implemented in the replacement. The working demo is deployed for team feedback, and internal testing has already exposed three instrumentation bugs. Formal usability sessions have not run, so I do not claim reduced processing time, fewer errors, better usability, or adoption yet. Those outcomes will be reported only after the evaluation is completed.',
-    de: 'Die aktuelle Evidenz beschreibt den bestehenden Prozess und die Mechanismen, die in der neuen Anwendung umgesetzt sind. Die funktionierende Demo ist für Team-Feedback bereitgestellt, und interne Tests haben bereits drei Fehler in der Evaluationsinstrumentierung aufgedeckt. Formale Usability-Sitzungen haben noch nicht stattgefunden; deshalb behaupte ich noch keine kürzere Bearbeitungszeit, weniger Fehler, bessere Usability oder Adoption. Diese Ergebnisse werden erst nach abgeschlossener Evaluation berichtet.',
+    en: 'The working demo is deployed for team feedback, and internal testing has already caught three instrumentation bugs. Formal usability sessions have not run yet, so processing time, error and adoption outcomes will be reported once they are measured.',
+    de: 'Die funktionierende Demo ist für Team-Feedback bereitgestellt, und interne Tests haben bereits drei Fehler in der Evaluationsinstrumentierung aufgedeckt. Formale Usability-Sitzungen stehen noch aus; Bearbeitungszeit, Fehler und Adoption werden berichtet, sobald sie gemessen sind.',
   },
 
   resultsAtAGlance: {
@@ -385,36 +385,30 @@ export const projectData = {
     },
     items: [
       {
-        en: 'Digital signature is implemented but switched off while finance and data protection decide whether it can replace the paper signature.',
-        de: 'Die digitale Unterschrift ist implementiert, aber deaktiviert, solange Finanzen und Datenschutz klären, ob sie die Papierunterschrift ersetzen kann.',
+        en: 'Digital signature is built but switched off until finance and data protection approve it.',
+        de: 'Die digitale Unterschrift ist gebaut, bleibt aber deaktiviert, bis Finanzen und Datenschutz zustimmen.',
       },
       {
-        en: 'PAID exists in the claim state model, but no screen can set it yet because the final payment step is not digital.',
-        de: 'AUSGEZAHLT existiert im Statusmodell, kann aber noch von keinem Screen gesetzt werden, weil der finale Auszahlungsschritt nicht digital ist.',
+        en: 'Payment is still a manual step, so no screen sets the PAID state yet.',
+        de: 'Die Auszahlung ist noch ein manueller Schritt; deshalb setzt noch kein Screen den Status AUSGEZAHLT.',
       },
       {
-        en: 'The participant upload path is phone-oriented, but responsive support for the full authenticated application is still in progress.',
-        de: 'Der Upload-Pfad für Teilnehmende ist auf Smartphone-Nutzung ausgelegt; die responsive Unterstützung der gesamten angemeldeten Anwendung ist noch in Arbeit.',
+        en: 'The participant upload works on phones; the full signed-in app is not yet responsive.',
+        de: 'Der Upload für Teilnehmende funktioniert auf Smartphones; die gesamte angemeldete Anwendung ist noch nicht responsiv.',
       },
     ],
   },
 
+  // Condensed from four items: the pending-evaluation caveat is already the
+  // Results paragraph, so it is not repeated here.
   limitations: [
     {
-      en: 'The participant survey is currently n=6, self-selected, and so far limited to the blended/online cohort; the in-person cohort and travel-pass holders are not yet represented.',
-      de: 'Die Teilnehmenden-Umfrage umfasst derzeit n=6, ist selbstselektiv und bisher auf die Blended-/Online-Kohorte beschränkt; Präsenzkurs und Abo-Karten-Nutzende sind noch nicht vertreten.',
+      en: 'The evidence base is a self-selected participant survey (n=6, blended/online cohort only) and two expert interviews (project management, accounting); lecturers were not interviewed, so their steps are mapped from artefacts.',
+      de: 'Die Evidenzbasis ist eine selbstselektive Teilnehmenden-Umfrage (n=6, nur Blended-/Online-Kohorte) und zwei Experteninterviews (Projektleitung, Buchhaltung); Dozierende wurden nicht interviewt, ihre Schritte sind aus Artefakten kartiert.',
     },
     {
-      en: 'Two expert interviews represent project management and accounting. Lecturers were not interviewed; their part of the workflow is mapped from artefacts and my own process observation.',
-      de: 'Zwei Experteninterviews vertreten Projektleitung und Buchhaltung. Dozierende wurden nicht interviewt; ihr Teil des Ablaufs wurde aus Artefakten und meiner eigenen Prozessbeobachtung kartiert.',
-    },
-    {
-      en: 'The 43+ day figure is one traced claim. It was still unpaid when observation stopped, so it is a minimum for that case — not an average or a distribution.',
-      de: 'Die Angabe von 43+ Tagen stammt aus einem nachverfolgten Antrag. Er war bei Beobachtungsende noch nicht ausgezahlt; die Zahl ist daher ein Minimum für diesen Fall — kein Durchschnitt und keine Verteilung.',
-    },
-    {
-      en: 'Formal usability evaluation of the new system has not run. The page therefore reports implemented mechanisms and baseline evidence, not measured improvement over the paper process.',
-      de: 'Die formale Usability-Evaluation des neuen Systems hat noch nicht stattgefunden. Die Seite berichtet deshalb über umgesetzte Mechanismen und Baseline-Evidenz, nicht über gemessene Verbesserungen gegenüber dem Papierprozess.',
+      en: 'The 43+ days come from one traced claim that was still unpaid when observation stopped — a minimum for that case, not an average.',
+      de: 'Die 43+ Tage stammen aus einem nachverfolgten Antrag, der bei Beobachtungsende noch nicht ausgezahlt war — ein Minimum für diesen Fall, kein Durchschnitt.',
     },
   ],
 
@@ -708,7 +702,6 @@ export const projectData = {
     { tag: 'Node.js / Fastify', evidence: 'techStack + figures.solution architecture: implemented server target', status: 'evidenced' },
     { tag: 'Automated Testing (Vitest)', evidence: 'techStack + figures.solution engineering-quality table: 1,810 automated tests/checks', status: 'evidenced' },
     { tag: 'Privacy by Design', evidence: 'solution/prototype/architecture: fictional public demo data, access controls, pseudonymous local evaluation logging, institute-controlled storage', status: 'evidenced' },
-    { tag: 'GDPR / DSGVO', evidence: 'solution/notBuilt/architecture: institute-controlled storage and explicit data-protection dependency for digital signature', status: 'evidenced' },
   ],
 };
 

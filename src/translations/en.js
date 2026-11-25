@@ -293,7 +293,7 @@ const en = {
   "project.outcome.def.roadmapped": "Committed to the product roadmap; not yet released.",
   "project.outcome.def.notAdopted": "Considered and not taken up — recorded rather than hidden.",
   "project.outcome.def.unknown": "Handed over; whether it shipped was never verified.",
-  "project.outcome.def.academic": "Academic work — product adoption does not apply.",
+  "project.outcome.def.academic": "Research output: evidence and design recommendations rather than product metrics.",
   "project.outcome.def.deferred": "Evaluation designed and pending; the outcome is reported once measured, never estimated.",
 
   "project.limitations.kicker": "What This Does Not Show",

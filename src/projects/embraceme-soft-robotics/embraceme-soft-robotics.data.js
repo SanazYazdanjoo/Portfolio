@@ -299,6 +299,10 @@ export const projectData = {
         de: "Die Formfaktor-Entscheidung zog die Aktuierungstechnik nach sich: Die eigenständige Variante erforderte PneuNet-Biegearme, die ihre Position im Raum ohne Skelett halten — die härteste technische Randbedingung des Projekts.",
       },
       imagePath: sketchStandalone,
+      imageAlt: {
+        en: "Pen sketch on dotted paper of the standalone concept: a dress-form torso on a stand with two long, ribbed arms hatched in red to mark the inflatable bending sections",
+        de: "Stiftskizze auf gepunktetem Papier zum eigenständigen Konzept: ein Schneiderpuppen-Torso auf einem Ständer mit zwei langen, gerippten Armen, die rot schraffierten Abschnitte markieren die aufblasbaren Biegesegmente",
+      },
     },
     {
       phase: "design",
@@ -313,6 +317,10 @@ export const projectData = {
         de: "Materialeigenschaften bestimmten die Interaktionsqualität: konsistentes Kammervolumen war der Unterschied zwischen einer kontrollierten und einer unberechenbaren Umarmung. Schlitzabstand (10 cm) und Kammergröße (8×6 cm) wurden empirisch über zahlreiche Armmuster hinweg justiert.",
       },
       imagePath: tpuInconsistent,
+      imageAlt: {
+        en: "Close-up of heat-sealed transparent TPU air chambers after repeated inflation: the three lobes have ballooned to visibly different sizes and the sealed edges have wrinkled",
+        de: "Nahaufnahme heißverschweißter transparenter TPU-Luftkammern nach wiederholtem Aufblasen: die drei Kammern sind sichtbar unterschiedlich groß aufgebläht und die Schweißnähte haben sich gewellt",
+      },
     },
     {
       phase: "design",
@@ -327,6 +335,10 @@ export const projectData = {
         de: "Die Zeittaktung wurde durch Trial-and-Error ermittelt — lang genug für eine feste Umarmung, kurz genug, um die Kammern vor Überaufblasen zu schützen.",
       },
       imagePath: touchSensorChest,
+      imageAlt: {
+        en: "A hand pressing the orange heart-shaped touch pad on the chest of the soft-robot torso, covered in pale pink plush fabric, with its padded arms hanging at the sides",
+        de: "Eine Hand drückt auf das orangefarbene herzförmige Touchpad auf der Brust des mit hellrosa Plüsch bezogenen Soft-Roboter-Torsos, die gepolsterten Arme hängen seitlich herab",
+      },
     },
     {
       phase: "deliver",
@@ -341,6 +353,10 @@ export const projectData = {
         de: "Zwei Designfehler: ästhetische Entscheidungen lösten bei manchen Nutzer:innen Vermeidung aus, und dem Interface fehlten Signifier — Neugier übersetzte sich ohne Eingreifen der Designer:innen nicht in Interaktion.",
       },
       imagePath: finalBuildJpg,
+      imageAlt: {
+        en: "The finished EmbraceMe robot as exhibited: a headless torso on a stand, covered in pale pink plush with an orange heart on the chest and two padded arms curved slightly forward",
+        de: "Der fertige EmbraceMe-Roboter in der Ausstellung: ein kopfloser Torso auf einem Ständer, mit hellrosa Plüsch bezogen, einem orangefarbenen Herz auf der Brust und zwei leicht nach vorn gebogenen gepolsterten Armen",
+      },
     },
     {
       phase: "deliver",
