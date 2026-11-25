@@ -19,6 +19,9 @@ export const ADOPTION_META = {
   roadmapped:   { labelKey: "project.outcome.adoption.roadmapped", defKey: "project.outcome.def.roadmapped", tone: "accent"  },
   "not-adopted":{ labelKey: "project.outcome.adoption.notAdopted", defKey: "project.outcome.def.notAdopted", tone: "muted"   },
   unknown:      { labelKey: "project.outcome.adoption.unknown",    defKey: "project.outcome.def.unknown",    tone: "muted"   },
+  // Delivered to a client's product team; what shipped afterwards is theirs
+  // to report. Names the handover instead of leading with "unknown".
+  handoff:      { labelKey: "project.outcome.adoption.handoff",    defKey: "project.outcome.def.handoff",    tone: "accent"  },
   academic:     { labelKey: "project.outcome.adoption.academic",   defKey: "project.outcome.def.academic",   tone: "highlight" },
   deferred:     { labelKey: "project.outcome.adoption.deferred",   defKey: "project.outcome.def.deferred",   tone: "accent"  },
 };

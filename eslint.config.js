@@ -9,7 +9,8 @@ export default [
     files: ["**/*.{js,jsx}"],
     languageOptions: {
       ecmaVersion: 2022,
-      globals: globals.browser,
+      // __CV_PDFS__: build-time constant from vite.config.js (CV downloads).
+      globals: { ...globals.browser, __CV_PDFS__: "readonly" },
       parserOptions: { ecmaFeatures: { jsx: true }, sourceType: "module" },
     },
     plugins: { "react-hooks": reactHooks, "react-refresh": reactRefresh },

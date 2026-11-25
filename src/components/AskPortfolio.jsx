@@ -284,19 +284,22 @@ export function AskPortfolio() {
         type="button"
         onClick={() => (open ? close() : setOpen(true))}
         aria-expanded={open}
+        aria-label={t("chat.fab")}
         aria-hidden={parked || undefined}
         tabIndex={parked ? -1 : undefined}
+        /* Below md the pill is icon-only (a ~36px round button): with its
+           label it covered the last words of body lines on a phone. */
         /* Drawn stadium, same construction as the Badge chips: rule-pill
            masks the outline, --rule-fill-color keeps the pill opaque over
            whatever it floats above (bg-* would paint a hard capsule under
            the drawn one). --rule-cap ≈ half the pill's outer height + 2. */
         className={`focus-ring group flex items-center gap-s6 rounded-full border rule-pill [--rule-cap:21px]
-                   [--rule-fill-color:var(--surface)] px-s16 py-s8 shadow-md
+                   [--rule-fill-color:var(--surface)] px-s10 md:px-s16 py-s10 md:py-s8 shadow-md
                    hover:[--rule-line-color:var(--primary-600)] transition-all duration-200
                    ${parked ? "pointer-events-none opacity-0 translate-y-2" : "opacity-100"}`}
       >
         <HandSpark className="h-4 w-4 text-primary-600 transition-transform group-hover:rotate-12" />
-        <span className="text-label font-mono uppercase text-text group-hover:text-primary-600 transition-colors">
+        <span aria-hidden="true" className="hidden md:inline text-label font-mono uppercase text-text group-hover:text-primary-600 transition-colors">
           {t("chat.fab")}
         </span>
       </button>

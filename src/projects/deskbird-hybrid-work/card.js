@@ -31,6 +31,10 @@ export default {
     de: "Industrieprojekt · deskbird",
   },
   cardTags: ["Contextual Inquiry", "Usability Testing", "Figma", "B2B SaaS"],
+  // The hero and the Projects list lead with these core skills; the rest sit
+  // behind "+N more" (ProjectHeader) and stay in the DOM. The homepage card
+  // keeps its four cardTags (one-line rule).
+  coreTags: ["UX Research", "Contextual Inquiry", "Survey Design", "Concept Development", "High-Fidelity Prototyping", "B2B SaaS"],
   // The card argues research → product direction: the study became three
   // concepts and the client chose hers. The finding itself (breaks, shared
   // interests) is the case study's job.
@@ -46,5 +50,5 @@ export default {
   cardImage: cardInterestPicker,
   thumbnail: thumbnailImg,
   thumbnailWebp,
-  tags: ["User-Centered Design", "Mixed-Methods Research", "Stakeholder Interviews", "Contextual Inquiry", "Survey Design", "Competitive Analysis", "Affinity Diagramming", "Requirements Engineering", "Concept Development", "Interaction Design", "High-Fidelity Prototyping", "Usability Testing", "Figma", "B2B SaaS"],
+  tags: ["UX Research", "User-Centered Design", "Mixed-Methods Research", "Stakeholder Interviews", "Contextual Inquiry", "Survey Design", "Competitive Analysis", "Affinity Diagramming", "Requirements Engineering", "Concept Development", "Interaction Design", "High-Fidelity Prototyping", "Usability Testing", "Figma", "B2B SaaS"],
 };

@@ -45,7 +45,21 @@ function smartHomeOptimizedMedia() {
   }
 }
 
+// Downloadable CV PDFs, served from public/cv/. The /cv page shows a
+// download button only for the files that exist at build time, so the page
+// never links a PDF that was not shipped.
+const CV_PDFS = {
+  en: '/cv/Sanaz-Yazdanjoo-CV-EN.pdf',
+  de: '/cv/Sanaz-Yazdanjoo-Lebenslauf-DE.pdf',
+}
+const AVAILABLE_CV_PDFS = Object.fromEntries(
+  Object.entries(CV_PDFS).filter(([, path]) => existsSync(resolve(ROOT, 'public' + path)))
+)
+
 export default defineConfig({
+  define: {
+    __CV_PDFS__: JSON.stringify(AVAILABLE_CV_PDFS),
+  },
   // smartHomeOptimizedMedia runs before Vite's asset plugin; figureDims runs
   // after it, so dimensions are registered from the actual WebP the browser
   // receives rather than from the heavier JPEG master.

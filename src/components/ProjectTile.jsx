@@ -10,6 +10,7 @@ import { useTranslation } from "../context/LanguageContext";
 import { SkillTagRow } from "./SkillTagRow";
 import { ProjectPicture } from "./ProjectPicture";
 import { EASE } from "../utils/motion";
+import { EARLY_VIEWPORT, SETTLED, settleFrom } from "../utils/reveal";
 
 
 const DOMAIN_SPINES = {
@@ -126,9 +127,9 @@ export function ProjectTile({ project, index }) {
   );
 
   const motionProps = {
-    initial: { opacity: 0, y: reduce ? 0 : 24 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, margin: "-40px" },
+    initial: settleFrom(reduce),
+    whileInView: SETTLED,
+    viewport: EARLY_VIEWPORT,
     transition: { delay: Math.min(index, 8) * 0.07, duration: 0.4, ease: EASE },
   };
 

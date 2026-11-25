@@ -74,6 +74,9 @@ export const RENDERED_FIELDS = [
   // real photograph omits this — a photo must never carry the AI credit, and
   // an AI image must never pass as documentation (EmbraceMe rule, 2026-08).
   "heroIsGenerated",
+  // The hero illustration renders below the header block instead of above
+  // it, so title, role and key metrics are the first viewport (IBS, 2026-11).
+  "heroBelowHeader",
   // Homepage card only (StackedProjectCard.jsx) — `year` and `context` are the
   // metadata row, `cardTags` the capped signal subset of `tags`, `cardOutcome`
   // the one-sentence result line.

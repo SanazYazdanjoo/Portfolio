@@ -6,6 +6,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useIsMobile } from "../../hooks/useIsMobile";
 import { Chevron } from "./Chevron";
 import { EASE } from "./constants";
+import { EARLY_VIEWPORT, SETTLED, settleFrom } from "../../utils/reveal";
 
 // Section head — the one heading pattern, used by every section. The
 // <button> nests inside the <h2> rather than the reverse: <h2> is not
@@ -109,9 +110,9 @@ export function ContentSection({ id, number, kicker, heading, isOpen, onToggle, 
     <motion.section
       id={id}
       className={className}
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0 }}
+      initial={settleFrom(prefersReducedMotion)}
+      whileInView={SETTLED}
+      viewport={EARLY_VIEWPORT}
       transition={{ duration: 0.45, ease: EASE }}
     >
       {body}

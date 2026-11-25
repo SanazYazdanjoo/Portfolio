@@ -20,7 +20,7 @@ import { HandSearch } from "./HandIcons";
 import { EmptyState } from "./EmptyState";
 import { searchSite, MIN_QUERY_LENGTH } from "../utils/searchIndex";
 
-export const SiteSearch = () => {
+export const SiteSearch = ({ shortcut = true } = {}) => {
   const { t, lang } = useTranslation();
   const navigate = useNavigate();
   const baseId = useId();
@@ -61,7 +61,10 @@ export const SiteSearch = () => {
 
   // Ctrl/Cmd+K from anywhere. `close` (not bare setOpen(false)) so the query
   // never lingers into the next opening.
+  // `shortcut={false}` on the copy inside the mobile menu: two mounted
+  // instances would both answer Ctrl/Cmd+K and open two dialogs.
   useEffect(() => {
+    if (!shortcut) return undefined;
     const onKey = (e) => {
       if ((e.metaKey || e.ctrlKey) && !e.altKey && e.key.toLowerCase() === "k") {
         e.preventDefault();
@@ -76,7 +79,7 @@ export const SiteSearch = () => {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [shortcut]);
 
   // While open: autofocus, body-scroll lock, Escape-to-close, Tab trap,
   // focus-return — the CertificateLightbox effect, with the trigger captured

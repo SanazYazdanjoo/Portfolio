@@ -197,7 +197,7 @@ export const projectData = {
     { en: "Relationship Model",  de: "Beziehungsmodell",     owner: "team" },
     { en: "Collaboration Model", de: "Kollaborationsmodell", owner: "self" },
     { en: "Identity Model",      de: "Identitätsmodell",     owner: "team" },
-    { en: "Physical Model",      de: "Physisches Modell",    owner: "unconfirmed" },
+    { en: "Physical Model",      de: "Physisches Modell" },
   ],
 
   // Where each requirement came from. Kept because a requirement without a
@@ -475,6 +475,12 @@ export const projectData = {
     de: "Ein Industrie-UX-Research-Projekt mit deskbird und der Bauhaus-Universität Weimar zur Frage, warum hybride Teams ihre alltägliche soziale Verbindung verlieren. In einem sechsköpfigen Team haben wir den vollständigen User-Centered-Design-Prozess durchlaufen — Stakeholder-Interviews, eine Umfrage mit 57 Teilnehmenden und sechs Contextual Inquiries —, um vor der Roadmap-Aufnahme zu klären, wie ein Social Feature funktionieren sollte. Das Ergebnis sind „Interest-Based Communities“ — mein Konzept, von den deskbird-Stakeholdern ausgewählt und als forschungsbasierter High-Fidelity-Prototyp übergeben.",
   },
 
+  // No margin notes in 03, 04 and 07: with no explicit quote the template
+  // lifts each section's first sentence into the rail, repeating the body
+  // word for word — and the long Methodology one ran past the right edge.
+  challengeQuote: false,
+  solutionQuote: false,
+  methodologyQuote: false,
   challenge: {
     en: "Hybrid work reduced spontaneous social interactions: employees felt less integrated and new joiners struggled to connect. deskbird — a B2B SaaS platform for desk booking and hybrid week planning — wanted evidence, not assumptions, on how a social feature should work before committing it to the product roadmap.",
     de: "Hybrides Arbeiten reduzierte spontane soziale Interaktionen: Mitarbeitende fühlten sich weniger integriert, und neue Kolleg:innen taten sich schwer, Anschluss zu finden. deskbird — eine B2B-SaaS-Plattform für Deskbuchung und hybride Wochenplanung — wollte Evidenz statt Annahmen darüber, wie ein Social Feature funktionieren sollte, bevor es in die Produkt-Roadmap aufgenommen wird.",
@@ -1035,25 +1041,8 @@ export const projectData = {
           span: 2,
           className: "w-full h-auto block",
         },
-        {
-          type: "image",
-          src: media('p08_three-concepts.png'),
-          pendingFile: 'p08_three-concepts.png',
-          // UPLOAD → p08_three-concepts.png
-          //   from: COMPOSE: 19Slide_14_Gabi.pdf (Chat2Meet + Flows and Breaks) beside 20.
-          //         pdf (Interest based communities), one three-up frame, winner marked
-          //   redact: REQUIRED: strip the live Figma URL from the footer of 20.pdf
-          alt: {
-            en: "The three concepts side by side: Chat2Meet, Flows and Breaks, and Interest-Based Communities, with the selected concept marked",
-            de: "Die drei Konzepte nebeneinander: Chat2Meet, Flows and Breaks und Interest-Based Communities, mit Markierung des ausgewählten Konzepts",
-          },
-          caption: {
-            en: "The three that went to deskbird's stakeholders — Interest-Based Communities was selected by vote",
-            de: "Die drei, die zu deskbirds Stakeholdern gingen — Interest-Based Communities wurde per Abstimmung ausgewählt",
-          },
-          span: 2,
-          className: "w-full h-auto block",
-        },
+        // The three-concepts slide is shown once, at the end of Section 05
+        // (figures.concepts); it was repeated here (removed 2026-11-25).
       ],
     },
     {
@@ -1364,15 +1353,16 @@ export const projectData = {
   // The two candidate "decisions" drafted earlier (concept eliminations,
   // scoping to remote+office) were findings from during the research —
   // already stated in `results` above — not post-handover consequences.
-  // Removed rather than left as duplication. `adoption` stays "unknown"
-  // deliberately: deskbird stated an intention at handover, which is not
-  // the same as confirmed delivery, and nothing since has verified it.
+  // Removed rather than left as duplication. `adoption` is "handoff", not
+  // "shipped" or "roadmapped": deskbird stated an intention at handover,
+  // which is not confirmed delivery, and nothing since has verified it. The
+  // badge names the handover; the body below keeps the honest caveat.
   outcome: {
     body: {
       en: "At the final presentation, deskbird's stakeholders said they liked the concept and intended to build it in upcoming sprints. That is a stated intention recorded at handover — not confirmed delivery. The research team had no visibility into deskbird's backlog after the project ended, and I have not since verified whether the feature shipped. It is listed here as unconfirmed rather than claimed as adoption.",
       de: "In der Abschlusspräsentation erklärten die deskbird-Stakeholder, dass ihnen das Konzept gefalle und sie es in kommenden Sprints umsetzen wollten. Das ist eine bei der Übergabe geäußerte Absicht — keine bestätigte Umsetzung. Das Forschungsteam hatte nach Projektende keinen Einblick in deskbirds Backlog, und ich habe seither nicht verifiziert, ob das Feature ausgeliefert wurde. Es steht hier als unbestätigt und wird nicht als Adoption behauptet.",
     },
-    adoption: "unknown",
+    adoption: "handoff",
   },
 
   // Published client artifacts are shown with commercially sensitive content
@@ -1384,6 +1374,7 @@ export const projectData = {
   },
 
   tagEvidence: [
+    { tag: "UX Research", evidence: "methodology + process: stakeholder interviews, a 57-respondent survey, six contextual inquiries, interpretation sessions and usability testing for deskbird", status: "evidenced" },
     { tag: "User-Centered Design", evidence: "methodology: \"We followed the full UCD process in an industry setting.\"; milestones records the six-milestone schedule from requirements kick-off to final prototype presentation", status: "evidenced" },
     { tag: "Mixed-Methods Research", evidence: "methodology: a 57-respondent online survey quantifying work conditions and privacy preferences, run alongside six 90-minute contextual inquiries and 30-minute semi-structured follow-ups — a quantitative and a qualitative strand feeding one synthesis, with the survey's open-ended answers setting the inquiry focus; pilots records that both instruments were piloted first", status: "evidenced" },
     { tag: "Stakeholder Interviews", evidence: "process:Aligning on Scope with deskbird — marketing, product management, product design, and customer support; requirementSources records the four functions each requirement was traced to", status: "evidenced" },

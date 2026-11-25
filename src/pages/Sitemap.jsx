@@ -8,6 +8,7 @@ import { ScribbleUnderline } from "../components/DoodleLibrary";
 import { useTranslation } from "../context/LanguageContext";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { EASE } from "../utils/motion";
+import { EARLY_VIEWPORT } from "../utils/reveal";
 
 // Static route tree. Top-level routes are pulled from profileData.navLinks
 // automatically; sub-routes and legal pages are defined here. Labels/
@@ -75,10 +76,11 @@ const PROJECT_SECTION_KEYS = [
 ];
 
 // Animation
+// Visible by default: a settle, never a fade from 0 (see utils/reveal.js).
 const fadeUp = {
-  hidden: { opacity: 0, y: 16 },
+  hidden: { y: 12 },
   show: (i) => ({
-    opacity: 1, y: 0,
+    y: 0,
     transition: { delay: i * 0.06, duration: 0.4, ease: EASE },
   }),
 };
@@ -95,7 +97,7 @@ function RouteNode({ path, label, description, children, index, isActive }) {
       variants={fadeUp}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true }}
+      viewport={EARLY_VIEWPORT}
       className="border-l-2 rule-l pl-5 mb-3"
     >
       {/* Route row */}

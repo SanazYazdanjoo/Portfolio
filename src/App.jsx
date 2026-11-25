@@ -121,7 +121,9 @@ export default function App() {
         {overlaysReady && (
           <Suspense fallback={null}>
             <SketchTrail />
-            <AskPortfolio />
+            {/* VITE_ASK_AI=off in the Vercel env hides the assistant without
+                a code change (e.g. while job-searching). On by default. */}
+            {import.meta.env.VITE_ASK_AI !== "off" && <AskPortfolio />}
           </Suspense>
         )}
 
