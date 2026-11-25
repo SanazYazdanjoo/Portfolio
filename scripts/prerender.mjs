@@ -198,14 +198,12 @@ const strip = (html) =>
 async function main() {
   const routes = await listRoutes();
 
-  // The catch-all rewrite (vercel.json) serves unknown URLs from spa.html:
-  // the shell without any page's text, so a 404 or an unlisted route never
-  // serves the homepage's content under its own URL. Its canonical is
-  // dropped for the same reason — the app sets the right one at runtime.
-  const shell = strip(await readFile(join(DIST, "index.html"), "utf-8"))
-    .replace(/\s*<link rel="canonical"[^>]*>/g, "")
-    .replace(/\s*<link rel="alternate" type="text\/markdown"[^>]*>/g, "");
-  await writeFile(join(DIST, "spa.html"), shell, "utf-8");
+  // Unknown URLs (/tags/<skill>, 404s) are served by vercel.json's catch-all
+  // rewrite to /index.html. A text-free `spa.html` shell was tried as the
+  // destination (2026-11-24) and broke every such route in production —
+  // Vercel answered 404 for the rewrite target alongside cleanUrls — so the
+  // fallback stays index.html: its snapshot is hidden from JS visitors, and
+  // React renders the right page (or the styled 404) over it.
 
   let browser;
   try {
@@ -266,7 +264,7 @@ async function main() {
       await writeFile(out, inject(strip(html), snap.html), "utf-8");
       console.log(`prerender: ${path.padEnd(48)} ${String(snap.mainText).padStart(6)} chars`);
     }
-    console.log(`prerender: ${results.length} routes snapshotted, spa.html written`);
+    console.log(`prerender: ${results.length} routes snapshotted`);
   } finally {
     await browser.close();
     await new Promise((r) => server.httpServer.close(r));
