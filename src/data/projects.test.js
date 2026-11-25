@@ -583,6 +583,21 @@ describe("cardTags — the homepage card's capped tag list", () => {
   });
 });
 
+// The hero and Projects list lead with `coreTags` and fold the rest away.
+// Same drift rule as cardTags, and the range the hero was trimmed to.
+describe("coreTags — the hero and Projects list core skills", () => {
+  it("is a 5–6 tag subset of the project's own tags, without duplicates", () => {
+    for (const p of projects) {
+      if (!p.coreTags) continue;
+      const known = new Set(p.tags);
+      expect(p.coreTags.filter((tag) => !known.has(tag)), `${p.slug}: coreTags not in tags`).toEqual([]);
+      expect(p.coreTags.length, `${p.slug}: coreTags must be 5–6`).toBeGreaterThanOrEqual(5);
+      expect(p.coreTags.length, `${p.slug}: coreTags must be 5–6`).toBeLessThanOrEqual(6);
+      expect(new Set(p.coreTags).size, `${p.slug}: coreTags repeats a tag`).toBe(p.coreTags.length);
+    }
+  });
+});
+
 // The homepage card gets one sentence per project. Twenty words is the point
 // at which it stops being a summary and starts being the case study, and the
 // forbidden phrases are the ones that spend the sentence taking the claim

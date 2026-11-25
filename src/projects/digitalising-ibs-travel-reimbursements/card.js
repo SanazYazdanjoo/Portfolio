@@ -33,6 +33,10 @@ export default {
   // → build → quality. Every label is in `tags`, and the four together fit
   // the one-line width rule in design-system.test.js.
   cardTags: ['UX Research', 'Requirements Traceability', 'React', 'Automated Testing (Vitest)'],
+  // The hero and the Projects list lead with these core skills; the other
+  // tags sit behind "+N more skills" (ProjectHeader) and stay in the DOM.
+  // The homepage card keeps its four `cardTags` — that row must fit one line.
+  coreTags: ['UX Research', 'Requirements Traceability', 'Design Systems', 'React', 'TypeScript', 'Automated Testing (Vitest)'],
   // Proof points the chain rests on — each a metric the case study states:
   // the evidence base, the map it produced, the tests that guard the build.
   cardStats: [
