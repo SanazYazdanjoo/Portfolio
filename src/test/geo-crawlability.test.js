@@ -117,8 +117,11 @@ describe("build wiring", () => {
 describe("vercel.json", () => {
   const vercel = JSON.parse(read("vercel.json"));
 
-  it("falls back to the text-free shell, not the homepage snapshot", () => {
+  // /spa.html as the rewrite target 404'd every SPA-only route in
+  // production (/tags/React, unknown URLs) — index.html is the one target
+  // known to work with cleanUrls.
+  it("falls back to index.html, the only rewrite target proven in production", () => {
     const catchAll = vercel.rewrites.find((r) => r.source === "/(.*)");
-    expect(catchAll?.destination).toBe("/spa.html");
+    expect(catchAll?.destination).toBe("/index.html");
   });
 });

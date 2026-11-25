@@ -94,9 +94,9 @@ sets `<html data-js>` and a one-line rule hides `[data-prerendered]`, so they
 see the same shell → skeleton → page as before, and React's first render
 replaces the snapshot (`createRoot`, not hydration — no mismatch risk).
 
-Unknown URLs fall back to `dist/spa.html` (the shell with no page text and
-no canonical) instead of `index.html`, so a 404 never serves the homepage's
-content under its own URL.
+Unknown URLs (`/tags/<skill>`, 404s) fall back to `index.html` through the
+catch-all rewrite. A text-free `spa.html` target was tried on 2026-11-24 and
+broke every such route in production (Vercel 404), so it was reverted.
 
 Browser: Playwright's Chromium where it is installed; on Vercel,
 `@sparticuz/chromium`, because Vercel's Amazon Linux build image lacks the
