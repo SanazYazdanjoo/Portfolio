@@ -704,7 +704,7 @@ export default {
     {
      "stage": "Validation",
      "pending": true,
-     "note": "A summative usability evaluation is instrumented into the app — guided tasks, a pseudonymous event log, a questionnaire. It runs once the app is deployed for daily use; measured outcomes are not yet available."
+     "note": "A summative usability evaluation is instrumented into the app — guided tasks, a pseudonymous event log, a questionnaire. Built into the app and ready for the pilot."
     }
    ],
    "techStack": [
@@ -715,6 +715,7 @@ export default {
     "Vitest",
     "Node.js / Fastify",
     "SQLite",
+    "Nextcloud (WebDAV)",
     "ExcelJS",
     "Figma Make",
     "Claude Code (AI-assisted development)"
@@ -747,16 +748,19 @@ export default {
      "label": "days in one traced claim · minimum for that case, not an average"
     }
    ],
-   "about": "I spent more than a year administering this reimbursement process as a project assistant — collecting paper receipts, consolidating several Excel files, checking attendance, and calculating reimbursements. That gave me deep process knowledge, but I treated it as a set of assumptions to test rather than as research evidence on its own. I combined insider observation with expert interviews, an administration working meeting, an ongoing participant survey, and artefact analysis, then translated the verified problems into requirements and a working application. The demo is deployed for team feedback; formal usability evaluation is still pending.",
+   "about": "I spent more than a year administering this reimbursement process as a project assistant — collecting paper receipts, consolidating several Excel files, checking attendance, and calculating reimbursements. That gave me deep process knowledge, but I treated it as a set of assumptions to test rather than as research evidence on its own. I combined insider observation with expert interviews, an administration working meeting, an ongoing participant survey, and artefact analysis, then translated the verified problems into requirements and a working application. The demo is deployed for team feedback.",
    "challenge": "Travel reimbursement depended on paper attendance records, several Excel files, manual calculations, and hand-offs across nine actors. The same information was copied repeatedly, creating delays and opportunities for mistakes. Participants had no reliable confirmation after submitting documents, no visible calculation, and no claim status. In the ongoing survey, 4/6 respondents did not know how their amount was calculated, 5/6 had no reliable way to know whether their documents had arrived, and 4/6 named processing time as their main difficulty. One traced claim remained unpaid after 43+ days. The failure was structural, not clerical.",
-   "solution": "I replaced the fragmented workflow with one role-based application for attendance, supporting-document submission, reimbursement calculation, approval, and claim tracking. Participants can upload documents and see the state of their claim; staff work from the same attendance and reimbursement data instead of copying information between spreadsheets. Calculations are rebuilt from shared rules and the formula trace remains visible to reviewers. The participant upload flow is designed for phone use, while responsive support across the full authenticated application is still in progress. The current system covers the workflow up to payment; the final accounting payment step remains outside the application.",
+   "solution": "I replaced the fragmented workflow with one role-based application for attendance, supporting-document submission, reimbursement calculation, approval, and claim tracking. Participants can upload documents and see the state of their claim; staff work from the same attendance and reimbursement data instead of copying information between spreadsheets. Calculations are rebuilt from shared rules and the formula trace remains visible to reviewers. The participant upload flow is designed for phone use, and the system covers the workflow up to payment.",
    "design": "I carried the research model into the interface instead of inventing a separate visual language. The role colours from the AS-IS swimlane map became the application role palette, supported by a compact type scale, status chips, note states, buttons, and form states. This keeps the same actor cues visible from research artefact to working screen.",
    "wireframe": "I used low-fidelity wireframes to resolve information hierarchy and workflow logic against the numbered requirements before applying visual styling. The high-fidelity version kept the same structure and added the final attendance vocabulary, morning/afternoon states, role cues, exception highlighting, and completion feedback. The comparison below shows the same attendance-month screen from sketch to wireframe to deployed view.",
    "methodology": "The research-to-build chain is explicit. I treated insider observations as hypotheses, checked them through interviews, the administration working session, the ongoing participant survey, and artefact analysis, then clustered the evidence into a 25-problem register with evidence grades. Those problems became numbered requirements, information architecture, state rules, and wireframes. One example closes the loop: 4/6 respondents did not understand the reimbursement calculation → transparent calculation became a requirement → one shared calculation module now produces a visible formula trace → automated tests protect the requirement links. The same traceability also exposes gaps: confirmation after submission is only partially implemented, so the page does not present it as solved.",
-   "results": "The working demo is deployed for team feedback, and internal testing has already caught three instrumentation bugs. Formal usability sessions have not run yet, so processing time, error and adoption outcomes will be reported once they are measured.",
+   "results": "The working demo is deployed for team feedback, and internal testing has already caught three instrumentation bugs. The instrumented usability evaluation is the next step; processing time, errors and adoption will be reported from it.",
    "limitations": [
-    "The evidence base is a self-selected participant survey (n=6, blended/online cohort only) and two expert interviews (project management, accounting); lecturers were not interviewed, so their steps are mapped from artefacts.",
-    "The 43+ days come from one traced claim that was still unpaid when observation stopped — a minimum for that case, not an average."
+    "Evidence base: a self-selected participant survey (n=6, blended/online cohort only) and two expert interviews (project management, accounting); lecturers’ steps are mapped from artefacts.",
+    "The 43+ days are the minimum for one traced claim, not an average.",
+    "Next: run the instrumented usability evaluation with real users — guided tasks, event log and questionnaire.",
+    "Next: switch on the digital signature, which is built and waiting for finance and data-protection approval.",
+    "Next: extend phone support from the participant upload to the full signed-in app, and connect the payment step, which is still manual."
    ],
    "process": [
     {
@@ -771,7 +775,7 @@ export default {
      "type": "Evidence",
      "title": "Map the failure and grade the evidence",
      "annotation": "The AS-IS map exposed 13 steps, four return loops, and nine actors. Thematic clustering produced a register of 25 documented problems, each linked to its evidence source.",
-     "insight": "Survey findings also changed the roadmap: I had treated phone-width support as secondary, but participants reported that phone submission mattered. Responsive participant use moved up the priority list; the full signed-in phone layout is still in progress."
+     "insight": "Survey findings also changed the roadmap: I had treated phone-width support as secondary, but participants reported that phone submission mattered. Responsive participant use moved up the priority list."
     },
     {
      "phase": "design",
@@ -791,8 +795,7 @@ export default {
      "phase": "deliver",
      "type": "Evaluation",
      "title": "Deploy first, measure the change next",
-     "annotation": "The demo is deployed for stakeholder feedback. Guided tasks, pseudonymous local event logging, and an end-of-session questionnaire are already built into the application for the formal usability evaluation.",
-     "insight": "No post-launch improvement is claimed yet. The evaluation instruments exist; the user sessions have not run."
+     "annotation": "The demo is deployed for stakeholder feedback. Guided tasks, pseudonymous local event logging, and an end-of-session questionnaire are already built into the application for the formal usability evaluation."
     }
    ],
    "verbatims": [
