@@ -549,13 +549,24 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
                   isOpen={openSections.has("limitations")} onToggle={() => toggleSection("limitations")}
                   staggerDelayMs={staggerDelayFor("limitations")}
                   kicker={kickerFor("limitations")} heading={headingFor("limitations")}>
-                  <ClampedText className="max-w-measure transition-[max-width] duration-300 ease-smooth">
-                    <ul className="flex list-disc flex-col gap-3 pl-5 text-lg leading-[1.7] text-text marker:text-primary-500">
-                      {meta.limitations.map((item, i) => (
-                        <li key={i}>{item}</li>
-                      ))}
-                    </ul>
-                  </ClampedText>
+                  {/* A short closing list renders in full: behind "Read more" a
+                      visitor saw only its first bullet, and the next steps the
+                      list ends on — the point of ending there — were folded
+                      away. Long lists still clamp. */}
+                  {(() => {
+                    const list = (
+                      <ul className="flex list-disc flex-col gap-3 pl-5 text-lg leading-[1.7] text-text marker:text-primary-500">
+                        {meta.limitations.map((item, i) => (
+                          <li key={i}>{item}</li>
+                        ))}
+                      </ul>
+                    );
+                    return meta.limitations.length <= 5 ? (
+                      <div className="max-w-measure transition-[max-width] duration-300 ease-smooth">{list}</div>
+                    ) : (
+                      <ClampedText className="max-w-measure transition-[max-width] duration-300 ease-smooth">{list}</ClampedText>
+                    );
+                  })()}
                 </ContentSection>
               )}
 

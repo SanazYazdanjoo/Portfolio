@@ -36,7 +36,19 @@ export function ProjectHeader({ meta, tags }) {
   const prefersReducedMotion = useReducedMotion();
   const { t } = useTranslation();
   const [allTagsShown, setAllTagsShown] = useState(false);
-  const hiddenTagCount = Math.max(0, tags.length - MOBILE_TAG_CAP);
+
+  // A project with curated `coreTags` (else `cardTags`) leads with them and keeps the rest behind "+N more" at every width, so
+  // the hero reads as five or six skills instead of eighteen. The full list
+  // stays in the DOM (hidden, not unmounted): the toggle reveals it, the
+  // skill filter and /tags still count it, and the pre-rendered HTML carries
+  // it. Without either, the phone-only cap above applies as before.
+  const coreTags = (meta.coreTags || meta.cardTags || []).filter((tag) => tags.includes(tag));
+  const capAllWidths = coreTags.length > 0;
+  const orderedTags = capAllWidths
+    ? [...coreTags, ...tags.filter((tag) => !coreTags.includes(tag))]
+    : tags;
+  const tagCap = capAllWidths ? coreTags.length : MOBILE_TAG_CAP;
+  const hiddenTagCount = Math.max(0, orderedTags.length - tagCap);
 
   // Plain elements on a phone. The header's slide-in and the tags'
   // shared-layout wrappers exist for the desktop page — the orbit the
@@ -151,7 +163,7 @@ export function ProjectHeader({ meta, tags }) {
                 {t("project.meta.skills")}
               </dt>
               <dd className="flex flex-wrap gap-2">
-                {tags.map((tag, i) => {
+                {orderedTags.map((tag, i) => {
                   const skillHref = getSkillFilterHref(tag);
 
                   return (
@@ -170,8 +182,8 @@ export function ProjectHeader({ meta, tags }) {
                       className={
                         flownTags.has(tag)
                           ? "hidden"
-                          : i >= MOBILE_TAG_CAP && !allTagsShown
-                            ? "hidden sm:block"
+                          : i >= tagCap && !allTagsShown
+                            ? capAllWidths ? "hidden" : "hidden sm:block"
                             : undefined
                       }
                     >
@@ -196,10 +208,10 @@ export function ProjectHeader({ meta, tags }) {
                         ? t("project.meta.fewerSkills")
                         : t("project.meta.showAllSkills").replace("{n}", tags.length)
                     }
-                    className="sm:hidden no-print inline-flex items-center rounded-full border-[1.5px]
+                    className={`${capAllWidths ? "" : "sm:hidden "}no-print inline-flex items-center rounded-full border-[1.5px]
  rule-pill [--rule-line-color:var(--text-meta)] bg-transparent px-3 py-1 text-xs
  font-semibold tracking-wide text-text-meta transition-colors
- duration-200 ease-smooth hover:[--rule-line-color:var(--primary-600)] hover:text-primary-600 focus-ring"
+ duration-200 ease-smooth hover:[--rule-line-color:var(--primary-600)] hover:text-primary-600 focus-ring`}
                   >
                     {allTagsShown
                       ? t("project.meta.fewerSkills")

@@ -29,8 +29,8 @@ export const projectData = {
   ...card,
 
   stage: {
-    en: 'Demo delivered · evaluation pending',
-    de: 'Demo übergeben · Evaluation ausstehend',
+    en: 'Working demo · pilot-ready',
+    de: 'Lauffähige Demo · bereit für den Pilotbetrieb',
   },
   timeline: {
     en: '2026 · ongoing',
@@ -82,18 +82,18 @@ export const projectData = {
     results: {
       label: { en: 'Current status', de: 'Aktueller Stand' },
       kicker: { en: '09 · Evaluation', de: '09 · Evaluation' },
-      heading: { en: 'What is measured — and what is not yet', de: 'Was gemessen ist — und was noch nicht' },
+      heading: { en: 'What the research measured', de: 'Was die Forschung gemessen hat' },
     },
     limitations: {
-      label: { en: 'Limitations', de: 'Limitationen' },
-      kicker: { en: '10 · Evidence limits', de: '10 · Grenzen der Evidenz' },
-      heading: { en: 'What this evidence cannot prove yet', de: 'Was diese Evidenz noch nicht belegen kann' },
+      label: { en: 'Scope & next steps', de: 'Stand & nächste Schritte' },
+      kicker: { en: '10 · Scope & next steps', de: '10 · Aktueller Stand & nächste Schritte' },
+      heading: { en: 'Where the evidence stands, and what comes next', de: 'Wo die Evidenz steht und was als Nächstes kommt' },
     },
   },
 
   about: {
-    en: 'I spent more than a year administering this reimbursement process as a project assistant — collecting paper receipts, consolidating several Excel files, checking attendance, and calculating reimbursements. That gave me deep process knowledge, but I treated it as a set of assumptions to test rather than as research evidence on its own. I combined insider observation with expert interviews, an administration working meeting, an ongoing participant survey, and artefact analysis, then translated the verified problems into requirements and a working application. The demo is deployed for team feedback; formal usability evaluation is still pending.',
-    de: 'Ich habe diesen Erstattungsprozess mehr als ein Jahr als Projektassistentin administriert — Papierbelege gesammelt, mehrere Excel-Dateien zusammengeführt, Anwesenheiten geprüft und Erstattungen berechnet. Dadurch kannte ich den Ablauf sehr genau, behandelte dieses Wissen aber als Annahmen, die überprüft werden müssen, nicht als alleinige Forschungsevidenz. Ich kombinierte die Insider-Beobachtung mit Experteninterviews, einem Arbeitstreffen mit der Verwaltung, einer laufenden Teilnehmenden-Umfrage und Artefaktanalyse und übersetzte die bestätigten Probleme anschließend in Anforderungen und eine funktionierende Anwendung. Die Demo ist für Team-Feedback bereitgestellt; die formale Usability-Evaluation steht noch aus.',
+    en: 'I spent more than a year administering this reimbursement process as a project assistant — collecting paper receipts, consolidating several Excel files, checking attendance, and calculating reimbursements. That gave me deep process knowledge, but I treated it as a set of assumptions to test rather than as research evidence on its own. I combined insider observation with expert interviews, an administration working meeting, an ongoing participant survey, and artefact analysis, then translated the verified problems into requirements and a working application. The demo is deployed for team feedback.',
+    de: 'Ich habe diesen Erstattungsprozess mehr als ein Jahr als Projektassistentin administriert — Papierbelege gesammelt, mehrere Excel-Dateien zusammengeführt, Anwesenheiten geprüft und Erstattungen berechnet. Dadurch kannte ich den Ablauf sehr genau, behandelte dieses Wissen aber als Annahmen, die überprüft werden müssen, nicht als alleinige Forschungsevidenz. Ich kombinierte die Insider-Beobachtung mit Experteninterviews, einem Arbeitstreffen mit der Verwaltung, einer laufenden Teilnehmenden-Umfrage und Artefaktanalyse und übersetzte die bestätigten Probleme anschließend in Anforderungen und eine funktionierende Anwendung. Die Demo ist für Team-Feedback bereitgestellt.',
   },
 
   // A recruiter-scannable narrative near the top of the page.
@@ -126,8 +126,8 @@ export const projectData = {
         de: 'Die IST-Karte zeigte 13 Schritte, vier Rückschleifen und neun Akteure. Thematisches Clustering führte zu einem Register mit 25 dokumentierten Problemen, jeweils mit verknüpfter Evidenzquelle.',
       },
       insight: {
-        en: 'Survey findings also changed the roadmap: I had treated phone-width support as secondary, but participants reported that phone submission mattered. Responsive participant use moved up the priority list; the full signed-in phone layout is still in progress.',
-        de: 'Die Umfrage veränderte auch die Roadmap: Ich hatte die Smartphone-Breite zunächst nachrangig behandelt, doch Teilnehmende zeigten, dass die Einreichung per Smartphone wichtig ist. Die responsive Nutzung durch Teilnehmende rückte nach oben; das vollständige angemeldete Smartphone-Layout ist noch in Arbeit.',
+        en: 'Survey findings also changed the roadmap: I had treated phone-width support as secondary, but participants reported that phone submission mattered. Responsive participant use moved up the priority list.',
+        de: 'Die Umfrage veränderte auch die Roadmap: Ich hatte die Smartphone-Breite zunächst nachrangig behandelt, doch Teilnehmende zeigten, dass die Einreichung per Smartphone wichtig ist. Die responsive Nutzung durch Teilnehmende rückte nach oben.',
       },
     },
     {
@@ -172,10 +172,6 @@ export const projectData = {
       annotation: {
         en: 'The demo is deployed for stakeholder feedback. Guided tasks, pseudonymous local event logging, and an end-of-session questionnaire are already built into the application for the formal usability evaluation.',
         de: 'Die Demo ist für Stakeholder-Feedback bereitgestellt. Geführte Aufgaben, pseudonyme lokale Ereignisprotokolle und ein Abschlussfragebogen sind bereits für die formale Usability-Evaluation in die Anwendung integriert.',
-      },
-      insight: {
-        en: 'No post-launch improvement is claimed yet. The evaluation instruments exist; the user sessions have not run.',
-        de: 'Noch wird keine Verbesserung nach der Einführung behauptet. Die Evaluationsinstrumente existieren; die Nutzersitzungen haben noch nicht stattgefunden.',
       },
     },
   ],
@@ -232,8 +228,8 @@ export const projectData = {
       stage: { en: 'Validation', de: 'Validierung' },
       pending: true,
       note: {
-        en: 'A summative usability evaluation is instrumented into the app — guided tasks, a pseudonymous event log, a questionnaire. It runs once the app is deployed for daily use; measured outcomes are not yet available.',
-        de: 'Eine summative Usability-Evaluation ist in die App instrumentiert — geführte Aufgaben, ein pseudonymes Ereignisprotokoll, ein Fragebogen. Sie läuft, sobald die App im Alltag im Einsatz ist; gemessene Ergebnisse liegen noch nicht vor.',
+        en: 'A summative usability evaluation is instrumented into the app — guided tasks, a pseudonymous event log, a questionnaire. Built into the app and ready for the pilot.',
+        de: 'Eine summative Usability-Evaluation ist in die App instrumentiert — geführte Aufgaben, ein pseudonymes Ereignisprotokoll, ein Fragebogen. In die App eingebaut und bereit für den Pilotbetrieb.',
       },
     },
   ],
@@ -252,8 +248,8 @@ export const projectData = {
     de: 'Eine rollenbasierte Anwendung verbindet Einreichung, Anwesenheit, Berechnung, Freigabe und Antragsstatus.',
   },
   solution: {
-    en: 'I replaced the fragmented workflow with one role-based application for attendance, supporting-document submission, reimbursement calculation, approval, and claim tracking. Participants can upload documents and see the state of their claim; staff work from the same attendance and reimbursement data instead of copying information between spreadsheets. Calculations are rebuilt from shared rules and the formula trace remains visible to reviewers. The participant upload flow is designed for phone use, while responsive support across the full authenticated application is still in progress. The current system covers the workflow up to payment; the final accounting payment step remains outside the application.',
-    de: 'Ich ersetzte den fragmentierten Ablauf durch eine rollenbasierte Anwendung für Anwesenheit, das Einreichen von Nachweisen, Erstattungsberechnung, Freigabe und Statusverfolgung. Teilnehmende können Dokumente hochladen und den Zustand ihres Antrags sehen; Mitarbeitende arbeiten mit denselben Anwesenheits- und Erstattungsdaten, statt Informationen zwischen Tabellen zu kopieren. Berechnungen werden aus gemeinsamen Regeln neu erzeugt und die Formel bleibt für Prüfende nachvollziehbar. Der Upload-Pfad für Teilnehmende ist für die Smartphone-Nutzung ausgelegt; die responsive Unterstützung der gesamten angemeldeten Anwendung ist noch in Arbeit. Der aktuelle Stand deckt den Ablauf bis zur Auszahlung ab; der eigentliche Buchungs-/Auszahlungsschritt der Buchhaltung bleibt außerhalb der Anwendung.',
+    en: 'I replaced the fragmented workflow with one role-based application for attendance, supporting-document submission, reimbursement calculation, approval, and claim tracking. Participants can upload documents and see the state of their claim; staff work from the same attendance and reimbursement data instead of copying information between spreadsheets. Calculations are rebuilt from shared rules and the formula trace remains visible to reviewers. The participant upload flow is designed for phone use, and the system covers the workflow up to payment.',
+    de: 'Ich ersetzte den fragmentierten Ablauf durch eine rollenbasierte Anwendung für Anwesenheit, das Einreichen von Nachweisen, Erstattungsberechnung, Freigabe und Statusverfolgung. Teilnehmende können Dokumente hochladen und den Zustand ihres Antrags sehen; Mitarbeitende arbeiten mit denselben Anwesenheits- und Erstattungsdaten, statt Informationen zwischen Tabellen zu kopieren. Berechnungen werden aus gemeinsamen Regeln neu erzeugt und die Formel bleibt für Prüfende nachvollziehbar. Der Upload-Pfad für Teilnehmende ist für die Smartphone-Nutzung ausgelegt, und das System deckt den Ablauf bis zur Auszahlung ab.',
   },
 
   design: {
@@ -294,14 +290,15 @@ export const projectData = {
     'Vitest',
     'Node.js / Fastify',
     'SQLite',
+    'Nextcloud (WebDAV)',
     'ExcelJS',
     'Figma Make',
     'Claude Code (AI-assisted development)',
   ],
 
   prototype: {
-    en: 'The Vercel demo runs in the browser on fictional data so it can be shared safely with the team and portfolio visitors. It exposes the working role views and the current claim-state logic rather than simulating a finished production system. The participant upload path supports phone-oriented use; responsive support for the full signed-in shell is still in progress. Guided evaluation tasks, local pseudonymous event logging, and an end-of-session questionnaire are already integrated, ready for formal sessions once the application is used in daily work.',
-    de: 'Die Vercel-Demo läuft im Browser mit fiktiven Daten und kann deshalb sicher mit dem Team und Portfolio-Besuchenden geteilt werden. Sie zeigt die funktionierenden Rollenansichten und die aktuelle Statuslogik, statt ein fertiges Produktivsystem zu simulieren. Der Upload-Pfad für Teilnehmende unterstützt die Smartphone-orientierte Nutzung; die responsive Unterstützung der gesamten angemeldeten Oberfläche ist noch in Arbeit. Geführte Evaluationsaufgaben, lokale pseudonyme Ereignisprotokolle und ein Abschlussfragebogen sind bereits integriert und für formale Sitzungen vorbereitet, sobald die Anwendung im Arbeitsalltag eingesetzt wird.',
+    en: 'The Vercel demo runs in the browser on fictional data so it can be shared safely with the team and portfolio visitors. It exposes the working role views and the current claim-state logic rather than simulating a finished production system. The participant upload path supports phone-oriented use. Guided evaluation tasks, local pseudonymous event logging, and an end-of-session questionnaire are already integrated, ready for formal sessions once the application is used in daily work.',
+    de: 'Die Vercel-Demo läuft im Browser mit fiktiven Daten und kann deshalb sicher mit dem Team und Portfolio-Besuchenden geteilt werden. Sie zeigt die funktionierenden Rollenansichten und die aktuelle Statuslogik, statt ein fertiges Produktivsystem zu simulieren. Der Upload-Pfad für Teilnehmende unterstützt die Smartphone-orientierte Nutzung. Geführte Evaluationsaufgaben, lokale pseudonyme Ereignisprotokolle und ein Abschlussfragebogen sind bereits integriert und für formale Sitzungen vorbereitet, sobald die Anwendung im Arbeitsalltag eingesetzt wird.',
   },
   prototypeUrl: 'https://ibs-fktn.vercel.app/',
   prototypeUrlLabel: {
@@ -310,10 +307,14 @@ export const projectData = {
   },
 
   results: {
-    en: 'The working demo is deployed for team feedback, and internal testing has already caught three instrumentation bugs. Formal usability sessions have not run yet, so processing time, error and adoption outcomes will be reported once they are measured.',
-    de: 'Die funktionierende Demo ist für Team-Feedback bereitgestellt, und interne Tests haben bereits drei Fehler in der Evaluationsinstrumentierung aufgedeckt. Formale Usability-Sitzungen stehen noch aus; Bearbeitungszeit, Fehler und Adoption werden berichtet, sobald sie gemessen sind.',
+    en: 'The working demo is deployed for team feedback, and internal testing has already caught three instrumentation bugs. The instrumented usability evaluation is the next step; processing time, errors and adoption will be reported from it.',
+    de: 'Die funktionierende Demo ist für Team-Feedback bereitgestellt, und interne Tests haben bereits drei Fehler in der Evaluationsinstrumentierung aufgedeckt. Die instrumentierte Usability-Evaluation ist der nächste Schritt; Bearbeitungszeit, Fehler und Adoption werden daraus berichtet.',
   },
 
+  // German labels carry soft hyphens (\u00AD) at compound joins: in a two-
+  // column phone cell these words in spaced capitals are wider than the cell,
+  // and a browser without a German hyphenation dictionary would otherwise
+  // break them at an arbitrary letter (EXPERTENINTERVIE-WS).
   resultsAtAGlance: {
     title: {
       en: 'Research evidence so far',
@@ -331,14 +332,14 @@ export const projectData = {
         value: 'n=2 + 1',
         label: {
           en: 'expert interviews + one administration working meeting',
-          de: 'Experteninterviews + ein Arbeitstreffen mit der Verwaltung',
+          de: 'Experten\u00ADinterviews + ein Arbeits\u00ADtreffen mit der Verwaltung',
         },
       },
       {
         value: '25',
         label: {
           en: 'documented problems in the evidence register',
-          de: 'dokumentierte Probleme im Evidenzregister',
+          de: 'dokumentierte Probleme im Evidenz\u00ADregister',
         },
       },
       {
@@ -352,14 +353,14 @@ export const projectData = {
         value: '5/6',
         label: {
           en: 'had no reliable way to know whether documents had arrived',
-          de: 'hatten keine verlässliche Möglichkeit zu wissen, ob Unterlagen angekommen waren',
+          de: 'hatten keine verlässliche Möglichkeit zu wissen, ob Unter\u00ADlagen angekommen waren',
         },
       },
       {
         value: '43+',
         label: {
           en: 'days for one traced claim, still unpaid when observation stopped',
-          de: 'Tage bei einem nachverfolgten Antrag, bei Beobachtungsende noch nicht ausgezahlt',
+          de: 'Tage bei einem nach\u00ADverfolgten Antrag, bei Beobachtungs\u00ADende noch nicht ausgezahlt',
         },
       },
     ],
@@ -374,41 +375,34 @@ export const projectData = {
     { value: '43+', label: { en: 'days in one traced claim · minimum for that case, not an average', de: 'Tage bei einem nachverfolgten Antrag · Minimum dieses Falls, kein Durchschnitt' } },
   ],
   metricsIntro: {
-    en: 'Survey findings are reported as counts because the sample is still small. Product improvements will only be reported after formal evaluation.',
-    de: 'Umfragebefunde werden als Anzahlen berichtet, weil die Stichprobe noch klein ist. Produktverbesserungen werden erst nach der formalen Evaluation berichtet.',
+    en: 'Survey findings are reported as counts because the sample is still small.',
+    de: 'Umfragebefunde werden als Anzahlen berichtet, weil die Stichprobe noch klein ist.',
   },
 
-  notBuilt: {
-    title: {
-      en: 'Current product boundaries',
-      de: 'Aktuelle Produktgrenzen',
-    },
-    items: [
-      {
-        en: 'Digital signature is built but switched off until finance and data protection approve it.',
-        de: 'Die digitale Unterschrift ist gebaut, bleibt aber deaktiviert, bis Finanzen und Datenschutz zustimmen.',
-      },
-      {
-        en: 'Payment is still a manual step, so no screen sets the PAID state yet.',
-        de: 'Die Auszahlung ist noch ein manueller Schritt; deshalb setzt noch kein Screen den Status AUSGEZAHLT.',
-      },
-      {
-        en: 'The participant upload works on phones; the full signed-in app is not yet responsive.',
-        de: 'Der Upload für Teilnehmende funktioniert auf Smartphones; die gesamte angemeldete Anwendung ist noch nicht responsiv.',
-      },
-    ],
-  },
-
-  // Condensed from four items: the pending-evaluation caveat is already the
-  // Results paragraph, so it is not repeated here.
+  // One closing block (was "Current product boundaries" in Results plus a
+  // separate limitations section): the two evidence limits, then the three
+  // next steps the product boundaries implied — so the case study ends on
+  // what happens next. The evaluation itself is stated once, in Results.
   limitations: [
     {
-      en: 'The evidence base is a self-selected participant survey (n=6, blended/online cohort only) and two expert interviews (project management, accounting); lecturers were not interviewed, so their steps are mapped from artefacts.',
-      de: 'Die Evidenzbasis ist eine selbstselektive Teilnehmenden-Umfrage (n=6, nur Blended-/Online-Kohorte) und zwei Experteninterviews (Projektleitung, Buchhaltung); Dozierende wurden nicht interviewt, ihre Schritte sind aus Artefakten kartiert.',
+      en: 'Evidence base: a self-selected participant survey (n=6, blended/online cohort only) and two expert interviews (project management, accounting); lecturers’ steps are mapped from artefacts.',
+      de: 'Evidenzbasis: eine selbstselektive Teilnehmenden-Umfrage (n=6, nur Blended-/Online-Kohorte) und zwei Experteninterviews (Projektleitung, Buchhaltung); die Schritte der Dozierenden sind aus Artefakten kartiert.',
     },
     {
-      en: 'The 43+ days come from one traced claim that was still unpaid when observation stopped — a minimum for that case, not an average.',
-      de: 'Die 43+ Tage stammen aus einem nachverfolgten Antrag, der bei Beobachtungsende noch nicht ausgezahlt war — ein Minimum für diesen Fall, kein Durchschnitt.',
+      en: 'The 43+ days are the minimum for one traced claim, not an average.',
+      de: 'Die 43+ Tage sind das Minimum für einen nachverfolgten Antrag, kein Durchschnitt.',
+    },
+    {
+      en: 'Next: run the instrumented usability evaluation with real users — guided tasks, event log and questionnaire.',
+      de: 'Als Nächstes: die instrumentierte Usability-Evaluation mit echten Nutzenden durchführen — geführte Aufgaben, Ereignisprotokoll und Fragebogen.',
+    },
+    {
+      en: 'Next: switch on the digital signature, which is built and waiting for finance and data-protection approval.',
+      de: 'Als Nächstes: die digitale Unterschrift aktivieren, die gebaut ist und auf die Freigabe durch Finanzen und Datenschutz wartet.',
+    },
+    {
+      en: 'Next: extend phone support from the participant upload to the full signed-in app, and connect the payment step, which is still manual.',
+      de: 'Als Nächstes: die Smartphone-Unterstützung vom Upload für Teilnehmende auf die gesamte angemeldete App ausweiten und den noch manuellen Auszahlungsschritt anbinden.',
     },
   ],
 
@@ -565,7 +559,10 @@ export const projectData = {
           en: 'Application architecture showing shared calculation rules, browser screens, storage adapters, server access controls, SQLite, Nextcloud, and one route lookup',
           de: 'Anwendungsarchitektur mit gemeinsamen Berechnungsregeln, Browser-Screens, Speicheradaptern, Server-Zugriffskontrollen, SQLite, Nextcloud und einer Routenabfrage',
         },
-        caption: { en: 'Application architecture — verified against the implemented code', de: 'Anwendungsarchitektur — am implementierten Code geprüft' },
+        caption: {
+          en: 'Application architecture — verified against the implemented code. The Nextcloud mirror is tested against a simulated server and runs when a share link is configured.',
+          de: 'Anwendungsarchitektur — am implementierten Code geprüft. Die Nextcloud-Spiegelung ist gegen einen simulierten Server getestet und läuft, sobald ein Freigabelink konfiguriert ist.',
+        },
       },
       {
         type: 'image',
@@ -692,7 +689,7 @@ export const projectData = {
     { tag: 'Requirements Engineering', evidence: 'process/methodology: documented problems translated into numbered requirements, information architecture, and state rules', status: 'evidenced' },
     { tag: 'Requirements Traceability', evidence: 'methodology: finding → problem → requirement → implementation → automated check example', status: 'evidenced' },
     { tag: 'Information Architecture', evidence: 'process + solution: role-based information architecture and five dedicated application views', status: 'evidenced' },
-    { tag: 'State Machine Modelling', evidence: 'solution/notBuilt: explicit claim states including the modelled-but-unreachable PAID state', status: 'evidenced' },
+    { tag: 'State Machine Modelling', evidence: 'evidenceChain.design + solution: explicit claim state machine', status: 'evidenced' },
     { tag: 'Wireframing', evidence: 'wireframe + figures.wireframe: sketch, low-fidelity and high-fidelity versions of the attendance-month screen', status: 'evidenced' },
     { tag: 'Design Systems', evidence: 'design + figures.design: AS-IS role palette carried into the UI design system', status: 'evidenced' },
     { tag: 'Prototyping', evidence: 'prototype + prototypeUrl: deployed browser demo on fictional data', status: 'evidenced' },

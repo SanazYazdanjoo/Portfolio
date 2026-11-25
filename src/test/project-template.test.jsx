@@ -216,26 +216,37 @@ describe("ProjectTemplate — verbatim placement", () => {
 });
 
 describe("ProjectTemplate — deliberately-not-built block", () => {
+  // No case study writes a notBuilt block at the moment (IBS folded its
+  // product boundaries into "Scope & next steps", 2026-11-25); the block is
+  // still supported, so it is tested against a fixture.
+  const notBuilt = {
+    title: { en: "Current product boundaries", de: "Aktuelle Produktgrenzen" },
+    items: [
+      { en: "Signature is built but switched off.", de: "Die Unterschrift ist gebaut, aber deaktiviert." },
+      { en: "Payment is still a manual step.", de: "Die Auszahlung ist noch ein manueller Schritt." },
+    ],
+  };
+  const withNotBuilt = { ...ibsData, notBuilt };
   it("renders its data-supplied title and every item", () => {
-    renderWithProviders(<ProjectTemplate meta={ibsData} />);
+    renderWithProviders(<ProjectTemplate meta={withNotBuilt} />);
 
-    expect(screen.getByText(ibsData.notBuilt.title.en)).toBeInTheDocument();
-    for (const item of ibsData.notBuilt.items) {
+    expect(screen.getByText(notBuilt.title.en)).toBeInTheDocument();
+    for (const item of notBuilt.items) {
       expect(screen.getByText(item.en)).toBeInTheDocument();
     }
   });
 
   it("renders after the Results prose", () => {
-    renderWithProviders(<ProjectTemplate meta={ibsData} />);
+    renderWithProviders(<ProjectTemplate meta={withNotBuilt} />);
     const results = screen.getByText(ibsData.results.en);
-    const notBuilt = screen.getByText(ibsData.notBuilt.title.en);
-    expect(results.compareDocumentPosition(notBuilt)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    const boundaries = screen.getByText(notBuilt.title.en);
+    expect(results.compareDocumentPosition(boundaries)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
   });
 
   it("renders in German too", () => {
-    renderInGerman(ibsData);
-    expect(screen.getByText(ibsData.notBuilt.title.de)).toBeInTheDocument();
-    for (const item of ibsData.notBuilt.items) {
+    renderInGerman(withNotBuilt);
+    expect(screen.getByText(notBuilt.title.de)).toBeInTheDocument();
+    for (const item of notBuilt.items) {
       expect(screen.getByText(item.de)).toBeInTheDocument();
     }
   });
