@@ -1,63 +1,24 @@
-import { useState, useEffect, useRef } from "react";
-import { useReducedMotion, useInView, animate as animateValue } from "framer-motion";
-import { useIsMobile } from "../../hooks/useIsMobile";
 import { useTranslation } from "../../context/LanguageContext";
-import { EASE } from "../../utils/motion";
 
-// The leading number a metric counts up to, with any thousands separators it
-// carries ("1,234"). Matching only the digits before the separator would count
-// 0 → 1 and leave ",234" pinned beside it, so the strip reads "0,234" for the
-// length of the animation. Separators are the grouping characters only —
-// a plain space is excluded so "3 → 1" still counts to 3 rather than 31.
-const LEADING_NUMBER = /^(\d[\d,.\u00A0\u202F]*\d|\d)(.*)$/;
-
-// Regroups a mid-animation value with the separator the metric was authored
-// with, so every frame groups the way the final number does.
-function group(n, separator) {
-  const digits = String(n);
-  if (!separator) return digits;
-  return digits.replace(/\B(?=(\d{3})+(?!\d))/g, separator);
+// Values render exactly as authored, at every moment.
+//
+// They used to count up from 0 once the cell scrolled into view. That made
+// the strip's resting state "0": any capture that didn't trigger or wait out
+// the observer — a full-page screenshot, a link-preview render, a quick
+// scroll past — froze on "0 documented problems" or "0/6 respondents", the
+// opposite of what an evidence strip exists to say. A number that is only
+// correct after an animation is not worth the animation (removed 2026-11).
+function MetricValue({ value }) {
+  return <span>{value}</span>;
 }
 
-// Counts a metric's numeric part up from 0 once it scrolls into view.
-//
-// Not on phones: there the final number is printed outright. The count-up
-// is a scroll-triggered rAF loop that rewrites text — and so reflows the
-// strip — on every frame for most of a second, and the phone page carries
-// no scroll-linked motion (see ContentSection). Folded into `reduce`, since
-// that is exactly the static rendering reduced-motion already asks for.
-function AnimatedMetricValue({ value }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-10%" });
-  const isMobile = useIsMobile();
-  const reduce = useReducedMotion() || isMobile;
-  const match = String(value).match(LEADING_NUMBER);
-  const [display, setDisplay] = useState(0);
-
-  const numeric = match ? match[1] : "";
-  const separator = numeric.replace(/\d/g, "")[0] || "";
-  const target = Number(numeric.replace(/\D/g, ""));
-
-  useEffect(() => {
-    if (!match || !inView || reduce) return;
-    const controls = animateValue(0, target, {
-      duration: 0.8,
-      ease: EASE,
-      onUpdate: (v) => setDisplay(Math.round(v)),
-    });
-    return () => controls.stop();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inView, reduce]);
-
-  if (!match) return <span ref={ref}>{value}</span>;
-  const shown = reduce ? numeric : group(inView ? display : 0, separator);
-  return (
-    <span ref={ref}>
-      <span className="print:hidden">{shown}</span>
-      <span className="hidden print:inline">{numeric}</span>
-      {match[2]}
-    </span>
-  );
+// Column count follows the item count, so the grid never ends in a row of
+// empty bordered cells: 3 or 6 items sit in threes, everything else in fours.
+// Below lg it is two columns: the case-study measure leaves a four-up cell
+// ~120px wide on a tablet, too narrow for a German compound like
+// EXPERTENINTERVIEWS in spaced capitals, which ran through the cell border.
+function gridCols(n) {
+  return n % 3 === 0 && n % 4 !== 0 ? "lg:grid-cols-3" : "lg:grid-cols-4";
 }
 
 // Metrics strip.
@@ -93,7 +54,7 @@ export function MetricsStrip({ metrics, title, intro }) {
           {title || t("project.results.glance")}
         </p>
       )}
-      <div className="grid grid-cols-2 sm:grid-cols-4 border rule-box divide-x divide-y rule-divide">
+      <div className={`grid grid-cols-2 ${gridCols(metrics.length)} border rule-box divide-x divide-y rule-divide`}>
         {metrics.map((m, i) => {
           if (m.pending) {
             return (
@@ -101,7 +62,7 @@ export function MetricsStrip({ metrics, title, intro }) {
                 <p className="font-display font-extrabold leading-none text-dim text-base md:text-lg uppercase tracking-wide">
                   {t("project.results.pending")}
                 </p>
-                <p className="text-2xs uppercase text-text-meta font-semibold mt-3 leading-snug">
+                <p className="text-2xs uppercase text-text-meta font-semibold mt-3 leading-snug hyphens-auto [overflow-wrap:anywhere]">
                   {m.label}
                 </p>
               </div>
@@ -114,9 +75,9 @@ export function MetricsStrip({ metrics, title, intro }) {
                 className={`font-display font-extrabold leading-none text-text tabular-nums break-words
                            ${isLong ? "text-metric-long" : "text-metric"}`}
               >
-                <AnimatedMetricValue value={m.value} />
+                <MetricValue value={m.value} />
               </p>
-              <p className="text-2xs uppercase text-text-meta font-semibold mt-3 leading-snug">
+              <p className="text-2xs uppercase text-text-meta font-semibold mt-3 leading-snug hyphens-auto [overflow-wrap:anywhere]">
                 {m.label}
               </p>
             </div>

@@ -290,7 +290,7 @@ const de = {
   "project.outcome.def.roadmapped": "Verbindlich auf der Produkt-Roadmap; noch nicht veröffentlicht.",
   "project.outcome.def.notAdopted": "Geprüft und nicht übernommen — festgehalten statt verschwiegen.",
   "project.outcome.def.unknown": "Übergeben; ob es umgesetzt wurde, wurde nie verifiziert.",
-  "project.outcome.def.academic": "Akademische Arbeit — Produkt-Adoption ist hier nicht anwendbar.",
+  "project.outcome.def.academic": "Forschungsergebnis: Evidenz und Gestaltungsempfehlungen statt Produktkennzahlen.",
   "project.outcome.def.deferred": "Evaluation konzipiert und ausstehend; das Ergebnis wird erst berichtet, wenn es gemessen ist — nie geschätzt.",
 
   "project.limitations.kicker": "Was das nicht zeigt",
