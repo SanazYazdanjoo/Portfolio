@@ -78,6 +78,9 @@ export const RENDERED_FIELDS = [
   // metadata row, `cardTags` the capped signal subset of `tags`, `cardOutcome`
   // the one-sentence result line.
   "year", "context", "cardTags", "cardOutcome", "cardStats", "cardImage",
+  // Hero + Projects list: the core skills shown before "+N more"
+  // (ProjectHeader, ProjectTile, ProjectListRow); falls back to cardTags.
+  "coreTags",
   // The research → requirements → build → validation chain under About —
   // template/EvidenceChain.jsx; only a project that writes it renders it.
   "evidenceChain",
