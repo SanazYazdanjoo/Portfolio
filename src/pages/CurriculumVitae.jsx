@@ -12,6 +12,13 @@ import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { HandArrow } from "../components/HandArrow";
 
 
+// Which CV PDFs shipped (vite.config.js); absent under tooling without the
+// define, so the guard keeps the page rendering everywhere.
+const CV_PDF_FILES = typeof __CV_PDFS__ !== "undefined" ? __CV_PDFS__ : {};
+const cvPdfs = ["en", "de"]
+  .filter((lang) => CV_PDF_FILES[lang])
+  .map((lang) => ({ lang, href: CV_PDF_FILES[lang] }));
+
 export default function CV() {
   const profileData = useLocalizedProfile(rawProfile);
   const { t } = useTranslation();
@@ -212,6 +219,23 @@ export default function CV() {
             </div>
 
             <div className="max-w-[960px] pt-9 md:pt-0 print:max-w-none print:pt-6">
+              {/* PDF downloads. Only files present in public/cv/ at build time
+                  get a button (vite.config.js → __CV_PDFS__), so the page
+                  never links a PDF that was not shipped. */}
+              {cvPdfs.length > 0 && (
+                <div className="no-print mb-10 flex flex-wrap gap-3">
+                  {cvPdfs.map(({ lang, href }) => (
+                    <a
+                      key={lang}
+                      href={href}
+                      download
+                      className="inline-flex items-center gap-2 border-2 border-black px-4 py-2.5 text-xs font-black uppercase tracking-wide text-black transition-colors duration-200 hover:border-primary hover:text-primary focus-ring"
+                    >
+                      {t(lang === "de" ? "cv.downloadDe" : "cv.downloadEn")}
+                    </a>
+                  ))}
+                </div>
+              )}
               <section id="about" className="scroll-mt-28">
                 <SectionHeading>{t("nav.about")}</SectionHeading>
                 {bio && (

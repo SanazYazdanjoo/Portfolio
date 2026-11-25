@@ -74,7 +74,10 @@ describe("deskbird study-record fields on the page", () => {
     expect(within(methodology).getByText(projectData.surveySections[8].en)).toBeInTheDocument();
     expect(within(methodology).getByText(projectData.pilots[0].en)).toBeInTheDocument();
     expect(within(methodology).getByText("Collaboration Model")).toBeInTheDocument();
-    expect(within(methodology).getByText("Owner unconfirmed")).toBeInTheDocument();
+    // The internal "Owner unconfirmed" label is not published (2026-11-25):
+    // Physical Model renders without a marker; MINE stays on Collaboration.
+    expect(within(methodology).queryByText("Owner unconfirmed")).not.toBeInTheDocument();
+    expect(within(methodology).getByText("Physical Model")).toBeInTheDocument();
     expect(within(methodology).getByText("Flexopus")).toBeInTheDocument();
     expect(within(methodology).getByText("Workvivo")).toBeInTheDocument();
 

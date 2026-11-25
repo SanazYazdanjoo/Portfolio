@@ -104,6 +104,18 @@ export default function Privacy() {
             <p className="mb-4 text-base text-dim">
               {t("privacy.sectionAnalytics.vercel.body")}
             </p>
+            {/* Disclosures for the two third parties a visitor can reach from
+                a page: the AI assistant (OpenAI) and click-to-load embeds
+                (Figma, the Vercel-hosted IBS demo). Both only run on an
+                explicit action — sending a message, clicking "Load". */}
+            <h3 className="font-bold text-text mb-2 mt-6">{t("privacy.sectionAnalytics.assistant.heading")}</h3>
+            <p className="mb-4 text-base text-dim">
+              {t("privacy.sectionAnalytics.assistant.body")}
+            </p>
+            <h3 className="font-bold text-text mb-2 mt-6">{t("privacy.sectionAnalytics.embeds.heading")}</h3>
+            <p className="mb-4 text-base text-dim">
+              {t("privacy.sectionAnalytics.embeds.body")}
+            </p>
             <p className="text-base text-dim">
               {t("privacy.sectionAnalytics.manageHint")}{" "}
               <button

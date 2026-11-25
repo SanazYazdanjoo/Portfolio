@@ -37,14 +37,16 @@ import { EASE } from "./constants";
 // banner stops being painted at all.
 const FADE_PX = 600;
 
-export function ProjectHero({ meta, scrollY }) {
+export function ProjectHero({ meta, scrollY, inline = false }) {
   const prefersReducedMotion = useReducedMotion();
   const isMobile = useIsMobile();
   const { t } = useTranslation();
 
   // One flag for both off-switches: motion sensitivity and phones. Static
   // means static — no pin, no scroll-driven styles (see header comment).
-  const isStatic = prefersReducedMotion || isMobile;
+  // `inline`: rendered inside the content column below the header (a
+  // project's `heroBelowHeader`), so it is never pinned or faded.
+  const isStatic = prefersReducedMotion || isMobile || inline;
 
   // Parallax overlay transformations. The banner is fully covered by the
   // content wrapper well before FADE_PX, so ending the fade at 0 rather than
@@ -56,7 +58,9 @@ export function ProjectHero({ meta, scrollY }) {
 
   return (
     <div
-      className={`${isStatic ? "relative" : "sticky top-[80px] md:top-[100px]"}
+      className={inline
+        ? "relative w-full mb-12 md:mb-16"
+        : `${isStatic ? "relative" : "sticky top-[80px] md:top-[100px]"}
                   z-0 w-full px-4 md:px-8 max-w-wide mx-auto mb-10 md:mb-20`}
     >
       <motion.div

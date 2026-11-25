@@ -1,6 +1,5 @@
 import React from 'react';
 import ProjectTemplate from '../ProjectTemplate';
-import { PrototypeFab } from './PrototypeFab';
 import { projectData } from './digitalising-ibs-travel-reimbursements.data';
 
 const FIGMA_WIREFRAMES = {
@@ -173,20 +172,9 @@ const projectDataWithInteractiveMedia = {
   },
 };
 
-// The floating prototype badge is mounted here rather than inside
-// ProjectTemplate on purpose: it is a one-project affordance (this is the
-// only case study with a deployed build behind it), and a template that
-// rendered it from `prototypeUrl` would put it on every future project that
-// links anywhere. It reads the same two data fields the inline CTA does, so
-// the link and its label never drift apart.
 export default function Project4() {
-  return (
-    <>
-      <ProjectTemplate meta={projectDataWithInteractiveMedia} />
-      <PrototypeFab
-        href={projectData.prototypeUrl}
-        label={projectData.prototypeUrlLabel}
-      />
-    </>
-  );
+  // The floating "psst — it's live!" badge was removed (2026-11-25): it sat
+  // over body text and repeated the inline "Open live demo" link that
+  // already sits beside the demo in the Prototype section.
+  return <ProjectTemplate meta={projectDataWithInteractiveMedia} />;
 }

@@ -14,11 +14,12 @@ import CareerArc from "../components/CareerArc";
 import { HandArrow } from "../components/HandArrow";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { EASE } from "../utils/motion";
+import { EARLY_VIEWPORT, SETTLED } from "../utils/reveal";
 
+// Visible by default: a settle, never a fade from 0 (see utils/reveal.js).
 const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { y: 12 },
   show: (i = 0) => ({
-    opacity: 1,
     y: 0,
     transition: { delay: i * 0.1, duration: 0.5, ease: EASE },
   }),
@@ -31,7 +32,7 @@ function SectionHeader({ eyebrow, title, sub }) {
       variants={fadeUp}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true }}
+      viewport={EARLY_VIEWPORT}
     >
       <p className="mb-2 text-2xs font-extrabold uppercase text-primary-600">
         {eyebrow}
@@ -60,9 +61,9 @@ export default function About() {
         <div className="relative mx-auto grid w-full max-w-page grid-cols-1 items-start gap-y-12 md:grid-cols-12 md:gap-x-10">
           <motion.div
             className="z-10 flex flex-col pt-12 md:col-span-7 md:pt-24"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+            initial={{ y: 12 }}
+            whileInView={SETTLED}
+            viewport={EARLY_VIEWPORT}
             transition={{ duration: 0.8, ease: EASE }}
           >
             <p className="mb-4 text-2xs font-extrabold uppercase tracking-caps text-primary-600">
@@ -93,9 +94,9 @@ export default function About() {
           <motion.div
             id="AboutAvatarImg"
             className="relative z-20 flex justify-end md:col-span-5 md:-mt-16 lg:-mt-24"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+            initial={{ y: 12 }}
+            whileInView={SETTLED}
+            viewport={EARLY_VIEWPORT}
             transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
           >
             <div className="relative w-full max-w-[360px]">
@@ -137,7 +138,7 @@ export default function About() {
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true }}
+            viewport={EARLY_VIEWPORT}
           >
             <p className="text-lg leading-[1.8] text-text">
               {profileData.positioning}
@@ -149,7 +150,7 @@ export default function About() {
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={EARLY_VIEWPORT}
           >
             <img
               src="/assets/How-I-Work.jpg"
@@ -209,7 +210,7 @@ export default function About() {
                   variants={fadeUp}
                   initial="hidden"
                   whileInView="show"
-                  viewport={{ once: true }}
+                  viewport={EARLY_VIEWPORT}
                   className="border-l-2 pl-5 pt-1 rule-edge-l [--rule-line-color:var(--primary-600)]"
                 >
                   <p className="font-hand text-quote leading-snug text-text-meta">
@@ -247,7 +248,7 @@ export default function About() {
               variants={fadeUp}
               initial="hidden"
               whileInView="show"
-              viewport={{ once: true }}
+              viewport={EARLY_VIEWPORT}
             >
               {t("about.beyondTheBrief")}
             </motion.p>
@@ -260,7 +261,7 @@ export default function About() {
                   variants={fadeUp}
                   initial="hidden"
                   whileInView="show"
-                  viewport={{ once: true }}
+                  viewport={EARLY_VIEWPORT}
                   className={`group border-t bg-bg px-5 py-5 rule-t transition-colors duration-300 hover:bg-blush-weak dark:hover:bg-[var(--color-blush-100)] ${
                     i % 2 === 1 ? "md:border-l md:rule-l" : ""
                   }`}
@@ -287,7 +288,7 @@ export default function About() {
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true }}
+            viewport={EARLY_VIEWPORT}
           >
             <div>
               <p className="mb-2 text-2xs font-extrabold uppercase text-primary-600">

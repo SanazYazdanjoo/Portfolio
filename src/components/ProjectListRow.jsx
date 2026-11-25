@@ -11,6 +11,7 @@ import { SkillTagRow } from "./SkillTagRow";
 import { ProjectPicture } from "./ProjectPicture";
 import { HandArrow } from "./HandArrow";
 import { EASE } from "../utils/motion";
+import { EARLY_VIEWPORT, SETTLED, settleFrom } from "../utils/reveal";
 
 
 const DOMAIN_SPINES = {
@@ -40,9 +41,9 @@ export function ProjectListRow({ project, index }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: reduce ? 0 : 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
+      initial={settleFrom(reduce)}
+      whileInView={SETTLED}
+      viewport={EARLY_VIEWPORT}
       transition={{ delay: Math.min(index, 10) * 0.06, duration: 0.4, ease: EASE }}
     >
       <Link

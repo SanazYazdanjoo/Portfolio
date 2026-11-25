@@ -641,7 +641,7 @@ export default {
    "linkedin": "https://www.linkedin.com/in/sanaz-yazdanjoo/",
    "github": "https://github.com/SanazYazdanjoo",
    "website": "https://yazdanjoo.de",
-   "availability": "I currently live in Weimar but open to relocate.",
+   "availability": "I'm based in Weimar and open to relocating.",
    "timezone": "CET (UTC+1)"
   }
  },
@@ -825,6 +825,7 @@ export default {
    "timeline": "10/2023 – 03/2024",
    "context": "Industry project · deskbird",
    "tags": [
+    "UX Research",
     "User-Centered Design",
     "Mixed-Methods Research",
     "Stakeholder Interviews",
@@ -892,7 +893,7 @@ export default {
    ],
    "outcome": {
     "body": "At the final presentation, deskbird's stakeholders said they liked the concept and intended to build it in upcoming sprints. That is a stated intention recorded at handover — not confirmed delivery. The research team had no visibility into deskbird's backlog after the project ended, and I have not since verified whether the feature shipped. It is listed here as unconfirmed rather than claimed as adoption.",
-    "adoption": "unknown"
+    "adoption": "handoff"
    },
    "process": [
     {

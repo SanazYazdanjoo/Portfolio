@@ -69,8 +69,25 @@ describe("Embedded media loading state", () => {
     externalLabel: "Open in Figma",
   }];
 
+  // Third-party embeds load only on click (GDPR pre-consent + weight).
+  const loadEmbed = () =>
+    fireEvent.click(screen.getByRole("button", { name: /load interactive figma board/i }));
+
+  it("makes no third-party request until the visitor clicks Load", () => {
+    const { container } = renderWithProviders(<SectionMedia items={embed} />);
+    expect(container.querySelector("iframe")).toBeNull();
+    expect(container.querySelector("[data-embed-gate]")).toHaveTextContent("figma.com");
+    expect(screen.getByRole("link", { name: /open in new tab/i })).toHaveAttribute(
+      "href",
+      "https://www.figma.com/design/example"
+    );
+    loadEmbed();
+    expect(container.querySelector("iframe")).toHaveAttribute("src", embed[0].src);
+  });
+
   it("keeps an accessible loader visible until the iframe loads", () => {
     const { container } = renderWithProviders(<SectionMedia items={embed} />);
+    loadEmbed();
     const frame = screen.getByTitle("Interactive Figma board");
     const wrapper = container.querySelector("[data-embed-state]");
 
@@ -93,6 +110,7 @@ describe("Embedded media loading state", () => {
   it("offers a Figma fallback when an embed is taking a long time", () => {
     vi.useFakeTimers();
     const { container } = renderWithProviders(<SectionMedia items={embed} />);
+    loadEmbed();
 
     act(() => {
       vi.advanceTimersByTime(7000);

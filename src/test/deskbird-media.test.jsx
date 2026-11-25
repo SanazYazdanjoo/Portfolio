@@ -75,11 +75,12 @@ describe("deskbird page end to end", () => {
     const real = () => Array.from(grids).flatMap((g) => Array.from(g.querySelectorAll("figure img")));
     const placeholders = () => Array.from(grids).flatMap((g) => Array.from(g.querySelectorAll("figure [role='img']")));
 
-    // Embeds (the live Figma prototype) render as an <iframe>, not an <img>,
-    // so they are counted separately from image figures.
+    // Embeds (the live Figma prototype) render as a click-to-load gate — no
+    // iframe until the visitor asks — so they are counted separately from
+    // image figures.
     const embedFigures = enrichedFigures.filter((figure) => figure.type === "embed");
     const imageFigures = enrichedFigures.filter((figure) => figure.type !== "embed" && figure.type !== "video");
-    const embeds = () => Array.from(grids).flatMap((g) => Array.from(g.querySelectorAll("figure iframe")));
+    const embeds = () => Array.from(grids).flatMap((g) => Array.from(g.querySelectorAll("figure [data-embed-gate]")));
 
     expect(enrichedFigures.length).toBeGreaterThan(0);
     expect(enrichedFigures.every((figure) => Boolean(figure.src))).toBe(true);

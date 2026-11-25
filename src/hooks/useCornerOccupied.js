@@ -47,7 +47,7 @@
 //   frames never trigger it.
 //
 // No IntersectionObserver at all: the hook reports "free" forever, which
-// degrades to "the FAB is always available" — same policy as PrototypeFab's
+// degrades to "the FAB is always available" — same policy as the former prototype badge's
 // own parking.
 
 import { useEffect, useState } from "react";

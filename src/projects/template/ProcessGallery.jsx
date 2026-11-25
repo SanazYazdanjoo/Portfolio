@@ -7,6 +7,7 @@ import { HandChevron } from "../../components/HandIcons";
 import { EASE } from "./constants";
 import SectionMedia from "../SectionMedia";
 import { MilestoneRail } from "./MilestoneRail";
+import { EARLY_VIEWPORT, SETTLED, settleFrom } from "../../utils/reveal";
 
 // Phase config. Labels are resolved via t() at render time; only keys live here.
 const PHASE_META = {
@@ -33,9 +34,9 @@ function ProcessStep({ item, index, total }) {
   const stepMotion = isMobile
     ? {}
     : {
-        initial: reduce ? { opacity: 0 } : { opacity: 0, y: 16 },
-        whileInView: reduce ? { opacity: 1 } : { opacity: 1, y: 0 },
-        viewport: { once: true, margin: "0px 0px -60px 0px" },
+        initial: settleFrom(reduce),
+        whileInView: SETTLED,
+        viewport: EARLY_VIEWPORT,
         transition: { delay: Math.min(index, 6) * 0.06, duration: 0.4, ease: EASE },
       };
   const phase = PHASE_META[item.phase] || PHASE_META.discover;

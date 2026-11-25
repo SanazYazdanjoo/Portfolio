@@ -1,8 +1,8 @@
-// Desktop order: links → language toggle. Mobile order: toggle → burger
-// (burger stays at the screen edge for thumb reach).
+// Desktop order: links → search → language → theme. Mobile: wordmark and
+// burger only; search, language and theme sit in the menu.
 
 import React, { useState, useEffect, useRef } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { profileData as rawProfile } from "../data/profile";
 import { useLocalizedProfile } from "../hooks/useLocalizedProfile";
 import { useTranslation } from "../context/LanguageContext";
@@ -95,11 +95,16 @@ export const Nav = () => {
             ))}
           </ul>
 
-          <SiteSearch />
+          {/* Below md the header holds only the wordmark and the menu button:
+              at 390px the three controls pushed the burger past the viewport
+              edge. They move into the menu (MobileMenu below). */}
+          <div className="hidden md:flex items-baseline gap-s28">
+            <SiteSearch />
 
-          <LanguageToggle />
+            <LanguageToggle />
 
-          <ThemeToggle />
+            <ThemeToggle />
+          </div>
 
           <MobileMenu links={navLinks} />
         </div>
@@ -110,10 +115,18 @@ export const Nav = () => {
 
 /* Full-screen mobile overlay */
 function MobileMenu({ links }) {
-  const [open, setOpen] = useState(false);
   const { t } = useTranslation();
   const triggerRef = useRef(null);
   const panelRef = useRef(null);
+  const { pathname } = useLocation();
+
+  // The menu remembers the path it was opened on and counts as open only
+  // while that is still the current path, so any navigation closes it —
+  // including one made from the search dialog opened inside it, which never
+  // passes through a link's onClick.
+  const [openAt, setOpenAt] = useState(null);
+  const open = openAt === pathname;
+  const setOpen = (next) => setOpenAt(next ? pathname : null);
 
   // Lock body scroll while open
   useEffect(() => {
@@ -138,7 +151,7 @@ function MobileMenu({ links }) {
 
     const onKeyDown = (e) => {
       if (e.key === "Escape") {
-        setOpen(false);
+        setOpenAt(null);
         return;
       }
       if (e.key !== "Tab" || !panelRef.current) return;
@@ -215,6 +228,17 @@ function MobileMenu({ links }) {
                 </li>
               ))}
             </ul>
+
+            {/* The header's controls, moved here below md so the header
+                itself never outgrows a 390px screen. */}
+            <div
+              className="mt-s32 flex items-center gap-s28 border-t rule-t pt-s20 enter-up"
+              style={{ "--enter-delay": `${0.06 * links.length}s`, "--enter-dur": "0.35s" }}
+            >
+              <SiteSearch shortcut={false} />
+              <LanguageToggle />
+              <ThemeToggle />
+            </div>
           </div>
         )}
     </div>

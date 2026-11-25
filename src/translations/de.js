@@ -260,6 +260,12 @@ const de = {
 
   "project.prototype.kicker": "In Aktion sehen",
   "project.prototype.heading": "Prototyp",
+  "cv.downloadEn": "Lebenslauf herunterladen (PDF, Englisch)",
+  "cv.downloadDe": "Lebenslauf herunterladen (PDF, Deutsch)",
+  "project.embed.loadFigma": "Interaktives Figma-Board laden",
+  "project.embed.loadDemo": "Live-Demo laden",
+  "project.embed.notice": "Lädt Inhalte von {host}. Ihr Browser verbindet sich dann mit {provider}; es gilt die Datenschutzerklärung von {provider}.",
+  "project.embed.openNewTab": "In neuem Tab öffnen",
   "project.prototype.openLink": "Prototyp öffnen",
 
   "project.accessibility.kicker": "Gebaut nach WCAG 2.1 AA",
@@ -280,6 +286,7 @@ const de = {
   "project.outcome.adoption.roadmapped": "Auf der Roadmap",
   "project.outcome.adoption.notAdopted": "Nicht übernommen",
   "project.outcome.adoption.unknown": "Ergebnis offen",
+  "project.outcome.adoption.handoff": "Übergabe an das Produktteam",
   "project.outcome.adoption.academic": "Akademisches Projekt",
   "project.outcome.adoption.deferred": "Evaluation ausstehend",
 
@@ -290,6 +297,7 @@ const de = {
   "project.outcome.def.roadmapped": "Verbindlich auf der Produkt-Roadmap; noch nicht veröffentlicht.",
   "project.outcome.def.notAdopted": "Geprüft und nicht übernommen — festgehalten statt verschwiegen.",
   "project.outcome.def.unknown": "Übergeben; ob es umgesetzt wurde, wurde nie verifiziert.",
+  "project.outcome.def.handoff": "An das Produktteam des Kunden übergeben; ob es umgesetzt wurde, wurde nie überprüft.",
   "project.outcome.def.academic": "Forschungsergebnis: Evidenz und Gestaltungsempfehlungen statt Produktkennzahlen.",
   "project.outcome.def.deferred": "Evaluation konzipiert und ausstehend; das Ergebnis wird erst berichtet, wenn es gemessen ist — nie geschätzt.",
 
@@ -482,6 +490,10 @@ const de = {
   "privacy.sectionAnalytics.ga.body": "Nur wenn Sie einwilligen, nutzt diese Website Google Analytics 4, einen Webanalysedienst der Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Google Analytics verwendet Cookies und ähnliche Technologien, um die Nutzung der Website auszuwerten; IP-Adressen werden gekürzt (anonymisiert) verarbeitet. Daten können an Server der Google LLC in den USA übertragen werden; Google ist unter dem EU-US Data Privacy Framework zertifiziert. Rechtsgrundlage ist Ihre Einwilligung (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG). Sie können Ihre Einwilligung jederzeit mit Wirkung für die Zukunft über die Cookie-Einstellungen widerrufen.",
   "privacy.sectionAnalytics.vercel.heading": "Hosting & Vercel Web Analytics",
   "privacy.sectionAnalytics.vercel.body": "Diese Website wird bei Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, USA gehostet. Vercel verarbeitet die oben beschriebenen Server-Log-Daten, um die Website sicher und zuverlässig auszuliefern. Zusätzlich nutzt die Website Vercel Web Analytics, ein cookiefreies Analysetool, das aggregierte Nutzungsdaten (z. B. Seitenaufrufe, Land, Browser und Gerätetyp) erfasst — ohne Kennungen auf Ihrem Gerät zu speichern und ohne Sie über Websites hinweg zu verfolgen. Rechtsgrundlage ist jeweils mein berechtigtes Interesse am sicheren Betrieb und an der Verbesserung dieser Website (Art. 6 Abs. 1 lit. f DSGVO).",
+  "privacy.sectionAnalytics.assistant.heading": "Portfolio-Assistent (OpenAI)",
+  "privacy.sectionAnalytics.assistant.body": "Der Assistent „KI fragen“ läuft nur, wenn Sie ihm eine Nachricht senden. Ihre Nachrichten in diesem Gespräch werden über den Server dieser Website an OpenAI, L.L.C. (USA) übermittelt, die die Antwort erzeugt; bitte geben Sie keine personenbezogenen Daten ein. Diese Website speichert das Gespräch nicht. Ihre IP-Adresse wird nur kurzzeitig im Arbeitsspeicher genutzt, um die Zahl der Anfragen pro Besucher:in zu begrenzen, und nicht an OpenAI weitergegeben. OpenAI verarbeitet die Nachrichten nach seinen API-Bedingungen und seiner Datenschutzerklärung (openai.com/policies/privacy-policy). Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO — die Beantwortung Ihrer Frage zu diesem Portfolio.",
+  "privacy.sectionAnalytics.embeds.heading": "Eingebettete Inhalte (Figma, Vercel)",
+  "privacy.sectionAnalytics.embeds.body": "Einige Fallstudien bieten interaktive Figma-Boards und eine bei Vercel gehostete Live-Demo. Sie werden nicht automatisch geladen: Erst wenn Sie auf „Laden“ klicken, verbindet sich Ihr Browser mit figma.com bzw. vercel.app; diese erhalten dann Ihre IP-Adresse und Browserinformationen, und es gelten deren Datenschutzerklärungen (figma.com/privacy, vercel.com/legal/privacy-policy). Alternativ können Sie die Inhalte in einem neuen Tab öffnen. Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO — Ihr Klick.",
   "privacy.sectionAnalytics.manageHint": "Sie können Ihre Cookie-Einwilligung jederzeit ändern oder widerrufen:",
   "privacy.sectionAnalytics.manage": "Cookie-Einstellungen öffnen",
 
@@ -551,20 +563,20 @@ const de = {
 
   // "Chat mit Sanaz" Widget
   "chat.fab": "KI fragen",
-  "chat.title": "Chat mit Sanaz",
+  "chat.title": "Portfolio-Assistent",
   "chat.subtitle": "KI · antwortet nur aus dieser Website",
-  "chat.intro": "Hallo! Ich bin Sanaz — na ja, die KI-Version von mir. Fragen Sie mich gern etwas zu meiner Arbeit, zum Beispiel:",
-  "chat.q1": "Was haben Sie am IBS gebaut?",
-  "chat.q2": "Erzählen Sie von Ihrer Eye-Tracking-Thesis",
-  "chat.q3": "Würden Sie für einen Job umziehen?",
-  "chat.placeholder": "Fragen Sie mich etwas …",
+  "chat.intro": "Hallo! Ich bin der Portfolio-Assistent, eine KI, die aus dieser Website antwortet. Fragen Sie zu Sanaz' Arbeit, zum Beispiel:",
+  "chat.q1": "Was hat Sanaz am IBS gebaut?",
+  "chat.q2": "Erzählen Sie von ihrer Eye-Tracking-Thesis",
+  "chat.q3": "Ist sie offen für einen Umzug?",
+  "chat.placeholder": "Fragen zu Sanaz' Arbeit …",
   "chat.send": "Senden",
   "chat.close": "Chat schließen",
   "chat.thinking": "Tippt …",
   "chat.disclosure": "KI via OpenAI — kann Fehler enthalten.",
   "chat.error": "Ups, da ist etwas schiefgelaufen — mögen Sie es gleich noch einmal versuchen?",
   "chat.errorRate": "Puh, viele Fragen auf einmal — bitte kurz warten und noch einmal versuchen.",
-  "chat.offline": "Ich bin gerade offline — schauen Sie bald wieder vorbei!",
+  "chat.offline": "Der Assistent ist gerade offline — schauen Sie bald wieder vorbei!",
 
   // Site-Suche (SiteSearch.jsx)
   "search.open": "Website durchsuchen",

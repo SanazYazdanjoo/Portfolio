@@ -4,6 +4,7 @@ import { useTranslation } from "../../context/LanguageContext";
 import { ContentSection } from "./CollapsibleSection";
 import { ClampedText } from "./ClampedText";
 import { EASE } from "./constants";
+import { EARLY_VIEWPORT, SETTLED, settleFrom } from "../../utils/reveal";
 
 const PHASE_STATUS = {
   complete: { labelKey: "project.status.complete", dot: "bg-text", text: "text-text" },
@@ -22,9 +23,9 @@ export function ResearchPhases({ phases, intro, number, isOpen, onToggle, stagge
     isMobile
       ? {}
       : {
-          initial: prefersReducedMotion ? false : { opacity: 0, y: 8 },
-          whileInView: { opacity: 1, y: 0 },
-          viewport: { once: true, margin: "0px 0px -40px 0px" },
+          initial: settleFrom(prefersReducedMotion, 8),
+          whileInView: SETTLED,
+          viewport: EARLY_VIEWPORT,
           transition: { duration: 0.35, ease: EASE, delay: i * 0.04 },
         };
   const { t } = useTranslation();

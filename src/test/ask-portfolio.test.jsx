@@ -38,7 +38,10 @@ describe("AskPortfolio", () => {
     fireEvent.click(screen.getByRole("button", { name: /ask ai/i }));
 
     const dialog = await screen.findByRole("dialog");
-    expect(screen.getByText(/what did you build at ibs/i)).toBeInTheDocument();
+    expect(screen.getByText(/what did sanaz build at ibs/i)).toBeInTheDocument();
+    // A portfolio assistant, never Sanaz speaking (reframed 2026-11-25).
+    expect(dialog).toHaveTextContent(/portfolio assistant/i);
+    expect(dialog.textContent).not.toMatch(/I'm Sanaz|I am Sanaz|Ich bin Sanaz/i);
 
     fireEvent.keyDown(dialog, { key: "Escape" });
     // AnimatePresence keeps the panel mounted until the exit animation ends.
@@ -56,10 +59,10 @@ describe("AskPortfolio", () => {
 
     renderWithProviders(<AskPortfolio />);
     fireEvent.click(screen.getByRole("button", { name: /ask ai/i }));
-    fireEvent.change(screen.getByPlaceholderText(/ask me anything/i), {
+    fireEvent.change(screen.getByPlaceholderText(/ask about sanaz.s work/i), {
       target: { value: "What did she do at IBS?" },
     });
-    fireEvent.submit(screen.getByPlaceholderText(/ask me anything/i).closest("form"));
+    fireEvent.submit(screen.getByPlaceholderText(/ask about sanaz.s work/i).closest("form"));
 
     // The user turn echoes immediately; the reply streams in after.
     expect(await screen.findByText("What did she do at IBS?")).toBeInTheDocument();
@@ -79,8 +82,21 @@ describe("AskPortfolio", () => {
 
     renderWithProviders(<AskPortfolio />);
     fireEvent.click(screen.getByRole("button", { name: /ask ai/i }));
-    fireEvent.click(screen.getByText(/what did you build at ibs/i));
+    fireEvent.click(screen.getByText(/what did sanaz build at ibs/i));
 
     expect(await screen.findByRole("alert")).toHaveTextContent(/lots of questions/i);
+  });
+});
+
+// The server-side persona matches the opener: the model talks about Sanaz
+// in the third person and never presents itself as her.
+describe("chat persona", () => {
+  it("never instructs the model to speak as Sanaz", async () => {
+    const { readFileSync } = await import("node:fs");
+    const src = readFileSync("api/chat.js", "utf-8");
+    const prompt = src.slice(src.indexOf("const SYSTEM_PROMPT"), src.indexOf("Knowledge:"));
+    expect(prompt).toMatch(/portfolio assistant/i);
+    expect(prompt).toMatch(/third person/i);
+    expect(prompt).not.toMatch(/AI version of Sanaz|Chat AS Sanaz|in the first person/i);
   });
 });
