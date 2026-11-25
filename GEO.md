@@ -78,6 +78,38 @@ Each case-study mirror opens with a fact block (role, year, timeline, status,
 context, outcome) so the load-bearing facts are extractable without reading
 the prose.
 
+### Pre-rendered route bodies (`scripts/prerender.mjs`)
+
+The last build step. It serves `dist/` with `vite preview`, opens all 18
+routes in headless Chromium (English, desktop viewport, reduced motion,
+third-party requests blocked), and copies each rendered `#root` into the HTML
+file `generate-meta` wrote for that route, inside
+`<div data-prerendered>`. Before copying it opens collapsed sections and
+"Key insight" panels, unclamps "Read more" paragraphs, and drops
+framer-motion's `opacity: 0` start states, so a reader without JS gets every
+word. The build fails if any route's `<main>` renders under 200 characters.
+
+Nothing changes for visitors with JavaScript: `index.html`'s head script
+sets `<html data-js>` and a one-line rule hides `[data-prerendered]`, so they
+see the same shell → skeleton → page as before, and React's first render
+replaces the snapshot (`createRoot`, not hydration — no mismatch risk).
+
+Unknown URLs fall back to `dist/spa.html` (the shell with no page text and
+no canonical) instead of `index.html`, so a 404 never serves the homepage's
+content under its own URL.
+
+Browser: Playwright's Chromium where it is installed; on Vercel,
+`@sparticuz/chromium`, because Vercel's Amazon Linux build image lacks the
+system libraries Playwright's browser needs. If no browser launches, the
+build warns and ships without snapshots; set `PRERENDER_STRICT=1` in Vercel
+once the first deploy has been confirmed, to make that a hard failure.
+Check after a deploy:
+
+```
+curl -s https://yazdanjoo.de/projects/gaze-assisted-input | grep -c data-prerendered   # expect 1
+curl -s -o /dev/null -w "%{http_code}\n" https://yazdanjoo.de/tags/React            # expect 200
+```
+
 ### Structured data (`scripts/generate-meta.mjs`)
 
 The single `Person` node became a per-route `@graph`:
@@ -127,13 +159,6 @@ their `<link>` tags).
 ---
 
 ## Later — worth doing, in rough priority order
-
-**Prerender the route bodies.** The structural version of the fix the markdown
-mirrors approximate: render each route's HTML at build time with
-`react-dom/server` + `StaticRouter`, so crawlers and humans get the same
-document. The build scripts already load app modules through Vite's SSR runner,
-so the hard part is done; framer-motion and the browser-only hooks would need
-SSR guards. Lower priority now that the mirrors carry the content.
 
 **A short FAQ on `/about` or `/contact`.** Answer engines lift question-shaped
 content readily: "What does Sanaz specialise in?", "What is she available

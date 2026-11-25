@@ -10,12 +10,13 @@
     "test": "vitest",
     "test:run": "vitest run",
     "prebuild": "node scripts/generate-smart-home-webp.mjs",
-    "build": "eslint src && vitest run && node scripts/generate-sitemap.mjs && node scripts/check-needs-input.mjs && node scripts/generate-chat-knowledge.mjs && vite build && node scripts/generate-meta.mjs && node scripts/generate-llms.mjs",
+    "build": "eslint src && vitest run && node scripts/generate-sitemap.mjs && node scripts/check-needs-input.mjs && node scripts/generate-chat-knowledge.mjs && vite build && node scripts/generate-meta.mjs && node scripts/generate-llms.mjs && node scripts/prerender.mjs",
     "generate:smart-home-images": "node scripts/generate-smart-home-webp.mjs",
     "generate:sitemap": "node scripts/generate-sitemap.mjs",
     "generate:knowledge": "node scripts/generate-chat-knowledge.mjs",
     "generate:llms": "node scripts/generate-llms.mjs",
-    "check:needs-input": "node scripts/check-needs-input.mjs"
+    "check:needs-input": "node scripts/check-needs-input.mjs",
+    "prerender": "node scripts/prerender.mjs"
   },
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "^5.3.0",
@@ -30,6 +31,7 @@
   "devDependencies": {
     "@capsizecss/metrics": "^4.2.0",
     "@eslint/js": "^10.0.1",
+    "@sparticuz/chromium": "^158.0.0",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@vitejs/plugin-react": "^6.0.3",

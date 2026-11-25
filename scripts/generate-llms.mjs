@@ -6,7 +6,7 @@
 // see the per-route <head> that generate-meta.mjs writes and an empty <body>.
 // Every word of case-study prose is invisible to them.
 //
-// Fix, without prerendering the app: write plain-markdown mirrors of the
+// Alongside the pre-rendered HTML (scripts/prerender.mjs), write plain-markdown mirrors of the
 // content pages into dist/ (served as static files ahead of the SPA rewrite),
 // plus /llms.txt (the llms.txt convention: an index AI crawlers fetch) and
 // /llms-full.txt (everything in one document). Each mirrored HTML page gets a
@@ -221,19 +221,62 @@ function voluntaryMarkdown() {
 function llmsIndex() {
   let out = `# ${profile.name}\n\n`;
   out += `> ${profile.positioning} ${profile.profileSummary}\n\n`;
-  out += `This site is ${profile.name}'s portfolio (${site}). It is a JavaScript
-application; the markdown mirrors below carry the full text content of each
-page and are the recommended way to read it. The complete content in a single
-document: ${site}/llms-full.txt\n\n`;
+  out += `This site is ${profile.name}'s portfolio (${site}). Every page is served
+with its text pre-rendered into the HTML; the markdown mirrors below carry the
+same content without layout and are the most compact way to read it. The
+complete content in a single document: ${site}/llms-full.txt\n\n`;
+
+  // Load-bearing facts up front, so an assistant that reads only this file
+  // still answers "where is she, which languages, how do I reach her"
+  // correctly. Every value comes from the knowledge base — nothing restated.
+  const c = profile.contact;
+  out += `## Facts\n\n`;
+  const facts = [
+    ["Name", profile.name],
+    ["Role", profile.role],
+    ["Location", [c.location, c.availability].filter(Boolean).join(" — ")],
+    ["Languages", (profile.languages ?? []).map((l) => `${l.name} ${l.level}`).join("; ")],
+    ["Email", c.email],
+    ["LinkedIn", c.linkedin],
+    ["GitHub", c.github],
+    ["Website", c.website],
+  ];
+  for (const [label, v] of facts) if (v) out += `- **${label}:** ${v}\n`;
+  out += "\n";
+
+  // The groups that define the profile. "Additional Technical Experience"
+  // stays in cv.md but out of the summary: it is breadth, not identity.
+  const CORE_SKILL_GROUPS = ["Core Expertise", "Research & Evaluation", "Technical Implementation", "Quality Assurance"];
+  const skillRows = CORE_SKILL_GROUPS.filter((g) => profile.skills?.[g]?.length);
+  if (skillRows.length) {
+    out += `## Core skills\n\n`;
+    for (const g of skillRows) out += `- **${g}:** ${profile.skills[g].join(", ")}\n`;
+    out += "\n";
+  }
+
+  if (profile.experience?.length) {
+    out += `## Experience\n\n`;
+    for (const e of profile.experience) {
+      out += `- ${[e.role, e.company].filter(Boolean).join(" — ")} (${e.date})\n`;
+    }
+    out += "\n";
+  }
 
   out += `## Profile\n\n`;
   out += `- [About](${site}/about.md): profile summary, languages, and contact details\n`;
   out += `- [CV](${site}/cv.md): experience, education, skills, and certifications\n`;
   out += `- [Voluntary work](${site}/voluntary.md): community and conference involvement\n\n`;
 
+  // Each entry: link to the readable page and its markdown mirror, then a
+  // short summary assembled from the project's own tagline, subtitle and
+  // card outcome — written in the data files, not here.
   out += `## Case studies\n\n`;
   for (const p of projects) {
-    out += `- [${p.title}](${site}${p.page}.md): ${p.tagline ?? p.subtitle ?? ""}\n`;
+    const summary = [p.tagline, p.subtitle, p.cardOutcome]
+      .filter(Boolean)
+      .map((s) => String(s).trim().replace(/([^.?!…])$/, "$1."))
+      .join(" ");
+    out += `- [${p.title}](${site}${p.page}.md) (page: ${site}${p.page}): ${summary}\n`;
   }
   out += `\n## Optional\n\n`;
   out += `- [Sitemap](${site}/sitemap.xml): every route on the site\n`;
