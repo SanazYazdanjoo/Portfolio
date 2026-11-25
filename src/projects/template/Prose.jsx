@@ -14,7 +14,12 @@ function PullQuote({ text }) {
 // Long-form prose wrapper: caps the reading measure, and — for the three
 // sections that get one — sets a lead-sentence pull-quote beside it in the
 // right rail once the viewport is wide enough to hold three tracks.
-export function Prose({ text, quote, rail, children }) {
+export function Prose({ text, quote, rail: railProp, children }) {
+  // `quote: false` in the data turns the margin note off: the lifted lead
+  // sentence below repeats the paragraph's own first line word for word,
+  // which reads as clutter where the section has no distinct takeaway
+  // (gaze case study, 2026-11-25). The prose then takes the full column.
+  const rail = railProp && quote !== false;
   // Older data files set no explicit `quote` — lift the lead sentence instead.
   let resolvedQuote = quote;
   if (!resolvedQuote && typeof text === "string" && rail) {

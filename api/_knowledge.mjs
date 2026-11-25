@@ -973,10 +973,10 @@ export default {
    "page": "/projects/gaze-assisted-input",
    "status": "published",
    "subtitle": "A Comparative Evaluation of MAGIC Pointing, Ninja Cursors, and a Mouse Baseline",
-   "tagline": "Can gaze make cross-screen pointing faster — without sacrificing user trust?",
+   "tagline": "Can gaze make cross-screen pointing faster — without sacrificing predictability and control?",
    "role": "UX Engineer (Master's Thesis)",
    "year": "2025–2026",
-   "timeline": "10/2025 – 04/2026 · defence 05/2026",
+   "timeline": "10/2025 – 04/2026 · defence 05/2026 · grade 1.5",
    "context": "M.Sc. thesis",
    "tags": [
     "TypeScript",
@@ -989,7 +989,7 @@ export default {
     "Semi-Structured Interviews",
     "Thematic Analysis",
     "Quantitative UX Research",
-    "Statistical Analysis (ANOVA)",
+    "Statistical Analysis (R)",
     "SUS Evaluation",
     "Figma"
    ],
@@ -1027,7 +1027,7 @@ export default {
      "label": "preferred the gaze-hybrid (Ninja)"
     }
    ],
-   "about": "A Master's thesis asking whether eye gaze can make pointing across two screens faster without costing users their trust in the cursor. I built the entire experiment software in TypeScript, connected it to a head-mounted eye tracker, and compared two gaze-assisted techniques — MAGIC Pointing and Ninja Cursors — against a plain mouse with 30 participants.",
+   "about": "A Master's thesis asking whether eye gaze can make pointing across two screens faster without costing users predictability and cursor control. I built the entire experiment software in TypeScript, connected it to a head-mounted eye tracker, and compared two gaze-assisted techniques — MAGIC Pointing and Ninja Cursors — against a plain mouse with 30 participants.",
    "challenge": "Multi-display workstations are everywhere, yet the mouse alone makes cross-display pointing costly: long pointer transits, cursor re-acquisition after bezel crossings, and attentional switches between screens. Prior work proposed gaze-assisted hybrids, but few controlled studies had compared MAGIC Pointing and Ninja Cursors against a mouse baseline in a dual-display setting — a comparison explicitly called for as future work by Räihä & Špakov (2009).",
    "solution": "I engineered the complete technical architecture and evaluation framework. This included building a dual-display eye-tracking apparatus (Pupil Labs Neon, real-time streaming API, AprilTag surface mapping) and developing performant TypeScript implementations of MAGIC Pointing (gaze-triggered cursor warp with manual fine-tuning) and a gaze-augmented Ninja Cursors variant (one persistent cursor per screen, activated by gaze). Both were then evaluated against a standard mouse baseline in reciprocal pointing tasks.",
    "methodology": "A two-phase mixed-methods design. Phase I: a formative pre-study (n=20) using semi-structured interviews and a Figma-based workspace visualisation task, analysed with reflexive thematic analysis, which grounded the lab configuration in real dual-display practice. Phase II: a controlled within-subjects experiment (N=30) with a 3×2×6 factorial design — input method × target size × distance (875–3226 px) — measuring movement time, repeat rate, and SUS, analysed with repeated-measures ANOVA (Greenhouse–Geisser corrected, Tukey post-hoc).",
@@ -1037,7 +1037,7 @@ export default {
     "Apparatus: fourteen of thirty participants reported frame pressure, eye fatigue or degraded tracking with the eye-tracking glasses, which likely reflects the hardware rather than gaze interaction itself.",
     "Analysis: distance and screen crossing are confounded, and missing endpoint data ruled out ISO throughput — a matched-pairs, longitudinal design is the next step."
    ],
-   "implications": "Gaze assistance should be a context-aware accelerator, not an always-on replacement. Three design directions follow from the data: adaptive activation using the screen boundary itself as the trigger, semantic snapping toward UI elements to fix MAGIC's landing penalty, and stronger visual differentiation of the active cursor in multi-cursor designs. For UI engineers, predictability and system trust — not raw speed alone — determine whether users adopt a novel interaction pattern.",
+   "implications": "Gaze assistance should be a context-aware accelerator, not an always-on replacement. Three design directions follow from the data: adaptive activation using the screen boundary itself as the trigger, semantic snapping toward UI elements to fix MAGIC's landing penalty, and stronger visual differentiation of the active cursor in multi-cursor designs. For UI engineers, predictability and cursor control — not raw speed alone — determine whether users adopt a novel interaction pattern.",
    "outcome": {
     "body": "The thesis delivered three evidence-based design directions for gaze-assisted pointing, set out under Implications: trigger gaze at the screen boundary, snap to UI targets, and make the active cursor unmistakable.",
     "adoption": "academic"
@@ -1081,9 +1081,9 @@ export default {
     {
      "phase": "deliver",
      "type": "SUS + Thematic Analysis",
-     "title": "Trust Beats Speed",
+     "title": "Predictability Beats Speed",
      "annotation": "SUS after each block (N=30): Mouse 85.2, Ninja 72.6, MAGIC 55.9 (Friedman p < .001) — MAGIC the only technique below the 68-point acceptability threshold. Reflexive thematic analysis of open feedback surfaced seven primary themes, from the 'transport advantage' (23/30) to the 'landing penalty' (22/30).",
-     "insight": "60% preferred Ninja despite the mouse's higher SUS — participants framed it as 'best of both worlds.' Predictability and trust, not raw speed, determined acceptance."
+     "insight": "60% preferred Ninja despite the mouse's higher SUS — participants framed it as 'best of both worlds.' Predictability and cursor control, not raw speed, determined acceptance."
     }
    ],
    "verbatims": [
@@ -1096,7 +1096,7 @@ export default {
      "attribution": "P21 on Ninja Cursors, Phase II study (N=30) — 60% preferred it despite the mouse scoring higher on SUS"
     }
    ],
-   "cardOutcome": "Gaze wins over long cross-screen distances and loses over short ones; trust in the cursor decided preference."
+   "cardOutcome": "Gaze wins over long cross-screen distances and loses over short ones; predictability, not speed, decided preference."
   },
   {
    "title": "EmbraceMe – An Inflatable Soft Robot for Emotional Care",
