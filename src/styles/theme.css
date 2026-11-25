@@ -1741,14 +1741,14 @@
    they are class toggles now, so the motion library loads only with the
    case-study chunks. The reduced-motion block below zeroes every duration
    and delay here too, so a motion-sensitive reader gets the end state. */
+/* Visible by default — a 12px settle, never opacity 0. A reveal that waits
+   at opacity 0 for an observer leaves blank space in screenshots, link
+   previews and fast scrolls (see src/utils/reveal.js). */
 .reveal {
-  opacity: 0;
-  transform: translateY(16px);
-  transition:
-    opacity var(--reveal-dur, 0.35s) var(--timing-smooth) var(--reveal-delay, 0s),
-    transform var(--reveal-dur, 0.35s) var(--timing-smooth) var(--reveal-delay, 0s);
+  transform: translateY(12px);
+  transition: transform var(--reveal-dur, 0.35s) var(--timing-smooth) var(--reveal-delay, 0s);
 }
-.reveal.is-in { opacity: 1; transform: none; }
+.reveal.is-in { transform: none; }
 
 .reveal-swipe {
   transform: scaleX(0);

@@ -21,7 +21,10 @@ export function HomeContact({ data }) {
 
       <a
         href={`mailto:${contact.email}`}
-        className="text-email font-display font-bold text-text break-words self-start
+        /* overflow-wrap:anywhere, not break-word: in a flex column the
+           address's min-content width ignores break-word, so at 390px the
+           unbroken address pushed the page wider than the screen. */
+        className="text-email font-display font-bold text-text [overflow-wrap:anywhere] max-w-full self-start
                    rule-underline pb-s8
                    hover:text-primary-600 transition-colors duration-200 focus-ring"
       >

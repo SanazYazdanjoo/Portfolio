@@ -1,6 +1,6 @@
 // Is the viewport below Tailwind's `md` (768px)? Shared by the components
 // that switch decorative motion off on phones (ProjectHero's parallax,
-// PrototypeFab's idle loops): on a phone, continuous ornament motion reads
+// the former prototype badge's idle loops): on a phone, continuous ornament motion reads
 // as the page shaking — Sanaz reported exactly that, on the element this
 // hook was extracted to calm — and costs compositor work besides. This is
 // a JS gate for animate props (framer-motion on the case-study pages),

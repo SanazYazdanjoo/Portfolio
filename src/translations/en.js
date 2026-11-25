@@ -263,6 +263,12 @@ const en = {
 
   "project.prototype.kicker": "See It In Action",
   "project.prototype.heading": "Prototype",
+  "cv.downloadEn": "Download CV (PDF, English)",
+  "cv.downloadDe": "Download CV (PDF, German)",
+  "project.embed.loadFigma": "Load interactive Figma board",
+  "project.embed.loadDemo": "Load live demo",
+  "project.embed.notice": "Loads content from {host}. Your browser then connects to {provider}, and {provider}'s privacy policy applies.",
+  "project.embed.openNewTab": "Open in new tab",
   "project.prototype.openLink": "Open the prototype",
 
   "project.accessibility.kicker": "Built to WCAG 2.1 AA",
@@ -283,6 +289,7 @@ const en = {
   "project.outcome.adoption.roadmapped": "Roadmapped",
   "project.outcome.adoption.notAdopted": "Not Adopted",
   "project.outcome.adoption.unknown": "Outcome Unknown",
+  "project.outcome.adoption.handoff": "Client Handoff",
   "project.outcome.adoption.academic": "Academic Project",
   "project.outcome.adoption.deferred": "Evaluation Pending",
 
@@ -293,6 +300,7 @@ const en = {
   "project.outcome.def.roadmapped": "Committed to the product roadmap; not yet released.",
   "project.outcome.def.notAdopted": "Considered and not taken up — recorded rather than hidden.",
   "project.outcome.def.unknown": "Handed over; whether it shipped was never verified.",
+  "project.outcome.def.handoff": "Handed over to the client's product team; whether it shipped was never verified.",
   "project.outcome.def.academic": "Research output: evidence and design recommendations rather than product metrics.",
   "project.outcome.def.deferred": "Evaluation designed and pending; the outcome is reported once measured, never estimated.",
 
@@ -485,6 +493,10 @@ const en = {
   "privacy.sectionAnalytics.ga.body": "Only if you consent, this website uses Google Analytics 4, a web analytics service provided by Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland. Google Analytics uses cookies and similar technologies to analyse how visitors use the site; IP addresses are processed in truncated (anonymised) form. Data may be transferred to servers of Google LLC in the USA; Google is certified under the EU-U.S. Data Privacy Framework. The legal basis is your consent (Art. 6 (1) (a) GDPR, § 25 (1) TDDDG). You can withdraw your consent at any time with effect for the future via the cookie settings.",
   "privacy.sectionAnalytics.vercel.heading": "Hosting & Vercel Web Analytics",
   "privacy.sectionAnalytics.vercel.body": "This website is hosted by Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, USA. Vercel processes the server log data described above to deliver the site securely and reliably. In addition, the site uses Vercel Web Analytics, a cookie-free measurement tool that collects aggregated usage data (such as page views, country, browser, and device type) without storing identifiers on your device and without tracking you across websites. The legal basis for both is my legitimate interest in the secure operation and improvement of this website (Art. 6 (1) (f) GDPR).",
+  "privacy.sectionAnalytics.assistant.heading": "Portfolio Assistant (OpenAI)",
+  "privacy.sectionAnalytics.assistant.body": "The \"Ask AI\" assistant only runs when you send it a message. Your messages in that conversation are sent through this site's server to OpenAI, L.L.C. (USA), which generates the reply; please don't enter personal data. This site does not store the conversation. Your IP address is used only briefly, in memory, to limit how many requests one visitor can send, and is not passed to OpenAI. OpenAI processes the messages under its API terms and privacy policy (openai.com/policies/privacy-policy). Basis: Art. 6 (1) (f) GDPR — answering your question about this portfolio.",
+  "privacy.sectionAnalytics.embeds.heading": "Embedded Content (Figma, Vercel)",
+  "privacy.sectionAnalytics.embeds.body": "Some case studies offer interactive Figma boards and a live demo hosted on Vercel. They are not loaded automatically: only when you click \"Load\" does your browser connect to figma.com or vercel.app, which then receive your IP address and browser information, and their own privacy policies apply (figma.com/privacy, vercel.com/legal/privacy-policy). Alternatively, open them in a new tab. Basis: Art. 6 (1) (a) GDPR — your click.",
   "privacy.sectionAnalytics.manageHint": "You can change or withdraw your cookie consent at any time:",
   "privacy.sectionAnalytics.manage": "Open cookie settings",
 
@@ -554,20 +566,20 @@ const en = {
 
   // "Chat with Sanaz" widget
   "chat.fab": "Ask AI",
-  "chat.title": "Chat with Sanaz",
+  "chat.title": "Portfolio Assistant",
   "chat.subtitle": "AI · answers from this site only",
-  "chat.intro": "Hey! I'm Sanaz — well, the AI version of me. Ask me anything about my work, or start with one of these:",
-  "chat.q1": "What did you build at IBS?",
-  "chat.q2": "Tell me about your eye-tracking thesis",
-  "chat.q3": "Would you relocate for a job?",
-  "chat.placeholder": "Ask me anything…",
+  "chat.intro": "Hi! I'm the portfolio assistant, an AI that answers from this site. Ask about Sanaz's work, or start with one of these:",
+  "chat.q1": "What did Sanaz build at IBS?",
+  "chat.q2": "Tell me about her eye-tracking thesis",
+  "chat.q3": "Is she open to relocating?",
+  "chat.placeholder": "Ask about Sanaz's work…",
   "chat.send": "Send",
   "chat.close": "Close chat",
   "chat.thinking": "Typing…",
   "chat.disclosure": "AI via OpenAI — may contain mistakes.",
   "chat.error": "Oops, something went wrong — mind trying again in a moment?",
   "chat.errorRate": "Whoa, lots of questions at once — give it a minute and try again?",
-  "chat.offline": "I'm offline right now — check back soon!",
+  "chat.offline": "The assistant is offline right now — check back soon!",
 
   // Site search (SiteSearch.jsx)
   "search.open": "Search this site",

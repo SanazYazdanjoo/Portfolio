@@ -479,7 +479,6 @@ describe("reference — the forward arrow is drawn", () => {
       "src/projects/template/ProjectNavCard.jsx",
       "src/projects/template/PrototypeLink.jsx",
       "src/projects/template/SectionNav.jsx",
-      "src/projects/digitalising-ibs-travel-reimbursements/PrototypeFab.jsx",
     ];
     for (const file of FILES) {
       const src = read(file);

@@ -8,7 +8,7 @@
 // layout animations, scroll-linked values and presence transitions.
 //
 // The CSS side lives in theme.css under "Reveals":
-//   .reveal            hidden until .is-in — opacity + translateY transition
+//   .reveal            visible always; a 12px settle until .is-in
 //   .reveal-swipe      scaleX(0) → 1, for the ink highlight
 //   .reveal-draw       stroke-dashoffset 1 → 0, for drawn SVG paths
 //   .enter-up/.enter-pop  keyframe entrances that need no JS at all
@@ -17,6 +17,7 @@
 // motion-sensitive reader gets the final state at once.
 
 import { useEffect, useRef, useState } from "react";
+import { EARLY_MARGIN } from "../utils/reveal";
 
 /**
  * [ref, inView] — inView flips true once the element intersects the
@@ -24,7 +25,8 @@ import { useEffect, useRef, useState } from "react";
  * stays true. Without IntersectionObserver (old engines, jsdom) it is true
  * immediately, so nothing can be left invisible.
  */
-export function useInViewReveal({ amount = 0.2, margin = "0px" } = {}) {
+// Default margin fires 200px before the element arrives (utils/reveal.js).
+export function useInViewReveal({ amount = 0.2, margin = EARLY_MARGIN } = {}) {
   const ref = useRef(null);
   // Without IntersectionObserver the element starts shown, so nothing can
   // be left invisible and no effect has to flip it.

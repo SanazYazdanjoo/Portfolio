@@ -91,6 +91,56 @@ function EmbedMedia({ figure, prefersReducedMotion }) {
   );
 }
 
+// Third-party embeds (Figma boards, the Vercel demo) load only on click.
+// Until then the visitor's browser makes no request to the third party:
+// that keeps the page light and means nothing is sent to Figma or Vercel
+// before the visitor chooses to load it (GDPR pre-consent). The notice
+// names the host so the choice is an informed one; "Open in new tab" is
+// the alternative for anyone who would rather not embed it here.
+function embedProvider(src) {
+  let host;
+  try { ({ hostname: host } = new URL(src)); } catch { return { host: src, provider: src, kind: "demo" }; }
+  if (/(^|\.)figma\.com$/.test(host)) return { host: "figma.com", provider: "Figma", kind: "figma" };
+  if (/(^|\.)vercel\.app$/.test(host)) return { host, provider: "Vercel", kind: "demo" };
+  return { host, provider: host, kind: "demo" };
+}
+
+function ClickToLoadEmbed({ figure, prefersReducedMotion }) {
+  const { t } = useTranslation();
+  const [requested, setRequested] = useState(false);
+  if (requested) return <EmbedMedia figure={figure} prefersReducedMotion={prefersReducedMotion} />;
+
+  const { host, provider, kind } = embedProvider(figure.src);
+  const label = kind === "figma" ? t("project.embed.loadFigma") : t("project.embed.loadDemo");
+  const notice = t("project.embed.notice").replaceAll("{host}", host).replaceAll("{provider}", provider);
+  const external = figure.externalHref || figure.src;
+
+  return (
+    <div
+      data-embed-gate=""
+      className="relative flex w-full aspect-[4/3] sm:aspect-video flex-col items-center justify-center gap-3 bg-surface px-6 text-center print:hidden"
+    >
+      <button
+        type="button"
+        onClick={() => setRequested(true)}
+        className="inline-flex items-center gap-2 border-2 border-text bg-bg px-5 py-3 text-2xs font-black uppercase text-text transition-colors duration-200 hover:border-primary-600 hover:text-primary-600 focus-ring"
+      >
+        {label}
+      </button>
+      <p className="max-w-md text-sm leading-relaxed text-text-meta">{notice}</p>
+      <a
+        href={external}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-1.5 font-mono text-2xs font-bold uppercase text-primary-600 underline decoration-transparent underline-offset-4 transition-colors duration-200 hover:text-primary-500 hover:decoration-current focus-ring"
+      >
+        {t("project.embed.openNewTab")}
+        <HandArrow direction="up-right" className="h-3 w-3" />
+      </a>
+    </div>
+  );
+}
+
 function ZoomOverlay({ figure, onClose }) {
   const { t } = useTranslation();
   const dialogRef = useRef(null);
@@ -222,7 +272,7 @@ export default function SectionMedia({ items }) {
               {isNeedsInput(f.src) && <NeedsInputMarker path={`figures[${i}].src`} />}
             </div>
           ) : isEmbed ? (
-            <EmbedMedia figure={f} prefersReducedMotion={prefersReducedMotion} />
+            <ClickToLoadEmbed figure={f} prefersReducedMotion={prefersReducedMotion} />
           ) : isVideo && !prefersReducedMotion ? (
             <video
               src={f.src}

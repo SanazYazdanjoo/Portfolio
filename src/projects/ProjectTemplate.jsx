@@ -268,7 +268,9 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
       )}
 
       {/* Hero photo — sticky parallax banner (see template/ProjectHero.jsx) */}
-      {hasHeroImage && <ProjectHero meta={meta} scrollY={scrollY} />}
+      {/* `heroBelowHeader` moves the illustration under the title block, so
+          the first viewport is title, role and metrics, not a picture. */}
+      {hasHeroImage && !meta.heroBelowHeader && <ProjectHero meta={meta} scrollY={scrollY} />}
 
       {/* Content wrapper — solid bg + z-10 so it slides over the sticky banner */}
       <div className="relative z-10 w-full bg-bg pb-16 pt-8 md:pt-12">
@@ -303,6 +305,7 @@ export default function ProjectTemplate({ meta: rawMeta, children }) {
             >
               <FlownTagsProvider value={orbit.flown}>
                 <ProjectHeader meta={meta} tags={tags} />
+                {hasHeroImage && meta.heroBelowHeader && <ProjectHero meta={meta} scrollY={scrollY} inline />}
               </FlownTagsProvider>
 
               {/* Phone section index — in flow, scrolls away with the header

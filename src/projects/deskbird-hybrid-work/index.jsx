@@ -1,12 +1,8 @@
 import React from 'react';
 import ProjectTemplate from '../../projects/ProjectTemplate';
 import { projectData } from './deskbird-hybrid-work.data';
-import competitorReviewImg from './media/p01_competitor-review.webp';
-import ideationDirectionsImg from './media/p08_ideation-directions.webp';
-import selectedDirectionImg from './media/p08_selected-interest-based-direction.webp';
 import targetUsersImg from './media/p08_target-users.webp';
 import conceptBackgroundImg from './media/p08_concept-background-jtbd.webp';
-import conceptStoryboardImg from './media/p08_concept-storyboard.webp';
 import conceptMvpImg from './media/p08_concept-features-mvp.webp';
 import methodologyOverviewImg from './media/met_methodology-overview.avif';
 import stateOfArtImg from './media/p01_state-of-the-art.avif';
@@ -20,9 +16,17 @@ import threeConceptsImg from './media/p08_three-concepts.avif';
 
 const mediaClass = 'w-full h-auto block';
 
+// Four supplied exports were found truncated (each cut off at ~15 KB, no
+// intact copy anywhere in git history) and rendered as broken images:
+//   p01_competitor-review.webp, p08_ideation-directions.webp,
+//   p08_selected-interest-based-direction.webp, p08_concept-storyboard.webp
+// Their figures keep their alt text and captions but `src: null`, so they
+// are skipped (resolvedFiguresOnly) until the originals are re-supplied —
+// then restore the import and point `src` at it. (2026-11-25)
+
 const competitorReviewFigure = {
   type: 'image',
-  src: competitorReviewImg,
+  src: null, // re-supply p01_competitor-review.webp
   pendingFile: 'p01_competitor-review.webp',
   alt: {
     en: 'Competitor evidence board comparing Robin, Officely, Envoy, Kadence and Condeco, with examples of announcements, social events, colleague profiles, friend finding and calendar-based events',
@@ -38,7 +42,7 @@ const competitorReviewFigure = {
 
 const ideationDirectionsFigure = {
   type: 'image',
-  src: ideationDirectionsImg,
+  src: null, // re-supply p08_ideation-directions.webp
   pendingFile: 'p08_ideation-directions.webp',
   alt: {
     en: 'Five early concept directions shown side by side: efficient and engaging communication, interest-based events or social networking, personalised and optimised breaks, intelligent notification and alert system, and well-being and productivity',
@@ -54,7 +58,7 @@ const ideationDirectionsFigure = {
 
 const selectedDirectionFigure = {
   type: 'image',
-  src: selectedDirectionImg,
+  src: null, // re-supply p08_selected-interest-based-direction.webp
   pendingFile: 'p08_selected-interest-based-direction.webp',
   alt: {
     en: 'Concept board combining several social-connection ideas and a job statement, converging on Interest-based Events or Social Networking',
@@ -108,9 +112,7 @@ const hydrateFigure = (figure) => {
   if (figure.pendingFile === 'p08_concept-background-jtbd.png') {
     return { ...figure, src: conceptBackgroundImg, pendingFile: 'p08_concept-background-jtbd.webp' };
   }
-  if (figure.pendingFile === 'p08_concept-storyboard.png') {
-    return { ...figure, src: conceptStoryboardImg, pendingFile: 'p08_concept-storyboard.webp' };
-  }
+  // p08_concept-storyboard.webp: truncated, removed — re-supply to restore.
   if (figure.pendingFile === 'p08_concept-features-mvp.png') {
     return { ...figure, src: conceptMvpImg, pendingFile: 'p08_concept-features-mvp.webp' };
   }

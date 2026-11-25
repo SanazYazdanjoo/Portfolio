@@ -27,6 +27,7 @@ const DOCS = '/projects/digitalising-ibs-travel-reimbursements';
 
 export const projectData = {
   ...card,
+  heroBelowHeader: true,
 
   stage: {
     en: 'Working demo · pilot-ready',
@@ -302,8 +303,8 @@ export const projectData = {
   },
   prototypeUrl: 'https://ibs-fktn.vercel.app/',
   prototypeUrlLabel: {
-    en: 'Open the live prototype',
-    de: 'Live-Prototyp öffnen',
+    en: 'Open live demo',
+    de: 'Live-Demo öffnen',
   },
 
   results: {
