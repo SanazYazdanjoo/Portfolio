@@ -21,7 +21,7 @@ export const projectData = {
   // was submitted 04/2026 and defended 05/2026. data.json's role entry runs
   // to 05/2026 (through the defence); this states the split so the two never
   // read as a contradiction. (F1, confirmed by the owner 2026-08-24.)
-  timeline: { en: "10/2025 – 04/2026 · defence 05/2026", de: "10/2025 – 04/2026 · Verteidigung 05/2026" },
+  timeline: { en: "10/2025 – 04/2026 · defence 05/2026 · grade 1.5", de: "10/2025 – 04/2026 · Verteidigung 05/2026 · Note 1,5" },
 
   heroImage: thumbnailImg,
   heroIsGenerated: true, // hero generated with Google Gemini — renders the credit
@@ -191,24 +191,29 @@ export const projectData = {
     {
       phase: "deliver",
       type: { en: "SUS + Thematic Analysis", de: "SUS + thematische Analyse" },
-      title: { en: "Trust Beats Speed", de: "Vertrauen schlägt Tempo" },
+      title: { en: "Predictability Beats Speed", de: "Vorhersagbarkeit schlägt Tempo" },
       annotation: {
         en: "SUS after each block (N=30): Mouse 85.2, Ninja 72.6, MAGIC 55.9 (Friedman p < .001) — MAGIC the only technique below the 68-point acceptability threshold. Reflexive thematic analysis of open feedback surfaced seven primary themes, from the 'transport advantage' (23/30) to the 'landing penalty' (22/30).",
         de: "SUS nach jedem Block (N=30): Maus 85,2, Ninja 72,6, MAGIC 55,9 (Friedman p < .001) — MAGIC als einzige Technik unter der Akzeptanzschwelle von 68 Punkten. Die reflexive thematische Analyse des offenen Feedbacks ergab sieben Hauptthemen, vom „Transportvorteil“ (23/30) bis zur „Landestrafe“ (22/30).",
       },
       insight: {
-        en: "60% preferred Ninja despite the mouse's higher SUS — participants framed it as 'best of both worlds.' Predictability and trust, not raw speed, determined acceptance.",
-        de: "60 % bevorzugten Ninja trotz des höheren SUS-Werts der Maus — Teilnehmende beschrieben es als „das Beste aus beiden Welten“. Vorhersagbarkeit und Vertrauen, nicht reine Geschwindigkeit, entschieden über die Akzeptanz.",
+        en: "60% preferred Ninja despite the mouse's higher SUS — participants framed it as 'best of both worlds.' Predictability and cursor control, not raw speed, determined acceptance.",
+        de: "60 % bevorzugten Ninja trotz des höheren SUS-Werts der Maus — Teilnehmende beschrieben es als „das Beste aus beiden Welten“. Vorhersagbarkeit und Kontrolle über den Cursor, nicht reine Geschwindigkeit, entschieden über die Akzeptanz.",
       },
       imagePath: null,
     },
   ],
 
   about: {
-    en: "A Master's thesis asking whether eye gaze can make pointing across two screens faster without costing users their trust in the cursor. I built the entire experiment software in TypeScript, connected it to a head-mounted eye tracker, and compared two gaze-assisted techniques — MAGIC Pointing and Ninja Cursors — against a plain mouse with 30 participants.",
-    de: "Eine Masterarbeit zur Frage, ob Blicksteuerung das Zeigen über zwei Bildschirme hinweg beschleunigen kann, ohne das Vertrauen der Nutzer:innen in den Cursor zu kosten. Ich habe die komplette Experimentalsoftware in TypeScript entwickelt, sie an einen kopfgetragenen Eyetracker angebunden und zwei blickgestützte Techniken — MAGIC Pointing und Ninja Cursors — mit 30 Teilnehmenden gegen eine gewöhnliche Maus verglichen.",
+    en: "A Master's thesis asking whether eye gaze can make pointing across two screens faster without costing users predictability and cursor control. I built the entire experiment software in TypeScript, connected it to a head-mounted eye tracker, and compared two gaze-assisted techniques — MAGIC Pointing and Ninja Cursors — against a plain mouse with 30 participants.",
+    de: "Eine Masterarbeit zur Frage, ob Blicksteuerung das Zeigen über zwei Bildschirme hinweg beschleunigen kann, ohne Vorhersagbarkeit und Kontrolle über den Cursor zu kosten. Ich habe die komplette Experimentalsoftware in TypeScript entwickelt, sie an einen kopfgetragenen Eyetracker angebunden und zwei blickgestützte Techniken — MAGIC Pointing und Ninja Cursors — mit 30 Teilnehmenden gegen eine gewöhnliche Maus verglichen.",
   },
 
+  // No margin notes in 03–05: with no explicit quote the template lifts each
+  // section's first sentence into the rail, repeating the body word for word.
+  challengeQuote: false,
+  solutionQuote: false,
+  methodologyQuote: false,
   challenge: {
     en: "Multi-display workstations are everywhere, yet the mouse alone makes cross-display pointing costly: long pointer transits, cursor re-acquisition after bezel crossings, and attentional switches between screens. Prior work proposed gaze-assisted hybrids, but few controlled studies had compared MAGIC Pointing and Ninja Cursors against a mouse baseline in a dual-display setting — a comparison explicitly called for as future work by Räihä & Špakov (2009).",
     de: "Multi-Display-Arbeitsplätze sind weit verbreitet, doch allein die Maus macht bildschirmübergreifendes Zeigen teuer: lange Zeigerwege, erneutes Auffinden des Cursors nach Rahmenübergängen und Aufmerksamkeitswechsel zwischen Bildschirmen. Frühere Arbeiten schlugen blickunterstützte Hybride vor, doch nur wenige kontrollierte Studien hatten MAGIC Pointing und Ninja Cursors gegen eine Maus-Baseline in einer Dual-Display-Umgebung verglichen — ein Vergleich, der von Räihä & Špakov (2009) explizit als zukünftige Arbeit gefordert wurde.",
@@ -245,8 +250,8 @@ export const projectData = {
   ],
 
   implications: {
-    en: "Gaze assistance should be a context-aware accelerator, not an always-on replacement. Three design directions follow from the data: adaptive activation using the screen boundary itself as the trigger, semantic snapping toward UI elements to fix MAGIC's landing penalty, and stronger visual differentiation of the active cursor in multi-cursor designs. For UI engineers, predictability and system trust — not raw speed alone — determine whether users adopt a novel interaction pattern.",
-    de: "Blickunterstützung sollte ein kontextsensitiver Beschleuniger sein, kein dauerhafter Ersatz. Aus den Daten folgen drei Gestaltungsrichtungen: adaptive Aktivierung mit der Bildschirmgrenze selbst als Auslöser, semantisches Einrasten an UI-Elementen zur Behebung von MAGICs Landestrafe, und eine stärkere visuelle Differenzierung des aktiven Cursors bei Multi-Cursor-Designs. Für UI-Entwickler:innen entscheiden Vorhersagbarkeit und Systemvertrauen — nicht reine Geschwindigkeit —, ob Nutzer:innen ein neues Interaktionsmuster annehmen.",
+    en: "Gaze assistance should be a context-aware accelerator, not an always-on replacement. Three design directions follow from the data: adaptive activation using the screen boundary itself as the trigger, semantic snapping toward UI elements to fix MAGIC's landing penalty, and stronger visual differentiation of the active cursor in multi-cursor designs. For UI engineers, predictability and cursor control — not raw speed alone — determine whether users adopt a novel interaction pattern.",
+    de: "Blickunterstützung sollte ein kontextsensitiver Beschleuniger sein, kein dauerhafter Ersatz. Aus den Daten folgen drei Gestaltungsrichtungen: adaptive Aktivierung mit der Bildschirmgrenze selbst als Auslöser, semantisches Einrasten an UI-Elementen zur Behebung von MAGICs Landestrafe, und eine stärkere visuelle Differenzierung des aktiven Cursors bei Multi-Cursor-Designs. Für UI-Entwickler:innen entscheiden Vorhersagbarkeit und Kontrolle über den Cursor — nicht reine Geschwindigkeit —, ob Nutzer:innen ein neues Interaktionsmuster annehmen.",
   },
   conclusion: [
       {
@@ -254,12 +259,12 @@ export const projectData = {
         src: conclusion,
         poster: thumbnailImg,
         alt: {
-          en: "Summary slide with three takeaways — performance: distance-dependent, Ninja beats the mouse at intermediate cross-screen distances; acceptance: trust outweighs raw speed; design: treat gaze as a context-aware accelerator",
-          de: "Zusammenfassungsfolie mit drei Kernaussagen — Leistung: distanzabhängig, Ninja schlägt die Maus bei mittleren bildschirmübergreifenden Distanzen; Akzeptanz: Vertrauen wiegt mehr als reine Geschwindigkeit; Design: Blick als kontextsensitiven Beschleuniger behandeln",
+          en: "Summary slide with three takeaways — performance: distance-dependent, Ninja beats the mouse at intermediate cross-screen distances; acceptance: predictability outweighs raw speed; design: treat gaze as a context-aware accelerator",
+          de: "Zusammenfassungsfolie mit drei Kernaussagen — Leistung: distanzabhängig, Ninja schlägt die Maus bei mittleren bildschirmübergreifenden Distanzen; Akzeptanz: Vorhersagbarkeit wiegt mehr als reine Geschwindigkeit; Design: Blick als kontextsensitiven Beschleuniger behandeln",
         },
         caption: {
-          en: "Three takeaways: performance is distance-dependent, trust beats raw speed, and gaze belongs in a context-aware accelerator role",
-          de: "Drei Kernaussagen: Leistung ist distanzabhängig, Vertrauen schlägt reine Geschwindigkeit, und Blicksteuerung gehört in die Rolle eines kontextsensitiven Beschleunigers",
+          en: "Three takeaways: performance is distance-dependent, predictability beats raw speed, and gaze belongs in a context-aware accelerator role",
+          de: "Drei Kernaussagen: Leistung ist distanzabhängig, Vorhersagbarkeit schlägt reine Geschwindigkeit, und Blicksteuerung gehört in die Rolle eines kontextsensitiven Beschleunigers",
         },
         span: 2,
         className: "w-full h-auto block"
@@ -308,10 +313,10 @@ export const projectData = {
     { tag: "Mixed-Methods Research", evidence: "methodology: \"A two-phase mixed-methods design. Phase I:... Phase II:...\"", status: "evidenced" },
     { tag: "Experimental Design", evidence: "process:A 3×2×6 Within-Subjects Protocol", status: "evidenced" },
     { tag: "Semi-Structured Interviews", evidence: "process:Characterising Real Multi-Display Work — 20 participants in ~30-minute semi-structured sessions on screen roles, input preferences, and cross-display pain points", status: "evidenced" },
-    { tag: "Thematic Analysis", evidence: "process:Trust Beats Speed — seven themes coded from open feedback (N=30), from the \"transport advantage\" (23/30) to the \"landing penalty\" (22/30); methods: \"Reflexive Thematic Analysis\"", status: "evidenced" },
+    { tag: "Thematic Analysis", evidence: "process:Predictability Beats Speed — seven themes coded from open feedback (N=30), from the \"transport advantage\" (23/30) to the \"landing penalty\" (22/30); methods: \"Reflexive Thematic Analysis\"", status: "evidenced" },
     { tag: "Quantitative UX Research", evidence: "process:RM-ANOVA: A Distance-Dependent Crossover — N=30 within-subjects experiment", status: "evidenced" },
-    { tag: "Statistical Analysis (ANOVA)", evidence: "process:RM-ANOVA: A Distance-Dependent Crossover — repeated-measures ANOVA, η²ₚ=.690", status: "evidenced" },
-    { tag: "SUS Evaluation", evidence: "process:Trust Beats Speed — SUS after each block (N=30)", status: "evidenced" },
+    { tag: "Statistical Analysis (R)", evidence: "process:RM-ANOVA: A Distance-Dependent Crossover — repeated-measures ANOVA run in R, η²ₚ=.690", status: "evidenced" },
+    { tag: "SUS Evaluation", evidence: "process:Predictability Beats Speed — SUS after each block (N=30)", status: "evidenced" },
     { tag: "Figma", evidence: "process:Characterising Real Multi-Display Work — participants recreated their workstation on a shared Figma canvas; methodology: \"a Figma-based workspace visualisation task\"", status: "evidenced" },
   ],
 };
